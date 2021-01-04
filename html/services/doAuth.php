@@ -6,9 +6,6 @@
 	require_once $path . '/CAS/include/CAS.php';
 	require_once $path . '/CAS/config/cas_uha.php';
 
-	phpCAS::setDebug(); 
-	phpCAS::setVerbose(true);
-
 	// Initialize phpCAS
 	phpCAS::client(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context);
 		

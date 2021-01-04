@@ -91,21 +91,25 @@
 
 			case 'dataPremièreConnexion':
 				if($authData->statut == 'etudiant'){
-					$nip = getStudentNumberFromMail($authData->session);
-					$dep = getStudentDepartment($nip);
-					$semestres = getStudentSemesters([
-						'nip' => $nip, 
-						'dep' => $dep
-					]);
-					$output = [
-						'auth' => (array) $authData,
-						'semestres' => $semestres,
-						'relevé' => getReportCards([
-							'semestre' => $semestres[0],
+					if($authData->session == 'Compte_Demo.test@uha.fr'){
+						include 'data_demo.php';
+					} else {
+						$nip = getStudentNumberFromMail($authData->session);
+						$dep = getStudentDepartment($nip);
+						$semestres = getStudentSemesters([
 							'nip' => $nip, 
 							'dep' => $dep
-						])
-					];
+						]);
+						$output = [
+							'auth' => (array) $authData,
+							'semestres' => $semestres,
+							'relevé' => getReportCards([
+								'semestre' => $semestres[0],
+								'nip' => $nip, 
+								'dep' => $dep
+							])
+						];
+					}
 				}else if($authData->statut == 'personnel'){
 					$output = [
 						'auth' => (array) $authData,

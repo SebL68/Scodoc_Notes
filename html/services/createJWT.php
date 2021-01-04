@@ -19,9 +19,16 @@
 	include $path . '/includes/JWT/key.php';
 
 	$payload = [
-		'session' => 'denis.graef@uha.fr', // mail de la personne destinataire du jeton
-		'statut' => 'personnel', // etudiant ou personnel
+		'session' => 'Compte_Demo.test@uha.fr', // mail de la personne destinataire du jeton
+		'statut' => 'etudiant', // etudiant ou personnel
 		//'exp' => 1608498444 // (optionnel) timestamp d'expiration du tocken 
 	];
 	echo JWT::encode($payload, $key);
+
+/**********************************/
+/* Compte demo étudiant :
+	Compte_Demo.test@uha.fr
+	
+	eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uIjoiQ29tcHRlX0RlbW8udGVzdEB1aGEuZnIiLCJzdGF0dXQiOiJldHVkaWFudCJ9.kHuiNx8X2mWUjv1LAHVOdcLGCu2yQS_i6fxqZZICuEA
+*/
 ?>
