@@ -1,3 +1,17 @@
 #CAS
-
 CAS
+
+#LDAP data
+LDAP/export_biat_iutmulhouse.txt
+LDAP/export_ens_iutmulhouse.txt
+LDAP/export_etu_iutmulhouse.txt
+LDAP/vacataires.txt
+
+#Clé JWT
+includes/JWT/key.php
+
+#Google analytics
+includes/analytics.php
+
+#Scodoc login / psw / url
+includes/loginScodoc.php
