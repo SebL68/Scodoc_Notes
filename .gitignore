@@ -17,5 +17,5 @@ includes/analytics.php
 includes/loginScodoc.php
 
 #Anciennes versions
-#html/saveV1
-#html/saveV2
+html/saveV1
+html/saveV2
