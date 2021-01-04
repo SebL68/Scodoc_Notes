@@ -15,3 +15,7 @@ includes/analytics.php
 
 #Scodoc login / psw / url
 includes/loginScodoc.php
+
+#Anciennes versions
+html/saveV1
+html/saveV2
