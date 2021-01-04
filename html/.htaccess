@@ -1,0 +1,7 @@
+RewriteEngine On
+RewriteRule MMI services/studentsLists.php
+RewriteRule GEII services/studentsLists.php
+RewriteRule GLT services/studentsLists.php
+RewriteRule SGM services/studentsLists.php
+RewriteRule GEA services/studentsLists.php
+RewriteRule GMP services/studentsLists.php
