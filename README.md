@@ -76,7 +76,7 @@ Exemple (uniquement pour les personnels de l'IUT de Mulhouse) : [Lien](https://n
 ## Le site web
 Le site est une PWA et fonctionne sur les principes de l'APP Shell.
 
-#Fonctionnement global
+# Fonctionnement global
 Rédaction en cours.
 
 # Installation
@@ -97,7 +97,7 @@ DocumentRoot "${INSTALL_DIR}/www/html/"
 <Directory "${INSTALL_DIR}/www/html/">
 ```
 
-## Installation
+## Fichiers
 Il n'est pas requis d'avoir de base de données.  
 !!! Le dossier HTML doit être à la racine du site !!!  
 !!! Les autres dossiers doivent être dans le dossier parent et donc inaccessible depuis le net !!!
