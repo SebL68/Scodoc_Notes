@@ -4,11 +4,12 @@ Passerelle entre Scodoc et Internet pour l'affichage des notes aux étudiants.
 1. [Demonstration](#demonstration)
 2. [Auteurs](#auteurs)
 3. [Licence](#licence)
-4. [Système requis](#systeme-requis)
+4. [Système requis](#système-requis)
 5. [Historique des mises à jours](#historique-des-mises-a-jours)
 6. [Histoire du projet](#histoire-du-projet)
-7. [Présentation du projet](#presentation-du-projet)
+7. [Présentation du projet](#présentation-du-projet)
 8. [Installation](#installation)
+9. [Pour les développeurs](#pour-les-développeurs)
 
 ## Demonstration
 Vous pouvez voir le résultat à [cette adresse](https://notes.iutmulhouse.uha.fr/?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uIjoiQ29tcHRlX0RlbW8udGVzdEB1aGEuZnIiLCJzdGF0dXQiOiJldHVkaWFudCJ9.kHuiNx8X2mWUjv1LAHVOdcLGCu2yQS_i6fxqZZICuEA) - veuillez noter que c'est une démonstration et que le changement de semestre n'est pas opérationnel.
@@ -96,16 +97,32 @@ Pour des raisons de performance, il est recommandé :
 - d'activer le mod_deflate.
   
 Pour des raisons de sécurité, une partie des dossiers ne doit pas être accessible en dehors du serveur. Le seul dossier accessible doit être "html".  
-Il est alors possible de les placer comme il faut dans le www ou de configurer sur Apache le fichier httpd-vhosts.conf :
-DocumentRoot "${INSTALL_DIR}/www/notes/html/"
-<Directory "${INSTALL_DIR}/www/notes/html/">
+Il est alors possible de les placer comme il faut dans le www ou de configurer dans Apache le fichier httpd-vhosts.conf :
+```
+DocumentRoot "${INSTALL_DIR}/www/html/"
+<Directory "${INSTALL_DIR}/www/html/">
+```
 
 ### Installation
+Il n'est pas requis d'avoir de base de données.  
+!!! Le dossier HTML doit être à la racine du site !!!  
+!!! Les autres dossiers doivent être dans le dossier parent et donc inaccessible depuis le net !!!
 
 ### Configuation
+Il est nécessaire de configurer différents fichiers pour adapter ce projet à votre établissement.
 
+#### LDAP
 
-## API
+#### Système d'authentification
+#### Clé JWT
+#### Accès Scodoc
+#### Système analytics
+
+## Pour les développeurs
+### Accès par jeton
+
+### API
+
 
 
 **En cours de rédaction**
