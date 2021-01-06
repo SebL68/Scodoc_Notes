@@ -1,7 +1,7 @@
 # Scodoc_Notes
 Passerelle entre Scodoc et Internet pour l'affichage des notes aux étudiants.
 
-1. [Demonstration](#demonstration)
+1. [Démonstration](#demonstration)
 2. [Auteurs](#auteurs)
 3. [Licence](#licence)
 4. [Système requis](#système-requis)
@@ -14,11 +14,11 @@ Passerelle entre Scodoc et Internet pour l'affichage des notes aux étudiants.
 
 -----------------
 
-# Demonstration
+# Démonstration
 Vous pouvez voir un exemple du projet à [cette adresse](https://notes.iutmulhouse.uha.fr/?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uIjoiQ29tcHRlX0RlbW8udGVzdEB1aGEuZnIiLCJzdGF0dXQiOiJldHVkaWFudCJ9.kHuiNx8X2mWUjv1LAHVOdcLGCu2yQS_i6fxqZZICuEA). Veuillez noter que c'est une démonstration avec des données fictives et que le changement de semestre n'est pas opérationnel.
 
 # Auteurs
-Ce projet a été réalisé par Sébastien Lehmann sur son temps libre.
+Ce projet a été réalisé par Sébastien Lehmann sur son temps libre.  
 Merci à Denis Graef, Alexandre Kieffer et Bruno Colicchio pour leur participation respective.
 
 # Licence
@@ -45,7 +45,7 @@ Dès lors, bon nombre d'universités ont décidé de ne pas laisser Scodoc acces
 Pour y accéder, il faut être sur une liste blanche d'ordinateurs ou utiliser un VPN.  
 
 ## Notes
-Jusqu'à présent, les notes étaient affichées sur Moodle ou sur un tableau d'affichage avec la nécessité d'anonymiser les noms à l'aide de leur numéro détudiant.  
+Jusqu'à présent, les notes étaient affichées sur Moodle ou sur un tableau d'affichage avec la nécessité d'anonymiser les noms à l'aide de leur numéro d'étudiant.  
 Il n'est alors pas aisé pour les étudiants de vérifier leurs notes, de vérifier si l'ensemble des évaluations a été affiché, de connaître leurs moyennes d'UE et générale avant les jurys.  
 
 Il est donc apparu nécessaire d'avoir une interface moderne et sécurisée permettant aux étudiants de consulter les notes qui vont être utilisées pour les jurys.  
@@ -112,7 +112,7 @@ Il n'est pas requis d'avoir de base de données.
 !!! Le dossier HTML doit être à la racine du site !!!  
 !!! Les autres dossiers doivent être dans le dossier parent et donc inaccessible depuis le net !!!
 
-## Configuation
+## Configuration
 Il est nécessaire de configurer différents fichiers pour adapter ce projet à votre établissement.
 
 ### LDAP
@@ -134,7 +134,7 @@ Il est recommandé de mettre en place un système automatisé pour récupérer c
 L'accès aux fichiers du LDAP se fait à partir du fichier `/includes/LDAPData.php`.
 
 ### Système d'authentification
-Ce projet utilise le CAS de l'UHA pour se connecter. La bibilotèque utilisée est [phpCAS](https://github.com/apereo/phpCAS).  
+Ce projet utilise le CAS de l'UHA pour se connecter. La bibliothèque utilisée est [phpCAS](https://github.com/apereo/phpCAS).  
 Ajoutez votre propre fichier pour la librairie d'authentification.  
 L'ensemble du service d'authentification se fait à partir des fichiers :
  - `/includes/auth.php` pour vérifier si l'utilisateur est connecté
@@ -157,7 +157,7 @@ Chaque compte est unique dans Scodoc, il est donc nécessaire de l'identifier po
 Pour des raisons de sécurité, il est recommandé de mettre le compte en secrétariat, il ne sera ainsi qu'en lecture.  
 
 ### Système analytics
-Vous pouvez intégrer dans le fichier `analytics.php` le code de votre service d'analyse des connexions, il sera inclu automatiquement dans les pages.
+Vous pouvez intégrer dans le fichier `/includes/analytics.php` le code de votre service d'analyse des connexions, il sera inclus automatiquement dans les pages.
 
 -----------------
 
@@ -167,9 +167,9 @@ A des fins fins de développement, il est possible de se faire passer pour une a
 Ce jeton est à transmettre à chaque requête en POST aux services de l'API.  
 
 Il est également possible de le passer dans l'URL comme dans la [démonstration du site](https://notes.iutmulhouse.uha.fr/?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uIjoiQ29tcHRlX0RlbW8udGVzdEB1aGEuZnIiLCJzdGF0dXQiOiJldHVkaWFudCJ9.kHuiNx8X2mWUjv1LAHVOdcLGCu2yQS_i6fxqZZICuEA).
-!!! Attention, pour des raisons de sécurité, cette méthode de passer le jeton dans l'URL est à éviter le plus possible et sera reservé pour une démonstration avec de fausses données ou pour des fins de développement en se faisant passer pour un utilisateur sans passer par le système d'authentification. !!!
+!!! Attention, pour des raisons de sécurité, cette méthode de passer le jeton dans l'URL est à éviter le plus possible et sera réservé pour une démonstration avec de fausses données ou pour des fins de développement en se faisant passer pour un utilisateur sans passer par le système d'authentification. !!!
 
 Il est possible de créer des jetons JWT avec le fichier `/html/services/createJWT.php`.
 
-## API des sercices
+## API des services
 Vous pouvez trouver comment utiliser les services dans la [documentation sur le site](https://notes.iutmulhouse.uha.fr/services/documentation.php).
