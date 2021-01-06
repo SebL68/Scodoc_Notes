@@ -8,8 +8,9 @@ Passerelle entre Scodoc et Internet pour l'affichage des notes aux étudiants.
 5. [Historique des mises à jours](#historique-des-mises-a-jours)
 6. [Histoire du projet](#histoire-du-projet)
 7. [Présentation du projet](#présentation-du-projet)
-8. [Installation](#installation)
-9. [Pour les développeurs](#pour-les-développeurs)
+8. [Fonctionnement global](fonctionnement-global)
+9. [Installation](#installation)
+10. [Pour les développeurs](#pour-les-développeurs)
 
 ## Demonstration
 Vous pouvez voir le résultat à [cette adresse](https://notes.iutmulhouse.uha.fr/?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uIjoiQ29tcHRlX0RlbW8udGVzdEB1aGEuZnIiLCJzdGF0dXQiOiJldHVkaWFudCJ9.kHuiNx8X2mWUjv1LAHVOdcLGCu2yQS_i6fxqZZICuEA) - veuillez noter que c'est une démonstration et que le changement de semestre n'est pas opérationnel.
@@ -40,7 +41,7 @@ Dès lors, bon nombre d'universités ont décidé de ne pas laisser Scodoc acces
 Pour y accéder, il faut être sur une liste blanche d'ordinateurs ou utiliser un VPN.  
 
 ### Notes
-Jusqu'à présent, les notes étaient affichées sur Moodle ou sur un tableau d'affichage avec la nécessité d'anonymiser les noms à l'aide de leur numéro détudiants.  
+Jusqu'à présent, les notes étaient affichées sur Moodle ou sur un tableau d'affichage avec la nécessité d'anonymiser les noms à l'aide de leur numéro détudiant.  
 Il n'est alors pas aisé pour les étudiants de vérifier leurs notes, de vérifier si l'ensemble des évaluations a été affiché, de connaître leurs moyennes d'UE et générale avant les jurys.  
 
 Il est donc apparu nécessaire d'avoir une interface moderne et sécurisée permettant aux étudiants de consulter les notes qui vont être utilisées pour les jurys.  
@@ -67,23 +68,16 @@ Exemple (uniquement pour les personnels de l'IUT de Mulhouse) : [Lien](https://n
 `- choix des groupes,`  
 `- téléchargement de fichiers XLSX avec les listes d'émargements, les groupes, le retour des notes, les données étudiants.`
 
-#### Listes d'émargements
-Fichier à imprimer et à faire signer par les étudiants lors d'un partiel pour confirmer leur présence.
-
-#### Groupes
-Fichier montrant les étudiants dans chaque groupe.
-
-#### Retour notes
-Fichier pour qu'un intervenant puisse indiquer les notes à intégrer dans Scodoc.
-
-#### Données étudiants
-Fichier contenant des données comme le numéro d'étudiant, l'adresse mail, etc.
+- Listes d'émargements : fichier à imprimer et à faire signer par les étudiants lors d'un partiel pour confirmer leur présence.
+- Groupes : fichier montrant les étudiants dans chaque groupe.
+- Retour notes : fichier pour qu'un intervenant puisse indiquer les notes à intégrer dans Scodoc.
+- Données étudiants : fichier contenant des données comme le numéro d'étudiant, l'adresse mail, etc.
 
 ### Le site web
 Le site est une PWA et fonctionne sur les principes de l'APP Shell.
 
-### Pour les développeurs
-Une API est proposé pour utiliser les services de ce projet sur d'autres serveurs, par exemple pour récupérer les listes détudiants, etc. (voir ci-après)
+##Fonctionnement global
+Rédaction en cours.
 
 ## Installation
 ### Architecture réseau
@@ -112,11 +106,48 @@ Il n'est pas requis d'avoir de base de données.
 Il est nécessaire de configurer différents fichiers pour adapter ce projet à votre établissement.
 
 #### LDAP
+Le LDAP est l'annuaire des étudiants et personnels.  
+Un accès direct au LDAP n'a pas été permis, ce projet utilise donc différents exports du LDAP sous la forme d'un fichier texte.  
+Vous pouvez trouver un exemple de ces fichiers dans le dossier /LDAP avec un fichier :  
+ - pour les étudiants du type  
+ `prénom:nom:numéro_étudiant:-:-:-:-:-:-:Code_Formation:-:-:-:-:-:-:-:-:-:-:-:adresse_mail:
+ steve:jobs:e212345:-:-:-:-:-:-:3LRHI3:-:-:-:-:-:-:-:-:-:-:-:steve.jobs@uha.fr:`
+ - pour les enseignant du type  
+ `prénom:nom:numéro_étudiant:adresse_mail:
+ stephen:hawking:stephen.hawking@uha.fr:`
+ - pour les BIATSS du type  
+ `prénom:nom:numéro_étudiant:adresse_mail:
+ albert:einstein:albert.einstein@uha.fr:`
+  
+Il y a également un fichier qui ne vient pas du LDAP pour identifier les vacataires sous la forme d'une liste d'adresses mail.  
+Il est recommandé de mettre en place un système automatisé pour récupérer ces exports LDAP.
+L'accès aux fichiers du LDAP se fait à partir du fichier `/includes/LDAPData.php`.
 
 #### Système d'authentification
+Ce projet utilise le CAS de l'UHA pour se connecter. La bibilotèque utilisée est [phpCAS](https://github.com/apereo/phpCAS).  
+Ajoutez votre propre fichier pour la librairie d'authentification.  
+L'ensemble du service d'authentification se fait à partir des fichiers :
+ - `/includes/auth.php` // pour vérifier si l'utilisateur est connecté
+ - `/html/services/doAuth.php` // pour connecter l'utilisateur via le CAS
+
 #### Clé JWT
+Un système de jeton JWT est mis en place. Ce système permet à d'autres serveurs de se connecter aux différents services proposés par l'API.  
+Il est donc nécessaire de définir une clé de cryptage dans le fichier `/includes/JWT/key.php`.
+
 #### Accès Scodoc
+Il est nécessaire de configurer le fichier `/includes/loginScodoc.php` pour que le serveur puisse accéder à Scodoc.  
+Il faut y compléter :
+ - l'URL vers le server Scodoc,
+ - l'identifiant vers un compte de type "secrétariat",
+ - un mot de passe.
+
+Chaque compte est unique dans Scodoc, il est donc nécessaire de l'identifier pour chaque département de cette manière :  
+`un_compte_de_votre_choix_$dep` $dep étant le nom du département, exemple : `scodoc_acces_MMI`.  
+  
+Pour des raisons de sécurité, il est recommandé de mettre le compte en secrétariat, il ne sera ainsi qu'en lecture.  
+
 #### Système analytics
+Vous pouvez intégrer dans le fichier `analytics.php` le code de votre service d'analyse des connexions, il sera inclu automatiquement dans les pages.
 
 ## Pour les développeurs
 ### Accès par jeton
