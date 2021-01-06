@@ -23,7 +23,7 @@ Merci à Denis Graef, Alexandre Kieffer et Bruno Colicchio pour leur participati
 
 # Licence
 Ce projet est Open Source sous licence MIT. Sentez vous libre de l'utiliser, de le modifier, d'y participer ou d'en faire un fork.  
-Si vous appreciez ce projet, un merci fait toujours plaisir à prenom.nom@uha.fr (en changeant pour sebastien lehmann - anti spam activé ;-D)
+Si vous appréciez ce projet, un merci fait toujours plaisir à prenom.nom@uha.fr (en changeant pour sebastien lehmann - anti spam activé ;-D)
 
 # Système requis
 - PHP version 7+  
