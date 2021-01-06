@@ -127,8 +127,8 @@ L'accès aux fichiers du LDAP se fait à partir du fichier `/includes/LDAPData.p
 Ce projet utilise le CAS de l'UHA pour se connecter. La bibilotèque utilisée est [phpCAS](https://github.com/apereo/phpCAS).  
 Ajoutez votre propre fichier pour la librairie d'authentification.  
 L'ensemble du service d'authentification se fait à partir des fichiers :
- - `/includes/auth.php` // pour vérifier si l'utilisateur est connecté
- - `/html/services/doAuth.php` // pour connecter l'utilisateur via le CAS
+ - `/includes/auth.php` pour vérifier si l'utilisateur est connecté
+ - `/html/services/doAuth.php` pour connecter l'utilisateur via le CAS
 
 ### Clé JWT
 Un système de jeton JWT est mis en place. Ce système permet à d'autres serveurs de se connecter aux différents services proposés par l'API.  
