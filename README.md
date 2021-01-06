@@ -12,8 +12,10 @@ Passerelle entre Scodoc et Internet pour l'affichage des notes aux étudiants.
 9. [Installation](#installation)
 10. [Pour les développeurs](#pour-les-développeurs)
 
+-----------------
+
 # Demonstration
-Vous pouvez voir le résultat à [cette adresse](https://notes.iutmulhouse.uha.fr/?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uIjoiQ29tcHRlX0RlbW8udGVzdEB1aGEuZnIiLCJzdGF0dXQiOiJldHVkaWFudCJ9.kHuiNx8X2mWUjv1LAHVOdcLGCu2yQS_i6fxqZZICuEA) - veuillez noter que c'est une démonstration et que le changement de semestre n'est pas opérationnel.
+Vous pouvez voir un exemple du projet à [cette adresse](https://notes.iutmulhouse.uha.fr/?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uIjoiQ29tcHRlX0RlbW8udGVzdEB1aGEuZnIiLCJzdGF0dXQiOiJldHVkaWFudCJ9.kHuiNx8X2mWUjv1LAHVOdcLGCu2yQS_i6fxqZZICuEA). Veuillez noter que c'est une démonstration avec des données fictives et que le changement de semestre n'est pas opérationnel.
 
 # Auteurs
 Ce projet a été réalisé par Sébastien Lehmann sur son temps libre.
@@ -31,6 +33,8 @@ Si vous appreciez ce projet, un merci fait toujours plaisir à prenom.nom@uha.fr
 # Historique des mises à jours
 [Lien](https://notes.iutmulhouse.uha.fr/maj.php)
 
+-----------------
+
 # Histoire du projet
 ## Scodoc
 [Scodoc](https://scodoc.org/) est un outil utilisé dans de nombreuses université qui simplifie la gestion des notes.  
@@ -45,6 +49,8 @@ Jusqu'à présent, les notes étaient affichées sur Moodle ou sur un tableau d'
 Il n'est alors pas aisé pour les étudiants de vérifier leurs notes, de vérifier si l'ensemble des évaluations a été affiché, de connaître leurs moyennes d'UE et générale avant les jurys.  
 
 Il est donc apparu nécessaire d'avoir une interface moderne et sécurisée permettant aux étudiants de consulter les notes qui vont être utilisées pour les jurys.  
+
+-----------------
 
 # Présentation du projet
 Ce projet prend la forme d'un site web accessible aux étudiants et personnels de la composante.
@@ -76,8 +82,12 @@ Exemple (uniquement pour les personnels de l'IUT de Mulhouse) : [Lien](https://n
 ## Le site web
 Le site est une PWA et fonctionne sur les principes de l'APP Shell.
 
+-----------------
+
 # Fonctionnement global
 Rédaction en cours.
+
+-----------------
 
 # Installation
 ## Architecture réseau
@@ -113,10 +123,10 @@ Vous pouvez trouver un exemple de ces fichiers dans le dossier /LDAP avec un fic
  `prénom:nom:numéro_étudiant:-:-:-:-:-:-:Code_Formation:-:-:-:-:-:-:-:-:-:-:-:adresse_mail:
  steve:jobs:e212345:-:-:-:-:-:-:3LRHI3:-:-:-:-:-:-:-:-:-:-:-:steve.jobs@uha.fr:`
  - pour les enseignant du type  
- `prénom:nom:numéro_étudiant:adresse_mail:
+ `prénom:nom:numéro_étudiant:adresse_mail:  
  stephen:hawking:stephen.hawking@uha.fr:`
  - pour les BIATSS du type  
- `prénom:nom:numéro_étudiant:adresse_mail:
+ `prénom:nom:numéro_étudiant:adresse_mail:  
  albert:einstein:albert.einstein@uha.fr:`
   
 Il y a également un fichier qui ne vient pas du LDAP pour identifier les vacataires sous la forme d'une liste d'adresses mail.  
@@ -148,6 +158,8 @@ Pour des raisons de sécurité, il est recommandé de mettre le compte en secré
 
 ### Système analytics
 Vous pouvez intégrer dans le fichier `analytics.php` le code de votre service d'analyse des connexions, il sera inclu automatiquement dans les pages.
+
+-----------------
 
 # Pour les développeurs
 ## Accès par jeton
