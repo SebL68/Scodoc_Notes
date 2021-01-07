@@ -37,7 +37,7 @@ Si vous appréciez ce projet, un merci fait toujours plaisir à prenom.nom@uha.f
 
 # Histoire du projet
 ## Scodoc
-[Scodoc](https://scodoc.org/) est un outil utilisé dans de nombreuses université qui simplifie la gestion des notes.  
+[Scodoc](https://scodoc.org/) est un outil utilisé dans de nombreuses universités qui simplifie la gestion des notes.  
 Ce système est un maillon sensible du système informatique car il participe à l'obtention des diplômes.  
 Une intrusion par un étudiant permettrait une modification des notes.  
 
@@ -67,7 +67,7 @@ Ce projet prend la forme d'un site web accessible aux étudiants et personnels d
 ## Pour les enseignants
 - Accès aux notes de tous les étudiants.
 
-Dès qu'il y a un changement dans les groupes, il est nécessaire de modifier une série de documents XLSX et de les envoyé à l'ensemble des intervenants avec les problèmes de versions que ça peut entraîner. Un système complémentaire à alors été mis en place pour générer automatiquement ces fichiers à partir de l'adresse : https://url_du_server.fr/{nom du département}  
+Dès qu'il y a un changement dans les groupes, il est nécessaire de modifier une série de documents XLSX et de les envoyer à l'ensemble des intervenants avec les problèmes de versions que ça peut entraîner. Un système complémentaire a alors été mis en place pour générer automatiquement ces fichiers à partir de l'adresse : https://url_du_server.fr/{nom du département}  
 Exemple (uniquement pour les personnels de l'IUT de Mulhouse) : [Lien](https://notes.iutmulhouse.uha.fr/MMI)
 
 - Accès aux groupes d'étudiants des différents semestres :  
@@ -95,7 +95,7 @@ Ce projet est à installer sur un serveur qui fait le lien entre l'intranet et i
 Le routeur doit être configuré pour autoriser l'accès entre Scodoc et le serveur.
 
 ## Configuration serveur
-Il est nécessaire d'utiliser une connexion sécurisé HTTPS, [Let's Encrypt](https://letsencrypt.org/fr/) fera l'affaire.  
+Il est nécessaire d'utiliser une connexion sécurisée HTTPS, [Let's Encrypt](https://letsencrypt.org/fr/) fera l'affaire.  
 Pour des raisons de performance, il est recommandé :
 - d'utiliser HTTP/2 ou /3,
 - d'activer le mod_deflate.
@@ -122,7 +122,7 @@ Vous pouvez trouver un exemple de ces fichiers dans le dossier /LDAP avec un fic
  - pour les étudiants du type  
  `prénom:nom:numéro_étudiant:-:-:-:-:-:-:Code_Formation:-:-:-:-:-:-:-:-:-:-:-:adresse_mail:
  steve:jobs:e212345:-:-:-:-:-:-:3LRHI3:-:-:-:-:-:-:-:-:-:-:-:steve.jobs@uha.fr:`
- - pour les enseignant du type  
+ - pour les enseignants du type  
  `prénom:nom:numéro_étudiant:adresse_mail:  
  stephen:hawking:stephen.hawking@uha.fr:`
  - pour les BIATSS du type  
@@ -159,11 +159,14 @@ Pour des raisons de sécurité, il est recommandé de mettre le compte en secré
 ### Système analytics
 Vous pouvez intégrer dans le fichier `/includes/analytics.php` le code de votre service d'analyse des connexions, il sera inclus automatiquement dans les pages.
 
+### Redirection
+Le fichier `/html/.htaccess` vous permettra de configurer les départements qui auront accès aux listing XLSX d'étudiants.
+
 -----------------
 
 # Pour les développeurs
 ## Accès par jeton
-A des fins fins de développement, il est possible de se faire passer pour une autre personne avec un statut différent à l'aide d'un jeton JWT.  
+A des fins de développement, il est possible de se faire passer pour une autre personne avec un statut différent à l'aide d'un jeton JWT.  
 Ce jeton est à transmettre à chaque requête en POST aux services de l'API.  
 
 Il est également possible de le passer dans l'URL comme dans la [démonstration du site](https://notes.iutmulhouse.uha.fr/?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uIjoiQ29tcHRlX0RlbW8udGVzdEB1aGEuZnIiLCJzdGF0dXQiOiJldHVkaWFudCJ9.kHuiNx8X2mWUjv1LAHVOdcLGCu2yQS_i6fxqZZICuEA).
