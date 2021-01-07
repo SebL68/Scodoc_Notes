@@ -85,7 +85,8 @@ Le site est une PWA et fonctionne sur les principes de l'APP Shell.
 
 # Fonctionnement global
 Lors de la première connexion, un processus d'authentification avec le CAS est mis en place.  
-Le site fonctionne sur le principe de l'APP Shell en mettant en place un PWA et un Service Worker utilisant l'API Cache. Ainsi, toutes les données non changeantent sont enregistrer pour une future connexion ou une connexion hors ligne.  
+Le site fonctionne sur le principe de l'APP Shell en mettant en place une PWA et un Service Worker utilisant l'API Cache.  
+Ainsi, toutes les données non changeantent sont enregistrées pour une future connexion ou une connexion hors ligne.  
   
 ![Fonctionnement projet](/documents%20README.md/Scodoc_notes_fonctionnement.svg?raw=true&sanitize=true)
 
