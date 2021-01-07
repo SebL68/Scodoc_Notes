@@ -37,7 +37,7 @@ Si vous appréciez ce projet, un merci fait toujours plaisir à prenom.nom@uha.f
 
 # Histoire du projet
 ## Scodoc
-[Scodoc](https://scodoc.org/) est un outil utilisé dans de nombreuses université qui simplifie la gestion des notes.  
+[Scodoc](https://scodoc.org/) est un outil utilisé dans de nombreuses universités qui simplifie la gestion des notes.  
 Ce système est un maillon sensible du système informatique car il participe à l'obtention des diplômes.  
 Une intrusion par un étudiant permettrait une modification des notes.  
 
