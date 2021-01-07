@@ -65,19 +65,18 @@ Ce projet prend la forme d'un site web accessible aux étudiants et personnels d
 - Affichage / masquage des évaluations sans notes.
 
 ## Pour les enseignants
-- Accès aux notes de tous les étudiants.
-
-Dès qu'il y a un changement dans les groupes, il est nécessaire de modifier une série de documents XLSX et de les envoyer à l'ensemble des intervenants avec les problèmes de versions que ça peut entraîner. Un système complémentaire a alors été mis en place pour générer automatiquement ces fichiers à partir de l'adresse : https://url_du_server.fr/{nom du département}  
-Exemple (uniquement pour les personnels de l'IUT de Mulhouse) : [Lien](https://notes.iutmulhouse.uha.fr/MMI)
-
-- Accès aux groupes d'étudiants des différents semestres :  
+- Accès aux notes de tous les étudiants.  
+- Accès aux groupes d'étudiants des différents semestres : 
+Dès qu'il y a un changement dans les groupes, il est nécessaire de modifier une série de documents XLSX et de les envoyer à l'ensemble des intervenants avec les problèmes de versions que ça peut entraîner. Un système complémentaire a alors été mis en place pour générer automatiquement ces fichiers à partir de l'adresse : `https://url_du_server.fr/{nom du département}`  
 `- choix des groupes,`  
-`- téléchargement de fichiers XLSX avec les listes d'émargements, les groupes, le retour des notes, les données étudiants.`
-
+`- téléchargement de fichiers XLSX avec les listes d'émargements, les groupes, le retour des notes, les données étudiants.`  
 - Listes d'émargements : fichier à imprimer et à faire signer par les étudiants lors d'un partiel pour confirmer leur présence.
 - Groupes : fichier montrant les étudiants dans chaque groupe.
 - Retour notes : fichier pour qu'un intervenant puisse indiquer les notes à intégrer dans Scodoc.
-- Données étudiants : fichier contenant des données comme le numéro d'étudiant, l'adresse mail, etc.
+- Données étudiants : fichier contenant des données comme le numéro d'étudiant, l'adresse mail, etc.  
+
+Exemple (lien uniquement pour les personnels de l'IUT de Mulhouse) : [Lien](https://notes.iutmulhouse.uha.fr/MMI)
+![Listes étudiants](/documents%20README.md/Listes_Etudiants_censored.jpg?raw=true)
 
 ## Le site web
 Le site est une PWA et fonctionne sur les principes de l'APP Shell.
