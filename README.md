@@ -159,6 +159,9 @@ Pour des raisons de sécurité, il est recommandé de mettre le compte en secré
 ### Système analytics
 Vous pouvez intégrer dans le fichier `/includes/analytics.php` le code de votre service d'analyse des connexions, il sera inclus automatiquement dans les pages.
 
+### Redirection
+Le fichier `/html/.htaccess` vous permettra de configurer les départements qui auront accès aux listing XLSX d'étudiants.
+
 -----------------
 
 # Pour les développeurs
