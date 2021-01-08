@@ -86,7 +86,7 @@ Le site est une PWA et fonctionne sur les principes de l'APP Shell.
 # Fonctionnement global
 Lors de la première connexion, un processus d'authentification avec le CAS est mis en place.  
 Le site fonctionne sur le principe de l'APP Shell en mettant en place une PWA et un Service Worker utilisant l'API Cache.  
-Ainsi, toutes les données non changeantent sont enregistrées pour une future connexion ou une connexion hors ligne.  
+Ainsi, toutes les données non changeantes sont enregistrées pour une future connexion ou une connexion hors ligne.  
   
 ![Fonctionnement projet](/documents%20README.md/Scodoc_notes_fonctionnement.svg?raw=true&sanitize=true)
 
@@ -173,7 +173,7 @@ A des fins de développement, il est possible de se faire passer pour une autre 
 Ce jeton est à transmettre à chaque requête en POST aux services de l'API.  
 
 Il est également possible de le passer dans l'URL comme dans la [démonstration du site](https://notes.iutmulhouse.uha.fr/?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uIjoiQ29tcHRlX0RlbW8udGVzdEB1aGEuZnIiLCJzdGF0dXQiOiJldHVkaWFudCJ9.kHuiNx8X2mWUjv1LAHVOdcLGCu2yQS_i6fxqZZICuEA).
-!!! Attention, pour des raisons de sécurité, cette méthode de passer le jeton dans l'URL est à éviter le plus possible et sera réservé pour une démonstration avec de fausses données ou pour des fins de développement en se faisant passer pour un utilisateur sans passer par le système d'authentification. !!!
+!!! Attention, pour des raisons de sécurité, cette méthode de passer le jeton dans l'URL est à éviter le plus possible et sera réservée pour une démonstration avec de fausses données ou pour des fins de développement en se faisant passer pour un utilisateur sans passer par le système d'authentification. !!!
 
 Il est possible de créer des jetons JWT avec le fichier `/html/services/createJWT.php`.
 
