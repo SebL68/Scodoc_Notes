@@ -59,22 +59,30 @@
 /* Patch pour résouvre le fichier scodoc non valide formsemestre_list */
 				str_replace (
 					[ // https://www.utf8-chartable.de/unicode-utf8-table.pl?start=128&number=128&utf8=string-literal&unicodeinhtml=hex
+						'\\xc3\\xab',
 						'\\xc3\\xa9',
 						'\\xc3\\xb4',
 						'\\xc3\\xa0',
+						'\\xc3\\xa2',
 						'\\xc3\\xa8',
 						'\\xc3\\xaa',
 						'\\xc3\\xa7',
-						'\\xc3\\xb9'
+						'\\xc3\\xb9',
+						'\\xc3\\x89',
+						'\\xc3\\xae'
 					],
 					[
+						'ë',
 						'é',
 						'ô',
 						'à',
+						'â',
 						'è',
 						'ê',
 						'ç',
-						'ù'
+						'ù',
+						'É',
+						'î'
 					],
 					preg_replace(
 						'~"etapes": \[.*\], ~U',
