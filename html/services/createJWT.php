@@ -9,7 +9,10 @@
 
 	$authData = (object) authData();
 
-	if($authData->session != 'sebastien.lehmann@uha.fr'){ 
+	if(
+		$authData->session != 'sebastien.lehmann@uha.fr' ||
+		$authData->session != 'denis.graef@uha.fr'
+	){ 
 		die("Ce service n'est autorisé que pour Sébastien Lehmann, vous pouvez le contacter.");
 	}
 
