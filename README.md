@@ -65,19 +65,18 @@ Ce projet prend la forme d'un site web accessible aux étudiants et personnels d
 - Affichage / masquage des évaluations sans notes.
 
 ## Pour les enseignants
-- Accès aux notes de tous les étudiants.
-
-Dès qu'il y a un changement dans les groupes, il est nécessaire de modifier une série de documents XLSX et de les envoyer à l'ensemble des intervenants avec les problèmes de versions que ça peut entraîner. Un système complémentaire a alors été mis en place pour générer automatiquement ces fichiers à partir de l'adresse : https://url_du_server.fr/{nom du département}  
-Exemple (uniquement pour les personnels de l'IUT de Mulhouse) : [Lien](https://notes.iutmulhouse.uha.fr/MMI)
-
-- Accès aux groupes d'étudiants des différents semestres :  
+- Accès aux notes de tous les étudiants.  
+- Accès aux groupes d'étudiants des différents semestres : 
+Dès qu'il y a un changement dans les groupes, il est nécessaire de modifier une série de documents XLSX et de les envoyer à l'ensemble des intervenants avec les problèmes de versions que ça peut entraîner. Un système complémentaire a alors été mis en place pour générer automatiquement ces fichiers à partir de l'adresse : `https://url_du_server.fr/{nom du département}`  
 `- choix des groupes,`  
-`- téléchargement de fichiers XLSX avec les listes d'émargements, les groupes, le retour des notes, les données étudiants.`
-
+`- téléchargement de fichiers XLSX avec les listes d'émargements, les groupes, le retour des notes, les données étudiants.`  
 - Listes d'émargements : fichier à imprimer et à faire signer par les étudiants lors d'un partiel pour confirmer leur présence.
 - Groupes : fichier montrant les étudiants dans chaque groupe.
 - Retour notes : fichier pour qu'un intervenant puisse indiquer les notes à intégrer dans Scodoc.
-- Données étudiants : fichier contenant des données comme le numéro d'étudiant, l'adresse mail, etc.
+- Données étudiants : fichier contenant des données comme le numéro d'étudiant, l'adresse mail, etc.  
+
+Exemple (lien uniquement pour les personnels de l'IUT de Mulhouse) : [Lien](https://notes.iutmulhouse.uha.fr/MMI)
+![Listes étudiants](/documents%20README.md/Listes_Etudiants_censored.jpg?raw=true)
 
 ## Le site web
 Le site est une PWA et fonctionne sur les principes de l'APP Shell.
@@ -86,7 +85,8 @@ Le site est une PWA et fonctionne sur les principes de l'APP Shell.
 
 # Fonctionnement global
 Lors de la première connexion, un processus d'authentification avec le CAS est mis en place.  
-Le site fonctionne sur le principe de l'APP Shell en mettant en place un PWA et un Service Worker utilisant l'API Cache. Ainsi, toutes les données non changeantent sont enregistrer pour une future connexion ou une connexion hors ligne.  
+Le site fonctionne sur le principe de l'APP Shell en mettant en place une PWA et un Service Worker utilisant l'API Cache.  
+Ainsi, toutes les données non changeantes sont enregistrées pour une future connexion ou une connexion hors ligne.  
   
 ![Fonctionnement projet](/documents%20README.md/Scodoc_notes_fonctionnement.svg?raw=true&sanitize=true)
 
@@ -173,7 +173,7 @@ A des fins de développement, il est possible de se faire passer pour une autre 
 Ce jeton est à transmettre à chaque requête en POST aux services de l'API.  
 
 Il est également possible de le passer dans l'URL comme dans la [démonstration du site](https://notes.iutmulhouse.uha.fr/?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uIjoiQ29tcHRlX0RlbW8udGVzdEB1aGEuZnIiLCJzdGF0dXQiOiJldHVkaWFudCJ9.kHuiNx8X2mWUjv1LAHVOdcLGCu2yQS_i6fxqZZICuEA).
-!!! Attention, pour des raisons de sécurité, cette méthode de passer le jeton dans l'URL est à éviter le plus possible et sera réservé pour une démonstration avec de fausses données ou pour des fins de développement en se faisant passer pour un utilisateur sans passer par le système d'authentification. !!!
+!!! Attention, pour des raisons de sécurité, cette méthode de passer le jeton dans l'URL est à éviter le plus possible et sera réservée pour une démonstration avec de fausses données ou pour des fins de développement en se faisant passer pour un utilisateur sans passer par le système d'authentification. !!!
 
 Il est possible de créer des jetons JWT avec le fichier `/html/services/createJWT.php`.
 
