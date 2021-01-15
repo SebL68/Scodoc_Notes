@@ -133,6 +133,11 @@
             content: counter(cpt) " - " attr(data-groupe);
 			display: inline-block;
 			min-width: 100px;
+            max-width: 140px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            margin-right: 10px;
         }
 		.load path{
 			animation: chargement 0.4s infinite linear;
@@ -152,9 +157,10 @@
 			<a href=/logout.php>Déconnexion</a>
 		</header>
         <main>
-			<p>
-				Bonjour <span class=prenom></span>.
-			</p>
+			<div class=flex>
+				<p>Bonjour <span class=prenom></span>.</p>
+                <div class=groupe style=margin-top:10px onclick=concat()>Séparer nom / prénom</div>
+			</div>
             <div class=contenu></div>
 			<div class=wait></div>
 			
@@ -303,6 +309,11 @@ Gère la déconnexion et les messages d'erreur
 			obj.parentElement.nextElementSibling.querySelectorAll('.'+num).forEach(e=>{
 				e.classList.toggle("hide");
 			})
+        }
+        function concat(){
+            document.querySelectorAll(".etudiants>div").forEach(function(e){
+                e.innerHTML = e.innerHTML + "ok";
+            })
         }
         
         
