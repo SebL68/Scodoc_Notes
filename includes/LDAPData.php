@@ -8,6 +8,11 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 /*   Configurations  */
 /*********************/
 
+define("INCONNU", 0);
+define("ETUDIANT", 1);
+define("PERSONNEL", 2);
+define("ADMINISTRATEUR", 3);
+
 $STUDENTS_PATH = "$path/LDAP/export_etu_iutmulhouse.txt";
 
 $STAFF_PATH = [
@@ -17,6 +22,7 @@ $STAFF_PATH = [
 ];
 /* !!! Il faut certainement vérifier si les "pattern" dans les fonctions et la sélection dans getAllLDAPStudents() correspondent à vos fichiers d'export LDAP !!! */
 
+$ADMIN_PATH = "$path/LDAP/administrateurs.json";
 
 /****************************************************/
 /* getStudentNumberFromMail()
@@ -125,29 +131,36 @@ function getAllLDAPStudents(){
 		$user: [string] - 'jean.dupont@uha.fr' // adresse mail de l'utilisateur 
 	
 	Sortie :
-		[string] - 'etudiant' | 'personnel' | 'none' // none une personne connu mais pas dans les listings de la composante.
+		[int] - ETUDIANT | PERSONNEL | ADMINISTRATEUR | INCONNU // INCONNU une personne connue mais pas dans les listings de la composante.
 */
 /****************************************************/
 function statut($user){
-	/* Retour : etudiant, personnel ou none */
+	/* Retour : ETUDIANT, PERSONNEL, ADMINISTRATEUR ou INCONNU */
 	if(!isset($_SESSION['statut']) || $_SESSION['statut'] == ''){
 		global $path;
 		$pattern = "/". $user ."/i";
 
 		/* Test étudiant */
 		if( preg_grep($pattern, file($GLOBALS['STUDENTS_PATH']))){
-			$_SESSION['statut'] = 'etudiant';
+			$_SESSION['statut'] = ETUDIANT;
 			return $_SESSION['statut'];
+		}
+		/* Test administrateur */
+		foreach(json_decode(file_get_contents($GLOBALS['ADMIN_PATH'])) as $departement => $admins){
+			if( preg_grep($pattern, $admins)){
+				$_SESSION['statut'] = ADMINISTRATEUR;
+				return $_SESSION['statut'];
+			}
 		}
 		/* Test personnel */
 		foreach($GLOBALS['STAFF_PATH'] as $staffPath){
 			if( preg_grep($pattern, file($staffPath))){
-				$_SESSION['statut'] = 'personnel';
+				$_SESSION['statut'] = PERSONNEL;
 				return $_SESSION['statut'];
 			}
 		}
 
-		$_SESSION['statut'] = 'none';
+		$_SESSION['statut'] = INCONNU;
 	}
 	return $_SESSION['statut'];	
 }
