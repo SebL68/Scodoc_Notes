@@ -9,9 +9,9 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 /*********************/
 
 define("INCONNU", 0);
-define("ETUDIANT", 1);
-define("PERSONNEL", 2);
-define("ADMINISTRATEUR", 3);
+define("ETUDIANT", 10);
+define("PERSONNEL", 20);
+define("ADMINISTRATEUR", 30);
 
 $STUDENTS_PATH = "$path/LDAP/export_etu_iutmulhouse.txt";
 
