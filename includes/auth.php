@@ -20,7 +20,7 @@
 	ou
 		{
 			'session' => 'jean.dupond@uha.fr', // mail de la personne identifiée
-			'statut' => 'etudiant | personnel | none'
+			'statut' => ETUDIANT | PERSONNEL | ADMINISTRATEUR | INCONNU
 		}
 
 ******************************/
@@ -50,7 +50,7 @@
 
 		}else{
 	/****************************************************/
-	/* Vérification aurpès du CAS de l'authentifiaction */
+	/* Vérification auprès du CAS de l'authentifiaction */
 	/****************************************************/
 			require_once $path . '/CAS/include/CAS.php';
 			require_once $path . '/CAS/config/cas_uha.php';

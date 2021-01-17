@@ -272,6 +272,14 @@
 		</div>
 		
 		<script>
+/*********************************************/
+/* Définition des constantes liées au statut
+/*********************************************/
+			const INCONNU = 0;
+			const ETUDIANT = 10;
+			const PERSONNEL = 20;
+			const ADMINISTRATEUR = 30;
+
 			checkStatut();
 
 /*********************************************/
@@ -326,7 +334,7 @@
 				auth.style.opacity = "0";
 				auth.style.pointerEvents = "none";
 
-				if(data.auth.statut == 'personnel'){
+				if(data.auth.statut >= PERSONNEL){
 					document.querySelector("body").classList.add(data.auth.statut);
 					loadStudents(data.etudiants);
 				} else {
@@ -413,7 +421,8 @@
 						<span>Classe : ${data.note.moy} - Max : ${data.note.max} - Min : ${data.note.min}</span>
 					</div>
 					${ue(data.ue)}`;
-				if(!document.querySelector("body").classList.contains("personnel")){
+//				if(!document.querySelector("body").classList.contains("personnel")){
+				if(document.querySelector("body").classList.contains(ETUDIANT)){	// A valider !!!
 					set_checked();
 				}
 			}

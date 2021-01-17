@@ -16,7 +16,7 @@
 	$authData = (object) authData();
 
 /* Utilisateur qui n'est pas dans la composante : n'est pas autorisé. */
-	if($authData->statut == 'none'){ returnError("Ce site est réservé aux étudiants et personnels de l'IUT."); }
+	if($authData->statut == INCONNU){ returnError("Ce site est réservé aux étudiants et personnels de l'IUT."); }
 
 	if(isset($_GET['q'])){
 		switch($_GET['q']){
@@ -58,7 +58,7 @@
 
 			case 'listeEtudiants':
 				// Uniquement pour les personnels IUT.
-				if($authData->statut != 'personnel'){ returnError(); }
+				if($authData->statut < PERSONNEL){ returnError(); }
 				$output = getAllLDAPStudents();
 				break;
 
@@ -68,20 +68,20 @@
 
 			case 'listesEtudiantsDépartement':
 				// Uniquement pour les personnels IUT.
-				if($authData->statut != 'personnel'){ returnError(); }
+				if($authData->statut < PERSONNEL){ returnError(); }
 				$output = getStudentsListsDepartement($_GET['dep']);
 				break;
 
 			case 'semestresEtudiant':
 				// Uniquement les personnels IUT peuvent demander le relevé d'une autre personne.
-				if($authData->statut != 'personnel' && isset($_GET['etudiant'])){ returnError(); }
+				if($authData->statut < PERSONNEL && isset($_GET['etudiant'])){ returnError(); }
 				// Si c'est un personnel, on transmet l'étudiant par get, sinon on prend l'identifiant de la session.
 				$output = getStudentSemesters(['id' => $_GET['etudiant'] ?? $authData->session]);
 				break;
 
 			case 'relevéEtudiant':
 				// Uniquement les personnels IUT peuvent demander le relevé d'une autre personne.
-				if($authData->statut != 'personnel' && isset($_GET['etudiant'])){ returnError(); } 
+				if($authData->statut < PERSONNEL && isset($_GET['etudiant'])){ returnError(); } 
 				// Si c'est un personnel, on transmet l'étudiant par get, sinon on prend l'identifiant de la session.
 				$output = getReportCards([
 					'semestre' => $_GET['semestre'], 
@@ -90,7 +90,7 @@
 				break;
 
 			case 'dataPremièreConnexion':
-				if($authData->statut == 'etudiant'){
+				if($authData->statut == ETUDIANT){
 					if($authData->session == 'Compte_Demo.test@uha.fr'){
 						include 'data_demo.php';
 					} else {
@@ -110,7 +110,7 @@
 							])
 						];
 					}
-				}else if($authData->statut == 'personnel'){
+				}else if($authData->statut >= PERSONNEL){
 					$output = [
 						'auth' => (array) $authData,
 						'etudiants' => getAllLDAPStudents()
