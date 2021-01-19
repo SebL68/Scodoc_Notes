@@ -1,4 +1,6 @@
 RewriteEngine On
+DirectorySlash Off
+
 RewriteRule MMI/ services/studentsLists.php
 RewriteRule GEII/ services/studentsLists.php
 RewriteRule GLT/ services/studentsLists.php
