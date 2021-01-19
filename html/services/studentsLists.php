@@ -109,6 +109,12 @@
             color: #FFF;
             border-radius: 8px;
         }
+        .petit{
+            flex-direction: column;
+        }
+        .petit>div{
+            font-size: 8px;
+        }
         @media screen and (max-width: 700px){
             .flex{
                 flex-direction: column-reverse;
@@ -163,7 +169,10 @@
         <main>
 			<div class=flex>
 				<p>Bonjour <span class=prenom></span>.</p>
-                <div class=groupe style=margin-top:6px onclick=concat(this)>Séparer nom / prénom</div>
+                <div class="groupe petit" style=margin-top:6px onclick=concat(this)>
+                    Séparer nom / prénom
+                    <div>Pour copier-coller directement de la liste</div>
+                </div>
 			</div>
             <div class=contenu></div>
 			<div class=wait></div>
