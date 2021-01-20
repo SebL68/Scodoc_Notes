@@ -1,3 +1,6 @@
+<?php 
+    $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -167,48 +170,9 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx-populate/1.21.0/xlsx-populate.min.js"></script>
     <script>
         checkStatut();
-
-/*********************************************/
-/* Fonction de communication avec le serveur
-Gère la déconnexion et les messages d'erreur
-/*********************************************/
-        function fetchData(query){
-            document.querySelector(".wait").style.display = "block";
-            let token = (window.location.search.match(/token=([a-zA-Z0-9._-]+)/)?.[1] || ""); // Récupération d'un token GET pour le passer au service
-            if(token){
-                var postData = new FormData();
-                postData.append('token', token);
-            }
-            return fetch(
-                "/services/data.php?q="+query, 
-                {
-                    method: "post",
-                    body: token ? postData : ""
-                }
-            )
-            .then(res => { return res.json() })
-            .then(function(data) {
-                document.querySelector(".wait").style.display = "none";
-                if(data.redirect){
-                    // Utilisateur non authentifié, redirection vers une page d'authentification pour le CAS.
-                    // Passage de l'URL courant au CAS pour redirection après authentification
-                    window.location.href = data.redirect + "?href="+encodeURIComponent(window.location.href); 
-                }
-                if(data.erreur){
-                    // Il y a une erreur pour la récupération des données - affichage d'un message explicatif.
-                    document.querySelector(".contenu").innerHTML = `<b>${data.erreur}</b>`;
-                }else{
-                    return data;
-                }
-            })
-        }
-
-        function displayError(message){
-            let auth = document.querySelector(".auth");
-            auth.style.opacity = "1";
-            auth.style.pointerEvents = "initial";
-            auth.innerHTML = message;
-        }
+        <?php
+			include "$path/includes/clientIO.js";
+		?>
 /*********************************************/
 /* Vérifie l'identité de la personne et son statut
 /*********************************************/			
@@ -219,7 +183,7 @@ Gère la déconnexion et les messages d'erreur
             auth.style.opacity = "0";
             auth.style.pointerEvents = "none";
 
-            if(data.statut == 'personnel'){
+            if(data.statut >= PERSONNEL){
                 getStudentsListes(window.location.pathname.replace(/\//g,"")); // Répertoir courant - exemple : MMI
             } else {
                 document.querySelector(".contenu").innerHTML = "Ce contenu est uniquement accessible pour les personnels de l'IUT. ";
@@ -481,7 +445,6 @@ Gère la déconnexion et les messages d'erreur
 
     </script>
     <?php 
-        $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
         include "$path/includes/analytics.php";
     ?>
 </body>
