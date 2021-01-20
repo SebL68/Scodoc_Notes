@@ -335,7 +335,7 @@
 				auth.style.pointerEvents = "none";
 
 				if(data.auth.statut >= PERSONNEL){
-					document.querySelector("body").classList.add(data.auth.statut);
+					document.querySelector("body").classList.add('personnel');
 					loadStudents(data.etudiants);
 				} else {
 					feedSemesters(data.semestres);
