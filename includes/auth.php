@@ -46,7 +46,21 @@
 				
 			$decoded = JWT::decode($_POST['token'], $key, ['HS256']);
 			$_SESSION['id'] = $decoded->session;
-			$_SESSION['statut'] = $decoded->statut;
+			switch($decoded->statut){
+				case 'inconnu':
+					$_SESSION['statut'] = 0;
+					break;
+				case 'etudiant':
+					$_SESSION['statut'] = 10;
+					break;
+				case 'personnel':
+					$_SESSION['statut'] = 20;
+					break;
+				case 'administrateur':
+					$_SESSION['statut'] = 30;
+					break;
+			}
+			
 
 		}else{
 	/****************************************************/
