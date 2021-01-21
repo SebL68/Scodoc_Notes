@@ -117,7 +117,35 @@
 					];
 				}
 				break;
+			
+			case 'test':
+				if($authData->statut < PERSONNEL ){ returnError(); }
+				/*$output = json_decode(Ask_Scodoc(
+					'/Scolarite/Notes/formation_export',
+					$_GET['dep'],
+					[
+						'formation_id' => 'FORM108',
+						'format' => 'json'
+					]
+				));*/
+				/*$output = json_decode(Ask_Scodoc(
+					'/Scolarite/Notes/do_moduleimpl_list',
+					$_GET['dep'],
+					[
+						'formsemestre_id' => '',
+						'format' => 'json'
+					]
+				));*/
 
+				$output = json_decode(Ask_Scodoc(
+					'/Scolarite/Notes/formsemestre_description_table',
+					$_GET['dep'],
+					[
+						'formsemestre_id' => 'SEM8871',
+						'format' => 'json'
+					]
+				));
+				break;
 		}	
 		if($output){
 			echo json_encode($output/*, JSON_PRETTY_PRINT*/);
