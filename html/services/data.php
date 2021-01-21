@@ -185,7 +185,11 @@
 		$json = json_decode(
 			Ask_Scodoc(
 				'/Scolarite/Notes/formsemestre_list',
-				$dep
+				$dep,
+				[
+					'format' => json
+				],
+				false
 			)
 		);
 		$output = [];

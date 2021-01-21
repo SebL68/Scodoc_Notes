@@ -38,7 +38,6 @@
 				'formsemestre_id' => 'SEM8871',
 				'format' => 'json'
 			]
-		$patch - optionnel : [bool] retourne le résultat tel quel, sans modification - defaut : true
 
 		Retour : [string] du résultat
 ****************************/
@@ -52,67 +51,6 @@
 			$dep = '/'.$dep;
 		}
 
-		if(!$patch){
-			return CURL("$scodoc_url/ScoDoc$dep$url_query?$data");
-		} else {
-			return
-/* Patch pour résouvre le fichier scodoc non valide formsemestre_list */
-				str_replace (
-					[ // https://www.utf8-chartable.de/unicode-utf8-table.pl?start=128&number=128&utf8=string-literal&unicodeinhtml=hex
-						'\\xc3\\xab',
-						'\\xc3\\xa9',
-						'\\xc3\\xb4',
-						'\\xc3\\xa0',
-						'\\xc3\\xa2',
-						'\\xc3\\xa8',
-						'\\xc3\\xaa',
-						'\\xc3\\xa7',
-						'\\xc3\\xb9',
-						'\\xc3\\x89',
-						'\\xc3\\xae'
-					],
-					[
-						'ë',
-						'é',
-						'ô',
-						'à',
-						'â',
-						'è',
-						'ê',
-						'ç',
-						'ù',
-						'É',
-						'î'
-					],
-					preg_replace(
-						'~"etapes": \[.*\], ~U',
-						'',
-						fixJSON(
-/********* Fin du patch *************/
-							html_entity_decode(
-								CURL("https://iutmscodoc9.uha.fr/ScoDoc$dep$url_query?$data")
-							)
-						)
-					)
-				)
-			;	
-		}
-	}
+		return CURL("$scodoc_url/ScoDoc$dep$url_query?$data");
 
-/**********************/
-/* Pour résoudre le problème du JSON non valide avec des '...' */
-/**********************/
-	function fixJSON($json) {
-		$regex = <<<'REGEX'
-~
-	"[^"\\]*(?:\\.|[^"\\]*)*"
-	(*SKIP)(*F)
-	| '([^'\\]*(?:\\.|[^'\\]*)*)'
-~x
-REGEX;
-	
-		return preg_replace_callback($regex, function($matches) {
-			return '"' . preg_replace('~\\\\.(*SKIP)(*F)|"~', '\\"', $matches[1]) . '"';
-		}, $json);
 	}
-?>

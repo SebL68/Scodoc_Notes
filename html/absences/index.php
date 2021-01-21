@@ -177,7 +177,16 @@
 			
 			console.log(data);
 		}
-		
+        
+        test();
+
+        async function test(departement){
+
+            let data = await fetchData("semestresDépartement&dep=MMI");
+            console.log(data);
+        }
+
+      //  https://notes.iutmulhouse.uha.fr/services/data.php?q=semestresDépartement&dep=MMI
 
     </script>
     <?php 
