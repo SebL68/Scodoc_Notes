@@ -172,19 +172,19 @@
 		}
 		
 		async function selectSemester(semestre){
-			
-            let data = await fetchData("test&dep=MMI");
+			//let departement = document.querySelector("")
+            let data = await fetchData("UEEtModules&dep=MMI&semestre=SEM8871");
 			
 			console.log(data);
 		}
         
-        test();
+        selectSemester('test');
 
-        async function test(departement){
+       /* async function test(departement){
 
             let data = await fetchData("semestresDépartement&dep=MMI");
             console.log(data);
-        }
+        }*/
 
       //  https://notes.iutmulhouse.uha.fr/services/data.php?q=semestresDépartement&dep=MMI
 

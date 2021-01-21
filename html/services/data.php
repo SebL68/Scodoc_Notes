@@ -23,32 +23,36 @@
 
 			/*******************************
 			0	get donnéesAuthentification :
-					Retourne les données de l'utilisateur : son identifiant et son statut (étudiant ou personnel)
+			Retourne les données de l'utilisateur : son identifiant et son statut (étudiant ou personnel)
 					Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=donnéesAuthentification
 
 			0	get listeEtudiants :
-					Liste tous les étudiants du LDAP
+			Liste tous les étudiants du LDAP
 					Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=listeEtudiants
 
 			0	get semestresDépartement : 
-					Liste des semestres actifs d'un département
+			Liste des semestres actifs d'un département
 					Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=semestresDépartement&dep=MMI
 
 			0	get listesEtudiantsDépartement : 
-					Liste les étudiants d'un département
+			Liste les étudiants d'un département
 					Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=listesEtudiantsDépartement&dep=MMI
 
 			0	get semestresEtudiant :
-					Liste les identifiants semestres qu'un étudiant a suivi
+			Liste les identifiants semestres qu'un étudiant a suivi
 					Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=semestresEtudiant&etudiant=alexandre.aab@uha.fr
 
 			0	get relevéEtudiant :
-					Relevé de note de l'étudiant au format JSON
+			Relevé de note de l'étudiant au format JSON
 					Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=relevéEtudiant&semestre=SEM8871&etudiant=alexandre.aab@uha.fr
 
 			0	get dataPremièreConnexion :
-					Récupère les données d'authentification, les semestres et le premier relevé (évite de faire 3 requêtes)
+			Récupère les données d'authentification, les semestres et le premier relevé (évite de faire 3 requêtes)
 					Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=dataPremièreConnexion
+
+			0	get UEEtModules :
+			Récupère les UE et les modules d'un semestre
+					Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=UEEtModules&dep=MMI&semestre=SEM8871
 
 
 			*******************************/
@@ -118,33 +122,9 @@
 				}
 				break;
 			
-			case 'test':
+			case 'UEEtModules':
 				if($authData->statut < PERSONNEL ){ returnError(); }
-				/*$output = json_decode(Ask_Scodoc(
-					'/Scolarite/Notes/formation_export',
-					$_GET['dep'],
-					[
-						'formation_id' => 'FORM108',
-						'format' => 'json'
-					]
-				));*/
-				/*$output = json_decode(Ask_Scodoc(
-					'/Scolarite/Notes/do_moduleimpl_list',
-					$_GET['dep'],
-					[
-						'formsemestre_id' => '',
-						'format' => 'json'
-					]
-				));*/
-
-				$output = json_decode(Ask_Scodoc(
-					'/Scolarite/Notes/formsemestre_description_table',
-					$_GET['dep'],
-					[
-						'formsemestre_id' => 'SEM8871',
-						'format' => 'json'
-					]
-				));
+				$output = UEAndModules($_GET['dep'], $_GET['semestre']);
 				break;
 		}	
 		if($output){
@@ -439,4 +419,65 @@
 			}
 		};
 	}
+
+/*******************************/
+/* UEAndModules()
+	Liste les UE et modules d'un département
+
+	Entrées : 
+		$dep : [string] département - exemple : MMI
+		$sem : [string] code semestre Scodoc - exemple : SEM8871
+
+	Sortie :
+		[
+			{
+				UE: "UE1 nom de l'UE",
+				modules: [
+					"nom du module 1",
+					"nom du module 2",
+					etc.
+				]
+			},
+			etc.
+		]
+
+*******************************/
+	function UEAndModules($dep, $sem){
+		$json = json_decode(Ask_Scodoc(
+			'/Scolarite/Notes/formsemestre_description',
+			$dep,
+			[
+				'formsemestre_id' => $sem,
+				'format' => 'json'
+			]
+		));
+
+		array_pop($json); // Supprime le récapitulatif de tous les UE
+		$output_json = [];
+
+		/* 
+		Listes des UE et des Modules les uns après les autres 
+		Données dispo :
+			Code: 'W511',				// null si c'est une UE
+			Coef.: '0.5',				// null si c'est une UE
+			Inscrits: '12',				// null si c'est une UE
+			Module: 'Ecriture numérique',
+			Responsable: 'Graef D.',	// null si c'est une UE
+			UE: 'UE1 Culture Com &amp; Entreprise',
+			ects: "10.0"     			// null si c'est un module
+		*/
+		foreach($json as $value){
+			if($value->ects != null){
+				$output_json[] = [
+					'UE' => $value->UE,
+					'modules' => []
+				];
+			}else{
+				$output_json[array_key_last($output_json)]['modules'][] = [$value->Module]; 
+			}
+		}
+
+		return $output_json;
+	}
+
 ?>
