@@ -109,7 +109,7 @@
 				Bonjour <span class=prenom></span>.
 			</p>
 
-			<select id="departement" onchange="selectDepartment(this.value)">
+			<select id="departement" onchange="clearStorage(['semestre', 'matiere']);selectDepartment(this.value)">
 				<option value="" disabled selected hidden>Choisir un département</option>
 				<option value="MMI">MMI</option>
 				<option value="GEII">GEII</option>
@@ -119,7 +119,13 @@
 				<option value="GMP">GMP</option>
 			</select>
 
-			<select id="semestre" onchange="selectSemester(this.value)"></select>
+			<select id="semestre" onchange="clearStorage(['matiere']);selectSemester(this.value)" disabled>
+                <option value="" disabled selected hidden>Choisir un semestre</option>
+            </select>
+
+            <select id="matiere" onchange="selectMatiere(this.value)" disabled>
+                <option value="" disabled selected hidden>Choisir une matière</option>
+            </select>
 
             <div class=contenu></div>
 			<div class=wait></div>
@@ -147,7 +153,14 @@
             auth.style.pointerEvents = "none";
 
             if(data.statut >= PERSONNEL){
-                
+
+                /* Gestion du storage remettre le même état au retour */
+                let departement = localStorage.getItem("departement")
+                if(departement){
+                    document.querySelector("#departement").value = localStorage.getItem("departement");
+                    selectDepartment(departement);
+                }
+
             } else if(data.statut == ETUDIANT) {
 				// Faire le mode étudiant ici
 			} else {
@@ -169,25 +182,61 @@
 				option.innerText = semestre.titre;
 				select.appendChild(option);
 			});
+            select.disabled = false;
+            document.querySelector("#matiere").disabled = true;
+
+            /* Gestion du storage remettre le même état au retour */
+            localStorage.setItem('departement', departement);
+
+            let semestre = localStorage.getItem("semestre")
+            if(semestre){
+                document.querySelector("#semestre").value = localStorage.getItem("semestre");
+                selectSemester(semestre);
+            }
 		}
 		
 		async function selectSemester(semestre){
-			//let departement = document.querySelector("")
-            let data = await fetchData("UEEtModules&dep=MMI&semestre=SEM8871");
-			
-			console.log(data);
+
+			let departement = document.querySelector("#departement").value;
+            let data = await fetchData(`UEEtModules&dep=${departement}&semestre=${semestre}`);
+
+			let select = document.querySelector("#matiere");
+			select.innerHTML = `<option value="" disabled selected hidden>Choisir un semestre</option>`;
+			data.forEach(function(ue){
+                let optgroup = document.createElement("optgroup");
+                optgroup.label = ue.UE;
+
+                ue.modules.forEach(function(module){
+                    let option = document.createElement("option");
+                    option.value = module.code;
+                    option.innerText = module.titre;
+                    optgroup.appendChild(option);
+                });
+
+				select.appendChild(optgroup);
+			});
+            select.disabled = false;
+
+            /* Gestion du storage remettre le même état au retour */
+            localStorage.setItem('semestre', semestre);
+
+            let matiere = localStorage.getItem("matiere")
+            if(matiere){
+                document.querySelector("#matiere").value = localStorage.getItem("matiere");
+                selectMatiere(matiere);
+            }
 		}
         
-        selectSemester('test');
+        async function selectMatiere(matiere){
+            /* Gestion du storage remettre le même état au retour */
+            localStorage.setItem('matiere', matiere);
+        }
 
-       /* async function test(departement){
-
-            let data = await fetchData("semestresDépartement&dep=MMI");
-            console.log(data);
-        }*/
-
-      //  https://notes.iutmulhouse.uha.fr/services/data.php?q=semestresDépartement&dep=MMI
-
+        function clearStorage(keys){
+            keys.forEach(function(key){
+                localStorage.removeItem(key);
+            });
+        }
     </script>
     <?php 
         include "$path/includes/analytics.php";

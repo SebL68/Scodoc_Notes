@@ -433,8 +433,10 @@
 			{
 				UE: "UE1 nom de l'UE",
 				modules: [
-					"nom du module 1",
-					"nom du module 2",
+					{
+						"titre": "nom du module 1",
+						"code": "W511" // Code scodoc du module
+					},
 					etc.
 				]
 			},
@@ -464,16 +466,22 @@
 			Module: 'Ecriture numérique',
 			Responsable: 'Graef D.',	// null si c'est une UE
 			UE: 'UE1 Culture Com &amp; Entreprise',
-			ects: "10.0"     			// null si c'est un module
 		*/
 		foreach($json as $value){
-			if($value->ects != null){
-				$output_json[] = [
-					'UE' => $value->UE,
-					'modules' => []
-				];
-			}else{
-				$output_json[array_key_last($output_json)]['modules'][] = [$value->Module]; 
+			if($value->Module != 'Bonus'){
+				
+				if($value->Responsable == NULL){
+					$output_json[] = [
+						'UE' => $value->UE,
+						'modules' => []
+					];
+				}else{
+					$output_json[array_key_last($output_json)]['modules'][] = [
+						'titre' => $value->Module,
+						'code' => $value->Code
+					];
+						
+				}
 			}
 		}
 
