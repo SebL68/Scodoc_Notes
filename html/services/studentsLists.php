@@ -145,6 +145,7 @@
             100%{stroke-dasharray: 25;stroke-dashoffset:100;}
         }
     </style>
+    <meta name=description content="Interface documents de l'IUT de Mulhouse">
 </head>
 <body>
     <header>

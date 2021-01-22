@@ -236,7 +236,7 @@
 				margin: 10px;
 			}
 		</style>
-		<meta name=description content="Relevé de note de l'IUT de Mulhouse">
+		<meta name=description content="Relevé de notes de l'IUT de Mulhouse">
 	</head>
 	<body>
 		<header>

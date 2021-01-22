@@ -168,6 +168,7 @@
 			min-width: 100px;
         }
     </style>
+    <meta name=description content="Gestion des absences de l'IUT de Mulhouse">
 </head>
 <body>
     <header>
