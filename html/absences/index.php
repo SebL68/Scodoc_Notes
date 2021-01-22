@@ -254,6 +254,7 @@
 				select.appendChild(option);
             });
             document.querySelector("#departement").classList.remove("highlight");
+            document.querySelector(".contenu").classList.remove("ready");
             select.disabled = false;
             select.classList.add("highlight");
             document.querySelector("#matiere").disabled = true;
@@ -289,6 +290,7 @@
             });
             document.querySelector("#semestre").classList.remove("highlight");
             select.disabled = false;
+            document.querySelector(".contenu").classList.remove("ready");
             select.classList.add("highlight");
 
             /* Gestion du storage remettre le même état au retour */
