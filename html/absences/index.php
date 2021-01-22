@@ -111,12 +111,13 @@
 
 			<select id="departement" onchange="clearStorage(['semestre', 'matiere']);selectDepartment(this.value)">
 				<option value="" disabled selected hidden>Choisir un département</option>
-				<option value="MMI">MMI</option>
-				<option value="GEII">GEII</option>
-				<option value="GEA">GEA</option>
-				<option value="SGM">SGM</option>
-				<option value="GLT">GLT</option>
-				<option value="GMP">GMP</option>
+                <?php
+                    include "$path/includes/serverIO.php";
+                    $listDepartement = getDepartmentsList();
+                    foreach($listDepartement as $departement){
+                        echo "<option value=$departement>$departement</option>";
+                    }
+                ?>
 			</select>
 
 			<select id="semestre" onchange="clearStorage(['matiere']);selectSemester(this.value)" disabled>
@@ -237,6 +238,14 @@
                 localStorage.removeItem(key);
             });
         }
+
+
+
+        async function test(){
+            let data = await fetchData(`listeDépartements`);
+            console.log(data);
+        }
+        test();
     </script>
     <?php 
         include "$path/includes/analytics.php";
