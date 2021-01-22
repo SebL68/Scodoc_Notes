@@ -204,7 +204,7 @@
                 var groupes = "";
                 if(semestre.groupes.length > 1){
                     semestre.groupes.forEach(groupe=>{
-                        var num = groupe?.replace(/ /g, "") || "Groupe1";
+                        var num = groupe?.replace(/ |\./g, "") || "Groupe1";
                         groupes += `<div class=groupe onclick="hideGroupe(this, '${num}')">${groupe || "Groupe 1"}</div>`;
                     })
                 }else{
@@ -246,7 +246,7 @@
            
 			etudiant.forEach(etudiant=>{
 				output += `
-					<div class="${etudiant.groupe?.replace(/ /g, "") || "Groupe1"}" 
+					<div class="${etudiant.groupe?.replace(/ |\./g, "") || "Groupe1"}" 
                         data-nom="${etudiant.nom}" 
                         data-prenom="${etudiant.prenom}" 
                         data-groupe="${etudiant.groupe || "Groupe 1"}"

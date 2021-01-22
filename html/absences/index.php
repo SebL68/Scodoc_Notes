@@ -172,45 +172,45 @@
 <body>
     <header>
 
-			<h1>
-				Documents
-			</h1>
-			<a href=/logout.php>Déconnexion</a>
-		</header>
-        <main>
-			<p>
-				Bonjour <span class=prenom></span>.
-			</p>
+        <h1>
+            Absences
+        </h1>
+        <a href=/logout.php>Déconnexion</a>
+    </header>
+    <main>
+        <p>
+            Bonjour <span class=prenom></span>.
+        </p>
 
-			<select id=departement class=highlight onchange="clearStorage(['semestre', 'matiere']);selectDepartment(this.value)">
-				<option value="" disabled selected hidden>Choisir un département</option>
-                <?php
-                    include "$path/includes/serverIO.php";
-                    $listDepartement = getDepartmentsList();
-                    foreach($listDepartement as $departement){
-                        echo "<option value=$departement>$departement</option>";
-                    }
-                ?>
-			</select>
+        <select id=departement class=highlight onchange="clearStorage(['semestre', 'matiere']);selectDepartment(this.value)">
+            <option value="" disabled selected hidden>Choisir un département</option>
+            <?php
+                include "$path/includes/serverIO.php";
+                $listDepartement = getDepartmentsList();
+                foreach($listDepartement as $departement){
+                    echo "<option value=$departement>$departement</option>";
+                }
+            ?>
+        </select>
 
-			<select id=semestre onchange="clearStorage(['matiere']);selectSemester(this.value)" disabled>
-                <option value="" disabled selected hidden>Choisir un semestre</option>
-            </select>
+        <select id=semestre onchange="clearStorage(['matiere']);selectSemester(this.value)" disabled>
+            <option value="" disabled selected hidden>Choisir un semestre</option>
+        </select>
 
-            <select id=matiere onchange="selectMatiere(this.value)" disabled>
-                <option value="" disabled selected hidden>Choisir une matière</option>
-            </select>
+        <select id=matiere onchange="selectMatiere(this.value)" disabled>
+            <option value="" disabled selected hidden>Choisir une matière</option>
+        </select>
 
-            <div class=contenu></div>
-			<div class=wait></div>
-			
-		</main>
+        <div class=contenu></div>
+        <div class=wait></div>
+        
+    </main>
 
-		<div class=auth>
-			<!-- Site en maintenance -->
-			Authentification en cours ...
-        </div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx-populate/1.21.0/xlsx-populate.min.js"></script>
+    <div class=auth>
+        <!-- Site en maintenance -->
+        Authentification en cours ...
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx-populate/1.21.0/xlsx-populate.min.js"></script>
     <script>
         checkStatut();
 		<?php
@@ -240,7 +240,7 @@
 			}
         }
 /*********************************************/
-/* Récupère et traite les listes d'étudiants du département
+/* Récupère et traite les listes d'étudiants du département */
 /*********************************************/		
         async function selectDepartment(departement){
 			let data = await fetchData("semestresDépartement&dep="+departement);
@@ -331,7 +331,7 @@
             var groupes = "";
             if(liste.groupes.length > 1){
                 liste.groupes.forEach(groupe=>{
-                    var num = groupe?.replace(/ /g, "") || "Groupe1";
+                    var num = groupe?.replace(/ |\./g, "") || "Groupe1";
                     groupes += `<div class=groupe onclick="hideGroupe(this, '${num}')">${groupe || "Groupe 1"}</div>`;
                 })
             }else{
@@ -355,7 +355,7 @@
            
 			etudiants.forEach(etudiant=>{
 				output += `
-					<div class="${etudiant.groupe?.replace(/ /g, "") || "Groupe1"}" 
+					<div class="${etudiant.groupe?.replace(/ |\./g, "") || "Groupe1"}" 
                         data-nom="${etudiant.nom}" 
                         data-prenom="${etudiant.prenom}" 
                         data-groupe="${etudiant.groupe || "Groupe 1"}"
