@@ -81,7 +81,14 @@
             text-align: center;
             transition: 0.4s;
         }
-
+        .contenu{
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .ready{
+            opacity: initial;
+            pointer-events: initial;
+        }
 /**********************/
 /*   Zones de choix   */
 /**********************/
@@ -226,11 +233,22 @@
                 document.querySelector("#matiere").value = localStorage.getItem("matiere");
                 selectMatiere(matiere);
             }
+
+            getStudentsListes();
 		}
         
         async function selectMatiere(matiere){
+            document.querySelector(".contenu").classList.add("ready");
+
             /* Gestion du storage remettre le même état au retour */
             localStorage.setItem('matiere', matiere);
+        }
+
+        async function getStudentsListes(){
+            let departement = document.querySelector("#departement").value;
+            let semestre = document.querySelector("#semestre").value;
+            let data = await fetchData(`listeEtudiantsSemestre&dep=${departement}&semestre=${semestre}`);
+            document.querySelector(".contenu").innerHTML = JSON.stringify(data, " ");
         }
 
         function clearStorage(keys){
@@ -239,13 +257,6 @@
             });
         }
 
-
-
-        async function test(){
-            let data = await fetchData(`listeDépartements`);
-            console.log(data);
-        }
-        test();
     </script>
     <?php 
         include "$path/includes/analytics.php";

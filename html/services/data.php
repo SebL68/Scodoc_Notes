@@ -25,6 +25,53 @@
 /* Utilisateur qui n'est pas dans la composante : n'est pas autorisé. */
 	if($authData->statut == INCONNU){ returnError("Ce site est réservé aux étudiants et personnels de l'IUT."); }
 
+/******************************************
+ * 
+ * Fonctions de communication disponibles
+ * 
+ * 
+	0	get donnéesAuthentification :
+	Retourne les données de l'utilisateur : son identifiant et son statut (étudiant ou personnel)
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=donnéesAuthentification
+
+	0	get listeEtudiants :
+	Liste tous les étudiants du LDAP
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=listeEtudiants
+
+	0	get semestresDépartement : 
+	Liste des semestres actifs d'un département
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=semestresDépartement&dep=MMI
+
+	0	get listeEtudiantsSemestre : 
+	Liste les étudiants d'un semestre
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=listeEtudiantsSemestre&dep=MMI&semestre=SEM8871
+
+	0	get listesEtudiantsDépartement : 
+	Liste les étudiants d'un département
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=listesEtudiantsDépartement&dep=MMI
+
+	0	get semestresEtudiant :
+	Liste les identifiants semestres qu'un étudiant a suivi
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=semestresEtudiant&etudiant=alexandre.aab@uha.fr
+
+	0	get relevéEtudiant :
+	Relevé de note de l'étudiant au format JSON
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=relevéEtudiant&semestre=SEM8871&etudiant=alexandre.aab@uha.fr
+	
+	0	get UEEtModules :
+	Récupère les UE et les modules d'un semestre
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=UEEtModules&dep=MMI&semestre=SEM8871
+	
+	0	get listeDépartements :
+	Récupère les UE et les modules d'un semestre
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=listeDépartements
+
+
+	0	get dataPremièreConnexion :
+	Récupère les données d'authentification, les semestres et le premier relevé (évite de faire 3 requêtes)
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=dataPremièreConnexion
+
+*******************************/
 	if(isset($_GET['q'])){
 		switch($_GET['q']){
 
@@ -42,6 +89,11 @@
 				$output = getDepartmentSemesters($_GET['dep']);	
 				break;
 
+			case 'listeEtudiantsSemestre':
+				// Uniquement pour les personnels IUT.
+				if($authData->statut < PERSONNEL){ returnError(); }
+				$output = getStudentsInSemester($_GET['dep'], $_GET['semestre']);
+				break;
 			case 'listesEtudiantsDépartement':
 				// Uniquement pour les personnels IUT.
 				if($authData->statut < PERSONNEL){ returnError(); }

@@ -52,52 +52,9 @@
 
 	}
 
-/******************************************
- * 
- * Fonctions de communication disponibles
- * 
- * 
-	0	get donnéesAuthentification :
-	Retourne les données de l'utilisateur : son identifiant et son statut (étudiant ou personnel)
-			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=donnéesAuthentification
 
-	0	get listeEtudiants :
-	Liste tous les étudiants du LDAP
-			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=listeEtudiants
-
-	0	get semestresDépartement : 
-	Liste des semestres actifs d'un département
-			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=semestresDépartement&dep=MMI
-
-	0	get listesEtudiantsDépartement : 
-	Liste les étudiants d'un département
-			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=listesEtudiantsDépartement&dep=MMI
-
-	0	get semestresEtudiant :
-	Liste les identifiants semestres qu'un étudiant a suivi
-			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=semestresEtudiant&etudiant=alexandre.aab@uha.fr
-
-	0	get relevéEtudiant :
-	Relevé de note de l'étudiant au format JSON
-			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=relevéEtudiant&semestre=SEM8871&etudiant=alexandre.aab@uha.fr
-	
-	0	get UEEtModules :
-	Récupère les UE et les modules d'un semestre
-			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=UEEtModules&dep=MMI&semestre=SEM8871
-	
-	0	get listeDépartements :
-	Récupère les UE et les modules d'un semestre
-			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=listeDépartements
-
-
-	0	get dataPremièreConnexion :
-	Récupère les données d'authentification, les semestres et le premier relevé (évite de faire 3 requêtes)
-			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=dataPremièreConnexion
-
-*******************************/
-
-
-
+/*******************************/
+/*******************************/
 /*******************************/
 /* getDepartmentSemesters()
 	Liste des semestres actif d'un département
@@ -326,7 +283,6 @@ Sortie :
 
 *******************************/
 function getStudentsInSemester($dep, $sem){
-	global $path;
 	$json = json_decode(
 		Ask_Scodoc(
 			'/Scolarite/Notes/Notes/groups_view',
