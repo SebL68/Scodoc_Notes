@@ -101,6 +101,72 @@
 			border: none;
 			border-radius: 10px;
 		}
+        .highlight{
+            animation: pioupiou 0.4s infinite ease-in alternate;
+        }
+        @keyframes pioupiou{
+            0%{
+                box-shadow: 0 0 4px 0px orange;
+            }
+            100%{
+                box-shadow: 0 0 4px 2px orange;
+            }
+        }
+
+/*******************************/
+/* Listes étudiants */
+/*******************************/
+        .flex{
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        
+        .groupes{
+            margin-left: 20px;
+            margin-bottom: 10px;
+			display: flex;
+        }
+        .groupe{
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 10px;
+            margin: 2px;
+            background: #09C;
+            color: #FFF;
+            border-radius: 8px;
+        }
+        @media screen and (max-width: 700px){
+            .flex{
+                flex-direction: column-reverse;
+                align-items: center;
+            }
+            .groupes{
+                margin-right: 20px;
+                justify-content: center;
+            }
+        }
+        .selected{
+            opacity: 0.5;
+        }
+        .hide{
+            display: none;
+        }
+        .etudiants{
+            counter-reset: cpt;
+            margin-left: 20px;
+        }
+		.etudiants>div:nth-child(odd){
+			background: #eee;
+		}
+        .etudiants>div:before{
+            counter-increment: cpt;
+            content: counter(cpt) " - " attr(data-groupe);
+			display: inline-block;
+			min-width: 100px;
+        }
     </style>
 </head>
 <body>
@@ -116,7 +182,7 @@
 				Bonjour <span class=prenom></span>.
 			</p>
 
-			<select id="departement" onchange="clearStorage(['semestre', 'matiere']);selectDepartment(this.value)">
+			<select id=departement class=highlight onchange="clearStorage(['semestre', 'matiere']);selectDepartment(this.value)">
 				<option value="" disabled selected hidden>Choisir un département</option>
                 <?php
                     include "$path/includes/serverIO.php";
@@ -127,11 +193,11 @@
                 ?>
 			</select>
 
-			<select id="semestre" onchange="clearStorage(['matiere']);selectSemester(this.value)" disabled>
+			<select id=semestre onchange="clearStorage(['matiere']);selectSemester(this.value)" disabled>
                 <option value="" disabled selected hidden>Choisir un semestre</option>
             </select>
 
-            <select id="matiere" onchange="selectMatiere(this.value)" disabled>
+            <select id=matiere onchange="selectMatiere(this.value)" disabled>
                 <option value="" disabled selected hidden>Choisir une matière</option>
             </select>
 
@@ -169,17 +235,14 @@
                     selectDepartment(departement);
                 }
 
-            } else if(data.statut == ETUDIANT) {
-				// Faire le mode étudiant ici
 			} else {
-				document.querySelector(".contenu").innerHTML = "Ce contenu est uniquement accessible pour l'IUT. ";
+				document.querySelector(".contenu").innerHTML = "Ce contenu est uniquement accessible pour des personnels de l'IUT. ";
 			}
         }
 /*********************************************/
 /* Récupère et traite les listes d'étudiants du département
 /*********************************************/		
         async function selectDepartment(departement){
-
 			let data = await fetchData("semestresDépartement&dep="+departement);
 			
 			let select = document.querySelector("#semestre");
@@ -189,8 +252,10 @@
 				option.value = semestre.semestre_id;
 				option.innerText = semestre.titre;
 				select.appendChild(option);
-			});
+            });
+            document.querySelector("#departement").classList.remove("highlight");
             select.disabled = false;
+            select.classList.add("highlight");
             document.querySelector("#matiere").disabled = true;
 
             /* Gestion du storage remettre le même état au retour */
@@ -204,12 +269,11 @@
 		}
 		
 		async function selectSemester(semestre){
-
 			let departement = document.querySelector("#departement").value;
             let data = await fetchData(`UEEtModules&dep=${departement}&semestre=${semestre}`);
 
 			let select = document.querySelector("#matiere");
-			select.innerHTML = `<option value="" disabled selected hidden>Choisir un semestre</option>`;
+			select.innerHTML = `<option value="" disabled selected hidden>Choisir une matière</option>`;
 			data.forEach(function(ue){
                 let optgroup = document.createElement("optgroup");
                 optgroup.label = ue.UE;
@@ -222,8 +286,10 @@
                 });
 
 				select.appendChild(optgroup);
-			});
+            });
+            document.querySelector("#semestre").classList.remove("highlight");
             select.disabled = false;
+            select.classList.add("highlight");
 
             /* Gestion du storage remettre le même état au retour */
             localStorage.setItem('semestre', semestre);
@@ -239,7 +305,7 @@
         
         async function selectMatiere(matiere){
             document.querySelector(".contenu").classList.add("ready");
-
+            document.querySelector("#matiere").classList.remove("highlight");
             /* Gestion du storage remettre le même état au retour */
             localStorage.setItem('matiere', matiere);
         }
@@ -247,8 +313,8 @@
         async function getStudentsListes(){
             let departement = document.querySelector("#departement").value;
             let semestre = document.querySelector("#semestre").value;
-            let data = await fetchData(`listeEtudiantsSemestre&dep=${departement}&semestre=${semestre}`);
-            document.querySelector(".contenu").innerHTML = JSON.stringify(data, " ");
+            let etudiants = await fetchData(`listeEtudiantsSemestre&dep=${departement}&semestre=${semestre}`);
+            document.querySelector(".contenu").innerHTML = createSemester(etudiants);
         }
 
         function clearStorage(keys){
@@ -257,6 +323,55 @@
             });
         }
 
+        function createSemester(liste){
+			var output = "";
+
+            var groupes = "";
+            if(liste.groupes.length > 1){
+                liste.groupes.forEach(groupe=>{
+                    var num = groupe?.replace(/ /g, "") || "Groupe1";
+                    groupes += `<div class=groupe onclick="hideGroupe(this, '${num}')">${groupe || "Groupe 1"}</div>`;
+                })
+            }else{
+                groupes = `<div class=groupe onclick="hideGroupe(this, 'Groupe1')">Groupe 1</div>`;
+            }
+            output += `
+                <div class="flex">
+                    <div>
+                        <div class="groupes">${groupes}</div>
+                        <div class="etudiants">${createStudents(liste.etudiants)}</div>
+                    </div>
+                    
+                </div>
+            `;
+
+            return output;
+        }
+
+        function createStudents(etudiants){
+			var output = "";
+           
+			etudiants.forEach(etudiant=>{
+				output += `
+					<div class="${etudiant.groupe?.replace(/ /g, "") || "Groupe1"}" 
+                        data-nom="${etudiant.nom}" 
+                        data-prenom="${etudiant.prenom}" 
+                        data-groupe="${etudiant.groupe || "Groupe 1"}"
+                        data-num="${etudiant.num_etudiant}"
+                        data-email="${etudiant.email}">
+                            ${etudiant.nom} ${etudiant.prenom}
+                    </div>
+				`;
+			})
+			return output;
+		}
+
+		function hideGroupe(obj, num){
+			obj.classList.toggle("selected");
+			obj.parentElement.nextElementSibling.querySelectorAll('.'+num).forEach(e=>{
+				e.classList.toggle("hide");
+			})
+        }
     </script>
     <?php 
         include "$path/includes/analytics.php";
