@@ -163,9 +163,8 @@
 		}
         .etudiants>div:before{
             counter-increment: cpt;
-            content: counter(cpt) " - " attr(data-groupe);
+            content: counter(cpt) " - ";
 			display: inline-block;
-			min-width: 100px;
         }
     </style>
     <meta name=description content="Gestion des absences de l'IUT de Mulhouse">
