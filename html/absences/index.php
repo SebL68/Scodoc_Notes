@@ -231,7 +231,7 @@
                 /* Gestion du storage remettre le même état au retour */
                 let departement = localStorage.getItem("departement")
                 if(departement){
-                    document.querySelector("#departement").value = localStorage.getItem("departement");
+                    document.querySelector("#departement").value = departement;
                     selectDepartment(departement);
                 }
 
@@ -264,7 +264,7 @@
 
             let semestre = localStorage.getItem("semestre")
             if(semestre){
-                document.querySelector("#semestre").value = localStorage.getItem("semestre");
+                document.querySelector("#semestre").value = semestre;
                 selectSemester(semestre);
             }
 		}
@@ -298,7 +298,7 @@
 
             let matiere = localStorage.getItem("matiere")
             if(matiere){
-                document.querySelector("#matiere").value = localStorage.getItem("matiere");
+                document.querySelector("#matiere").value = matiere;
                 selectMatiere(matiere);
             }
 
