@@ -385,7 +385,7 @@ function UEAndModules($dep, $sem){
 					'modules' => []
 				];
 			}else{
-				$output_json[array_key_last($output_json)]['modules'][] = [
+				$output_json[count($output_json)-1]['modules'][] = [
 					'titre' => $value->Module,
 					'code' => $value->Code
 				];

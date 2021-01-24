@@ -34,7 +34,7 @@ function fetchData(query){
 		}
 		if(data.erreur){
 			// Il y a une erreur pour la récupération des données - affichage d'un message explicatif.
-			document.querySelector(".contenu").innerHTML = `<b>${data.erreur}</b>`;
+			displayError(data.erreur);
 		}else{
 			return data;
 		}
