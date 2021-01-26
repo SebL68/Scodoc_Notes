@@ -229,7 +229,7 @@
             if(data.statut >= PERSONNEL){
 
                 /* Gestion du storage remettre le même état au retour */
-                let departement = localStorage.getItem("departement")
+                let departement = localStorage.getItem("departement");
                 if(departement){
                     document.querySelector("#departement").value = departement;
                     selectDepartment(departement);
@@ -262,7 +262,7 @@
             /* Gestion du storage remettre le même état au retour */
             localStorage.setItem('departement', departement);
 
-            let semestre = localStorage.getItem("semestre")
+            let semestre = localStorage.getItem("semestre");
             if(semestre){
                 document.querySelector("#semestre").value = semestre;
                 selectSemester(semestre);
@@ -296,7 +296,7 @@
             /* Gestion du storage remettre le même état au retour */
             localStorage.setItem('semestre', semestre);
 
-            let matiere = localStorage.getItem("matiere")
+            let matiere = localStorage.getItem("matiere");
             if(matiere){
                 document.querySelector("#matiere").value = matiere;
                 selectMatiere(matiere);
