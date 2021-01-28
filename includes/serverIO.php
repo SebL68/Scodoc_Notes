@@ -38,13 +38,11 @@
 
 		Retour : [string] du résultat
 ****************************/
-	function Ask_Scodoc($url_query, $dep = '', $options = [], $patch = true){
-	
-		//include 'loginScodoc.php';
-		global $acces;
-		global $scodoc_url;
-		$acces['__ac_name'].=$dep;
+	function Ask_Scodoc($url_query, $dep = '', $options = []){
+		$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
+		include "$path/includes/config.php";
 
+		$acces['__ac_name'].=$dep;
 		$data = http_build_query(array_merge($acces, $options));
 		
 		if($dep != ''){
@@ -52,7 +50,6 @@
 		}
 
 		return CURL("$scodoc_url/ScoDoc$dep$url_query?$data");
-
 	}
 
 

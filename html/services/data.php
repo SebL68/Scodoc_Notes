@@ -157,6 +157,13 @@
 					];
 				}
 				break;
+
+		/*************************/
+			case 'setAbsence':
+				include_once "$path/includes/absencesIO.php";
+
+				break;
+
 		}	
 		if($output){
 			echo json_encode($output/*, JSON_PRETTY_PRINT*/);
