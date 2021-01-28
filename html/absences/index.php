@@ -85,6 +85,7 @@
         .contenu{
             opacity: 0.5;
             pointer-events: none;
+            user-select: none;
         }
         .ready{
             opacity: initial;
@@ -175,6 +176,9 @@
             background: #0C9;
             color: #FFF;
             border-radius: 10px;
+        }
+        .date>svg{
+            cursor: pointer;
         }
         .btnAbsences{
             text-align: left;
@@ -392,11 +396,11 @@
                         <div class=groupes>${groupes}</div>
                         <div class=date>
 
-                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                            <svg onclick=changeDate(-1) xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
 
-                            <div>${getDate()}</div>
+                            <div id=actualDate>${actualDate()}</div>
 
-                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+                            <svg onclick=changeDate(1) xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
 
                         </div>
                         <div class=etudiants>${createStudents(liste.etudiants)}</div>
@@ -433,13 +437,43 @@
 			})
         }
 
-        function absent(obj){
-            obj.classList.toggle("absent");
+/*************************************/
+/* Gestion des dates et des absences */
+/*************************************/
+        var date = new Date();
+        let heure = date.getHours();
+        var crenauxIndex;
+        var crenaux = [8, 10, 14, 16, 18];
+
+        if(heure <10){ var crenauxIndex = 0 }
+        else if(heure < 13){ var crenauxIndex = 1 }
+        else if(heure < 15){ var crenauxIndex = 2 }
+        else if(heure < 17){ var crenauxIndex = 3 }
+        else{ var crenauxIndex = 4 }
+
+        function actualDate(){
+            let jours = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+            return `${jours[date.getDay()]} ${date.toLocaleDateString()} - ${crenaux[crenauxIndex]}h / ${crenaux[crenauxIndex]+2}h`;
         }
 
-        function getDate(){
-            let d = new Date();
-            return d.toLocaleString();
+        function changeDate(num){
+            crenauxIndex += num;
+            if(crenauxIndex < 0 || crenauxIndex > crenaux.length - 1){
+                crenauxIndex -= num;
+            }
+            document.querySelector("#actualDate").innerHTML = actualDate();
+        }
+
+        async function absent(obj){
+            obj.classList.toggle("absent");
+            let response = await fetchData("setAbsence" + 
+                "&etudiant=" + obj.dataset.email +
+                "&date=" + date.toLocaleDateString() +
+                "&crenaux=" + crenaux[crenauxIndex]
+            );
+            if(response != "OK"){
+                displayError("Il y a un problème - l'absence n'a pas été enregistrée.");
+            }
         }
     </script>
     <?php 
