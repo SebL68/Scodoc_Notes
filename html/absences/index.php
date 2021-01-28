@@ -476,7 +476,7 @@
                 "&matiere=" + document.querySelector("#matiere").value +
                 "&etudiant=" + obj.dataset.email +
                 "&date=" + date.toISOString().split("T")[0] + // Date ISO du type : 2021-01-28T15:38:04.622Z -- on ne récupère que le jour.
-                "&creneaux=" + creneaux[creneauxIndex] +
+                "&creneau=" + creneaux[creneauxIndex] +
                 "&statut=" + statut
             );
             if(response.result != "OK"){

@@ -163,12 +163,13 @@
 			case 'setAbsence':
 				if($authData->statut < PERSONNEL ){ returnError(); }
 				setAbsence(
+					$authData->session,
 					$_GET['dep'],
 					$_GET['semestre'],
 					$_GET['matiere'],
 					$_GET['etudiant'],
 					$_GET['date'],
-					$_GET['creneaux'],
+					$_GET['creneau'],
 					$_GET['statut']
 				);
 				$output = [
