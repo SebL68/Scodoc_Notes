@@ -51,6 +51,7 @@
             margin-bottom: 64px;
             max-width: 1000px;
             margin: 0 auto 20px auto;
+            text-align: center;
         }
         .prenom{
             text-transform: capitalize;
@@ -118,14 +119,14 @@
 /*******************************/
         .flex{
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: flex-start;
         }
         
         .groupes{
-            margin-left: 20px;
             margin-bottom: 10px;
 			display: flex;
+            justify-content: center;
         }
         .groupe{
             cursor: pointer;
@@ -152,19 +153,67 @@
             opacity: 0.5;
         }
         .hide{
-            display: none;
+            display: none !important;
         }
         .etudiants{
             counter-reset: cpt;
-            margin-left: 20px;
         }
-		.etudiants>div:nth-child(odd){
-			background: #eee;
-		}
-        .etudiants>div:before{
+        .etudiants>div::before{
             counter-increment: cpt;
             content: counter(cpt) " - ";
-			display: inline-block;
+            display: inline-block;
+        }
+
+/*****************************/
+/* Zone absences */
+/*****************************/
+        .date{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 20px;
+            background: #0C9;
+            color: #FFF;
+            border-radius: 10px;
+        }
+        .btnAbsences{
+            text-align: left;
+            border-radius: 10px;
+            box-shadow: 0 2px 2px 2px #777;
+            border: 1px solid transparent;
+            background: #FFF;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            transition: 0.1s;
+            display: flex;
+            gap:5px;
+        }
+        .btnAbsences>:last-child{
+            margin-left: auto;
+        }
+        .btnAbsences:active{
+            transform: translateY(2px);
+            box-shadow: 0 0 0 0 #777;
+            border: 1px solid #777;
+            transition: 0s;
+        }
+        .btnAbsences::before{
+            content: "Présent";
+            display: block;
+        }
+        .absent{
+            background: #ec7068;
+            color: #FFF;
+        }
+        .absent::before{
+            content: "Absent";
+        }
+        .excuse{
+            background: #0C9;
+        }
+        .excuse::before{
+            content: "Excusé";
         }
     </style>
     <meta name=description content="Gestion des absences de l'IUT de Mulhouse">
@@ -338,10 +387,19 @@
                 groupes = `<div class=groupe onclick="hideGroupe(this, 'Groupe1')">Groupe 1</div>`;
             }
             output += `
-                <div class="flex">
+                <div class=flex>
                     <div>
-                        <div class="groupes">${groupes}</div>
-                        <div class="etudiants">${createStudents(liste.etudiants)}</div>
+                        <div class=groupes>${groupes}</div>
+                        <div class=date>
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+
+                            <div>${getDate()}</div>
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+
+                        </div>
+                        <div class=etudiants>${createStudents(liste.etudiants)}</div>
                     </div>
                     
                 </div>
@@ -355,13 +413,13 @@
            
 			etudiants.forEach(etudiant=>{
 				output += `
-					<div class="${etudiant.groupe?.replace(/ |\./g, "") || "Groupe1"}" 
+					<div class="btnAbsences ${etudiant.groupe?.replace(/ |\./g, "") || "Groupe1"}"  onclick="absent(this)"
                         data-nom="${etudiant.nom}" 
                         data-prenom="${etudiant.prenom}" 
                         data-groupe="${etudiant.groupe || "Groupe 1"}"
                         data-num="${etudiant.num_etudiant}"
                         data-email="${etudiant.email}">
-                            ${etudiant.nom} ${etudiant.prenom}
+                            <b>${etudiant.nom}</b><span>${etudiant.prenom}</span>
                     </div>
 				`;
 			})
@@ -370,9 +428,18 @@
 
 		function hideGroupe(obj, num){
 			obj.classList.toggle("selected");
-			obj.parentElement.nextElementSibling.querySelectorAll('.'+num).forEach(e=>{
+			obj.parentElement.nextElementSibling.nextElementSibling.querySelectorAll('.'+num).forEach(e=>{
 				e.classList.toggle("hide");
 			})
+        }
+
+        function absent(obj){
+            obj.classList.toggle("absent");
+        }
+
+        function getDate(){
+            let d = new Date();
+            return d.toLocaleString();
         }
     </script>
     <?php 
