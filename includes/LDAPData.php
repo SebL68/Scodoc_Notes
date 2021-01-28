@@ -8,10 +8,7 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 /*   Configurations  */
 /*********************/
 
-define("INCONNU", 0);
-define("ETUDIANT", 10);
-define("PERSONNEL", 20);
-define("ADMINISTRATEUR", 30);
+include "$path/includes/config.php";
 
 $STUDENTS_PATH = "$path/LDAP/export_etu_iutmulhouse.txt";
 
