@@ -66,10 +66,13 @@
 	Récupère les UE et les modules d'un semestre
 			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=listeDépartements
 
-
 	0	get dataPremièreConnexion :
 	Récupère les données d'authentification, les semestres et le premier relevé (évite de faire 3 requêtes)
 			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=dataPremièreConnexion
+
+	0	set setAbsence :
+	Change l'absence d'un étudiant
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=setAbsence&etudiant=alexandre.aab@uha.fr&date=28/01/2021&creneaux=10
 
 *******************************/
 	if(isset($_GET['q'])){

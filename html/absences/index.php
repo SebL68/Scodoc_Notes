@@ -442,24 +442,24 @@
 /*************************************/
         var date = new Date();
         let heure = date.getHours();
-        var crenauxIndex;
-        var crenaux = [8, 10, 14, 16, 18];
+        var creneauxIndex;
+        var creneaux = [8, 10, 14, 16, 18];
 
-        if(heure <10){ var crenauxIndex = 0 }
-        else if(heure < 13){ var crenauxIndex = 1 }
-        else if(heure < 15){ var crenauxIndex = 2 }
-        else if(heure < 17){ var crenauxIndex = 3 }
-        else{ var crenauxIndex = 4 }
+        if(heure <10){ var creneauxIndex = 0 }
+        else if(heure < 13){ var creneauxIndex = 1 }
+        else if(heure < 15){ var creneauxIndex = 2 }
+        else if(heure < 17){ var creneauxIndex = 3 }
+        else{ var creneauxIndex = 4 }
 
         function actualDate(){
             let jours = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
-            return `${jours[date.getDay()]} ${date.toLocaleDateString()} - ${crenaux[crenauxIndex]}h / ${crenaux[crenauxIndex]+2}h`;
+            return `${jours[date.getDay()]} ${date.toLocaleDateString()} - ${creneaux[creneauxIndex]}h / ${creneaux[creneauxIndex]+2}h`;
         }
 
         function changeDate(num){
-            crenauxIndex += num;
-            if(crenauxIndex < 0 || crenauxIndex > crenaux.length - 1){
-                crenauxIndex -= num;
+            creneauxIndex += num;
+            if(creneauxIndex < 0 || creneauxIndex > creneaux.length - 1){
+                creneauxIndex -= num;
             }
             document.querySelector("#actualDate").innerHTML = actualDate();
         }
@@ -469,7 +469,7 @@
             let response = await fetchData("setAbsence" + 
                 "&etudiant=" + obj.dataset.email +
                 "&date=" + date.toLocaleDateString() +
-                "&crenaux=" + crenaux[crenauxIndex]
+                "&creneaux=" + creneaux[creneauxIndex]
             );
             if(response != "OK"){
                 displayError("Il y a un problème - l'absence n'a pas été enregistrée.");
