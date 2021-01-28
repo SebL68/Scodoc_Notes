@@ -19,6 +19,7 @@
 	include_once "$path/includes/auth.php";
 	include_once "$path/includes/LDAPData.php";
 	include_once "$path/includes/serverIO.php"; // Fonctions de communication vers le serveur Scodoc
+	include_once "$path/includes/absencesIO.php";
 
 	$authData = (object) authData();
 
@@ -160,7 +161,16 @@
 
 		/*************************/
 			case 'setAbsence':
-				include_once "$path/includes/absencesIO.php";
+				if($authData->statut < PERSONNEL ){ returnError(); }
+				setAbsence(
+					$_GET['dep'],
+					$_GET['semestre'],
+					$_GET['matiere'],
+					$_GET['etudiant'],
+					$_GET['date'],
+					$_GET['creneaux'],
+					$_GET['statut']
+				);
 				$output = [
 					'result' => "OK"
 				];

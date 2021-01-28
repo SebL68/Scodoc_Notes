@@ -465,11 +465,19 @@
         }
 
         async function absent(obj){
-            obj.classList.toggle("absent");
+            if(obj.classList.toggle("absent")){
+                var statut = "absent";
+            } else {
+                var statut = "présent";
+            }
             let response = await fetchData("setAbsence" + 
+                "&dep=" + document.querySelector("#departement").value +
+                "&semestre=" + document.querySelector("#semestre").value +
+                "&matiere=" + document.querySelector("#matiere").value +
                 "&etudiant=" + obj.dataset.email +
-                "&date=" + date.toLocaleDateString() +
-                "&creneaux=" + creneaux[creneauxIndex]
+                "&date=" + date.toISOString().split("T")[0] + // Date ISO du type : 2021-01-28T15:38:04.622Z -- on ne récupère que le jour.
+                "&creneaux=" + creneaux[creneauxIndex] +
+                "&statut=" + statut
             );
             if(response.result != "OK"){
                 displayError("Il y a un problème - l'absence n'a pas été enregistrée.");

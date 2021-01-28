@@ -19,3 +19,6 @@ includes/loginScodoc.php
 #Anciennes versions
 html/saveV1
 html/saveV2
+
+#Données des absences
+absencesDATA
