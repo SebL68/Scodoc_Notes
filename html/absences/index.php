@@ -471,7 +471,7 @@
                 "&date=" + date.toLocaleDateString() +
                 "&creneaux=" + creneaux[creneauxIndex]
             );
-            if(response != "OK"){
+            if(response.result != "OK"){
                 displayError("Il y a un problème - l'absence n'a pas été enregistrée.");
             }
         }

@@ -161,7 +161,9 @@
 		/*************************/
 			case 'setAbsence':
 				include_once "$path/includes/absencesIO.php";
-
+				$output = [
+					'result' => "OK"
+				];
 				break;
 
 		}	
