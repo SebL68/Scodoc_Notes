@@ -7,6 +7,9 @@ LDAP/export_ens_iutmulhouse.txt
 LDAP/export_etu_iutmulhouse.txt
 LDAP/vacataires.txt
 
+#Configuration
+includes/config.php
+
 #Clé JWT
 includes/JWT/key.php
 
