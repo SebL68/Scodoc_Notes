@@ -48,16 +48,16 @@
 			$_SESSION['id'] = $decoded->session;
 			switch($decoded->statut){
 				case 'inconnu':
-					$_SESSION['statut'] = 0;
+					$_SESSION['statut'] = INCONNU;
 					break;
 				case 'etudiant':
-					$_SESSION['statut'] = 10;
+					$_SESSION['statut'] = ETUDIANT;
 					break;
 				case 'personnel':
-					$_SESSION['statut'] = 20;
+					$_SESSION['statut'] = PERSONNEL;
 					break;
 				case 'administrateur':
-					$_SESSION['statut'] = 30;
+					$_SESSION['statut'] = ADMINISTRATEUR;
 					break;
 			}
 			
