@@ -277,7 +277,7 @@
 		<script>
 			checkStatut();
 			<?php
-				include "$path/includes/clientIO.js";
+				include "$path/includes/clientIO.php";
 			?>
 /*********************************************/
 /* Vérifie l'identité de la personne et son statut
