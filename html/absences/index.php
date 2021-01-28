@@ -183,7 +183,7 @@
         .btnAbsences{
             text-align: left;
             border-radius: 10px;
-            box-shadow: 0 2px 2px 2px #777;
+            box-shadow: 0 2px 2px 2px #ddd;
             border: 1px solid transparent;
             background: #FFF;
             padding: 10px 20px;
