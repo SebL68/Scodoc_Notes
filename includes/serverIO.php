@@ -40,7 +40,10 @@
 ****************************/
 	function Ask_Scodoc($url_query, $dep = '', $options = [], $patch = true){
 	
-		include 'loginScodoc.php';
+		//include 'loginScodoc.php';
+		global $acces;
+		global $scodoc_url;
+		$acces['__ac_name'].=$dep;
 
 		$data = http_build_query(array_merge($acces, $options));
 		
