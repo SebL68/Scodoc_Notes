@@ -6,7 +6,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion vacataires</title>
+    <title>Administration</title>
     <style>
         *{
             box-sizing: border-box;
@@ -164,69 +164,13 @@
             content: counter(cpt) " - ";
             display: inline-block;
         }
-
-/*****************************/
-/* Zone absences */
-/*****************************/
-        .date{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 20px;
-            background: #0C9;
-            color: #FFF;
-            border-radius: 10px;
-        }
-        .date>svg{
-            cursor: pointer;
-        }
-        .btnAbsences{
-            text-align: left;
-            border-radius: 10px;
-            box-shadow: 0 2px 2px 2px #ddd;
-            border: 1px solid transparent;
-            background: #FFF;
-            padding: 10px 20px;
-            margin: 10px;
-            cursor: pointer;
-            transition: 0.1s;
-            display: flex;
-            gap:5px;
-        }
-        .btnAbsences>:last-child{
-            margin-left: auto;
-        }
-        .btnAbsences:active{
-            transform: translateY(2px);
-            box-shadow: 0 0 0 0 #777;
-            border: 1px solid #777;
-            transition: 0s;
-        }
-        .btnAbsences::before{
-            content: "Présent";
-            display: block;
-        }
-        .absent{
-            background: #ec7068;
-            color: #FFF;
-        }
-        .absent::before{
-            content: "Absent";
-        }
-        .excuse{
-            background: #0C9;
-        }
-        .excuse::before{
-            content: "Excusé";
-        }
     </style>
-    <meta name=description content="Gestion des absences de l'IUT de Mulhouse">
+    <meta name=description content="Gestion des vacataires de l'IUT de Mulhouse">
 </head>
 <body>
     <header>
-
         <h1>
-            Gestion des vacataires
+            Administration
         </h1>
         <a href=/logout.php>Déconnexion</a>
     </header>
@@ -235,7 +179,7 @@
             Bonjour <span class=prenom></span>.
         </p>
 
-        <select id=departement class=highlight onchange="clearStorage(['semestre', 'matiere']);selectDepartment(this.value)">
+        <select id=departement class=highlight onchange="selectDepartment(this.value)">
             <option value="" disabled selected hidden>Choisir un département</option>
             <?php
                 include "$path/includes/serverIO.php";
@@ -246,14 +190,7 @@
             ?>
         </select>
 
-        <select id=semestre onchange="clearStorage(['matiere']);selectSemester(this.value)" disabled>
-            <option value="" disabled selected hidden>Choisir un semestre</option>
-        </select>
-
-        <select id=matiere onchange="selectMatiere(this.value)" disabled>
-            <option value="" disabled selected hidden>Choisir une matière</option>
-        </select>
-
+        
         <div class=contenu></div>
         <div class=wait></div>
         
@@ -269,9 +206,9 @@
 		<?php
             include "$path/includes/clientIO.php";
 		?>
-/*********************************************/
-/* Vérifie l'identité de la personne et son statut
-/*********************************************/			
+/***************************************************/
+/* Vérifie l'identité de la personne et son statut */
+/***************************************************/			
         async function checkStatut(){
             let data = await fetchData("donnéesAuthentification");
             document.querySelector(".prenom").innerText = data.session.split(".")[0];
@@ -279,7 +216,7 @@
             auth.style.opacity = "0";
             auth.style.pointerEvents = "none";
 
-            if(data.statut >= PERSONNEL){
+            if(data.statut >= ADMINISTRATEUR){
 
                 /* Gestion du storage remettre le même état au retour */
                 let departement = localStorage.getItem("departement");
@@ -289,200 +226,37 @@
                 }
 
 			} else {
-				document.querySelector(".contenu").innerHTML = "Ce contenu est uniquement accessible pour des personnels de l'IUT. ";
+				document.querySelector(".contenu").innerHTML = "Ce contenu est uniquement accessible pour des administrateurs d'un département de l'IUT. ";
 			}
         }
-/*********************************************/
-/* Récupère et traite les listes d'étudiants du département */
-/*********************************************/		
+/*************************************************************/
+/* Récupère et traite la liste des vacataires du département */
+/*************************************************************/		
         async function selectDepartment(departement){
-			let data = await fetchData("semestresDépartement&dep="+departement);
-			
-			let select = document.querySelector("#semestre");
-			select.innerHTML = `<option value="" disabled selected hidden>Choisir un semestre</option>`;
-			data.forEach(function(semestre){
-				let option = document.createElement("option");
-				option.value = semestre.semestre_id;
-				option.innerText = semestre.titre;
-				select.appendChild(option);
-            });
-            document.querySelector("#departement").classList.remove("highlight");
-            document.querySelector(".contenu").classList.remove("ready");
-            select.disabled = false;
-            select.classList.add("highlight");
-            document.querySelector("#matiere").disabled = true;
+			let vacataires = await fetchData("listeVacataires&dep="+departement);
+            
+            document.querySelector(".contenu").innerHTML = createContractors(vacataires);
 
             /* Gestion du storage remettre le même état au retour */
             localStorage.setItem('departement', departement);
-
-            let semestre = localStorage.getItem("semestre");
-            if(semestre){
-                document.querySelector("#semestre").value = semestre;
-                selectSemester(semestre);
-            }
-		}
-		
-		async function selectSemester(semestre){
-			let departement = document.querySelector("#departement").value;
-            let data = await fetchData(`UEEtModules&dep=${departement}&semestre=${semestre}`);
-
-			let select = document.querySelector("#matiere");
-			select.innerHTML = `<option value="" disabled selected hidden>Choisir une matière</option>`;
-			data.forEach(function(ue){
-                let optgroup = document.createElement("optgroup");
-                optgroup.label = ue.UE;
-
-                ue.modules.forEach(function(module){
-                    let option = document.createElement("option");
-                    option.value = module.code;
-                    option.innerText = module.titre;
-                    optgroup.appendChild(option);
-                });
-
-				select.appendChild(optgroup);
-            });
-            document.querySelector("#semestre").classList.remove("highlight");
-            select.disabled = false;
-            document.querySelector(".contenu").classList.remove("ready");
-            select.classList.add("highlight");
-
-            /* Gestion du storage remettre le même état au retour */
-            localStorage.setItem('semestre', semestre);
-
-            let matiere = localStorage.getItem("matiere");
-            if(matiere){
-                document.querySelector("#matiere").value = matiere;
-                selectMatiere(matiere);
-            }
-
-            getStudentsListes();
-		}
-        
-        async function selectMatiere(matiere){
-            document.querySelector(".contenu").classList.add("ready");
-            document.querySelector("#matiere").classList.remove("highlight");
-            /* Gestion du storage remettre le même état au retour */
-            localStorage.setItem('matiere', matiere);
         }
 
-        async function getStudentsListes(){
-            let departement = document.querySelector("#departement").value;
-            let semestre = document.querySelector("#semestre").value;
-            let etudiants = await fetchData(`listeEtudiantsSemestre&dep=${departement}&semestre=${semestre}`);
-            document.querySelector(".contenu").innerHTML = createSemester(etudiants);
-        }
-
-        function clearStorage(keys){
-            keys.forEach(function(key){
-                localStorage.removeItem(key);
-            });
-        }
-
-        function createSemester(liste){
+        function createContractors(liste){
 			var output = "";
 
-            var groupes = "";
-            if(liste.groupes.length > 1){
-                liste.groupes.forEach(groupe=>{
-                    var num = groupe?.replace(/ |\./g, "") || "Groupe1";
-                    groupes += `<div class=groupe onclick="hideGroupe(this, '${num}')">${groupe || "Groupe 1"}</div>`;
-                })
-            }else{
-                groupes = `<div class=groupe onclick="hideGroupe(this, 'Groupe1')">Groupe 1</div>`;
-            }
-            output += `
-                <div class=flex>
-                    <div>
-                        <div class=groupes>${groupes}</div>
-                        <div class=date>
-
-                            <svg onclick=changeDate(-1) xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-
-                            <div id=actualDate>${actualDate()}</div>
-
-                            <svg onclick=changeDate(1) xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-
-                        </div>
-                        <div class=etudiants>${createStudents(liste.etudiants)}</div>
+            liste.forEach(vacataire=>{
+                let prenom=vacataire.split("@")[0].split(".")[0];
+                let nom=vacataire.split("@")[0].split(".")[1];
+				output += `
+					<div class="vacataire">
+                        <b>${prenom}&nbsp;${nom}</b>
                     </div>
-                    
-                </div>
-            `;
+				`;
+            });
 
             return output;
         }
-
-        function createStudents(etudiants){
-			var output = "";
-           
-			etudiants.forEach(etudiant=>{
-				output += `
-					<div class="btnAbsences ${etudiant.groupe?.replace(/ |\./g, "") || "Groupe1"}"  onclick="absent(this)"
-                        data-nom="${etudiant.nom}" 
-                        data-prenom="${etudiant.prenom}" 
-                        data-groupe="${etudiant.groupe || "Groupe 1"}"
-                        data-num="${etudiant.num_etudiant}"
-                        data-email="${etudiant.email}">
-                            <b>${etudiant.nom}</b><span>${etudiant.prenom}</span>
-                    </div>
-				`;
-			})
-			return output;
-		}
-
-		function hideGroupe(obj, num){
-			obj.classList.toggle("selected");
-			obj.parentElement.nextElementSibling.nextElementSibling.querySelectorAll('.'+num).forEach(e=>{
-				e.classList.toggle("hide");
-			})
-        }
-
-/*************************************/
-/* Gestion des dates et des absences */
-/*************************************/
-        var date = new Date();
-        let heure = date.getHours();
-        var creneauxIndex;
-        var creneaux = [8, 10, 14, 16, 18];
-
-        if(heure <10){ var creneauxIndex = 0 }
-        else if(heure < 13){ var creneauxIndex = 1 }
-        else if(heure < 15){ var creneauxIndex = 2 }
-        else if(heure < 17){ var creneauxIndex = 3 }
-        else{ var creneauxIndex = 4 }
-
-        function actualDate(){
-            let jours = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
-            return `${jours[date.getDay()]} ${date.toLocaleDateString()} - ${creneaux[creneauxIndex]}h / ${creneaux[creneauxIndex]+2}h`;
-        }
-
-        function changeDate(num){
-            creneauxIndex += num;
-            if(creneauxIndex < 0 || creneauxIndex > creneaux.length - 1){
-                creneauxIndex -= num;
-            }
-            document.querySelector("#actualDate").innerHTML = actualDate();
-        }
-
-        async function absent(obj){
-            if(obj.classList.toggle("absent")){
-                var statut = "absent";
-            } else {
-                var statut = "présent";
-            }
-            let response = await fetchData("setAbsence" + 
-                "&dep=" + document.querySelector("#departement").value +
-                "&semestre=" + document.querySelector("#semestre").value +
-                "&matiere=" + document.querySelector("#matiere").value +
-                "&etudiant=" + obj.dataset.email +
-                "&date=" + date.toISOString().split("T")[0] + // Date ISO du type : 2021-01-28T15:38:04.622Z -- on ne récupère que le jour.
-                "&creneau=" + creneaux[creneauxIndex] +
-                "&statut=" + statut
-            );
-            if(response.result != "OK"){
-                displayError("Il y a un problème - l'absence n'a pas été enregistrée.");
-            }
-        }
+        
     </script>
     <?php 
         include "$path/includes/analytics.php";

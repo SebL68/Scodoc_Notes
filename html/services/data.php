@@ -20,6 +20,7 @@
 	include_once "$path/includes/LDAPData.php";
 	include_once "$path/includes/serverIO.php"; // Fonctions de communication vers le serveur Scodoc
 	include_once "$path/includes/absencesIO.php";
+	include_once "$path/includes/adminIO.php";
 
 	$authData = (object) authData();
 
@@ -74,6 +75,13 @@
 	0	set setAbsence :
 	Change l'absence d'un étudiant
 			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=setAbsence&etudiant=alexandre.aab@uha.fr&date=28/01/2021&creneaux=10
+
+
+
+
+	0	get listeVacataires :
+	Récupère la liste des vacataires d'un département
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=listeVacataires&dep=MMI
 
 *******************************/
 	if(isset($_GET['q'])){
@@ -175,6 +183,14 @@
 				$output = [
 					'result' => "OK"
 				];
+				break;
+
+
+
+		/*************************/
+			case 'listeVacataires':
+				if($authData->statut < ADMINISTRATEUR ){ returnError(); }
+				$output = listeVacataires($_GET['dep']);
 				break;
 
 		}	
