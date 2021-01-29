@@ -24,10 +24,9 @@
 				)
 			); 
 		} else {
-			$json = json_decode(file_get_contents($file), true);
+			$json = json_decode(file_get_contents($file));
 			$trouve = false;
 			foreach ($json as $key => &$absence) {
-				$absence = (object) $absence;
 				if($absence->date == $date && $absence->creneau == $creneau){
 					if($statut == 'présent'){
 						unset($json[$key]);
