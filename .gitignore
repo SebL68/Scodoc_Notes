@@ -6,18 +6,13 @@ LDAP/export_biat_iutmulhouse.txt
 LDAP/export_ens_iutmulhouse.txt
 LDAP/export_etu_iutmulhouse.txt
 LDAP/vacataires.txt
+LDAP/administrateurs.json
 
 #Configuration
 includes/config.php
 
-#Clé JWT
-includes/JWT/key.php
-
 #Google analytics
 includes/analytics.php
-
-#Scodoc login / psw / url
-includes/loginScodoc.php
 
 #Anciennes versions
 html/saveV1
