@@ -5,7 +5,7 @@
 *******************************************/
 
 	if(!isset($_SESSION)){ session_start(); }
-	
+	include_once "$path/includes/config.php";
 /**************************/
 /* Configuration du CURL  */
 /**************************/
@@ -40,8 +40,9 @@
 ****************************/
 	function Ask_Scodoc($url_query, $dep = '', $options = []){
 		$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
-		include "$path/includes/config.php";
-
+		global $acces;
+		global $scodoc_url;
+		
 		$acces['__ac_name'].=$dep;
 		$data = http_build_query(array_merge($acces, $options));
 		

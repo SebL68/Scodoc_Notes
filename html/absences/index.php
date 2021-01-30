@@ -370,6 +370,19 @@
             let semestre = document.querySelector("#semestre").value;
             let etudiants = await fetchData(`listeEtudiantsSemestre&dep=${departement}&semestre=${semestre}&absences=true`);
             document.querySelector(".contenu").innerHTML = createSemester(etudiants);
+
+            var date =  ISODate();
+
+            for(var etudiant in etudiants.absences){
+                etudiants.absences[etudiant].forEach(function(absence){
+                    if(absence.date == date
+                     && absence.creneau == creneaux[creneauxIndex]) {
+                        document.querySelector(`[data-email="${etudiant}"]`).classList.toggle("absent");
+                    }
+                });
+                
+            };
+            
         }
 
         function clearStorage(keys){
@@ -475,13 +488,17 @@
                 "&semestre=" + document.querySelector("#semestre").value +
                 "&matiere=" + document.querySelector("#matiere").value +
                 "&etudiant=" + obj.dataset.email +
-                "&date=" + date.toISOString().split("T")[0] + // Date ISO du type : 2021-01-28T15:38:04.622Z -- on ne récupère que le jour.
+                "&date=" + ISODate() + // Date ISO du type : 2021-01-28T15:38:04.622Z -- on ne récupère que le jour.
                 "&creneau=" + creneaux[creneauxIndex] +
                 "&statut=" + statut
             );
             if(response.result != "OK"){
                 displayError("Il y a un problème - l'absence n'a pas été enregistrée.");
             }
+        }
+
+        function ISODate(){
+            return date.toISOString().split("T")[0];
         }
     </script>
     <?php 

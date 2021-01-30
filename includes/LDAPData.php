@@ -8,7 +8,7 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 /*   Configurations  */
 /*********************/
 
-include "$path/includes/config.php";
+include_once "$path/includes/config.php";
 
 $STUDENTS_PATH = "$path/LDAP/export_etu_iutmulhouse.txt";
 

@@ -30,7 +30,7 @@
 	/*******************************************************/
 	/* Est-ce qu'un jeton JWT est utilisé pour avoir accès */
 	/*******************************************************/
-			include $path . '/includes/JWT/JWT.php';
+			include_once $path . '/includes/JWT/JWT.php';
 			global $key;
 
 			// Message d'erreur si le serveur est mal configuré.

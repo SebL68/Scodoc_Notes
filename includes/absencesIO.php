@@ -3,6 +3,12 @@
 /* Debug */
 	/*error_reporting(E_ALL);
 	ini_set('display_errors', '1');*/
+
+/************************************/
+/* setAbsence
+	Créé ou modifie le fichier d'absence d'un étudiant
+*/
+/************************************/
 	function setAbsence($enseignant, $dep, $semestre, $matiere, $etudiant, $date, $creneau, $statut){
 		global $path;
 		global $authData;
@@ -56,7 +62,15 @@
 			"matiere" => $matiere
 		];
 	}
+/************************************/
+/* getAbsence
+	Récupère les absences d'un semestre ou d'un étudiant en fonction de si le paramètre $etudiant est défini ou non
 
+	Retour : 
+		[assoc. array] absences d'un étudiant
+		[array][assic. array] liste des absences d'un étudiant
+*/
+/************************************/
 	function getAbsence($dep, $semestre, $etudiant = ''){
 		global $path;
 		$dir = "$path/absencesDATA/$dep/$semestre/";
@@ -66,12 +80,12 @@
 			
 			foreach($listFiles as $file){
 				if($file != "." && $file != ".."){
-					$output[] = json_decode(file_get_contents($dir.$file));
+					$output[substr($file, 0, -5)] = json_decode(file_get_contents($dir.$file));
 				}
 			}
 		} else {
 			$file = $dir.$etudiant.'.json';
-			$output = file_get_contents($file);
+			$output = json_decode(file_get_contents($file));
 		}
 		
 		return $output;
