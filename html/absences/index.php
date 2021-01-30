@@ -368,7 +368,7 @@
         async function getStudentsListes(){
             let departement = document.querySelector("#departement").value;
             let semestre = document.querySelector("#semestre").value;
-            let etudiants = await fetchData(`listeEtudiantsSemestre&dep=${departement}&semestre=${semestre}`);
+            let etudiants = await fetchData(`listeEtudiantsSemestre&dep=${departement}&semestre=${semestre}&absences=true`);
             document.querySelector(".contenu").innerHTML = createSemester(etudiants);
         }
 

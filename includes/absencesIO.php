@@ -57,14 +57,17 @@
 		];
 	}
 
-	function getAbsence($dep, $semestre, $etudiant){
+	function getAbsence($dep, $semestre, $etudiant = ''){
 		global $path;
 		$dir = "$path/absencesDATA/$dep/$semestre/";
 		if($etudiant == ''){
 			$output = [];
 			$listFiles = scandir($dir);
+			
 			foreach($listFiles as $file){
-				$output[] = file_get_contents($file);
+				if($file != "." && $file != ".."){
+					$output[] = json_decode(file_get_contents($dir.$file));
+				}
 			}
 		} else {
 			$file = $dir.$etudiant.'.json';

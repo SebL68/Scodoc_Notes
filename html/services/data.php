@@ -108,6 +108,12 @@
 				// Uniquement pour les personnels IUT.
 				if($authData->statut < PERSONNEL){ returnError(); }
 				$output = getStudentsInSemester($_GET['dep'], $_GET['semestre']);
+				if(isset($_GET['absences']) && $_GET['absences'] == 'true'){
+					$output['absences'] = getAbsence(
+						$_GET['dep'],
+						$_GET['semestre']
+					);
+				}
 				break;
 			case 'listesEtudiantsDépartement':
 				// Uniquement pour les personnels IUT.
