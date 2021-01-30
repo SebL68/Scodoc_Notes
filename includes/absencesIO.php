@@ -22,7 +22,7 @@
 						newAbsence($enseignant, $matiere, $date, $creneau, $statut)
 					]
 				)
-			); 
+			);
 		} else {
 			$json = json_decode(file_get_contents($file));
 			$trouve = false;
@@ -57,7 +57,20 @@
 		];
 	}
 
-	function getAbsence(){
-
+	function getAbsence($dep, $semestre, $etudiant){
+		global $path;
+		$dir = "$path/absencesDATA/$dep/$semestre/";
+		if($etudiant == ''){
+			$output = [];
+			$listFiles = scandir($dir);
+			foreach($listFiles as $file){
+				$output[] = file_get_contents($file);
+			}
+		} else {
+			$file = $dir.$etudiant.'.json';
+			$output = file_get_contents($file);
+		}
+		
+		return $output;
 	}
 ?>

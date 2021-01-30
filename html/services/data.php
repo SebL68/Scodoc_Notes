@@ -74,9 +74,12 @@
 
 	0	set setAbsence :
 	Change l'absence d'un étudiant
-			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=setAbsence&etudiant=alexandre.aab@uha.fr&date=28/01/2021&creneaux=10
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=setAbsence&dep=MMI&semestre=SEM9743&matiere=M4101&etudiant=fares.abdelkrim@uha.fr&date=2021-01-30&creneau=18&statut=absent
 
-
+	0	set getAbsence :
+	Récupère les absences d'un étudiant ou des étudiants d'un semestre complet
+	Ne pas transmettre le GET étudiant pour obtenir tout le semestre
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=getAbsence&dep=MMI&semestre=SEM9743&etudiant=fares.abdelkrim@uha.fr
 
 
 	0	get listeVacataires :
@@ -185,6 +188,15 @@
 				];
 				break;
 
+		/*************************/
+			case 'getAbsence':
+				if($authData->statut < PERSONNEL ){ returnError(); }
+				$output = getAbsence(
+					$_GET['dep'],
+					$_GET['semestre'],
+					$_GET['etudiant'] ?? ''
+				);
+				break;
 
 
 		/*************************/
