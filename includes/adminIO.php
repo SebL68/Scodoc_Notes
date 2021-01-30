@@ -9,7 +9,7 @@
     $file = "$path\\LDAP\\vacataires.json";
 
     $json = json_decode(file_get_contents($file));
-    return $json->$dep;
+    return $json->$dep->vacataires;
   }
 
 ?>
