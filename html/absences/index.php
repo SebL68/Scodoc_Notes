@@ -91,6 +91,23 @@
             opacity: initial;
             pointer-events: initial;
         }
+        .message{
+            position: fixed;
+            bottom: 100%;
+            left: 50%;
+            z-index: 10;
+            padding: 20px;
+            border-radius: 0 0 10px 10px;
+            background: #ec7068;
+            color: #FFF;
+            font-size: 24px;
+            animation: message 3s;
+            transform: translate(-50%, 0);
+        }
+        @keyframes message{
+            20%{transform: translate(-50%, 100%)}
+            80%{transform: translate(-50%, 100%)}
+        }
 /**********************/
 /*   Zones de choix   */
 /**********************/
@@ -219,6 +236,7 @@
         .excuse::before{
             content: "Excusé";
         }
+
     </style>
     <meta name=description content="Gestion des absences de l'IUT de Mulhouse">
 </head>
@@ -271,9 +289,11 @@
 		?>
 /*********************************************/
 /* Vérifie l'identité de la personne et son statut
-/*********************************************/			
+/*********************************************/		
+        var session = "";
         async function checkStatut(){
             let data = await fetchData("donnéesAuthentification");
+            session = data.session;
             document.querySelector(".prenom").innerText = data.session.split(".")[0];
             let auth = document.querySelector(".auth");
             auth.style.opacity = "0";
@@ -477,12 +497,14 @@
         }
 
         async function absent(obj){
-
+            if(dataEtudiants.absences[obj.dataset.email]?.enseignant ||session != session){
+                return message("Vous ne pouvez changer l'absence d'un autre enseignant : " + session.split("@")[0].replace(/./g, " "));
+            }
             var date = ISODate();
 
             if(obj.classList.toggle("absent")){
                 var statut = "absent";
-                var structure =  {
+                var structure = {
                     "date": ISODate(),
                     "creneau": creneaux[creneauxIndex],
                     "statut": statut
@@ -539,6 +561,16 @@
         function ISODate(){
             // Date ISO du type : 2021-01-28T15:38:04.622Z -- on ne récupère que AAAA-MM-JJ.
             return date.toISOString().split("T")[0];
+        }
+
+        function message(msg){
+            var div = document.createElement("div");
+            div.className = "message";
+            div.innerHTML = msg;
+            document.querySelector("body").appendChild(div);
+            setTimeout(()=>{
+                div.remove();
+            }, 3000);
         }
     </script>
     <?php 
