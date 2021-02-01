@@ -465,8 +465,12 @@
 
         function changeDate(num){
             creneauxIndex += num;
-            if(creneauxIndex < 0 || creneauxIndex > creneaux.length - 1){
-                creneauxIndex -= num;
+            if(creneauxIndex < 0){
+                date.setDate(date.getDate() - 1);
+                creneauxIndex = creneaux.length-1;
+            }else if(creneauxIndex > creneaux.length - 1){
+                date.setDate(date.getDate() + 1);
+                creneauxIndex = 0;
             }
             document.querySelector("#actualDate").innerHTML = actualDate();
             setAbsences();
