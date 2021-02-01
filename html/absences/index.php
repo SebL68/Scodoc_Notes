@@ -295,7 +295,13 @@
 /*********************************************/
 /* Récupère et traite les listes d'étudiants du département */
 /*********************************************/		
-        async function selectDepartment(departement){
+        var departement = "";
+        var semestre = "";
+        var matiere = "";
+        var dataEtudiants;
+
+        async function selectDepartment(dep){
+            departement = dep;
 			let data = await fetchData("semestresDépartement&dep="+departement);
 			
 			let select = document.querySelector("#semestre");
@@ -322,8 +328,8 @@
             }
 		}
 		
-		async function selectSemester(semestre){
-			let departement = document.querySelector("#departement").value;
+		async function selectSemester(sem){
+            semestre = sem;
             let data = await fetchData(`UEEtModules&dep=${departement}&semestre=${semestre}`);
 
 			let select = document.querySelector("#matiere");
@@ -358,7 +364,8 @@
             getStudentsListes();
 		}
         
-        async function selectMatiere(matiere){
+        async function selectMatiere(mat){
+            matiere = mat;
             document.querySelector(".contenu").classList.add("ready");
             document.querySelector("#matiere").classList.remove("highlight");
             /* Gestion du storage remettre le même état au retour */
@@ -366,23 +373,10 @@
         }
 
         async function getStudentsListes(){
-            let departement = document.querySelector("#departement").value;
-            let semestre = document.querySelector("#semestre").value;
-            let etudiants = await fetchData(`listeEtudiantsSemestre&dep=${departement}&semestre=${semestre}&absences=true`);
-            document.querySelector(".contenu").innerHTML = createSemester(etudiants);
+            dataEtudiants = await fetchData(`listeEtudiantsSemestre&dep=${departement}&semestre=${semestre}&absences=true`);
+            document.querySelector(".contenu").innerHTML = createSemester(dataEtudiants);
 
-            var date =  ISODate();
-
-            for(var etudiant in etudiants.absences){
-                etudiants.absences[etudiant].forEach(function(absence){
-                    if(absence.date == date
-                     && absence.creneau == creneaux[creneauxIndex]) {
-                        document.querySelector(`[data-email="${etudiant}"]`).classList.toggle("absent");
-                    }
-                });
-                
-            };
-            
+            setAbsences();  
         }
 
         function clearStorage(keys){
@@ -475,20 +469,45 @@
                 creneauxIndex -= num;
             }
             document.querySelector("#actualDate").innerHTML = actualDate();
+            setAbsences();
         }
 
         async function absent(obj){
+
+            var date = ISODate();
+
             if(obj.classList.toggle("absent")){
                 var statut = "absent";
+                var structure =  {
+                    "date": ISODate(),
+                    "creneau": creneaux[creneauxIndex],
+                    "statut": statut
+                };
+                // Ajouter l'absence au tableau
+                if(dataEtudiants.absences[obj.dataset.email]){
+                    dataEtudiants.absences[obj.dataset.email].push(structure);
+                }else{
+                    dataEtudiants.absences[obj.dataset.email] = [structure];
+                }
+                
             } else {
                 var statut = "présent";
+                var index = null;
+
+                // Supprimer l'absence du tableau
+                for(var i = 0, n = dataEtudiants.absences[obj.dataset.email].length ; i < n ; i++){
+                    if(dataEtudiants.absences[obj.dataset.email][i].date == date && dataEtudiants.absences[obj.dataset.email][i].creneau == creneaux[creneauxIndex]){
+                        dataEtudiants.absences[obj.dataset.email].splice(i, 1);
+                        break;
+                    }
+                }
             }
             let response = await fetchData("setAbsence" + 
-                "&dep=" + document.querySelector("#departement").value +
-                "&semestre=" + document.querySelector("#semestre").value +
-                "&matiere=" + document.querySelector("#matiere").value +
+                "&dep=" + departement +
+                "&semestre=" + semestre +
+                "&matiere=" + matiere +
                 "&etudiant=" + obj.dataset.email +
-                "&date=" + ISODate() + // Date ISO du type : 2021-01-28T15:38:04.622Z -- on ne récupère que le jour.
+                "&date=" + date +
                 "&creneau=" + creneaux[creneauxIndex] +
                 "&statut=" + statut
             );
@@ -497,7 +516,24 @@
             }
         }
 
+        function setAbsences(){
+            document.querySelectorAll(".absent").forEach(e=>e.classList.remove("absent"));
+
+            var date = ISODate();
+
+            for(var etudiant in dataEtudiants.absences){
+                dataEtudiants.absences[etudiant].forEach(function(absence){
+                    if(absence.date == date
+                     && absence.creneau == creneaux[creneauxIndex]) {
+                        document.querySelector(`[data-email="${etudiant}"]`).classList.add("absent");
+                    }
+                });
+                
+            };
+        }
+
         function ISODate(){
+            // Date ISO du type : 2021-01-28T15:38:04.622Z -- on ne récupère que AAAA-MM-JJ.
             return date.toISOString().split("T")[0];
         }
     </script>
