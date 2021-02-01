@@ -46,10 +46,15 @@
 			if(!$trouve){
 				$json[] = newAbsence($enseignant, $matiere, $date, $creneau, $statut);
 			}
-			file_put_contents(
-				$file, 
-				json_encode($json)
-			);
+			if(count($json) == 0){
+				unlink($file);
+			}else{
+				file_put_contents(
+					$file, 
+					json_encode($json)
+				);
+			}
+			
 		}
 	}
 
