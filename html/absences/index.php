@@ -108,6 +108,9 @@
             20%{transform: translate(-50%, 100%)}
             80%{transform: translate(-50%, 100%)}
         }
+        .capitalize{
+            text-transform: capitalize;
+        }
 /**********************/
 /*   Zones de choix   */
 /**********************/
@@ -497,11 +500,25 @@
         }
 
         async function absent(obj){
-            if(dataEtudiants.absences[obj.dataset.email]?.enseignant ||session != session){
-                return message("Vous ne pouvez changer l'absence d'un autre enseignant : " + session.split("@")[0].replace(/./g, " "));
-            }
+            
             var date = ISODate();
+            var numAbsence = null;
+            var absencesEtudiant = dataEtudiants.absences[obj.dataset.email];
+        // Recherche s'il y a une absence et si un autre enseignant l'a entré
+            if(absencesEtudiant){
+                for(let i = 0, n = absencesEtudiant.length ; i < n ; i++){
+                    if(absencesEtudiant[i].date == date && absencesEtudiant[i].creneau == creneaux[creneauxIndex]){
+                        numAbsence = i;
+                        break;
+                    }
+                }
 
+                if((absencesEtudiant[numAbsence]?.enseignant || session) != session){
+                    return message("Vous ne pouvez changer l'absence d'un autre enseignant : <span class=capitalize>" + absencesEtudiant[numAbsence].enseignant.split("@")[0].replace(/[.]/g, " ") + "</span>");
+                }
+            }
+        
+        // Toggle de l'absence
             if(obj.classList.toggle("absent")){
                 var statut = "absent";
                 var structure = {
@@ -510,24 +527,20 @@
                     "statut": statut
                 };
                 // Ajouter l'absence au tableau
-                if(dataEtudiants.absences[obj.dataset.email]){
-                    dataEtudiants.absences[obj.dataset.email].push(structure);
+                if(absencesEtudiant){
+                    absencesEtudiant.push(structure);
                 }else{
-                    dataEtudiants.absences[obj.dataset.email] = [structure];
+                    absencesEtudiant = [structure];
                 }
                 
             } else {
                 var statut = "présent";
-                var index = null;
-
                 // Supprimer l'absence du tableau
-                for(var i = 0, n = dataEtudiants.absences[obj.dataset.email].length ; i < n ; i++){
-                    if(dataEtudiants.absences[obj.dataset.email][i].date == date && dataEtudiants.absences[obj.dataset.email][i].creneau == creneaux[creneauxIndex]){
-                        dataEtudiants.absences[obj.dataset.email].splice(i, 1);
-                        break;
-                    }
-                }
+                dataEtudiants.absences[obj.dataset.email].splice(numAbsence, 1);
+
             }
+
+        // Sauvegarde de l'absence sur le serveur
             let response = await fetchData("setAbsence" + 
                 "&dep=" + departement +
                 "&semestre=" + semestre +
