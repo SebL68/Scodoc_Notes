@@ -530,13 +530,13 @@
                 if(absencesEtudiant){
                     absencesEtudiant.push(structure);
                 }else{
-                    absencesEtudiant = [structure];
+                    dataEtudiants.absences = [structure];
                 }
                 
             } else {
                 var statut = "présent";
                 // Supprimer l'absence du tableau
-                dataEtudiants.absences[obj.dataset.email].splice(numAbsence, 1);
+                absencesEtudiant?.splice(numAbsence, 1);
 
             }
 
