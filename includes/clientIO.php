@@ -17,15 +17,15 @@ Gère la déconnexion et les messages d'erreur
 function fetchData(query){
 	document.querySelector(".wait").style.display = "block";
 	let token = (window.location.search.match(/token=([a-zA-Z0-9._-]+)/)?.[1] || ""); // Récupération d'un token GET pour le passer au service
-	if(token){
-		var postData = new FormData();
-		postData.append('token', token);
-	}
+
 	return fetch(
 		"/services/data.php?q="+query, 
 		{
 			method: "post",
-			body: token ? postData : ""
+			headers: {
+				"Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+			},
+			body: token ? "token="+token : ""
 		}
 	)
 	.then(res => { return res.json() })

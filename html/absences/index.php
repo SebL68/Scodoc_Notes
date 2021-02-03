@@ -91,6 +91,26 @@
             opacity: initial;
             pointer-events: initial;
         }
+        .message{
+            position: fixed;
+            bottom: 100%;
+            left: 50%;
+            z-index: 10;
+            padding: 20px;
+            border-radius: 0 0 10px 10px;
+            background: #ec7068;
+            color: #FFF;
+            font-size: 24px;
+            animation: message 3s;
+            transform: translate(-50%, 0);
+        }
+        @keyframes message{
+            20%{transform: translate(-50%, 100%)}
+            80%{transform: translate(-50%, 100%)}
+        }
+        .capitalize{
+            text-transform: capitalize;
+        }
 /**********************/
 /*   Zones de choix   */
 /**********************/
@@ -219,6 +239,7 @@
         .excuse::before{
             content: "Excusé";
         }
+
     </style>
     <meta name=description content="Gestion des absences de l'IUT de Mulhouse">
 </head>
@@ -271,9 +292,11 @@
 		?>
 /*********************************************/
 /* Vérifie l'identité de la personne et son statut
-/*********************************************/			
+/*********************************************/		
+        var session = "";
         async function checkStatut(){
             let data = await fetchData("donnéesAuthentification");
+            session = data.session;
             document.querySelector(".prenom").innerText = data.session.split(".")[0];
             let auth = document.querySelector(".auth");
             auth.style.opacity = "0";
@@ -295,7 +318,13 @@
 /*********************************************/
 /* Récupère et traite les listes d'étudiants du département */
 /*********************************************/		
-        async function selectDepartment(departement){
+        var departement = "";
+        var semestre = "";
+        var matiere = "";
+        var dataEtudiants;
+
+        async function selectDepartment(dep){
+            departement = dep;
 			let data = await fetchData("semestresDépartement&dep="+departement);
 			
 			let select = document.querySelector("#semestre");
@@ -322,8 +351,8 @@
             }
 		}
 		
-		async function selectSemester(semestre){
-			let departement = document.querySelector("#departement").value;
+		async function selectSemester(sem){
+            semestre = sem;
             let data = await fetchData(`UEEtModules&dep=${departement}&semestre=${semestre}`);
 
 			let select = document.querySelector("#matiere");
@@ -358,7 +387,8 @@
             getStudentsListes();
 		}
         
-        async function selectMatiere(matiere){
+        async function selectMatiere(mat){
+            matiere = mat;
             document.querySelector(".contenu").classList.add("ready");
             document.querySelector("#matiere").classList.remove("highlight");
             /* Gestion du storage remettre le même état au retour */
@@ -366,23 +396,10 @@
         }
 
         async function getStudentsListes(){
-            let departement = document.querySelector("#departement").value;
-            let semestre = document.querySelector("#semestre").value;
-            let etudiants = await fetchData(`listeEtudiantsSemestre&dep=${departement}&semestre=${semestre}&absences=true`);
-            document.querySelector(".contenu").innerHTML = createSemester(etudiants);
+            dataEtudiants = await fetchData(`listeEtudiantsSemestre&dep=${departement}&semestre=${semestre}&absences=true`);
+            document.querySelector(".contenu").innerHTML = createSemester(dataEtudiants);
 
-            var date =  ISODate();
-
-            for(var etudiant in etudiants.absences){
-                etudiants.absences[etudiant].forEach(function(absence){
-                    if(absence.date == date
-                     && absence.creneau == creneaux[creneauxIndex]) {
-                        document.querySelector(`[data-email="${etudiant}"]`).classList.toggle("absent");
-                    }
-                });
-                
-            };
-            
+            setAbsences();  
         }
 
         function clearStorage(keys){
@@ -471,24 +488,65 @@
 
         function changeDate(num){
             creneauxIndex += num;
-            if(creneauxIndex < 0 || creneauxIndex > creneaux.length - 1){
-                creneauxIndex -= num;
+            if(creneauxIndex < 0){
+                date.setDate(date.getDate() - 1);
+                creneauxIndex = creneaux.length-1;
+            }else if(creneauxIndex > creneaux.length - 1){
+                date.setDate(date.getDate() + 1);
+                creneauxIndex = 0;
             }
             document.querySelector("#actualDate").innerHTML = actualDate();
+            setAbsences();
         }
 
         async function absent(obj){
+            
+            var date = ISODate();
+            var numAbsence = null;
+            var absencesEtudiant = dataEtudiants.absences[obj.dataset.email];
+        // Recherche s'il y a une absence et si un autre enseignant l'a entré
+            if(absencesEtudiant){
+                for(let i = 0, n = absencesEtudiant.length ; i < n ; i++){
+                    if(absencesEtudiant[i].date == date && absencesEtudiant[i].creneau == creneaux[creneauxIndex]){
+                        numAbsence = i;
+                        break;
+                    }
+                }
+
+                if((absencesEtudiant[numAbsence]?.enseignant || session) != session){
+                    return message("Vous ne pouvez changer l'absence d'un autre enseignant : <span class=capitalize>" + absencesEtudiant[numAbsence].enseignant.split("@")[0].replace(/[.]/g, " ") + "</span>");
+                }
+            }
+        
+        // Toggle de l'absence
             if(obj.classList.toggle("absent")){
                 var statut = "absent";
+                var structure = {
+                    "date": ISODate(),
+                    "creneau": creneaux[creneauxIndex],
+                    "statut": statut
+                };
+                // Ajouter l'absence au tableau
+                if(absencesEtudiant){
+                    absencesEtudiant.push(structure);
+                }else{
+                    dataEtudiants.absences = [structure];
+                }
+                
             } else {
                 var statut = "présent";
+                // Supprimer l'absence du tableau
+                absencesEtudiant?.splice(numAbsence, 1);
+
             }
+
+        // Sauvegarde de l'absence sur le serveur
             let response = await fetchData("setAbsence" + 
-                "&dep=" + document.querySelector("#departement").value +
-                "&semestre=" + document.querySelector("#semestre").value +
-                "&matiere=" + document.querySelector("#matiere").value +
+                "&dep=" + departement +
+                "&semestre=" + semestre +
+                "&matiere=" + matiere +
                 "&etudiant=" + obj.dataset.email +
-                "&date=" + ISODate() + // Date ISO du type : 2021-01-28T15:38:04.622Z -- on ne récupère que le jour.
+                "&date=" + date +
                 "&creneau=" + creneaux[creneauxIndex] +
                 "&statut=" + statut
             );
@@ -497,8 +555,35 @@
             }
         }
 
+        function setAbsences(){
+            document.querySelectorAll(".absent").forEach(e=>e.classList.remove("absent"));
+
+            var date = ISODate();
+
+            for(var etudiant in dataEtudiants.absences){
+                dataEtudiants.absences[etudiant].forEach(function(absence){
+                    if(absence.date == date
+                     && absence.creneau == creneaux[creneauxIndex]) {
+                        document.querySelector(`[data-email="${etudiant}"]`).classList.add("absent");
+                    }
+                });
+                
+            };
+        }
+
         function ISODate(){
+            // Date ISO du type : 2021-01-28T15:38:04.622Z -- on ne récupère que AAAA-MM-JJ.
             return date.toISOString().split("T")[0];
+        }
+
+        function message(msg){
+            var div = document.createElement("div");
+            div.className = "message";
+            div.innerHTML = msg;
+            document.querySelector("body").appendChild(div);
+            setTimeout(()=>{
+                div.remove();
+            }, 3000);
         }
     </script>
     <?php 
