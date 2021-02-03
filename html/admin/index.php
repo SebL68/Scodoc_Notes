@@ -84,8 +84,8 @@
         }
         .contenu{
             opacity: 0.5;
-            pointer-events: none;
-            user-select: none;
+            /*pointer-events: none;*/
+            /*user-select: none;*/
         }
         .ready{
             opacity: initial;
@@ -164,6 +164,26 @@
             content: counter(cpt) " - ";
             display: inline-block;
         }
+
+/*********************/
+/* Listes vacataires */
+/*********************/
+        .mail{
+            display: none;
+        }
+        .modif{ 
+            background: #0C9;
+        }
+
+        .hide{
+            display: none;
+        }
+        .show{
+            display: block;
+        }
+
+
+
     </style>
     <meta name=description content="Gestion des vacataires de l'IUT de Mulhouse">
 </head>
@@ -242,19 +262,90 @@
         }
 
         function createContractors(liste){
-			var output = "";
+            var output = `
+                        <div onclick="addContractor()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3zM12 8v8m-4-4h8"/></svg>
+                            Ajouter un vacataire
+                        </div>`;
 
             liste.forEach(vacataire=>{
                 let prenom=vacataire.split("@")[0].split(".")[0];
                 let nom=vacataire.split("@")[0].split(".")[1];
 				output += `
-					<div class="vacataire">
-                        <b>${prenom}&nbsp;${nom}</b>
+                    <div class="vacataire" data-email="${vacataire}">
+                        <div class="nom">
+                            <span><b>${prenom}&nbsp;${nom}</b></span>
+                            <svg onclick=editContractor(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="blue" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Modifier</title><polygon points="14 2 18 6 7 17 3 17 3 13 14 2"></polygon><line x1="3" y1="22" x2="21" y2="22"></line></svg>
+                            <svg onclick=deleteContractor(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Supprimer</title><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path><line x1="18" y1="9" x2="12" y2="15"></line><line x1="12" y1="9" x2="18" y2="15"></line></svg>
+                        </div>
+                        <div class="mail">
+                            <input type="email" value="${vacataire}" required>
+                            <svg onclick=validContractor(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Valider</title><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+                            <svg onclick=cancel(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Annuler</title><path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38"/></svg>
+                        </div>
                     </div>
 				`;
             });
 
             return output;
+        }
+
+        function addContractor(){
+
+
+        }
+
+        function editContractor(obj){
+            let vac=obj.closest("div.vacataire");
+
+            if(document.querySelectorAll("div.mail.show").length)
+                document.querySelector("div.mail.show").classList.remove("show");
+            if(document.querySelectorAll("div.nom.hide").length)
+                document.querySelector("div.nom.hide").classList.remove("hide");
+
+            vac.querySelector("div.nom").classList.add("hide");
+            vac.querySelector("div.mail").classList.add("show");
+            vac.querySelector("input").focus();
+        }
+
+        async function deleteContractor(obj){
+            let vac=obj.closest("div.vacataire");
+            let departement=localStorage.getItem('departement');
+            let email=vac.getAttribute("data-email");
+
+            let response = await fetchData("supVacataire&dep="+departement+"&email="+email);
+
+            if(response.result != "OK"){
+                displayError(response.result);
+            }
+            else{   // Rechargement de la liste à partir du serveur
+                let vacataires = await fetchData("listeVacataires&dep="+departement);
+                document.querySelector(".contenu").innerHTML = createContractors(vacataires);  
+            }
+        }
+
+        async function validContractor(obj){
+            let vac=obj.closest("div.vacataire");
+            let departement=localStorage.getItem('departement');
+            let oldEmail=vac.getAttribute("data-email");
+            let newEmail=vac.querySelector("input").value;
+
+            let response = await fetchData("modifVacataire&dep="+departement+"&ancienMail="+oldEmail+"&nouveauMail="+newEmail);
+            
+            if(response.result != "OK"){
+                displayError(response.result);
+            }
+            else{   // Rechargement de la liste à partir du serveur
+                let vacataires = await fetchData("listeVacataires&dep="+departement);
+                document.querySelector(".contenu").innerHTML = createContractors(vacataires);  
+            }
+        }
+
+        function cancel(obj){
+            let vac=obj.closest("div.vacataire");
+            vac.querySelector("div.mail").classList.remove("show");
+            vac.querySelector("div.nom").classList.remove("hide"); 
+            vac.querySelector("input").value=vac.getAttribute("data-email");
         }
         
     </script>

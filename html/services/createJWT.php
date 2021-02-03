@@ -23,7 +23,7 @@
 
 	$payload = [
 		'session' => 'denis.graef@uha.fr', // mail de la personne destinataire du jeton
-		'statut' => ADMINISTRATEUR, // ETUDIANT | PERSONNEL | ADMINISTRATEUR | INCONNU
+		'statut' => 'administrateur', // ETUDIANT | PERSONNEL | ADMINISTRATEUR | INCONNU
 		//'exp' => 1608498444 // (optionnel) timestamp d'expiration du tocken 
 	];
 	echo JWT::encode($payload, $key);

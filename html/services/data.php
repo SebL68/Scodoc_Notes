@@ -86,6 +86,14 @@
 	Récupère la liste des vacataires d'un département
 			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=listeVacataires&dep=MMI
 
+	0	set modifVacataire :
+	Modifie l'adresse mail d'un vacataire existant dans un département
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=modifVataire&dep=MMI&ancienMail=ancien.nom@uha.fr&nouveau.nom@uha.fr
+			
+	0	set supVacataire :
+	Supprime l'adresse mail d'un vacataire existant dans un département
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=supVataire&dep=MMI&email=prenom.nom@uha.fr
+
 *******************************/
 	if(isset($_GET['q'])){
 		switch($_GET['q']){
@@ -209,6 +217,16 @@
 			case 'listeVacataires':
 				if($authData->statut < ADMINISTRATEUR ){ returnError(); }
 				$output = listeVacataires($_GET['dep']);
+				break;
+
+			case 'modifVacataire':
+				if($authData->statut < ADMINISTRATEUR ){ returnError(); }
+				$output = modifVacataire($_GET['dep'], $_GET['ancienMail'], $_GET['nouveauMail']);
+				break;
+
+			case 'supVacataire':
+				if($authData->statut < ADMINISTRATEUR ){ returnError(); }
+				$output = supVacataire($_GET['dep'], $_GET['email']);
 				break;
 
 		}	
