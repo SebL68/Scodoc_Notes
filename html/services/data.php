@@ -87,7 +87,7 @@
 			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=listeVacataires&dep=MMI
 
 	0	set modifVacataire :
-	Modifie l'adresse mail d'un vacataire existant dans un département
+	Enregistre l'adresse mail d'un vacataire existant ou nouveau dans un département
 			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=modifVataire&dep=MMI&ancienMail=ancien.nom@uha.fr&nouveau.nom@uha.fr
 			
 	0	set supVacataire :

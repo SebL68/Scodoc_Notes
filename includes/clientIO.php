@@ -9,6 +9,11 @@
   foreach($CONSTANTES as $const => $val) {
     echo "const $const = $val;";
   }
+
+  /******************************************************/
+  /* Définition de la constante du domaine DNS de l'UFR */
+  /******************************************************/
+  echo "const DNS = '$DNS'";
 ?>
 /*********************************************/
 /* Fonction de communication avec le serveur

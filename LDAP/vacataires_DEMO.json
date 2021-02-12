@@ -2,79 +2,79 @@
   "GEA": {
     "mail": "gea.iutmulhouse@uha.fr",
     "vacataires": [
-      "vac1.GEA@uha.fr",
-      "vac2.GEA@uha.fr",
-      "vac3.GEA@uha.fr",
-      "vac4.GEA@uha.fr",
-      "vac5.GEA@uha.fr",
-      "vac6.GEA@uha.fr",
-      "vac7.GEA@uha.fr",
-      "vac8.GEA@uha.fr"
+      "vac1.gea@uha.fr",
+      "vac2.gea@uha.fr",
+      "vac3.gea@uha.fr",
+      "vac4.gea@uha.fr",
+      "vac5.gea@uha.fr",
+      "vac6.gea@uha.fr",
+      "vac7.gea@uha.fr",
+      "vac8.gea@uha.fr"
     ]
   },
   "GLT": {
     "mail": "glt.iutmulhouse@uha.fr",
     "vacataires": [
-      "vac1.GLT@uha.fr",
-      "vac2.GLT@uha.fr",
-      "vac3.GLT@uha.fr",
-      "vac4.GLT@uha.fr",
-      "vac5.GLT@uha.fr",
-      "vac6.GLT@uha.fr",
-      "vac7.GLT@uha.fr",
-      "vac8.GLT@uha.fr"
+      "vac1.glt@uha.fr",
+      "vac2.glt@uha.fr",
+      "vac3.glt@uha.fr",
+      "vac4.glt@uha.fr",
+      "vac5.glt@uha.fr",
+      "vac6.glt@uha.fr",
+      "vac7.glt@uha.fr",
+      "vac8.glt@uha.fr"
     ]
   },
   "MMI": {
     "mail": "mmi.iutmulhouse@uha.fr",
     "vacataires": [
-      "vac1.MMI@uha.fr",
-      "vac2.MMI@uha.fr",
-      "vac3.MMI@uha.fr",
-      "vac4.MMI@uha.fr",
-      "vac5.MMI@uha.fr",
-      "vac6.MMI@uha.fr",
-      "vac7.MMI@uha.fr",
-      "vac8.MMI@uha.fr"
+      "vac1.mmi@uha.fr",
+      "vac2.mmi@uha.fr",
+      "vac3.mmi@uha.fr",
+      "vac4.mmi@uha.fr",
+      "vac5.mmi@uha.fr",
+      "vac6.mmi@uha.fr",
+      "vac7.mmi@uha.fr",
+      "vac8.mmi@uha.fr"
     ]
   },
   "GEII": {
     "mail": "geii.iutmulhouse@uha.fr",
     "vacataires": [
-      "vac1.GEII@uha.fr",
-      "vac2.GEII@uha.fr",
-      "vac3.GEII@uha.fr",
-      "vac4.GEII@uha.fr",
-      "vac5.GEII@uha.fr",
-      "vac6.GEII@uha.fr",
-      "vac7.GEII@uha.fr",
-      "vac8.GEII@uha.fr"
+      "vac1.geii@uha.fr",
+      "vac2.geii@uha.fr",
+      "vac3.geii@uha.fr",
+      "vac4.geii@uha.fr",
+      "vac5.geii@uha.fr",
+      "vac6.geii@uha.fr",
+      "vac7.geii@uha.fr",
+      "vac8.geii@uha.fr"
     ]
   },
   "GMP": {
     "mail": "gmp.iutmulhouse@uha.fr",
     "vacataires": [
-      "vac1.GMP@uha.fr",
-      "vac2.GMP@uha.fr",
-      "vac3.GMP@uha.fr",
-      "vac4.GMP@uha.fr",
-      "vac5.GMP@uha.fr",
-      "vac6.GMP@uha.fr",
-      "vac7.GMP@uha.fr",
-      "vac8.GMP@uha.fr"
+      "vac1.gmp@uha.fr",
+      "vac2.gmp@uha.fr",
+      "vac3.gmp@uha.fr",
+      "vac4.gmp@uha.fr",
+      "vac5.gmp@uha.fr",
+      "vac6.gmp@uha.fr",
+      "vac7.gmp@uha.fr",
+      "vac8.gmp@uha.fr"
     ]
   },
   "SGM": {
     "mail": "sgm.iutmulhouse@uha.fr",
     "vacataires": [
-      "vac1.SGM@uha.fr",
-      "vac2.SGM@uha.fr",
-      "vac3.SGM@uha.fr",
-      "vac4.SGM@uha.fr",
-      "vac5.SGM@uha.fr",
-      "vac6.SGM@uha.fr",
-      "vac7.SGM@uha.fr",
-      "vac8.SGM@uha.fr"
+      "vac1.sgm@uha.fr",
+      "vac2.sgm@uha.fr",
+      "vac3.sgm@uha.fr",
+      "vac4.sgm@uha.fr",
+      "vac5.sgm@uha.fr",
+      "vac6.sgm@uha.fr",
+      "vac7.sgm@uha.fr",
+      "vac8.sgm@uha.fr"
     ]
   }
 }
