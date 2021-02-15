@@ -271,7 +271,6 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
             ?>
         </select>
 
-
         <div class=contenu></div>
         <div class=wait></div>
 
@@ -327,6 +326,7 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
         /**************************************************/
         function createContractors(liste) {
             let dns = '@' + DNS;
+            // Pour ajouter un vacataire
             var output = `
                     <div class="vacataire" data-email="" data-nom="" data-prenom="">
                         <div class="nom" onclick="modifContractor(this)">
@@ -358,7 +358,7 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
                             <svg onclick=cancel(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Annuler</title><path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38"/></svg>
                         </div>
                         <div class="mail hide">
-                            <input type="email" value="${prenom}.${nom}" required><b>${dns}</b>
+                            <input type="email" value="${prenom}.${nom}" placeholder="prénom.nom" required><b>${dns}</b>
                             <svg onclick=processContractor(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Valider</title><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
                             <svg onclick=cancel(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Annuler</title><path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38"/></svg>
                         </div>
@@ -375,13 +375,10 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
         function modifContractor(obj) {
             let vac = obj.closest("div.vacataire");
 
-            if (document.querySelectorAll("div.nom.hide").length)
-                document.querySelector("div.nom.hide").classList.remove("hide");
-            if (document.querySelectorAll("div.confirm.show").length)
-                document.querySelector("div.confirm.show").classList.remove("show");
-            if (document.querySelectorAll("div.mail.show").length)
-                document.querySelector("div.mail.show").classList.remove("show");
-
+            document.querySelector("div.nom.hide")?.classList.remove("hide");
+            document.querySelector("div.confirm.show")?.classList.remove("show");
+            document.querySelector("div.mail.show")?.classList.remove("show");
+            
             vac.querySelector("div.nom").classList.add("hide");
             vac.querySelector("div.mail").classList.add("show");
             vac.querySelector("input").focus();
@@ -402,16 +399,16 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
                 message(`Le nom du vacataire "${newEmail}" n'est pas conforme`);
                 return;
             }
-            newEmail += '@' + DNS;;
+            newEmail += '@' + DNS;
 
             if (newEmail == oldEmail) { // Si pas de changement
                 cancel(obj);
                 return;
             }
 
-            listeVacataires.forEach(function(vacataire) {
-                if (vacataire.getAttribute("data-email") == newEmail) { // Si le vacataire existe déjà
-                    message(`Vacataire ${newEmail} déjà enregistré dans le département`);
+            listeVacataires.forEach(vacataire => {
+                if (vacataire.getAttribute("data-email") == newEmail) { // Si le nouveau vacataire existe déjà
+                    message(`Le vacataire "${newEmail}" est déjà enregistré dans le département`);
                     return;
                 }
             });
@@ -431,10 +428,8 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
         async function deleteContractor(obj) {
             let vac = obj.closest("div.vacataire");
 
-            if (document.querySelectorAll("div.nom.show").length)
-                document.querySelector("div.nom.show").classList.remove("show");
-            if (document.querySelectorAll("div.mail.show").length)
-                document.querySelector("div.mail.show").classList.remove("show");
+            document.querySelector("div.nom.show")?.classList.remove("show");
+            document.querySelector("div.mail.show")?.classList.remove("show");
 
             if (vac.querySelector("div.confirm").classList.contains("show")) { // Suppression du vacataire confirmée
                 let departement = localStorage.getItem('departement');
@@ -449,10 +444,8 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
                     document.querySelector(".contenu").innerHTML = createContractors(vacataires);
                 }
             } else { // Affichage de la demande de confirmation
-                if (document.querySelectorAll("div.confirm.show").length)
-                    document.querySelector("div.confirm.show").classList.remove("show");
-                if (document.querySelectorAll("div.nom.hide").length)
-                    document.querySelector("div.nom.hide").classList.remove("hide");
+                document.querySelector("div.confirm.show")?.classList.remove("show");
+                document.querySelector("div.nom.hide")?.classList.remove("hide");
 
                 vac.querySelector("div.confirm").classList.add("show");
                 vac.querySelector("div.nom").classList.add("hide");
