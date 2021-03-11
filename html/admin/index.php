@@ -9,6 +9,21 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administration</title>
     <style>
+/*
+    text-align: left;
+    border-radius: 10px;
+    box-shadow: 0 2px 2px 2px #ddd;
+    border: 1px solid transparent;
+    background: #FFF;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+    transition: 0.1s;
+    display: flex;
+    gap: 5px;
+*/
+
+
         * {
             box-sizing: border-box;
         }
@@ -98,14 +113,15 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
         }
 
         .contenu {
-            opacity: 0.5;
-            /*pointer-events: none;*/
-            /*user-select: none;*/
+/*            opacity: 0.5;
+            pointer-events: none;
+            user-select: none;  */
         }
 
-        .ready {
-            opacity: initial;
-            pointer-events: initial;
+        .flex{
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
         }
 
         /**********************/
@@ -135,72 +151,43 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
             }
         }
 
-        /*******************************/
-        /* Listes étudiants */
-        /*******************************/
-        .flex {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-        }
+        /********************/
+        /* Liste vacataires */
+        /********************/
+        .vacataire {
+            /*opacity: 0.5;*/
+            /*pointer-events: none;*/
+            user-select: none;
 
-        .groupes {
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .groupe {
+            border-radius: 10px;
+            box-shadow: 0 2px 2px 2px #ddd;
+            border: 1px solid transparent;
+            background: #FFF;
+            padding: 10px 20px;
+            margin: 10px;
             cursor: pointer;
+            transition: 0.1s;
+        }
+
+        .ready {
+            /*opacity: initial;*/
+            /*pointer-events: initial;*/
+            background: #9FC;
+        }
+
+        .nom, .mail, .confirm {
             display: flex;
+            justify-content: space-between;
+        }
+
+        .nom, .mail, .confirm {
             align-items: center;
-            gap: 4px;
-            padding: 10px;
-            margin: 2px;
-            background: #09C;
-            color: #FFF;
-            border-radius: 8px;
         }
 
-        @media screen and (max-width: 700px) {
-            .flex {
-                flex-direction: column-reverse;
-                align-items: center;
-            }
-
-            .groupes {
-                margin-right: 20px;
-                justify-content: center;
-            }
+        svg {
+            margin-left: 10px;
         }
 
-        .selected {
-            opacity: 0.5;
-        }
-
-        /*        .hide{
-            display: none !important;
-        }
-*/
-        .etudiants {
-            counter-reset: cpt;
-        }
-
-        .etudiants>div::before {
-            counter-increment: cpt;
-            content: counter(cpt) " - ";
-            display: inline-block;
-        }
-
-        /*********************/
-        /* Listes vacataires */
-        /*********************/
-        /*.mail{
-            display: none;
-        }
-        .nom>.confirm{
-            display:none
-        }*/
         .modif {
             background: #0C9;
         }
@@ -210,7 +197,7 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
         }
 
         .show {
-            display: block;
+            display: flex;
         }
 
         .inline {
@@ -271,7 +258,9 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
             ?>
         </select>
 
-        <div class=contenu></div>
+        <div class=contenu>
+            <div class=flex></div>
+        </div>
         <div class=wait></div>
 
     </main>
@@ -315,7 +304,9 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
         async function selectDepartment(departement) {
             let vacataires = await fetchData("listeVacataires&dep=" + departement);
 
-            document.querySelector(".contenu").innerHTML = createContractors(vacataires);
+            document.querySelector(".flex").innerHTML = createContractors(vacataires);
+            
+            document.querySelector("#departement").classList.remove("highlight");
 
             /* Gestion du storage remettre le même état au retour */
             localStorage.setItem('departement', departement);
@@ -330,8 +321,8 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
             var output = `
                     <div class="vacataire" data-email="" data-nom="" data-prenom="">
                         <div class="nom" onclick="modifContractor(this)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3zM12 8v8m-4-4h8"/></svg>
                             Ajouter un vacataire
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3zM12 8v8m-4-4h8"/></svg>
                         </div>
                         <div class="confirm hide"></div>
                         <div class="mail hide">
@@ -348,25 +339,33 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
                 output += `
                     <div class="vacataire" data-email="${vacataire}" data-nom="${nom}" data-prenom="${prenom}">
                         <div class="nom">
-                            <span><b>${prenom}&nbsp;${nom}</b></span>
-                            <svg onclick=modifContractor(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="blue" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Modifier</title><polygon points="14 2 18 6 7 17 3 17 3 13 14 2"></polygon><line x1="3" y1="22" x2="21" y2="22"></line></svg>
-                            <svg onclick=deleteContractor(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Supprimer</title><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path><line x1="18" y1="9" x2="12" y2="15"></line><line x1="12" y1="9" x2="18" y2="15"></line></svg>
+                            <span><b>${nom}&nbsp;${prenom}</b></span>
+                            <span>
+                                <svg onclick=modifContractor(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="blue" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Modifier</title><polygon points="14 2 18 6 7 17 3 17 3 13 14 2"></polygon><line x1="3" y1="22" x2="21" y2="22"></line></svg>
+                                <svg onclick=deleteContractor(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Supprimer</title><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path><line x1="18" y1="9" x2="12" y2="15"></line><line x1="12" y1="9" x2="18" y2="15"></line></svg>
+                            </span>
                         </div>
                         <div class="confirm hide">
                             <span>Suppression de : <b>${prenom}&nbsp;${nom}</b></span>
-                            <svg onclick=deleteContractor(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Supprimer</title><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path><line x1="18" y1="9" x2="12" y2="15"></line><line x1="12" y1="9" x2="18" y2="15"></line></svg>
-                            <svg onclick=cancel(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Annuler</title><path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38"/></svg>
+                            <span>
+                                <svg onclick=deleteContractor(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Supprimer</title><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path><line x1="18" y1="9" x2="12" y2="15"></line><line x1="12" y1="9" x2="18" y2="15"></line></svg>
+                                <svg onclick=cancel(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Annuler</title><path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38"/></svg>
+                            </span>
                         </div>
                         <div class="mail hide">
-                            <input type="email" value="${prenom}.${nom}" placeholder="prénom.nom" required><b>${dns}</b>
-                            <svg onclick=processContractor(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Valider</title><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
-                            <svg onclick=cancel(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Annuler</title><path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38"/></svg>
+                            <span>
+                                <input type="email" value="${prenom}.${nom}" placeholder="prénom.nom" required><b>${dns}</b>
+                            </span>
+                            <span>
+                                <svg onclick=processContractor(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Valider</title><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+                                <svg onclick=cancel(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Annuler</title><path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38"/></svg>
+                            </span>
                         </div>
                     </div>
 				`;
             });
 
-            return output;
+            return '<div>'+output+'</div>';
         }
 
         /*******************************/
@@ -378,10 +377,12 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
             document.querySelector("div.nom.hide")?.classList.remove("hide");
             document.querySelector("div.confirm.show")?.classList.remove("show");
             document.querySelector("div.mail.show")?.classList.remove("show");
+            document.querySelector("div.vacataire.ready")?.classList.remove("ready");
             
             vac.querySelector("div.nom").classList.add("hide");
             vac.querySelector("div.mail").classList.add("show");
             vac.querySelector("input").focus();
+            vac.classList.add("ready");
         }
 
         /*****************************************/
@@ -417,7 +418,7 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 
             if (response.result == "OK") { // Rechargement de la liste à partir du serveur
                 let vacataires = await fetchData("listeVacataires&dep=" + departement);
-                document.querySelector(".contenu").innerHTML = createContractors(vacataires);
+                document.querySelector(".flex").innerHTML = createContractors(vacataires);
             } else
                 message(response.result);
         }
@@ -430,6 +431,8 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 
             document.querySelector("div.nom.show")?.classList.remove("show");
             document.querySelector("div.mail.show")?.classList.remove("show");
+            document.querySelector("div.vacataire.ready")?.classList.remove("ready");
+            vac.classList.add("ready");
 
             if (vac.querySelector("div.confirm").classList.contains("show")) { // Suppression du vacataire confirmée
                 let departement = localStorage.getItem('departement');
@@ -441,7 +444,7 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
                     message(response.result);
                 } else { // Rechargement de la liste à partir du serveur
                     let vacataires = await fetchData("listeVacataires&dep=" + departement);
-                    document.querySelector(".contenu").innerHTML = createContractors(vacataires);
+                    document.querySelector(".flex").innerHTML = createContractors(vacataires);
                 }
             } else { // Affichage de la demande de confirmation
                 document.querySelector("div.confirm.show")?.classList.remove("show");
@@ -461,6 +464,7 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
             vac.querySelector("div.confirm").classList.remove("show");
             vac.querySelector("div.nom").classList.remove("hide");
             vac.querySelector("input").value = vac.getAttribute("data-prenom") + '.' + vac.getAttribute("data-nom");
+            vac.classList.remove("ready");
         }
 
         /**************************/
