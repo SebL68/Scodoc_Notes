@@ -319,7 +319,7 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
             let dns = '@' + DNS;
             // Pour ajouter un vacataire
             var output = `
-                    <div class="vacataire" data-email="" data-nom="" data-prenom="">
+                    <div class="vacataire" data-email="">
                         <div class="nom" onclick="modifContractor(this)">
                             Ajouter un vacataire
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3zM12 8v8m-4-4h8"/></svg>
@@ -346,7 +346,7 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
                             </span>
                         </div>
                         <div class="confirm hide">
-                            <span>Suppression de : <b>${prenom}&nbsp;${nom}</b></span>
+                            <span>Suppression de : <b>${nom}&nbsp;${prenom}</b></span>
                             <span>
                                 <svg onclick=deleteContractor(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Supprimer</title><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path><line x1="18" y1="9" x2="12" y2="15"></line><line x1="12" y1="9" x2="18" y2="15"></line></svg>
                                 <svg onclick=cancel(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Annuler</title><path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38"/></svg>
@@ -463,7 +463,8 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
             vac.querySelector("div.mail").classList.remove("show");
             vac.querySelector("div.confirm").classList.remove("show");
             vac.querySelector("div.nom").classList.remove("hide");
-            vac.querySelector("input").value = vac.getAttribute("data-prenom") + '.' + vac.getAttribute("data-nom");
+            if(vac.getAttribute("data-prenom") && vac.getAttribute("nom"))
+                vac.querySelector("input").value = vac.getAttribute("data-prenom") + '.' + vac.getAttribute("data-nom");
             vac.classList.remove("ready");
         }
 
