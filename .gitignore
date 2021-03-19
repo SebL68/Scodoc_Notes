@@ -6,6 +6,7 @@ LDAP/export_biat_iutmulhouse.txt
 LDAP/export_ens_iutmulhouse.txt
 LDAP/export_etu_iutmulhouse.txt
 LDAP/vacataires.txt
+LDAP/vacataires.json
 LDAP/administrateurs.json
 
 #Configuration
