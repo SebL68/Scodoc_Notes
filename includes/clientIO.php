@@ -1,6 +1,6 @@
 <?php
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
-	include "$path/includes/config.php";
+	include_once "$path/includes/config.php";
 
   /************************************************/
   /* Définition des constantes JS liées au statut */
