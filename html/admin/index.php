@@ -9,21 +9,6 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administration</title>
     <style>
-/*
-    text-align: left;
-    border-radius: 10px;
-    box-shadow: 0 2px 2px 2px #ddd;
-    border: 1px solid transparent;
-    background: #FFF;
-    padding: 10px 20px;
-    margin: 10px;
-    cursor: pointer;
-    transition: 0.1s;
-    display: flex;
-    gap: 5px;
-*/
-
-
         * {
             box-sizing: border-box;
         }
@@ -155,8 +140,6 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
         /* Liste vacataires */
         /********************/
         .vacataire {
-            /*opacity: 0.5;*/
-            /*pointer-events: none;*/
             user-select: none;
 
             border-radius: 10px;
@@ -165,8 +148,17 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
             background: #FFF;
             padding: 10px 20px;
             margin: 10px;
-            cursor: pointer;
             transition: 0.1s;
+        }
+
+        .vacataire:first-child>.nom, .vacataire svg {
+            cursor: pointer;
+        }
+
+        .vacataire input {
+            font-size: 16px;
+            font-weight: bold;
+            padding: 5px;
         }
 
         .ready {
@@ -326,13 +318,14 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
                         </div>
                         <div class="confirm hide"></div>
                         <div class="mail hide">
-                            <input type="email" placeholder="prénom.nom" required><b>${dns}</b>
+                            <input type="email" placeholder="prenom.nom" required><b>${dns}</b>
                             <svg onclick=processContractor(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Valider</title><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
                             <svg onclick=cancel(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Annuler</title><path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38"/></svg>
                         </div>
                     </div>
                 `;
 
+            if(liste !== undefined)
             liste.forEach(vacataire => {
                 let prenom = vacataire.split("@")[0].split(".")[0];
                 let nom = vacataire.split("@")[0].split(".")[1];

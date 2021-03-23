@@ -230,7 +230,7 @@
 				break;
 
 		}	
-		if($output){
+		if($output !== ''){
 			echo json_encode($output/*, JSON_PRETTY_PRINT*/);
 		}else{
 			returnError('Mauvaise requête.');
