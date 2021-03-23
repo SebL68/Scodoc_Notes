@@ -1,8 +1,8 @@
 <?php
 $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 /* Debug */
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
+/*error_reporting(E_ALL);
+ini_set('display_errors', '1');*/
 
 /************************************/
 /* listeVacataires
@@ -19,30 +19,28 @@ function listeVacataires($dep)
     global $path;
 
     $file = "$path\\LDAP\\vacataires.json";
-    if(!file_exists($file))
-    {
+    if (!file_exists($file)) {
         touch($file);
 
-        $json = array(
-            $dep => array(
-                "vacataires" => array()
-            )
-        );
+        $json = [
+            $dep => [
+                "vacataires" => []
+            ]
+        ];
 
         file_put_contents(
             $file,
-            json_encode($json)//, JSON_PRETTY_PRINT)
+            json_encode($json) //, JSON_PRETTY_PRINT)
         );
     }
 
     $json = json_decode(file_get_contents($file));
-    if(!isset($json->$dep))
-    {
+    if (!isset($json->$dep)) {
         $json->$dep = (object)["vacataires" => []];
 
         file_put_contents(
             $file,
-            json_encode($json)//, JSON_PRETTY_PRINT)
+            json_encode($json) //, JSON_PRETTY_PRINT)
         );
     }
 
@@ -80,7 +78,7 @@ function modifVacataire($dep, $ancien, $nouveau)
 
     file_put_contents(
         $file,
-        json_encode($json)//, JSON_PRETTY_PRINT)
+        json_encode($json) //, JSON_PRETTY_PRINT)
     );
 
     return ['result' => "OK"];
@@ -110,7 +108,7 @@ function supVacataire($dep, $email)
 
     file_put_contents(
         $file,
-        json_encode($json)//, JSON_PRETTY_PRINT)
+        json_encode($json) //, JSON_PRETTY_PRINT)
     );
 
     return ['result' => "OK"];
