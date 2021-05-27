@@ -215,6 +215,7 @@
 			for($i=0 ; $i<count($json->insemestre) ; $i++){
 				$output[] = $json->insemestre[$i]->formsemestre_id;
 			}
+			rsort($output);
 			return $output;
 		}else{
 			returnError(

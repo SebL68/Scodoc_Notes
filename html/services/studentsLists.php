@@ -44,7 +44,7 @@
             cursor: pointer;
         }
         main{
-            padding:0 10px;
+            padding:10px;
             margin-bottom: 64px;
             max-width: 1000px;
             margin: 0 auto 20px auto;
@@ -88,7 +88,11 @@
             justify-content: space-between;
             align-items: flex-start;
         }
-        
+        table, tbody, td{
+            display: inline-block;
+            vertical-align: initial;
+            border-collapse: collapse;
+        }
         .groupes{
             margin-left: 20px;
             margin-bottom: 10px;
@@ -104,6 +108,12 @@
             background: #09C;
             color: #FFF;
             border-radius: 8px;
+        }
+        .petit{
+            flex-direction: column;
+        }
+        .petit>div{
+            font-size: 8px;
         }
         @media screen and (max-width: 700px){
             .flex{
@@ -133,6 +143,11 @@
             content: counter(cpt) " - " attr(data-groupe);
 			display: inline-block;
 			min-width: 100px;
+            max-width: 140px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            margin-right: 10px;
         }
 		.load path{
 			animation: chargement 0.4s infinite linear;
@@ -152,9 +167,13 @@
 			<a href=/logout.php>Déconnexion</a>
 		</header>
         <main>
-			<p>
-				Bonjour <span class=prenom></span>.
-			</p>
+			<div class=flex>
+				<p>Bonjour <span class=prenom></span>.</p>
+                <div class="groupe petit" style=margin-top:6px onclick=concat(this)>
+                    Séparer nom / prénom
+                    <div>Pour copier-coller directement de la liste</div>
+                </div>
+			</div>
             <div class=contenu></div>
 			<div class=wait></div>
 			
@@ -287,8 +306,7 @@ Gère la déconnexion et les messages d'erreur
                         data-prenom="${etudiant.prenom}" 
                         data-groupe="${etudiant.groupe || "Groupe 1"}"
                         data-num="${etudiant.num_etudiant}"
-                        data-email="${etudiant.email}">
-                            ${etudiant.nom} ${etudiant.prenom}
+                        data-email="${etudiant.email}"><table><td>${etudiant.nom}</td> <td>${etudiant.prenom}</td></table>
                     </div>
 				`;
 			})
@@ -303,6 +321,17 @@ Gère la déconnexion et les messages d'erreur
 			obj.parentElement.nextElementSibling.querySelectorAll('.'+num).forEach(e=>{
 				e.classList.toggle("hide");
 			})
+        }
+        function concat(obj){
+            if(obj.classList.toggle("selected")){
+                document.querySelectorAll(".etudiants>div").forEach(function(e){
+                    e.innerHTML = `${e.dataset.nom} ${e.dataset.prenom}`;
+                })
+            }else{
+                document.querySelectorAll(".etudiants>div").forEach(function(e){
+                    e.innerHTML = `<table><td>${e.dataset.nom}</td> <td>${e.dataset.prenom}</td></table>`;
+                })
+            }
         }
         
         
@@ -368,7 +397,7 @@ Gère la déconnexion et les messages d'erreur
 
                 var column = 65;
                 groupes.forEach(function(groupe){
-                    sheet.column(String.fromCharCode(column)).width(26);
+                    sheet.column(String.fromCharCode(column)).width(27);
                     sheet.cell(String.fromCharCode(column) + 3).value(groupe).style({
                         border: true,
                         bold: true,
@@ -377,7 +406,7 @@ Gère la déconnexion et les messages d'erreur
                     var line = 4;
                     h2.nextElementSibling.querySelectorAll("." + groupe.replace(/ /g, "")).forEach(etudiant=>{
 
-                        sheet.cell(String.fromCharCode(column) + line).value(etudiant.innerText);
+                        sheet.cell(String.fromCharCode(column) + line).value(etudiant.dataset.nom + " " + etudiant.dataset.prenom);
                         line++;
                     });
                     column = column + 2;
