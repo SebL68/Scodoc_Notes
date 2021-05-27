@@ -18,7 +18,7 @@ Passerelle entre Scodoc et Internet pour l'affichage des notes aux étudiants.
 Vous pouvez voir un exemple du projet à [cette adresse](https://notes.iutmulhouse.uha.fr/?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uIjoiQ29tcHRlX0RlbW8udGVzdEB1aGEuZnIiLCJzdGF0dXQiOiJldHVkaWFudCJ9.kHuiNx8X2mWUjv1LAHVOdcLGCu2yQS_i6fxqZZICuEA). Veuillez noter que c'est une démonstration avec des données fictives et que le changement de semestre n'est pas opérationnel.
 
 # Auteurs
-Ce projet a été réalisé par Sébastien Lehmann sur son temps libre.  
+Ce projet a été créé par Sébastien Lehmann.  
 Merci à Denis Graef, Alexandre Kieffer et Bruno Colicchio pour leur participation respective.
 
 # Licence
