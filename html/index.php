@@ -275,6 +275,15 @@
 		</div>
 		
 		<script>
+/**************************/
+/* Service Worker pour le message "Installer l'application" et pour le fonctionnement hors ligne PWA
+/**************************/		
+			if('serviceWorker' in navigator){
+				navigator.serviceWorker.register('sw.js');
+			}
+/**************************/
+/* Début
+/**************************/
 			checkStatut();
 			<?php
 				include "$path/includes/clientIO.php";
@@ -495,12 +504,6 @@
 /**************************/
 			function ShowEmpty(){
 				document.querySelector("body").classList.toggle("ShowEmpty");
-			}
-/**************************/
-/* Service Worker pour le message "Installer l'application" et pour le fonctionnement hors ligne PWA
-/**************************/		
-			if('serviceWorker' in navigator){
-				navigator.serviceWorker.register('sw.js');
 			}
 		</script>
 	
