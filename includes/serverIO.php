@@ -414,11 +414,15 @@ Sortie :
 
 *******************************/
 function getDepartmentsList(){
-	preg_match_all(
-		'/\/([A-Z]+)>/', 
-		Ask_Scodoc('/list_depts'),
-		$output
-	);
 
-	return $output[1];
+	return json_decode(
+			$output = Ask_Scodoc(
+			'/list_depts',
+			'MMI',
+			[
+				'viewable' => '0',
+				'format' => 'json'
+			]
+		)
+	);
 }
