@@ -362,7 +362,7 @@
 					</form>
 				`;
 
-				let decision = data.situation.split(". ");
+				let decision = data.situation?.split(". ") || [];
 				if(decision[1]){
 					decision = "<b>"+decision[1] + ". " + decision[2]+"</b><br>";
 				}else{
