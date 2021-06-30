@@ -43,8 +43,9 @@
 		global $acces;
 		global $scodoc_url;
 		
-		$acces['__ac_name'].=$dep;
-		$data = http_build_query(array_merge($acces, $options));
+		$login = $acces;
+		$login['__ac_name'].=$dep;
+		$data = http_build_query(array_merge($login, $options));
 		
 		if($dep != ''){
 			$dep = '/'.$dep;
