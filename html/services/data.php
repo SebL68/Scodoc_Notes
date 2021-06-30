@@ -195,6 +195,7 @@
 					$_GET['etudiant'],
 					$_GET['date'],
 					$_GET['creneau'],
+					$_GET['creneauIndex'],
 					$_GET['statut']
 				);
 				$output = [

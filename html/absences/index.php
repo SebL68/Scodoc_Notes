@@ -179,11 +179,7 @@
         .etudiants{
             counter-reset: cpt;
         }
-        .etudiants>div::before{
-            counter-increment: cpt;
-            content: counter(cpt) " - ";
-            display: inline-block;
-        }
+       
 
 /*****************************/
 /* Zone absences */
@@ -209,11 +205,18 @@
             padding: 10px 20px;
             margin: 10px;
             cursor: pointer;
-            transition: 0.1s;
+            transition: 0.1s;  
+        }
+        .btnAbsences>div:nth-child(1){
             display: flex;
             gap:5px;
         }
-        .btnAbsences>:last-child{
+        .btnAbsences>div:nth-child(1)::before{
+            counter-increment: cpt;
+            content: counter(cpt) " - ";
+            display: inline-block;
+        }
+        .btnAbsences>div:nth-child(1)>:last-child{
             margin-left: auto;
         }
         .btnAbsences:active{
@@ -222,22 +225,26 @@
             border: 1px solid #777;
             transition: 0s;
         }
-        .btnAbsences::before{
-            content: "Présent";
-            display: block;
+        .hint{
+            display: grid;
+            grid-auto-flow: column;
+            grid-auto-columns: 1fr;
+            transform: translateY(8px);
+        }
+        .hint>div{
+            outline: 1px solid #AAA;
+            height: 8px;
+
+        }
+        .hint>.now{
+            outline: none;
         }
         .absent{
             background: #ec7068;
             color: #FFF;
         }
-        .absent::before{
-            content: "Absent";
-        }
         .excuse{
             background: #0C9;
-        }
-        .excuse::before{
-            content: "Excusé";
         }
 
     </style>
@@ -453,7 +460,11 @@
                         data-groupe="${etudiant.groupe || "Groupe 1"}"
                         data-num="${etudiant.num_etudiant}"
                         data-email="${etudiant.email}">
-                            <b>${etudiant.nom}</b><span>${etudiant.prenom}</span>
+                            <div>
+                                <b>${etudiant.nom}</b>
+                                <span>${etudiant.prenom}</span>
+                            </div>
+                            ${hintHours}
                     </div>
 				`;
 			})
@@ -478,6 +489,12 @@
             echo json_encode($creneaux);
 		?>;
 
+        let hintHours = `<div class=hint>${
+            creneaux.map(e=>{
+                return `<div title="Créneau ${e[0]}-${e[1]}"></div>`
+            }).join("")
+        }</div>`;
+
         for(let i=0 ; i<creneaux.length ; i++){
             if(heure  < creneaux[i][1] - 0.5){ // 30 min avant la fin on change de créneaux
                 creneauxIndex = i;
@@ -491,6 +508,11 @@
         }
 
         function changeDate(num){
+
+            document.querySelectorAll(".hint").forEach(e=>{
+                e.children[creneauxIndex].classList.remove("now");
+            })
+
             creneauxIndex += num;
             if(creneauxIndex < 0){
                 date.setDate(date.getDate() - 1);
@@ -500,6 +522,7 @@
                 creneauxIndex = 0;
             }
             document.querySelector("#actualDate").innerHTML = actualDate();
+
             setAbsences();
         }
 
@@ -552,6 +575,7 @@
                 "&etudiant=" + obj.dataset.email +
                 "&date=" + date +
                 "&creneau=" + creneaux[creneauxIndex] +
+                "&creneauIndex=" + creneauxIndex +
                 "&statut=" + statut
             );
             if(response.result != "OK"){
@@ -566,13 +590,23 @@
 
             for(var etudiant in dataEtudiants.absences){
                 dataEtudiants.absences[etudiant].forEach(function(absence){
-                    if(absence.date == date
-                     && absence.creneau == creneaux[creneauxIndex]) {
-                        document.querySelector(`[data-email="${etudiant}"]`).classList.add("absent");
+                    if(absence.date == date){
+                        let ligne = document.querySelector(`[data-email="${etudiant}"]`);
+                        if(absence.creneau == creneaux[creneauxIndex]){
+                            ligne.classList.add(absence.statut);
+                        } else {
+                            ligne.children[1].children[absence.creneauIndex].classList.add(absence.statut);
+                        }
+                        
+                        
                     }
                 });
                 
             };
+
+            document.querySelectorAll(".hint").forEach(e=>{
+                e.children[creneauxIndex].classList.add("now");
+            })
         }
 
         function ISODate(){
