@@ -289,7 +289,7 @@
         checkStatut();
 		<?php
             include "$path/includes/clientIO.php";
-		?>
+		?>  
 /*********************************************/
 /* Vérifie l'identité de la personne et son statut
 /*********************************************/		
@@ -471,19 +471,23 @@
 /* Gestion des dates et des absences */
 /*************************************/
         var date = new Date();
-        let heure = date.getHours();
+        let heure = date.getHours() + date.getMinutes() / 60; // Heure en décimale : exemple 10h30 => 10.5
         var creneauxIndex;
-        var creneaux = [8, 10, 14, 16, 18];
+        var creneaux = <?php
+            include_once "$path/includes/config.php";
+            echo json_encode($creneaux);
+		?>;
 
-        if(heure <10){ var creneauxIndex = 0 }
-        else if(heure < 13){ var creneauxIndex = 1 }
-        else if(heure < 15){ var creneauxIndex = 2 }
-        else if(heure < 17){ var creneauxIndex = 3 }
-        else{ var creneauxIndex = 4 }
+        for(let i=0 ; i<creneaux.length ; i++){
+            if(heure  < creneaux[i][1] - 0.5){ // 30 min avant la fin on change de créneaux
+                creneauxIndex = i;
+                break;
+            }
+        }
 
         function actualDate(){
             let jours = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
-            return `${jours[date.getDay()]} ${date.toLocaleDateString()} - ${creneaux[creneauxIndex]}h / ${creneaux[creneauxIndex]+2}h`;
+            return `${jours[date.getDay()]} ${date.toLocaleDateString()} - ${creneaux[creneauxIndex][0]}h / ${creneaux[creneauxIndex][1]}h`;
         }
 
         function changeDate(num){
