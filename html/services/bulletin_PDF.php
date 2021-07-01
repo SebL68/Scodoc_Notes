@@ -1,11 +1,12 @@
 <?php
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
+	include_once "$path/includes/config.php";
 	include_once "$path/includes/auth.php";
 	include_once "$path/includes/LDAPData.php";
 	include_once "$path/includes/serverIO.php"; // Fonctions de communication vers le serveur Scodoc
 
 	$authData = (object) authData();
-	if($authData->statut == 'personnel'){ 
+	if($authData->statut >= PERSONNEL){ 
 		$id = $_GET['etudiant'];
 	} else {
 		$id = $authData->session;
@@ -14,7 +15,7 @@
 /**************************/
 /* Recherche de l'id étudiant scodoc à partir du nom */
 /*************************/
-$nip = getStudentNumberFromMail($id);
+	$nip = getStudentNumberFromMail($id);
 
 /**************************/
 /* Récupération du département */

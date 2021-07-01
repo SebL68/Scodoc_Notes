@@ -303,7 +303,7 @@
 					loadStudents(data.etudiants);
 				} else {
 					feedSemesters(data.semestres);
-					feedReportCards(data.relevé, data.semestres, data.auth.session);
+					feedReportCards(data.relevé, data.semestres[0], data.auth.session);
 				}
 			}
 /*********************************************/
