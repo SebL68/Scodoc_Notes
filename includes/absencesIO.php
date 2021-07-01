@@ -82,7 +82,9 @@
 		$dir = "$path/absencesDATA/$dep/$semestre/";
 		if($etudiant == ''){
 			$output = [];
-			$listFiles = scandir($dir);
+			if(is_dir($dir)){
+				$listFiles = scandir($dir);
+			}
 			
 			foreach($listFiles as $file){
 				if($file != "." && $file != ".."){

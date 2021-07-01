@@ -41,5 +41,17 @@ $acces = [
 ];
 
 $scodoc_url = 'https://{URL_scodoc}/ScoDoc';	// Remplacer URL_scodoc par l'URL de votre Scodoc
+
+/************************/
+/* Gestion des absences */
+/************************/
+
+$creneaux = [
+	[8, 10],
+	[10, 12],
+	[14, 16],
+	[16, 18],
+	[18, 20]
+];
 ?>
 
