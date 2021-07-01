@@ -9,7 +9,7 @@
 	Créé ou modifie le fichier d'absence d'un étudiant
 */
 /************************************/
-	function setAbsence($enseignant, $dep, $semestre, $matiere, $etudiant, $date, $creneau, $creneauIndex, $statut){
+	function setAbsence($enseignant, $dep, $semestre, $matiere, $etudiant, $date, $creneau, $creneauxIndex, $statut){
 		global $path;
 		global $authData;
 		
@@ -25,7 +25,7 @@
 				$file, 
 				json_encode(
 					[
-						newAbsence($enseignant, $matiere, $date, $creneau, $creneauIndex, $statut)
+						newAbsence($enseignant, $matiere, $date, $creneau, $creneauxIndex, $statut)
 					]
 				)
 			);
@@ -44,7 +44,7 @@
 				}
 			}
 			if(!$trouve){
-				$json[] = newAbsence($enseignant, $matiere, $date, $creneau, $creneauIndex, $statut);
+				$json[] = newAbsence($enseignant, $matiere, $date, $creneau, $creneauxIndex, $statut);
 			}
 			if(count($json) == 0){
 				unlink($file);
@@ -58,11 +58,11 @@
 		}
 	}
 
-	function newAbsence($enseignant, $matiere, $date, $creneau, $creneauIndex, $statut){
+	function newAbsence($enseignant, $matiere, $date, $creneau, $creneauxIndex, $statut){
 		return [
 			"date" => $date,
 			"creneau" => $creneau,
-			"creneauIndex" => $creneauIndex,
+			"creneauxIndex" => $creneauxIndex,
 			"statut" => $statut,
 			"enseignant" => $enseignant,
 			"matiere" => $matiere

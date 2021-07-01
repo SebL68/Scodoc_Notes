@@ -197,6 +197,7 @@
             cursor: pointer;
         }
         .btnAbsences{
+            position: relative;
             text-align: left;
             border-radius: 10px;
             box-shadow: 0 2px 2px 2px #ddd;
@@ -246,7 +247,13 @@
         .excuse{
             background: #0C9;
         }
-
+        .validate{
+            position: absolute;
+            left: calc(100% + 5px);
+            top: 0;
+            margin: 0;
+            padding: 0;
+        }
     </style>
     <meta name=description content="Gestion des absences de l'IUT de Mulhouse">
 </head>
@@ -293,7 +300,6 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx-populate/1.21.0/xlsx-populate.min.js"></script>
     <script>
-        checkStatut();
 		<?php
             include "$path/includes/clientIO.php";
 		?>  
@@ -301,6 +307,7 @@
 /* Vérifie l'identité de la personne et son statut
 /*********************************************/		
         var session = "";
+        var statut = "";
         async function checkStatut(){
             let data = await fetchData("donnéesAuthentification");
             session = data.session;
@@ -308,6 +315,7 @@
             let auth = document.querySelector(".auth");
             auth.style.opacity = "0";
             auth.style.pointerEvents = "none";
+            statut = data.statut;
 
             if(data.statut >= PERSONNEL){
 
@@ -465,6 +473,15 @@
                                 <span>${etudiant.prenom}</span>
                             </div>
                             ${hintHours}
+                            ${
+                                (()=>{
+                                    if(statut > PERSONNEL){
+                                        return `<div class=validate onclick="justify(event, this)">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00b0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline><path fill="#FFFFFF" stroke="#424242" d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path><polyline stroke="#00CC99" points="9 11 12 14 22 4"></svg>
+                                        </div>`;
+                                    }
+                                })()
+                            }
                     </div>
 				`;
 			})
@@ -483,11 +500,12 @@
 /*************************************/
         var date = new Date();
         let heure = date.getHours() + date.getMinutes() / 60; // Heure en décimale : exemple 10h30 => 10.5
-        var creneauxIndex;
+        
         var creneaux = <?php
             include_once "$path/includes/config.php";
             echo json_encode($creneaux);
 		?>;
+        var creneauxIndex = creneaux.length -1;
 
         let hintHours = `<div class=hint>${
             creneaux.map(e=>{
@@ -551,6 +569,7 @@
                 var structure = {
                     "date": ISODate(),
                     "creneau": creneaux[creneauxIndex],
+                    "creneauxIndex": creneauxIndex,
                     "statut": statut
                 };
                 // Ajouter l'absence au tableau
@@ -575,7 +594,7 @@
                 "&etudiant=" + obj.dataset.email +
                 "&date=" + date +
                 "&creneau=" + creneaux[creneauxIndex] +
-                "&creneauIndex=" + creneauxIndex +
+                "&creneauxIndex=" + creneauxIndex +
                 "&statut=" + statut
             );
             if(response.result != "OK"){
@@ -595,7 +614,7 @@
                         if(absence.creneau == creneaux[creneauxIndex]){
                             ligne.classList.add(absence.statut);
                         } else {
-                            ligne.children[1].children[absence.creneauIndex].classList.add(absence.statut);
+                            ligne.children[1].children[absence.creneauxIndex].classList.add(absence.statut);
                         }
                         
                         
@@ -607,6 +626,11 @@
             document.querySelectorAll(".hint").forEach(e=>{
                 e.children[creneauxIndex].classList.add("now");
             })
+        }
+
+        function justify(event, obj){
+            event.stopPropagation();
+            console.log(obj);
         }
 
         function ISODate(){
@@ -623,6 +647,10 @@
                 div.remove();
             }, 3000);
         }
+/***************************/
+/* C'est parti !
+/***************************/
+        checkStatut();
     </script>
     <?php 
         include "$path/includes/analytics.php";
