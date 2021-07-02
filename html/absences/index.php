@@ -230,29 +230,35 @@
             display: grid;
             grid-auto-flow: column;
             grid-auto-columns: 1fr;
+            gap:1px;
             transform: translateY(8px);
         }
         .hint>div{
             outline: 1px solid #AAA;
             height: 8px;
-
+            background: #FFF;
         }
         .hint>.now{
             outline: none;
+            background: transparent;
         }
         .absent{
-            background: #ec7068;
+            background: #ec7068 !important;
             color: #FFF;
         }
         .excuse{
-            background: #0C9;
+            background: #0C9 !important;
         }
         .validate{
+            display: none;
+            cursor:pointer;
             position: absolute;
             left: calc(100% + 5px);
-            top: 0;
+            top: 6px;
             margin: 0;
             padding: 0;
+        }.absent>.validate{
+            display: block;
         }
     </style>
     <meta name=description content="Gestion des absences de l'IUT de Mulhouse">
@@ -307,7 +313,7 @@
 /* Vérifie l'identité de la personne et son statut
 /*********************************************/		
         var session = "";
-        var statut = "";
+        var statutSession = "";
         async function checkStatut(){
             let data = await fetchData("donnéesAuthentification");
             session = data.session;
@@ -315,7 +321,7 @@
             let auth = document.querySelector(".auth");
             auth.style.opacity = "0";
             auth.style.pointerEvents = "none";
-            statut = data.statut;
+            statutSession = data.statut;
 
             if(data.statut >= PERSONNEL){
 
@@ -475,7 +481,7 @@
                             ${hintHours}
                             ${
                                 (()=>{
-                                    if(statut > PERSONNEL){
+                                    if(statutSession > PERSONNEL){
                                         return `<div class=validate onclick="justify(event, this)">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00b0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline><path fill="#FFFFFF" stroke="#424242" d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path><polyline stroke="#00CC99" points="9 11 12 14 22 4"></svg>
                                         </div>`;
@@ -551,39 +557,39 @@
             var absencesEtudiant = dataEtudiants.absences[obj.dataset.email];
         // Recherche s'il y a une absence et si un autre enseignant l'a entré
             if(absencesEtudiant){
-                for(let i = 0, n = absencesEtudiant.length ; i < n ; i++){
-                    if(absencesEtudiant[i].date == date && absencesEtudiant[i].creneau == creneaux[creneauxIndex]){
-                        numAbsence = i;
-                        break;
-                    }
+                if((absencesEtudiant[date]?.[creneaux[creneauxIndex]]?.enseignant || session) != session){
+                    return message("Vous ne pouvez changer l'absence d'un autre enseignant : <span class=capitalize>" + absencesEtudiant[date][creneaux[creneauxIndex]].enseignant.split("@")[0].replace(/[.]/g, " ") + "</span>");
                 }
+            }
 
-                if((absencesEtudiant[numAbsence]?.enseignant || session) != session){
-                    return message("Vous ne pouvez changer l'absence d'un autre enseignant : <span class=capitalize>" + absencesEtudiant[numAbsence].enseignant.split("@")[0].replace(/[.]/g, " ") + "</span>");
-                }
+        // On ne peut pas toucher à une absence justifiée
+            if(obj.classList.contains("excuse") && statutSession < ADMINISTRATEUR){
+                return message("L'absence a été justifiée, vous ne pouvez pas la supprimer.");
             }
         
         // Toggle de l'absence
             if(obj.classList.toggle("absent")){
                 var statut = "absent";
-                var structure = {
-                    "date": ISODate(),
-                    "creneau": creneaux[creneauxIndex],
-                    "creneauxIndex": creneauxIndex,
-                    "statut": statut
-                };
-                // Ajouter l'absence au tableau
-                if(absencesEtudiant){
-                    absencesEtudiant.push(structure);
-                }else{
-                    dataEtudiants.absences = [structure];
+
+                // Ajouter l'absence aux données stockée côté client
+                if(!dataEtudiants.absences[obj.dataset.email]){
+                    dataEtudiants.absences[obj.dataset.email] = {};
                 }
+                if(!dataEtudiants.absences[obj.dataset.email][ISODate()]){
+                    dataEtudiants.absences[obj.dataset.email][ISODate()] = {};
+                }
+                dataEtudiants.absences[obj.dataset.email][ISODate()][creneaux[creneauxIndex]] =
+                    {
+                        "enseignant": session,
+                        "creneauxIndex": creneauxIndex,
+                        "matiere": matiere,
+                        "statut": statut
+                    };
                 
             } else {
                 var statut = "présent";
-                // Supprimer l'absence du tableau
-                absencesEtudiant?.splice(numAbsence, 1);
-
+                // Supprimer l'absence des données
+                delete dataEtudiants.absences[obj.dataset.email][ISODate()][creneaux[creneauxIndex]];
             }
 
         // Sauvegarde de l'absence sur le serveur
@@ -607,21 +613,16 @@
 
             var date = ISODate();
 
-            for(var etudiant in dataEtudiants.absences){
-                dataEtudiants.absences[etudiant].forEach(function(absence){
-                    if(absence.date == date){
-                        let ligne = document.querySelector(`[data-email="${etudiant}"]`);
-                        if(absence.creneau == creneaux[creneauxIndex]){
-                            ligne.classList.add(absence.statut);
-                        } else {
-                            ligne.children[1].children[absence.creneauxIndex].classList.add(absence.statut);
-                        }
-                        
-                        
+            Object.entries(dataEtudiants.absences).forEach(([etudiant, listeAbsences])=>{
+                Object.entries(listeAbsences[date] || {}).forEach(([creneauNom, dataAbsence])=>{
+                    let ligne = document.querySelector(`[data-email="${etudiant}"]`);
+                    if(dataAbsence.creneauxIndex == creneauxIndex){
+                        ligne.classList.add(dataAbsence.statut);
+                    } else {
+                        ligne.children[1].children[dataAbsence.creneauxIndex].classList.add(dataAbsence.statut);
                     }
-                });
-                
-            };
+                })
+            })
 
             document.querySelectorAll(".hint").forEach(e=>{
                 e.children[creneauxIndex].classList.add("now");
@@ -630,7 +631,11 @@
 
         function justify(event, obj){
             event.stopPropagation();
-            console.log(obj);
+            obj = obj.parentElement;
+            obj.classList.toggle("excuse");
+
+            
+            dataEtudiants.absences[obj.dataset.email]
         }
 
         function ISODate(){
@@ -651,6 +656,29 @@
 /* C'est parti !
 /***************************/
         checkStatut();
+
+
+        /*
+        let data = "";
+document.body.innerHTML = "";
+
+setInterval(()=>{
+	fetch(window.location)
+	.then(r=>{return r.text()})
+	.then(txt=>{
+		if(data != txt){
+			if(document.body.innerHTML != ""){
+				document.body.style.background = "#0C9";
+               // fetch("https://smsapi.free-mobile.fr/sendmsg?user=10256253&pass=A8Ww7Rv5YlN7cO&msg=Nouveauté%20!");
+			}
+            document.body.innerHTML += txt + "<br>" + new Date() + "<br>";
+		}
+		data = txt;
+		console.log(txt + + new Date());
+	})
+},60000)
+document.body.addEventListener("click", function(){this.style.background = ""})
+*/
     </script>
     <?php 
         include "$path/includes/analytics.php";
