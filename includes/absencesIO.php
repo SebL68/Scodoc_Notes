@@ -24,12 +24,12 @@
 			file_put_contents(
 				$file, 
 				json_encode(
-					$json[$date][$creneau] = newAbsence($enseignant, $matiere, $creneauxIndex, $statut)
-					/*[
+					//$json[$date][$creneau] = newAbsence($enseignant, $matiere, $creneauxIndex, $statut)
+					[
 						$date => [
 							$creneau => newAbsence($enseignant, $matiere, $creneauxIndex, $statut)
 						]
-					]*/
+					]
 				)
 			);
 		} else { // Fichier d'absence présent pour cet étudiant

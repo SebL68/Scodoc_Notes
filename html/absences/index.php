@@ -588,6 +588,7 @@
                 
             } else {
                 var statut = "présent";
+                obj.classList.remove("excuse");
                 // Supprimer l'absence des données
                 delete dataEtudiants.absences[obj.dataset.email][ISODate()][creneaux[creneauxIndex]];
             }
@@ -609,7 +610,7 @@
         }
 
         function setAbsences(){
-            document.querySelectorAll(".absent").forEach(e=>e.classList.remove("absent"));
+            document.querySelectorAll(".absent").forEach(e=>e.classList.remove("absent", "excuse"));
 
             var date = ISODate();
 
@@ -617,9 +618,9 @@
                 Object.entries(listeAbsences[date] || {}).forEach(([creneauNom, dataAbsence])=>{
                     let ligne = document.querySelector(`[data-email="${etudiant}"]`);
                     if(dataAbsence.creneauxIndex == creneauxIndex){
-                        ligne.classList.add(dataAbsence.statut);
+                        ligne.classList.add(...dataAbsence.statut.split(" ")); // Changement de couleur de la ligne
                     } else {
-                        ligne.children[1].children[dataAbsence.creneauxIndex].classList.add(dataAbsence.statut);
+                        ligne.children[1].children[dataAbsence.creneauxIndex].classList.add(...dataAbsence.statut.split(" ")); // Changement de couleur des barres pour la journée
                     }
                 })
             })
@@ -629,13 +630,32 @@
             })
         }
 
-        function justify(event, obj){
+        async function justify(event, obj){
             event.stopPropagation();
             obj = obj.parentElement;
-            obj.classList.toggle("excuse");
+            if(obj.classList.toggle("excuse")){
+                var statut = "absent excuse";
+            } else {
+                var statut = "absent";
+            }
 
+            var date = ISODate();
+            dataEtudiants.absences[obj.dataset.email][date][creneaux[creneauxIndex]].statut = statut;
+
+            let response = await fetchData("setAbsence" + 
+                "&dep=" + departement +
+                "&semestre=" + semestre +
+                "&matiere=" + matiere +
+                "&etudiant=" + obj.dataset.email +
+                "&date=" + date +
+                "&creneau=" + creneaux[creneauxIndex] +
+                "&creneauxIndex=" + creneauxIndex +
+                "&statut=" + statut
+            );
+            if(response.result != "OK"){
+                displayError("Il y a un problème - l'absence n'a pas été enregistrée.");
+            }
             
-            dataEtudiants.absences[obj.dataset.email]
         }
 
         function ISODate(){
