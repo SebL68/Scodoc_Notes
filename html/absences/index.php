@@ -114,14 +114,24 @@
 /**********************/
 /*   Zones de choix   */
 /**********************/
+        .zone{
+            background: #FFF;
+            padding: 8px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            border: 1px solid #CCC;
+        }
 		select{
 			font-size: 21px;
 			padding: 10px;
-			margin: 5px;
+			margin: 5px auto;
 			background: #09c;
 			color: #FFF;
 			border: none;
 			border-radius: 10px;
+            max-width: 100%;
+            display: table;
+            box-shadow: 0 2px 2px #888;
 		}
         .highlight{
             animation: pioupiou 0.4s infinite ease-in alternate;
@@ -196,6 +206,9 @@
         .date>svg{
             cursor: pointer;
         }
+        #actualDate{
+            width: 300px;
+        }
         .btnAbsences{
             position: relative;
             text-align: left;
@@ -204,7 +217,7 @@
             border: 1px solid transparent;
             background: #FFF;
             padding: 10px 20px;
-            margin: 10px;
+            margin: 10px 42px;
             cursor: pointer;
             transition: 0.1s;  
         }
@@ -276,24 +289,27 @@
             Bonjour <span class=prenom></span>.
         </p>
 
-        <select id=departement class=highlight onchange="clearStorage(['semestre', 'matiere']);selectDepartment(this.value)">
-            <option value="" disabled selected hidden>Choisir un département</option>
-            <?php
-                include "$path/includes/serverIO.php";
-                $listDepartement = getDepartmentsList();
-                foreach($listDepartement as $departement){
-                    echo "<option value=$departement>$departement</option>";
-                }
-            ?>
-        </select>
+        <div class="zone">
+            <select id=departement class=highlight onchange="clearStorage(['semestre', 'matiere']);selectDepartment(this.value)">
+                <option value="" disabled selected hidden>Choisir un département</option>
+                <?php
+                    include "$path/includes/serverIO.php";
+                    $listDepartement = getDepartmentsList();
+                    foreach($listDepartement as $departement){
+                        echo "<option value=$departement>$departement</option>";
+                    }
+                ?>
+            </select>
 
-        <select id=semestre onchange="clearStorage(['matiere']);selectSemester(this.value)" disabled>
-            <option value="" disabled selected hidden>Choisir un semestre</option>
-        </select>
+            <select id=semestre onchange="clearStorage(['matiere']);selectSemester(this.value)" disabled>
+                <option value="" disabled selected hidden>Choisir un semestre</option>
+            </select>
 
-        <select id=matiere onchange="selectMatiere(this.value)" disabled>
-            <option value="" disabled selected hidden>Choisir une matière</option>
-        </select>
+            <select id=matiere onchange="selectMatiere(this.value)" disabled>
+                <option value="" disabled selected hidden>Choisir une matière</option>
+            </select>
+        </div>
+   
 
         <div class=contenu></div>
         <div class=wait></div>
