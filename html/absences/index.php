@@ -207,7 +207,7 @@
             cursor: pointer;
         }
         #actualDate{
-            width: 300px;
+            padding: 4px 0;
         }
         .btnAbsences{
             position: relative;
@@ -544,7 +544,7 @@
 
         function actualDate(){
             let jours = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
-            return `${jours[date.getDay()]} ${date.toLocaleDateString()} - ${creneaux[creneauxIndex][0]}h / ${creneaux[creneauxIndex][1]}h`;
+            return `${jours[date.getDay()]} ${date.toLocaleDateString()} <br> ${creneaux[creneauxIndex][0]}h / ${creneaux[creneauxIndex][1]}h`;
         }
 
         function changeDate(num){
