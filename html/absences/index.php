@@ -676,29 +676,6 @@
 /* C'est parti !
 /***************************/
         checkStatut();
-
-
-        /*
-        let data = "";
-document.body.innerHTML = "";
-
-setInterval(()=>{
-	fetch(window.location)
-	.then(r=>{return r.text()})
-	.then(txt=>{
-		if(data != txt){
-			if(document.body.innerHTML != ""){
-				document.body.style.background = "#0C9";
-               // fetch("https://smsapi.free-mobile.fr/sendmsg?user=10256253&pass=A8Ww7Rv5YlN7cO&msg=Nouveauté%20!");
-			}
-            document.body.innerHTML += txt + "<br>" + new Date() + "<br>";
-		}
-		data = txt;
-		console.log(txt + + new Date());
-	})
-},60000)
-document.body.addEventListener("click", function(){this.style.background = ""})
-*/
     </script>
     <?php 
         include "$path/includes/analytics.php";
