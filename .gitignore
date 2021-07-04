@@ -8,6 +8,7 @@ LDAP/export_etu_iutmulhouse.txt
 LDAP/vacataires.txt
 LDAP/vacataires.json
 LDAP/administrateurs.json
+LDAP/_administrateurs.json
 
 #Configuration
 includes/config.php

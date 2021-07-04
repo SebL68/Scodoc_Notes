@@ -136,10 +136,10 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
             }
         }
 
-        /********************/
-        /* Liste vacataires */
-        /********************/
-        .vacataire {
+        /*************************/
+        /* Liste administrateurs */
+        /*************************/
+        .administrateur {
             user-select: none;
 
             border-radius: 10px;
@@ -151,11 +151,11 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
             transition: 0.1s;
         }
 
-        .vacataire:first-child>.nom, .vacataire svg {
+        .administrateur:first-child>.nom, .administrateur svg {
             cursor: pointer;
         }
 
-        .vacataire input {
+        .administrateur input {
             font-size: 16px;
             font-weight: bold;
             padding: 5px;
@@ -224,7 +224,7 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
             }
         }
     </style>
-    <meta name=description content="Gestion des vacataires de l'IUT de Mulhouse">
+    <meta name=description content="Gestion des administrateurs de l'IUT de Mulhouse">
 </head>
 
 <body>
@@ -263,6 +263,7 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx-populate/1.21.0/xlsx-populate.min.js"></script>
     <script>
+        var utilisateur;        // Stockage du mail de l'utilisateur
         checkStatut();
         <?php
         include "$path/includes/clientIO.php";
@@ -273,6 +274,7 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
         async function checkStatut() {
             let data = await fetchData("donnéesAuthentification");
             document.querySelector(".prenom").innerText = data.session.split(".")[0];
+            utilisateur = data.session;
             let auth = document.querySelector(".auth");
             auth.style.opacity = "0";
             auth.style.pointerEvents = "none";
@@ -290,58 +292,61 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
                 document.querySelector(".contenu").innerHTML = "Ce contenu est uniquement accessible pour des administrateurs d'un département de l'IUT. ";
             }
         }
-        /***************************************************/
-        /* Récupère la liste des vacataires du département */
-        /***************************************************/
+        /********************************************************/
+        /* Récupère la liste des administrateurs du département */
+        /********************************************************/
         async function selectDepartment(departement) {
-            let vacataires = await fetchData("listeVacataires&dep=" + departement);
+            let administrateurs = await fetchData("listeAdministrateurs&dep=" + departement);
+            if (administrateurs.indexOf(utilisateur) >= 0) {
+                document.querySelector(".flex").innerHTML = createAdministrators(administrateurs);
+                
+                document.querySelector("#departement").classList.remove("highlight");
 
-            document.querySelector(".flex").innerHTML = createContractors(vacataires);
-            
-            document.querySelector("#departement").classList.remove("highlight");
-
-            /* Gestion du storage remettre le même état au retour */
-            localStorage.setItem('departement', departement);
+                /* Gestion du storage remettre le même état au retour */
+                localStorage.setItem('departement', departement);
+            } else {
+                document.querySelector(".flex").innerHTML = "Ce contenu est uniquement accessible pour des administrateurs du département " + departement + ".";
+            }
         }
 
-        /**************************************************/
-        /* Affiche la liste des vacataires du département */
-        /**************************************************/
-        function createContractors(liste) {
+        /*******************************************************/
+        /* Affiche la liste des administrateurs du département */
+        /*******************************************************/
+        function createAdministrators(liste) {
             let dns = '@' + DNS;
-            // Pour ajouter un vacataire
+            // Pour ajouter un administrateur
             var output = `
-                    <div class="vacataire" data-email="">
-                        <div class="nom" onclick="modifContractor(this)">
-                            Ajouter un vacataire
+                    <div class="administrateur" data-email="">
+                        <div class="nom" onclick="modifAdministrator(this)">
+                            Ajouter un administrateur
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3zM12 8v8m-4-4h8"/></svg>
                         </div>
                         <div class="confirm hide"></div>
                         <div class="mail hide">
                             <input type="email" placeholder="prenom.nom" required><b>${dns}</b>
-                            <svg onclick=processContractor(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Valider</title><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+                            <svg onclick=processAdministrator(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Valider</title><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
                             <svg onclick=cancel(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Annuler</title><path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38"/></svg>
                         </div>
                     </div>
                 `;
 
             if(liste !== undefined)
-            liste.forEach(vacataire => {
-                let prenom = vacataire.split("@")[0].split(".")[0];
-                let nom = vacataire.split("@")[0].split(".")[1];
+            liste.forEach(administrateur => {
+                let prenom = administrateur.split("@")[0].split(".")[0];
+                let nom = administrateur.split("@")[0].split(".")[1];
                 output += `
-                    <div class="vacataire" data-email="${vacataire}" data-nom="${nom}" data-prenom="${prenom}">
+                    <div class="administrateur" data-email="${administrateur}" data-nom="${nom}" data-prenom="${prenom}">
                         <div class="nom">
                             <span><b>${nom}&nbsp;${prenom}</b></span>
                             <span>
-                                <svg onclick=modifContractor(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="blue" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Modifier</title><polygon points="14 2 18 6 7 17 3 17 3 13 14 2"></polygon><line x1="3" y1="22" x2="21" y2="22"></line></svg>
-                                <svg onclick=deleteContractor(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Supprimer</title><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path><line x1="18" y1="9" x2="12" y2="15"></line><line x1="12" y1="9" x2="18" y2="15"></line></svg>
+                                <svg onclick=modifAdministrator(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="blue" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Modifier</title><polygon points="14 2 18 6 7 17 3 17 3 13 14 2"></polygon><line x1="3" y1="22" x2="21" y2="22"></line></svg>
+                                <svg onclick=deleteAdministrator(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Supprimer</title><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path><line x1="18" y1="9" x2="12" y2="15"></line><line x1="12" y1="9" x2="18" y2="15"></line></svg>
                             </span>
                         </div>
                         <div class="confirm hide">
                             <span>Suppression de : <b>${nom}&nbsp;${prenom}</b></span>
                             <span>
-                                <svg onclick=deleteContractor(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Supprimer</title><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path><line x1="18" y1="9" x2="12" y2="15"></line><line x1="12" y1="9" x2="18" y2="15"></line></svg>
+                                <svg onclick=deleteAdministrator(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Supprimer</title><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path><line x1="18" y1="9" x2="12" y2="15"></line><line x1="12" y1="9" x2="18" y2="15"></line></svg>
                                 <svg onclick=cancel(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Annuler</title><path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38"/></svg>
                             </span>
                         </div>
@@ -350,7 +355,7 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
                                 <input type="email" value="${prenom}.${nom}" placeholder="prénom.nom" required><b>${dns}</b>
                             </span>
                             <span>
-                                <svg onclick=processContractor(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Valider</title><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+                                <svg onclick=processAdministrator(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Valider</title><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
                                 <svg onclick=cancel(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Annuler</title><path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38"/></svg>
                             </span>
                         </div>
@@ -361,36 +366,36 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
             return '<div>'+output+'</div>';
         }
 
-        /*******************************/
-        /* Modification d'un vacataire */
-        /*******************************/
-        function modifContractor(obj) {
-            let vac = obj.closest("div.vacataire");
+        /************************************/
+        /* Modification d'un administrateur */
+        /************************************/
+        function modifAdministrator(obj) {
+            let adm = obj.closest("div.administrateur");
 
             document.querySelector("div.nom.hide")?.classList.remove("hide");
             document.querySelector("div.confirm.show")?.classList.remove("show");
             document.querySelector("div.mail.show")?.classList.remove("show");
-            document.querySelector("div.vacataire.ready")?.classList.remove("ready");
+            document.querySelector("div.administrateur.ready")?.classList.remove("ready");
             
-            vac.querySelector("div.nom").classList.add("hide");
-            vac.querySelector("div.mail").classList.add("show");
-            vac.querySelector("input").focus();
-            vac.classList.add("ready");
+            adm.querySelector("div.nom").classList.add("hide");
+            adm.querySelector("div.mail").classList.add("show");
+            adm.querySelector("input").focus();
+            adm.classList.add("ready");
         }
 
-        /*****************************************/
-        /* Traite la modification d'un vacataire */
-        /*****************************************/
-        async function processContractor(obj) {
+        /**********************************************/
+        /* Traite la modification d'un administrateur */
+        /**********************************************/
+        async function processAdministrator(obj) {
             const regMail = new RegExp('^[a-z0-9_-]+[.][a-z0-9_-]+$');
-            let vac = obj.closest("div.vacataire");
-            let oldEmail = vac.getAttribute("data-email");
-            let newEmail = vac.querySelector("input").value.trim().toLowerCase();
+            let adm = obj.closest("div.administrateur");
+            let oldEmail = adm.getAttribute("data-email");
+            let newEmail = adm.querySelector("input").value.trim().toLowerCase();
             let departement = localStorage.getItem('departement');
-            let listeVacataires = document.querySelectorAll("div.vacataire");
+            let listeAdministrateurs = document.querySelectorAll("div.administrateur");
 
             if (!regMail.test(newEmail)) { // Si le nouveau nom n'est pas conforme
-                message(`Le nom du vacataire "${newEmail}" n'est pas conforme`);
+                message(`Le nom de l'administrateur "${newEmail}" n'est pas conforme`);
                 return;
             }
             newEmail += '@' + DNS;
@@ -400,65 +405,68 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
                 return;
             }
 
-            listeVacataires.forEach(vacataire => {
-                if (vacataire.getAttribute("data-email") == newEmail) { // Si le nouveau vacataire existe déjà
-                    message(`Le vacataire "${newEmail}" est déjà enregistré dans le département`);
+            listeAdministrateurs.forEach(administrateur => {
+                if (administrateur.getAttribute("data-email") == newEmail) { // Si le nouveau administrateur existe déjà
+                    message(`L'administrateur "${newEmail}" est déjà enregistré dans le département`);
                     return;
                 }
             });
 
-            let response = await fetchData("modifVacataire&dep=" + departement + "&ancienMail=" + oldEmail + "&nouveauMail=" + newEmail);
+            let response = await fetchData("modifAdministrateur&dep=" + departement + "&ancienMail=" + oldEmail + "&nouveauMail=" + newEmail);
 
             if (response.result == "OK") { // Rechargement de la liste à partir du serveur
-                let vacataires = await fetchData("listeVacataires&dep=" + departement);
-                document.querySelector(".flex").innerHTML = createContractors(vacataires);
+                let administrateurs = await fetchData("listeAdministrateurs&dep=" + departement);
+                document.querySelector(".flex").innerHTML = createAdministrators(administrateurs);
             } else
                 message(response.result);
         }
 
-        /*********************************************/
-        /* Supprime un vacataire, après confirmation */
-        /*********************************************/
-        async function deleteContractor(obj) {
-            let vac = obj.closest("div.vacataire");
+        /**************************************************/
+        /* Supprime un administrateur, après confirmation */
+        /**************************************************/
+        async function deleteAdministrator(obj) {
+            let adm = obj.closest("div.administrateur");
 
             document.querySelector("div.nom.show")?.classList.remove("show");
             document.querySelector("div.mail.show")?.classList.remove("show");
-            document.querySelector("div.vacataire.ready")?.classList.remove("ready");
-            vac.classList.add("ready");
+            document.querySelector("div.administrateur.ready")?.classList.remove("ready");
+            adm.classList.add("ready");
 
-            if (vac.querySelector("div.confirm").classList.contains("show")) { // Suppression du vacataire confirmée
+            if (adm.querySelector("div.confirm").classList.contains("show")) { // Suppression de l'administrateur confirmée
                 let departement = localStorage.getItem('departement');
-                let email = vac.getAttribute("data-email");
+                let email = adm.getAttribute("data-email");
 
-                let response = await fetchData("supVacataire&dep=" + departement + "&email=" + email);
+                let response = await fetchData("supAdministrateur&dep=" + departement + "&email=" + email);
 
                 if (response.result != "OK") {
                     message(response.result);
                 } else { // Rechargement de la liste à partir du serveur
-                    let vacataires = await fetchData("listeVacataires&dep=" + departement);
-                    document.querySelector(".flex").innerHTML = createContractors(vacataires);
+                    let administrateurs = await fetchData("listeAdministrateurs&dep=" + departement);
+                    document.querySelector(".flex").innerHTML = createAdministrators(administrateurs);
                 }
             } else { // Affichage de la demande de confirmation
-                document.querySelector("div.confirm.show")?.classList.remove("show");
-                document.querySelector("div.nom.hide")?.classList.remove("hide");
+                if (document.querySelectorAll("div.administrateur").length > 2) {
+                    document.querySelector("div.confirm.show")?.classList.remove("show");
+                    document.querySelector("div.nom.hide")?.classList.remove("hide");
 
-                vac.querySelector("div.confirm").classList.add("show");
-                vac.querySelector("div.nom").classList.add("hide");
+                    adm.querySelector("div.confirm").classList.add("show");
+                    adm.querySelector("div.nom").classList.add("hide");
+                } else 
+                    message(`Vous ne pouvez pas supprimer le dernier administrateur de la liste.`);
             }
         }
 
-        /***********************************************************/
-        /* Annule la modification ou la suppression d'un vacataire */
-        /***********************************************************/
+        /****************************************************************/
+        /* Annule la modification ou la suppression d'un administrateur */
+        /****************************************************************/
         function cancel(obj) {
-            let vac = obj.closest("div.vacataire");
-            vac.querySelector("div.mail").classList.remove("show");
-            vac.querySelector("div.confirm").classList.remove("show");
-            vac.querySelector("div.nom").classList.remove("hide");
-            if(vac.getAttribute("data-prenom") && vac.getAttribute("nom"))
-                vac.querySelector("input").value = vac.getAttribute("data-prenom") + '.' + vac.getAttribute("data-nom");
-            vac.classList.remove("ready");
+            let adm = obj.closest("div.administrateur");
+            adm.querySelector("div.mail").classList.remove("show");
+            adm.querySelector("div.confirm").classList.remove("show");
+            adm.querySelector("div.nom").classList.remove("hide");
+            if(adm.getAttribute("data-prenom") && adm.getAttribute("nom"))
+                adm.querySelector("input").value = adm.getAttribute("data-prenom") + '.' + adm.getAttribute("data-nom");
+            adm.classList.remove("ready");
         }
 
         /**************************/

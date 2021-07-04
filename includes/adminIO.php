@@ -5,6 +5,142 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 ini_set('display_errors', '1');*/
 
 /************************************/
+/* estAdministrateur
+    Vérifie si un utilisateur est administrateur d'un département
+    
+    Entrée :
+        $dep (string) : département
+        $utilisateur (string) : email à vérifier
+
+    Retour :
+	    [bool] TRUE si $utilisateur est administrateur de $dep, FALSE sinon
+*/
+/************************************/
+function estAdministrateur($dep, $utilisateur)
+{
+    global $path;
+
+    $file = "$path\\LDAP\\administrateurs.json";
+
+    $json = json_decode(file_get_contents($file));
+    if (!isset($json->$dep))
+        return false;
+        
+    if (in_array($utilisateur, $json->$dep))
+        return true;
+    else
+        return false;
+}
+
+/************************************/
+/* listeAdministrateurs
+    Créé le fichier "administrateurs.json" s'il n'existe pas
+    Ajoute la liste d'un département si elle n'existe pas
+    Récupère la liste des administrateurs d'un département
+
+    Retour :
+	    [array] liste des administrateurs
+*/
+/************************************/
+function listeAdministrateurs($dep)
+{
+    global $path;
+
+    $file = "$path\\LDAP\\administrateurs.json";
+    if (!file_exists($file)) {
+        touch($file);
+
+        $json = [
+            $dep => []
+        ];
+
+        file_put_contents(
+            $file,
+            json_encode($json) //, JSON_PRETTY_PRINT)
+        );
+    }
+
+    $json = json_decode(file_get_contents($file));
+    if (!isset($json->$dep)) {
+        $json->$dep = [];
+
+        file_put_contents(
+            $file,
+            json_encode($json) //, JSON_PRETTY_PRINT)
+        );
+    }
+
+    return $json->$dep;
+}
+
+/************************************/
+/* modifAdministrateurs
+    Enregistre un nouveau administrateur ou modifie un administrateur existant dans un département
+ 	
+    Entrée :
+        $ancien (string) : vide pour ajouter un nouveau administrateur ou ancien email d'un administrateur à modifier
+        $nouveau (string) : email du nouveau administrateur ou nouvel email en cas de modification
+*/
+/************************************/
+function modifAdministrateur($dep, $ancien, $nouveau)
+{
+    global $path;
+
+    $file = "$path\\LDAP\\administrateurs.json";
+
+    $json = json_decode(file_get_contents($file));
+    $adm = $json->$dep;
+    if (!empty($ancien) && in_array($ancien, $adm) === FALSE)
+        return ['result' => "Erreur : Administrateur $ancien inconnu dans le département $dep"];
+    if (in_array($nouveau, $adm) === TRUE)
+        return ['result' => "Erreur : Administrateur $nouveau déjà enregistré dans le département $dep"];
+
+    if (empty($ancien))        // Enregistrement d'un nouveau administrateur
+        array_push($adm, $nouveau);
+    else                      // Modification d'un administrateur existant
+        $adm[array_search($ancien, $adm)] = $nouveau;
+    usort($adm, "tri");
+    $json->$dep = array_values($adm);
+
+    file_put_contents(
+        $file,
+        json_encode($json) //, JSON_PRETTY_PRINT)
+    );
+
+    return ['result' => "OK"];
+}
+
+/************************************/
+/* supAdministrateurs
+    Supprime un administrateur dans un département
+ 	
+    Entrée :
+        $email (string) : email de l'administrateur à supprimer
+*/
+/************************************/
+function supAdministrateur($dep, $email)
+{
+    global $path;
+
+    $file = "$path\\LDAP\\administrateurs.json";
+
+    $json = json_decode(file_get_contents($file));
+    $adm = $json->$dep;
+    if (array_search($email, $adm) === FALSE)
+        return ['result' => "Erreur : Administrateur $ancien inconnu dans le département $dep"];
+
+    unset($adm[array_search($email, $adm)]);
+    $json->$dep = array_values($adm);
+
+    file_put_contents(
+        $file,
+        json_encode($json) //, JSON_PRETTY_PRINT)
+    );
+
+    return ['result' => "OK"];
+}
+
+/************************************/
 /* listeVacataires
     Créé le fichier "vacataires.json" s'il n'existe pas
     Ajoute la liste d'un département si elle n'existe pas

@@ -88,12 +88,24 @@
 
 	0	set modifVacataire :
 	Enregistre l'adresse mail d'un vacataire existant ou nouveau dans un département
-			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=modifVataire&dep=MMI&ancienMail=ancien.nom@uha.fr&nouveau.nom@uha.fr
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=modifVacataire&dep=MMI&ancienMail=ancien.nom@uha.fr&nouveau.nom@uha.fr
 			
 	0	set supVacataire :
 	Supprime l'adresse mail d'un vacataire existant dans un département
-			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=supVataire&dep=MMI&email=prenom.nom@uha.fr
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=supVacataire&dep=MMI&email=prenom.nom@uha.fr
 
+
+	0	get listeAdministrateurs :
+	Récupère la liste des administrateurs d'un département
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=listeAdministrateurs&dep=MMI
+
+	0	set modifAdministrateur :
+	Enregistre l'adresse mail d'un administrateur existant ou nouveau dans un département
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=modifAdministrateur&dep=MMI&ancienMail=ancien.nom@uha.fr&nouveau.nom@uha.fr
+			
+	0	set supAdministrateur :
+	Supprime l'adresse mail d'un administrateur existant dans un département
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=supAdministrateur&dep=MMI&email=prenom.nom@uha.fr
 *******************************/
 	if(isset($_GET['q'])){
 		switch($_GET['q']){
@@ -228,6 +240,23 @@
 			case 'supVacataire':
 				if($authData->statut < ADMINISTRATEUR ){ returnError(); }
 				$output = supVacataire($_GET['dep'], $_GET['email']);
+				break;
+
+
+		/*************************/
+			case 'listeAdministrateurs':
+				if($authData->statut < ADMINISTRATEUR ){ returnError(); }
+				$output = listeAdministrateurs($_GET['dep']);
+				break;
+
+			case 'modifAdministrateur':
+				if($authData->statut < ADMINISTRATEUR ){ returnError(); }
+				$output = modifAdministrateur($_GET['dep'], $_GET['ancienMail'], $_GET['nouveauMail']);
+				break;
+
+			case 'supAdministrateur':
+				if($authData->statut < ADMINISTRATEUR ){ returnError(); }
+				$output = supAdministrateur($_GET['dep'], $_GET['email']);
 				break;
 
 		}	
