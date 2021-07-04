@@ -20,32 +20,33 @@
 			mkdir($dir, 0777, true);
 		}
 
-		if(!is_file($file)){
+		if(!is_file($file)){ // Pas encore de fichier d'absence pour cet étudiant
 			file_put_contents(
 				$file, 
 				json_encode(
+					//$json[$date][$creneau] = newAbsence($enseignant, $matiere, $creneauxIndex, $statut)
 					[
-						newAbsence($enseignant, $matiere, $date, $creneau, $creneauxIndex, $statut)
+						$date => [
+							$creneau => newAbsence($enseignant, $matiere, $creneauxIndex, $statut)
+						]
 					]
 				)
 			);
-		} else {
-			$json = json_decode(file_get_contents($file));
-			$trouve = false;
-			foreach ($json as $key => &$absence) {
-				if($absence->date == $date && $absence->creneau == $creneau){
-					if($statut == 'présent'){
-						array_splice($json, $key, 1);
-					}else{
-						$absence->statut = $statut;
+		} else { // Fichier d'absence présent pour cet étudiant
+			$json = json_decode(file_get_contents($file), true);
+			if(isset($json[$date][$creneau])){ // Déjà une absence sur cette date / créneau
+				if($statut == 'présent'){ // Suppression de l'absence
+					unset($json[$date][$creneau]);
+					if(count($json[$date]) == 0){
+						unset($json[$date]);
 					}
-					$trouve = true;
-					break;
+				}else{ // Changement de statut
+					$json[$date][$creneau]['statut'] = $statut;
 				}
+			} else { // Pas encore d'absence sur le créneau : on en créé une nouvelle
+				$json[$date][$creneau] = newAbsence($enseignant, $matiere, $creneauxIndex, $statut);
 			}
-			if(!$trouve){
-				$json[] = newAbsence($enseignant, $matiere, $date, $creneau, $creneauxIndex, $statut);
-			}
+
 			if(count($json) == 0){
 				unlink($file);
 			}else{
@@ -58,10 +59,8 @@
 		}
 	}
 
-	function newAbsence($enseignant, $matiere, $date, $creneau, $creneauxIndex, $statut){
+	function newAbsence($enseignant, $matiere, $creneauxIndex, $statut){
 		return [
-			"date" => $date,
-			"creneau" => $creneau,
 			"creneauxIndex" => $creneauxIndex,
 			"statut" => $statut,
 			"enseignant" => $enseignant,
