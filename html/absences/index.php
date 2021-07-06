@@ -26,6 +26,8 @@
             background:#09C;
             display: flex;
             justify-content: space-between;
+            align-items: center;
+            gap: 16px;
             color:#FFF;
             box-shadow: 0 2px 2px #888;
             z-index:1;
@@ -34,6 +36,13 @@
             color: #FFF;
             text-decoration: none;
             padding: 10px 0 10px 0;
+        }
+        .admin{
+            background: #FFF;
+            color: #424242;
+            margin-left: auto;
+            padding: 8px 16px;
+            border-radius: 16px;
         }
         h1{
             margin:0;
@@ -99,6 +108,7 @@
             padding: 20px;
             border-radius: 0 0 10px 10px;
             background: #ec7068;
+            background: #90c;
             color: #FFF;
             font-size: 24px;
             animation: message 3s;
@@ -202,6 +212,7 @@
             background: #0C9;
             color: #FFF;
             border-radius: 10px;
+            border: none;
         }
         .date>svg{
             cursor: pointer;
@@ -250,6 +261,7 @@
             outline: 1px solid #AAA;
             height: 8px;
             background: #FFF;
+            cursor: initial;
         }
         .hint>.now{
             outline: none;
@@ -262,7 +274,7 @@
         .excuse{
             background: #0C9 !important;
         }
-        .validate{
+        /*.validate{
             display: none;
             cursor:pointer;
             position: absolute;
@@ -270,23 +282,25 @@
             top: 6px;
             margin: 0;
             padding: 0;
-        }.absent>.validate{
-            display: block;
         }
+        .absent>.validate{
+            display: block;
+        }*/
     </style>
     <meta name=description content="Gestion des absences de l'IUT de Mulhouse">
 </head>
 <body>
     <header>
-
         <h1>
             Absences
         </h1>
+        <a class="admin" href="admin.php">Stats / Admin</button>
         <a href=/logout.php>Déconnexion</a>
     </header>
     <main>
         <p>
             Bonjour <span class=prenom></span>.
+            
         </p>
 
         <div class="zone">
@@ -358,6 +372,7 @@
         var departement = "";
         var semestre = "";
         var matiere = "";
+        var matiereComplet = "";
         var dataEtudiants;
 
         async function selectDepartment(dep){
@@ -412,6 +427,7 @@
             document.querySelector(".contenu").classList.remove("ready");
             select.classList.add("highlight");
 
+            getStudentsListes();
             /* Gestion du storage remettre le même état au retour */
             localStorage.setItem('semestre', semestre);
 
@@ -420,12 +436,11 @@
                 document.querySelector("#matiere").value = matiere;
                 selectMatiere(matiere);
             }
-
-            getStudentsListes();
 		}
         
         async function selectMatiere(mat){
             matiere = mat;
+            matiereComplet = document.querySelector("#matiere [value="+matiere+"]").innerText;
             document.querySelector(".contenu").classList.add("ready");
             document.querySelector("#matiere").classList.remove("highlight");
             /* Gestion du storage remettre le même état au retour */
@@ -494,19 +509,19 @@
                                 <b>${etudiant.nom}</b>
                                 <span>${etudiant.prenom}</span>
                             </div>
-                            ${hintHours}
-                            ${
-                                (()=>{
-                                    if(statutSession > PERSONNEL){
-                                        return `<div class=validate onclick="justify(event, this)">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00b0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline><path fill="#FFFFFF" stroke="#424242" d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path><polyline stroke="#00CC99" points="9 11 12 14 22 4"></svg>
-                                        </div>`;
-                                    }
-                                })()
-                            }
+                            ${hintHours}             
                     </div>
 				`;
 			})
+            /* ${
+                (()=>{
+                    if(statutSession > PERSONNEL){
+                        return `<div class=validate onclick="justify(event, this)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00b0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline><path fill="#FFFFFF" stroke="#424242" d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path><polyline stroke="#00CC99" points="9 11 12 14 22 4"></svg>
+                        </div>`;
+                    }
+                })()
+            }*/
 			return output;
 		}
 
@@ -529,7 +544,7 @@
 		?>;
         var creneauxIndex = creneaux.length -1;
 
-        let hintHours = `<div class=hint>${
+        let hintHours = `<div class=hint onclick="messageHint(event)">${
             creneaux.map(e=>{
                 return `<div title="Créneau ${e[0]}-${e[1]}"></div>`
             }).join("")
@@ -540,6 +555,11 @@
                 creneauxIndex = i;
                 break;
             }
+        }
+
+        function messageHint(event){
+            event.stopPropagation();
+            message("Ceci est une zone d'information pour indiquer si l'étudiant a été absent à d'autres créneaux.");
         }
 
         function actualDate(){
@@ -573,14 +593,21 @@
             var absencesEtudiant = dataEtudiants.absences[obj.dataset.email];
         // Recherche s'il y a une absence et si un autre enseignant l'a entré
             if(absencesEtudiant){
-                if((absencesEtudiant[date]?.[creneaux[creneauxIndex]]?.enseignant || session) != session){
+                if(
+                    (absencesEtudiant[date]?.[creneaux[creneauxIndex]]?.enseignant || session) != session
+                    && statutSession < ADMINISTRATEUR
+                ){
                     return message("Vous ne pouvez changer l'absence d'un autre enseignant : <span class=capitalize>" + absencesEtudiant[date][creneaux[creneauxIndex]].enseignant.split("@")[0].replace(/[.]/g, " ") + "</span>");
                 }
             }
+        // Il faut choisir une matière pour ajouter une absence
+            if(matiere == ""){
+                return message("Vous devez dabord choisir une matière pour ajouter une absence.");
+            }
 
         // On ne peut pas toucher à une absence justifiée
-            if(obj.classList.contains("excuse") && statutSession < ADMINISTRATEUR){
-                return message("L'absence a été justifiée, vous ne pouvez pas la supprimer.");
+            if(obj.classList.contains("excuse")){
+                return message("Vous ne pouvez pas supprimer une absence qui est justifiée.");
             }
         
         // Toggle de l'absence
@@ -599,6 +626,7 @@
                         "enseignant": session,
                         "creneauxIndex": creneauxIndex,
                         "matiere": matiere,
+                        "matiereComplet": matiereComplet,
                         "statut": statut
                     };
                 
@@ -614,6 +642,7 @@
                 "&dep=" + departement +
                 "&semestre=" + semestre +
                 "&matiere=" + matiere +
+                "&matiereComplet=" + matiereComplet +
                 "&etudiant=" + obj.dataset.email +
                 "&date=" + date +
                 "&creneau=" + creneaux[creneauxIndex] +
@@ -646,7 +675,7 @@
             })
         }
 
-        async function justify(event, obj){
+        /*async function justify(event, obj){
             event.stopPropagation();
             obj = obj.parentElement;
             if(obj.classList.toggle("excuse")){
@@ -662,6 +691,7 @@
                 "&dep=" + departement +
                 "&semestre=" + semestre +
                 "&matiere=" + matiere +
+                "&matiereComplet=" + matiereComplet +
                 "&etudiant=" + obj.dataset.email +
                 "&date=" + date +
                 "&creneau=" + creneaux[creneauxIndex] +
@@ -672,7 +702,7 @@
                 displayError("Il y a un problème - l'absence n'a pas été enregistrée.");
             }
             
-        }
+        }*/
 
         function ISODate(){
             // Date ISO du type : 2021-01-28T15:38:04.622Z -- on ne récupère que AAAA-MM-JJ.

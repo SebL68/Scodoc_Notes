@@ -9,7 +9,7 @@
 	Créé ou modifie le fichier d'absence d'un étudiant
 */
 /************************************/
-	function setAbsence($enseignant, $dep, $semestre, $matiere, $etudiant, $date, $creneau, $creneauxIndex, $statut){
+	function setAbsence($enseignant, $dep, $semestre, $matiere, $matiereComplet, $etudiant, $date, $creneau, $creneauxIndex, $statut){
 		global $path;
 		global $authData;
 		
@@ -27,7 +27,7 @@
 					//$json[$date][$creneau] = newAbsence($enseignant, $matiere, $creneauxIndex, $statut)
 					[
 						$date => [
-							$creneau => newAbsence($enseignant, $matiere, $creneauxIndex, $statut)
+							$creneau => newAbsence($enseignant, $matiere, $matiereComplet, $creneauxIndex, $statut)
 						]
 					]
 				)
@@ -44,7 +44,7 @@
 					$json[$date][$creneau]['statut'] = $statut;
 				}
 			} else { // Pas encore d'absence sur le créneau : on en créé une nouvelle
-				$json[$date][$creneau] = newAbsence($enseignant, $matiere, $creneauxIndex, $statut);
+				$json[$date][$creneau] = newAbsence($enseignant, $matiere, $matiereComplet, $creneauxIndex, $statut);
 			}
 
 			if(count($json) == 0){
@@ -59,12 +59,13 @@
 		}
 	}
 
-	function newAbsence($enseignant, $matiere, $creneauxIndex, $statut){
+	function newAbsence($enseignant, $matiere, $matiereComplet, $creneauxIndex, $statut){
 		return [
 			"creneauxIndex" => $creneauxIndex,
 			"statut" => $statut,
 			"enseignant" => $enseignant,
-			"matiere" => $matiere
+			"matiere" => $matiere,
+			"matiereComplet" => $matiereComplet
 		];
 	}
 /************************************/
