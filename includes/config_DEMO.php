@@ -10,10 +10,11 @@ $DNS = "uha.fr";
 /***************************************/
 
 $CONSTANTES = [
-	'INCONNU'        => 0,
-	'ETUDIANT'       => 10,
-	'PERSONNEL'      => 20,
-	'ADMINISTRATEUR' => 30
+	'INCONNU'				=> 0,
+	'ETUDIANT'				=> 10,
+	'PERSONNEL'				=> 20,
+	'ADMINISTRATEUR'		=> 30,
+	'SUPERADMINISTRATEUR'	=> 40
 ];
 
 foreach($CONSTANTES as $const => $val) {
