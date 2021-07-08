@@ -200,6 +200,9 @@
 /* Zone absences */
 /*****************************/
         .date{
+            position: sticky;
+            top: 0;
+            z-index: 1;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -233,6 +236,8 @@
 			cursor: initial !important;
 			transition-delay: .035s;
 			border-color: #09c;
+            width: initial;
+            margin-left: 8px;
 		}
 		.semaine>div:nth-child(1){
 			grid-column: 2 / span var(--nb-creneaux);
@@ -245,7 +250,7 @@
 		}
 		.etudiants>div{
 			display: grid;
-			grid-template-columns: 300px repeat(calc(var(--nb-creneaux) * 6), 24px);
+			grid-template-columns: 300px repeat(6, 32px<?php for($i=0;$i<count($creneaux)-1;$i++){echo " 24px";} ?>);
 			gap: 1px;
 		}
 		.etudiants>div>div{
@@ -253,7 +258,11 @@
             border: 1px solid #eee;
             background: #FFF; 
             cursor: pointer;
+            width: 24px;
 		}
+        .etudiants [title]{
+            justify-self: end;
+        }
 		.etudiants>div:not(.semaine)>div:hover{
 			border: 1px solid #777;
 		}
@@ -265,6 +274,7 @@
             padding: 10px 20px;
 			cursor: initial;
 			border-color: #09c;
+            width: initial;
         }
         .btnAbsences>div:nth-child(1){
             display: flex;
@@ -413,7 +423,7 @@
             dataEtudiants = await fetchData(`listeEtudiantsSemestre&dep=${departement}&semestre=${semestre}&absences=true`);
             document.querySelector(".contenu").innerHTML = createSemester(dataEtudiants);
 
-            setAbsences();  
+            changeDate(0);
         }
 
         function clearStorage(keys){
@@ -442,7 +452,7 @@
 
 							<svg onclick=changeDate(-1) xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
 
-							<div id=actualDate>Choisissez la semaine</div>
+							<div id=actualDate></div>
 
 							<svg onclick=changeDate(1) xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
 
@@ -472,6 +482,7 @@
 				calFrame += `
 					<div 
 						data-num="${Math.floor(i/creneaux.length)}" 
+                        data-creneauxindex="${i%creneaux.length}"
 						title="${creneaux[i%creneaux.length][0]}-${creneaux[i%creneaux.length][1]}" 
 						onmouseenter="showDay(this)" 
 						onmouseout="stopShowDay(this)"
@@ -518,9 +529,48 @@
 /*************************************/
 /* Gestion des dates et des absences */
 /*************************************/
+        var dateLundi = new Date();
+        let dayNumber = dateLundi.getDay();
+        dayNumber -= dayNumber == 0 ? -6:1;
+        dateLundi.setDate(dateLundi.getDate() - dayNumber);
+
+        var dateSamedi = new Date();
+
+        function changeDate(num){
+            dateLundi.setDate(dateLundi.getDate() + num * 7);
+            dateSamedi.setDate(dateLundi.getDate() + 5);
+            document.querySelector("#actualDate").innerText = `Du lundi ${dateLundi.toLocaleDateString()} au samedi ${dateSamedi.toLocaleDateString()}`;
+
+            setAbsences();
+        }
+
 		function setAbsences(){
-			
+            document.querySelectorAll(".absent").forEach(e=>{
+                e.classList.remove("absent", "escuse")
+            })
+            let date = new Date();
+			Object.entries(dataEtudiants.absences).forEach(([etudiant, listeAbsences])=>{
+                for(let i=0 ; i<5 ; i++){
+
+                    date.setDate(dateLundi.getDate() + i);
+                    let absencesJour = listeAbsences[ISODate(date)];
+
+                    if(absencesJour){
+                        Object.entries(absencesJour).forEach(([creneau, data])=>{
+                            let diffDay = getDayNumber(date);
+                            document.querySelector(`[data-email="${etudiant}"]`).parentElement.children[diffDay * creneaux.length + parseInt(data.creneauxIndex) + 1].className = data.statut;
+                        })
+                    }
+                }
+            })
 		}
+
+        function getDayNumber(dateStr){
+            let date = new Date(dateStr);
+            let dayNbr = date.getDay();
+            dayNbr -= dayNbr == 0 ? -6:1;
+            return dayNbr;
+        }
 
 		async function justify(obj){
 
@@ -536,26 +586,33 @@
                 var statut = "absent";
             }
 
-           /* var date = ISODate();
-            dataEtudiants.absences[obj.dataset.email][date][creneaux[creneauxIndex]].statut = statut;
+            let date = new Date(dateLundi);
+            date.setDate(dateLundi.getDate() + parseInt(obj.dataset.num));
+            date = ISODate(date);
+            dataEtudiants.absences[obj.parentElement.children[0].dataset.email][date][creneaux[parseInt(obj.dataset.creneauxindex)]].statut = statut;
 
             let response = await fetchData("setAbsence" + 
                 "&dep=" + departement +
                 "&semestre=" + semestre +
-                "&matiere=" + matiere +
-                "&matiereComplet=" + matiereComplet +
-                "&etudiant=" + obj.dataset.email +
+                "&matiere=" + "pas besoin" +
+                "&matiereComplet=" + "pas besoin" +
+                "&etudiant=" + obj.parentElement.children[0].dataset.email +
                 "&date=" + date +
-                "&creneau=" + creneaux[creneauxIndex] +
-                "&creneauxIndex=" + creneauxIndex +
+                "&creneau=" + creneaux[obj.dataset.creneauxindex] +
+                "&creneauxIndex=" + "pas besoin" +
                 "&statut=" + statut
             );
             if(response.result != "OK"){
                 displayError("Il y a un problème - l'absence n'a pas été enregistrée.");
-            }*/
+            }
             
         }
-       
+
+        function ISODate(date){
+            // Date ISO du type : 2021-01-28T15:38:04.622Z -- on ne récupère que AAAA-MM-JJ.
+            return date.toISOString().split("T")[0];
+        }
+
         function message(msg){
             var div = document.createElement("div");
             div.className = "message";

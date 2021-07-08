@@ -440,7 +440,7 @@
         
         async function selectMatiere(mat){
             matiere = mat;
-            matiereComplet = document.querySelector("#matiere [value="+matiere+"]").innerText;
+            matiereComplet = document.querySelector('#matiere [value="'+matiere+'"]').innerText;
             document.querySelector(".contenu").classList.add("ready");
             document.querySelector("#matiere").classList.remove("highlight");
             /* Gestion du storage remettre le même état au retour */
