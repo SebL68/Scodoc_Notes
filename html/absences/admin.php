@@ -380,6 +380,7 @@
         var departement = "";
         var semestre = "";
         var dataEtudiants;
+        var depAdmins = [];
 
         async function selectDepartment(dep){
             departement = dep;
@@ -406,6 +407,7 @@
                 document.querySelector("#semestre").value = semestre;
                 selectSemester(semestre);
             }
+            depAdmins = await fetchData("listeAdministrateurs&dep=" + departement);
 		}
 		
 		async function selectSemester(sem){
@@ -577,6 +579,9 @@
 			if(statut < ADMINISTRATEUR){
 				return message("Seul un administrateur peut justifier une absence");
 			}
+            if(depAdmins.indexOf(session) == -1 && statut < SUPERADMINISTRATEUR){
+                return message("Vous ne pouvez pas modifier une absence d'un autre département");
+            }
 			if(!obj.classList.contains("absent")){
 				return message("Vous ne pouvez pas justifier s'il n'y a pas d'absence");
 			} 
