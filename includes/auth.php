@@ -59,8 +59,10 @@
 				case 'administrateur':
 					$_SESSION['statut'] = ADMINISTRATEUR;
 					break;
+				case 'superadministrateur':
+					$_SESSION['statut'] = SUPERADMINISTRATEUR;
+					break;
 			}
-			
 
 		}else{
 	/****************************************************/
