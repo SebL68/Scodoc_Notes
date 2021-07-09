@@ -274,18 +274,6 @@
         .excuse{
             background: #0C9 !important;
         }
-        /*.validate{
-            display: none;
-            cursor:pointer;
-            position: absolute;
-            left: calc(100% + 5px);
-            top: 6px;
-            margin: 0;
-            padding: 0;
-        }
-        .absent>.validate{
-            display: block;
-        }*/
     </style>
     <meta name=description content="Gestion des absences de l'IUT de Mulhouse">
 </head>
@@ -372,6 +360,7 @@
         var departement = "";
         var semestre = "";
         var matiere = "";
+        var UE = "";
         var matiereComplet = "";
         var dataEtudiants;
 
@@ -440,7 +429,10 @@
         
         async function selectMatiere(mat){
             matiere = mat;
-            matiereComplet = document.querySelector('#matiere [value="'+matiere+'"]').innerText;
+            let obj = document.querySelector('#matiere [value="'+matiere+'"]');
+            matiereComplet = obj.innerText;
+            UE = obj.parentElement.label;
+
             document.querySelector(".contenu").classList.add("ready");
             document.querySelector("#matiere").classList.remove("highlight");
             /* Gestion du storage remettre le même état au retour */
@@ -513,15 +505,6 @@
                     </div>
 				`;
 			})
-            /* ${
-                (()=>{
-                    if(statutSession > PERSONNEL){
-                        return `<div class=validate onclick="justify(event, this)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00b0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline><path fill="#FFFFFF" stroke="#424242" d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path><polyline stroke="#00CC99" points="9 11 12 14 22 4"></svg>
-                        </div>`;
-                    }
-                })()
-            }*/
 			return output;
 		}
 
@@ -627,6 +610,7 @@
                         "creneauxIndex": creneauxIndex,
                         "matiere": matiere,
                         "matiereComplet": matiereComplet,
+                        "UE": UE,
                         "statut": statut
                     };
                 
@@ -643,6 +627,7 @@
                 "&semestre=" + semestre +
                 "&matiere=" + matiere +
                 "&matiereComplet=" + matiereComplet +
+                "&UE=" + UE +
                 "&etudiant=" + obj.dataset.email +
                 "&date=" + date +
                 "&creneau=" + creneaux[creneauxIndex] +
@@ -674,35 +659,6 @@
                 e.children[creneauxIndex].classList.add("now");
             })
         }
-
-        /*async function justify(event, obj){
-            event.stopPropagation();
-            obj = obj.parentElement;
-            if(obj.classList.toggle("excuse")){
-                var statut = "absent excuse";
-            } else {
-                var statut = "absent";
-            }
-
-            var date = ISODate();
-            dataEtudiants.absences[obj.dataset.email][date][creneaux[creneauxIndex]].statut = statut;
-
-            let response = await fetchData("setAbsence" + 
-                "&dep=" + departement +
-                "&semestre=" + semestre +
-                "&matiere=" + matiere +
-                "&matiereComplet=" + matiereComplet +
-                "&etudiant=" + obj.dataset.email +
-                "&date=" + date +
-                "&creneau=" + creneaux[creneauxIndex] +
-                "&creneauxIndex=" + creneauxIndex +
-                "&statut=" + statut
-            );
-            if(response.result != "OK"){
-                displayError("Il y a un problème - l'absence n'a pas été enregistrée.");
-            }
-            
-        }*/
 
         function ISODate(){
             // Date ISO du type : 2021-01-28T15:38:04.622Z -- on ne récupère que AAAA-MM-JJ.

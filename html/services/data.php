@@ -205,6 +205,7 @@
 					$_GET['semestre'],
 					$_GET['matiere'],
 					$_GET['matiereComplet'],
+					$_GET['UE'],
 					$_GET['etudiant'],
 					$_GET['date'],
 					$_GET['creneau'],

@@ -94,6 +94,7 @@
             opacity: 0.5;
             pointer-events: none;
             user-select: none;
+			position: relative;
         }
         .ready{
             opacity: initial;
@@ -157,6 +158,20 @@
 /*******************************/
 /* Listes étudiants */
 /*******************************/
+		.contenu>button{
+			position: absolute;
+			top: -9px;
+			right: 0;
+			border: 1px solid #CCC;
+			border-radius: 4px;
+			padding: 8px 16px;
+			background: #FFF;
+			cursor: pointer;
+		}
+		.contenu>button:hover{
+			background: #0C9;
+			color: #FFF;
+		}
         .flex{
             display: flex;
             justify-content: center;
@@ -272,9 +287,9 @@
             position: relative;
             text-align: left;
             padding: 10px 20px;
-			cursor: initial;
 			border-color: #09c;
             width: initial;
+            justify-self: initial;
         }
         .btnAbsences>div:nth-child(1){
             display: flex;
@@ -381,6 +396,7 @@
         var semestre = "";
         var dataEtudiants;
         var depAdmins = [];
+		var UE = []
 
         async function selectDepartment(dep){
             departement = dep;
@@ -419,6 +435,8 @@
             getStudentsListes();
             /* Gestion du storage remettre le même état au retour */
             localStorage.setItem('semestre', semestre);
+
+			UE = await fetchData(`UEEtModules&dep=${departement}&semestre=${semestre}`);
 		}
 
         async function getStudentsListes(){
@@ -435,7 +453,7 @@
         }
 
         function createSemester(liste){
-			var output = "";
+			var output = (statutSession >= ADMINISTRATEUR)?`<button onclick="createSemesterReport()">Rapport d'absences</button>`:"";
 
             var groupes = "";
             if(liste.groupes.length > 1){
@@ -500,7 +518,10 @@
 							data-prenom="${etudiant.prenom}" 
 							data-groupe="${etudiant.groupe || "Groupe 1"}"
 							data-num="${etudiant.num_etudiant}"
-							data-email="${etudiant.email}">
+							data-email="${etudiant.email}" 
+                            title="Télécharger le rapport d'absence"
+                            onclick="createStudentReport(this)"
+                            >
 								<div>
 									<b>${etudiant.nom}</b>
 									<span>${etudiant.prenom}</span>
@@ -548,7 +569,7 @@
 
 		function setAbsences(){
             document.querySelectorAll(".absent").forEach(e=>{
-                e.classList.remove("absent", "escuse")
+                e.classList.remove("absent", "excuse")
             })
             let date = new Date();
 			Object.entries(dataEtudiants.absences).forEach(([etudiant, listeAbsences])=>{
@@ -576,10 +597,10 @@
 
 		async function justify(obj){
 
-			if(statut < ADMINISTRATEUR){
+			if(statutSession < ADMINISTRATEUR){
 				return message("Seul un administrateur peut justifier une absence");
 			}
-            if(depAdmins.indexOf(session) == -1 && statut < SUPERADMINISTRATEUR){
+            if(depAdmins.indexOf(session) == -1 && statutSession < SUPERADMINISTRATEUR){
                 return message("Vous ne pouvez pas modifier une absence d'un autre département");
             }
 			if(!obj.classList.contains("absent")){
@@ -601,6 +622,7 @@
                 "&semestre=" + semestre +
                 "&matiere=" + "pas besoin" +
                 "&matiereComplet=" + "pas besoin" +
+                "&UE=" + "pas besoin" +
                 "&etudiant=" + obj.parentElement.children[0].dataset.email +
                 "&date=" + date +
                 "&creneau=" + creneaux[obj.dataset.creneauxindex] +
@@ -627,6 +649,281 @@
                 div.remove();
             }, 3000);
         }
+/***************************/
+/* Gestion des rapports d'absence
+/***************************/
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx-populate/1.21.0/xlsx-populate.min.js"></script>
+
+    <script>
+        function getExcel(obj, xlsxName) {
+			return fetch(xlsxName)
+				.then(function (response) { return response.blob() })
+				.then(function (blob) {
+					return blob;
+				})
+		}
+
+		function saveFile(name, workbook) {
+			workbook.outputAsync()
+			.then(function (blob) {
+				var url = window.URL.createObjectURL(blob);
+				var a = document.createElement("a");
+				document.body.appendChild(a);
+				a.href = url;
+				a.download = name;
+				a.click();
+				window.URL.revokeObjectURL(url);
+				document.body.removeChild(a);
+			});
+		}
+        function createStudentReport(obj){
+            let absences = dataEtudiants.absences[obj.dataset.email];
+            let sem = document.querySelector("#semestre");
+            let semestreTxt = sem.options[sem.selectedIndex].text;
+
+			XlsxPopulate.fromBlankAsync()
+            .then(workbook => {
+                let now = new Date();
+                now = now.toLocaleDateString();
+                const sheet = workbook.sheet(0);
+                sheet.name("Absences");
+
+				sheet.column("A").width(11);
+				sheet.column("C").width(22);
+				sheet.column("D").width(22);
+
+                sheet.cell("A1").value("Rapport d'absences").style("fontSize", 18);
+                sheet.cell("A2").value(`${semestreTxt}`).style("fontSize", 24);
+                sheet.cell("A3").value(`${obj.dataset.prenom} ${obj.dataset.nom}`).style("fontSize", 24);
+                sheet.cell("A4").value(`${obj.dataset.num}`);
+                sheet.cell("A5").value(`${now}`);
+                
+				var i = 7;
+                sheet.cell("A"+i).value("Absences injustifiées").style("fontSize", 18);
+				i++;
+
+				sheet.cell("A"+i).value([[
+						"Date",
+						"Créneau",
+						"Enseignant",
+						"Matière",
+						"UE"
+					]]).style({
+						bold: true,
+						fill: "0099CC",
+						fontColor: "FFFFFF"
+					});
+				i++;
+
+				var total = {};
+				Object.entries(dataEtudiants.absences[obj.dataset.email]).forEach(([date, listeCreneaux])=>{
+					Object.entries(listeCreneaux).forEach(([creneau, data])=>{
+						if(data.statut == "absent"){
+							sheet.cell("A"+i).value(date.split("-").reverse().join("/"));
+							sheet.cell("B"+i).value(creneau.replace(",", "-"));
+							sheet.cell("C"+i).value(mailToTxt(data.enseignant));
+							sheet.cell("D"+i).value(data.matiereComplet);
+							sheet.cell("E"+i).value(data.UE);
+
+							total[data.UE] = (total[data.UE] + 1) || 1;
+							i++;
+						}
+					})
+				})
+
+				Object.entries(total).forEach(([ue, nombre])=>{
+					sheet.cell("A"+i).value(`Nombre d'absences injustifiées ${ue} : ${nombre}`);
+					sheet.range("A"+i+":E"+i).style({
+						bold: true,
+						fill: "00CC99",
+						fontColor: "FFFFFF"
+					});
+					i++;
+				})
+
+				i++;
+ 				sheet.cell("A"+i).value("Absences justifiées").style("fontSize", 18);
+				i++;
+
+                sheet.cell("A"+i).value([[
+						"Date",
+						"Créneau",
+						"Enseignant",
+						"Matière",
+						"UE"
+					]]).style({
+						bold: true,
+						fill: "0099CC",
+						fontColor: "FFFFFF"
+					});
+				i++;
+				
+				total = {};
+				Object.entries(dataEtudiants.absences[obj.dataset.email]).forEach(([date, listeCreneaux])=>{
+					Object.entries(listeCreneaux).forEach(([creneau, data])=>{
+						if(data.statut == "absent excuse"){
+							sheet.cell("A"+i).value(date.split("-").reverse().join("/"));
+							sheet.cell("B"+i).value(creneau.replace(",", "-"));
+							sheet.cell("C"+i).value(mailToTxt(data.enseignant));
+							sheet.cell("D"+i).value(data.matiereComplet);
+							sheet.cell("E"+i).value(data.UE);
+
+							total[data.UE] = (total[data.UE] + 1) || 1;
+							i++;
+						}
+					})
+				})
+
+				Object.entries(total).forEach(([ue, nombre])=>{
+					sheet.cell("A"+i).value(`Nombre d'absences justifiées ${ue} : ${nombre}`);
+					sheet.range("A"+i+":E"+i).style({
+						bold: true,
+						fill: "00CC99",
+						fontColor: "FFFFFF"
+					});
+					i++;
+				})
+
+                saveFile("Absences - " + semestreTxt + " " + obj.dataset.email.split("@")[0].replaceAll(".", " ").toUpperCase(), workbook);
+            });
+        }
+
+		function createSemesterReport(){
+            let sem = document.querySelector("#semestre");
+            let semestreTxt = sem.options[sem.selectedIndex].text;
+
+			XlsxPopulate.fromBlankAsync()
+            .then(workbook => {
+                let now = new Date();
+                now = now.toLocaleDateString();
+                const sheet = workbook.sheet(0);
+                sheet.name("Absences");
+
+				sheet.column("A").width(11);
+				sheet.column("B").width(11);
+
+                sheet.cell("A1").value("Rapport d'absences").style("fontSize", 18);
+                sheet.cell("A2").value(`${semestreTxt}`).style("fontSize", 24);
+                sheet.cell("A3").value(`${now}`);
+                
+				var i = 5;
+
+				var colonne = 'D';
+				UE.forEach(e=>{
+					sheet.cell(colonne+i).value(e.UE).style({
+						bold: true,
+						fill: "00CC99",
+						fontColor: "FFFFFF"
+					});
+					sheet.cell(colonne+(i+1)).value([["Justifié", "Injustifié"]]).style({
+						bold: true,
+						fill: "0099CC",
+						fontColor: "FFFFFF"
+					});
+					colonne = changeChar(colonne, 2);
+				})
+				sheet.cell(colonne+i).value([
+					["Totaux", ""],
+					["Justifié", "Injustifié"]
+				]).style({
+					bold: true,
+					fill: "9900CC",
+					fontColor: "FFFFFF"
+				});
+
+				i++;
+				sheet.cell("A"+i).value([[
+						"Nom",
+						"Prénom",
+						"Numéro"
+					]]).style({
+						bold: true,
+						fill: "0099CC",
+						fontColor: "FFFFFF"
+					});
+				i++;
+
+				var absences = nbAbsences();
+
+				dataEtudiants.etudiants.forEach(etudiant=>{
+					sheet.cell("A"+i).value([[
+						etudiant.nom,
+						etudiant.prenom,
+						etudiant.num_etudiant
+					]]);
+					colonne = "D";
+					totJust = 0;
+					totInjust = 0;
+					UE.forEach(e=>{
+						sheet.cell(colonne+i).value([[
+							absences[etudiant.email][e.UE].justifie,
+							absences[etudiant.email][e.UE].injustifie
+						]]);
+						totJust += absences[etudiant.email][e.UE].justifie;
+						totInjust += absences[etudiant.email][e.UE].injustifie;
+						colonne = changeChar(colonne, 2);
+					})
+					sheet.cell(colonne+i).value([[
+						totJust,
+						totInjust
+					]]);
+					i++;
+				})
+
+                saveFile("Absences - " + semestreTxt, workbook);
+            });
+        }
+
+		function changeChar(char, nb){
+			return String.fromCharCode(char.charCodeAt(0) + nb);
+		}
+
+		function nbAbsences(){
+			/*Réponse sous la forme d'une strucutre :
+				{
+					"mail etudiant": {
+						"UE1": {
+							"jusitifie": 22,
+							"injustifie" : 33
+						},
+						"UE2": {
+							"jusitifie": 22,
+							"injustifie" : 33
+						}
+					}
+				}
+			*/
+			var output = {};
+			dataEtudiants.etudiants.forEach(etudiant=>{
+				if(!output[etudiant.email]){
+					output[etudiant.email] = {};
+					UE.forEach(ue=>{
+						output[etudiant.email][ue.UE] = {
+							justifie: 0,
+							injustifie: 0
+						}
+					})
+				}
+
+				Object.values(dataEtudiants.absences[etudiant.email] || {}).forEach(dateAbsence=>{
+					Object.values(dateAbsence).forEach(creneau=>{
+						if(creneau.statut == "absent"){
+							output[etudiant.email][creneau.UE].injustifie += 1;
+						} else {
+							output[etudiant.email][creneau.UE].justifie += 1;
+						}
+					})
+				})
+			})
+			return output;
+		}
+
+		function mailToTxt(mail){
+			let tab = mail.split("@")[0].split(".");
+			return tab[0].charAt(0).toUpperCase() + tab[0].slice(1) + " " + tab[1].toUpperCase();
+		}
+
 /***************************/
 /* C'est parti !
 /***************************/
