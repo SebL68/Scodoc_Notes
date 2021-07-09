@@ -30,6 +30,7 @@
 				background:#09C;
 				display: flex;
 				justify-content: space-between;
+				gap: 16px;
 				color:#FFF;
 				box-shadow: 0 2px 2px #888;
 				z-index:1;
@@ -39,8 +40,20 @@
 				text-decoration: none;
 				padding: 10px 0 10px 0;
 			}
+			.nav{
+				background: #FFF;
+				color: #424242;
+				padding: 8px 16px;
+				border-radius: 16px;
+				display: flex;
+    			align-items: center;
+			}
+			.nav:hover{
+				background: #0c9;
+				color: #FFF;
+			}
 			h1{
-				margin:0;
+				margin:0 auto 0 0;
 			}
 			main{
 				padding:0 10px;
@@ -244,6 +257,8 @@
 			<h1>
 				Relevé de notes
 			</h1>
+			<a class="nav" href="services/studentsLists.php">Documents</button>
+			<a class="nav" href="absences/">Absences</button>
 			<a href=logout.php>Déconnexion</a>
 		</header>
 		<main>

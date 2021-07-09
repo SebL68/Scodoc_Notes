@@ -83,6 +83,39 @@
             text-align: center;
             transition: 0.4s;
         }
+/**********************/
+/*   Zones de choix   */
+/**********************/
+        .zone{
+            background: #FFF;
+            padding: 8px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            border: 1px solid #CCC;
+        }
+		select{
+			font-size: 21px;
+			padding: 10px;
+			margin: 5px auto;
+			background: #09c;
+			color: #FFF;
+			border: none;
+			border-radius: 10px;
+            max-width: 100%;
+            display: table;
+            box-shadow: 0 2px 2px #888;
+		}
+        .highlight{
+            animation: pioupiou 0.4s infinite ease-in alternate;
+        }
+        @keyframes pioupiou{
+            0%{
+                box-shadow: 0 0 4px 0px orange;
+            }
+            100%{
+                box-shadow: 0 0 4px 2px orange;
+            }
+        }
 /*******************************/
 /* Listes étudiants */
 /*******************************/
@@ -159,6 +192,18 @@
 			<p>
 				Bonjour <span class=prenom></span>.
 			</p>
+            <div class="zone">
+                <select id=departement class=highlight onchange="selectDepartment(this.value)">
+                    <option value="" disabled selected hidden>Choisir un département</option>
+                    <?php
+                        include "$path/includes/serverIO.php";
+                        $listDepartement = getDepartmentsList();
+                        foreach($listDepartement as $departement){
+                            echo "<option value=$departement>$departement</option>";
+                        }
+                    ?>
+                </select>
+            </div>
             <div class=contenu></div>
 			<div class=wait></div>
 			
@@ -185,11 +230,25 @@
             auth.style.pointerEvents = "none";
 
             if(data.statut >= PERSONNEL){
-                getStudentsListes(window.location.pathname.replace(/\//g,"")); // Répertoir courant - exemple : MMI
+                let departement = localStorage.getItem("departement");
+                if(departement){
+                    document.querySelector("#departement").value = departement;
+                    selectDepartment(departement);
+                }
             } else {
                 document.querySelector(".contenu").innerHTML = "Ce contenu est uniquement accessible pour les personnels de l'IUT. ";
             }
         }
+
+
+        async function selectDepartment(departement){
+            document.querySelector("#departement").classList.remove("highlight");
+
+            /* Gestion du storage remettre le même état au retour */
+            localStorage.setItem('departement', departement);
+
+            getStudentsListes(departement);
+		}
 /*********************************************/
 /* Récupère et traite les listes d'étudiants du département
 /*********************************************/		

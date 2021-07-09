@@ -1,5 +1,0 @@
-RewriteEngine On
-DirectorySlash Off
-RewriteRule MMI|GEII|GLT|SGM|GEA|GMP services/studentsLists.php
-RewriteRule absences absences/index.php
-RewriteRule admin admin/index.php
