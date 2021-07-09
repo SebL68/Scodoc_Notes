@@ -14,81 +14,9 @@
 					echo count($creneaux); 
 				?>;
 		}
-        *{
-            box-sizing: border-box;
-        }
-        html{
-            scroll-behavior: smooth;
-        }
-        body{
-            margin:0;
-            font-family:arial;
-            background: #FAFAFA;
-        }
-        header{
-            position:sticky;
-            top:0;
-            padding:10px;
-            background:#09C;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 16px;
-            color:#FFF;
-            box-shadow: 0 2px 2px #888;
-            z-index:1;
-        }
-        header a{
-            color: #FFF;
-            text-decoration: none;
-            padding: 10px 0 10px 0;
-        }
-        h1{
-            margin:0;
-        }
-        h2{
-            margin: 20px 0 0 0;
-            padding: 20px;
-            background: #0C9;
-            color: #FFF;
-            border-radius: 10px;
-            cursor: pointer;
-        }
+        <?php include "$path/html/assets/header.css"?>      
         main{
-            padding:0 10px;
-            margin-bottom: 64px;
-            max-width: 1000px;
-            margin: 0 auto 20px auto;
             text-align: center;
-        }
-        .prenom{
-            text-transform: capitalize;
-            color:#f44335;
-        }
-        .wait{
-            position: fixed;
-            width: 50px;
-            height: 10px;
-            background: #424242;
-            top: 80px;
-            left: 50%;
-            margin-left: -25px;
-            animation: wait 0.6s ease-out alternate infinite;
-        }
-        @keyframes wait{
-            100%{transform: translateY(-30px) rotate(360deg)}
-        }
-        .auth{
-            position: fixed;
-            top: 58px;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: #FAFAFA;
-            font-size: 28px;
-            padding: 28px 10px 0 10px;
-            text-align: center;
-            transition: 0.4s;
         }
         .contenu{
             opacity: 0.5;
@@ -314,12 +242,10 @@
     <meta name=description content="Gestion des absences de l'IUT de Mulhouse">
 </head>
 <body>
-    <header>
-        <h1>
-            <a href="index.php">Absences</a>
-        </h1>
-        <a href=/logout.php>Déconnexion</a>
-    </header>
+    <?php 
+        $h1 = 'Stats / Admin';
+        include "$path/html/assets/header.php";
+    ?>
     <main>
         <p>
             Bonjour <span class=prenom></span>.

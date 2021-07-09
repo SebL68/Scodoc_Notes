@@ -8,36 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documents</title>
     <style>
-        *{
-            box-sizing: border-box;
-        }
-        html{
-            scroll-behavior: smooth;
-        }
-        body{
-            margin:0;
-            font-family:arial;
-            background: #FAFAFA;
-        }
-        header{
-            position:sticky;
-            top:0;
-            padding:10px;
-            background:#09C;
-            display: flex;
-            justify-content: space-between;
-            color:#FFF;
-            box-shadow: 0 2px 2px #888;
-            z-index:1;
-        }
-        header>a{
-            color: #FFF;
-            text-decoration: none;
-            padding: 10px 0 10px 0;
-        }
-        h1{
-            margin:0;
-        }
+        <?php include "$path/html/assets/header.css"?>
         h2{
             margin: 20px 0 0 0;
             padding: 20px;
@@ -47,41 +18,7 @@
             cursor: pointer;
         }
         main{
-            padding:0 10px;
-            margin-bottom: 64px;
-            max-width: 1000px;
             margin: 0 auto 20px auto;
-        }
-        .prenom{
-            text-transform: capitalize;
-            color:#f44335;
-        }
-        
-        .wait{
-            position: fixed;
-            width: 50px;
-            height: 10px;
-            background: #424242;
-            top: 80px;
-            left: 50%;
-            margin-left: -25px;
-            animation: wait 0.6s ease-out alternate infinite;
-        }
-        @keyframes wait{
-            100%{transform: translateY(-30px) rotate(360deg)}
-        }
-
-        .auth{
-            position: fixed;
-            top: 58px;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: #FAFAFA;
-            font-size: 28px;
-            padding: 28px 10px 0 10px;
-            text-align: center;
-            transition: 0.4s;
         }
 /**********************/
 /*   Zones de choix   */
@@ -180,40 +117,37 @@
     </style>
     <meta name=description content="Interface documents de l'IUT de Mulhouse">
 </head>
-<body>
-    <header>
-
-			<h1>
-				Documents
-			</h1>
-			<a href=/logout.php>Déconnexion</a>
-		</header>
-        <main>
-			<p>
-				Bonjour <span class=prenom></span>.
-			</p>
-            <div class="zone">
-                <select id=departement class=highlight onchange="selectDepartment(this.value)">
-                    <option value="" disabled selected hidden>Choisir un département</option>
-                    <?php
-                        include "$path/includes/serverIO.php";
-                        $listDepartement = getDepartmentsList();
-                        foreach($listDepartement as $departement){
-                            echo "<option value=$departement>$departement</option>";
-                        }
-                    ?>
-                </select>
-            </div>
-            <div class=contenu></div>
-			<div class=wait></div>
-			
-		</main>
-
-		<div class=auth>
-			<!-- Site en maintenance -->
-			Authentification en cours ...
+<body>		
+    <?php 
+		$h1 = 'Documents';
+		include "$path/html/assets/header.php";
+	?>
+    <main>
+        <p>
+            Bonjour <span class=prenom></span>.
+        </p>
+        <div class="zone">
+            <select id=departement class=highlight onchange="selectDepartment(this.value)">
+                <option value="" disabled selected hidden>Choisir un département</option>
+                <?php
+                    include "$path/includes/serverIO.php";
+                    $listDepartement = getDepartmentsList();
+                    foreach($listDepartement as $departement){
+                        echo "<option value=$departement>$departement</option>";
+                    }
+                ?>
+            </select>
         </div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx-populate/1.21.0/xlsx-populate.min.js"></script>
+        <div class=contenu></div>
+        <div class=wait></div>
+        
+    </main>
+
+    <div class=auth>
+        <!-- Site en maintenance -->
+        Authentification en cours ...
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx-populate/1.21.0/xlsx-populate.min.js"></script>
     <script>
         checkStatut();
         <?php
