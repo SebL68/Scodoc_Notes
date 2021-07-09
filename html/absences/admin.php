@@ -283,7 +283,7 @@
 		<?php
             include "$path/includes/clientIO.php";
 		?>  
-
+        document.querySelector("#admin").classList.add("navActif");
 		var creneaux = <?php
             include_once "$path/includes/config.php";
             echo json_encode($creneaux);
@@ -303,7 +303,7 @@
             statutSession = data.statut;
 
             if(data.statut >= PERSONNEL){
-
+                document.querySelector("body").classList.add('personnel');
                 /* Gestion du storage remettre le même état au retour */
                 let departement = localStorage.getItem("departement");
                 if(departement){
@@ -499,7 +499,7 @@
             })
             let date = new Date();
 			Object.entries(dataEtudiants.absences).forEach(([etudiant, listeAbsences])=>{
-                for(let i=0 ; i<5 ; i++){
+                for(let i=0 ; i<6 ; i++){
 
                     date.setDate(dateLundi.getDate() + i);
                     let absencesJour = listeAbsences[ISODate(date)];

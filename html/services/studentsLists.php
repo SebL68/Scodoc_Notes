@@ -127,7 +127,7 @@
             Bonjour <span class=prenom></span>.
         </p>
         <div class="zone">
-            <select id=departement class=highlight onchange="selectDepartment(this.value)">
+            <select id=departement class=highlight onchange="clearStorage(['semestre', 'matiere']);selectDepartment(this.value)">
                 <option value="" disabled selected hidden>Choisir un département</option>
                 <?php
                     include "$path/includes/serverIO.php";
@@ -150,6 +150,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx-populate/1.21.0/xlsx-populate.min.js"></script>
     <script>
         checkStatut();
+        document.querySelector("#documents").classList.add("navActif");
         <?php
 			include "$path/includes/clientIO.php";
 		?>
@@ -164,6 +165,7 @@
             auth.style.pointerEvents = "none";
 
             if(data.statut >= PERSONNEL){
+                document.querySelector("body").classList.add('personnel');
                 let departement = localStorage.getItem("departement");
                 if(departement){
                     document.querySelector("#departement").value = departement;
@@ -189,6 +191,11 @@
         async function getStudentsListes(departement){
             let data = await fetchData("listesEtudiantsDépartement&dep="+departement);
             document.querySelector(".contenu").innerHTML = createSemester(data);
+        }
+        function clearStorage(keys){
+            keys.forEach(function(key){
+                localStorage.removeItem(key);
+            });
         }
 
         function createSemester(data){

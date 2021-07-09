@@ -16,6 +16,7 @@ header{
 	background:#09C;
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 	gap: 16px;
 	color:#FFF;
 	box-shadow: 0 2px 2px #888;
@@ -31,10 +32,17 @@ header>a{
 	color: #424242;
 	padding: 8px 16px;
 	border-radius: 16px;
-	display: flex;
+	display: none;
 	align-items: center;
 }
+.personnel .nav{
+	display: flex;
+}
 .nav:hover{
+	background: #0c9;
+	color: #FFF;
+}
+.navActif{
 	background: #0c9;
 	color: #FFF;
 }

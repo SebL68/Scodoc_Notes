@@ -252,6 +252,7 @@
 		<?php
             include "$path/includes/clientIO.php";
 		?>  
+        document.querySelector("#absences").classList.add("navActif");
 /*********************************************/
 /* Vérifie l'identité de la personne et son statut
 /*********************************************/		
@@ -268,6 +269,7 @@
 
             if(data.statut >= PERSONNEL){
 
+                document.querySelector("body").classList.add('personnel');
                 /* Gestion du storage remettre le même état au retour */
                 let departement = localStorage.getItem("departement");
                 if(departement){
