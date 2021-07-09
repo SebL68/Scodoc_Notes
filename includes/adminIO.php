@@ -20,7 +20,7 @@ function estAdministrateur($dep, $utilisateur)
 {
     global $path;
 
-    $file = "$path\\LDAP\\administrateurs.json";
+    $file = "$path/LDAP/administrateurs.json";
 
     $json = json_decode(file_get_contents($file));
     if (!isset($json->$dep))
@@ -46,7 +46,7 @@ function listeAdministrateurs($dep)
 {
     global $path;
 
-    $file = "$path\\LDAP\\administrateurs.json";
+    $file = "$path/LDAP/administrateurs.json";
     if (!file_exists($file)) {
         touch($file);
 
@@ -86,7 +86,7 @@ function modifAdministrateur($dep, $ancien, $nouveau)
 {
     global $path;
 
-    $file = "$path\\LDAP\\administrateurs.json";
+    $file = "$path/LDAP/administrateurs.json";
 
     $json = json_decode(file_get_contents($file));
     $adm = $json->$dep;
@@ -122,7 +122,7 @@ function supAdministrateur($dep, $email)
 {
     global $path;
 
-    $file = "$path\\LDAP\\administrateurs.json";
+    $file = "$path/LDAP/administrateurs.json";
 
     $json = json_decode(file_get_contents($file));
     $adm = $json->$dep;
@@ -154,7 +154,7 @@ function listeVacataires($dep)
 {
     global $path;
 
-    $file = "$path\\LDAP\\vacataires.json";
+    $file = "$path/LDAP/vacataires.json";
     if (!file_exists($file)) {
         touch($file);
 
@@ -196,7 +196,7 @@ function modifVacataire($dep, $ancien, $nouveau)
 {
     global $path;
 
-    $file = "$path\\LDAP\\vacataires.json";
+    $file = "$path/LDAP/vacataires.json";
 
     $json = json_decode(file_get_contents($file));
     $vac = $json->$dep->vacataires;
@@ -232,7 +232,7 @@ function supVacataire($dep, $email)
 {
     global $path;
 
-    $file = "$path\\LDAP\\vacataires.json";
+    $file = "$path/LDAP/vacataires.json";
 
     $json = json_decode(file_get_contents($file));
     $vac = $json->$dep->vacataires;
