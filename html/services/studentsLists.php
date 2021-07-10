@@ -61,7 +61,11 @@
             justify-content: space-between;
             align-items: flex-start;
         }
-        
+        table, tbody, td{
+            display: inline-block;
+            vertical-align: initial;
+            border-collapse: collapse;
+        }
         .groupes{
             margin-left: 20px;
             margin-bottom: 10px;
@@ -77,6 +81,12 @@
             background: #09C;
             color: #FFF;
             border-radius: 8px;
+        }
+        .petit{
+            flex-direction: column;
+        }
+        .petit>div{
+            font-size: 8px;
         }
         @media screen and (max-width: 700px){
             .flex{
@@ -106,6 +116,11 @@
             content: counter(cpt) " - " attr(data-groupe);
 			display: inline-block;
 			min-width: 100px;
+            max-width: 140px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            margin-right: 10px;
         }
 		.load path{
 			animation: chargement 0.4s infinite linear;
@@ -126,6 +141,10 @@
         <p>
             Bonjour <span class=prenom></span>.
         </p>
+        <div class="groupe petit" style=margin-top:6px onclick=concat(this)>
+            Séparer nom / prénom
+            <div>Pour copier-coller directement de la liste</div>
+        </div>
         <div class="zone">
             <select id=departement class=highlight onchange="clearStorage(['semestre', 'matiere']);selectDepartment(this.value)">
                 <option value="" disabled selected hidden>Choisir un département</option>
@@ -252,8 +271,7 @@
                         data-prenom="${etudiant.prenom}" 
                         data-groupe="${etudiant.groupe || "Groupe 1"}"
                         data-num="${etudiant.num_etudiant}"
-                        data-email="${etudiant.email}">
-                            ${etudiant.nom} ${etudiant.prenom}
+                        data-email="${etudiant.email}"><table><td>${etudiant.nom}</td> <td>${etudiant.prenom}</td></table>
                     </div>
 				`;
 			})
@@ -269,7 +287,17 @@
 				e.classList.toggle("hide");
 			})
         }
-        
+        function concat(obj){
+            if(obj.classList.toggle("selected")){
+                document.querySelectorAll(".etudiants>div").forEach(function(e){
+                    e.innerHTML = `${e.dataset.nom} ${e.dataset.prenom}`;
+                })
+            }else{
+                document.querySelectorAll(".etudiants>div").forEach(function(e){
+                    e.innerHTML = `<table><td>${e.dataset.nom}</td> <td>${e.dataset.prenom}</td></table>`;
+                })
+            }
+        }
         
 /*********************************************/
 /* Gestion du téléchargement XLSX des données - Utilisation de xlsx-populate
