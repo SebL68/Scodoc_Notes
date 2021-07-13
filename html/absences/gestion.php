@@ -490,6 +490,14 @@
             dateSamedi.setDate(dateLundi.getDate() + 5);
             document.querySelector("#actualDate").innerText = `Du lundi ${dateLundi.toLocaleDateString()} au samedi ${dateSamedi.toLocaleDateString()}`;
 
+            let jours = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+            let dateTemp = new Date(dateLundi);
+            let semaine = document.querySelector(".semaine");
+            for(let i=0 ; i<6 ; i++){
+                semaine.children[i].innerText = `${jours[i+1]} ${dateTemp.getDate()}`;
+                dateTemp.setDate(dateTemp.getDate() + 1);
+            }
+
             setAbsences();
         }
 
