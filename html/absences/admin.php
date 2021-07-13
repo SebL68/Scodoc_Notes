@@ -643,7 +643,7 @@
 				i++;
 
 				var total = {};
-				Object.entries(dataEtudiants.absences[obj.dataset.email]).forEach(([date, listeCreneaux])=>{
+				Object.entries(dataEtudiants.absences[obj.dataset.email] || {}).forEach(([date, listeCreneaux])=>{
 					Object.entries(listeCreneaux).forEach(([creneau, data])=>{
 						if(data.statut == "absent"){
 							sheet.cell("A"+i).value(date.split("-").reverse().join("/"));
@@ -686,7 +686,7 @@
 				i++;
 				
 				total = {};
-				Object.entries(dataEtudiants.absences[obj.dataset.email]).forEach(([date, listeCreneaux])=>{
+				Object.entries(dataEtudiants.absences[obj.dataset.email] || {}).forEach(([date, listeCreneaux])=>{
 					Object.entries(listeCreneaux).forEach(([creneau, data])=>{
 						if(data.statut == "absent excuse"){
 							sheet.cell("A"+i).value(date.split("-").reverse().join("/"));
