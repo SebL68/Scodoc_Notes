@@ -104,6 +104,14 @@
 	0	set supAdministrateur :
 	Supprime l'adresse mail d'un administrateur existant dans un département
 			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=supAdministrateur&dep=MMI&email=prenom.nom@uha.fr
+
+	0	set updateLists :
+	Met les liste des utilisateurs à jour à partir du serveur LDAP
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=updateLists
+
+	0	set setCron :
+	Configure CRON pour la mise à jour automatique des listes d'utilisateurs à partir du serveur LDAP
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=setCron
 *******************************/
 	if(isset($_GET['q'])){
 		switch($_GET['q']){
@@ -244,7 +252,6 @@
 				);
 				break;
 
-
 		/*************************/
 			case 'listeVacataires':
 				if($authData->statut < ADMINISTRATEUR ){ returnError(); }
@@ -271,7 +278,6 @@
 				);
 				break;
 
-
 		/*************************/
 			case 'listeAdministrateurs':
 				if($authData->statut < ADMINISTRATEUR ){ returnError(); }
@@ -296,6 +302,17 @@
 					$_GET['dep'], 
 					$_GET['email']
 				);
+				break;
+
+		/*************************/
+			case 'updateLists':
+				if($authData->statut < SUPERADMINISTRATEUR ){ returnError(); }
+				$output = updateLists();								// includes/LDAPIO.php
+				break;
+
+			case 'setCron':
+				if($authData->statut < SUPERADMINISTRATEUR ){ returnError(); }
+				$output = setCron();									// includes/LDAPIO.php
 				break;
 
 		}	

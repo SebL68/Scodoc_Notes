@@ -314,6 +314,7 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 
         /*******************************************************/
         /* Affiche la liste des administrateurs du département */
+        // Avec : modeAdmin [bool]: modification de la liste des administrateurs possible si TRUE; uniquement affichage de la liste si FALSE
         /*******************************************************/
         function createAdministrators(liste, modeAdmin) {
             let dns = '@' + DNS;
