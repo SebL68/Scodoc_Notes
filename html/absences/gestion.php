@@ -505,7 +505,7 @@
             document.querySelectorAll(".absent").forEach(e=>{
                 e.classList.remove("absent", "excuse")
             })
-            let date = new Date();
+            let date = new Date(dateLundi);
 			Object.entries(dataEtudiants.absences).forEach(([etudiant, listeAbsences])=>{
                 for(let i=0 ; i<6 ; i++){
 
