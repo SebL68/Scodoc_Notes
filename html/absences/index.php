@@ -491,6 +491,9 @@
                 date.setDate(date.getDate() + 1);
                 creneauxIndex = 0;
             }
+            if(date.getDay() == 0){ // Dimanche
+                date.setDate(date.getDate() + num);
+            }
             document.querySelector("#actualDate").innerHTML = actualDate();
 
             setAbsences();
