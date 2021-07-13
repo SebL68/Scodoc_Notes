@@ -80,6 +80,9 @@ h1{
 		transform: translateX(-100%);
 		transition: 0.2s;
 	}
+	.ouvert{
+		z-index:10;
+	}
 	.ouvert h1{
 		color: transparent;
 	}
@@ -107,6 +110,7 @@ main{
 	margin-bottom: 64px;
 	max-width: 1000px;
 	margin: auto;
+	margin-bottom: 32px;
 }
 .prenom{
 	text-transform: capitalize;

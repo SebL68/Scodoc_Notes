@@ -14,9 +14,23 @@
 					echo count($creneaux); 
 				?>;
 		}
-        <?php include "$path/html/assets/header.css"?>      
+        <?php include "$path/html/assets/header.css"?>
+        header{
+            position: sticky;
+            left:0;
+            top:0;
+        }      
         main{
             text-align: center;
+        }
+        @media screen and (max-width: 1120px){
+            html, body{
+                overflow: auto;
+                height: 100vh;
+            }
+            main{
+                max-width: initial;
+            }
         }
         .contenu{
             opacity: 0.5;
@@ -105,7 +119,6 @@
             justify-content: center;
             align-items: flex-start;
         }
-        
         .groupes{
             margin-bottom: 10px;
 			display: flex;
@@ -122,15 +135,15 @@
             color: #FFF;
             border-radius: 8px;
         }
-        @media screen and (max-width: 700px){
+        @media screen and (max-width: 1120px){
             .flex{
                 flex-direction: column-reverse;
-                align-items: center;
             }
             .groupes{
-                margin-right: 20px;
-                justify-content: center;
+                margin-top: 32px;
+                flex-wrap: wrap;
             }
+
         }
         .selected{
             opacity: 0.5;
@@ -231,6 +244,29 @@
         .btnAbsences>div:nth-child(1)>:last-child{
             margin-left: auto;
         }
+
+        @media screen and (max-width: 1120px){
+            .zone{
+                position: sticky;
+                left: 0;
+            }
+            .date, .groupes{
+                position: sticky;
+                left: 10px;
+                width: calc(100vw - 28px);
+            }
+            .etudiants>div{
+                grid-template-columns: 180px repeat(6, 32px<?php for($i=0;$i<count($creneaux)-1;$i++){echo " 24px";} ?>);
+            }
+            .etudiants .btnAbsences{
+                padding: 8px 16px;
+                position: sticky;
+                left: 0;
+            }
+            .btnAbsences>div:nth-child(1)::before{
+                display: none;
+            }
+        }
         .absent{
             background: #ec7068 !important;
             color: #FFF;
@@ -247,27 +283,26 @@
         include "$path/html/assets/header.php";
     ?>
     <main>
-        <p>
-            Bonjour <span class=prenom></span>.
-        </p>
+		<p>
+			Bonjour <span class=prenom></span>.
+		</p>
 
-        <div class="zone">
-            <select id=departement class=highlight onchange="clearStorage(['semestre', 'matiere']);selectDepartment(this.value)">
-                <option value="" disabled selected hidden>Choisir un département</option>
-                <?php
-                    include "$path/includes/serverIO.php";
-                    $listDepartement = getDepartmentsList();
-                    foreach($listDepartement as $departement){
-                        echo "<option value=$departement>$departement</option>";
-                    }
-                ?>
-            </select>
+		<div class="zone">
+			<select id=departement class=highlight onchange="clearStorage(['semestre', 'matiere']);selectDepartment(this.value)">
+				<option value="" disabled selected hidden>Choisir un département</option>
+				<?php
+					include "$path/includes/serverIO.php";
+					$listDepartement = getDepartmentsList();
+					foreach($listDepartement as $departement){
+						echo "<option value=$departement>$departement</option>";
+					}
+				?>
+			</select>
 
-            <select id=semestre onchange="selectSemester(this.value)" disabled>
-                <option value="" disabled selected hidden>Choisir un semestre</option>
-            </select>
-        </div>
-   
+			<select id=semestre onchange="selectSemester(this.value)" disabled>
+				<option value="" disabled selected hidden>Choisir un semestre</option>
+			</select>
+		</div>
 
         <div class=contenu></div>
         <div class=wait></div>
