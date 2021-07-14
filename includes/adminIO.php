@@ -47,7 +47,7 @@ function listeAdministrateurs($dep)
     global $path;
 
     $file = "$path/LDAP/administrateurs.json";
-    if (!file_exists($file)) {
+    if (!file_exists($file)) {  // La liste des administrateurs n'existe pas
         touch($file);
 
         $json = [
@@ -58,6 +58,7 @@ function listeAdministrateurs($dep)
             $file,
             json_encode($json) //, JSON_PRETTY_PRINT)
         );
+        chmod($file, 0775);
     }
 
     $json = json_decode(file_get_contents($file));
@@ -155,7 +156,7 @@ function listeVacataires($dep)
     global $path;
 
     $file = "$path/LDAP/vacataires.json";
-    if (!file_exists($file)) {
+    if (!file_exists($file)) {  // La liste des vacataires n'existe pas
         touch($file);
 
         $json = [
@@ -168,6 +169,7 @@ function listeVacataires($dep)
             $file,
             json_encode($json) //, JSON_PRETTY_PRINT)
         );
+        chmod($file, 0775);
     }
 
     $json = json_decode(file_get_contents($file));

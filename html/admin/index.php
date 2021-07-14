@@ -137,10 +137,10 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
             }
         }
 
-        /*************************/
-        /* Liste administrateurs */
-        /*************************/
-        .administrateur {
+        /***********************/
+        /* Liste des personnes */
+        /***********************/
+        .administrateur, .vacataire {
             user-select: none;
 
             border-radius: 10px;
@@ -152,11 +152,12 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
             transition: 0.1s;
         }
 
-        .administrateur:first-child>.nom, .administrateur svg {
+        .administrateur:first-child>.nom, .administrateur svg,
+        .vacataire:first-child>.nom, .vacataire svg {
             cursor: pointer;
         }
 
-        .administrateur input {
+        .administrateur input, .vacataire input {
             font-size: 16px;
             font-weight: bold;
             padding: 5px;
@@ -174,7 +175,7 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
             align-items: center;
         }
 
-        .nom span {
+        .nom span, .confirm b {
             text-transform: capitalize;
         }
 
@@ -251,7 +252,10 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
         </select>
 
         <div class=contenu>
-            <div class=flex></div>
+            <div class=flex>
+                <div id="administrateurs"></div>
+                <div id="vacataires"></div>
+            </div>
         </div>
         <div class=wait></div>
 
@@ -265,6 +269,7 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
     <script>
         var utilisateur;        // Stockage du mail de l'utilisateur
         var statut;             // Stockage du statut de l'utilisateur
+        var selectDep;          // Stockage du département sélectionné
         checkStatut();
         <?php
         include "$path/includes/clientIO.php";
@@ -297,14 +302,18 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
             }
         }
 
-        /********************************************************/
-        /* Récupère la liste des administrateurs du département */
-        /********************************************************/
+        /**************************************************/
+        /* Récupère la liste des personnes du département */
+        /**************************************************/
         async function selectDepartment(departement) {
+            selectDep = departement;
             let administrateurs = await fetchData("listeAdministrateurs&dep=" + departement);
+            let vacataires = await fetchData("listeVacataires&dep=" + departement);
             // Est-ce que l'utilisateur est un administrateur du département sélectionné ou un SuperAdministrateur?
             let isAdmin = (administrateurs.indexOf(utilisateur) >= 0) || (statut >= SUPERADMINISTRATEUR);
-            document.querySelector(".flex").innerHTML = createAdministrators(administrateurs, isAdmin);
+            
+            document.querySelector(".flex>div#administrateurs").innerHTML = createList(administrateurs, "administrateur", isAdmin);
+            document.querySelector(".flex>div#vacataires").innerHTML = createList(vacataires, "vacataire", isAdmin);
             
             document.querySelector("#departement").classList.remove("highlight");
 
@@ -313,49 +322,62 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
         }
 
         /*******************************************************/
-        /* Affiche la liste des administrateurs du département */
-        // Avec : modeAdmin [bool]: modification de la liste des administrateurs possible si TRUE; uniquement affichage de la liste si FALSE
+        /* Affiche une liste d'utilisateurs 
+            Entrée : 
+                liste [array] : Liste des utilisateurs
+                type [string] : Catégorie des utilisateurs (administrateur ou vacataire) utilisé pour la classe CSS
+                modeAdmin [bool]: modification de la liste possible si TRUE; uniquement affichage de la liste si FALSE
+        
+            Retour : 
+                [string] : contenu HTML de la liste
+        */
         /*******************************************************/
-        function createAdministrators(liste, modeAdmin) {
+        function createList(liste, type, modeAdmin) {
             let dns = '@' + DNS;
-            // Pour ajouter un administrateur
+            // Pour ajouter un personnel
             if (modeAdmin)
                 var output = `
-                        <div class="administrateur" data-email="">
-                            <div class="nom" onclick="modifAdministrator(this)">
-                                Ajouter un administrateur
+                        <div class="${type}" data-email="">
+                            <div class="nom" onclick="modifPerson(this, '${type}')">
+                                Ajouter un ${type}
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3zM12 8v8m-4-4h8"/></svg>
                             </div>
                             <div class="confirm hide"></div>
                             <div class="mail hide">
                                 <input type="email" placeholder="prenom.nom" required><b>${dns}</b>
-                                <svg onclick=processAdministrator(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Valider</title><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
-                                <svg onclick=cancel(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Annuler</title><path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38"/></svg>
+                                <svg onclick="processPerson(this, '${type}')" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Valider</title><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+                                <svg onclick="cancel(this, '${type}')" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Annuler</title><path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38"/></svg>
                             </div>
                         </div>
                     `;
             else
-                var output = ``;
+                var output = `
+                        <div class="${type}">
+                            <div class="nom">
+                                Liste des ${type}s
+                            </div>
+                        </div>
+                    `;
 
             if(liste !== undefined)
-            liste.forEach(administrateur => {
-                let prenom = administrateur.split("@")[0].split(".")[0];
-                let nom = administrateur.split("@")[0].split(".")[1];
+            liste.forEach(personne => {
+                let prenom = personne.split("@")[0].split(".")[0];
+                let nom = personne.split("@")[0].split(".")[1];
                 if (modeAdmin)
                     output += `
-                        <div class="administrateur" data-email="${administrateur}" data-nom="${nom}" data-prenom="${prenom}">
+                        <div class="${type}" data-email="${personne}" data-nom="${nom}" data-prenom="${prenom}">
                             <div class="nom">
                                 <span><b>${nom}&nbsp;${prenom}</b></span>
                                 <span>
-                                    <svg onclick=modifAdministrator(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="blue" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Modifier</title><polygon points="14 2 18 6 7 17 3 17 3 13 14 2"></polygon><line x1="3" y1="22" x2="21" y2="22"></line></svg>
-                                    <svg onclick=deleteAdministrator(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Supprimer</title><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path><line x1="18" y1="9" x2="12" y2="15"></line><line x1="12" y1="9" x2="18" y2="15"></line></svg>
+                                    <svg onclick="modifPerson(this, '${type}')" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="blue" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Modifier</title><polygon points="14 2 18 6 7 17 3 17 3 13 14 2"></polygon><line x1="3" y1="22" x2="21" y2="22"></line></svg>
+                                    <svg onclick="deletePerson(this, '${type}')" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Supprimer</title><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path><line x1="18" y1="9" x2="12" y2="15"></line><line x1="12" y1="9" x2="18" y2="15"></line></svg>
                                 </span>
                             </div>
                             <div class="confirm hide">
                                 <span>Suppression de : <b>${nom}&nbsp;${prenom}</b></span>
                                 <span>
-                                    <svg onclick=deleteAdministrator(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Supprimer</title><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path><line x1="18" y1="9" x2="12" y2="15"></line><line x1="12" y1="9" x2="18" y2="15"></line></svg>
-                                    <svg onclick=cancel(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Annuler</title><path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38"/></svg>
+                                    <svg onclick="deletePerson(this, '${type}')" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Supprimer</title><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path><line x1="18" y1="9" x2="12" y2="15"></line><line x1="12" y1="9" x2="18" y2="15"></line></svg>
+                                    <svg onclick="cancel(this, '${type}')" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Annuler</title><path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38"/></svg>
                                 </span>
                             </div>
                             <div class="mail hide">
@@ -363,15 +385,15 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
                                     <input type="email" value="${prenom}.${nom}" placeholder="prénom.nom" required><b>${dns}</b>
                                 </span>
                                 <span>
-                                    <svg onclick=processAdministrator(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Valider</title><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
-                                    <svg onclick=cancel(this) xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Annuler</title><path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38"/></svg>
+                                    <svg onclick="processPerson(this, '${type}')" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Valider</title><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+                                    <svg onclick="cancel(this, '${type}')" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Annuler</title><path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38"/></svg>
                                 </span>
                             </div>
                         </div>
                     `;
                 else
                     output += `
-                        <div class="administrateur">
+                        <div class="${type}">
                             <div class="nom">
                                 <span><b>${nom}&nbsp;${prenom}</b></span>
                             </div>
@@ -379,19 +401,19 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
                     `;
             });
 
-            return '<div>'+output+'</div>';
+            return output;
         }
 
-        /************************************/
-        /* Modification d'un administrateur */
-        /************************************/
-        function modifAdministrator(obj) {
-            let adm = obj.closest("div.administrateur");
+        /*******************************/
+        /* Modification d'une personne */
+        /*******************************/
+        function modifPerson(obj, type) {
+            let adm = obj.closest("div."+type);
 
             document.querySelector("div.nom.hide")?.classList.remove("hide");
             document.querySelector("div.confirm.show")?.classList.remove("show");
             document.querySelector("div.mail.show")?.classList.remove("show");
-            document.querySelector("div.administrateur.ready")?.classList.remove("ready");
+            document.querySelector("div."+type+".ready")?.classList.remove("ready");
             
             adm.querySelector("div.nom").classList.add("hide");
             adm.querySelector("div.mail").classList.add("show");
@@ -399,84 +421,103 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
             adm.classList.add("ready");
         }
 
-        /**********************************************/
-        /* Traite la modification d'un administrateur */
-        /**********************************************/
-        async function processAdministrator(obj) {
+        /*****************************************/
+        /* Traite la modification d'une personne */
+        /*****************************************/
+        async function processPerson(obj, type) {
             const regMail = new RegExp('^[a-z0-9_-]+[.][a-z0-9_-]+$');
-            let adm = obj.closest("div.administrateur");
+            let adm = obj.closest("div."+type);
             let oldEmail = adm.getAttribute("data-email");
             let newEmail = adm.querySelector("input").value.trim().toLowerCase();
-            let departement = localStorage.getItem('departement');
-            let listeAdministrateurs = document.querySelectorAll("div.administrateur");
+            let departement = selectDep;
+            let liste = document.querySelectorAll("div."+type);
 
             if (!regMail.test(newEmail)) { // Si le nouveau nom n'est pas conforme
-                message(`Le nom de l'administrateur "${newEmail}" n'est pas conforme`);
+                message(`Le nom "${newEmail}" n'est pas conforme`);
                 return;
             }
             newEmail += '@' + DNS;
 
             if (newEmail == oldEmail) { // Si pas de changement
-                cancel(obj);
+                cancel(obj, type);
                 return;
             }
 
-            listeAdministrateurs.forEach(administrateur => {
-                if (administrateur.getAttribute("data-email") == newEmail) { // Si le nouveau administrateur existe déjà
-                    message(`L'administrateur "${newEmail}" est déjà enregistré dans le département`);
+            liste.forEach(personne => {
+                if (personne.getAttribute("data-email") == newEmail) { // Si la nouvelle personne existe déjà
+                    message(`"${newEmail}" est déjà enregistré dans le département`);
                     return;
                 }
             });
 
-            let response = await fetchData("modifAdministrateur&dep=" + departement + "&ancienMail=" + oldEmail + "&nouveauMail=" + newEmail);
+            if (type == "administrateur") {
+                let response = await fetchData("modifAdministrateur&dep=" + departement + "&ancienMail=" + oldEmail + "&nouveauMail=" + newEmail);
 
-            if (response.result == "OK") { // Rechargement de la liste à partir du serveur
-                let administrateurs = await fetchData("listeAdministrateurs&dep=" + departement);
-                document.querySelector(".flex").innerHTML = createAdministrators(administrateurs, true);
-            } else
-                message(response.result);
+                if (response.result == "OK") { // Rechargement de la liste à partir du serveur
+                    let liste = await fetchData("listeAdministrateurs&dep=" + departement);
+                    document.querySelector(".flex>div#administrateurs").innerHTML = createList(liste, type, true);
+                } else
+                    message(response.result);
+            }
+            if (type == "vacataire") {
+                let response = await fetchData("modifVacataire&dep=" + departement + "&ancienMail=" + oldEmail + "&nouveauMail=" + newEmail);
+
+                if (response.result == "OK") { // Rechargement de la liste à partir du serveur
+                    let liste = await fetchData("listeVacataires&dep=" + departement);
+                    document.querySelector(".flex>div#vacataires").innerHTML = createList(liste, type, true);
+                } else
+                    message(response.result);
+            }
         }
 
-        /**************************************************/
-        /* Supprime un administrateur, après confirmation */
-        /**************************************************/
-        async function deleteAdministrator(obj) {
-            let adm = obj.closest("div.administrateur");
+        /*********************************************/
+        /* Supprime une personne, après confirmation */
+        /*********************************************/
+        async function deletePerson(obj, type) {
+            let liste = obj.closest("div."+type);
 
             document.querySelector("div.nom.show")?.classList.remove("show");
             document.querySelector("div.mail.show")?.classList.remove("show");
-            document.querySelector("div.administrateur.ready")?.classList.remove("ready");
-            adm.classList.add("ready");
+            document.querySelector("div."+type+".ready")?.classList.remove("ready");
+            liste.classList.add("ready");
 
-            if (adm.querySelector("div.confirm").classList.contains("show")) { // Suppression de l'administrateur confirmée
-                let departement = localStorage.getItem('departement');
-                let email = adm.getAttribute("data-email");
+            if (liste.querySelector("div.confirm").classList.contains("show")) { // Suppression de l'utilisateur confirmée
+                let departement = selectDep;
+                let email = liste.getAttribute("data-email");
+                let response;
 
-                let response = await fetchData("supAdministrateur&dep=" + departement + "&email=" + email);
+                if (type == "administrateur") response = await fetchData("supAdministrateur&dep=" + departement + "&email=" + email);
+                if (type == "vacataire")      response = await fetchData("supVacataire&dep=" + departement + "&email=" + email);
 
                 if (response.result != "OK") {
                     message(response.result);
                 } else { // Rechargement de la liste à partir du serveur
-                    let administrateurs = await fetchData("listeAdministrateurs&dep=" + departement);
-                    document.querySelector(".flex").innerHTML = createAdministrators(administrateurs, true);
+                    if (type == "administrateur") {
+                        let administrateurs = await fetchData("listeAdministrateurs&dep=" + departement);
+                        document.querySelector(".flex>div#administrateurs").innerHTML = createList(administrateurs, "administrateur", true);
+                    }
+                    if (type == "vacataire") {
+                        let vacataires = await fetchData("listeVacataires&dep=" + departement);
+                        document.querySelector(".flex>div#vacataires").innerHTML = createList(vacataires, "vacataire", true);
+                    }
                 }
             } else { // Affichage de la demande de confirmation
-                if (document.querySelectorAll("div.administrateur").length > 2) {
+                if ((type == "vacataire") || ((type == "administrateur") && (document.querySelectorAll("div.administrateur").length > 2))) {
                     document.querySelector("div.confirm.show")?.classList.remove("show");
                     document.querySelector("div.nom.hide")?.classList.remove("hide");
 
-                    adm.querySelector("div.confirm").classList.add("show");
-                    adm.querySelector("div.nom").classList.add("hide");
+                    liste.querySelector("div.confirm").classList.add("show");
+                    liste.querySelector("div.nom").classList.add("hide");
                 } else 
                     message(`Vous ne pouvez pas supprimer le dernier administrateur de la liste.`);
             }
         }
 
-        /****************************************************************/
-        /* Annule la modification ou la suppression d'un administrateur */
-        /****************************************************************/
-        function cancel(obj) {
-            let adm = obj.closest("div.administrateur");
+        /***********************************************************/
+        /* Annule la modification ou la suppression d'une personne */
+        /***********************************************************/
+        function cancel(obj, type) {
+            let adm = obj.closest("div."+type);
             adm.querySelector("div.mail").classList.remove("show");
             adm.querySelector("div.confirm").classList.remove("show");
             adm.querySelector("div.nom").classList.remove("hide");
