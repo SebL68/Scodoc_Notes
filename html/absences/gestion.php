@@ -318,7 +318,7 @@
 		<?php
             include "$path/includes/clientIO.php";
 		?>  
-        document.querySelector("#admin").classList.add("navActif");
+        document.querySelector("#gestion").classList.add("navActif");
 		var creneaux = <?php
             include_once "$path/includes/config.php";
             echo json_encode($creneaux);

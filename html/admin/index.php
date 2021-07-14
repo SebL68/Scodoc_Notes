@@ -9,6 +9,7 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administration</title>
     <style>
+        <?php include "$path/html/assets/header.css"?>
         * {
             box-sizing: border-box;
         }
@@ -229,12 +230,10 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 </head>
 
 <body>
-    <header>
-        <h1>
-            Administration
-        </h1>
-        <a href=/logout.php>Déconnexion</a>
-    </header>
+    <?php 
+        $h1 = 'Administration';
+        include "$path/html/assets/header.php";
+    ?>
     <main>
         <p>
             Bonjour <span class=prenom></span>.
@@ -270,7 +269,7 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
         <?php
         include "$path/includes/clientIO.php";
         ?>
-
+        document.querySelector("#admin").classList.add("navActif");
         /***************************************************/
         /* Vérifie l'identité de la personne et son statut */
         /***************************************************/
@@ -283,6 +282,7 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
             auth.style.pointerEvents = "none";
 
             if (data.statut >= ADMINISTRATEUR) {
+                document.querySelector("body").classList.add('personnel');
                 statut = data.statut;
 
                 /* Gestion du storage remettre le même état au retour */
