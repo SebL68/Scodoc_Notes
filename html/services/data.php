@@ -307,11 +307,13 @@
 		/*************************/
 			case 'updateLists':
 				if($authData->statut < SUPERADMINISTRATEUR ){ returnError(); }
+				include_once "$path/includes/LDAPIO.php";
 				$output = updateLists();								// includes/LDAPIO.php
 				break;
 
 			case 'setCron':
 				if($authData->statut < SUPERADMINISTRATEUR ){ returnError(); }
+				include_once "$path/includes/LDAPIO.php";
 				$output = setCron();									// includes/LDAPIO.php
 				break;
 

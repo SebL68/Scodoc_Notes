@@ -290,6 +290,13 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
                 document.querySelector("body").classList.add('personnel');
                 statut = data.statut;
 
+                if (statut >= SUPERADMINISTRATEUR) {    // Ajout des fonctionnalités pour SuperAdministrateur
+                    let menu = document.querySelector("nav").innerHTML;
+                    menu += `<a class="nav" href="#" onClick="exeCmd('updateLists')">UpdateLists</a>`;
+                    menu += `<a class="nav" href="#" onClick="exeCmd('setCron')">setCron</a>`;
+                    document.querySelector("nav").innerHTML = menu;
+                }
+
                 /* Gestion du storage remettre le même état au retour */
                 let departement = localStorage.getItem("departement");
                 if (departement) {
@@ -300,6 +307,14 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
             } else {
                 document.querySelector(".contenu").innerHTML = "Ce contenu est uniquement accessible pour des administrateurs d'un département de l'IUT. ";
             }
+        }
+
+        /***************************************************/
+        /* Exécution de commandes pour SuperAdministrateur */
+        /***************************************************/
+        async function exeCmd(commande) {
+            let result = await fetchData(commande);
+            console.log(result);
         }
 
         /**************************************************/

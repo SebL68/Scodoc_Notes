@@ -116,6 +116,8 @@ function updateList($ds, $file, $filter, $data){
     chmod($file, 0775);
     chown($file, $webServerUser);
     chgrp($file, $webServerGroup);
+    
+    return ['result' => "OK"];
 }
 
 /****************************************************/
