@@ -1,118 +1,33 @@
 <?php
-$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
+    $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 ?>
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administration</title>
     <style>
         <?php include "$path/html/assets/header.css"?>
-        * {
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            margin: 0;
-            font-family: arial;
-            background: #FAFAFA;
-        }
-
-        header {
-            position: sticky;
-            top: 0;
-            padding: 10px;
-            background: #09C;
-            display: flex;
-            justify-content: space-between;
-            color: #FFF;
-            box-shadow: 0 2px 2px #888;
-            z-index: 1;
-        }
-
-        header>a {
-            color: #FFF;
-            text-decoration: none;
-            padding: 10px 0 10px 0;
-        }
-
-        h1 {
-            margin: 0;
-        }
-
-        h2 {
-            margin: 20px 0 0 0;
-            padding: 20px;
-            background: #0C9;
-            color: #FFF;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-
-        main {
-            padding: 0 10px;
-            margin-bottom: 64px;
-            max-width: 1000px;
+        main{
             margin: 0 auto 20px auto;
             text-align: center;
         }
-
-        .prenom {
-            text-transform: capitalize;
-            color: #f44335;
-        }
-
-        .wait {
-            position: fixed;
-            width: 50px;
-            height: 10px;
-            background: #424242;
-            top: 80px;
-            left: 50%;
-            margin-left: -25px;
-            animation: wait 0.6s ease-out alternate infinite;
-        }
-
-        @keyframes wait {
-            100% {
-                transform: translateY(-30px) rotate(360deg)
-            }
-        }
-
-        .auth {
-            position: fixed;
-            top: 58px;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: #FAFAFA;
-            font-size: 28px;
-            padding: 28px 10px 0 10px;
-            text-align: center;
-            transition: 0.4s;
-        }
-
         .contenu {
-/*            opacity: 0.5;
-            pointer-events: none;
-            user-select: none;  */
-        }
-
-        .flex{
             display: flex;
             justify-content: center;
             align-items: flex-start;
         }
-
         /**********************/
         /*   Zones de choix   */
         /**********************/
+        .zone{
+            background: #FFF;
+            padding: 8px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            border: 1px solid #CCC;
+        }
         select {
             font-size: 21px;
             padding: 10px;
@@ -122,11 +37,9 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
             border: none;
             border-radius: 10px;
         }
-
         .highlight {
             animation: pioupiou 0.4s infinite ease-in alternate;
         }
-
         @keyframes pioupiou {
             0% {
                 box-shadow: 0 0 4px 0px orange;
@@ -136,13 +49,11 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
                 box-shadow: 0 0 4px 2px orange;
             }
         }
-
         /***********************/
         /* Liste des personnes */
         /***********************/
         .administrateur, .vacataire {
             user-select: none;
-
             border-radius: 10px;
             box-shadow: 0 2px 2px 2px #ddd;
             border: 1px solid transparent;
@@ -151,58 +62,46 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
             margin: 10px;
             transition: 0.1s;
         }
-
         .administrateur:first-child>.nom, .administrateur svg,
         .vacataire:first-child>.nom, .vacataire svg {
             cursor: pointer;
         }
-
         .administrateur input, .vacataire input {
             font-size: 16px;
             font-weight: bold;
             padding: 5px;
         }
-
         .ready {
             /*opacity: initial;*/
             /*pointer-events: initial;*/
             background: #9FC;
         }
-
         .nom, .mail, .confirm {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-
         .nom span, .confirm b {
             text-transform: capitalize;
         }
-
         svg {
             margin-left: 10px;
         }
-
         .modif {
             background: #0C9;
         }
-
         .hide {
             display: none;
         }
-
         .show {
             display: flex;
         }
-
         .inline {
             display: inline;
         }
-
         /*********************/
         /* Affichage message */
         /*********************/
-
         .message {
             position: fixed;
             bottom: 100%;
@@ -216,15 +115,9 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
             animation: message 3s;
             transform: translate(-50%, 0);
         }
-
         @keyframes message {
-            20% {
-                transform: translate(-50%, 100%)
-            }
-
-            80% {
-                transform: translate(-50%, 100%)
-            }
+            20% {transform: translate(-50%, 100%)}
+            80% {transform: translate(-50%, 100%)}
         }
     </style>
     <meta name=description content="Gestion des administrateurs de l'IUT de Mulhouse">
@@ -240,22 +133,22 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
             Bonjour <span class=prenom></span>.
         </p>
 
-        <select id=departement class=highlight onchange="selectDepartment(this.value)">
-            <option value="" disabled selected hidden>Choisir un département</option>
-            <?php
-            include "$path/includes/serverIO.php";
-            $listDepartement = getDepartmentsList();
-            foreach ($listDepartement as $departement) {
-                echo "<option value=$departement>$departement</option>";
-            }
-            ?>
-        </select>
+        <div class="zone">
+            <select id=departement class=highlight onchange="selectDepartment(this.value)">
+                <option value="" disabled selected hidden>Choisir un département</option>
+                <?php
+                include "$path/includes/serverIO.php";
+                $listDepartement = getDepartmentsList();
+                foreach ($listDepartement as $departement) {
+                    echo "<option value=$departement>$departement</option>";
+                }
+                ?>
+            </select>
+        </div>
 
         <div class=contenu>
-            <div class=flex>
-                <div id="administrateurs"></div>
-                <div id="vacataires"></div>
-            </div>
+            <div id="administrateurs"></div>
+            <div id="vacataires"></div>
         </div>
         <div class=wait></div>
 
@@ -327,8 +220,8 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
             // Est-ce que l'utilisateur est un administrateur du département sélectionné ou un SuperAdministrateur?
             let isAdmin = (administrateurs.indexOf(utilisateur) >= 0) || (statut >= SUPERADMINISTRATEUR);
             
-            document.querySelector(".flex>div#administrateurs").innerHTML = createList(administrateurs, "administrateur", isAdmin);
-            document.querySelector(".flex>div#vacataires").innerHTML = createList(vacataires, "vacataire", isAdmin);
+            document.querySelector(".contenu>div#administrateurs").innerHTML = createList(administrateurs, "administrateur", isAdmin);
+            document.querySelector(".contenu>div#vacataires").innerHTML = createList(vacataires, "vacataire", isAdmin);
             
             document.querySelector("#departement").classList.remove("highlight");
 
@@ -423,17 +316,17 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
         /* Modification d'une personne */
         /*******************************/
         function modifPerson(obj, type) {
-            let adm = obj.closest("div."+type);
+            let personne = obj.closest("div."+type);
 
             document.querySelector("div.nom.hide")?.classList.remove("hide");
             document.querySelector("div.confirm.show")?.classList.remove("show");
             document.querySelector("div.mail.show")?.classList.remove("show");
-            document.querySelector("div."+type+".ready")?.classList.remove("ready");
+            document.querySelector("div.ready")?.classList.remove("ready");
             
-            adm.querySelector("div.nom").classList.add("hide");
-            adm.querySelector("div.mail").classList.add("show");
-            adm.querySelector("input").focus();
-            adm.classList.add("ready");
+            personne.querySelector("div.nom").classList.add("hide");
+            personne.querySelector("div.mail").classList.add("show");
+            personne.querySelector("input").focus();
+            personne.classList.add("ready");
         }
 
         /*****************************************/
@@ -441,9 +334,9 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
         /*****************************************/
         async function processPerson(obj, type) {
             const regMail = new RegExp('^[a-z0-9_-]+[.][a-z0-9_-]+$');
-            let adm = obj.closest("div."+type);
-            let oldEmail = adm.getAttribute("data-email");
-            let newEmail = adm.querySelector("input").value.trim().toLowerCase();
+            let personne = obj.closest("div."+type);
+            let oldEmail = personne.getAttribute("data-email");
+            let newEmail = personne.querySelector("input").value.trim().toLowerCase();
             let departement = selectDep;
             let liste = document.querySelectorAll("div."+type);
 
@@ -458,8 +351,8 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
                 return;
             }
 
-            liste.forEach(personne => {
-                if (personne.getAttribute("data-email") == newEmail) { // Si la nouvelle personne existe déjà
+            liste.forEach(per => {
+                if (per.getAttribute("data-email") == newEmail) { // Si la nouvelle personne existe déjà
                     message(`"${newEmail}" est déjà enregistré dans le département`);
                     return;
                 }
@@ -470,7 +363,7 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 
                 if (response.result == "OK") { // Rechargement de la liste à partir du serveur
                     let liste = await fetchData("listeAdministrateurs&dep=" + departement);
-                    document.querySelector(".flex>div#administrateurs").innerHTML = createList(liste, type, true);
+                    document.querySelector(".contenu>div#administrateurs").innerHTML = createList(liste, type, true);
                 } else
                     message(response.result);
             }
@@ -479,7 +372,7 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 
                 if (response.result == "OK") { // Rechargement de la liste à partir du serveur
                     let liste = await fetchData("listeVacataires&dep=" + departement);
-                    document.querySelector(".flex>div#vacataires").innerHTML = createList(liste, type, true);
+                    document.querySelector(".contenu>div#vacataires").innerHTML = createList(liste, type, true);
                 } else
                     message(response.result);
             }
@@ -489,16 +382,16 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
         /* Supprime une personne, après confirmation */
         /*********************************************/
         async function deletePerson(obj, type) {
-            let liste = obj.closest("div."+type);
+            let personne = obj.closest("div."+type);
 
             document.querySelector("div.nom.show")?.classList.remove("show");
             document.querySelector("div.mail.show")?.classList.remove("show");
-            document.querySelector("div."+type+".ready")?.classList.remove("ready");
-            liste.classList.add("ready");
+            document.querySelector("div.ready")?.classList.remove("ready");
+            personne.classList.add("ready");
 
-            if (liste.querySelector("div.confirm").classList.contains("show")) { // Suppression de l'utilisateur confirmée
+            if (personne.querySelector("div.confirm").classList.contains("show")) { // Suppression de l'utilisateur confirmée
                 let departement = selectDep;
-                let email = liste.getAttribute("data-email");
+                let email = personne.getAttribute("data-email");
                 let response;
 
                 if (type == "administrateur") response = await fetchData("supAdministrateur&dep=" + departement + "&email=" + email);
@@ -509,11 +402,11 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
                 } else { // Rechargement de la liste à partir du serveur
                     if (type == "administrateur") {
                         let administrateurs = await fetchData("listeAdministrateurs&dep=" + departement);
-                        document.querySelector(".flex>div#administrateurs").innerHTML = createList(administrateurs, "administrateur", true);
+                        document.querySelector(".contenu>div#administrateurs").innerHTML = createList(administrateurs, "administrateur", true);
                     }
                     if (type == "vacataire") {
                         let vacataires = await fetchData("listeVacataires&dep=" + departement);
-                        document.querySelector(".flex>div#vacataires").innerHTML = createList(vacataires, "vacataire", true);
+                        document.querySelector(".contenu>div#vacataires").innerHTML = createList(vacataires, "vacataire", true);
                     }
                 }
             } else { // Affichage de la demande de confirmation
@@ -521,8 +414,8 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
                     document.querySelector("div.confirm.show")?.classList.remove("show");
                     document.querySelector("div.nom.hide")?.classList.remove("hide");
 
-                    liste.querySelector("div.confirm").classList.add("show");
-                    liste.querySelector("div.nom").classList.add("hide");
+                    personne.querySelector("div.confirm").classList.add("show");
+                    personne.querySelector("div.nom").classList.add("hide");
                 } else 
                     message(`Vous ne pouvez pas supprimer le dernier administrateur de la liste.`);
             }
@@ -532,13 +425,13 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
         /* Annule la modification ou la suppression d'une personne */
         /***********************************************************/
         function cancel(obj, type) {
-            let adm = obj.closest("div."+type);
-            adm.querySelector("div.mail").classList.remove("show");
-            adm.querySelector("div.confirm").classList.remove("show");
-            adm.querySelector("div.nom").classList.remove("hide");
-            if(adm.getAttribute("data-prenom") && adm.getAttribute("nom"))
-                adm.querySelector("input").value = adm.getAttribute("data-prenom") + '.' + adm.getAttribute("data-nom");
-            adm.classList.remove("ready");
+            let personne = obj.closest("div."+type);
+            personne.querySelector("div.mail").classList.remove("show");
+            personne.querySelector("div.confirm").classList.remove("show");
+            personne.querySelector("div.nom").classList.remove("hide");
+            if(personne.getAttribute("data-prenom") && personne.getAttribute("nom"))
+                personne.querySelector("input").value = personne.getAttribute("data-prenom") + '.' + personne.getAttribute("data-nom");
+            personne.classList.remove("ready");
         }
 
         /**************************/
