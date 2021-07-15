@@ -169,17 +169,21 @@
 				// Uniquement les personnels IUT peuvent demander le relevé d'une autre personne.
 				if($authData->statut < PERSONNEL && isset($_GET['etudiant'])){ returnError(); } 
 				// Si c'est un personnel, on transmet l'étudiant par get, sinon on prend l'identifiant de la session.
+				include_once "$path/includes/LDAPData.php";
 				include_once "$path/includes/serverIO.php";
 				include_once "$path/includes/absencesIO.php";
+				$nip = getStudentNumberFromMail($_GET['etudiant'] ?? $authData->session);// includes/LDAPData.php
+				$dep = getStudentDepartment($nip);						// includes/serverIO.php
 				$output = [
 					'relevé' => getReportCards([						// includes/serverIO.php
 						'semestre' => $_GET['semestre'], 
-						'id' => $_GET['etudiant'] ?? $authData->session
+						'nip' => $nip, 
+						'dep' => $dep
 					]),
 					'absences' => getAbsence(							// includes/absencesIO.php
 						$dep,
-						$semestres[0],
-						$authData->session
+						$_GET['semestre'],
+						$_GET['etudiant'] ?? $authData->session
 					) ?? []
 				];
 				break;

@@ -168,21 +168,14 @@ Sortie :
 *******************************/
 function getReportCards($data){
 	$data = (object) $data;
-	if($data->id){
-		$nip = getStudentNumberFromMail($data->id);
-		$dep = getStudentDepartment($nip);
-	}else{
-		$nip = $data->nip;
-		$dep = $data->dep;
-	}
 
 	$output = json_decode(
 		Ask_Scodoc(
 			'/Scolarite/Notes/Notes/formsemestre_bulletinetud',
-			$dep,
+			$data->dep,
 			[
 				'formsemestre_id' => $data->semestre,
-				'code_nip' => $nip,
+				'code_nip' => $data->nip,
 				'format' => 'json',
 				'version' => 'long'
 			]
