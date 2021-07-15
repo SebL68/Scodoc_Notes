@@ -18,10 +18,10 @@ function setCron(){
 
     // Ancienne configuration de CRON
     $output = shell_exec('crontab -l');
-    echo "crontab -l : ".$output."<br>";
+    echo "Ancienne commande dans crontab : <br>\n".$output."<br>\n";
 
     $cron_cmd = $CRON_delay." ".$PHP_cmd." ".$path."/includes/CmdUpdateLists.php";
-    echo "Commande CRON : ".$cron_cmd."<br>\n";
+    echo "Nouvelle commande CRON : ".$cron_cmd."<br>\n";
     
     file_put_contents("$tmp_dir/crontab.txt", $cron_cmd.PHP_EOL);
     echo exec("crontab $tmp_dir/crontab.txt");
@@ -113,7 +113,7 @@ function updateList($ds, $file, $filter, $data){
 
     flock($id_file, LOCK_UN);
     fclose($id_file);
-    chmod($file, 0775);
+    chmod($file, 0664);
     chown($file, $webServerUser);
     chgrp($file, $webServerGroup);
     
