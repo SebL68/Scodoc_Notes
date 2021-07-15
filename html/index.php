@@ -147,6 +147,43 @@
 				background: #0C9;
 				color: #FFF;
 			}
+/**********************/
+/* Zone absences */
+/**********************/
+			h2{
+				background: #09C;
+			}
+			.absences>div{
+				display: grid;
+				grid-template-columns: repeat(6, auto);
+				gap: 2px;
+			}
+			.absences>div>div{
+				background: #FFF;
+				box-shadow: 0 2px 2px #888;
+				padding: 4px 8px;
+				border-radius: 4px;
+			}
+			.absences>div>.entete{
+				background:#0c9;
+				color: #FFF;
+			}
+			.absences>div>.enseignant{
+				text-transform: capitalize;
+			}
+			.absences>div>.absent{background: #c09; color: #FFF;}
+			.absences>div>.excuse{background: #0c9}
+
+			.absences>.toutesAbsences>.absent:before{content:"Absent"}
+			.absences>.toutesAbsences>.excuse:before{content:"Justifiée"}
+
+			.absences>.totauxAbsences{
+				grid-template-columns: repeat(3, auto);
+				margin-top: 16px;
+			}
+			.totauxAbsences>div:nth-child(1){
+				background: #09c;
+			}
 
 /**********************/
 /* Mode personnel UHA */
@@ -197,6 +234,21 @@
 			<div class=releve></div>
 			<div class=button onclick="ShowEmpty()">Montrer les évaluations sans note</div>
 			<hr>
+
+			<div class="absences">
+				<h2>Rapport d'absences</h2>
+				<p><i>
+					Vous avez jusqu'à 48h après votre retour pour justifier une absence auprès du secrétariat.<br>
+					Les créneaux horaires sont indicatifs et susceptibles de varier en fonction du département.
+				</i></p>
+				<div class=toutesAbsences></div>
+				<h3>Totaux</h3>
+				<i>Chaque département peut décider d'un malus en fonction des absences injustifiées.
+				</i>
+				<div class=totauxAbsences></div>
+			</div>
+
+			<hr>
 			<small>Ce site utilise deux cookies permettant l'authentification au service et une analyse statistique anonymisée des connexions ne nécessitant pas de consentement selon les règles du RGPD.</small><br>
 			<small>Application réalisée par Sébastien Lehmann, enseignant MMI - <a href="maj.php">voir les MAJ</a>.</small>
 		</main>
@@ -236,6 +288,7 @@
 				} else {
 					feedSemesters(data.semestres);
 					feedReportCards(data.relevé, data.semestres[0], data.auth.session);
+					feedAbsences(data.absences);
 				}
 			}
 /*********************************************/
@@ -321,6 +374,8 @@
 				if(document.querySelector("body").classList.contains(ETUDIANT)){	// A valider !!!
 					set_checked();
 				}
+
+				//feedAbsences(data.absences);
 			}
 
 /**************************/
@@ -379,6 +434,63 @@
 						</div>`;
 				})
 				return output;
+			}
+
+/*********************************************/
+/* Affichage des absences
+/*********************************************/
+			function feedAbsences(data){
+				var totaux = {};
+				let output = "";
+				Object.entries(data).forEach(([date, creneaux])=>{
+					Object.entries(creneaux).forEach(([creneau, dataAbsence])=>{
+						if(!totaux[dataAbsence.UE]){
+							totaux[dataAbsence.UE] = {
+								justifie: 0,
+								injustifie: 0
+							};
+						}
+						if(dataAbsence.statut == "absent"){
+							totaux[dataAbsence.UE].injustifie += 1;
+						}else{
+							totaux[dataAbsence.UE].justifie += 1;
+						}
+						output = `
+							<div>${date}</div> 
+							<div>${creneau.replace(",", " - ")}</div>
+							<div>${dataAbsence.matiereComplet}</div>
+							<div class=enseignant>${dataAbsence.enseignant.split('@')[0].split(".").join(" ")}</div>
+							<div>${dataAbsence.UE}</div>
+							<div class="${dataAbsence.statut}"></div>
+						` + output;
+					})
+				})
+
+				document.querySelector(".absences>.toutesAbsences").innerHTML = `
+					<div class=entete>Date</div> 
+					<div class=entete>Créneaux</div>
+					<div class=entete>Matière</div>
+					<div class=entete>Enseignant</div>
+					<div class=entete>UE</div>
+					<div class=entete>Statut</div>
+				` + output;
+
+				/* Totaux */
+				output = `
+					<div class=entete>UE</div> 
+					<div class=entete>Nombre justifiée</div>
+					<div class="entete absent">Nombre injusitifée</div>
+				`;
+
+				Object.entries(totaux).forEach(([UE, total])=>{
+					output += `
+						<div>${UE}</div>
+						<div>${total.justifie}</div>
+						<div>${total.injustifie}</div>
+					`;
+				})
+
+				document.querySelector(".absences>.totauxAbsences").innerHTML = output;
 			}
 
 /**************************/
@@ -444,8 +556,10 @@
 		?>
 
 <!-- ----------------------------------------------------------------- -->
-<!-- Fait avec beaucoup d'amour par Sébastien Lehmann - enseignant MMI -->
-<!--     Merci à Denis Graef, Alexandre Kieffer et Bruno Colicchio.    -->
+<!--               Fait avec beaucoup d'amour par                      -->
+<!--	   Sébastien Lehmann et Denis Graef - enseignant MMI           -->
+<!--																   -->
+<!--         Merci à Alexandre Kieffer et Bruno Colicchio.             -->
 <!-- ----------------------------------------------------------------- -->
 	</body>
 </html>

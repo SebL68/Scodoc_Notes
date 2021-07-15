@@ -194,6 +194,7 @@
 					} else {
 						include_once "$path/includes/LDAPData.php";
 						include_once "$path/includes/serverIO.php";
+						include_once "$path/includes/absencesIO.php";
 						$nip = getStudentNumberFromMail($authData->session);// includes/LDAPData.php
 						$dep = getStudentDepartment($nip);				// includes/serverIO.php
 						$semestres = getStudentSemesters([				// includes/serverIO.php
@@ -207,7 +208,12 @@
 								'semestre' => $semestres[0],
 								'nip' => $nip, 
 								'dep' => $dep
-							])
+							]),
+							'absences' => getAbsence(					// includes/absencesIO.php
+								$dep,
+								$semestres[0],
+								$authData->session
+							) ?? []
 						];
 					}
 				}else if($authData->statut >= PERSONNEL){
