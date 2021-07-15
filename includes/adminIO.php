@@ -58,7 +58,7 @@ function listeAdministrateurs($dep)
             $file,
             json_encode($json) //, JSON_PRETTY_PRINT)
         );
-        chmod($file, 0775);
+        chmod($file, 0664);
     }
 
     $json = json_decode(file_get_contents($file));
@@ -169,7 +169,7 @@ function listeVacataires($dep)
             $file,
             json_encode($json) //, JSON_PRETTY_PRINT)
         );
-        chmod($file, 0775);
+        chmod($file, 0664);
     }
 
     $json = json_decode(file_get_contents($file));
