@@ -157,6 +157,8 @@
 				display: grid;
 				grid-template-columns: repeat(6, auto);
 				gap: 2px;
+				padding: 4px;
+				overflow: auto;
 			}
 			.absences>div>div{
 				background: #FFF;
