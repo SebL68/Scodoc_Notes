@@ -170,10 +170,18 @@
 				if($authData->statut < PERSONNEL && isset($_GET['etudiant'])){ returnError(); } 
 				// Si c'est un personnel, on transmet l'étudiant par get, sinon on prend l'identifiant de la session.
 				include_once "$path/includes/serverIO.php";
-				$output = getReportCards([								// includes/serverIO.php
-					'semestre' => $_GET['semestre'], 
-					'id' => $_GET['etudiant'] ?? $authData->session
-				]);
+				include_once "$path/includes/absencesIO.php";
+				$output = [
+					'relevé' => getReportCards([						// includes/serverIO.php
+						'semestre' => $_GET['semestre'], 
+						'id' => $_GET['etudiant'] ?? $authData->session
+					]),
+					'absences' => getAbsence(							// includes/absencesIO.php
+						$dep,
+						$semestres[0],
+						$authData->session
+					) ?? []
+				];
 				break;
 			
 			case 'UEEtModules':

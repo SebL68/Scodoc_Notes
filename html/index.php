@@ -346,7 +346,8 @@
 				let semestre = this.dataset.semestre;
 				let etudiant = this.parentElement.parentElement.dataset.etudiant;
 				let data = await fetchData("relevéEtudiant&semestre=" + semestre + (etudiant ? "&etudiant=" + etudiant : ""));
-				feedReportCards(data, semestre, etudiant);
+				feedReportCards(data.relevé, semestre, etudiant);
+				feedAbsences(data.absences);
 			}
 
 			function feedReportCards(data, semestre, etudiant){
