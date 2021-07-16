@@ -1,4 +1,11 @@
 <?php
+/*****************************************/
+/* Gère la communication des données entre
+	le client (typiquement le navigateur) 
+	et le serveur */
+
+/*****************************************/
+
 	ob_start("ob_gzhandler");
 	header('Access-Control-Allow-Origin: *');
 	header('Access-Control-Allow-Credentials: true');
@@ -9,117 +16,327 @@
 	ini_set('display_errors', '1');*/
 
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
+
+	include_once "$path/includes/config.php";
 	include_once "$path/includes/auth.php";
-	include_once "$path/includes/LDAPData.php";
-	include_once "$path/includes/serverIO.php"; // Fonctions de communication vers le serveur Scodoc
 
 	$authData = (object) authData();
 
 /* Utilisateur qui n'est pas dans la composante : n'est pas autorisé. */
-	if($authData->statut == 'none'){ returnError("Ce site est réservé aux étudiants et personnels de l'IUT."); }
+	if($authData->statut == INCONNU){ returnError("Ce site est réservé aux étudiants et personnels de l'IUT."); }
 
+/******************************************
+ * 
+ * Fonctions de communication disponibles
+ * 
+ * 
+	0	get donnéesAuthentification :
+	Retourne les données de l'utilisateur : son identifiant et son statut (étudiant ou personnel)
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=donnéesAuthentification
+
+	0	get listeEtudiants :
+	Liste tous les étudiants du LDAP
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=listeEtudiants
+
+	0	get semestresDépartement : 
+	Liste des semestres actifs d'un département
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=semestresDépartement&dep=MMI
+
+	0	get listeEtudiantsSemestre : 
+	Liste les étudiants d'un semestre
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=listeEtudiantsSemestre&dep=MMI&semestre=SEM8871
+
+	0	get listesEtudiantsDépartement : 
+	Liste les étudiants d'un département
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=listesEtudiantsDépartement&dep=MMI
+
+	0	get semestresEtudiant :
+	Liste les identifiants semestres qu'un étudiant a suivi
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=semestresEtudiant&etudiant=alexandre.aab@uha.fr
+
+	0	get relevéEtudiant :
+	Relevé de note de l'étudiant au format JSON
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=relevéEtudiant&semestre=SEM8871&etudiant=alexandre.aab@uha.fr
+	
+	0	get UEEtModules :
+	Récupère les UE et les modules d'un semestre
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=UEEtModules&dep=MMI&semestre=SEM8871
+	
+	0	get listeDépartements :
+	Récupère les UE et les modules d'un semestre
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=listeDépartements
+
+	0	get dataPremièreConnexion :
+	Récupère les données d'authentification, les semestres et le premier relevé (évite de faire 3 requêtes)
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=dataPremièreConnexion
+
+	0	set setAbsence :
+	Change l'absence d'un étudiant
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=setAbsence&dep=MMI&semestre=SEM9743&matiere=M4101&etudiant=fares.abdelkrim@uha.fr&date=2021-01-30&creneau=18&statut=absent
+
+	0	set getAbsence :
+	Récupère les absences d'un étudiant ou des étudiants d'un semestre complet
+	Ne pas transmettre le GET étudiant pour obtenir tout le semestre
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=getAbsence&dep=MMI&semestre=SEM9743&etudiant=fares.abdelkrim@uha.fr
+
+
+	0	get listeVacataires :
+	Récupère la liste des vacataires d'un département
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=listeVacataires&dep=MMI
+
+	0	set modifVacataire :
+	Enregistre l'adresse mail d'un vacataire existant ou nouveau dans un département
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=modifVacataire&dep=MMI&ancienMail=ancien.nom@uha.fr&nouveau.nom@uha.fr
+			
+	0	set supVacataire :
+	Supprime l'adresse mail d'un vacataire existant dans un département
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=supVacataire&dep=MMI&email=prenom.nom@uha.fr
+
+
+	0	get listeAdministrateurs :
+	Récupère la liste des administrateurs d'un département
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=listeAdministrateurs&dep=MMI
+
+	0	set modifAdministrateur :
+	Enregistre l'adresse mail d'un administrateur existant ou nouveau dans un département
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=modifAdministrateur&dep=MMI&ancienMail=ancien.nom@uha.fr&nouveau.nom@uha.fr
+			
+	0	set supAdministrateur :
+	Supprime l'adresse mail d'un administrateur existant dans un département
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=supAdministrateur&dep=MMI&email=prenom.nom@uha.fr
+
+	0	set updateLists :
+	Met les liste des utilisateurs à jour à partir du serveur LDAP
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=updateLists
+
+	0	set setCron :
+	Configure CRON pour la mise à jour automatique des listes d'utilisateurs à partir du serveur LDAP
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=setCron
+*******************************/
 	if(isset($_GET['q'])){
 		switch($_GET['q']){
 
-			/*******************************
-			0	get donnéesAuthentification :
-					Retourne les données de l'utilisateur : son identifiant et son statut (étudiant ou personnel)
-					Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=donnéesAuthentification
-
-			0	get listeEtudiants :
-					Liste tous les étudiants du LDAP
-					Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=listeEtudiants
-
-			0	get semestresDépartement : 
-					Liste des semestres actifs d'un département
-					Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=semestresDépartement&dep=MMI
-
-			0	get listesEtudiantsDépartement : 
-					Liste les étudiants d'un département
-					Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=listesEtudiantsDépartement&dep=MMI
-
-			0	get semestresEtudiant :
-					Liste les identifiants semestres qu'un étudiant a suivi
-					Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=semestresEtudiant&etudiant=alexandre.aab@uha.fr
-
-			0	get relevéEtudiant :
-					Relevé de note de l'étudiant au format JSON
-					Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=relevéEtudiant&semestre=SEM8871&etudiant=alexandre.aab@uha.fr
-
-			0	get dataPremièreConnexion :
-					Récupère les données d'authentification, les semestres et le premier relevé (évite de faire 3 requêtes)
-					Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=dataPremièreConnexion
-
-
-			*******************************/
 			case 'donnéesAuthentification':
 				$output = (array) $authData;
 				break;
 
 			case 'listeEtudiants':
 				// Uniquement pour les personnels IUT.
-				if($authData->statut != 'personnel'){ returnError(); }
-				$output = getAllLDAPStudents();
+				if($authData->statut < PERSONNEL){ returnError(); }
+				include_once "$path/includes/LDAPData.php";
+				$output = getAllLDAPStudents();							// includes/LDAPData.php
 				break;
 
 			case 'semestresDépartement':
-				$output = getDepartmentSemesters($_GET['dep']);	
+				include_once "$path/includes/serverIO.php";
+				$output = getDepartmentSemesters($_GET['dep']);			// includes/serverIO.php
 				break;
 
+			case 'listeEtudiantsSemestre':
+				// Uniquement pour les personnels IUT.
+				if($authData->statut < PERSONNEL){ returnError(); }
+				include_once "$path/includes/serverIO.php";
+				$output = getStudentsInSemester(						// includes/serverIO.php
+					$_GET['dep'], 
+					$_GET['semestre']
+				); 
+				if(isset($_GET['absences']) && $_GET['absences'] == 'true'){
+					include_once "$path/includes/absencesIO.php";
+					$output['absences'] = getAbsence(					// includes/absencesIO.php
+						$_GET['dep'],
+						$_GET['semestre']
+					);
+				}
+				break;
 			case 'listesEtudiantsDépartement':
 				// Uniquement pour les personnels IUT.
-				if($authData->statut != 'personnel'){ returnError(); }
-				$output = getStudentsListsDepartement($_GET['dep']);
+				if($authData->statut < PERSONNEL){ returnError(); }
+				include_once "$path/includes/serverIO.php";
+				$output = getStudentsListsDepartement($_GET['dep']);	// includes/serverIO.php
 				break;
 
 			case 'semestresEtudiant':
 				// Uniquement les personnels IUT peuvent demander le relevé d'une autre personne.
-				if($authData->statut != 'personnel' && isset($_GET['etudiant'])){ returnError(); }
+				if($authData->statut < PERSONNEL && isset($_GET['etudiant'])){ returnError(); }
 				// Si c'est un personnel, on transmet l'étudiant par get, sinon on prend l'identifiant de la session.
-				$output = getStudentSemesters(['id' => $_GET['etudiant'] ?? $authData->session]);
+				include_once "$path/includes/serverIO.php";
+				$output = getStudentSemesters(							// includes/serverIO.php
+					['id' => $_GET['etudiant'] ?? $authData->session]
+				);	
 				break;
 
 			case 'relevéEtudiant':
 				// Uniquement les personnels IUT peuvent demander le relevé d'une autre personne.
-				if($authData->statut != 'personnel' && isset($_GET['etudiant'])){ returnError(); } 
+				if($authData->statut < PERSONNEL && isset($_GET['etudiant'])){ returnError(); } 
 				// Si c'est un personnel, on transmet l'étudiant par get, sinon on prend l'identifiant de la session.
-				$output = getReportCards([
-					'semestre' => $_GET['semestre'], 
-					'id' => $_GET['etudiant'] ?? $authData->session
-				]);
+				include_once "$path/includes/LDAPData.php";
+				include_once "$path/includes/serverIO.php";
+				include_once "$path/includes/absencesIO.php";
+				$nip = getStudentNumberFromMail($_GET['etudiant'] ?? $authData->session);// includes/LDAPData.php
+				$dep = getStudentDepartment($nip);						// includes/serverIO.php
+				$output = [
+					'relevé' => getReportCards([						// includes/serverIO.php
+						'semestre' => $_GET['semestre'], 
+						'nip' => $nip, 
+						'dep' => $dep
+					]),
+					'absences' => getAbsence(							// includes/absencesIO.php
+						$dep,
+						$_GET['semestre'],
+						$_GET['etudiant'] ?? $authData->session
+					) ?? []
+				];
+				break;
+			
+			case 'UEEtModules':
+				if($authData->statut < PERSONNEL ){ returnError(); }
+				include_once "$path/includes/serverIO.php";
+				$output = UEAndModules($_GET['dep'], $_GET['semestre']);// includes/serverIO.php
 				break;
 
+			case 'listeDépartements':
+				include_once "$path/includes/serverIO.php";
+				$output = getDepartmentsList();							// includes/serverIO.php
+				break;
+			
 			case 'dataPremièreConnexion':
-				if($authData->statut == 'etudiant'){
+				if($authData->statut == ETUDIANT){
 					if($authData->session == 'Compte_Demo.test@uha.fr'){
 						include 'data_demo.php';
 					} else {
-						$nip = getStudentNumberFromMail($authData->session);
-						$dep = getStudentDepartment($nip);
-						$semestres = getStudentSemesters([
+						include_once "$path/includes/LDAPData.php";
+						include_once "$path/includes/serverIO.php";
+						include_once "$path/includes/absencesIO.php";
+						$nip = getStudentNumberFromMail($authData->session);// includes/LDAPData.php
+						$dep = getStudentDepartment($nip);				// includes/serverIO.php
+						$semestres = getStudentSemesters([				// includes/serverIO.php
 							'nip' => $nip, 
 							'dep' => $dep
 						]);
 						$output = [
 							'auth' => (array) $authData,
 							'semestres' => $semestres,
-							'relevé' => getReportCards([
+							'relevé' => getReportCards([				// includes/serverIO.php
 								'semestre' => $semestres[0],
 								'nip' => $nip, 
 								'dep' => $dep
-							])
+							]),
+							'absences' => getAbsence(					// includes/absencesIO.php
+								$dep,
+								$semestres[0],
+								$authData->session
+							) ?? []
 						];
 					}
-				}else if($authData->statut == 'personnel'){
+				}else if($authData->statut >= PERSONNEL){
+					include_once "$path/includes/LDAPData.php";
 					$output = [
 						'auth' => (array) $authData,
-						'etudiants' => getAllLDAPStudents()
+						'etudiants' => getAllLDAPStudents()				// includes/LDAPData.php
 					];
 				}
 				break;
 
+		/*************************/
+			case 'setAbsence':
+				if($authData->statut < PERSONNEL ){ returnError(); }
+				include_once "$path/includes/absencesIO.php";
+				setAbsence(												// includes/absencesIO.php
+					$authData->session,
+					$_GET['dep'],
+					$_GET['semestre'],
+					$_GET['matiere'],
+					$_GET['matiereComplet'],
+					$_GET['UE'],
+					$_GET['etudiant'],
+					$_GET['date'],
+					$_GET['creneau'],
+					$_GET['creneauxIndex'],
+					$_GET['statut']
+				);
+				$output = [
+					'result' => "OK"
+				];
+				break;
+
+		/*************************/
+			case 'getAbsence':
+				if($authData->statut < PERSONNEL ){ returnError(); }
+				include_once "$path/includes/absencesIO.php";
+				$output = getAbsence(									// includes/absencesIO.php
+					$_GET['dep'],
+					$_GET['semestre'],
+					$_GET['etudiant'] ?? ''
+				);
+				break;
+
+		/*************************/
+			case 'listeVacataires':
+				if($authData->statut < ADMINISTRATEUR ){ returnError(); }
+				include_once "$path/includes/adminIO.php";
+				$output = listeVacataires($_GET['dep']);				// includes/adminIO.php
+				break;
+
+			case 'modifVacataire':
+				if($authData->statut < ADMINISTRATEUR ){ returnError(); }
+				include_once "$path/includes/adminIO.php";
+				$output = modifVacataire(								// includes/adminIO.php
+					$_GET['dep'], 
+					$_GET['ancienMail'], 
+					$_GET['nouveauMail']
+				);
+				break;
+
+			case 'supVacataire':
+				if($authData->statut < ADMINISTRATEUR ){ returnError(); }
+				include_once "$path/includes/adminIO.php";
+				$output = supVacataire(									// includes/adminIO.php
+					$_GET['dep'], 
+					$_GET['email']
+				);
+				break;
+
+		/*************************/
+			case 'listeAdministrateurs':
+				if($authData->statut < ADMINISTRATEUR ){ returnError(); }
+				include_once "$path/includes/adminIO.php";
+				$output = listeAdministrateurs($_GET['dep']);			// includes/adminIO.php
+				break;
+
+			case 'modifAdministrateur':
+				if($authData->statut < ADMINISTRATEUR ){ returnError(); }
+				include_once "$path/includes/adminIO.php";
+				$output = modifAdministrateur(							// includes/adminIO.php
+					$_GET['dep'], 
+					$_GET['ancienMail'], 
+					$_GET['nouveauMail']
+				);
+				break;
+
+			case 'supAdministrateur':
+				if($authData->statut < ADMINISTRATEUR ){ returnError(); }
+				include_once "$path/includes/adminIO.php";
+				$output = supAdministrateur(							// includes/adminIO.php
+					$_GET['dep'], 
+					$_GET['email']
+				);
+				break;
+
+		/*************************/
+			case 'updateLists':
+				if($authData->statut < SUPERADMINISTRATEUR ){ returnError(); }
+				include_once "$path/includes/LDAPIO.php";
+				$output = updateLists();								// includes/LDAPIO.php
+				break;
+
+			case 'setCron':
+				if($authData->statut < SUPERADMINISTRATEUR ){ returnError(); }
+				include_once "$path/includes/LDAPIO.php";
+				$output = setCron();									// includes/LDAPIO.php
+				break;
+
 		}	
-		if($output){
+		if($output !== ''){
 			echo json_encode($output/*, JSON_PRETTY_PRINT*/);
 		}else{
 			returnError('Mauvaise requête.');
@@ -134,278 +351,5 @@
 				)
 			)
 		);
-	}
-
-/*******************************/
-/* getDepartmentSemesters()
-	Liste des semestres actif d'un département
-
-	Entrée :
-		$dep : [string] département - exemple : 'MMI'
-
-	Sortie :
-		[
-			{
-				'titre' => 'titre du semestre',
-				'semestre_id' => 'code semestre' // exemple : 'SEM8871'
-			},
-			etc.
-		]
-
-*******************************/
-	function getDepartmentSemesters($dep){
-		$json = json_decode(
-			Ask_Scodoc(
-				'/Scolarite/Notes/formsemestre_list',
-				$dep
-			)
-		);
-		$output = [];
-		foreach($json as $value){
-			if($value->etat == "1"){
-				$output[] = [
-					'titre' => $value->titre_num,
-					'semestre_id' => $value->formsemestre_id
-				];
-			}
-		}
-		return $output;
-	}
-
-/*******************************/
-/* getStudentSemesters()
-	Liste les identifiants semestres qu'un étudiant a suivi
-
-	Entrée :
-		['id' => $id] : [string] identifiant de l'étudiant - exemple : 'jean.dupont@uha.fr'
-	ou
-		[
-			'nip' => '21800202', 	// numéro étudiant
-			'dep' => 'MMI' 			// département de l'étudiant
-		]
-
-	Sortie :
-		Tableau des codes semestres
-		["SEM8871", "SEM8833", etc.]
-
-*******************************/
-	function getStudentSemesters($data){
-		$data = (object) $data;
-		if($data->id){
-			$nip = getStudentNumberFromMail($data->id);
-			$dep = getStudentDepartment($nip);
-		}else{
-			$nip = $data->nip;
-			$dep = $data->dep;
-		}
-		
-		$json = json_decode(
-				Ask_Scodoc(
-					'/Scolarite/Notes/etud_info',
-					$dep,
-					[
-						'code_nip' => $nip,
-						'format' => 'json'
-					]
-				)
-			);
-		if($json != ''){
-			$output = [];
-		
-			for($i=0 ; $i<count($json->insemestre) ; $i++){
-				$output[] = $json->insemestre[$i]->formsemestre_id;
-			}
-			rsort($output);
-			return $output;
-		}else{
-			returnError(
-				"Problème de compte, vous n'êtes pas dans Scodoc ou votre numéro d'étudiant est erroné, si le problème persiste, contactez votre responsable en lui précisant : il y a peut être un .0 à la fin du numéro d'étudiant dans Scodoc."
-			);
-		}
-	}
-/*******************************/
-/* getReportCards()
-	Renvoie les notes d'un étudiants pour un semestre choisi
-
-	Entrée :
-		[
-			'semestre' => 'SEM8833', 		// Semestre
-			'id' => 'jean.dupont@uha.fr', 	// Identifiant de l'étudiant
-		]
-	ou
-		[
-			'semestre' => 'SEM8833', 		// Semestre
-			'nip' => '21800202', 			// numéro étudiant
-			'dep' => 'MMI' 					// département de l'étudiant
-		]
-
-	Sortie :
-		// JSON avec les données du relevé de notes.
-
-*******************************/
-	function getReportCards($data){
-		$data = (object) $data;
-		if($data->id){
-			$nip = getStudentNumberFromMail($data->id);
-			$dep = getStudentDepartment($nip);
-		}else{
-			$nip = $data->nip;
-			$dep = $data->dep;
-		}
-
-		$output = json_decode(
-			Ask_Scodoc(
-				'/Scolarite/Notes/Notes/formsemestre_bulletinetud',
-				$dep,
-				[
-					'formsemestre_id' => $data->semestre,
-					'code_nip' => $nip,
-					'format' => 'json',
-					'version' => 'long'
-				]
-			)
-		);
-
-		if($output->rang){
-			return $output;
-		}else{
-			returnError(
-				"Relevé non disponible pour ce semestre, veuillez contacter votre responsable en lui précisant : vérifier si l'export des notes du semestre est autorisé dans Scodoc."
-			);
-		}
-	}
-
-/*******************************/
-/* getStudentsListsDepartement()
-	Liste les étudiants d'un département par semestre actif
-
-	Entrée :
-		$dep : [string] département - exemple : 'MMI'
-
-	Sortie :
-		[
-			{
-				'titre': 'Nom du semestre',
-				'semestre_id': 'SEM8732',
-				'groupes': ['groupe 1', 'groupe 2', etc.], // Exemple : TP11, TP12, etc.
-				'etudiants': [
-					{
-						'nom': 'nom de l'étudiant',
-						'prenom': 'prenom de l'étudiant',
-						'groupe': 'groupe 1'
-					},
-					etc.
-				]
-			},
-			etc. avec les autres semestres d'un département, exemple : 1er année, 2ième année...
-		]
-		
-*******************************/
-	function getStudentsListsDepartement($dep){
-		$dataSEM = getDepartmentSemesters($dep);
-		$output = [];
-		foreach($dataSEM as $value){
-			$value = (object) $value;
-			$data_students = (object) getStudentsInSemester($dep, $value->semestre_id);
-			$output[] = [
-				'titre' => $value->titre,
-				'semestre_id' => $value->semestre_id,
-				'groupes' => $data_students->groupes,
-				'etudiants' =>  $data_students->etudiants
-			];
-		}
-		return $output;
-	}
-
-/*******************************/
-/* getStudentDepartment()
-	Récupère le département d'un étudiant à partir de son numéro d'étudiant
-
-	Entrée :
-		$nip : [string] numéro d'étudiant - exemple : "21600306"
-
-	Sortie :
-		"département" - exemple : "MMI"
-*/
-	function getStudentDepartment($nip){
-		return Ask_Scodoc(
-			'/get_etud_dept',
-			'',
-			[
-				'code_nip' => $nip
-			]
-		);
-	}
-
-/*******************************/
-/* getStudentsInSemester()
-	Liste de tous les étudiants dans un semestre
-
-	Entrées : 
-		$dep : [string] département - exemple : MMI
-		$sem : [string] code semestre Scodoc - exemple : SEM8871
-
-	Sortie :
-		{
-			'groupes' => ['groupe 1', 'groupe2', etc.], 
-			'etudiants' => [
-				{
-					'nom' => 'nom de l'étudiant',
-					'prenom' => 'prenom de l'étudiant',
-					'groupe' => 'groupe de l'étudiant',
-					'num_etudiant' => 'numero de l'étudiant',
-					'email' => 'email UHA de l'étudiant'
-				},
-				etc.
-			]
-		}
-
-*******************************/
-	function getStudentsInSemester($dep, $sem){
-		global $path;
-		$json = json_decode(
-			Ask_Scodoc(
-				'/Scolarite/Notes/Notes/groups_view',
-				$dep,
-				[
-					'formsemestre_id' => $sem,
-					'with_codes' => 1,
-					'format' => 'json'
-				]
-			)
-		);
-
-		$groupes = [];
-		$output_json = [];
-		foreach($json as $value){
-			$groupe = findTP($value);
-			if(!in_array($groupe, $groupes)){
-				$groupes[] = $groupe;
-			}
-
-			$output_json[] = [
-				'nom' => $value->nom_disp,
-				'prenom' => $value->prenom,
-				'groupe' => $groupe,
-				'num_etudiant' => $value->code_nip,
-				'email' => getStudentMailFromNumber($value->code_nip)
-				// 'num_ine' => $value->code_ine
-				// 'email_perso' => $value->emailperso
-			];
-		}
-		sort($groupes);
-		return [
-			'groupes' => $groupes, 
-			'etudiants' => $output_json
-		];
-	}
-
-	function findTP($json){
-		// Recherche du groupe TP dans la key Pxxxx
-		foreach($json as $key => $value){
-			if($key[0] == "P"){
-				return $json->$key;
-			}
-		};
 	}
 ?>

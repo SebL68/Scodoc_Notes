@@ -1,3 +1,6 @@
+<?php 
+    $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -5,36 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documents</title>
     <style>
-        *{
-            box-sizing: border-box;
-        }
-        html{
-            scroll-behavior: smooth;
-        }
-        body{
-            margin:0;
-            font-family:arial;
-            background: #FAFAFA;
-        }
-        header{
-            position:sticky;
-            top:0;
-            padding:10px;
-            background:#09C;
-            display: flex;
-            justify-content: space-between;
-            color:#FFF;
-            box-shadow: 0 2px 2px #888;
-            z-index:1;
-        }
-        header>a{
-            color: #FFF;
-            text-decoration: none;
-            padding: 10px 0 10px 0;
-        }
-        h1{
-            margin:0;
-        }
+        <?php include "$path/html/assets/header.css"?>
         h2{
             margin: 20px 0 0 0;
             padding: 20px;
@@ -44,41 +18,40 @@
             cursor: pointer;
         }
         main{
-            padding:10px;
-            margin-bottom: 64px;
-            max-width: 1000px;
             margin: 0 auto 20px auto;
         }
-        .prenom{
-            text-transform: capitalize;
-            color:#f44335;
+/**********************/
+/*   Zones de choix   */
+/**********************/
+        .zone{
+            background: #FFF;
+            padding: 8px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            border: 1px solid #CCC;
         }
-        
-        .wait{
-            position: fixed;
-            width: 50px;
-            height: 10px;
-            background: #424242;
-            top: 80px;
-            left: 50%;
-            margin-left: -25px;
-            animation: wait 0.6s ease-out alternate infinite;
+		select{
+			font-size: 21px;
+			padding: 10px;
+			margin: 5px auto;
+			background: #09c;
+			color: #FFF;
+			border: none;
+			border-radius: 10px;
+            max-width: 100%;
+            display: table;
+            box-shadow: 0 2px 2px #888;
+		}
+        .highlight{
+            animation: pioupiou 0.4s infinite ease-in alternate;
         }
-        @keyframes wait{
-            100%{transform: translateY(-30px) rotate(360deg)}
-        }
-
-        .auth{
-            position: fixed;
-            top: 58px;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: #FAFAFA;
-            font-size: 28px;
-            padding: 28px 10px 0 10px;
-            text-align: center;
-            transition: 0.4s;
+        @keyframes pioupiou{
+            0%{
+                box-shadow: 0 0 4px 0px orange;
+            }
+            100%{
+                box-shadow: 0 0 4px 2px orange;
+            }
         }
 /*******************************/
 /* Listes étudiants */
@@ -157,77 +130,49 @@
             100%{stroke-dasharray: 25;stroke-dashoffset:100;}
         }
     </style>
+    <meta name=description content="Interface documents de l'IUT de Mulhouse">
 </head>
-<body>
-    <header>
-
-			<h1>
-				Documents
-			</h1>
-			<a href=/logout.php>Déconnexion</a>
-		</header>
-        <main>
-			<div class=flex>
-				<p>Bonjour <span class=prenom></span>.</p>
-                <div class="groupe petit" style=margin-top:6px onclick=concat(this)>
-                    Séparer nom / prénom
-                    <div>Pour copier-coller directement de la liste</div>
-                </div>
-			</div>
-            <div class=contenu></div>
-			<div class=wait></div>
-			
-		</main>
-
-		<div class=auth>
-			<!-- Site en maintenance -->
-			Authentification en cours ...
+<body>		
+    <?php 
+		$h1 = 'Documents';
+		include "$path/html/assets/header.php";
+	?>
+    <main>
+        <p>
+            Bonjour <span class=prenom></span>.
+        </p>
+        <div class="groupe petit" style=margin-top:6px onclick=concat(this)>
+            Séparer nom / prénom
+            <div>Pour copier-coller directement de la liste</div>
         </div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx-populate/1.21.0/xlsx-populate.min.js"></script>
+        <div class="zone">
+            <select id=departement class=highlight onchange="clearStorage(['semestre', 'matiere']);selectDepartment(this.value)">
+                <option value="" disabled selected hidden>Choisir un département</option>
+                <?php
+                    include "$path/includes/serverIO.php";
+                    $listDepartement = getDepartmentsList();
+                    foreach($listDepartement as $departement){
+                        echo "<option value=$departement>$departement</option>";
+                    }
+                ?>
+            </select>
+        </div>
+        <div class=contenu></div>
+        <div class=wait></div>
+        
+    </main>
+
+    <div class=auth>
+        <!-- Site en maintenance -->
+        Authentification en cours ...
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx-populate/1.21.0/xlsx-populate.min.js"></script>
     <script>
         checkStatut();
-
-/*********************************************/
-/* Fonction de communication avec le serveur
-Gère la déconnexion et les messages d'erreur
-/*********************************************/
-        function fetchData(query){
-            document.querySelector(".wait").style.display = "block";
-            let token = (window.location.search.match(/token=([a-zA-Z0-9._-]+)/)?.[1] || ""); // Récupération d'un token GET pour le passer au service
-            if(token){
-                var postData = new FormData();
-                postData.append('token', token);
-            }
-            return fetch(
-                "/services/data.php?q="+query, 
-                {
-                    method: "post",
-                    body: token ? postData : ""
-                }
-            )
-            .then(res => { return res.json() })
-            .then(function(data) {
-                document.querySelector(".wait").style.display = "none";
-                if(data.redirect){
-                    // Utilisateur non authentifié, redirection vers une page d'authentification pour le CAS.
-                    // Passage de l'URL courant au CAS pour redirection après authentification
-                    window.location.href = data.redirect + "?href="+encodeURIComponent(window.location.href); 
-                }
-                if(data.erreur){
-                    // Il y a une erreur pour la récupération des données - affichage d'un message explicatif.
-                    document.querySelector(".contenu").innerHTML = `<b>${data.erreur}</b>`;
-                }else{
-                    return data;
-                }
-            })
-        }
-
-        function displayError(message){
-            let auth = document.querySelector(".auth");
-            auth.style.opacity = "1";
-            auth.style.pointerEvents = "initial";
-            auth.innerHTML = message;
-        }
+        document.querySelector("#documents").classList.add("navActif");
+        <?php
+			include "$path/includes/clientIO.php";
+		?>
 /*********************************************/
 /* Vérifie l'identité de la personne et son statut
 /*********************************************/			
@@ -238,18 +183,38 @@ Gère la déconnexion et les messages d'erreur
             auth.style.opacity = "0";
             auth.style.pointerEvents = "none";
 
-            if(data.statut == 'personnel'){
-                getStudentsListes(window.location.pathname.replace(/\//g,"")); // Répertoir courant - exemple : MMI
+            if(data.statut >= PERSONNEL){
+                document.querySelector("body").classList.add('personnel');
+                let departement = localStorage.getItem("departement");
+                if(departement){
+                    document.querySelector("#departement").value = departement;
+                    selectDepartment(departement);
+                }
             } else {
                 document.querySelector(".contenu").innerHTML = "Ce contenu est uniquement accessible pour les personnels de l'IUT. ";
             }
         }
+
+
+        async function selectDepartment(departement){
+            document.querySelector("#departement").classList.remove("highlight");
+
+            /* Gestion du storage remettre le même état au retour */
+            localStorage.setItem('departement', departement);
+
+            getStudentsListes(departement);
+		}
 /*********************************************/
 /* Récupère et traite les listes d'étudiants du département
 /*********************************************/		
         async function getStudentsListes(departement){
             let data = await fetchData("listesEtudiantsDépartement&dep="+departement);
             document.querySelector(".contenu").innerHTML = createSemester(data);
+        }
+        function clearStorage(keys){
+            keys.forEach(function(key){
+                localStorage.removeItem(key);
+            });
         }
 
         function createSemester(data){
@@ -259,7 +224,7 @@ Gère la déconnexion et les messages d'erreur
                 var groupes = "";
                 if(semestre.groupes.length > 1){
                     semestre.groupes.forEach(groupe=>{
-                        var num = groupe?.replace(/ /g, "") || "Groupe1";
+                        var num = groupe?.replace(/ |\./g, "") || "Groupe1";
                         groupes += `<div class=groupe onclick="hideGroupe(this, '${num}')">${groupe || "Groupe 1"}</div>`;
                     })
                 }else{
@@ -301,7 +266,7 @@ Gère la déconnexion et les messages d'erreur
            
 			etudiant.forEach(etudiant=>{
 				output += `
-					<div class="${etudiant.groupe?.replace(/ /g, "") || "Groupe1"}" 
+					<div class="${etudiant.groupe?.replace(/ |\./g, "") || "Groupe1"}" 
                         data-nom="${etudiant.nom}" 
                         data-prenom="${etudiant.prenom}" 
                         data-groupe="${etudiant.groupe || "Groupe 1"}"
@@ -333,7 +298,6 @@ Gère la déconnexion et les messages d'erreur
                 })
             }
         }
-        
         
 /*********************************************/
 /* Gestion du téléchargement XLSX des données - Utilisation de xlsx-populate
@@ -397,7 +361,7 @@ Gère la déconnexion et les messages d'erreur
 
                 var column = 65;
                 groupes.forEach(function(groupe){
-                    sheet.column(String.fromCharCode(column)).width(27);
+                    sheet.column(String.fromCharCode(column)).width(26);
                     sheet.cell(String.fromCharCode(column) + 3).value(groupe).style({
                         border: true,
                         bold: true,
@@ -406,7 +370,7 @@ Gère la déconnexion et les messages d'erreur
                     var line = 4;
                     h2.nextElementSibling.querySelectorAll("." + groupe.replace(/ /g, "")).forEach(etudiant=>{
 
-                        sheet.cell(String.fromCharCode(column) + line).value(etudiant.dataset.nom + " " + etudiant.dataset.prenom);
+                        sheet.cell(String.fromCharCode(column) + line).value(etudiant.innerText);
                         line++;
                     });
                     column = column + 2;
@@ -510,7 +474,6 @@ Gère la déconnexion et les messages d'erreur
 
     </script>
     <?php 
-        $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
         include "$path/includes/analytics.php";
     ?>
 </body>

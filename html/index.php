@@ -1,3 +1,6 @@
+<?php 
+	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
+?>
 <!DOCTYPE html>
 <html lang=fr>
 	<head>
@@ -9,73 +12,7 @@
 		<meta name="theme-color" content="#0084b0">
 		<link rel="apple-touch-icon" href="images/icons/192x192.png">
 		<style>
-			*{
-				box-sizing: border-box;
-			}
-			html{
-				scroll-behavior: smooth;
-			}
-			body{
-				margin:0;
-				font-family:arial;
-				background: #FAFAFA;
-			}
-			header{
-				position:sticky;
-				top:0;
-				padding:10px;
-				background:#09C;
-				display: flex;
-				justify-content: space-between;
-				color:#FFF;
-				box-shadow: 0 2px 2px #888;
-				z-index:1;
-			}
-			header>a{
-				color: #FFF;
-				text-decoration: none;
-				padding: 10px 0 10px 0;
-			}
-			h1{
-				margin:0;
-			}
-			main{
-				padding:0 10px;
-				margin-bottom: 64px;
-				max-width: 1000px;
-				margin: auto;
-			}
-			.prenom{
-				text-transform: capitalize;
-				color:#f44335;
-			}
-			
-			.wait{
-				position: fixed;
-				width: 50px;
-				height: 10px;
-				background: #424242;
-				top: 80px;
-				left: 50%;
-				margin-left: -25px;
-				animation: wait 0.6s ease-out alternate infinite;
-			}
-			@keyframes wait{
-				100%{transform: translateY(-30px) rotate(360deg)}
-			}
-
-			.auth{
-				position: fixed;
-				top: 58px;
-				left: 0;
-				right: 0;
-				bottom: 0;
-				background: #FAFAFA;
-				font-size: 28px;
-				padding: 28px 10px 0 10px;
-				text-align: center;
-				transition: 0.4s;
-			}
+			<?php include "$path/html/assets/header.css"?>
 /**********************/
 /* Gestion de semestres */
 /**********************/
@@ -210,6 +147,45 @@
 				background: #0C9;
 				color: #FFF;
 			}
+/**********************/
+/* Zone absences */
+/**********************/
+			h2{
+				background: #09C;
+			}
+			.absences>div{
+				display: grid;
+				grid-template-columns: repeat(6, auto);
+				gap: 2px;
+				padding: 4px;
+				overflow: auto;
+			}
+			.absences>div>div{
+				background: #FFF;
+				box-shadow: 0 2px 2px #888;
+				padding: 4px 8px;
+				border-radius: 4px;
+			}
+			.absences>div>.entete{
+				background:#0c9;
+				color: #FFF;
+			}
+			.absences>div>.enseignant{
+				text-transform: capitalize;
+			}
+			.absences>div>.absent{background: #c09; color: #FFF;}
+			.absences>div>.excuse{background: #0c9}
+
+			.absences>.toutesAbsences>.absent:before{content:"Absent"}
+			.absences>.toutesAbsences>.excuse:before{content:"Justifiée"}
+
+			.absences>.totauxAbsences{
+				grid-template-columns: repeat(3, auto);
+				margin-top: 16px;
+			}
+			.totauxAbsences>div:nth-child(1){
+				background: #09c;
+			}
 
 /**********************/
 /* Mode personnel UHA */
@@ -233,16 +209,13 @@
 				margin: 10px;
 			}
 		</style>
-		<meta name=description content="Relevé de note de l'IUT de Mulhouse">
+		<meta name=description content="Relevé de notes de l'IUT de Mulhouse">
 	</head>
 	<body>
-		<header>
-
-			<h1>
-				Relevé de notes
-			</h1>
-			<a href=logout.php>Déconnexion</a>
-		</header>
+		<?php 
+			$h1 = 'Relevé de notes';
+			include "$path/html/assets/header.php";
+		?>
 		<main>
 			<p>
 				Bonjour <span class=prenom></span>.
@@ -263,6 +236,21 @@
 			<div class=releve></div>
 			<div class=button onclick="ShowEmpty()">Montrer les évaluations sans note</div>
 			<hr>
+
+			<div class="absences">
+				<h2>Rapport d'absences</h2>
+				<p><i>
+					Vous avez jusqu'à 48h après votre retour pour justifier une absence auprès du secrétariat.<br>
+					Les créneaux horaires sont indicatifs et susceptibles de varier en fonction du département.
+				</i></p>
+				<div class=toutesAbsences></div>
+				<h3>Totaux</h3>
+				<i>Chaque département peut décider d'un malus en fonction des absences injustifiées.
+				</i>
+				<div class=totauxAbsences></div>
+			</div>
+
+			<hr>
 			<small>Ce site utilise deux cookies permettant l'authentification au service et une analyse statistique anonymisée des connexions ne nécessitant pas de consentement selon les règles du RGPD.</small><br>
 			<small>Application réalisée par Sébastien Lehmann, enseignant MMI - <a href="maj.php">voir les MAJ</a>.</small>
 		</main>
@@ -272,50 +260,20 @@
 		</div>
 		
 		<script>
+/**************************/
+/* Service Worker pour le message "Installer l'application" et pour le fonctionnement hors ligne PWA
+/**************************/		
+			if('serviceWorker' in navigator){
+				navigator.serviceWorker.register('sw.js');
+			}
+/**************************/
+/* Début
+/**************************/
 			checkStatut();
-
-/*********************************************/
-/* Fonction de communication avec le serveur
-	Gère la déconnexion et les messages d'erreur
-/*********************************************/
-			function fetchData(query){
-				document.querySelector(".wait").style.display = "block";
-				let token = (window.location.search.match(/token=([a-zA-Z0-9._-]+)/)?.[1] || ""); // Récupération d'un token GET pour le passer au service
-				if(token){
-					var postData = new FormData();
-					postData.append('token', token);
-				}
-				return fetch(
-					"services/data.php?q="+query, 
-					{
-						method: "post",
-						body: token ? postData : ""
-					}
-				)
-				.then(res => { return res.json() })
-				.then(function(data) {
-					document.querySelector(".wait").style.display = "none";
-					if(data.redirect){
-						// Utilisateur non authentifié, redirection vers une page d'authentification pour le CAS.
-						// Passage de l'URL courant au CAS pour redirection après authentification
-						window.location.href = data.redirect + "?href="+encodeURIComponent(window.location.href); 
-					}
-					if(data.erreur){
-						// Il y a une erreur pour la récupération des données - affichage d'un message explicatif.
-						displayError(data.erreur);
-					}else{
-						return data;
-					}
-				}).catch(function(error){
-					displayError("Il semblerait qu'il y ait un problème de connexion.");
-				})
-			}
-			function displayError(message){
-				let auth = document.querySelector(".auth");
-				auth.style.opacity = "1";
-				auth.style.pointerEvents = "initial";
-				auth.innerHTML = message;
-			}
+			document.querySelector("#notes").classList.add("navActif");
+			<?php
+				include "$path/includes/clientIO.php";
+			?>
 /*********************************************/
 /* Vérifie l'identité de la personne et son statut
 /*********************************************/			
@@ -326,12 +284,13 @@
 				auth.style.opacity = "0";
 				auth.style.pointerEvents = "none";
 
-				if(data.auth.statut == 'personnel'){
-					document.querySelector("body").classList.add(data.auth.statut);
+				if(data.auth.statut >= PERSONNEL){
+					document.querySelector("body").classList.add('personnel');
 					loadStudents(data.etudiants);
 				} else {
 					feedSemesters(data.semestres);
-					feedReportCards(data.relevé, data.semestres, data.auth.session);
+					feedReportCards(data.relevé, data.semestres[0], data.auth.session);
+					feedAbsences(data.absences);
 				}
 			}
 /*********************************************/
@@ -389,7 +348,8 @@
 				let semestre = this.dataset.semestre;
 				let etudiant = this.parentElement.parentElement.dataset.etudiant;
 				let data = await fetchData("relevéEtudiant&semestre=" + semestre + (etudiant ? "&etudiant=" + etudiant : ""));
-				feedReportCards(data, semestre, etudiant);
+				feedReportCards(data.relevé, semestre, etudiant);
+				feedAbsences(data.absences);
 			}
 
 			function feedReportCards(data, semestre, etudiant){
@@ -399,7 +359,7 @@
 					</form>
 				`;
 
-				let decision = data.situation.split(". ");
+				let decision = data.situation?.split(". ") || [];
 				if(decision[1]){
 					decision = "<b>"+decision[1] + ". " + decision[2]+"</b><br>";
 				}else{
@@ -413,9 +373,12 @@
 						<span>Classe : ${data.note.moy} - Max : ${data.note.max} - Min : ${data.note.min}</span>
 					</div>
 					${ue(data.ue)}`;
-				if(!document.querySelector("body").classList.contains("personnel")){
+//				if(!document.querySelector("body").classList.contains("personnel")){
+				if(document.querySelector("body").classList.contains(ETUDIANT)){	// A valider !!!
 					set_checked();
 				}
+
+				//feedAbsences(data.absences);
 			}
 
 /**************************/
@@ -476,6 +439,63 @@
 				return output;
 			}
 
+/*********************************************/
+/* Affichage des absences
+/*********************************************/
+			function feedAbsences(data){
+				var totaux = {};
+				let output = "";
+				Object.entries(data).forEach(([date, creneaux])=>{
+					Object.entries(creneaux).forEach(([creneau, dataAbsence])=>{
+						if(!totaux[dataAbsence.UE]){
+							totaux[dataAbsence.UE] = {
+								justifie: 0,
+								injustifie: 0
+							};
+						}
+						if(dataAbsence.statut == "absent"){
+							totaux[dataAbsence.UE].injustifie += 1;
+						}else{
+							totaux[dataAbsence.UE].justifie += 1;
+						}
+						output = `
+							<div>${date}</div> 
+							<div>${creneau.replace(",", " - ")}</div>
+							<div>${dataAbsence.matiereComplet}</div>
+							<div class=enseignant>${dataAbsence.enseignant.split('@')[0].split(".").join(" ")}</div>
+							<div>${dataAbsence.UE}</div>
+							<div class="${dataAbsence.statut}"></div>
+						` + output;
+					})
+				})
+
+				document.querySelector(".absences>.toutesAbsences").innerHTML = `
+					<div class=entete>Date</div> 
+					<div class=entete>Créneaux</div>
+					<div class=entete>Matière</div>
+					<div class=entete>Enseignant</div>
+					<div class=entete>UE</div>
+					<div class=entete>Statut</div>
+				` + output;
+
+				/* Totaux */
+				output = `
+					<div class=entete>UE</div> 
+					<div class=entete>Nombre justifiée</div>
+					<div class="entete absent">Nombre injusitifée</div>
+				`;
+
+				Object.entries(totaux).forEach(([UE, total])=>{
+					output += `
+						<div>${UE}</div>
+						<div>${total.justifie}</div>
+						<div>${total.injustifie}</div>
+					`;
+				})
+
+				document.querySelector(".absences>.totauxAbsences").innerHTML = output;
+			}
+
 /**************************/
 /* Pointage des évaluations et stockage en local de l'action
 /**************************/
@@ -532,22 +552,17 @@
 			function ShowEmpty(){
 				document.querySelector("body").classList.toggle("ShowEmpty");
 			}
-/**************************/
-/* Service Worker pour le message "Installer l'application" et pour le fonctionnement hors ligne PWA
-/**************************/		
-			if('serviceWorker' in navigator){
-				navigator.serviceWorker.register('sw.js');
-			}
 		</script>
 	
 		<?php 
-			$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 			include "$path/includes/analytics.php";
 		?>
 
 <!-- ----------------------------------------------------------------- -->
-<!-- Fait avec beaucoup d'amour par Sébastien Lehmann - enseignant MMI -->
-<!--     Merci à Denis Graef, Alexandre Kieffer et Bruno Colicchio.    -->
+<!--               Fait avec beaucoup d'amour par                      -->
+<!--	   Sébastien Lehmann et Denis Graef - enseignant MMI           -->
+<!--																   -->
+<!--         Merci à Alexandre Kieffer et Bruno Colicchio.             -->
 <!-- ----------------------------------------------------------------- -->
 	</body>
 </html>

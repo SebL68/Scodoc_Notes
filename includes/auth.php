@@ -20,7 +20,7 @@
 	ou
 		{
 			'session' => 'jean.dupond@uha.fr', // mail de la personne identifiée
-			'statut' => 'etudiant | personnel | none'
+			'statut' => ETUDIANT | PERSONNEL | ADMINISTRATEUR | INCONNU
 		}
 
 ******************************/
@@ -30,8 +30,8 @@
 	/*******************************************************/
 	/* Est-ce qu'un jeton JWT est utilisé pour avoir accès */
 	/*******************************************************/
-			include $path . '/includes/JWT/JWT.php';
-			include $path . '/includes/JWT/key.php';
+			include_once $path . '/includes/JWT/JWT.php';
+			global $key;
 
 			// Message d'erreur si le serveur est mal configuré.
 			if($key == ""){
@@ -46,11 +46,27 @@
 				
 			$decoded = JWT::decode($_POST['token'], $key, ['HS256']);
 			$_SESSION['id'] = $decoded->session;
-			$_SESSION['statut'] = $decoded->statut;
+			switch($decoded->statut){
+				case 'inconnu':
+					$_SESSION['statut'] = INCONNU;
+					break;
+				case 'etudiant':
+					$_SESSION['statut'] = ETUDIANT;
+					break;
+				case 'personnel':
+					$_SESSION['statut'] = PERSONNEL;
+					break;
+				case 'administrateur':
+					$_SESSION['statut'] = ADMINISTRATEUR;
+					break;
+				case 'superadministrateur':
+					$_SESSION['statut'] = SUPERADMINISTRATEUR;
+					break;
+			}
 
 		}else{
 	/****************************************************/
-	/* Vérification aurpès du CAS de l'authentifiaction */
+	/* Vérification auprès du CAS de l'authentifiaction */
 	/****************************************************/
 			require_once $path . '/CAS/include/CAS.php';
 			require_once $path . '/CAS/config/cas_uha.php';
