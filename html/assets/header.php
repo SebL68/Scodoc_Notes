@@ -9,6 +9,6 @@
 		<a class="nav" id="absences" href="/absences/">Absences</a>
 		<a class="nav" id="gestion" href="/absences/gestion.php">Stats / Justif</a>
 		<a class="nav" id="admin" href="/admin/">Comptes</a>
-		<a href=logout.php>Déconnexion</a>
+		<a href=/logout.php>Déconnexion</a>
 	</nav>
 </header>
