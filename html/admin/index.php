@@ -18,6 +18,17 @@
             justify-content: center;
             align-items: flex-start;
         }
+		@media screen and (max-width: 900px){
+			.contenu{
+				display: block;
+			}
+			#vacataires{
+				margin-top: 32px;
+			}
+			.contenu>div>div:nth-child(1){
+				background: #ddd;
+			}
+		}
         /**********************/
         /*   Zones de choix   */
         /**********************/
@@ -74,7 +85,7 @@
         .ready {
             /*opacity: initial;*/
             /*pointer-events: initial;*/
-            background: #9FC;
+            background: #9FC !important;
         }
         .nom, .mail, .confirm {
             display: flex;
@@ -184,10 +195,10 @@
                 statut = data.statut;
 
                 if (statut >= SUPERADMINISTRATEUR) {    // Ajout des fonctionnalités pour SuperAdministrateur
-                    let menu = document.querySelector("nav").innerHTML;
-                    menu += `<a class="nav" href="#" onClick="exeCmd('updateLists')">UpdateLists</a>`;
-                    menu += `<a class="nav" href="#" onClick="exeCmd('setCron')">setCron</a>`;
-                    document.querySelector("nav").innerHTML = menu;
+					document.querySelector("nav").innerHTML += `
+						<a class="nav" href="#" onClick="exeCmd('updateLists')">UpdateLists</a>
+						<a class="nav" href="#" onClick="exeCmd('setCron')">setCron</a>
+					`;
                 }
 
                 /* Gestion du storage remettre le même état au retour */
