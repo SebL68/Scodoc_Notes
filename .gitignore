@@ -25,3 +25,6 @@ html/saveV2
 
 #Données des absences
 absencesDATA
+
+#Photos des étudiants
+studentsPic/*

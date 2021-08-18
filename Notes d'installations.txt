@@ -1,0 +1,12 @@
+Pas besoin du mode deflate.
+
+Pour l'utilisation du ldap sous windows :
+	Changer la config en créant ce fichier (adresse en dure) : C:\OpenLDAP\sysconf\ldap.config
+	Ajouter dans le fichier : TLS_REQCERT never
+
+Modifier php.ini :
+	upload_tmp_dir = "C:/wamp64/www/upload_tmp" ; par exemple - voir : https://www.php.net/manual/fr/function.move-uploaded-file.php#86332
+
+
+Lancer cron
+

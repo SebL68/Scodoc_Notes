@@ -19,7 +19,7 @@
 
 	include_once "$path/includes/config.php";
 	include_once "$path/includes/auth.php";
-
+	
 	$authData = (object) authData();
 
 /* Utilisateur qui n'est pas dans la composante : n'est pas autorisé. */
@@ -112,7 +112,22 @@
 	0	set setCron :
 	Configure CRON pour la mise à jour automatique des listes d'utilisateurs à partir du serveur LDAP
 			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=setCron
+
+	0	set setStudentPic :
+	Enregistre la photo d'un étudiant - les données sont transmise comme un fichier
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=setStudentPic
+
+	0	get getStudentPic :
+	Récupère la photo d'un étudiant - sortie sous la forme d'une image
+	Un personnel ou plus peut récupéréer la photo de n'importe quel étudiant en paramètre GET
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=getStudentPic&email=sebastien.lehmann@uha.fr
+
+	0	set deleteStudentPic :
+	Supprime la photo d'un étudiant
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=deleteStudentPic
+
 *******************************/
+
 	if(isset($_GET['q'])){
 		switch($_GET['q']){
 
@@ -335,8 +350,43 @@
 				$output = setCron();									// includes/LDAPIO.php
 				break;
 
+		/************************/
+		/* Gestion des photos	*/
+		/************************/
+			case 'setStudentPic':
+				if($authData->statut < ETUDIANT){ returnError(); }
+				move_uploaded_file($_FILES['image']['tmp_name'], "$path/studentsPic/$authData->session.jpg");
+				chmod("$path/studentsPic/$authData->session.jpg", 660);
+				$output = [
+					'result' => "OK"
+				];
+				break;
+
+			case 'getStudentPic':
+				if ($authData->statut > ETUDIANT && isset($_GET['email'])) {
+					$url = "$path/studentsPic/" . $_GET['email'] . ".jpg";
+				} else {
+					$url = "$path/studentsPic/$authData->session.jpg";
+				}
+				if(!file_exists($url)){ // Image par défaut si elle n'existe pas
+					header('Content-type:image/svg+xml');
+					echo '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>';
+					return;
+				} else {
+					header('Content-type:image/jpeg');
+					echo file_get_contents($url);
+					return;
+				}
+				break;
+
+			case 'deleteStudentPic':
+				unlink("$path/studentsPic/$authData->session.jpg");
+				$output = [
+					'result' => "OK"
+				];
+				break;
 		}	
-		if($output !== ''){
+		if($output != ''){
 			echo json_encode($output/*, JSON_PRETTY_PRINT*/);
 		}else{
 			returnError('Mauvaise requête.');

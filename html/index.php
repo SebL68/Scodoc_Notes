@@ -16,7 +16,12 @@
 /**********************/
 /* Gestion de semestres */
 /**********************/
-
+			.studentPic{
+				float: left;
+				border-radius: 8px;
+				width: 52px;
+    			margin-right: 16px;
+			}
 			.semestres{
 				display: flex;
 				flex-wrap: wrap;
@@ -217,6 +222,9 @@
 			include "$path/html/assets/header.php";
 		?>
 		<main>
+			<a href="testAvatar.php">
+				<img class=studentPic src="/services/data.php?q=getStudentPic">
+			</a>
 			<p>
 				Bonjour <span class=prenom></span>.
 			</p>
