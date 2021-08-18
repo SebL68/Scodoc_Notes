@@ -223,7 +223,7 @@
 		?>
 		<main>
 			<a href="testAvatar.php">
-				<img class=studentPic src="/services/data.php?q=getStudentPic">
+				<img class=studentPic src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
 			</a>
 			<p>
 				Bonjour <span class=prenom></span>.
@@ -287,6 +287,7 @@
 /*********************************************/			
 			async function checkStatut(){
 				let data = await fetchData("dataPremièreConnexion");
+				document.querySelector(".studentPic").src = "/services/data.php?q=getStudentPic";
 				document.querySelector(".prenom").innerText = data.auth.session.split(".")[0];
 				let auth = document.querySelector(".auth");
 				auth.style.opacity = "0";
