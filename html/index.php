@@ -222,7 +222,7 @@
 			include "$path/html/assets/header.php";
 		?>
 		<main>
-			<a href="testAvatar.php">
+			<a href="avatar.php">
 				<img class=studentPic src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
 			</a>
 			<p>
