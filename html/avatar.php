@@ -194,7 +194,7 @@
 		let grabX;
 		let grabY;
 
-		fetch("/services/data.php?q=getStudentPic&" + new Date())
+		fetch("/services/data.php?q=getStudentPic")
 		.then(r=>{
 			if(r.headers.get('Content-Type') != "image/svg+xml"){
 				return r.blob();
@@ -320,6 +320,7 @@
 						//displayError(data.erreur);
 					}else if(data.result == "OK"){
 						this.innerText = "C'est tout bon !";
+						fetch("/services/data.php?q=getStudentPic");
 						setTimeout(()=>{window.location.href = "/"}, 1000); 
 					}
 				})
@@ -341,6 +342,7 @@
 				}else if(data.result == "OK"){
 					document.body.classList.remove("etape2");
 					document.querySelector(".dropZone").classList.remove("fadeOff");
+					fetch("/services/data.php?q=getStudentPic");
 				}
 			})
 		}
