@@ -39,7 +39,8 @@ function fetchData(query){
 		if(data.redirect){
 			// Utilisateur non authentifié, redirection vers une page d'authentification pour le CAS.
 			// Passage de l'URL courant au CAS pour redirection après authentification
-			window.location.href = data.redirect + "?href="+encodeURIComponent(window.location.href); 
+			window.location.href = data.redirect + "?href="+encodeURIComponent(window.location.href);
+			throw 'Fin du script';
 		}
 		if(data.erreur){
 			// Il y a une erreur pour la récupération des données - affichage d'un message explicatif.
