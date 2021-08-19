@@ -356,7 +356,7 @@
 			case 'setStudentPic':
 				if($authData->statut < ETUDIANT){ returnError(); }
 				move_uploaded_file($_FILES['image']['tmp_name'], "$path/studentsPic/$authData->session.jpg");
-				chmod("$path/studentsPic/$authData->session.jpg", 660);
+				chmod("$path/studentsPic/$authData->session.jpg", 0664);
 				$output = [
 					'result' => "OK"
 				];
