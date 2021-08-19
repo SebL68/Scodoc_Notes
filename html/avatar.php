@@ -194,7 +194,7 @@
 		let grabX;
 		let grabY;
 
-		fetch("/services/data.php?q=getStudentPic")
+		fetch("/services/data.php?q=getStudentPic&" + new Date())
 		.then(r=>{
 			if(r.headers.get('Content-Type') != "image/svg+xml"){
 				return r.blob();

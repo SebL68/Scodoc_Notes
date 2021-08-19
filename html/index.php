@@ -287,7 +287,7 @@
 /*********************************************/			
 			async function checkStatut(){
 				let data = await fetchData("dataPremièreConnexion");
-				document.querySelector(".studentPic").src = "/services/data.php?q=getStudentPic";
+				document.querySelector(".studentPic").src = "/services/data.php?q=getStudentPic&" + new Date();
 				document.querySelector(".prenom").innerText = data.auth.session.split(".")[0];
 				let auth = document.querySelector(".auth");
 				auth.style.opacity = "0";
