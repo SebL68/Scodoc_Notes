@@ -157,10 +157,29 @@
             border: 1px solid transparent;
             background: #FFF;
             padding: 10px 20px;
-            margin: 10px 42px;
+			margin: 10px 22px 10px 62px;
             cursor: pointer;
             transition: 0.1s;  
         }
+		.btnAbsences>div>img{
+			position: absolute;
+			top: -2px;
+			left:-34px;
+			width: 38px;
+			border-radius: 8px 0 0 8px;
+			box-shadow: 0 2px 2px 2px #ddd;
+			background: #FFF;
+			transition: 0.2s;
+		}
+		.showImg{
+			z-index: 1;
+		}
+		.showImg>div>img{
+			width: 350px;
+			border-radius: 16px;
+			z-index: 1;
+			
+		}
         .btnAbsences>div:nth-child(1){
             display: flex;
             gap:5px;
@@ -178,6 +197,7 @@
             box-shadow: 0 0 0 0 #777;
             border: 1px solid #777;
             transition: 0s;
+			z-index: 1;
         }
         .hint{
             display: grid;
@@ -425,6 +445,7 @@
                         data-num="${etudiant.num_etudiant}"
                         data-email="${etudiant.email}">
                             <div>
+								<img onclick="this.parentElement.parentElement.classList.toggle('showImg');event.stopPropagation()" src="/services/data.php?q=getStudentPic&email=${etudiant.email}">
                                 <b>${etudiant.nom}</b>
                                 <span>${etudiant.prenom}</span>
                             </div>
