@@ -17,7 +17,7 @@
 		$file = $dir.$etudiant.'.json';
 
 		if(!is_dir($dir)){
-			mkdir($dir, 0755, true);
+			mkdir($dir, 0774, true);
 		}
 
 		if(!is_file($file)){ // Pas encore de fichier d'absence pour cet étudiant
@@ -31,7 +31,7 @@
 					]
 				)
 			);
-			chmod($file, 0664);
+			chmod($file, 0774);
 		} else { // Fichier d'absence présent pour cet étudiant
 			$json = json_decode(file_get_contents($file), true);
 			if(isset($json[$date][$creneau])){ // Déjà une absence sur cette date / créneau
