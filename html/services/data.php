@@ -313,7 +313,7 @@
 
 		/*************************/
 			case 'listeAdministrateurs':
-				if($authData->statut < ADMINISTRATEUR ){ returnError(); }
+				if($authData->statut < PERSONNEL ){ returnError(); }
 				include_once "$path/includes/adminIO.php";
 				$output = listeAdministrateurs($_GET['dep']);			// includes/adminIO.php
 				break;
