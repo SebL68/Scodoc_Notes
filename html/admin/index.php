@@ -192,6 +192,7 @@
 
             if (data.statut >= ADMINISTRATEUR) {
                 document.querySelector("body").classList.add('personnel');
+				document.querySelector("#admin").style.display = "block";
                 statut = data.statut;
 
                 if (statut >= SUPERADMINISTRATEUR) {    // Ajout des fonctionnalités pour SuperAdministrateur

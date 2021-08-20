@@ -288,8 +288,10 @@
             statutSession = data.statut;
 
             if(data.statut >= PERSONNEL){
-
                 document.querySelector("body").classList.add('personnel');
+				if(data.statut >= ADMINISTRATEUR){
+					document.querySelector("#admin").style.display = "block";
+				}
                 /* Gestion du storage remettre le même état au retour */
                 let departement = localStorage.getItem("departement");
                 if(departement){
