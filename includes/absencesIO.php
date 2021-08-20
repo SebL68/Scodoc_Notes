@@ -17,7 +17,7 @@
 		$file = $dir.$etudiant.'.json';
 
 		if(!is_dir($dir)){
-			mkdir($dir, 0664, true);
+			mkdir($dir, 0755, true);
 		}
 
 		if(!is_file($file)){ // Pas encore de fichier d'absence pour cet étudiant
