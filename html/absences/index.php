@@ -204,7 +204,7 @@
             grid-auto-flow: column;
             grid-auto-columns: 1fr;
             gap:1px;
-            transform: translateY(8px);
+            transform: translateY(10px);
         }
         .hint>div{
             outline: 1px solid #AAA;
@@ -212,6 +212,11 @@
             background: #FFF;
             cursor: initial;
         }
+		@media screen and (max-width: 700px){
+			.hint{
+				pointer-events: none;
+			}
+		}
         .hint>.now{
             outline: none;
             background: transparent;
