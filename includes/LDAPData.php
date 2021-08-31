@@ -12,10 +12,11 @@ include_once "$path/includes/config.php";
 
 $STUDENTS_PATH = "$path/LDAP/liste_etu_iutmulhouse.txt";
 
+$VAC_PATH = "$path/LDAP/vacataires.json";
+
 $STAFF_PATH = [
 	$path . '/LDAP/liste_ens_iutmulhouse.txt',
-	$path . '/LDAP/liste_biat_iutmulhouse.txt',
-	$path . '/LDAP/vacataires.txt'
+	$path . '/LDAP/liste_biat_iutmulhouse.txt'
 ];
 /* !!! Il faut certainement vérifier si les "pattern" dans les fonctions et la sélection dans getAllLDAPStudents() correspondent à vos fichiers d'export LDAP !!! */
 
@@ -114,6 +115,12 @@ function statut($user){
 	if(!isset($_SESSION['statut']) || $_SESSION['statut'] == ''){
 		global $path;
 		$pattern = "/". $user ."/i";
+
+		/* Test vacataire */
+		if(preg_grep($pattern, file($GLOBALS['VAC_PATH']))){
+			$_SESSION['statut'] = PERSONNEL;
+			return $_SESSION['statut'];
+		}
 
 		/* Test étudiant */
 		if(preg_grep($pattern, file($GLOBALS['STUDENTS_PATH']))){
