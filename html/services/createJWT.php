@@ -24,7 +24,7 @@
 	$payload = [
 		'session' => 'sebastien.lehmann@uha.fr', // mail de la personne destinataire du jeton
 		'statut' => 'superadministrateur', // 'etudiant' | 'personnel' | 'administrateur' | 'superadministrateur' | INCONNU
-		//'exp' => 1608498444 // (optionnel) timestamp d'expiration du tocken 
+		//'exp' => 1608498444 // (optionnel) timestamp d'expiration du token 
 	];
 	echo JWT::encode($payload, $key);
 
