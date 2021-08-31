@@ -186,7 +186,7 @@
             if(data.statut >= PERSONNEL){
                 document.querySelector("body").classList.add('personnel');
 				if(data.statut >= ADMINISTRATEUR){
-					document.querySelector("#admin").style.display = "block";
+					document.querySelector("#admin").style.display = "inherit";
 				}
                 let departement = localStorage.getItem("departement");
                 if(departement){
