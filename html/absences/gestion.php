@@ -543,11 +543,11 @@
             document.querySelectorAll(".absent").forEach(e=>{
                 e.classList.remove("absent", "excuse")
             })
-            let date = new Date(dateLundi);
+            
 			Object.entries(dataEtudiants.absences).forEach(([etudiant, listeAbsences])=>{
                 for(let i=0 ; i<6 ; i++){
-
-                    date.setDate(dateLundi.getDate() + i);
+					let date = new Date(dateLundi);
+                    date.setDate(date.getDate() + i);
                     let absencesJour = listeAbsences[ISODate(date)];
 
                     if(absencesJour){
