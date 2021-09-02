@@ -174,11 +174,10 @@
 		.showImg{
 			z-index: 1;
 		}
-		.showImg>div>img{
+		.showImg>div>img, .btnAbsences>div>img:hover{
 			width: 350px;
 			border-radius: 16px;
 			z-index: 1;
-			
 		}
         .btnAbsences>div:nth-child(1){
             display: flex;
