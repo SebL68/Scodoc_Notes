@@ -451,7 +451,7 @@
                         data-num="${etudiant.num_etudiant}"
                         data-email="${etudiant.email}">
                             <div>
-								<img onclick="this.parentElement.parentElement.classList.toggle('showImg');event.stopPropagation()" src="/services/data.php?q=getStudentPic&email=${etudiant.email}">
+								<img onclick="/*this.parentElement.parentElement.classList.toggle('showImg');*/event.stopPropagation()" src="/services/data.php?q=getStudentPic&email=${etudiant.email}">
                                 <b>${etudiant.nom}</b>
                                 <span>${etudiant.prenom}</span>
                             </div>
