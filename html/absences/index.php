@@ -206,7 +206,7 @@
             transform: translateY(10px);
         }
         .hint>div{
-            outline: 1px solid #AAA;
+            outline: 1px dashed #ddd;
             height: 8px;
             background: #FFF;
             cursor: initial;

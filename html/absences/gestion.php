@@ -521,10 +521,9 @@
         dayNumber -= dayNumber == 0 ? -6:1;
         dateLundi.setDate(dateLundi.getDate() - dayNumber);
 
-        var dateSamedi = new Date();
-
         function changeDate(num){
             dateLundi.setDate(dateLundi.getDate() + num * 7);
+			let dateSamedi = new Date(dateLundi);
             dateSamedi.setDate(dateLundi.getDate() + 5);
             document.querySelector("#actualDate").innerText = `Du lundi ${dateLundi.toLocaleDateString()} au samedi ${dateSamedi.toLocaleDateString()}`;
 
