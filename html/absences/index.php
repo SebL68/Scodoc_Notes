@@ -414,8 +414,6 @@
                     var num = groupe?.replace(/ |\./g, "") || "Groupe1";
                     groupes += `<div class=groupe data-groupe=${num} onclick="hideGroupe(this)">${groupe || "Groupe 1"}</div>`;
                 })
-            }else{
-                groupes = `<div class=groupe onclick="hideGroupe(this, 'Groupe1')">Groupe 1</div>`;
             }
             output += `
                 <div class=flex>
@@ -479,7 +477,6 @@
 					e.classList.toggle("selected");
 				})
 			}
-
 			
 			let groupesSelected = [];
 			obj.parentElement.querySelectorAll(".selected").forEach(e=>{
