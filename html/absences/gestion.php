@@ -422,8 +422,7 @@
             var groupes = "";
             if(liste.groupes.length > 1){
                 liste.groupes.forEach(groupe=>{
-                    var num = groupe?.replace(/ |\./g, "") || "Groupe1";
-                    groupes += `<div class=groupe data-groupe=${num} onclick="hideGroupe(this)">${groupe || "Groupe 1"}</div>`;
+                    groupes += `<div class=groupe data-groupe="${groupe}" onclick="hideGroupe(this)">${groupe}</div>`;
                 })
             }
             output += `
@@ -475,10 +474,10 @@
 			etudiants.forEach(etudiant=>{
 				output += `
 					<div>
-						<div class="btnAbsences ${etudiant.groupe?.replace(/ |\./g, "") || "Groupe1"}" 
+						<div class="btnAbsences ${etudiant.groupe?.replace(/ |\./g, "")}" 
 							data-nom="${etudiant.nom}" 
 							data-prenom="${etudiant.prenom}" 
-							data-groupe="${etudiant.groupe || "Groupe 1"}"
+							data-groupe="${etudiant.groupe}"
 							data-num="${etudiant.num_etudiant}"
 							data-email="${etudiant.email}" 
                             title="Télécharger le rapport d'absence"
@@ -505,10 +504,6 @@
 		}
 
 		function hideGroupe(obj, num){
-			/*obj.classList.toggle("selected");
-			obj.parentElement.nextElementSibling.nextElementSibling.querySelectorAll('.'+num).forEach(e=>{
-				e.parentElement.classList.toggle("hide");
-			})*/
 			let nbSelected = obj.parentElement.querySelectorAll(".selected").length;
 			let nbBtn = obj.parentElement.children.length;
 			
@@ -528,12 +523,12 @@
 
 			
 			let groupesSelected = [];
-			obj.parentElement.querySelectorAll(".selected").forEach(e=>{
+			obj.parentElement.querySelectorAll(":not(.selected)").forEach(e=>{
 				groupesSelected.push(e.dataset.groupe);
 			})
 
 			document.querySelectorAll(".btnAbsences").forEach(e=>{
-				if([...e.classList].filter(element => groupesSelected.includes(element)).length == 0){
+				if(groupesSelected.includes(e.dataset.groupe)){
 					e.parentElement.classList.remove("hide")
 				} else {
 					e.parentElement.classList.add("hide")
