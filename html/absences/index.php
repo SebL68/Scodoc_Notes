@@ -412,7 +412,7 @@
             if(liste.groupes.length > 1){
                 liste.groupes.forEach(groupe=>{
                     var num = groupe?.replace(/ |\./g, "") || "Groupe1";
-                    groupes += `<div class=groupe onclick="hideGroupe(this, '${num}')">${groupe || "Groupe 1"}</div>`;
+                    groupes += `<div class=groupe data-groupe=${num} onclick="hideGroupe(this)">${groupe || "Groupe 1"}</div>`;
                 })
             }else{
                 groupes = `<div class=groupe onclick="hideGroupe(this, 'Groupe1')">Groupe 1</div>`;
@@ -462,10 +462,36 @@
 			return output;
 		}
 
-		function hideGroupe(obj, num){
+		function hideGroupe(obj){
+			let nbSelected = obj.parentElement.querySelectorAll(".selected").length;
+			let nbBtn = obj.parentElement.children.length;
+			
+			if(nbSelected == 0){
+				Array.from(obj.parentElement.children).forEach(e=>{
+					e.classList.toggle("selected");
+				})
+			}
 			obj.classList.toggle("selected");
-			obj.parentElement.nextElementSibling.nextElementSibling.querySelectorAll('.'+num).forEach(e=>{
-				e.classList.toggle("hide");
+
+			nbSelected = obj.parentElement.querySelectorAll(".selected").length;
+			if(nbSelected == nbBtn){
+				Array.from(obj.parentElement.children).forEach(e=>{
+					e.classList.toggle("selected");
+				})
+			}
+
+			
+			let groupesSelected = [];
+			obj.parentElement.querySelectorAll(".selected").forEach(e=>{
+				groupesSelected.push(e.dataset.groupe);
+			})
+
+			document.querySelectorAll(".btnAbsences").forEach(e=>{
+				if([...e.classList].filter(element => groupesSelected.includes(element)).length == 0){
+					e.classList.remove("hide")
+				} else {
+					e.classList.add("hide")
+				}	
 			})
         }
 

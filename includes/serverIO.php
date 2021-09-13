@@ -317,11 +317,14 @@ function getStudentsInSemester($dep, $sem){
 
 function findTP($json){
 	// Recherche du groupe TP dans la key Pxxxx
+	//$output = [];
 	foreach($json as $key => $value){
 		if($key[0] == "P"){
 			return $json->$key;
+			//$output[] = $json->$key;
 		}
 	};
+	//return $output;
 }
 
 /*******************************/
