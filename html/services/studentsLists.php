@@ -418,7 +418,7 @@
                         fontSize: 16
                     });
                     var line = 4;
-                    h2.nextElementSibling.querySelectorAll("." + groupe.replace(/ /g, "")).forEach(etudiant=>{
+                    h2.nextElementSibling.querySelectorAll(`[data-groupe="${groupe}"`).forEach(etudiant=>{
 
                         sheet.cell(String.fromCharCode(column) + line).value(etudiant.innerText);
                         line++;
