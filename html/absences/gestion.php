@@ -575,7 +575,10 @@
                     if(absencesJour){
                         Object.entries(absencesJour).forEach(([creneau, data])=>{
                             let diffDay = getDayNumber(date);
-                            document.querySelector(`[data-email="${etudiant}"]`).parentElement.children[diffDay * creneaux.length + parseInt(data.creneauxIndex) + 1].className = data.statut;
+							let divEtudiant = document.querySelector(`[data-email="${etudiant}"]`);
+							if(divEtudiant){
+								divEtudiant.parentElement.children[diffDay * creneaux.length + parseInt(data.creneauxIndex) + 1].className = data.statut;
+							}
                         })
                     }
                 }
