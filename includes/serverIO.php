@@ -16,7 +16,7 @@
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);	
 		curl_setopt($ch, CURLOPT_FAILONERROR, true);  
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
-		//curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false); // Serveur Scodoc non accéssible depuis le net, donc vérification impossible
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false); // Serveur Scodoc non accéssible depuis le net, donc vérification impossible
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
 		$output = curl_exec($ch);
@@ -51,7 +51,7 @@
 			$dep = '/'.$dep;
 		}
 
-		return CURL("$scodoc_url/ScoDoc$dep$url_query?$data");
+		return CURL("$scodoc_url$dep$url_query?$data");
 	}
 
 
@@ -122,10 +122,10 @@ function getStudentSemesters($data){
 		$nip = $data->nip;
 		$dep = $data->dep;
 	}
-	
+
 	$json = json_decode(
 			Ask_Scodoc(
-				'/Scolarite/Notes/etud_info',
+				'/Scolarite/etud_info',
 				$dep,
 				[
 					'code_nip' => $nip,
@@ -171,7 +171,7 @@ function getReportCards($data){
 
 	$output = json_decode(
 		Ask_Scodoc(
-			'/Scolarite/Notes/Notes/formsemestre_bulletinetud',
+			'/Scolarite/Notes/formsemestre_bulletinetud',
 			$data->dep,
 			[
 				'formsemestre_id' => $data->semestre,
@@ -412,7 +412,16 @@ Sortie :
 *******************************/
 function getDepartmentsList(){
 
-	return json_decode(
+	return [
+		'GEA',
+		'GEII',
+		'GLT',
+		'GMP',
+		'MMI',
+		'SGM'
+	];
+	
+	/*json_decode(
 			$output = Ask_Scodoc(
 			'/list_depts',
 			'MMI',
@@ -421,5 +430,5 @@ function getDepartmentsList(){
 				'format' => 'json'
 			]
 		)
-	);
+	);*/
 }

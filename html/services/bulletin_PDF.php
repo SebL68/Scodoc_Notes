@@ -30,7 +30,7 @@
 /* Envoi du relevé au format PDF */
 /**************************/
 	$result = Ask_Scodoc(
-		'/Scolarite/Notes/Notes/formsemestre_bulletinetud',
+		'/Scolarite/Notes/formsemestre_bulletinetud',
 		$dep,
 		[ 
 			'code_nip' => $nip,
