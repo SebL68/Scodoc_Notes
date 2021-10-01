@@ -415,14 +415,7 @@ Sortie :
 *******************************/
 function getDepartmentsList(){
 
-	return [
-		'GEA',
-		'GEII',
-		'GLT',
-		'GMP',
-		'MMI',
-		'SGM'
-	];
+	return $DEPARTEMENTS;
 	
 	/*json_decode(
 			$output = Ask_Scodoc(
