@@ -21,6 +21,15 @@ foreach($CONSTANTES as $const => $val) {
 	define($const, $val);
 }
 
+$DEPARTEMENTS = [
+	'GEA',
+	'GEII',
+	'GLT',
+	'GMP',
+	'MMI',
+	'SGM'
+];
+
 /*****************************/
 /* Déclaration de la clé JWT */
 /*****************************/
