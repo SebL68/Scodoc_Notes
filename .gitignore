@@ -15,6 +15,7 @@ LDAP/_administrateurs.json
 
 #Configuration
 includes/config.php
+includes/cookie.txt
 
 #Google analytics
 includes/analytics.php

@@ -16,6 +16,8 @@
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);	
 		curl_setopt($ch, CURLOPT_FAILONERROR, true);  
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
+		curl_setopt($ch, CURLOPT_COOKIEJAR, __DIR__.'/cookie.txt');
+    	curl_setopt($ch, CURLOPT_COOKIEFILE, __DIR__.'/cookie.txt');
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false); // Serveur Scodoc non accéssible depuis le net, donc vérification impossible
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
@@ -280,7 +282,7 @@ Sortie :
 function getStudentsInSemester($dep, $sem){
 	$json = json_decode(
 		Ask_Scodoc(
-			'/Scolarite/Notes/Notes/groups_view',
+			'/Scolarite/groups_view',
 			$dep,
 			[
 				'formsemestre_id' => $sem,
@@ -290,6 +292,7 @@ function getStudentsInSemester($dep, $sem){
 		)
 	);
 
+	//print_r($json);
 	$groupes = [];
 	$output_json = [];
 	foreach($json as $value){
@@ -319,7 +322,7 @@ function findTP($json){
 	// Recherche du groupe TP dans la key Pxxxx
 	//$output = [];
 	foreach($json as $key => $value){
-		if($key[0] == "P"){
+		if(is_numeric($key)){
 			return $json->$key;
 			//$output[] = $json->$key;
 		}
