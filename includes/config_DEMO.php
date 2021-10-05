@@ -39,14 +39,10 @@ $key = 'Votre_clé_JWT_personnelle';
 /********************************/
 /* Logins pour accéder à Scodoc */
 /********************************/
-/*	Il faut créer un compte par département qui fini par la nom du département
-	Exemple : login_MMI
-	
-	Pour des raisons de sécurité, il est recommandé que ce compte ait le statut "secrétariat" l'accès sera alors uniquement en lecture 
-*/
+/*	Il faut créer un unique compte avec un accès "secrétariat" dans chaque département */
 
 $acces = [
-  '__ac_name' => 'identifiant_scodoc_',			// Dans Scodoc, ajouter le nom du département à la fin du login
+  '__ac_name' => 'identifiant_scodoc',			// Dans Scodoc, ajouter le nom du département à la fin du login
   '__ac_password' => 'mot_de_passe_scodoc'
 ];
 
