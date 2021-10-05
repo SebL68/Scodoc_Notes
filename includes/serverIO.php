@@ -5,6 +5,7 @@
 *******************************************/
 
 	if(!isset($_SESSION)){ session_start(); }
+	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 	include_once "$path/includes/config.php";
 /**************************/
 /* Configuration du CURL  */
@@ -414,7 +415,7 @@ Sortie :
 
 *******************************/
 function getDepartmentsList(){
-
+	global $DEPARTEMENTS;
 	return $DEPARTEMENTS;
 	
 	/*json_decode(
