@@ -127,6 +127,7 @@
         }
         .etudiants{
             counter-reset: cpt;
+			padding-bottom:380px;
         }
        
 
