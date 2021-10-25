@@ -492,9 +492,9 @@
 
 				/* Totaux */
 				output = `
-					<div class=entete>UE</div> 
-					<div class=entete>Nombre justifiée</div>
-					<div class="entete absent">Nombre injusitifée</div>
+					<div class=entete>UE</div>
+					<div class=entete>Nombre justifiées</div>
+					<div class="entete absent">Nombre injustifiées</div>
 				`;
 
 				Object.entries(totaux).forEach(([UE, total])=>{
