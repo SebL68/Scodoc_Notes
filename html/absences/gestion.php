@@ -563,7 +563,8 @@
 
 		function setAbsences(){
             document.querySelectorAll(".absent").forEach(e=>{
-                e.classList.remove("absent", "excuse")
+                e.classList.remove("absent", "excuse");
+				e.title = e.title.split(" - ")[0];
             })
             
 			Object.entries(dataEtudiants.absences).forEach(([etudiant, listeAbsences])=>{
@@ -577,7 +578,18 @@
                             let diffDay = getDayNumber(date);
 							let divEtudiant = document.querySelector(`[data-email="${etudiant}"]`);
 							if(divEtudiant){
-								divEtudiant.parentElement.children[diffDay * creneaux.length + parseInt(data.creneauxIndex) + 1].className = data.statut;
+								let cellule = divEtudiant.parentElement.children[diffDay * creneaux.length + parseInt(data.creneauxIndex) + 1];
+								cellule.className = data.statut;
+								cellule.title += 
+									" - " + 
+									data.enseignant
+										.split("@")[0]
+										.split(".")
+										.map(
+											e=>{
+												return e[0].toUpperCase() + e.substring(1);
+											})
+										.join(" ");
 							}
                         })
                     }
