@@ -483,7 +483,7 @@
 
 				document.querySelector(".absences>.toutesAbsences").innerHTML = `
 					<div class=entete>Date</div> 
-					<div class=entete>Créneaux</div>
+					<div class=entete>Créneau</div>
 					<div class=entete>Matière</div>
 					<div class=entete>Enseignant</div>
 					<div class=entete>UE</div>
