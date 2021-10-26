@@ -127,7 +127,6 @@
         }
         .etudiants{
             counter-reset: cpt;
-			padding-bottom:380px;
         }
        
 
@@ -157,28 +156,35 @@
             box-shadow: 0 2px 2px 2px #ddd;
             border: 1px solid transparent;
             background: #FFF;
-            padding: 10px 20px;
+            padding: 14px 20px 10px 20px;
 			margin: 10px 22px 10px 62px;
             cursor: pointer;
             transition: 0.1s;  
         }
-		.btnAbsences>div>img{
+		.miniature{
 			position: absolute;
 			top: -2px;
 			left:-34px;
 			width: 38px;
+			height: 48px;
+			
+		}
+		.miniature:hover{
+			z-index: 1;
+		}
+		.miniature>img{
+			pointer-events:none;
+			background: #FFF;
+			width: 100%;
+			transition: 0.2s;
+			transform-origin: 0% 100%;
 			border-radius: 8px 0 0 8px;
 			box-shadow: 0 2px 2px 2px #ddd;
-			background: #FFF;
-			transition: 0.2s;
 		}
-		.showImg{
-			z-index: 1;
-		}
-		.showImg>div>img, .btnAbsences>div>img:hover{
-			width: 350px;
-			border-radius: 16px;
-			z-index: 1;
+		.miniature:hover>img{
+			transform: translate(38px, -52px) scale( calc(250/38) ) ;
+			border-radius: 2px;
+			box-shadow: none;
 		}
         .btnAbsences>div:nth-child(1){
             display: flex;
@@ -204,11 +210,11 @@
             grid-auto-flow: column;
             grid-auto-columns: 1fr;
             gap:1px;
-            transform: translateY(10px);
+            transform: translateY(16px);
         }
         .hint>div{
             outline: 1px dashed #ddd;
-            height: 8px;
+            height: 4px;
             background: #FFF;
             cursor: initial;
         }
@@ -449,7 +455,9 @@
                         data-num="${etudiant.num_etudiant}"
                         data-email="${etudiant.email}">
                             <div>
-								<img onclick="/*this.parentElement.parentElement.classList.toggle('showImg');*/event.stopPropagation()" src="/services/data.php?q=getStudentPic&email=${etudiant.email}">
+								<div class="miniature" onclick="event.stopPropagation()">
+									<img src="/services/data.php?q=getStudentPic&email=${etudiant.email}">
+								</div>
                                 <b>${etudiant.nom}</b>
                                 <span>${etudiant.prenom}</span>
                             </div>

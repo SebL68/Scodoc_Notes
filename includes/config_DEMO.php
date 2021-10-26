@@ -39,7 +39,7 @@ $key = 'Votre_clé_JWT_personnelle';
 /********************************/
 /* Logins pour accéder à Scodoc */
 /********************************/
-/*	Il faut créer un unique compte avec un accès "secrétariat" dans chaque département */
+/*	Il faut créer compte avec un accès "secrétariat" qui a accès à tous les départements */
 
 $acces = [
   '__ac_name' => 'identifiant_scodoc',			// Dans Scodoc, ajouter le nom du département à la fin du login
