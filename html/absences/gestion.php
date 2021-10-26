@@ -224,7 +224,6 @@
 		}
 
         .etudiants .btnAbsences{
-			overflow: hidden;
             position: relative;
             text-align: left;
             padding: 10px 20px;
@@ -235,6 +234,7 @@
         .btnAbsences>div:nth-child(1){
             display: flex;
             gap:5px;
+			overflow: hidden;
         }
         .btnAbsences>div:nth-child(1)::before{
             counter-increment: cpt;
@@ -244,6 +244,23 @@
         .btnAbsences>div:nth-child(1)>:last-child{
             margin-left: auto;
         }
+
+		.btnAbsences>img{
+			position: absolute;
+			bottom: 100%;
+			right: 0;
+			pointer-events:none;
+			background: #FFF;
+			border-radius: 16px;
+			border: 1px solid #c09;
+			display: none;
+		}
+		.btnAbsences:hover{
+			z-index: 1;
+		}
+		.btnAbsences:hover>img{
+			display: block;
+		}
 
         @media screen and (max-width: 1120px){
             .zone{
@@ -479,10 +496,10 @@
 							data-prenom="${etudiant.prenom}" 
 							data-groupe="${etudiant.groupe}"
 							data-num="${etudiant.num_etudiant}"
-							data-email="${etudiant.email}" 
+							data-email="${etudiant.email}"
                             title="Télécharger le rapport d'absence"
-                            onclick="createStudentReport(this)"
-                            >
+                            onclick="createStudentReport(this)">
+								<img src="/services/data.php?q=getStudentPic&email=${etudiant.email}" alt="etudiant" width="250" height="350">
 								<div>
 									<b>${etudiant.nom}</b>
 									<span>${etudiant.prenom}</span>
