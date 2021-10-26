@@ -198,6 +198,9 @@
         .btnAbsences>div:nth-child(1)>:last-child{
             margin-left: auto;
         }
+		.btnAbsences:hover{
+			border: 1px solid #90c;
+		}
         .btnAbsences:active{
             transform: translateY(2px);
             box-shadow: 0 0 0 0 #777;
