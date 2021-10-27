@@ -535,10 +535,13 @@
 /**************************/			
 			function set_checked(){
 				Object.keys(localStorage).forEach(function(e){
-					let eval=document.querySelector(e);
-					if(eval && eval.dataset.note == localStorage.getItem(e)){
-						eval.classList.add("checked");
-					}
+					try{
+						var eval=document.querySelector(e);
+						if(eval && eval.dataset.note == localStorage.getItem(e)){
+							eval.classList.add("checked");
+						}
+					} catch(error){console.log("Problème de selector des eval : " + e)}				
+					
 				})
 
 				let firstNotChecked = document.querySelector(".eval:not(.checked):not([data-note=undefined]):not([data-note=NP])");
