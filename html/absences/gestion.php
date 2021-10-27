@@ -497,7 +497,7 @@
 							data-groupe="${etudiant.groupe}"
 							data-num="${etudiant.num_etudiant}"
 							data-email="${etudiant.email}"
-                            title="Télécharger le rapport d'absence"
+                            title="${etudiant.groupe} - Télécharger le rapport d'absence de l'étudiant"
                             onclick="createStudentReport(this)">
 								<img src="/services/data.php?q=getStudentPic&email=${etudiant.email}" alt="etudiant" width="250" height="350">
 								<div>
