@@ -195,17 +195,17 @@
 /**********************/
 /* Mode personnel UHA */
 /**********************/
-			.etudiant{
+			.etudiantHide{
 				display: none;
 			}
 			.personnel .eval{
 				cursor: initial;
 			}
-			.personnel .etudiant{
+			.personnel .etudiantHide{
 				display: block;
 				margin: 20px auto 20px auto;
 			}
-			.etudiant>input{
+			.etudiantHide>input{
 				border: 1px solid #ef5350;
 				padding: 20px;
 				border-radius: 20px;
@@ -234,7 +234,7 @@
 					La moyenne affichée correspond à la moyenne coefficientée des modules qui ont des notes.
 				</i>
 			</p>
-			<div class=etudiant>
+			<div class=etudiantHide>
 				Vous êtes un personnel de l'IUT , <input required list=etudiants name=etudiant placeholder="Choisissez un étudiant" onchange="loadSemesters(this.value);this.blur()">
 				<datalist id=etudiants></datalist>
 			</div>
@@ -300,6 +300,7 @@
 					}
 					loadStudents(data.etudiants);
 				} else {
+					document.querySelector("body").classList.add('etudiant');
 					feedSemesters(data.semestres);
 					feedReportCards(data.relevé, data.semestres[0], data.auth.session);
 					feedAbsences(data.absences);
@@ -385,12 +386,10 @@
 						<span>Classe : ${data.note.moy} - Max : ${data.note.max} - Min : ${data.note.min}</span>
 					</div>
 					${ue(data.ue)}`;
-//				if(!document.querySelector("body").classList.contains("personnel")){
-				if(document.querySelector("body").classList.contains(ETUDIANT)){	// A valider !!!
+
+				if(document.querySelector("body").classList.contains('etudiant')){
 					set_checked();
 				}
-
-				//feedAbsences(data.absences);
 			}
 
 /**************************/
@@ -418,7 +417,7 @@
 				let output = "";
 				module.forEach(e=>{
 					output += `
-						<div class=module data-id="${e.titre}">
+						<div class=module data-id="${e.code}">
 							<div>
 								<div>${e.titre}<span class=coef>Coef ${e.coefficient}</span></div>
 								<div>
@@ -443,7 +442,7 @@
 				let output = "";
 				evaluation.forEach(e=>{
 					output += `
-						<div class=eval onclick="check_eval(this)" data-id="${e.description}" data-note=${e.note}>
+						<div class=eval onclick="check_eval(this)" data-id="${e.description.replaceAll("&apos;", "")}" data-note=${e.note}>
 							<div>${e.description}</div>
 							<div>${e.note}&nbsp;<span class=coef>Coef&nbsp;${e.coefficient}</span></div>
 						</div>`;
