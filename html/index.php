@@ -540,7 +540,10 @@
 						if(eval && eval.dataset.note == localStorage.getItem(e)){
 							eval.classList.add("checked");
 						}
-					} catch(error){console.log("Problème de selector des eval : " + e)}				
+					} catch(error){
+						console.log("Problème de selector des eval : " + e);
+						localStorage.removeItem(e);
+					}				
 					
 				})
 
