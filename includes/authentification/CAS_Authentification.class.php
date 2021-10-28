@@ -9,7 +9,9 @@
 		private $statut;
 		private $path;
 
+	/****************/
 	/* Constructeur */
+	/****************/
 		public function __construct(){
 			$this->path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 
@@ -25,7 +27,9 @@
 			}
 		}
 
+	/*************/
 	/* Interface */
+	/*************/
 		public function getSessionName(){
 			return $this->session;
 		}
@@ -34,7 +38,9 @@
 			return $this->statut;
 		}
 
+	/******************************/
 	/* Authentification par jeton */
+	/******************************/
 		private function tokenAuth(){
 			include_once $this->path . '/includes/JWT/JWT.php';
 			include $this->path . 'includes/config.php';
@@ -74,8 +80,10 @@
 			$this->session = $_SESSION['id'];
 			$this->statut = $_SESSION['statut'];
 		}
-
+		
+	/*******************************/
 	/* Authentification par le CAS */
+	/*******************************/
 		private function defaultAuth(){
 			require_once $this->path . '/CAS/include/CAS.php';
 			require_once $this->path . '/CAS/config/cas_uha.php';
@@ -101,7 +109,9 @@
 			}
 		}
 
-	/* Définition du statut */
+	/************************************/
+	/* Définition du statut par le LDAP */
+	/************************************/
 		private function defineStatut(){
 			include_once "$path/includes/LDAPData.php";
 			$_SESSION['statut'] = statut($this->$session);
