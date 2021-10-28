@@ -15,13 +15,18 @@
 		public function __construct(){
 			$this->path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 
-			/* Accès par jeton ? */
+			
 			if(isset($_POST['token'])){
+				/* Accès par jeton */
 				$this->tokenAuth();
+
 			} elseif(isset($_SESSION['id']) && $_SESSION['id'] != '') {
+				/* Utilisateur déjà authentifié */
 				$this->session = $_SESSION['id'];
 				$this->statut = $_SESSION['statut'];
+				
 			} else {
+				/* Procédure d'authentification */
 				$this->defaultAuth();
 				$this->defineStatut();
 			}
@@ -80,7 +85,7 @@
 			$this->session = $_SESSION['id'];
 			$this->statut = $_SESSION['statut'];
 		}
-		
+
 	/*******************************/
 	/* Authentification par le CAS */
 	/*******************************/
