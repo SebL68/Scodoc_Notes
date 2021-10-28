@@ -12,9 +12,11 @@
 		}
 
 	Méthodes publiques :
+
 		Auth->getSessionName() : renvoie le mail de la personne => string 'jean.dupond@uha.fr'
+
 		Auth->getStatut() : renvoie le statut de la personne => int ETUDIANT | PERSONNEL | ADMINISTRATEUR | INCONNU
-		
+
 /****************************/
 
 	interface Authentification{
@@ -29,7 +31,7 @@
 		private function defaultAuth(){
 			// Si besoin, votre propre implémentation en surchargeant cette méthode
 			// Cette méthode définit l'authentification par défaut
-			// Il n'y a pas besoin de toucher au reste (LDAP, authentification par token, etc.)
+			// Il n'y a normalement pas besoin de toucher aux autres méthodes
 		}
 	*/
 	}
