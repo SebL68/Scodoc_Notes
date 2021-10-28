@@ -1,5 +1,11 @@
 <?php
+/****************************/
+/* Class CAS_authentification
+	Strucutre parente de la classe Auth, permettant de mettre en place le fonctionnement de base de l'authentification
 
+	==> Voir la class Auth
+
+/****************************/
 	if(!isset($_SESSION)){ session_start(); }
 	use \Firebase\JWT\JWT;
 
@@ -24,7 +30,7 @@
 				/* Utilisateur déjà authentifié */
 				$this->session = $_SESSION['id'];
 				$this->statut = $_SESSION['statut'];
-				
+
 			} else {
 				/* Procédure d'authentification */
 				$this->defaultAuth();
