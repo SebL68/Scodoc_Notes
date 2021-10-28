@@ -12,7 +12,9 @@
 	class Auth extends CAS_authentification implements Authentification{	
 	/* 
 		private function defaultAuth(){
-			// Si besoin, votre propre implémentation en surchargeant la méthode
+			// Si besoin, votre propre implémentation en surchargeant cette méthode
+			// Cette méthode définit l'authentification par défaut
+			// Il n'y a pas besoin de toucher au reste (LDAP, authentification par token, etc.)
 		}
 	*/
 	}
