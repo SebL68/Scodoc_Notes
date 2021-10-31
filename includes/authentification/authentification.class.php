@@ -29,10 +29,27 @@
 	class Auth extends CAS_authentification implements Authentification{	
 	/* 
 		private function defaultAuth(){
+	*/
 			// Si besoin, votre propre implémentation en surchargeant cette méthode
 			// Cette méthode définit l'authentification par défaut
 			// Il n'y a normalement pas besoin de toucher aux autres méthodes
-		}
-	*/
+
+			/* Fonctionnement attendu : 
+			
+			* Si la personne est authentifiée, ajouter l'authentifiant à $this->session;
+
+			* Si la personne n'est pas authentifiée, rediriger vers une page prévue pour l'authentification :
+
+				exit(
+					json_encode(
+						[
+							'redirect' => '/services/doAuth.php'
+						]
+					)
+				);
+			 */
+
+
+	/* } */
 	}
 ?>
