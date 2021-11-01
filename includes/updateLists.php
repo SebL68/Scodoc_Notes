@@ -8,7 +8,7 @@ else {
     $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');    // Exécution par serveur web
 }
 
-include_once "$path/includes/config.php";
+include_once "$path/config/config.php";
 include_once "$path/includes/LDAPIO.php";
 
 updateLists();

@@ -7,9 +7,6 @@
 /****************************************************/
 function setCron(){
     global $argv;
-    global $PHP_cmd;
-    global $tmp_dir;
-    global $CRON_delay;
     
     if (isset($argv))
         $path = dirname(dirname(realpath($argv[0])));           // Exécution par CLI
@@ -20,11 +17,11 @@ function setCron(){
     $output = shell_exec('crontab -l');
     echo "Ancienne commande dans crontab : <br>\n".$output."<br>\n";
 
-    $cron_cmd = $CRON_delay." ".$PHP_cmd." ".$path."/includes/CmdUpdateLists.php";
+    $cron_cmd = Config::$CRON_delay." ".Config::$PHP_cmd." ".$path."/includes/CmdUpdateLists.php";
     echo "Nouvelle commande CRON : ".$cron_cmd."<br>\n";
     
-    file_put_contents("$tmp_dir/crontab.txt", $cron_cmd.PHP_EOL);
-    echo exec("crontab $tmp_dir/crontab.txt");
+    file_put_contents(Config::$tmp_dir . "/crontab.txt", $cron_cmd.PHP_EOL);
+    echo exec("crontab " . Config::$tmp_dir . "/crontab.txt");
 
     // Vérification de la nouvelle configuration
     $output = shell_exec('crontab -l');
@@ -44,12 +41,6 @@ function setCron(){
 /****************************************************/
 function updateLists(){
     global $path;
-    global $LDAP_filtre_ufr;
-    global $LDAP_filtre_statut_etudiant;
-    global $LDAP_filtre_enseignant;
-    global $LDAP_filtre_biatss;
-    global $LDAP_uid;
-    global $LDAP_mail;
 
     echo "Enregistrement des listes dans : $path/LDAP/<br>\n";
 
@@ -58,9 +49,9 @@ function updateLists(){
     $BIATSS_PATH = "$path/LDAP/liste_biat_iutmulhouse.txt";
     
     if ($id_LDAP = openLDAP()) {
-        updateList($id_LDAP, $STUDENTS_PATH, "(&($LDAP_filtre_statut_etudiant)($LDAP_filtre_ufr))", [$LDAP_uid, $LDAP_mail]);
-        updateList($id_LDAP, $TEACHERS_PATH, "(&($LDAP_filtre_enseignant)($LDAP_filtre_ufr))",      [$LDAP_mail]);
-        updateList($id_LDAP, $BIATSS_PATH,   "(&($LDAP_filtre_biatss)($LDAP_filtre_ufr))",          [$LDAP_mail]);
+        updateList($id_LDAP, $STUDENTS_PATH, "(&(".Config::$LDAP_filtre_statut_etudiant.")(".Config::$LDAP_filtre_ufr."))", [Config::$LDAP_uid, Config::$LDAP_mail]);
+        updateList($id_LDAP, $TEACHERS_PATH, "(&(".Config::$LDAP_filtre_enseignant.")(".Config::$LDAP_filtre_ufr."))",      [Config::$LDAP_mail]);
+        updateList($id_LDAP, $BIATSS_PATH,   "(&(".Config::$LDAP_filtre_biatss.")(".Config::$LDAP_filtre_ufr."))",          [Config::$LDAP_mail]);
     }
     else
         exit("Pas de connexion au serveur LDAP");
@@ -85,9 +76,6 @@ function updateLists(){
 */
 /****************************************************/
 function updateList($ds, $file, $filter, $data){
-    global $LDAP_dn;
-    global $webServerUser;
-    global $webServerGroup;
 
     if(!$id_file = fopen($file, "w"))
         exit("Impossible d'ouvrir le fichier $file");
@@ -95,7 +83,7 @@ function updateList($ds, $file, $filter, $data){
     if(!flock($id_file, LOCK_EX))
         exit("Impossible de verrouiller le fichier $file");
 
-    $id_result = ldap_search($ds, $LDAP_dn, $filter);
+    $id_result = ldap_search($ds, Config::$LDAP_dn, $filter);
     $result = ldap_get_entries($ds, $id_result);
     $nb = ldap_count_entries($ds, $id_result);
 
@@ -114,8 +102,8 @@ function updateList($ds, $file, $filter, $data){
     flock($id_file, LOCK_UN);
     fclose($id_file);
     chmod($file, 0664);
-    chown($file, $webServerUser);
-    chgrp($file, $webServerGroup);
+    chown($file, Config::$webServerUser);
+    chgrp($file, Config::$webServerGroup);
     
     return ['result' => "OK"];
 }
@@ -129,11 +117,8 @@ function updateList($ds, $file, $filter, $data){
 */
 /****************************************************/
 function openLDAP(){
-	global $LDAP_url;
-	global $LDAP_user;
-	global $LDAP_password;
 
-	$ds=ldap_connect($LDAP_url);
+	$ds=ldap_connect(Config::$LDAP_url);
 	if ($ds===FALSE)
         exit("Connexion au serveur LDAP impossible");
   
@@ -144,7 +129,7 @@ function openLDAP(){
         exit("Connexion TLS au serveur LDAP impossible");
 	
 	// Authentification sur le serveur LDAP
-	if (ldap_bind($ds, $LDAP_user, $LDAP_password))
+	if (ldap_bind($ds, Config::$LDAP_user, Config::$LDAP_password))
 	 	return $ds;
 	else
         exit("Authentification sur le serveur LDAP impossible");

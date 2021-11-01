@@ -13,7 +13,7 @@
 		global $path;
 		global $authData;
 		
-		$dir = "$path/absencesDATA/$dep/$semestre/";
+		$dir = "$path/data/absencesDATA/$dep/$semestre/";
 		$file = $dir.$etudiant.'.json';
 
 		if(!is_dir($dir)){
@@ -80,7 +80,7 @@
 /************************************/
 	function getAbsence($dep, $semestre, $etudiant = ''){
 		global $path;
-		$dir = "$path/absencesDATA/$dep/$semestre/";
+		$dir = "$path/data/absencesDATA/$dep/$semestre/";
 		if($etudiant == ''){
 			$output = [];
 			$listFiles = [];

@@ -17,13 +17,12 @@
 
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 
-	include_once "$path/includes/config.php";
-	include_once "$path/includes/auth.php";
-	
-	$authData = (object) authData();
+	include_once "$path/config/config.php";
+	include_once "$path/config/authentification.class.php";
+	$auth = new Auth();
 
 /* Utilisateur qui n'est pas dans la composante : n'est pas autorisé. */
-	if($authData->statut == INCONNU){ returnError("Ce site est réservé aux étudiants et personnels de l'IUT."); }
+	if($auth->getStatut() == INCONNU){ returnError("Ce site est réservé aux étudiants et personnels de l'IUT."); }
 
 /******************************************
  * 
@@ -132,12 +131,15 @@
 		switch($_GET['q']){
 
 			case 'donnéesAuthentification':
-				$output = (array) $authData;
+				$output = [
+					'session' => $auth->getSessionName(),
+					'statut' => $auth->getStatut()
+				];
 				break;
 
 			case 'listeEtudiants':
 				// Uniquement pour les personnels IUT.
-				if($authData->statut < PERSONNEL){ returnError(); }
+				if($auth->getStatut() < PERSONNEL){ returnError(); }
 				include_once "$path/includes/LDAPData.php";
 				$output = getAllLDAPStudents();							// includes/LDAPData.php
 				break;
@@ -149,7 +151,7 @@
 
 			case 'listeEtudiantsSemestre':
 				// Uniquement pour les personnels IUT.
-				if($authData->statut < PERSONNEL){ returnError(); }
+				if($auth->getStatut() < PERSONNEL){ returnError(); }
 				include_once "$path/includes/serverIO.php";
 				$output = getStudentsInSemester(						// includes/serverIO.php
 					$_GET['dep'], 
@@ -165,29 +167,29 @@
 				break;
 			case 'listesEtudiantsDépartement':
 				// Uniquement pour les personnels IUT.
-				if($authData->statut < PERSONNEL){ returnError(); }
+				if($auth->getStatut() < PERSONNEL){ returnError(); }
 				include_once "$path/includes/serverIO.php";
 				$output = getStudentsListsDepartement($_GET['dep']);	// includes/serverIO.php
 				break;
 
 			case 'semestresEtudiant':
 				// Uniquement les personnels IUT peuvent demander le relevé d'une autre personne.
-				if($authData->statut < PERSONNEL && isset($_GET['etudiant'])){ returnError(); }
+				if($auth->getStatut() < PERSONNEL && isset($_GET['etudiant'])){ returnError(); }
 				// Si c'est un personnel, on transmet l'étudiant par get, sinon on prend l'identifiant de la session.
 				include_once "$path/includes/serverIO.php";
 				$output = getStudentSemesters(							// includes/serverIO.php
-					['id' => $_GET['etudiant'] ?? $authData->session]
+					['id' => $_GET['etudiant'] ?? $auth->getSessionName()]
 				);	
 				break;
 
 			case 'relevéEtudiant':
 				// Uniquement les personnels IUT peuvent demander le relevé d'une autre personne.
-				if($authData->statut < PERSONNEL && isset($_GET['etudiant'])){ returnError(); } 
+				if($auth->getStatut() < PERSONNEL && isset($_GET['etudiant'])){ returnError(); } 
 				// Si c'est un personnel, on transmet l'étudiant par get, sinon on prend l'identifiant de la session.
 				include_once "$path/includes/LDAPData.php";
 				include_once "$path/includes/serverIO.php";
 				include_once "$path/includes/absencesIO.php";
-				$nip = getStudentNumberFromMail($_GET['etudiant'] ?? $authData->session);// includes/LDAPData.php
+				$nip = getStudentNumberFromMail($_GET['etudiant'] ?? $auth->getSessionName());// includes/LDAPData.php
 				$dep = getStudentDepartment($nip);						// includes/serverIO.php
 				$output = [
 					'relevé' => getReportCards([						// includes/serverIO.php
@@ -198,13 +200,13 @@
 					'absences' => getAbsence(							// includes/absencesIO.php
 						$dep,
 						$_GET['semestre'],
-						$_GET['etudiant'] ?? $authData->session
+						$_GET['etudiant'] ?? $auth->getSessionName()
 					) ?? []
 				];
 				break;
 			
 			case 'UEEtModules':
-				if($authData->statut < PERSONNEL ){ returnError(); }
+				if($auth->getStatut() < PERSONNEL ){ returnError(); }
 				include_once "$path/includes/serverIO.php";
 				$output = UEAndModules($_GET['dep'], $_GET['semestre']);// includes/serverIO.php
 				break;
@@ -215,21 +217,24 @@
 				break;
 			
 			case 'dataPremièreConnexion':
-				if($authData->statut == ETUDIANT){
-					if($authData->session == 'Compte_Demo.test@uha.fr'){
+				if($auth->getStatut() == ETUDIANT){
+					if($auth->getStatut() == 'Compte_Demo.test@uha.fr'){
 						include 'data_demo.php';
 					} else {
 						include_once "$path/includes/LDAPData.php";
 						include_once "$path/includes/serverIO.php";
 						include_once "$path/includes/absencesIO.php";
-						$nip = getStudentNumberFromMail($authData->session);// includes/LDAPData.php
+						$nip = getStudentNumberFromMail($auth->getStatut());// includes/LDAPData.php
 						$dep = getStudentDepartment($nip);				// includes/serverIO.php
 						$semestres = getStudentSemesters([				// includes/serverIO.php
 							'nip' => $nip, 
 							'dep' => $dep
 						]);
 						$output = [
-							'auth' => (array) $authData,
+							'auth' => [
+								'session' => $auth->getSessionName(),
+								'statut' => $auth->getStatut()
+							],
 							'semestres' => $semestres,
 							'relevé' => getReportCards([				// includes/serverIO.php
 								'semestre' => $semestres[0],
@@ -239,14 +244,17 @@
 							'absences' => getAbsence(					// includes/absencesIO.php
 								$dep,
 								$semestres[0],
-								$authData->session
+								$auth->getStatut()
 							) ?? []
 						];
 					}
-				}else if($authData->statut >= PERSONNEL){
+				}else if($auth->getStatut() >= PERSONNEL){
 					include_once "$path/includes/LDAPData.php";
 					$output = [
-						'auth' => (array) $authData,
+						'auth' => [
+							'session' => $auth->getSessionName(),
+							'statut' => $auth->getStatut()
+						],
 						'etudiants' => getAllLDAPStudents()				// includes/LDAPData.php
 					];
 				}
@@ -254,10 +262,10 @@
 
 		/*************************/
 			case 'setAbsence':
-				if($authData->statut < PERSONNEL ){ returnError(); }
+				if($auth->getStatut() < PERSONNEL ){ returnError(); }
 				include_once "$path/includes/absencesIO.php";
 				setAbsence(												// includes/absencesIO.php
-					$authData->session,
+					$auth->getSessionName(),
 					$_GET['dep'],
 					$_GET['semestre'],
 					$_GET['matiere'],
@@ -276,7 +284,7 @@
 
 		/*************************/
 			case 'getAbsence':
-				if($authData->statut < PERSONNEL ){ returnError(); }
+				if($auth->getStatut() < PERSONNEL ){ returnError(); }
 				include_once "$path/includes/absencesIO.php";
 				$output = getAbsence(									// includes/absencesIO.php
 					$_GET['dep'],
@@ -287,13 +295,13 @@
 
 		/*************************/
 			case 'listeVacataires':
-				if($authData->statut < ADMINISTRATEUR ){ returnError(); }
+				if($auth->getStatut() < ADMINISTRATEUR ){ returnError(); }
 				include_once "$path/includes/adminIO.php";
 				$output = listeVacataires($_GET['dep']);				// includes/adminIO.php
 				break;
 
 			case 'modifVacataire':
-				if($authData->statut < ADMINISTRATEUR ){ returnError(); }
+				if($auth->getStatut() < ADMINISTRATEUR ){ returnError(); }
 				include_once "$path/includes/adminIO.php";
 				$output = modifVacataire(								// includes/adminIO.php
 					$_GET['dep'], 
@@ -303,7 +311,7 @@
 				break;
 
 			case 'supVacataire':
-				if($authData->statut < ADMINISTRATEUR ){ returnError(); }
+				if($auth->getStatut() < ADMINISTRATEUR ){ returnError(); }
 				include_once "$path/includes/adminIO.php";
 				$output = supVacataire(									// includes/adminIO.php
 					$_GET['dep'], 
@@ -313,13 +321,13 @@
 
 		/*************************/
 			case 'listeAdministrateurs':
-				if($authData->statut < PERSONNEL ){ returnError(); }
+				if($auth->getStatut() < PERSONNEL ){ returnError(); }
 				include_once "$path/includes/adminIO.php";
 				$output = listeAdministrateurs($_GET['dep']);			// includes/adminIO.php
 				break;
 
 			case 'modifAdministrateur':
-				if($authData->statut < ADMINISTRATEUR ){ returnError(); }
+				if($auth->getStatut() < ADMINISTRATEUR ){ returnError(); }
 				include_once "$path/includes/adminIO.php";
 				$output = modifAdministrateur(							// includes/adminIO.php
 					$_GET['dep'], 
@@ -329,7 +337,7 @@
 				break;
 
 			case 'supAdministrateur':
-				if($authData->statut < ADMINISTRATEUR ){ returnError(); }
+				if($auth->getStatut() < ADMINISTRATEUR ){ returnError(); }
 				include_once "$path/includes/adminIO.php";
 				$output = supAdministrateur(							// includes/adminIO.php
 					$_GET['dep'], 
@@ -339,13 +347,13 @@
 
 		/*************************/
 			case 'updateLists':
-				if($authData->statut < SUPERADMINISTRATEUR ){ returnError(); }
+				if($auth->getStatut() < SUPERADMINISTRATEUR ){ returnError(); }
 				include_once "$path/includes/LDAPIO.php";
 				$output = updateLists();								// includes/LDAPIO.php
 				break;
 
 			case 'setCron':
-				if($authData->statut < SUPERADMINISTRATEUR ){ returnError(); }
+				if($auth->getStatut() < SUPERADMINISTRATEUR ){ returnError(); }
 				include_once "$path/includes/LDAPIO.php";
 				$output = setCron();									// includes/LDAPIO.php
 				break;
@@ -354,19 +362,19 @@
 		/* Gestion des photos	*/
 		/************************/
 			case 'setStudentPic':
-				if($authData->statut < ETUDIANT){ returnError(); }
-				move_uploaded_file($_FILES['image']['tmp_name'], "$path/studentsPic/$authData->session.jpg");
-				chmod("$path/studentsPic/$authData->session.jpg", 0664);
+				if($auth->getStatut() < ETUDIANT){ returnError(); }
+				move_uploaded_file($_FILES['image']['tmp_name'], "$path/studentsPic/$auth->getStatut().jpg");
+				chmod("$path/studentsPic/$auth->getStatut().jpg", 0664);
 				$output = [
 					'result' => "OK"
 				];
 				break;
 
 			case 'getStudentPic':
-				if ($authData->statut > ETUDIANT && isset($_GET['email'])) {
-					$url = "$path/studentsPic/" . $_GET['email'] . ".jpg";
+				if ($auth->getStatut() > ETUDIANT && isset($_GET['email'])) {
+					$url = "$path/data/studentsPic/" . $_GET['email'] . ".jpg";
 				} else {
-					$url = "$path/studentsPic/$authData->session.jpg";
+					$url = "$path/data/studentsPic/$auth->getStatut().jpg";
 				}
 				if(!file_exists($url)){ // Image par défaut si elle n'existe pas
 					header('Content-type:image/svg+xml');
@@ -380,7 +388,7 @@
 				break;
 
 			case 'deleteStudentPic':
-				unlink("$path/studentsPic/$authData->session.jpg");
+				unlink("$path/data/studentsPic/$auth->getStatut().jpg");
 				$output = [
 					'result' => "OK"
 				];

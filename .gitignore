@@ -2,27 +2,29 @@
 CAS
 
 #LDAP data
-LDAP/export_biat_iutmulhouse.txt
-LDAP/export_ens_iutmulhouse.txt
-LDAP/export_etu_iutmulhouse.txt
-LDAP/liste_biat_iutmulhouse.txt
-LDAP/liste_ens_iutmulhouse.txt
-LDAP/liste_etu_iutmulhouse.txt
-LDAP/vacataires.txt
-LDAP/vacataires.json
-LDAP/administrateurs.json
-LDAP/_administrateurs.json
+data/LDAP/export_biat_iutmulhouse.txt
+data/LDAP/export_ens_iutmulhouse.txt
+data/LDAP/export_etu_iutmulhouse.txt
+data/LDAP/liste_biat_iutmulhouse.txt
+data/LDAP/liste_ens_iutmulhouse.txt
+data/LDAP/liste_etu_iutmulhouse.txt
+data/LDAP/vacataires.txt
+data/LDAP/vacataires.json
+data/LDAP/administrateurs.json
+data/LDAP/_administrateurs.json
 
 #Configuration
-includes/config.php
-includes/cookie.txt
+config/*
 
 #Google analytics
-includes/analytics.php
+config/analytics.php
 
 #Anciennes versions
 html/saveV1
 html/saveV2
 
 #Données des absences
-absencesDATA
+data/absencesDATA/*
+
+#Photos des étudiants
+data/studentsPic/*

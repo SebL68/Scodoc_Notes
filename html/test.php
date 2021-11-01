@@ -4,5 +4,4 @@
 	$auth = new Auth();
 	
 	echo $auth->getSessionName() . " " . $auth->getStatut();
-
 ?>

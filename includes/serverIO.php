@@ -6,7 +6,9 @@
 
 	if(!isset($_SESSION)){ session_start(); }
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
-	include_once "$path/includes/config.php";
+	include_once "$path/config/config.php";
+	include_once "$path/includes/LDAPData.php";
+	
 /**************************/
 /* Configuration du CURL  */
 /**************************/
@@ -43,16 +45,14 @@
 ****************************/
 	function Ask_Scodoc($url_query, $dep = '', $options = []){
 		$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
-		global $acces;
-		global $scodoc_url;
 		
-		$data = http_build_query(array_merge($acces, $options));
+		$data = http_build_query(array_merge(Config::$scodoc_login, $options));
 		
 		if($dep != ''){
 			$dep = '/'.$dep;
 		}
 
-		return CURL("$scodoc_url$dep$url_query?$data");
+		return CURL(Config::$scodoc_url . "$dep$url_query?$data");
 	}
 
 
@@ -291,7 +291,6 @@ function getStudentsInSemester($dep, $sem){
 		)
 	);
 
-	//print_r($json);
 	$groupes = [];
 	$output_json = [];
 	foreach($json as $value){
@@ -413,8 +412,7 @@ Sortie :
 
 *******************************/
 function getDepartmentsList(){
-	global $DEPARTEMENTS;
-	return $DEPARTEMENTS;
+	return Config::$departements;
 	
 	/*json_decode(
 			$output = Ask_Scodoc(

@@ -367,7 +367,7 @@ function fetchData(query){
 	<script src="prism/prism.js"></script>
 	<?php 
         $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
-        include "$path/includes/analytics.php";
+        include "$path/config/analytics.php";
     ?>
 </body>
 </html>

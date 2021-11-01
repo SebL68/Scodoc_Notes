@@ -524,7 +524,7 @@
 
     </script>
     <?php 
-        include "$path/includes/analytics.php";
+        include "$path/config/analytics.php";
     ?>
 </body>
 </html>

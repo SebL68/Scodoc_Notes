@@ -30,11 +30,10 @@
 	/*******************************************************/
 	/* Est-ce qu'un jeton JWT est utilisé pour avoir accès */
 	/*******************************************************/
-			include_once $path . '/includes/JWT/JWT.php';
-			global $key;
+			include_once $path . '/lib/JWT/JWT.php';
 
 			// Message d'erreur si le serveur est mal configuré.
-			if($key == ""){
+			if(Config::$JWT_key == ""){
 				exit(
 					json_encode(
 						array(
@@ -44,7 +43,7 @@
 				);
 			}
 				
-			$decoded = JWT::decode($_POST['token'], $key, ['HS256']);
+			$decoded = JWT::decode($_POST['token'], Config::$JWT_key, ['HS256']);
 			$_SESSION['id'] = $decoded->session;
 			switch($decoded->statut){
 				case 'inconnu':
@@ -68,8 +67,8 @@
 	/****************************************************/
 	/* Vérification auprès du CAS de l'authentifiaction */
 	/****************************************************/
-			require_once $path . '/CAS/include/CAS.php';
-			require_once $path . '/CAS/config/cas_uha.php';
+			require_once $path . 'lib/CAS/include/CAS.php';
+			require_once $path . 'lib/CAS/config/cas_uha.php';
 	
 			// Initialize phpCAS
 			phpCAS::client(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context);

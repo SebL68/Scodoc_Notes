@@ -1,7 +1,7 @@
 <?php
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
-	include_once "$path/includes/config.php";
-	include_once "$path/includes/auth.php";
+	include_once "$path/config/config.php";
+	include_once "$path/config/authentification.class.php";
 	include_once "$path/includes/LDAPData.php";
 	include_once "$path/includes/serverIO.php"; // Fonctions de communication vers le serveur Scodoc
 

@@ -26,7 +26,7 @@
 		'statut' => 'superadministrateur', // 'etudiant' | 'personnel' | 'administrateur' | 'superadministrateur' | INCONNU
 		//'exp' => 1608498444 // (optionnel) timestamp d'expiration du token 
 	];
-	echo JWT::encode($payload, $key);
+	echo JWT::encode($payload, Config::$JWT_key);
 
 /**********************************/
 /* Compte demo étudiant :

@@ -8,19 +8,19 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 /*   Configurations  */
 /*********************/
 
-include_once "$path/includes/config.php";
+include_once "$path/config/config.php";
 
-$STUDENTS_PATH = "$path/LDAP/liste_etu_iutmulhouse.txt";
+$STUDENTS_PATH = "$path/data/LDAP/liste_etu_iutmulhouse.txt";
 
-$VAC_PATH = "$path/LDAP/vacataires.json";
+$VAC_PATH = "$path/data/LDAP/vacataires.json";
 
 $STAFF_PATH = [
-	$path . '/LDAP/liste_ens_iutmulhouse.txt',
-	$path . '/LDAP/liste_biat_iutmulhouse.txt'
+	$path . '/data/LDAP/liste_ens_iutmulhouse.txt',
+	$path . '/data/LDAP/liste_biat_iutmulhouse.txt'
 ];
 /* !!! Il faut certainement vérifier si les "pattern" dans les fonctions et la sélection dans getAllLDAPStudents() correspondent à vos fichiers d'export LDAP !!! */
 
-$ADMIN_PATH = "$path/LDAP/administrateurs.json";
+$ADMIN_PATH = "$path/data/LDAP/administrateurs.json";
 
 /****************************************************/
 /* getStudentNumberFromMail()

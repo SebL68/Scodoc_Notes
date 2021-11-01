@@ -238,7 +238,15 @@
             document.querySelector("#departement").classList.remove("highlight");
 
             /* Gestion du storage remettre le même état au retour */
+
             localStorage.setItem('departement', departement);
+			clearStorage(['semestre', 'matiere']);
+        }
+
+		function clearStorage(keys){
+            keys.forEach(function(key){
+                localStorage.removeItem(key);
+            });
         }
 
         /*******************************************************/
@@ -460,7 +468,7 @@
         }
     </script>
     <?php
-    include "$path/includes/analytics.php";
+    include "$path/config/analytics.php";
     ?>
 </body>
 
