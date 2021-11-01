@@ -1,5 +1,5 @@
 <?php 
-	require '../includes/authentification/authentification.class.php';
+	require '../config/authentification.class.php';
 
 	$auth = new Auth();
 	
