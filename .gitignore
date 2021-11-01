@@ -13,18 +13,9 @@ data/LDAP/vacataires.json
 data/LDAP/administrateurs.json
 data/LDAP/_administrateurs.json
 
-#Configuration
-config/*
-
 #Google analytics
 config/analytics.php
 
 #Anciennes versions
 html/saveV1
 html/saveV2
-
-#Données des absences
-data/absencesDATA/*
-
-#Photos des étudiants
-data/studentsPic/*
