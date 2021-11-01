@@ -13,9 +13,6 @@ data/LDAP/vacataires.json
 data/LDAP/administrateurs.json
 data/LDAP/_administrateurs.json
 
-#Google analytics
-config/analytics.php
-
 #Anciennes versions
 html/saveV1
 html/saveV2
