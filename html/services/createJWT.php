@@ -1,25 +1,26 @@
 <?php
 /***************************************/
-/* Service de création de tocken JWT   /*
+/* Service de création de token JWT   /*
 /* https://github.com/firebase/php-jwt */
 /***************************************/
 
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
-	include "$path/includes/auth.php";
 
-	$authData = (object) authData();
+	include_once "$path/config/config.php";
+	include_once "$path/config/authentification.class.php";
+
+	$auth = new Auth();
 
 	if(
-		$authData->session != 'sebastien.lehmann@uha.fr' &&
-		$authData->session != 'denis.graef@uha.fr'
+		$auth->getSessionName() != 'sebastien.lehmann@uha.fr' &&
+		$auth->getSessionName() != 'denis.graef@uha.fr'
 	){ 
 		die("Ce service n'est autorisé que pour Sébastien Lehmann, vous pouvez le contacter.");
 	}
 
 	use \Firebase\JWT\JWT;
 
-	include $path . '/includes/JWT/JWT.php';
-	include $path . '/includes/JWT/key.php';
+	include $path . '/lib/JWT/JWT.php';
 
 	$payload = [
 		'session' => 'sebastien.lehmann@uha.fr', // mail de la personne destinataire du jeton

@@ -6,18 +6,20 @@
 /***************************************/
 
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
-	include "$path/includes/auth.php";
+	
+	include_once "$path/config/config.php";
+	include_once "$path/config/authentification.class.php";
 
-	$authData = (object) authData();
+	$auth = new Auth();
 
 	use \Firebase\JWT\JWT;
 
-	include $path . '/includes/JWT/JWT.php';
-	include $path . '/includes/JWT/key.php';
+	include $path . '/lib/JWT/JWT.php';
+	include $path . '/lib/JWT/key.php';
 
 	$payload = [
-		'session' => $authData->session, // mail de la personne destinataire du jeton
-		'statut' => $authData->statut, 
+		'session' => $auth->getSessionName(), // mail de la personne destinataire du jeton
+		'statut' => $auth->getStatut(), 
 		'exp' => time() + (26*7*24*60*60) // Valide pour ce semestre (6 mois de plus par rapport à maintenant)
 	];
 	echo 'Votre jeton d\'accès est : <br>' . JWT::encode($payload, Config::$JWT_key);
