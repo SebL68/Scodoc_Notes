@@ -16,12 +16,5 @@
 
 	$_SESSION['id'] = phpCAS::getUser();
 
-/**************************************/
-/* Pour se faire passer pour un autre utilisateur // DEV ONLY */
-/**************************************/
-	/*if($_SESSION['id'] == "sebastien.lehmann@uha.fr"){
-		$_SESSION['id'] = "alexandre.aab@uha.fr";
-	}*/
-
 	header('Location: '. $_GET['href']);
 ?>
