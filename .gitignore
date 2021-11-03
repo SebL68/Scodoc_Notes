@@ -16,3 +16,6 @@ data/LDAP/_administrateurs.json
 #Anciennes versions
 html/saveV1
 html/saveV2
+
+#Cookies
+includes/cookie.txt
