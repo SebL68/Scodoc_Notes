@@ -19,7 +19,7 @@
 
 	$payload = [
 		'session' => $auth->getSessionName(), // mail de la personne destinataire du jeton
-		'statut' => $auth->getStatut(), 
+		'statut' => 'etudiant', 
 		'exp' => time() + (26*7*24*60*60) // Valide pour ce semestre (6 mois de plus par rapport à maintenant)
 	];
 	echo 'Votre jeton d\'accès est : <br>' . JWT::encode($payload, Config::$JWT_key);
