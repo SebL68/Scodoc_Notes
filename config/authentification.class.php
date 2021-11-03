@@ -51,6 +51,10 @@
 			 */
 
 
-	/* } */
+	/* } 
+		public static function logout(){
+			
+		}
+	*/
 	}
 ?>
