@@ -10,5 +10,5 @@
 	$cas_port = 443;
 	// Path to the ca chain that issued the cas server certificate
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
-	$cas_server_ca_cert_path = $path . '/lib/CAS/include/cas.pem';
+	$cas_server_ca_cert_path = $path . '/config/cas.pem';
 ?>
