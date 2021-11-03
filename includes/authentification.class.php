@@ -98,9 +98,9 @@
 		private function defaultAuth(){
 			require_once $this->path . '/lib/CAS/include/CAS.php';
 			require_once $this->path . '/lib/CAS/config/cas_config.php';
-	
+
 			// Initialize phpCAS
-			phpCAS::client(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context);
+			phpCAS::client(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context);	
 			phpCAS::setCasServerCACert($cas_server_ca_cert_path);
 
 			if(phpCAS::isAuthenticated()){
@@ -127,15 +127,15 @@
 		public static function doAuth(){
 			$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 
-			require_once $path . '/lib/CAS/include/CAS.php';
-			require_once $path . '/lib/CAS/config/cas_config.php';
+			require_once $path . '/lib/CAS/CAS.php';
+			require_once $path . '/lib/CAS/cas_config.php';
 
 			// Initialize phpCAS
 			phpCAS::client(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context);
 				
 			// force CAS authentication
-			phpCAS::setNoCasServerValidation() ;
-			//phpCAS::setCasServerCACert($cas_server_ca_cert_path);
+			//phpCAS::setNoCasServerValidation() ;
+			phpCAS::setCasServerCACert($cas_server_ca_cert_path);
 			phpCAS::forceAuthentication(); 
 
 			$_SESSION['id'] = phpCAS::getUser();
@@ -151,8 +151,8 @@
 		public static function logout(){
 			$_SESSION = array();
 			$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
-			require_once $path . '/lib/CAS/include/CAS.php';
-			require_once $path . '/lib/CAS/config/cas_config.php';
+			require_once $path . '/lib/CAS/CAS.php';
+			require_once $path . '/lib/CAS/cas_config.php';
 
 			phpCAS::client(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context);
 			phpCAS::logoutWithRedirectService('https://notes.iutmulhouse.uha.fr/');
