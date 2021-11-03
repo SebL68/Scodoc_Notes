@@ -53,8 +53,8 @@
 	/* Authentification par jeton */
 	/******************************/
 		private function tokenAuth(){
-			include_once $this->path . '/includes/authentification/JWT/JWT.php';
-			include_once $this->path . 'config/config.php';
+			include_once $this->path . '/lib/JWT/JWT.php';
+			include_once $this->path . '/config/config.php';
 
 			// Message d'erreur si le serveur est mal configuré.
 			if(Config::$JWT_key == ""){
@@ -69,7 +69,7 @@
 			
 			$decoded = JWT::decode($_POST['token'], Config::$JWT_key, ['HS256']);
 			$_SESSION['id'] = $decoded->session;
-
+			
 			switch($decoded->statut){
 				case 'inconnu':
 					$_SESSION['statut'] = INCONNU;
