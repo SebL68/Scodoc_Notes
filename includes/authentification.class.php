@@ -96,8 +96,8 @@
 	/* Authentification par le CAS */
 	/*******************************/
 		private function defaultAuth(){
-			require_once $this->path . '/lib/CAS/include/CAS.php';
-			require_once $this->path . '/lib/CAS/config/cas_config.php';
+			require_once $this->path . '/lib/CAS/CAS.php';
+			require_once $this->path . '/lib/CAS/cas_config.php';
 
 			// Initialize phpCAS
 			phpCAS::client(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context);	
