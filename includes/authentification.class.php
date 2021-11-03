@@ -97,7 +97,7 @@
 	/*******************************/
 		private function defaultAuth(){
 			require_once $this->path . '/lib/CAS/include/CAS.php';
-			require_once $this->path . '/lib/CAS/config/cas_uha.php';
+			require_once $this->path . '/lib/CAS/config/cas_config.php';
 	
 			// Initialize phpCAS
 			phpCAS::client(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context);
@@ -128,7 +128,7 @@
 			$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 
 			require_once $path . '/lib/CAS/include/CAS.php';
-			require_once $path . '/lib/CAS/config/cas_uha.php';
+			require_once $path . '/lib/CAS/config/cas_config.php';
 
 			// Initialize phpCAS
 			phpCAS::client(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context);
@@ -152,7 +152,7 @@
 			$_SESSION = array();
 			$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 			require_once $path . '/lib/CAS/include/CAS.php';
-			require_once $path . '/lib/CAS/config/cas_uha.php';
+			require_once $path . '/lib/CAS/config/cas_config.php';
 
 			phpCAS::client(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context);
 			phpCAS::logoutWithRedirectService('https://notes.iutmulhouse.uha.fr/');
