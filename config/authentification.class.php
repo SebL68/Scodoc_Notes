@@ -27,18 +27,14 @@
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 	require $path.'/includes/authentification.class.php';
 
+	// Si besoin, votre propre implémentation en surchargeant ces méthodes
 	class Auth extends CAS_authentification implements Authentification{	
 	/* 
-		private function defaultAuth(){
-	*/
-			// Si besoin, votre propre implémentation en surchargeant cette méthode
-			// Cette méthode définit l'authentification par défaut
-			// Il n'y a normalement pas besoin de toucher aux autres méthodes
+		// Cette méthode définit l'authentification par défaut
+		private function defaultAuth(){		
 
-			/* Fonctionnement attendu : 
-			
+			 Fonctionnement attendu : 
 			* Si la personne est authentifiée, ajouter l'authentifiant à $this->session;
-
 			* Si la personne n'est pas authentifiée, rediriger vers une page prévue pour l'authentification :
 
 				exit(
@@ -48,13 +44,20 @@
 						]
 					)
 				);
-			 */
-
-
-	/* } 
-		public static function logout(){
+			 
+	 }
+		
+	// Contenu de la page html/services/doAuth.php
+	// Cette page permet de mettre en place le cookie d'authentification
+		public static function doAuth(){
 			
 		}
+
+	// Contenu de la page html/logout.php
+	// Permet de supprimer l'authentification de l'utilisateur
+		public static function logout(){
+
+		}	
 	*/
 	}
 ?>

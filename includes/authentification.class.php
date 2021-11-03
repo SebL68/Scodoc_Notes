@@ -119,9 +119,35 @@
 				);
 			}
 		}
+	/****************************************************************/
+	/* Processus d'authentification sur une page à part pour le CAS */
+	/****************************************************************/
+	// Contenu de la page html/services/doAuth.php
+	// Cette page permet de mettre en place le cookie d'authentification
+		public static function doAuth(){
+			$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
+
+			require_once $path . '/lib/CAS/include/CAS.php';
+			require_once $path . '/lib/CAS/config/cas_uha.php';
+
+			// Initialize phpCAS
+			phpCAS::client(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context);
+				
+			// force CAS authentication
+			phpCAS::setNoCasServerValidation() ;
+			//phpCAS::setCasServerCACert($cas_server_ca_cert_path);
+			phpCAS::forceAuthentication(); 
+
+			$_SESSION['id'] = phpCAS::getUser();
+
+			header('Location: '. $_GET['href']);
+		}
+
 	/**********************/
 	/* Deconnexion du CAS */
 	/**********************/
+	// Contenu de la page html/logout.php
+	// Permet de supprimer l'authentification de l'utilisateur
 		public static function logout(){
 			$_SESSION = array();
 			$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
