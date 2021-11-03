@@ -3,13 +3,14 @@
 	include_once "$path/config/config.php";
 	include_once "$path/config/authentification.class.php";
 	include_once "$path/includes/LDAPData.php";
-	include_once "$path/includes/serverIO.php"; // Fonctions de communication vers le serveur Scodoc
+	include_once "$path/includes/serverIO.php";
 
-	$authData = (object) authData();
-	if($authData->statut >= PERSONNEL){ 
+	$auth = new Auth();
+
+	if($auth->getStatut() >= PERSONNEL){ 
 		$id = $_GET['etudiant'];
 	} else {
-		$id = $authData->session;
+		$id = $auth->getSessionName();
 	}
 
 /**************************/

@@ -69,7 +69,7 @@
 			
 			$decoded = JWT::decode($_POST['token'], Config::$JWT_key, ['HS256']);
 			$_SESSION['id'] = $decoded->session;
-			
+
 			switch($decoded->statut){
 				case 'inconnu':
 					$_SESSION['statut'] = INCONNU;
@@ -96,20 +96,20 @@
 	/* Authentification par le CAS */
 	/*******************************/
 		private function defaultAuth(){
-			require_once $this->path . '/CAS/include/CAS.php';
-			require_once $this->path . '/CAS/config/cas_uha.php';
+			require_once $this->path . '/lib/CAS/include/CAS.php';
+			require_once $this->path . '/lib/CAS/config/cas_uha.php';
 	
 			// Initialize phpCAS
 			phpCAS::client(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context);
 			phpCAS::setCasServerCACert($cas_server_ca_cert_path);
 
 			if(phpCAS::isAuthenticated()){
-				/* Utilisateur authentifié */
+				// Utilisateur authentifié
 				$_SESSION['id'] = phpCAS::getUser();
 				$this->session = $_SESSION['id'];
 
 			}else{
-				/* Utilisateur non authentifié, redirection vers une page pour s'authentifier au CAS. */
+				// Utilisateur non authentifié, redirection vers une page pour s'authentifier au CAS.
 				exit(
 					json_encode(
 						[
