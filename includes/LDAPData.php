@@ -10,13 +10,13 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 
 include_once "$path/config/config.php";
 
-$STUDENTS_PATH = "$path/data/LDAP/liste_etu_iutmulhouse.txt";
+$STUDENTS_PATH = "$path/data/LDAP/liste_etu.txt";
 
 $VAC_PATH = "$path/data/LDAP/vacataires.json";
 
 $STAFF_PATH = [
-	$path . '/data/LDAP/liste_ens_iutmulhouse.txt',
-	$path . '/data/LDAP/liste_biat_iutmulhouse.txt'
+	$path."/data/LDAP/liste_ens.txt",
+	$path."/data/LDAP/liste_biat.txt"
 ];
 /* !!! Il faut certainement vérifier si les "pattern" dans les fonctions et la sélection dans getAllLDAPStudents() correspondent à vos fichiers d'export LDAP !!! */
 
@@ -39,6 +39,7 @@ function getStudentNumberFromMail($mail){
 	// e1912345:jean.dupont@uha.fr
 	// Attention, le listing LDAP fourni e1912345 alors que le vrai numéro est 21912345.
 
+	checkFile($GLOBALS['STUDENTS_PATH']);
 	$handle = fopen($GLOBALS['STUDENTS_PATH'], 'r');
 	while(($line = fgets($handle, 1000)) !== FALSE){
 		$data = explode(":", $line);
@@ -71,6 +72,7 @@ function getStudentMailFromNumber($num){
 	// e1912345:jean.dupont@uha.fr
 	// Attention, le listing LDAP fourni e1912345 alors que le vrai numéro est 21912345.
 
+	checkFile($GLOBALS['STUDENTS_PATH']);
 	$handle = fopen($GLOBALS['STUDENTS_PATH'], 'r');
 	while(($line = fgets($handle, 1000)) !== FALSE){
 		$data = explode(":", $line);
@@ -91,6 +93,8 @@ function getStudentMailFromNumber($num){
 */
 /*******************************/
 function getAllLDAPStudents(){
+	checkFile($GLOBALS['STUDENTS_PATH']);
+
 	$handle = fopen($GLOBALS['STUDENTS_PATH'], "r");
 	$output = [];
 	while(($data = fgetcsv($handle, 1000, ':')) !== FALSE){
@@ -113,6 +117,15 @@ function getAllLDAPStudents(){
 function statut($user){
 	/* Retour : ETUDIANT, PERSONNEL, ADMINISTRATEUR ou INCONNU */
 	if(!isset($_SESSION['statut']) || $_SESSION['statut'] == ''){
+		
+		/* Vérification de l'existence des fichiers de listes */
+		checkFile($GLOBALS['VAC_PATH']);
+		checkFile($GLOBALS['STUDENTS_PATH']);
+		checkFile($GLOBALS['ADMIN_PATH']);
+		foreach($GLOBALS['STAFF_PATH'] as $staffPath){
+			checkFile($staffPath);
+		}
+
 		global $path;
 		$pattern = "/". $user ."/i";
 
@@ -145,5 +158,22 @@ function statut($user){
 		$_SESSION['statut'] = INCONNU;
 	}
 	return $_SESSION['statut'];	
+}
+
+/****************************************************/
+/* checkFile() 
+	Vérifie l'existance du fichier liste passé en paramètre
+
+	Entrée :
+		$file : [string] - Nom du fichier 
+	
+	Sortie :
+		Le cas échéant : Affiche un message d'erreur et interrompt le script
+*/
+/****************************************************/
+function checkFile($file)
+{
+	if(!file_exists($file))
+		returnError("Fichier inexistant : <b>$file</b><br>Veuillez mettre les listes des utilisateurs à jour.");
 }
 ?>

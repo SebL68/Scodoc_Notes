@@ -44,9 +44,9 @@ function updateLists(){
 
     echo "Enregistrement des listes dans : $path/LDAP/<br>\n";
 
-    $STUDENTS_PATH = "$path/LDAP/liste_etu_iutmulhouse.txt";
-    $TEACHERS_PATH = "$path/LDAP/liste_ens_iutmulhouse.txt";
-    $BIATSS_PATH = "$path/LDAP/liste_biat_iutmulhouse.txt";
+    $STUDENTS_PATH = "$path/data/LDAP/liste_etu.txt";
+    $TEACHERS_PATH = "$path/data/LDAP/liste_ens.txt";
+    $BIATSS_PATH = "$path/data/LDAP/liste_biat.txt";
     
     if ($id_LDAP = openLDAP()) {
         updateList($id_LDAP, $STUDENTS_PATH, "(&(".Config::$LDAP_filtre_statut_etudiant.")(".Config::$LDAP_filtre_ufr."))", [Config::$LDAP_uid, Config::$LDAP_mail]);
