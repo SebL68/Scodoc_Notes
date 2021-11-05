@@ -15,8 +15,8 @@ $STUDENTS_PATH = "$path/data/LDAP/liste_etu.txt";
 $VAC_PATH = "$path/data/LDAP/vacataires.json";
 
 $STAFF_PATH = [
-	$path."/data/LDAP/liste_ens.txt",
-	$path."/data/LDAP/liste_biat.txt"
+	$path.'/data/LDAP/liste_ens.txt',
+	$path.'/data/LDAP/liste_biat.txt'
 ];
 /* !!! Il faut certainement vérifier si les "pattern" dans les fonctions et la sélection dans getAllLDAPStudents() correspondent à vos fichiers d'export LDAP !!! */
 
@@ -42,7 +42,7 @@ function getStudentNumberFromMail($mail){
 	checkFile($GLOBALS['STUDENTS_PATH']);
 	$handle = fopen($GLOBALS['STUDENTS_PATH'], 'r');
 	while(($line = fgets($handle, 1000)) !== FALSE){
-		$data = explode(":", $line);
+		$data = explode(':', $line);
 		if(rtrim($data[1]) == $mail)
 			return '2'.substr($data[0], 1);
 	}
@@ -75,7 +75,7 @@ function getStudentMailFromNumber($num){
 	checkFile($GLOBALS['STUDENTS_PATH']);
 	$handle = fopen($GLOBALS['STUDENTS_PATH'], 'r');
 	while(($line = fgets($handle, 1000)) !== FALSE){
-		$data = explode(":", $line);
+		$data = explode(':', $line);
 		if(substr($data[0], 1) == substr($num, 1))
 			return rtrim($data[1]);
 	}
@@ -95,7 +95,7 @@ function getStudentMailFromNumber($num){
 function getAllLDAPStudents(){
 	checkFile($GLOBALS['STUDENTS_PATH']);
 
-	$handle = fopen($GLOBALS['STUDENTS_PATH'], "r");
+	$handle = fopen($GLOBALS['STUDENTS_PATH'], 'r');
 	$output = [];
 	while(($data = fgetcsv($handle, 1000, ':')) !== FALSE){
 		$output[] = rtrim($data[1]);
@@ -127,7 +127,7 @@ function statut($user){
 		}
 
 		global $path;
-		$pattern = "/". $user ."/i";
+		$pattern = '/'. $user .'/i';
 
 		/* Test vacataire */
 		if(preg_grep($pattern, file($GLOBALS['VAC_PATH']))){
