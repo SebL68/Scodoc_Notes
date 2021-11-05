@@ -2,33 +2,48 @@
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 	include_once "$path/config/config.php";
 
-	error_reporting(E_ALL);
-	ini_set('display_errors', '1');
+	class Scodoc{
+		private $ch; // Connexion CURL
 
-	function CURL($url){
-		$ch = curl_init(); 
-		curl_setopt($ch, CURLOPT_URL, $url); 
+		/***********************************************************/
+		/* Initialisation de la connexion et récupération du token */
+		/***********************************************************/
+		public function __construct(){
+			$this->ch = curl_init();
+			curl_setopt($this->ch, CURLOPT_FAILONERROR, true);  
+			curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true); 
+			curl_setopt($this->ch, CURLOPT_SSL_VERIFYHOST, false); // Serveur Scodoc non accéssible depuis le net, donc vérification impossible
+			curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, false);
+			curl_setopt($this->ch, CURLOPT_POST, true);
 
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);	
-		curl_setopt($ch, CURLOPT_FAILONERROR, true);  
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
-		curl_setopt($ch, CURLOPT_COOKIEJAR, __DIR__.'/cookie.txt');
-		curl_setopt($ch, CURLOPT_COOKIEFILE, __DIR__.'/cookie.txt');
-		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false); // Serveur Scodoc non accéssible depuis le net, donc vérification impossible
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+			curl_setopt($this->ch, CURLOPT_URL, Config::$scodoc_url.'/api/tokens');
+			curl_setopt($this->ch, CURLOPT_USERPWD, Config::$scodoc_login2 . ':' . Config::$scodoc_psw);
 
-		curl_setopt($ch, CURLOPT_POST, 1);
+			$token = json_decode(curl_exec($this->ch))->token;
 
-		curl_setopt($ch, CURLOPT_USERPWD, Config::$scodoc_login2 . ':' . Config::$scodoc_psw); 
+			curl_setopt($this->ch, CURLOPT_USERPWD, NULL);
+			curl_setopt($this->ch, CURLOPT_POST, false);
+			$headers = array(
+				"Authorization: Bearer $token"
+			);
 
-		$output = curl_exec($ch);
-		if ($output === false) {
-			throw new Exception(curl_error($ch), curl_errno($ch));
+			curl_setopt($this->ch, CURLOPT_HTTPHEADER, $headers);
 		}
-		curl_close($ch);
-		return $output;    
+
+		/************************/
+		/* Accès à l'API Scodoc */
+		/************************/
+		public function Ask_Scodoc($url_query, $options = []){
+			$data = http_build_query($options);
+
+			curl_setopt($this->ch, CURLOPT_URL, Config::$scodoc_url . "/api/$url_query?$data");
+			return curl_exec($this->ch);
+		}
 	}
 
-	var_dump(CURL('https://iutmscodoc9.uha.fr/ScoDoc/api/tokens'));
+	
+
+	$Scodoc = new Scodoc();
+	var_dump($Scodoc->Ask_Scodoc('list_depts'));
 
 ?>
