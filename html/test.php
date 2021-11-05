@@ -41,9 +41,9 @@
 		}
 	}
 
-	
+
 
 	$Scodoc = new Scodoc();
-	var_dump($Scodoc->Ask_Scodoc('list_depts'));
+	echo $Scodoc->Ask_Scodoc('list_depts');
 
 ?>
