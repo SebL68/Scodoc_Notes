@@ -9,7 +9,10 @@
 		/* Initialisation de la connexion et récupération du token */
 		/***********************************************************/
 		public function __construct(){
+
 			$this->ch = curl_init();
+
+			/* Configuration pour récupérer le token */
 			curl_setopt($this->ch, CURLOPT_FAILONERROR, true);  
 			curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true); 
 			curl_setopt($this->ch, CURLOPT_SSL_VERIFYHOST, false); // Serveur Scodoc non accéssible depuis le net, donc vérification impossible
@@ -20,14 +23,15 @@
 			curl_setopt($this->ch, CURLOPT_USERPWD, Config::$scodoc_login2 . ':' . Config::$scodoc_psw);
 
 			$token = json_decode(curl_exec($this->ch))->token;
-
-			curl_setopt($this->ch, CURLOPT_USERPWD, NULL);
-			curl_setopt($this->ch, CURLOPT_POST, false);
+			
+			/* Token récupéré, changement de la configuration pour les autres requêtes */
 			$headers = array(
 				"Authorization: Bearer $token"
 			);
-
 			curl_setopt($this->ch, CURLOPT_HTTPHEADER, $headers);
+			curl_setopt($this->ch, CURLOPT_USERPWD, NULL);
+			curl_setopt($this->ch, CURLOPT_POST, false);
+
 		}
 
 		/************************/
@@ -40,7 +44,6 @@
 			return curl_exec($this->ch);
 		}
 	}
-
 
 
 	$Scodoc = new Scodoc();
