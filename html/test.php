@@ -12,10 +12,8 @@
 
 			$this->ch = curl_init();
 
-			/* Configuration pour récupérer le token */
-			curl_setopt($this->ch, CURLOPT_FAILONERROR, true);  
+			/* Configuration pour récupérer le token */ 
 			curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true); 
-			curl_setopt($this->ch, CURLOPT_SSL_VERIFYHOST, false); // Serveur Scodoc non accéssible depuis le net, donc vérification impossible
 			curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, false);
 			curl_setopt($this->ch, CURLOPT_POST, true);
 
