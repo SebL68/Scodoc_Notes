@@ -425,3 +425,4 @@ function getDepartmentsList(){
 		)
 	);*/
 }
+?>

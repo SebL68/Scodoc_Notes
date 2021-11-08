@@ -12,8 +12,8 @@
 	header('Content-type:application/json');
 
 /* Debug */
-	error_reporting(E_ALL);
-	ini_set('display_errors', '1');
+	/*error_reporting(E_ALL);
+	ini_set('display_errors', '1');*/
 
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 
@@ -370,7 +370,7 @@
 				if ($auth->getStatut() > ETUDIANT && isset($_GET['email'])) {
 					$url = "$path/data/studentsPic/" . $_GET['email'] . ".jpg";
 				} else {
-					$url = "$path/data/studentsPic/$auth->getStatut().jpg";
+					$url = "$path/data/studentsPic/" . $auth->getStatut() . '.jpg';
 				}
 				if(!file_exists($url)){ // Image par défaut si elle n'existe pas
 					header('Content-type:image/svg+xml');
@@ -384,7 +384,7 @@
 				break;
 
 			case 'deleteStudentPic':
-				unlink("$path/data/studentsPic/$auth->getStatut().jpg");
+				unlink("$path/data/studentsPic/" . $auth->getStatut() . '.jpg');
 				$output = [
 					'result' => "OK"
 				];
