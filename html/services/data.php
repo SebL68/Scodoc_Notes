@@ -12,13 +12,14 @@
 	header('Content-type:application/json');
 
 /* Debug */
-	/*error_reporting(E_ALL);
-	ini_set('display_errors', '1');*/
+	error_reporting(E_ALL);
+	ini_set('display_errors', '1');
 
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 
 	include_once "$path/config/config.php";
 	include_once "$path/config/authentification.class.php";
+	include_once "$path/includes/absences.class.php";
 	$auth = new Auth();
 
 /* Utilisateur qui n'est pas dans la composante : n'est pas autorisé. */
@@ -158,8 +159,7 @@
 					$_GET['semestre']
 				); 
 				if(isset($_GET['absences']) && $_GET['absences'] == 'true'){
-					include_once "$path/includes/absencesIO.php";
-					$output['absences'] = getAbsence(					// includes/absencesIO.php
+					$output['absences'] = Absences::getAbsence(
 						$_GET['dep'],
 						$_GET['semestre']
 					);
@@ -188,7 +188,6 @@
 				// Si c'est un personnel, on transmet l'étudiant par get, sinon on prend l'identifiant de la session.
 				include_once "$path/includes/LDAPData.php";
 				include_once "$path/includes/serverIO.php";
-				include_once "$path/includes/absencesIO.php";
 				$nip = getStudentNumberFromMail($_GET['etudiant'] ?? $auth->getSessionName());// includes/LDAPData.php
 				$dep = getStudentDepartment($nip);						// includes/serverIO.php
 				$output = [
@@ -197,7 +196,7 @@
 						'nip' => $nip, 
 						'dep' => $dep
 					]),
-					'absences' => getAbsence(							// includes/absencesIO.php
+					'absences' => Absences::getAbsence(
 						$dep,
 						$_GET['semestre'],
 						$_GET['etudiant'] ?? $auth->getSessionName()
@@ -223,7 +222,6 @@
 					} else {
 						include_once "$path/includes/LDAPData.php";
 						include_once "$path/includes/serverIO.php";
-						include_once "$path/includes/absencesIO.php";
 						$nip = getStudentNumberFromMail($auth->getStatut());// includes/LDAPData.php
 						$dep = getStudentDepartment($nip);				// includes/serverIO.php
 						$semestres = getStudentSemesters([				// includes/serverIO.php
@@ -241,7 +239,7 @@
 								'nip' => $nip, 
 								'dep' => $dep
 							]),
-							'absences' => getAbsence(					// includes/absencesIO.php
+							'absences' => Absences::getAbsence(
 								$dep,
 								$semestres[0],
 								$auth->getStatut()
@@ -263,8 +261,7 @@
 		/*************************/
 			case 'setAbsence':
 				if($auth->getStatut() < PERSONNEL ){ returnError(); }
-				include_once "$path/includes/absencesIO.php";
-				setAbsence(												// includes/absencesIO.php
+				Absences::setAbsence(
 					$auth->getSessionName(),
 					$_GET['dep'],
 					$_GET['semestre'],
@@ -285,8 +282,7 @@
 		/*************************/
 			case 'getAbsence':
 				if($auth->getStatut() < PERSONNEL ){ returnError(); }
-				include_once "$path/includes/absencesIO.php";
-				$output = getAbsence(									// includes/absencesIO.php
+				$output = Absences::getAbsence(
 					$_GET['dep'],
 					$_GET['semestre'],
 					$_GET['etudiant'] ?? ''
