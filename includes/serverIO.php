@@ -20,7 +20,7 @@
 		curl_setopt($ch, CURLOPT_FAILONERROR, true);  
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
 		curl_setopt($ch, CURLOPT_COOKIEJAR, __DIR__.'/cookie.txt');
-    	curl_setopt($ch, CURLOPT_COOKIEFILE, __DIR__.'/cookie.txt');
+		curl_setopt($ch, CURLOPT_COOKIEFILE, __DIR__.'/cookie.txt');
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false); // Serveur Scodoc non accéssible depuis le net, donc vérification impossible
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
