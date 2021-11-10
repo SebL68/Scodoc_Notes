@@ -1,14 +1,8 @@
 #LDAP data
-data/LDAP/export_biat_iutmulhouse.txt
-data/LDAP/export_ens_iutmulhouse.txt
-data/LDAP/export_etu_iutmulhouse.txt
 data/LDAP/liste_biat.txt
 data/LDAP/liste_ens.txt
 data/LDAP/liste_etu.txt
-data/LDAP/vacataires.txt
-data/LDAP/vacataires.json
-data/LDAP/administrateurs.json
-data/LDAP/_administrateurs.json
+data/LDAP/utilisateurs.json
 
 #Anciennes versions
 html/saveV1

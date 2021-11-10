@@ -20,6 +20,7 @@
 	include_once "$path/config/config.php";
 	include_once "$path/config/authentification.class.php";
 	include_once "$path/includes/absences.class.php";
+	include_once "$path/includes/admin.class.php";
 	$auth = new Auth();
 
 /* Utilisateur qui n'est pas dans la composante : n'est pas autorisé. */
@@ -292,15 +293,14 @@
 		/*************************/
 			case 'listeVacataires':
 				if($auth->getStatut() < ADMINISTRATEUR ){ returnError(); }
-				include_once "$path/includes/adminIO.php";
-				$output = listeVacataires($_GET['dep']);				// includes/adminIO.php
+				$output = Admin::listeUtilisateurs($_GET['dep'], 'vacataires');
 				break;
 
 			case 'modifVacataire':
 				if($auth->getStatut() < ADMINISTRATEUR ){ returnError(); }
-				include_once "$path/includes/adminIO.php";
-				$output = modifVacataire(								// includes/adminIO.php
+				$output = Admin::modifUtilisateur(
 					$_GET['dep'], 
+					'vacataires',
 					$_GET['ancienMail'], 
 					$_GET['nouveauMail']
 				);
@@ -308,25 +308,24 @@
 
 			case 'supVacataire':
 				if($auth->getStatut() < ADMINISTRATEUR ){ returnError(); }
-				include_once "$path/includes/adminIO.php";
-				$output = supVacataire(									// includes/adminIO.php
-					$_GET['dep'], 
+				$output = Admin::supUtilisateur(
+					$_GET['dep'],
+					'vacataires',
 					$_GET['email']
 				);
 				break;
 
 		/*************************/
 			case 'listeAdministrateurs':
-				if($auth->getStatut() < PERSONNEL ){ returnError(); }
-				include_once "$path/includes/adminIO.php";
-				$output = listeAdministrateurs($_GET['dep']);			// includes/adminIO.php
+				if($auth->getStatut() < ADMINISTRATEUR ){ returnError(); }
+				$output = Admin::listeUtilisateurs($_GET['dep'], 'administrateurs');
 				break;
 
 			case 'modifAdministrateur':
 				if($auth->getStatut() < ADMINISTRATEUR ){ returnError(); }
-				include_once "$path/includes/adminIO.php";
-				$output = modifAdministrateur(							// includes/adminIO.php
-					$_GET['dep'], 
+				$output = Admin::modifUtilisateur(
+					$_GET['dep'],
+					'administrateurs',
 					$_GET['ancienMail'], 
 					$_GET['nouveauMail']
 				);
@@ -334,9 +333,9 @@
 
 			case 'supAdministrateur':
 				if($auth->getStatut() < ADMINISTRATEUR ){ returnError(); }
-				include_once "$path/includes/adminIO.php";
-				$output = supAdministrateur(							// includes/adminIO.php
+				$output = Admin::supUtilisateur(
 					$_GET['dep'], 
+					'administrateurs',
 					$_GET['email']
 				);
 				break;
