@@ -32,7 +32,7 @@
 		public function __construct(){
 			$this->path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 			
-			if(isset($_POST['token'])){
+			if(isset($_POST['token']) && Config::JWT_key != ''){
 				/* Accès par jeton */
 				$this->tokenAuth();
 
