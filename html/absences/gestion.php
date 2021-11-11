@@ -296,7 +296,7 @@
 </head>
 <body>
     <?php 
-        $h1 = 'Stats / Admin';
+        $h1 = 'Stats / Justif';
         include "$path/html/assets/header.php";
     ?>
     <main>
