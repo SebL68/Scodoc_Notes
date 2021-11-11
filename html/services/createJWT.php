@@ -7,13 +7,12 @@
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 
 	include_once "$path/config/config.php";
-	include_once "$path/config/authentification.class.php";
-
-	$auth = new Auth();
+	include_once "$path/includes/user.class.php";
+	$user = new User();
 
 	if(
-		$auth->getSessionName() != 'sebastien.lehmann@uha.fr' &&
-		$auth->getSessionName() != 'denis.graef@uha.fr'
+		$user->getSessionName() != 'sebastien.lehmann@uha.fr' &&
+		$user->getSessionName() != 'denis.graef@uha.fr'
 	){ 
 		die("Ce service n'est autorisé que pour Sébastien Lehmann, vous pouvez le contacter.");
 	}

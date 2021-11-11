@@ -7,7 +7,6 @@
 		************************************/
 		public static function setAbsence($enseignant, $dep, $semestre, $matiere, $matiereComplet, $UE, $etudiant, $date, $creneau, $creneauxIndex, $statut){
 			global $path;
-			global $authData;
 			
 			$dir = "$path/data/absencesDATA/$dep/$semestre/";
 			$file = $dir.$etudiant.'.json';

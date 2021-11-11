@@ -8,9 +8,8 @@
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 	
 	include_once "$path/config/config.php";
-	include_once "$path/config/authentification.class.php";
-
-	$auth = new Auth();
+	include_once "$path/includes/user.class.php";
+	$user = new User();
 
 	use \Firebase\JWT\JWT;
 
@@ -18,7 +17,7 @@
 	include $path . '/lib/JWT/key.php';
 
 	$payload = [
-		'session' => $auth->getSessionName(), // mail de la personne destinataire du jeton
+		'session' => $user->getSessionName(), // mail de la personne destinataire du jeton
 		'statut' => 'etudiant', 
 		'exp' => time() + (26*7*24*60*60) // Valide pour ce semestre (6 mois de plus par rapport à maintenant)
 	];

@@ -1,16 +1,15 @@
 <?php
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 	include_once "$path/config/config.php";
-	include_once "$path/config/authentification.class.php";
 	include_once "$path/includes/LDAPData.php";
 	include_once "$path/includes/serverIO.php";
+	include_once "$path/includes/user.class.php";
+	$user = new User();
 
-	$auth = new Auth();
-
-	if($auth->getStatut() >= PERSONNEL){ 
+	if($user->getStatut() >= PERSONNEL){ 
 		$id = $_GET['etudiant'];
 	} else {
-		$id = $auth->getSessionName();
+		$id = $user->getSessionName();
 	}
 
 /**************************/

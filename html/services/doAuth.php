@@ -1,6 +1,6 @@
 <?php
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
-	include_once "$path/config/authentification.class.php";
+	require Config::$auth_class;	// Class Auth
 
 	Auth::doAuth();
 ?>
