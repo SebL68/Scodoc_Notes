@@ -497,7 +497,7 @@
                 sheet.cell("C5").value("Prénom").style("bold", true);
                 sheet.cell("D5").value("Groupe").style("bold", true);
                 sheet.cell("E5").value("Num étudiant").style("bold", true);
-                sheet.cell("F5").value("Email UHA").style("bold", true);
+                sheet.cell("F5").value("Email").style("bold", true);
 
                 var i = 6;
                 h2.nextElementSibling.querySelectorAll(".etudiants>div:not(.hide)").forEach(etudiant=>{

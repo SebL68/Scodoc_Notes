@@ -193,7 +193,7 @@
 			}
 
 /**********************/
-/* Mode personnel UHA */
+/* Mode personnels    */
 /**********************/
 			.etudiantHide{
 				display: none;
