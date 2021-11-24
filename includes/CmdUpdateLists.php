@@ -9,7 +9,7 @@ else {
 }
 
 include_once "$path/config/config.php";
-include_once "$path/includes/LDAPIO.php";
+include_once "$path/includes/".Config::$service_annuaire_class;	// Class Service_Annuaire
 
-updateLists();
+Service_Annuaire::updateLists();
 ?>

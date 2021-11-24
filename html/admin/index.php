@@ -198,7 +198,7 @@
                 if (statut >= SUPERADMINISTRATEUR) {    // Ajout des fonctionnalités pour SuperAdministrateur
 					document.querySelector("nav").innerHTML += `
 						<a class="nav" href="#" onClick="exeCmd('updateLists')">UpdateLists</a>
-						<a class="nav" href="#" onClick="exeCmd('setCron')">setCron</a>
+						<a class="nav" href="#" onClick="exeCmd('setUpdateLists')">setUpdateLists</a>
 					`;
                 }
 

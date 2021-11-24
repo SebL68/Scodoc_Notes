@@ -9,7 +9,7 @@ else {
 }
 
 include_once "$path/config/config.php";
-include_once "$path/includes/LDAPIO.php";
+include_once "$path/includes/".Config::$scheduler_class;	// Class Scheduler
 
-setCron();
+Scheduler::setUpdateLists();
 ?>

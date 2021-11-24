@@ -1,7 +1,7 @@
 <?php
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 	include_once "$path/config/config.php";
-	include_once "$path/includes/LDAPData.php";
+	include_once "$path/includes/annuaire.class.php";		// Class Annuaire
 	include_once "$path/includes/serverIO.php";
 	include_once "$path/includes/user.class.php";
 	$user = new User();
@@ -15,7 +15,7 @@
 /**************************/
 /* Recherche de l'id étudiant scodoc à partir du nom */
 /*************************/
-	$nip = getStudentNumberFromMail($id);
+	$nip = Annuaire::getStudentNumberFromMail($id);
 
 /**************************/
 /* Récupération du département */

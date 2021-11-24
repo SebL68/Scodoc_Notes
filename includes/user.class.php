@@ -103,12 +103,12 @@
 		}
 	
 
-	/************************************/
-	/* Définition du statut par le LDAP */
-	/************************************/
+	/***********************************************/
+	/* Définition du statut à partir de l'annuaire */
+	/***********************************************/
 		private function defineStatut(){
-			include_once "$path/includes/LDAPData.php";
-			$_SESSION['statut'] = statut($this->$session);
+			include_once "$path/includes/annuaire.class.php";		// Class Annuaire
+			$_SESSION['statut'] = Annuaire::statut($this->$session);
 			$this->statut = $_SESSION['statut'];
 		}
 	};
