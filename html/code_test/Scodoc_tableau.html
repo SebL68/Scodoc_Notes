@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Test tableau</title>
+
+	<style>
+		body{
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+	/***************************/
+	/* Le tableau              */
+	/***************************/
+		.tableau{
+			display: grid;
+			grid-auto-rows: minmax(24px, auto);
+			gap: 2px;
+		}
+		.entete{
+			background: #09c;
+			font-weight: bold;
+		}
+		.tableau>div{
+			padding: 4px 8px;
+			border-radius: 4px;
+			border: 1px solid #999;
+			grid-column: var(--x) / span var(--nbX);
+			grid-row: var(--y) / span var(--nbY);
+		}
+
+		[data-editable="true"]{
+			cursor: pointer;
+		}
+	
+	/***************************/
+	/* Statut des cellules     */
+	/***************************/
+		.selected{	outline: 1px solid #c09; }
+		.modifying{	outline: 2px dashed #c09; }
+		.wait{		outline: 2px solid #c90; }
+		.good{		outline: 2px solid #9c0; }
+
+	/***************************/
+	/* Message                 */
+	/***************************/
+		.message{
+            position: fixed;
+            bottom: 100%;
+            left: 50%;
+            z-index: 10;
+            padding: 20px;
+            border-radius: 0 0 10px 10px;
+            background: #ec7068;
+            background: #90c;
+            color: #FFF;
+            font-size: 24px;
+            animation: message 3s;
+            transform: translate(-50%, 0);
+        }
+        @keyframes message{
+            20%{transform: translate(-50%, 100%)}
+            80%{transform: translate(-50%, 100%)}
+        }
+
+	</style>
+</head>
+<body>
+	
+	<div class="tableau"></div>
+
+	<script>
+		/***********/
+		/* Données */
+		/***********/
+		let data = [
+			{
+				x: 1,
+				y: 1,
+				nbY: 3,
+				style: "entete",
+				data: "coucou"
+			},{
+				x: 2,
+				y: 1,
+				data: "je suis un poulet",
+				editable: true
+			},{
+				x: 2,
+				y: 2,
+				data: "oui oui",
+				editable: true
+			},{
+				x: 2,
+				y: 3,
+				data: "cot cot",
+				editable: true
+			}
+		];
+
+	/*****************************/
+	/* Mise en place des données */
+	/*****************************/
+		let output = "";
+
+		data.forEach((cellule)=>{
+			output += `
+				<div 
+					class="${cellule.style || ""}"
+					data-editable="${cellule.editable || "false"}"
+					data-x="${cellule.x}"
+					data-y="${cellule.y}"
+					data-nbX="${cellule.nbX || 1}"
+					data-nbY="${cellule.nbY || 1}"
+					data-data="${cellule.data}"
+					style="
+						--x:${cellule.x};
+						--y:${cellule.y};
+						--nbX:${cellule.nbX || 1};
+						--nbY: ${cellule.nbY || 1};
+					">
+					${cellule.data}
+				</div>`;
+		})
+		
+		document.querySelector(".tableau").innerHTML = output;
+
+	/*****************************/
+	/* Gestion des évènements    */
+	/*****************************/
+		document.body.addEventListener("keydown", key);
+		document.querySelectorAll("[data-editable=true]").forEach(cellule=>{
+			cellule.addEventListener("click", function(){selectCell(this)});
+			cellule.addEventListener("dblclick", function(){modifCell(this)});
+		});
+
+	/*********************************/
+	/* Interaction avec les cellules */
+	/*********************************/
+		function selectCell(obj){
+			if(obj.classList.contains("modifying")){
+				return; // Cellule en cours de modification, ne pas sélectionner.
+			}
+			let currentModif = document.querySelector(".modifying");
+			if(currentModif){
+				if(!save(currentModif)){
+					return;
+				}
+			}
+			
+			document.querySelectorAll(".selected, .modifying").forEach(cellule=>{
+				cellule.classList.remove("selected", "modifying");
+				cellule.removeAttribute("contentEditable");
+				cellule.removeEventListener("keydown", keyCell);
+			})
+			obj.classList.add("selected");
+		}
+
+		function modifCell(obj){
+			if(obj){
+				obj.classList.add("modifying");
+				obj.contentEditable = true;
+				obj.addEventListener("keydown", keyCell);
+				obj.focus();	
+			}	
+		}
+
+		function key(event){
+			switch(event.key){
+				case "Enter":		modifCell(document.querySelector(".selected")); event.preventDefault(); break;
+				case "ArrowRight":	ArrowMove( 1,  0); break;
+				case "ArrowLeft":	ArrowMove(-1,  0); break;
+				case "ArrowUp":		ArrowMove( 0, -1); break;
+				case "ArrowDown":	ArrowMove( 0,  1); break;
+			}
+		}
+
+		function ArrowMove(x, y){
+			if(document.querySelector(".modifying") || !document.querySelector(".selected")){
+				return;	// S'il n'y a aucune cellule selectionnée ou si une cellule est encours de modification, on ne change pas
+			}
+
+			let selected = document.querySelector(".selected");
+			let next = document.querySelector(`[data-x="${parseInt(selected.dataset.x) + x}"][data-y="${parseInt(selected.dataset.y) + y}"][data-editable="true"]`);
+
+			if(next){
+				selectCell(next);
+			}
+			
+		}
+
+		function keyCell(event){
+			if(event.key == "Enter"){
+				event.preventDefault();
+				event.stopPropagation();
+				if(!save(this)){
+					return
+				}
+				this.classList.remove("modifying");
+				ArrowMove( 0,  1);
+				modifCell(document.querySelector(".selected")); //Nouveau !
+			}
+		}
+	/******************************/
+	/* Enregistrement des données */
+	/******************************/
+		function save(obj){
+			if(!/^\d+$/.test(obj.innerText)){
+				message("Il est attendu un nombre");
+				return false;
+			}
+			if(obj.innerText == obj.dataset.data){
+				return true;	// Aucune modification, pas d'enregistrement mais on continue normalement
+			}
+			obj.dataset.data = obj.innerText;
+			obj.classList.add("wait");
+			console.log(`
+				x : ${getComputedStyle(obj).getPropertyValue("--x")}
+				y : ${getComputedStyle(obj).getPropertyValue("--y")}
+				data : ${obj.innerText}
+			`);
+
+			// Ce timeout simule l'envoie des données
+			setTimeout(()=>{
+				obj.classList.remove("wait");
+				obj.classList.add("good");
+
+				// Lorsque les données sont bien enregistrer, on enlève l'indication que c'est bon au bout d'un temps
+				setTimeout(()=>{
+					obj.classList.remove("good");
+				},1000);
+
+			}, 1000)
+
+			return true; // Nouveau !
+		}
+
+	/******************************/
+	/* Affichage d'un message     */
+	/******************************/	
+		function message(msg){
+            var div = document.createElement("div");
+            div.className = "message";
+            div.innerHTML = msg;
+            document.querySelector("body").appendChild(div);
+            setTimeout(()=>{
+                div.remove();
+            }, 3000);
+        }
+
+	</script>
+</body>
+</html>
