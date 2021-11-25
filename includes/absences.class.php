@@ -8,7 +8,7 @@
 		public static function setAbsence($enseignant, $dep, $semestre, $matiere, $matiereComplet, $UE, $etudiant, $date, $creneau, $creneauxIndex, $statut){
 			global $path;
 			
-			$dir = "$path/data/absencesDATA/$dep/$semestre/";
+			$dir = "$path/data/absences/$dep/$semestre/";
 			$file = $dir.$etudiant.'.json';
 	
 			if(!is_dir($dir)){
@@ -75,7 +75,7 @@
 	************************************/
 		public static function getAbsence($dep, $semestre, $etudiant = ''){
 			global $path;
-			$dir = "$path/data/absencesDATA/$dep/$semestre/";
+			$dir = "$path/data/absences/$dep/$semestre/";
 			if($etudiant == ''){
 				$output = [];
 				$listFiles = [];
