@@ -1,6 +1,6 @@
 <?php
 	// Nom du fichier contenant la liste des utilisateurs
-	Admin::$file = "$path/data/LDAP/utilisateurs.json";
+	Admin::$file = "$path/data/annuaires/utilisateurs.json";
 
 	class Admin {
 		static $file;

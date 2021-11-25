@@ -7,7 +7,7 @@
 	if(!isset($_SESSION)){ session_start(); }
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 	include_once "$path/config/config.php";
-	include_once "$path/includes/LDAPData.php";
+	include_once "$path/includes/annuaire.class.php";		// Class Annuaire
 	
 /**************************/
 /* Configuration du CURL  */
@@ -117,7 +117,7 @@ Sortie :
 function getStudentSemesters($data){
 	$data = (object) $data;
 	if($data->id){
-		$nip = getStudentNumberFromMail($data->id);
+		$nip = Annuaire::getStudentNumberFromMail($data->id);
 		$dep = getStudentDepartment($nip);
 	}else{
 		$nip = $data->nip;
@@ -304,7 +304,7 @@ function getStudentsInSemester($dep, $sem){
 			'prenom' => $value->prenom,
 			'groupe' => $groupe,
 			'num_etudiant' => $value->code_nip,
-			'email' => getStudentMailFromNumber($value->code_nip)
+			'email' => Annuaire::getStudentMailFromNumber($value->code_nip)
 			// 'num_ine' => $value->code_ine
 			// 'email_perso' => $value->emailperso
 		];

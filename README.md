@@ -1,4 +1,6 @@
 # Scodoc_Notes
+
+# !!! Nouvelle documentation en cours de rédaction !!!
 Passerelle entre Scodoc et Internet pour l'affichage des notes aux étudiants.
 
 1. [Démonstration](#demonstration)
@@ -18,8 +20,9 @@ Passerelle entre Scodoc et Internet pour l'affichage des notes aux étudiants.
 Vous pouvez voir un exemple du projet à [cette adresse](https://notes.iutmulhouse.uha.fr/?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uIjoiQ29tcHRlX0RlbW8udGVzdEB1aGEuZnIiLCJzdGF0dXQiOiJldHVkaWFudCJ9.kHuiNx8X2mWUjv1LAHVOdcLGCu2yQS_i6fxqZZICuEA). Veuillez noter que c'est une démonstration avec des données fictives et que le changement de semestre n'est pas opérationnel.
 
 # Auteurs
-Ce projet a été créé par Sébastien Lehmann.  
-Merci à Denis Graef, Alexandre Kieffer et Bruno Colicchio pour leur participation respective.
+Ce projet a été créé par Sébastien Lehmann.
+Denis Greaf fait parti des contributeurs.
+Merci à Alexandre Kieffer et Bruno Colicchio pour leurs contributions à la réussite de ce projet.
 
 # Licence
 Ce projet est Open Source sous licence MIT. Sentez vous libre de l'utiliser, de le modifier, d'y participer ou d'en faire un fork.  
@@ -27,11 +30,14 @@ Si vous appréciez ce projet, un merci fait toujours plaisir à prenom.nom@uha.f
 
 # Système requis
 - PHP version 7+  
-- Extension : cURL  
-- Activer : rewrite mod  
+- Extensions : 
+  - cURL,
+  - LDAP 
+
+Pas besoin de base de données.
 
 # Historique des mises à jours
-[Lien](https://notes.iutmulhouse.uha.fr/maj.php)
+[Lien](https://notes.iutmulhouse.uha.fr/maj.php) - !!! Historique non mis à jour !!!
 
 -----------------
 
@@ -54,8 +60,14 @@ Il est donc apparu nécessaire d'avoir une interface moderne et sécurisée perm
 
 # Présentation du projet
 Ce projet prend la forme d'un site web accessible aux étudiants et personnels de la composante.
+Ce site permet :
+- d'afficher les notes,
+- de gérer et afficher les absences,
+- d'obtenir les trombinoscopes ou les listes pour le retour des notes, les groupes, etc.
 
 ## Pour les étudiants
+
+### Relevé de notes
 - Accès aux notes dès qu'elles sont entrées dans Scodoc.
 - Affichage automatique des moyennes, coefficients, etc.
 - Possibilité de télécharger le relevé au format PDF pour archivage.
@@ -63,6 +75,19 @@ Ce projet prend la forme d'un site web accessible aux étudiants et personnels d
 - Pointage des notes.
 - Scroll automatique vers les notes non pointées lors de la connexion.
 - Affichage / masquage des évaluations sans notes.
+
+
+### Avatar
+- L'étudiant a la possibilité d'ajouter une photo de profil, cette photo est utilisée pour les trombinoscopes et les absences.
+
+### Absences
+- Les absences et les statuts (justifié / absent) de l'étudiant sont affichés avec la date, le créneau, la matière et l'enseignant.
+Le but étant que les étudiants puissent vérifier les absences à tout moment.
+
+Ce système est interne au site.
+Pour le moment, les absences ne sont pas reportées dans Scodoc car Scodoc ne permet pas de gérer des créneaux plus petit qu'une demi journée.
+
+Il est envisagé dans une future évolution du site de permettre à l'étudiant d'ajouter ses justificatifs d'absence directement en ligne.
 
 ## Pour les enseignants
 - Accès aux notes de tous les étudiants.  
@@ -80,6 +105,7 @@ Exemple (lien uniquement pour les personnels de l'IUT de Mulhouse) : [Lien](http
 
 ## Le site web
 Le site est une PWA et fonctionne sur les principes de l'APP Shell.
+Il est ainsi possible de l'installer comme une application sur un smartphone.
 
 -----------------
 

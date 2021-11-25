@@ -21,6 +21,9 @@
 	include_once "$path/includes/absences.class.php";
 	include_once "$path/includes/admin.class.php";
 	include_once "$path/includes/user.class.php";
+	include_once "$path/includes/annuaire.class.php";
+	include_once "$path/includes/".Config::$service_annuaire_class;	// Class Service_Annuaire
+	include_once "$path/includes/".Config::$scheduler_class;				// Class Scheduler
 	$user = new User();
 
 /* Utilisateur qui n'est pas dans la composante : n'est pas autorisé. */
@@ -36,7 +39,7 @@
 			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=donnéesAuthentification
 
 	0	get listeEtudiants :
-	Liste tous les étudiants du LDAP
+	Liste tous les étudiants de l'annuaire
 			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=listeEtudiants
 
 	0	get semestresDépartement : 
@@ -107,12 +110,12 @@
 			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=supAdministrateur&dep=MMI&email=prenom.nom@uha.fr
 
 	0	set updateLists :
-	Met les liste des utilisateurs à jour à partir du serveur LDAP
+	Met les listes des utilisateurs à jour à partir du serveur d'annuaire
 			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=updateLists
 
-	0	set setCron :
-	Configure CRON pour la mise à jour automatique des listes d'utilisateurs à partir du serveur LDAP
-			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=setCron
+	0	set setUpdateLists :
+	Configure le gestionnaire de tâches pour la mise à jour automatique des listes d'utilisateurs à partir du serveur d'annuaires
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=setUpdateLists
 
 	0	set setStudentPic :
 	Enregistre la photo d'un étudiant - les données sont transmise comme un fichier
@@ -142,8 +145,8 @@
 			case 'listeEtudiants':
 				// Uniquement pour les personnels IUT.
 				if($user->getStatut() < PERSONNEL){ returnError(); }
-				include_once "$path/includes/LDAPData.php";
-				$output = getAllLDAPStudents();							// includes/LDAPData.php
+				include_once "$path/includes/annuaire.class.php";
+				$output = Annuaire::getAllStudents();
 				break;
 
 			case 'semestresDépartement':
@@ -187,9 +190,9 @@
 				// Uniquement les personnels IUT peuvent demander le relevé d'une autre personne.
 				if($user->getStatut() < PERSONNEL && isset($_GET['etudiant'])){ returnError(); } 
 				// Si c'est un personnel, on transmet l'étudiant par get, sinon on prend l'identifiant de la session.
-				include_once "$path/includes/LDAPData.php";
+				include_once "$path/includes/annuaire.class.php";
 				include_once "$path/includes/serverIO.php";
-				$nip = getStudentNumberFromMail($_GET['etudiant'] ?? $user->getSessionName());// includes/LDAPData.php
+				$nip = Annuaire::getStudentNumberFromMail($_GET['etudiant'] ?? $user->getSessionName());
 				$dep = getStudentDepartment($nip);						// includes/serverIO.php
 				$output = [
 					'relevé' => getReportCards([						// includes/serverIO.php
@@ -221,9 +224,9 @@
 					if($user->getStatut() == 'Compte_Demo.test@uha.fr'){
 						include 'data_demo.php';
 					} else {
-						include_once "$path/includes/LDAPData.php";
+						include_once "$path/includes/annuaire.class.php";
 						include_once "$path/includes/serverIO.php";
-						$nip = getStudentNumberFromMail($user->getStatut());// includes/LDAPData.php
+						$nip = Annuaire::getStudentNumberFromMail($user->getStatut());
 						$dep = getStudentDepartment($nip);				// includes/serverIO.php
 						$semestres = getStudentSemesters([				// includes/serverIO.php
 							'nip' => $nip, 
@@ -248,13 +251,13 @@
 						];
 					}
 				}else if($user->getStatut() >= PERSONNEL){
-					include_once "$path/includes/LDAPData.php";
+					include_once "$path/includes/annuaire.class.php";
 					$output = [
 						'auth' => [
 							'session' => $user->getSessionName(),
 							'statut' => $user->getStatut()
 						],
-						'etudiants' => getAllLDAPStudents()				// includes/LDAPData.php
+						'etudiants' => Annuaire::getAllStudents()
 					];
 				}
 				break;
@@ -343,14 +346,12 @@
 		/*************************/
 			case 'updateLists':
 				if($user->getStatut() < SUPERADMINISTRATEUR ){ returnError(); }
-				include_once "$path/includes/LDAPIO.php";
-				$output = updateLists();								// includes/LDAPIO.php
+				$output = Service_Annuaire::updateLists();
 				break;
 
-			case 'setCron':
+			case 'setUpdateLists':
 				if($user->getStatut() < SUPERADMINISTRATEUR ){ returnError(); }
-				include_once "$path/includes/LDAPIO.php";
-				$output = setCron();									// includes/LDAPIO.php
+				$output = Scheduler::setUpdateLists();
 				break;
 
 		/************************/
