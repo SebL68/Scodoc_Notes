@@ -456,7 +456,8 @@
                         data-prenom="${etudiant.prenom}" 
                         data-groupe="${etudiant.groupe}"
                         data-num="${etudiant.num_etudiant}"
-                        data-email="${etudiant.email}">
+                        data-email="${etudiant.email}"
+						title="${etudiant.groupe}">
                             <div>
 								<div class="miniature" onclick="event.stopPropagation()">
 									<img src="/services/data.php?q=getStudentPic&email=${etudiant.email}">

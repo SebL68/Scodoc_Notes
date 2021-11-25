@@ -23,11 +23,16 @@
 	include_once "$path/includes/user.class.php";
 	include_once "$path/includes/annuaire.class.php";
 	include_once "$path/includes/".Config::$service_annuaire_class;	// Class Service_Annuaire
-	include_once "$path/includes/".Config::$scheduler_class;				// Class Scheduler
+	include_once "$path/includes/".Config::$scheduler_class;		// Class Scheduler
 	$user = new User();
 
+/******************************/
+/* Mise en maintenant du site */
+/******************************/
+	//if($user->getStatut() != 'sebastien.lehmann@uha.fr') returnError('Site en cours de maintenance...');
+
 /* Utilisateur qui n'est pas dans la composante : n'est pas autorisé. */
-	if($user->getStatut() == INCONNU){ returnError("Ce site est réservé aux étudiants et personnels de l'IUT."); }
+	if($user->getStatut() == INCONNU){ returnError('Ce site est réservé aux étudiants et personnels de l\'IUT.'); }
 
 /******************************************
  * 
