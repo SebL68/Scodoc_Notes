@@ -1,3 +1,20 @@
+/* AJOUTER LES DONNEES des partitions des groupes :
+
+"partitions": {
+	1234 : {
+		"partition_name" : null // ou TP, TD, ...
+		"numero" : 3, // ordre d'affichage
+		"group_id": 876, // au cas où pour une autre requete ?
+		"group_name" : "A", // auquel appartient cet étudiant
+		"moy" : 12.3, // moy de l'étudiant dans cette partition
+		"max" : 18, 
+		"min" : 2., 
+		"rang" : 13,
+		"effectif": 38,
+	}
+*/
+
+
 {
 /*******************************/
 /* Informations sur le relevé  */
@@ -10,7 +27,7 @@
 /* Informations sur l'étudiant */
 /*******************************/
 	"etudiant": {
-		"civilite": "M.",
+		"civilite": "M",	// M, F ou X
 		"code_ine": "xxxxxxxx",
 		"code_nip": "yyyyyyy",
 		"email": "prenom.nom@uha.fr",
@@ -19,8 +36,7 @@
 		"nom": "nom",
 		"photo_url": "/ScoDoc/MMI/Scolarite/get_photo_image?etudid=4448&amp;size=small",
 		"prenom": "prenom",
-		"sexe": "M.",
-		"dateNaissance": "JJ/MM/AAAA"
+		"dateNaissance": "AAAA/MM/JJ"
 	},
 
 /********************************/
@@ -31,8 +47,7 @@
 			"value": 14.2,
 			"min": 8.3,
 			"moy": 12.42,
-			"max": 16.1,
-			"reference": 20
+			"max": 16.1
 		},
 		"rang": {
 			"value": 10,
@@ -47,7 +62,7 @@
 				}
 			}
 		],
-		"inscription": "05/02/2020",
+		"inscription": "AAAA/MM/JJ",
 		"decision": "ADM",
 		"situation": "Décision jury: Validé.  Diplôme obtenu."
 	},
@@ -117,7 +132,7 @@
 /****************************/
 /* Synthèse des compétences */
 /****************************/
-	"competences":{
+	"ue":{
 		"Comprendre": {
 			"descriptif": "Comprendre les écosystèmes, les besoins des utilisateurs et les dispositifs de communication numérique",
 			"ECTS": {

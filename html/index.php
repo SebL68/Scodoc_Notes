@@ -372,6 +372,11 @@
 					</form>
 				`;
 
+				if(data.rang_group[0]?.group_name){
+					document.querySelector(".releve").innerHTML += `<div class="total">Groupe ${data.rang_group[0].group_name}</div>`;
+				}
+				
+
 				let decision = data.situation?.split(". ") || [];
 				if(decision[1]){
 					decision = "<b>"+decision[1] + ". " + decision[2]+"</b><br>";

@@ -6,19 +6,49 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Relevé de notes</title>
 	<style>
-
+		body{
+			font-family: arial;
+		}
+		h2{
+			margin-bottom: 0;
+		}
 	</style>
 </head>
 <body spellcheck=true contenteditable=true>
 	<main>
-		<h2>Semestre</h2>
-		<em>Ces informations ne servent qu'à situer l'étudiant dans la promotion et ne reflètent pas à l'obtention du semestre.</em>
-		
+		<div id=infoEtudiant></div>
 
+		<section>
+			<h2>Semestre</h2>
+			<em>La moyenne sert à situer l'étudiant dans la promotion et ne reflètent pas l'obtention du semestre.</em>
+			
+		</section>
+
+		<section>
+			<h2>Évaluations</h2>
+
+		</section>
+
+		<section>
+			<h2>Synthèse</h2>
+			
+		</section>
 
 	</main>
 	<script>
 		let data = <?php include('releveNotes.json'); ?>;
+
+		/*******************************/
+		/* Informations sur l'étudiant */
+		/*******************************/
+		document.querySelector("#infoEtudiant").innerHTML = `
+			${data.etudiant.sexe}
+			${data.etudiant.nom}
+			${data.etudiant.prenom}
+			né${(data.etudiant.sexe == "Mme") ? "e" : ""} le 
+			${data.etudiant.dateNaissance}<br>
+			Numéro étudiant : ${data.etudiant.code_nip}
+		`;
 
 	</script>
 </body>
