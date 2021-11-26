@@ -16,7 +16,7 @@
 	/*******************************/
 	/* Authentification par le CAS */
 	/*******************************/
-		public function defaultAuth(){
+		public static function defaultAuth(){
 			$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 
 			require_once $path . '/lib/CAS/CAS.php';
@@ -60,8 +60,6 @@
 			// phpCAS::setNoCasServerValidation() ;
 			phpCAS::setCasServerCACert($cas_server_ca_cert_path);
 			phpCAS::forceAuthentication(); 
-
-			$_SESSION['id'] = phpCAS::getUser();
 
 			header('Location: '. $_GET['href']);
 		}

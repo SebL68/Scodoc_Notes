@@ -14,14 +14,15 @@
 /*********************/
 /*   Configurations  */
 /*********************/
-Annuaire::$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
+$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
+Annuaire::$path = $path;
 include_once "$path/config/config.php";
 
 Annuaire::$STUDENTS_PATH = "$path/data/annuaires/liste_etu.txt";
 
 Annuaire::$VAC_PATH = "$path/data/annuaires/vacataires.json";
 
-Annuaire::$STAFF_PATH = [
+Annuaire::$STAF_PATH = [
 	$path.'/data/annuaires/liste_ens.txt',
 	$path.'/data/annuaires/liste_biat.txt'
 ];
@@ -33,7 +34,7 @@ class Annuaire{
 	static $path;
 	static $STUDENTS_PATH;
 	static $VAC_PATH;
-	static $STAFF_PATH;
+	static $STAF_PATH;
 	static $ADMIN_PATH;
 	
 	/****************************************************/
@@ -135,8 +136,8 @@ class Annuaire{
 			self::checkFile(self::$VAC_PATH);
 			self::checkFile(self::$STUDENTS_PATH);
 			self::checkFile(self::$ADMIN_PATH);
-			foreach(self::$STAFF_PATH as $staffPath){
-				self::checkFile($staffPath);
+			foreach(self::$STAF_PATH as $stafPath){
+				self::checkFile($stafPath);
 			}
 
 			self::$path;
@@ -154,15 +155,15 @@ class Annuaire{
 				return $_SESSION['statut'];
 			}
 			/* Test administrateur */
-			foreach(json_decode(file_get_contents(self::$STAF_PATH)) as $departement => $admins){
+			foreach(json_decode(file_get_contents(self::$ADMIN_PATH)) as $departement => $admins){
 				if(preg_grep($pattern, $admins)){
 					$_SESSION['statut'] = ADMINISTRATEUR;
 					return $_SESSION['statut'];
 				}
 			}
 			/* Test personnel */
-			foreach(self::$STAFF_PATH as $staffPath){
-				if(preg_grep($pattern, file($staffPath))){
+			foreach(self::$STAF_PATH as $stafPath){
+				if(preg_grep($pattern, file($stafPath))){
 					$_SESSION['statut'] = PERSONNEL;
 					return $_SESSION['statut'];
 				}

@@ -10,3 +10,4 @@ Modifier php.ini :
 
 Lancer cron
 
+Penser à mettre les bonnes permissions aux bons groupes data

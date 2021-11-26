@@ -3,6 +3,8 @@ data/annuaires/liste_biat.txt
 data/annuaires/liste_ens.txt
 data/annuaires/liste_etu.txt
 data/annuaires/utilisateurs.json
+data/annuaires/administrateurs.json
+data/annuaires/vacataires.json
 
 #Anciennes versions
 html/saveV1

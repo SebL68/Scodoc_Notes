@@ -36,14 +36,14 @@
 				/* Accès par jeton */
 				$this->tokenAuth();
 
-			} elseif(isset($_SESSION['id']) && $_SESSION['id'] != '') {
+			} elseif(isset($_SESSION['statut']) && $_SESSION['statut'] != '') {
 				/* Utilisateur déjà authentifié */
 				$this->session = $_SESSION['id'];
 				$this->statut = $_SESSION['statut'];
 
 			} else {
 				/* Procédure d'authentification */
-				$this->$session = Auth::defaultAuth();
+				$this->session = Auth::defaultAuth();
 				$this->defineStatut();
 			}
 		}
@@ -107,8 +107,8 @@
 	/* Définition du statut à partir de l'annuaire */
 	/***********************************************/
 		private function defineStatut(){
-			include_once "$path/includes/annuaire.class.php";		// Class Annuaire
-			$_SESSION['statut'] = Annuaire::statut($this->$session);
+			include_once $this->path.'/includes/annuaire.class.php';
+			$_SESSION['statut'] = Annuaire::statut($this->session);
 			$this->statut = $_SESSION['statut'];
 		}
 	};

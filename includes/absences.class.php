@@ -90,7 +90,11 @@
 				}
 			} else {
 				$file = $dir.$etudiant.'.json';
-				$output = json_decode(file_get_contents($file));
+				if(file_exists($file)){
+					$output = json_decode(file_get_contents($file));
+				} else {
+					$output = '';
+				}
 			}
 			
 			return $output;
