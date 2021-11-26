@@ -322,6 +322,9 @@
 						this.innerText = "C'est tout bon !";
 						fetch("/services/data.php?q=getStudentPic");
 						setTimeout(()=>{window.location.href = "/"}, 1000); 
+					} else {
+						this.innerText = "L'enregistrement a échoué";
+						setTimeout(()=>{window.location.href = "/"}, 1000); 
 					}
 				})
 			}, 'image/jpeg', 0.8);

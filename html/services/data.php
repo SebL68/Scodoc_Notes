@@ -29,10 +29,10 @@
 /******************************/
 /* Mise en maintenant du site */
 /******************************/
-	//if($user->getStatut() != 'sebastien.lehmann@uha.fr') returnError('Site en cours de maintenance...');
+	//if($user->getSessionName() != 'sebastien.lehmann@uha.fr') returnError('Site en cours de maintenance ...');
 
 /* Utilisateur qui n'est pas dans la composante : n'est pas autorisé. */
-	if($user->getSessionName() == INCONNU){ returnError('Ce site est réservé aux étudiants et personnels de l\'IUT.'); }
+	if($user->getStatut() == INCONNU){ returnError('Ce site est réservé aux étudiants et personnels de l\'IUT.'); }
 
 /******************************************
  * 
@@ -231,7 +231,7 @@
 					} else {
 						include_once "$path/includes/annuaire.class.php";
 						include_once "$path/includes/serverIO.php";
-						$nip = Annuaire::getStudentNumberFromMail($user->getStatut());
+						$nip = Annuaire::getStudentNumberFromMail($user->getSessionName());
 						$dep = getStudentDepartment($nip);				// includes/serverIO.php
 						$semestres = getStudentSemesters([				// includes/serverIO.php
 							'nip' => $nip, 
@@ -364,18 +364,23 @@
 		/************************/
 			case 'setStudentPic':
 				if($user->getStatut() < ETUDIANT){ returnError(); }
-				move_uploaded_file($_FILES['image']['tmp_name'], "$path/studentsPic/$user->getStatut().jpg");
-				chmod("$path/studentsPic/$user->getStatut().jpg", 0664);
-				$output = [
-					'result' => "OK"
-				];
+				if(!move_uploaded_file($_FILES['image']['tmp_name'], "$path/studentsPic/".$user->getSessionName().'.jpg')){
+					$output = [
+						'result' => "Not ok"
+					];
+				}else{
+					chmod("$path/studentsPic/".$user->getSessionName().'.jpg', 0664);
+					$output = [
+						'result' => "OK"
+					];
+				}
 				break;
 
 			case 'getStudentPic':
 				if ($user->getStatut() > ETUDIANT && isset($_GET['email'])) {
 					$url = "$path/data/studentsPic/" . $_GET['email'] . ".jpg";
 				} else {
-					$url = "$path/data/studentsPic/" . $user->getStatut() . '.jpg';
+					$url = "$path/data/studentsPic/" . $user->getSessionName() . '.jpg';
 				}
 				if(!file_exists($url)){ // Image par défaut si elle n'existe pas
 					header('Content-type:image/svg+xml');
@@ -389,7 +394,7 @@
 				break;
 
 			case 'deleteStudentPic':
-				unlink("$path/data/studentsPic/" . $user->getStatut() . '.jpg');
+				unlink("$path/data/studentsPic/" . $user->getSessionName() . '.jpg');
 				$output = [
 					'result' => "OK"
 				];
