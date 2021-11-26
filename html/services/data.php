@@ -364,12 +364,12 @@
 		/************************/
 			case 'setStudentPic':
 				if($user->getStatut() < ETUDIANT){ returnError(); }
-				if(!move_uploaded_file($_FILES['image']['tmp_name'], "$path/studentsPic/".$user->getSessionName().'.jpg')){
+				if(!move_uploaded_file($_FILES['image']['tmp_name'], "$path/data/studentsPic/".$user->getSessionName().'.jpg')){
 					$output = [
 						'result' => "Not ok"
 					];
 				}else{
-					chmod("$path/studentsPic/".$user->getSessionName().'.jpg', 0664);
+					chmod("$path/data/studentsPic/".$user->getSessionName().'.jpg', 0664);
 					$output = [
 						'result' => "OK"
 					];
