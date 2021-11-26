@@ -16,7 +16,7 @@
 	/*******************************/
 	/* Authentification par le CAS */
 	/*******************************/
-		private function defaultAuth(){
+		public function defaultAuth(){
 			$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 
 			require_once $path . '/lib/CAS/CAS.php';
