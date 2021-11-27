@@ -15,27 +15,20 @@
 /*   Configurations  */
 /*********************/
 $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
-Annuaire::$path = $path;
 include_once "$path/config/config.php";
 
 Annuaire::$STUDENTS_PATH = "$path/data/annuaires/liste_etu.txt";
-
-Annuaire::$VAC_PATH = "$path/data/annuaires/vacataires.json";
-
+Annuaire::$USERS_PATH = "$path/data/annuaires/utilisateurs.json";
 Annuaire::$STAF_PATH = [
 	$path.'/data/annuaires/liste_ens.txt',
 	$path.'/data/annuaires/liste_biat.txt'
 ];
 /* !!! Il faut certainement vérifier si les "pattern" dans les fonctions et la sélection dans getAllStudents() correspondent à vos fichiers d'annuaires !!! */
 
-Annuaire::$ADMIN_PATH = "$path/data/annuaires/administrateurs.json";
-
 class Annuaire{
-	static $path;
 	static $STUDENTS_PATH;
-	static $VAC_PATH;
+	static $USERS_PATH;
 	static $STAF_PATH;
-	static $ADMIN_PATH;
 	
 	/****************************************************/
 	/* getStudentNumberFromMail()
@@ -133,34 +126,36 @@ class Annuaire{
 		if(!isset($_SESSION['statut']) || $_SESSION['statut'] == ''){
 			
 			/* Vérification de l'existence des fichiers de listes */
-			self::checkFile(self::$VAC_PATH);
 			self::checkFile(self::$STUDENTS_PATH);
-			self::checkFile(self::$ADMIN_PATH);
+			self::checkFile(self::$USERS_PATH);
 			foreach(self::$STAF_PATH as $stafPath){
 				self::checkFile($stafPath);
 			}
 
-			self::$path;
 			$pattern = '/'. $user .'/i';
-
-			/* Test vacataire */
-			if(preg_grep($pattern, file(self::$VAC_PATH))){
-				$_SESSION['statut'] = PERSONNEL;
-				return $_SESSION['statut'];
-			}
 
 			/* Test étudiant */
 			if(preg_grep($pattern, file(self::$STUDENTS_PATH))){
 				$_SESSION['statut'] = ETUDIANT;
 				return $_SESSION['statut'];
 			}
+
 			/* Test administrateur */
-			foreach(json_decode(file_get_contents(self::$ADMIN_PATH)) as $departement => $admins){
-				if(preg_grep($pattern, $admins)){
+			foreach(json_decode(file_get_contents(self::$USERS_PATH)) as $departement => $dep){
+				if(preg_grep($pattern, $dep->administrateurs)){
 					$_SESSION['statut'] = ADMINISTRATEUR;
 					return $_SESSION['statut'];
 				}
 			}
+
+			/* Test vacataire */
+			foreach(json_decode(file_get_contents(self::$USERS_PATH)) as $departement => $dep){
+				if(preg_grep($pattern, $dep->vacataires)){
+					$_SESSION['statut'] = PERSONNEL;
+					return $_SESSION['statut'];
+				}
+			}
+
 			/* Test personnel */
 			foreach(self::$STAF_PATH as $stafPath){
 				if(preg_grep($pattern, file($stafPath))){
