@@ -361,7 +361,7 @@
             let liste = document.querySelectorAll("div."+type);
 
             if (!regMail.test(newEmail)) { // Si le nouveau nom n'est pas conforme
-                message(`Le nom "${newEmail}" n'est pas conforme`);
+                message(`Le nom "${newEmail}" n'est pas conforme - il faut juste prenom.nom sans @uha.fr`);
                 return;
             }
             newEmail += '@' + DNS;
