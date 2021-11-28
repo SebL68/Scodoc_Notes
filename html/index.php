@@ -461,29 +461,42 @@
 			function feedAbsences(data){
 				var totaux = {};
 				let output = "";
-				Object.entries(data).forEach(([date, creneaux])=>{
-					Object.entries(creneaux).forEach(([creneau, dataAbsence])=>{
-						if(!totaux[dataAbsence.UE]){
-							totaux[dataAbsence.UE] = {
-								justifie: 0,
-								injustifie: 0
-							};
-						}
-						if(dataAbsence.statut == "absent"){
-							totaux[dataAbsence.UE].injustifie += 1;
-						}else{
-							totaux[dataAbsence.UE].justifie += 1;
-						}
-						output = `
-							<div>${date}</div> 
-							<div>${creneau.replace(",", " - ")}</div>
-							<div>${dataAbsence.matiereComplet}</div>
-							<div class=enseignant>${dataAbsence.enseignant.split('@')[0].split(".").join(" ")}</div>
-							<div>${dataAbsence.UE}</div>
-							<div class="${dataAbsence.statut}"></div>
-						` + output;
+
+				if(Object.entries(data).length){
+					Object.entries(data).forEach(([date, creneaux])=>{
+						Object.entries(creneaux).forEach(([creneau, dataAbsence])=>{
+							if(!totaux[dataAbsence.UE]){
+								totaux[dataAbsence.UE] = {
+									justifie: 0,
+									injustifie: 0
+								};
+							}
+							if(dataAbsence.statut == "absent"){
+								totaux[dataAbsence.UE].injustifie += 1;
+							}else{
+								totaux[dataAbsence.UE].justifie += 1;
+							}
+							output = `
+								<div>${date}</div> 
+								<div>${creneau.replace(",", " - ")}</div>
+								<div>${dataAbsence.matiereComplet}</div>
+								<div class=enseignant>${dataAbsence.enseignant.split('@')[0].split(".").join(" ")}</div>
+								<div>${dataAbsence.UE}</div>
+								<div class="${dataAbsence.statut}"></div>
+							` + output;
+						})
 					})
-				})
+				} else {
+					output = `
+						<div>/</div> 
+						<div>/</div>
+						<div>/</div>
+						<div>/</div>
+						<div>/</div>
+						<div>/</div>
+					`
+				}
+				
 
 				document.querySelector(".absences>.toutesAbsences").innerHTML = `
 					<div class=entete>Date</div> 
@@ -501,13 +514,23 @@
 					<div class="entete absent">Nombre injustifiées</div>
 				`;
 
-				Object.entries(totaux).forEach(([UE, total])=>{
+				if(Object.entries(totaux).length){
+					Object.entries(totaux).forEach(([UE, total])=>{
+						output += `
+							<div>${UE}</div>
+							<div>${total.justifie}</div>
+							<div>${total.injustifie}</div>
+						`;
+					})
+				} else {
 					output += `
-						<div>${UE}</div>
-						<div>${total.justifie}</div>
-						<div>${total.injustifie}</div>
+						<div>/</div>
+						<div>0</div>
+						<div>0</div>
 					`;
-				})
+				}
+
+				
 
 				document.querySelector(".absences>.totauxAbsences").innerHTML = output;
 			}
