@@ -26,9 +26,9 @@
 	include_once "$path/includes/".Config::$scheduler_class;		// Class Scheduler
 	$user = new User();
 
-/******************************/
-/* Mise en maintenant du site */
-/******************************/
+/*******************************/
+/* Mise en maintenance du site */
+/*******************************/
 	//if($user->getSessionName() != 'sebastien.lehmann@uha.fr') returnError('Site en cours de maintenance ...');
 
 /* Utilisateur qui n'est pas dans la composante : n'est pas autorisé. */
