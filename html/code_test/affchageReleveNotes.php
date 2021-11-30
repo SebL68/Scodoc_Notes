@@ -41,11 +41,12 @@
 		/*******************************/
 		/* Informations sur l'étudiant */
 		/*******************************/
+		
 		document.querySelector("#infoEtudiant").innerHTML = `
-			${data.etudiant.sexe}
+			${data.etudiant.civilite}
 			${data.etudiant.nom}
 			${data.etudiant.prenom}
-			né${(data.etudiant.sexe == "Mme") ? "e" : ""} le 
+			né${(data.etudiant.civilite == "F") ? "e" : ""} le 
 			${data.etudiant.dateNaissance}<br>
 			Numéro étudiant : ${data.etudiant.code_nip}
 		`;
