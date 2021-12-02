@@ -122,7 +122,6 @@ class Annuaire{
 	*/
 	/****************************************************/
 	public static function statut($user){
-		/* Retour : ETUDIANT, PERSONNEL, ADMINISTRATEUR ou INCONNU */
 		if(!isset($_SESSION['statut']) || $_SESSION['statut'] == ''){
 			
 			/* Vérification de l'existence des fichiers de listes */
@@ -134,6 +133,14 @@ class Annuaire{
 
 			$pattern = '/'. $user .'/i';
 
+			/* Test vacataire */
+			foreach(json_decode(file_get_contents(self::$USERS_PATH)) as $departement => $dep){
+				if(preg_grep($pattern, $dep->vacataires)){
+					$_SESSION['statut'] = PERSONNEL;
+					return $_SESSION['statut'];
+				}
+			}
+
 			/* Test étudiant */
 			if(preg_grep($pattern, file(self::$STUDENTS_PATH))){
 				$_SESSION['statut'] = ETUDIANT;
@@ -144,14 +151,6 @@ class Annuaire{
 			foreach(json_decode(file_get_contents(self::$USERS_PATH)) as $departement => $dep){
 				if(preg_grep($pattern, $dep->administrateurs)){
 					$_SESSION['statut'] = ADMINISTRATEUR;
-					return $_SESSION['statut'];
-				}
-			}
-
-			/* Test vacataire */
-			foreach(json_decode(file_get_contents(self::$USERS_PATH)) as $departement => $dep){
-				if(preg_grep($pattern, $dep->vacataires)){
-					$_SESSION['statut'] = PERSONNEL;
 					return $_SESSION['statut'];
 				}
 			}
