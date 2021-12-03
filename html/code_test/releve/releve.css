@@ -1,0 +1,80 @@
+/*******************/
+/* Styles généraux */
+/*******************/
+	:root{
+		--couleurPrincipale: #09c;
+		--couleurSecondaire: #0c9;
+		--couleurIntense: #c09;
+	}
+	body{
+		font-family: arial;
+		background: #f0f0f0;
+	}
+	main{
+		max-width: 1000px;
+		margin: auto;
+	}
+	h2{
+		margin: 0;
+		color: var(--couleurPrincipale)
+	}
+	section{
+		background: #FFF;
+		border-radius: 16px;
+		border: 1px solid #AAA;
+		padding: 16px 32px;
+		margin: 8px 0;
+	}
+/************/
+/* Etudiant */
+/************/
+	.etudiant{
+		display: flex;
+		align-items: center;
+		gap: 16px;
+		border-color: var(--couleurPrincipale);
+	}
+	.civilite{
+		font-weight: bold;
+	}
+
+/************/
+/* Semestre */
+/************/
+	.infoSemestre{
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: flex-end;
+		gap: 4px;
+	}
+	.infoSemestre>div{
+		border: 1px solid var(--couleurIntense);
+		padding: 4px 8px;
+		border-radius: 4px;
+		display: grid;
+		grid-template-columns: auto auto;
+		column-gap: 4px;
+	}
+	.infoSemestre>div:nth-child(1){
+		margin-right: auto;
+	}
+	.infoSemestre>div>div:nth-child(even){
+		text-align: right;
+	}
+	.rang{
+		text-decoration: underline  var(--couleurIntense);
+	}
+	
+	.enteteSemestre{
+		color:  var(--couleurSecondaire);
+		font-weight: bold;
+		font-size: 20px;
+		margin-bottom: 4px;
+	}
+
+/***************/
+/* Evaluations */
+/***************/
+	.eval{
+		margin-left: 64px;
+	}
