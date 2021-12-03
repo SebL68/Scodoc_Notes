@@ -62,7 +62,7 @@
 		text-align: right;
 	}
 	.rang{
-		text-decoration: underline  var(--couleurIntense);
+		text-decoration: underline var(--couleurIntense);
 	}
 	
 	.enteteSemestre{
