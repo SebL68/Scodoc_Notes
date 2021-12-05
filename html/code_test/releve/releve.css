@@ -77,21 +77,22 @@
 /***************/
 /* Synthèse    */
 /***************/
-	.ue{
+	.synthese>.ue{
 		background: var(--couleurPrincipale);
-		color: #FFF;
-		padding: 8px 32px;
-		border-radius: 4px;
-		display: flex;
-		gap: 16px;
-		margin: 8px 0 4px 0;
-		overflow: auto;
+	}
+	.synthese h3{
+		background: var(--couleurPrincipale);
+	}
+	.synthese em{
+		opacity: 0.6;
+		width: 70px;
+		display: inline-block;
 	}
 
 /***************/
 /* Evaluations */
 /***************/
-	.module{
+	.module, .ue{
 		background: var(--couleurSecondaire);
 		color: #FFF;
 		padding: 8px 32px;
@@ -118,12 +119,12 @@
 	.info{
 		opacity: 0.9;
 	}
-	.eval{
+	.eval, .syntheseModule{
 		position: relative;
 		display: flex;
 		justify-content: space-between;
 		margin: 0 28px;
-		padding: 8px 4px;
+		padding: 4px 4px;
 		border-bottom: 1px solid #aaa;
 	}
 	.eval:hover{
@@ -161,7 +162,7 @@
 		margin-bottom: 8px;
 	}
 
-	.module>.absences{
+	.absences{
 		display: grid;
 		grid-template-columns: auto auto;
 		column-gap: 4px;
@@ -169,7 +170,7 @@
 		border-left: 1px solid;
 		padding-left: 16px;
 	}
-	.module>.absences>div:nth-child(1),
-	.module>.absences>div:nth-child(2){
+	.absences>div:nth-child(1),
+	.absences>div:nth-child(2){
 		font-weight: bold;
 	}

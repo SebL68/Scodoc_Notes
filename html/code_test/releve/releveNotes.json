@@ -277,7 +277,10 @@
 				"acquis": 0,
 				"total": 30
 			},
-			"modules": {
+			"moyenne": {
+				"value": "12.20"
+			},
+			"ressources": {
 				"R103": {
 					"coef": 3,
 					"moyenne": "12.20"
@@ -287,6 +290,16 @@
 					"moyenne": "12.20"
 				},
 				"R106": {
+					"coef": 2,
+					"moyenne": "12.20"
+				}
+			},
+			"sae": {
+				"SAE101": {
+					"coef": 3,
+					"moyenne": "12.20"
+				},
+				"SAE102": {
 					"coef": 2,
 					"moyenne": "12.20"
 				}

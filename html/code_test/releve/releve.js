@@ -59,20 +59,45 @@
 /* Synthèse                    */
 /*******************************/	
 	output = ``;
-
 	Object.entries(data.ue).forEach(([ue, dataUE])=>{
 		output += `
-			<h3 class=ue>
-				${(dataUE.competence) ? dataUE.competence + " - " : ""}${ue}
-			</h3>
-			${synthese(dataUE)}
+			<div class=ue>
+				<h3>
+					${(dataUE.competence) ? dataUE.competence + " - " : ""}${ue}
+				</h3>
+				<div>
+					<div class=moyenne>Moyenne&nbsp;:&nbsp;${dataUE.moyenne.value}</div>
+					<div class=info>
+						Bonus&nbsp;:&nbsp;${dataUE.bonus}&nbsp;- 
+						Malus&nbsp;:&nbsp;${dataUE.malus}&nbsp;-
+						ECTS&nbsp;:&nbsp;${dataUE.ECTS.acquis}&nbsp;/&nbsp;${dataUE.ECTS.total}
+					</div>
+				</div>
+				<div class=absences>
+					<div>Abs&nbsp;inj.</div><div>${dataUE.absences.injustifie}</div>
+					<div>Total</div><div>${dataUE.absences.total}</div>
+				</div>
+			</div>
+			${synthese(dataUE.ressources)}
+			${synthese(dataUE.sae)}
 		`;
 	});
 	document.querySelector(".synthese").innerHTML = output;
 
-	function synthese(dataUE){
+	function synthese(modules){
 		let output = "";
-		output += dataUE;
+		Object.entries(modules).forEach(([module, dataModule])=>{
+			let titre = data.ressources[module]?.texte || data.sae[module]?.texte;
+			output += `
+				<div class=syntheseModule>
+					<div>${module}&nbsp;- ${titre}</div>
+					<div>
+						${dataModule.moyenne}
+						<em>Coef. ${dataModule.coef}</em>
+					</div>
+				</div>
+			`;
+		})
 		return output;
 	}
 
@@ -118,8 +143,8 @@
 					<div>${eval.note.value}</div>
 					<div class=complement>
 						<div>Coef</div><div>${eval.coef}</div>
-						<div>Moy. promo.</div><div>${eval.note.moy}</div>
 						<div>Max. promo.</div><div>${eval.note.max}</div>
+						<div>Moy. promo.</div><div>${eval.note.moy}</div>
 						<div>Min. promo.</div><div>${eval.note.min}</div>
 						${Object.entries(eval.poids).map(([UE, poids])=>{
 							return `
