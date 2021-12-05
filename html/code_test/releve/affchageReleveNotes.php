@@ -28,20 +28,20 @@
 		</section>
 
 <!--------------------------->
-<!-- Evaluations           -->
-<!--------------------------->
-		<section>
-			<h2>Évaluations</h2>
-			<div class=evaluations></div>
-		</section>
-
-<!--------------------------->
 <!-- Synthèse              -->
 <!--------------------------->
 		<section>
 			<h2>Synthèse</h2>
 			<em>Les moyennes des ressources dans une UE dépendent des poids donnés aux évaluations</em>
 			<div class=synthese></div>
+		</section>
+
+<!--------------------------->
+<!-- Evaluations           -->
+<!--------------------------->
+		<section>
+			<h2>Évaluations</h2>
+			<div class=evaluations></div>
 		</section>
 
 	</main>

@@ -69,7 +69,7 @@
 					<div class=module>
 						<h3>${numero} - ${content.texte}</h3>
 						<div>
-							<div class=moyenne>Moyenne&nbsp;:&nbsp;${content.moyenne.value}</div>
+							<div class=moyenne>Moyenne&nbsp;indicative&nbsp;:&nbsp;${content.moyenne.value}</div>
 							<div class=info>
 								Classe&nbsp;:&nbsp;${content.moyenne.moy}&nbsp;- 
 								Max&nbsp;:&nbsp;${content.moyenne.max}&nbsp;-

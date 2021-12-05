@@ -92,7 +92,7 @@
 		align-items: center;
 		margin: 0 auto 0 0;
 		position: sticky;
-		left: -20px;
+		left: -32px;
 		z-index: 1;
 		background: var(--couleurSecondaire);
 	}
