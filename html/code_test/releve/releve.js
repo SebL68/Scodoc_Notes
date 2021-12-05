@@ -9,7 +9,7 @@
 				${civilite(data.etudiant.civilite)}
 				${data.etudiant.nom}
 				${data.etudiant.prenom}
-				né${(data.etudiant.civilite == "F") ? "e" : ""} le ${ISOToDate(data.etudiant.dateNaissance)}
+				né${(data.etudiant.civilite == "F") ? "e" : ""} le ${ISOToDate(data.etudiant.date_naissance)}
 			</div>
 			<div class=numerosEtudiant>
 				Numéro étudiant : ${data.etudiant.code_nip}
@@ -22,9 +22,7 @@
 /*********************************/
 	output += `
 		<div class=info_releve>
-			${data.formation.diplome}
-			${data.formation.libelle_long}
-			(${data.formation.libelle_court})
+			${data.formation.acronyme}
 			- semestre ${data.semestre.numero}
 		</div>
 	`;

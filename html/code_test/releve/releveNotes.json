@@ -19,16 +19,16 @@
 		"nom": "Dupont",
 		"photo_url": "",	// S'il n'y a rien, ça affichera une photo par défaut
 		"prenom": "Jean",
-		"dateNaissance": "AAAA-MM-JJ"
+		"date_naissance": "AAAA-MM-JJ"
 	},
 
 /*********************************/
 /* Informations sur la formation */
 /*********************************/
 	"formation": {
-		"diplome": "BUT",
-		"libelle_court": "MMI",
-		"libelle_long": "Métiers du Multimédia et de l'Internet"
+		"acronyme": "BUT",
+		"titre": "MMI",
+		"titre_officiel": "Métiers du Multimédia et de l'Internet"
 	},
 
 /********************************/
