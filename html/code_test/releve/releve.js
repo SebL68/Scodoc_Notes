@@ -66,7 +66,21 @@
 		Object.entries(module).forEach(([numero, content])=>{
 			output += `
 				<div>
-					${numero} - ${content.texte}
+					<div class=module>
+						<h3>${numero} - ${content.texte}</h3>
+						<div>
+							<div class=moyenne>Moyenne&nbsp;:&nbsp;${content.moyenne.value}</div>
+							<div class=info>
+								Classe&nbsp;:&nbsp;${content.moyenne.moy}&nbsp;- 
+								Max&nbsp;:&nbsp;${content.moyenne.max}&nbsp;-
+								Min&nbsp;:&nbsp;${content.moyenne.min} 
+							</div>
+						</div>
+						<div class=absences>
+							<div>Abs&nbsp;inj.</div><div>${content.absences.injustifie}</div>
+							<div>Total</div><div>${content.absences.total}</div>
+						</div>
+					</div>
 					${evaluation(content.evaluations)}
 				</div>
 			`;
@@ -79,7 +93,20 @@
 		evaluations.forEach(eval=>{
 			output += `
 				<div class=eval>
-					${eval.texte} - ${eval.note.value}
+					<div>${eval.texte}</div>
+					<div>${eval.note.value}</div>
+					<div class=complement>
+						<div>Coef</div><div>${eval.coef}</div>
+						<div>Moy. promo.</div><div>${eval.note.moy}</div>
+						<div>Max. promo.</div><div>${eval.note.max}</div>
+						<div>Min. promo.</div><div>${eval.note.min}</div>
+						${Object.entries(eval.poids).map(([UE, poids])=>{
+							return `
+								<div>Poids ${UE}</div>
+								<div>${poids}</div>
+							`;
+						}).join("")}
+					</div>
 				</div>
 			`;
 		})

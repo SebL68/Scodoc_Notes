@@ -8,7 +8,7 @@
 	<title>Relevé de notes</title>
 	<link rel="stylesheet" href="releve.css">
 </head>
-<body spellcheck=true contenteditable=true>
+<body spellcheck=true contenteditable=//true>
 	<main>
 <!--------------------------->
 <!-- Informations étudiant -->
