@@ -26,7 +26,7 @@
 /* Informations sur la formation */
 /*********************************/
 	"formation": {
-		"acronyme": "BUT",
+		"acronyme": "BUT MMI",
 		"titre": "MMI",
 		"titre_officiel": "Métiers du Multimédia et de l'Internet"
 	},
@@ -226,9 +226,9 @@
 		}
 	},
 
-/****************************/
-/* Synthèse des compétences */
-/****************************/
+/*********************************/
+/* Synthèse des UE / compétences */
+/*********************************/
 	"ue":{
 		"UE1.1": {
 			"competence": "Comprendre",
@@ -239,7 +239,7 @@
 			"moyenne": {
 				"value": "12.20"
 			},
-			"modules": {
+			"ressources": {
 				"R101": {
 					"coef": 3,
 					"moyenne": "12.20"
@@ -249,6 +249,16 @@
 					"moyenne": "12.20"
 				},
 				"R104": {
+					"coef": 2,
+					"moyenne": "12.20"
+				}
+			},
+			"sae": {
+				"SAE101": {
+					"coef": 3,
+					"moyenne": "12.20"
+				},
+				"SAE102": {
 					"coef": 2,
 					"moyenne": "12.20"
 				}

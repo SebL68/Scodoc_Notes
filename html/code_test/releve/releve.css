@@ -75,6 +75,20 @@
 	}
 
 /***************/
+/* Synthèse    */
+/***************/
+	.ue{
+		background: var(--couleurPrincipale);
+		color: #FFF;
+		padding: 8px 32px;
+		border-radius: 4px;
+		display: flex;
+		gap: 16px;
+		margin: 8px 0 4px 0;
+		overflow: auto;
+	}
+
+/***************/
 /* Evaluations */
 /***************/
 	.module{
@@ -159,7 +173,3 @@
 	.module>.absences>div:nth-child(2){
 		font-weight: bold;
 	}
-
-/***************/
-/* Synthèse    */
-/***************/

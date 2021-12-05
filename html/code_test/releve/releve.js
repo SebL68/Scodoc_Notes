@@ -23,14 +23,14 @@
 	output += `
 		<div class=info_releve>
 			${data.formation.acronyme}
-			- semestre ${data.semestre.numero}
 		</div>
 	`;
 	document.querySelector(".infoEtudiant").innerHTML = output;
 
 /*******************************/
 /* Information sur le semestre */
-/*******************************/	
+/*******************************/
+	document.querySelector("h2").innerHTML += data.semestre.numero;	// Numéro du titre semestre.
 	output = `
 		<div>
 			<div class=enteteSemestre>Moyenne</div><div class=enteteSemestre>${data.semestre.notes.value}</div>
@@ -56,10 +56,31 @@
 	document.querySelector(".infoSemestre").innerHTML = output;
 
 /*******************************/
+/* Synthèse                    */
+/*******************************/	
+	output = ``;
+
+	Object.entries(data.ue).forEach(([ue, dataUE])=>{
+		output += `
+			<h3 class=ue>
+				${(dataUE.competence) ? dataUE.competence + " - " : ""}${ue}
+			</h3>
+			${synthese(dataUE)}
+		`;
+	});
+	document.querySelector(".synthese").innerHTML = output;
+
+	function synthese(dataUE){
+		let output = "";
+		output += dataUE;
+		return output;
+	}
+
+/*******************************/
 /* Evaluations                 */
 /*******************************/	
 	document.querySelector(".evaluations").innerHTML = module(data.ressources);
-	document.querySelector(".evaluations").innerHTML += module(data.sae);
+	document.querySelector(".sae").innerHTML += module(data.sae);
 
 	function module(module){
 		let output = "";
@@ -112,15 +133,6 @@
 		})
 		return output;
 	}
-/*******************************/
-/* Synthèse                    */
-/*******************************/	
-	output = `
-		<div>
-
-		</div>
-	`;
-	document.querySelector(".synthese").innerHTML = output;
 
 /********************/
 /* Fonctions d'aide */
