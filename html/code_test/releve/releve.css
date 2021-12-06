@@ -10,10 +10,23 @@
 		font-family: arial;
 		background: #f0f0f0;
 	}
+	.wait{
+		width: 60px;
+		height: 6px;
+		margin: auto;
+		background: #424242; /* la réponse à tout */
+		animation: wait .4s infinite alternate;
+	}
+	@keyframes wait{
+		100%{transform: translateY(40px) rotate(1turn);}
+	}
 	main{
 		max-width: 1000px;
 		margin: auto;
+		display: none;
 	}
+	.ready .wait{display: none;}
+	.ready main{display: initial;}
 	h2{
 		margin: 0;
 		color: var(--couleurPrincipale)
@@ -25,6 +38,52 @@
 		padding: 16px 32px;
 		margin: 8px 0;
 	}
+	section>div:nth-child(1){
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 8px;
+	}
+	.CTA_Liste{
+		display: flex;
+		gap: 4px;
+		align-items: center;
+		background: var(--couleurIntense);
+		color: #FFF;
+		padding: 4px 8px;
+		border-radius: 4px;
+		box-shadow: 0 2px 2px rgba(0,0,0,0.26);
+		cursor: pointer;
+	}
+	.CTA_Liste>svg{
+		transition: 0.2s;
+	}
+	.CTA_Liste:hover{
+		outline: 2px solid #424242;
+	}
+	.listeOff svg{
+		transform: rotate(180deg);
+	}
+	.listeOff .syntheseModule,
+	.listeOff .eval{
+		display: none;
+	}
+
+/***********************/
+/* Options d'affichage */
+/***********************/
+	.hide_abs .absences,
+	.hide_abs_modules .module>.absences,
+	.hide_all_evals .eval,
+	.hide_coef .synthese em,
+	.hide_coef .eval>em,
+	.hide_date_inscr .dateInscription,
+	.hide_ects .ects
+	
+	{
+		display: none;
+	}
+
 /************/
 /* Etudiant */
 /************/
@@ -83,7 +142,8 @@
 	.synthese h3{
 		background: var(--couleurPrincipale);
 	}
-	.synthese em{
+	.synthese em,
+	.eval em{
 		opacity: 0.6;
 		width: 70px;
 		display: inline-block;
@@ -95,11 +155,11 @@
 	.module, .ue{
 		background: var(--couleurSecondaire);
 		color: #FFF;
-		padding: 8px 32px;
+		padding: 4px 32px;
 		border-radius: 4px;
 		display: flex;
 		gap: 16px;
-		margin: 8px 0 4px 0;
+		margin: 4px 0 2px 0;
 		overflow: auto;
 	}
 	h3{
@@ -109,6 +169,7 @@
 		position: sticky;
 		left: -32px;
 		z-index: 1;
+		font-size: 16px;
 		background: var(--couleurSecondaire);
 	}
 
@@ -124,7 +185,7 @@
 		display: flex;
 		justify-content: space-between;
 		margin: 0 28px;
-		padding: 4px 4px;
+		padding: 0px 4px;
 		border-bottom: 1px solid #aaa;
 	}
 	.eval:hover, .syntheseModule:hover{

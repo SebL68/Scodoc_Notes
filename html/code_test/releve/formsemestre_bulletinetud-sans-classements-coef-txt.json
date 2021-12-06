@@ -1,0 +1,1074 @@
+{
+  "date": "2021-12-06T09:47:30.204149Z", 
+  "etudiant": {
+    "civilite": "F", 
+    "code_ine": "54912559", 
+    "code_nip": null, 
+    "date_naissance": "2001-08-23", 
+    "email": "VAL\u00c9RIE.martin@edu.sco.zzz", 
+    "emailperso": null, 
+    "etudid": 12496, 
+    "nom": "ALVES", 
+    "photo_url": "/ScoDoc/RT/Scolarite/get_photo_image?etudid=12496&size=small", 
+    "prenom": "VAL\u00c9RIE"
+  }, 
+  "formation": {
+    "acronyme": "BUT R&Tx", 
+    "id": 216, 
+    "titre": "BUT R\u00e9seaux et T\u00e9l\u00e9communicationx", 
+    "titre_officiel": "Bachelor Universitraire de Technologie en R\u00e9seaux et T\u00e9l\u00e9communications"
+  }, 
+  "formsemestre_id": 718, 
+  "options": {
+    "show_abs": true, 
+    "show_abs_modules": true, 
+    "show_all_evals": true, 
+    "show_codemodules": true, 
+    "show_coef": true, 
+    "show_date_inscr": true, 
+    "show_ects": true, 
+    "show_matieres": true, 
+    "show_minmax": true, 
+    "show_minmax_eval": true, 
+    "show_minmax_mod": false, 
+    "show_mod_rangs": false, 
+    "show_moypromo": true, 
+    "show_rangs": true, 
+    "show_temporary": true, 
+    "show_ue_cap_current": true, 
+    "show_ue_cap_details": true, 
+    "show_ue_rangs": true, 
+    "show_uevalid": true, 
+    "temporary_txt": "Provisoire"
+  }, 
+  "ressources": {
+    "R101": {
+      "code_apogee": null, 
+      "evaluations": [
+        {
+          "coef": 1.0, 
+          "date": "2021-12-02", 
+          "description": "Examen", 
+          "heure_debut": "08:00", 
+          "heure_fin": "08:00", 
+          "id": 25256, 
+          "note": {
+            "max": "20.00", 
+            "min": "00.00", 
+            "moy": "08.39", 
+            "value": "13.00"
+          }, 
+          "poids": {
+            "UE11": 1.0, 
+            "UE12": 1.0, 
+            "UE13": 1.0
+          }
+        }
+      ], 
+      "id": 13541, 
+      "moyenne": {
+        "max": "20.00", 
+        "min": "00.00", 
+        "moy": "07.42", 
+        "value": "13.00"
+      }, 
+      "titre": "Initiation aux r\u00e9seaux informatiques"
+    }, 
+    "R102": {
+      "code_apogee": null, 
+      "evaluations": [
+        {
+          "coef": 1.0, 
+          "date": "2021-12-02", 
+          "description": "TP 1", 
+          "heure_debut": "08:00", 
+          "heure_fin": "08:00", 
+          "id": 25257, 
+          "note": {
+            "max": "~", 
+            "min": "~", 
+            "moy": "~", 
+            "value": "~"
+          }, 
+          "poids": {
+            "UE11": 1.0, 
+            "UE12": 1.0, 
+            "UE13": 1.0
+          }
+        }
+      ], 
+      "id": 13542, 
+      "moyenne": {
+        "max": "00.00", 
+        "min": "00.00", 
+        "moy": "00.00", 
+        "value": "00.00"
+      }, 
+      "titre": "Principes et architecture des r\u00e9seaux"
+    }, 
+    "R103": {
+      "code_apogee": null, 
+      "evaluations": [
+        {
+          "coef": 1.0, 
+          "date": "2021-10-18", 
+          "description": "TP 1", 
+          "heure_debut": "08:00", 
+          "heure_fin": "12:00", 
+          "id": 25259, 
+          "note": {
+            "max": "19.00", 
+            "min": "00.00", 
+            "moy": "11.07", 
+            "value": "12.00"
+          }, 
+          "poids": {
+            "UE11": 1.0, 
+            "UE12": 1.0, 
+            "UE13": 0.0
+          }
+        }, 
+        {
+          "coef": 2.5, 
+          "date": "2021-10-10", 
+          "description": "TP 2: Cablage it\u00e9ratif de l'\u00e9quipement inactif un jour de pluie", 
+          "heure_debut": "08:00", 
+          "heure_fin": "12:30", 
+          "id": 25260, 
+          "note": {
+            "max": "13.00", 
+            "min": "01.00", 
+            "moy": "11.38", 
+            "value": "13.00"
+          }, 
+          "poids": {
+            "UE11": 1.0, 
+            "UE12": 2.0, 
+            "UE13": 0.0
+          }
+        }, 
+        {
+          "coef": 5.0, 
+          "date": "2021-12-05", 
+          "description": "TP 3", 
+          "heure_debut": "08:00", 
+          "heure_fin": "08:00", 
+          "id": 25261, 
+          "note": {
+            "max": "08.00", 
+            "min": "01.00", 
+            "moy": "07.73", 
+            "value": "01.00"
+          }, 
+          "poids": {
+            "UE11": 1.0, 
+            "UE12": 0.0, 
+            "UE13": 0.0
+          }
+        }, 
+        {
+          "coef": 2.0, 
+          "date": "2021-12-05", 
+          "description": "TP 4", 
+          "heure_debut": "08:00", 
+          "heure_fin": "08:00", 
+          "id": 25262, 
+          "note": {
+            "max": "~", 
+            "min": "~", 
+            "moy": "~", 
+            "value": "~"
+          }, 
+          "poids": {
+            "UE11": 7.0, 
+            "UE12": 0.0, 
+            "UE13": 0.0
+          }
+        }, 
+        {
+          "coef": 10.0, 
+          "date": "2021-12-31", 
+          "description": "Examen final \u00e9crit", 
+          "heure_debut": "18:00", 
+          "heure_fin": "18:30", 
+          "id": 25263, 
+          "note": {
+            "max": "20.00", 
+            "min": "00.00", 
+            "moy": "14.35", 
+            "value": "15.00"
+          }, 
+          "poids": {
+            "UE11": 7.0, 
+            "UE12": 3.0, 
+            "UE13": 0.0
+          }
+        }
+      ], 
+      "id": 13543, 
+      "moyenne": {
+        "max": "00.00", 
+        "min": "00.00", 
+        "moy": "00.00", 
+        "value": "~"
+      }, 
+      "titre": "R\u00e9seaux locaux et \u00e9quipements actifs"
+    }, 
+    "R104": {
+      "code_apogee": null, 
+      "evaluations": [
+        {
+          "coef": 1.0, 
+          "date": "2021-12-05", 
+          "description": "contr\u00f4le & examen", 
+          "heure_debut": "08:00", 
+          "heure_fin": "08:00", 
+          "id": 25264, 
+          "note": {
+            "max": "20.00", 
+            "min": "08.00", 
+            "moy": "11.15", 
+            "value": "11.00"
+          }, 
+          "poids": {
+            "UE11": 1.0, 
+            "UE12": 1.0, 
+            "UE13": 0.0
+          }
+        }
+      ], 
+      "id": 13544, 
+      "moyenne": {
+        "max": "00.00", 
+        "min": "00.00", 
+        "moy": "00.00", 
+        "value": "~"
+      }, 
+      "titre": "Fondamentaux des syst\u00e8mes \u00e9lectroniques"
+    }, 
+    "R105": {
+      "code_apogee": null, 
+      "evaluations": [
+        {
+          "coef": 7.5, 
+          "date": "2021-11-05", 
+          "description": "Toast 1", 
+          "heure_debut": "08:00", 
+          "heure_fin": "09:00", 
+          "id": 25275, 
+          "note": {
+            "max": "~", 
+            "min": "~", 
+            "moy": "~", 
+            "value": "~"
+          }, 
+          "poids": {}
+        }, 
+        {
+          "coef": 2.75, 
+          "date": "2021-11-05", 
+          "description": "Toast 1", 
+          "heure_debut": "08:00", 
+          "heure_fin": "09:00", 
+          "id": 25276, 
+          "note": {
+            "max": "20.00", 
+            "min": "00.00", 
+            "moy": "09.12", 
+            "value": "15.00"
+          }, 
+          "poids": {}
+        }, 
+        {
+          "coef": 1.0, 
+          "date": "2021-11-06", 
+          "description": "Test", 
+          "heure_debut": "08:00", 
+          "heure_fin": "09:00", 
+          "id": 25272, 
+          "note": {
+            "max": "~", 
+            "min": "~", 
+            "moy": "~", 
+            "value": "~"
+          }, 
+          "poids": {}
+        }, 
+        {
+          "coef": 1.0, 
+          "date": "2021-11-06", 
+          "description": "Test", 
+          "heure_debut": "08:00", 
+          "heure_fin": "09:00", 
+          "id": 25273, 
+          "note": {
+            "max": "20.00", 
+            "min": "00.00", 
+            "moy": "10.85", 
+            "value": "17.00"
+          }, 
+          "poids": {}
+        }, 
+        {
+          "coef": 2.25, 
+          "date": "2021-11-06", 
+          "description": "Test 1", 
+          "heure_debut": "08:00", 
+          "heure_fin": "09:00", 
+          "id": 25274, 
+          "note": {
+            "max": "20.00", 
+            "min": "01.00", 
+            "moy": "09.77", 
+            "value": "05.00"
+          }, 
+          "poids": {}
+        }
+      ], 
+      "id": 13545, 
+      "moyenne": {
+        "max": "07.38", 
+        "min": "01.33", 
+        "moy": "03.99", 
+        "value": "04.79"
+      }, 
+      "titre": "Supports de transmission pour les r\u00e9seaux locaux"
+    }, 
+    "R106": {
+      "code_apogee": null, 
+      "evaluations": [], 
+      "id": 13546, 
+      "moyenne": {
+        "max": "00.00", 
+        "min": "00.00", 
+        "moy": "00.00", 
+        "value": "~"
+      }, 
+      "titre": "Architecture des syst\u00e8mes num\u00e9riques et informatiques"
+    }, 
+    "R107": {
+      "code_apogee": null, 
+      "evaluations": [
+        {
+          "coef": 1.25, 
+          "date": "2021-11-05", 
+          "description": "Toast 1", 
+          "heure_debut": "08:00", 
+          "heure_fin": "09:00", 
+          "id": 25281, 
+          "note": {
+            "max": "19.00", 
+            "min": "00.00", 
+            "moy": "07.58", 
+            "value": "07.00"
+          }, 
+          "poids": {}
+        }, 
+        {
+          "coef": 6.25, 
+          "date": "2021-11-05", 
+          "description": "Toast 2", 
+          "heure_debut": "08:00", 
+          "heure_fin": "09:00", 
+          "id": 25282, 
+          "note": {
+            "max": "18.00", 
+            "min": "00.00", 
+            "moy": "09.38", 
+            "value": "02.00"
+          }, 
+          "poids": {}
+        }, 
+        {
+          "coef": 6.0, 
+          "date": "2021-11-05", 
+          "description": "Toast 3", 
+          "heure_debut": "08:00", 
+          "heure_fin": "09:00", 
+          "id": 25283, 
+          "note": {
+            "max": "19.00", 
+            "min": "00.00", 
+            "moy": "10.77", 
+            "value": "00.00"
+          }, 
+          "poids": {}
+        }
+      ], 
+      "id": 13547, 
+      "moyenne": {
+        "max": "15.28", 
+        "min": "01.57", 
+        "moy": "09.83", 
+        "value": "01.57"
+      }, 
+      "titre": "Fondamentaux de la programmation"
+    }, 
+    "R108": {
+      "code_apogee": null, 
+      "evaluations": [], 
+      "id": 13548, 
+      "moyenne": {
+        "max": "00.00", 
+        "min": "00.00", 
+        "moy": "00.00", 
+        "value": "~"
+      }, 
+      "titre": "Bases des syst\u00e8mes d'exploitation"
+    }, 
+    "R109": {
+      "code_apogee": null, 
+      "evaluations": [], 
+      "id": 13549, 
+      "moyenne": {
+        "max": "00.00", 
+        "min": "00.00", 
+        "moy": "00.00", 
+        "value": "~"
+      }, 
+      "titre": "Introduction aux technologies Web"
+    }, 
+    "R110": {
+      "code_apogee": null, 
+      "evaluations": [
+        {
+          "coef": 1.5, 
+          "date": "2021-11-05", 
+          "description": "Toast 1", 
+          "heure_debut": "08:00", 
+          "heure_fin": "09:00", 
+          "id": 25277, 
+          "note": {
+            "max": "19.00", 
+            "min": "00.00", 
+            "moy": "08.00", 
+            "value": "00.00"
+          }, 
+          "poids": {}
+        }, 
+        {
+          "coef": 6.0, 
+          "date": "2021-11-05", 
+          "description": "Toast 2", 
+          "heure_debut": "08:00", 
+          "heure_fin": "09:00", 
+          "id": 25278, 
+          "note": {
+            "max": "20.00", 
+            "min": "00.00", 
+            "moy": "09.38", 
+            "value": "13.00"
+          }, 
+          "poids": {}
+        }, 
+        {
+          "coef": 5.0, 
+          "date": "2021-11-05", 
+          "description": "Toast 3", 
+          "heure_debut": "08:00", 
+          "heure_fin": "09:00", 
+          "id": 25279, 
+          "note": {
+            "max": "20.00", 
+            "min": "01.00", 
+            "moy": "11.12", 
+            "value": "16.00"
+          }, 
+          "poids": {}
+        }, 
+        {
+          "coef": 3.0, 
+          "date": "2021-12-05", 
+          "description": "QCM 1", 
+          "heure_debut": "08:00", 
+          "heure_fin": "08:00", 
+          "id": 25269, 
+          "note": {
+            "max": "11.00", 
+            "min": "11.00", 
+            "moy": "11.00", 
+            "value": "11.00"
+          }, 
+          "poids": {
+            "UE11": 1.0, 
+            "UE12": 1.0, 
+            "UE13": 1.0
+          }
+        }, 
+        {
+          "coef": 2.0, 
+          "date": "2021-12-05", 
+          "description": "QCM 2", 
+          "heure_debut": "08:00", 
+          "heure_fin": "08:00", 
+          "id": 25270, 
+          "note": {
+            "max": "12.00", 
+            "min": "12.00", 
+            "moy": "12.00", 
+            "value": "12.00"
+          }, 
+          "poids": {
+            "UE11": 1.0, 
+            "UE12": 1.0, 
+            "UE13": 1.0
+          }
+        }, 
+        {
+          "coef": 3.0, 
+          "date": "2021-12-06", 
+          "description": "Conversation \u00e9crite", 
+          "heure_debut": "08:00", 
+          "heure_fin": "08:00", 
+          "id": 25271, 
+          "note": {
+            "max": "17.00", 
+            "min": "17.00", 
+            "moy": "17.00", 
+            "value": "17.00"
+          }, 
+          "poids": {
+            "UE11": 1.0, 
+            "UE12": 1.0, 
+            "UE13": 1.0
+          }
+        }, 
+        {
+          "coef": 0.25, 
+          "date": "2021-11-05", 
+          "description": "Toast 4", 
+          "heure_debut": "08:00", 
+          "heure_fin": "09:00", 
+          "id": 25280, 
+          "note": {
+            "max": "20.00", 
+            "min": "00.00", 
+            "moy": "09.27", 
+            "value": "04.00"
+          }, 
+          "poids": {}
+        }
+      ], 
+      "id": 13550, 
+      "moyenne": {
+        "max": "14.77", 
+        "min": "07.64", 
+        "moy": "11.29", 
+        "value": "12.87"
+      }, 
+      "titre": "Anglais de communication et initiation au vocabulaire technique"
+    }, 
+    "R111": {
+      "code_apogee": null, 
+      "evaluations": [], 
+      "id": 13551, 
+      "moyenne": {
+        "max": "00.00", 
+        "min": "00.00", 
+        "moy": "00.00", 
+        "value": "~"
+      }, 
+      "titre": "Expression-Culture-Communication Professionnelles 1"
+    }, 
+    "R112": {
+      "code_apogee": null, 
+      "evaluations": [], 
+      "id": 13552, 
+      "moyenne": {
+        "max": "00.00", 
+        "min": "00.00", 
+        "moy": "00.00", 
+        "value": "~"
+      }, 
+      "titre": "PPP: Conna\u00eetre son champ d'activit\u00e9"
+    }, 
+    "R113": {
+      "code_apogee": null, 
+      "evaluations": [
+        {
+          "coef": 3.0, 
+          "date": "2021-11-05", 
+          "description": "Contr\u00f4le de maths 1", 
+          "heure_debut": "08:00", 
+          "heure_fin": "09:00", 
+          "id": 25284, 
+          "note": {
+            "max": "19.00", 
+            "min": "01.00", 
+            "moy": "09.19", 
+            "value": "15.00"
+          }, 
+          "poids": {}
+        }
+      ], 
+      "id": 13553, 
+      "moyenne": {
+        "max": "19.00", 
+        "min": "01.00", 
+        "moy": "09.19", 
+        "value": "15.00"
+      }, 
+      "titre": "Math\u00e9matiques du signal"
+    }, 
+    "R114": {
+      "code_apogee": null, 
+      "evaluations": [], 
+      "id": 13554, 
+      "moyenne": {
+        "max": "00.00", 
+        "min": "00.00", 
+        "moy": "00.00", 
+        "value": "~"
+      }, 
+      "titre": "Math\u00e9matiques des transmissions"
+    }, 
+    "R115": {
+      "code_apogee": null, 
+      "evaluations": [], 
+      "id": 13555, 
+      "moyenne": {
+        "max": "00.00", 
+        "min": "00.00", 
+        "moy": "00.00", 
+        "value": "~"
+      }, 
+      "titre": "Gestion de projet"
+    }
+  }, 
+  "saes": {
+    "SAE11": {
+      "code_apogee": null, 
+      "evaluations": [
+        {
+          "coef": 2.0, 
+          "date": "2021-12-02", 
+          "description": "Pr\u00e9sentation", 
+          "heure_debut": "08:00", 
+          "heure_fin": "08:00", 
+          "id": 25258, 
+          "note": {
+            "max": "12.00", 
+            "min": "12.00", 
+            "moy": "12.00", 
+            "value": "12.00"
+          }, 
+          "poids": {
+            "UE11": 1.0, 
+            "UE12": 0.0, 
+            "UE13": 0.0
+          }
+        }, 
+        {
+          "coef": 5.0, 
+          "date": "2021-12-05", 
+          "description": "Rapport final", 
+          "heure_debut": "08:00", 
+          "heure_fin": "08:00", 
+          "id": 25265, 
+          "note": {
+            "max": "15.00", 
+            "min": "04.00", 
+            "moy": "12.15", 
+            "value": "08.00"
+          }, 
+          "poids": {
+            "UE11": 1.0, 
+            "UE12": 0.0, 
+            "UE13": 0.0
+          }
+        }
+      ], 
+      "id": 13535, 
+      "moyenne": {
+        "max": "00.00", 
+        "min": "00.00", 
+        "moy": "00.00", 
+        "value": "~"
+      }, 
+      "titre": "Sensibilisation \u00e0 l'hygi\u00e8ne informatique et \u00e0 la cybers\u00e9curit\u00e9"
+    }, 
+    "SAE12": {
+      "code_apogee": null, 
+      "evaluations": [
+        {
+          "coef": 2.0, 
+          "date": "2021-12-05", 
+          "description": "Maquette mini-r\u00e9seau entreprise", 
+          "heure_debut": "08:00", 
+          "heure_fin": "08:00", 
+          "id": 25266, 
+          "note": {
+            "max": "20.00", 
+            "min": "11.00", 
+            "moy": "13.21", 
+            "value": "12.00"
+          }, 
+          "poids": {
+            "UE11": 1.0, 
+            "UE12": 0.0, 
+            "UE13": 0.0
+          }
+        }
+      ], 
+      "id": 13536, 
+      "moyenne": {
+        "max": "00.00", 
+        "min": "00.00", 
+        "moy": "00.00", 
+        "value": "~"
+      }, 
+      "titre": "S\u2019initier aux r\u00e9seaux informatiques"
+    }, 
+    "SAE13": {
+      "code_apogee": null, 
+      "evaluations": [], 
+      "id": 13537, 
+      "moyenne": {
+        "max": "00.00", 
+        "min": "00.00", 
+        "moy": "00.00", 
+        "value": "~"
+      }, 
+      "titre": "D\u00e9couvrir un dispositif de transmission"
+    }, 
+    "SAE14": {
+      "code_apogee": null, 
+      "evaluations": [], 
+      "id": 13538, 
+      "moyenne": {
+        "max": "00.00", 
+        "min": "00.00", 
+        "moy": "00.00", 
+        "value": "~"
+      }, 
+      "titre": "Se pr\u00e9senter sur Internet"
+    }, 
+    "SAE15": {
+      "code_apogee": null, 
+      "evaluations": [
+        {
+          "coef": 1.0, 
+          "date": "2021-12-02", 
+          "description": "Analyse du cahier des charges", 
+          "heure_debut": "08:00", 
+          "heure_fin": "11:30", 
+          "id": 25268, 
+          "note": {
+            "max": "15.00", 
+            "min": "15.00", 
+            "moy": "15.00", 
+            "value": "15.00"
+          }, 
+          "poids": {
+            "UE11": 0.0, 
+            "UE12": 0.0, 
+            "UE13": 1.0
+          }
+        }
+      ], 
+      "id": 13539, 
+      "moyenne": {
+        "max": "00.00", 
+        "min": "00.00", 
+        "moy": "00.00", 
+        "value": "~"
+      }, 
+      "titre": "Traiter des donn\u00e9es"
+    }, 
+    "SAE16": {
+      "code_apogee": null, 
+      "evaluations": [
+        {
+          "coef": 1.0, 
+          "date": "2021-12-05", 
+          "description": "V\u00e9rification que les formulaires sont bien remplis", 
+          "heure_debut": "08:00", 
+          "heure_fin": "09:30", 
+          "id": 25267, 
+          "note": {
+            "max": "18.00", 
+            "min": "18.00", 
+            "moy": "18.00", 
+            "value": "18.00"
+          }, 
+          "poids": {
+            "UE11": 1.0, 
+            "UE12": 1.0, 
+            "UE13": 1.0
+          }
+        }
+      ], 
+      "id": 13540, 
+      "moyenne": {
+        "max": "18.00", 
+        "min": "18.00", 
+        "moy": "18.00", 
+        "value": "18.00"
+      }, 
+      "titre": "Portfolio"
+    }
+  }, 
+  "semestre": {
+    "absences": {
+      "injustifie": 1, 
+      "total": 33
+    }, 
+    "annee_universitaire": "2021 - 2022", 
+    "date_debut": "2021-09-01", 
+    "date_fin": "2022-01-31", 
+    "date_jury": "AAAA-MM-JJ", 
+    "decision": null, 
+    "etapes": {}, 
+    "groupes": [], 
+    "inscription": "TODO-MM-JJ", 
+    "notes": {
+      "max": "20.00", 
+      "min": "0.", 
+      "moy": "10.0", 
+      "value": "xxx"
+    }, 
+    "numero": 1, 
+    "rang": {
+      "total": null, 
+      "value": null
+    }, 
+    "situation": "D\u00e9cision jury: Valid\u00e9.  Dipl\u00f4me obtenu."
+  }, 
+  "type": "BUT", 
+  "ues": {
+    "UE11": {
+      "ECTS": {
+        "acquis": 0, 
+        "total": 7.0
+      }, 
+      "bonus": null, 
+      "capitalise": null, 
+      "competence": null, 
+      "id": 1900, 
+      "malus": null, 
+      "moyenne": "~", 
+      "ressources": {
+        "R101": {
+          "coef": 12.0, 
+          "id": 13541, 
+          "moyenne": "13.00"
+        }, 
+        "R102": {
+          "coef": 12.0, 
+          "id": 13542, 
+          "moyenne": "00.00"
+        }, 
+        "R103": {
+          "coef": 8.0, 
+          "id": 13543, 
+          "moyenne": "11.78"
+        }, 
+        "R104": {
+          "coef": 8.0, 
+          "id": 13544, 
+          "moyenne": "11.00"
+        }, 
+        "R106": {
+          "coef": 10.0, 
+          "id": 13546, 
+          "moyenne": "~"
+        }, 
+        "R108": {
+          "coef": 6.0, 
+          "id": 13548, 
+          "moyenne": "~"
+        }, 
+        "R110": {
+          "coef": 3.0, 
+          "id": 13550, 
+          "moyenne": "12.87"
+        }, 
+        "R111": {
+          "coef": 3.0, 
+          "id": 13551, 
+          "moyenne": "~"
+        }, 
+        "R112": {
+          "coef": 2.0, 
+          "id": 13552, 
+          "moyenne": "~"
+        }, 
+        "R113": {
+          "coef": 5.0, 
+          "id": 13553, 
+          "moyenne": "15.00"
+        }
+      }, 
+      "saes": {
+        "SAE11": {
+          "coef": 16.0, 
+          "id": 13535, 
+          "moyenne": "09.14"
+        }, 
+        "SAE12": {
+          "coef": 33.0, 
+          "id": 13536, 
+          "moyenne": "12.00"
+        }, 
+        "SAE16": {
+          "coef": 1.0, 
+          "id": 13540, 
+          "moyenne": "18.00"
+        }
+      }
+    }, 
+    "UE12": {
+      "ECTS": {
+        "acquis": 0, 
+        "total": 5.0
+      }, 
+      "bonus": null, 
+      "capitalise": null, 
+      "competence": null, 
+      "id": 1901, 
+      "malus": null, 
+      "moyenne": "~", 
+      "ressources": {
+        "R101": {
+          "coef": 4.0, 
+          "id": 13541, 
+          "moyenne": "13.00"
+        }, 
+        "R103": {
+          "coef": 4.0, 
+          "id": 13543, 
+          "moyenne": "13.81"
+        }, 
+        "R104": {
+          "coef": 6.0, 
+          "id": 13544, 
+          "moyenne": "11.00"
+        }, 
+        "R105": {
+          "coef": 5.0, 
+          "id": 13545, 
+          "moyenne": "04.79"
+        }, 
+        "R110": {
+          "coef": 5.0, 
+          "id": 13550, 
+          "moyenne": "12.87"
+        }, 
+        "R111": {
+          "coef": 5.0, 
+          "id": 13551, 
+          "moyenne": "~"
+        }, 
+        "R112": {
+          "coef": 3.0, 
+          "id": 13552, 
+          "moyenne": "~"
+        }, 
+        "R113": {
+          "coef": 8.0, 
+          "id": 13553, 
+          "moyenne": "15.00"
+        }, 
+        "R114": {
+          "coef": 4.0, 
+          "id": 13554, 
+          "moyenne": "~"
+        }, 
+        "R115": {
+          "coef": 2.0, 
+          "id": 13555, 
+          "moyenne": "~"
+        }
+      }, 
+      "saes": {
+        "SAE13": {
+          "coef": 33.0, 
+          "id": 13537, 
+          "moyenne": "~"
+        }, 
+        "SAE16": {
+          "coef": 1.0, 
+          "id": 13540, 
+          "moyenne": "18.00"
+        }
+      }
+    }, 
+    "UE13": {
+      "ECTS": {
+        "acquis": 0, 
+        "total": 3.0
+      }, 
+      "bonus": null, 
+      "capitalise": null, 
+      "competence": null, 
+      "id": 1902, 
+      "malus": null, 
+      "moyenne": "~", 
+      "ressources": {
+        "R101": {
+          "coef": 4.0, 
+          "id": 13541, 
+          "moyenne": "13.00"
+        }, 
+        "R107": {
+          "coef": 22.0, 
+          "id": 13547, 
+          "moyenne": "01.57"
+        }, 
+        "R108": {
+          "coef": 7.0, 
+          "id": 13548, 
+          "moyenne": "~"
+        }, 
+        "R109": {
+          "coef": 4.0, 
+          "id": 13549, 
+          "moyenne": "~"
+        }, 
+        "R110": {
+          "coef": 5.0, 
+          "id": 13550, 
+          "moyenne": "12.87"
+        }, 
+        "R111": {
+          "coef": 4.0, 
+          "id": 13551, 
+          "moyenne": "~"
+        }, 
+        "R112": {
+          "coef": 4.0, 
+          "id": 13552, 
+          "moyenne": "~"
+        }, 
+        "R114": {
+          "coef": 8.0, 
+          "id": 13554, 
+          "moyenne": "~"
+        }, 
+        "R115": {
+          "coef": 4.0, 
+          "id": 13555, 
+          "moyenne": "~"
+        }
+      }, 
+      "saes": {
+        "SAE14": {
+          "coef": 16.0, 
+          "id": 13538, 
+          "moyenne": "~"
+        }, 
+        "SAE15": {
+          "coef": 26.0, 
+          "id": 13539, 
+          "moyenne": "15.00"
+        }, 
+        "SAE16": {
+          "coef": 1.0, 
+          "id": 13540, 
+          "moyenne": "18.00"
+        }
+      }
+    }
+  }, 
+  "version": "0"
+}

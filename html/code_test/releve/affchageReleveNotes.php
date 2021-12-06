@@ -9,7 +9,8 @@
 	<link rel="stylesheet" href="releve.css">
 </head>
 <body spellcheck=true contenteditable=//true>
-	<main>
+	<div class="wait"></div>
+	<main class="releve">
 <!--------------------------->
 <!-- Info. étudiant        -->
 <!--------------------------->
@@ -23,6 +24,7 @@
 <!--------------------------->
 		<section>
 			<h2>Semestre </h2>
+			<div class=dateInscription>Inscrit le </div>
 			<em>Les moyennes servent à situer l'étudiant dans la promotion et ne correspondent pas à des validations de compétences ou d'UE.</em>
 			<div class=infoSemestre></div>
 		</section>
@@ -31,8 +33,15 @@
 <!-- Synthèse              -->
 <!--------------------------->
 		<section>
-			<h2>Synthèse</h2>
-			<em>La moyenne des ressources dans une UE dépend des poids donnés aux évaluations.</em>
+			<div>
+				<div>
+					<h2>Synthèse</h2>
+					<em>La moyenne des ressources dans une UE dépend des poids donnés aux évaluations.</em>
+				</div>
+				<div class=CTA_Liste>
+					Liste <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+				</div>
+			</div>
 			<div class=synthese></div>
 		</section>
 
@@ -40,19 +49,29 @@
 <!-- Evaluations           -->
 <!--------------------------->
 		<section>
-			<h2>Évaluations</h2>
+			<div>
+				<h2>Évaluations</h2>
+				<div class=CTA_Liste>
+					Liste <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+				</div>
+			</div>
 			<div class=evaluations></div>
 		</section>
 
 		<section>
-			<h2>SAÉ</h2>
+			<div>
+				<h2>SAÉ</h2>
+				<div class=CTA_Liste>
+					Liste <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+				</div>
+			</div>
 			<div class=sae></div>
 		</section>
 
 	</main>
 
 	<script>
-		let data = <?php include('releveNotes.json'); ?>;
+		let dataSrc = "formsemestre_bulletinetud-sans-classements-coef-txt.json";
 	</script>
 	<script src=releve.js></script>
 </body>
