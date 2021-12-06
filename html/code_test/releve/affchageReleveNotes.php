@@ -22,7 +22,7 @@
 <!-- Semestre              -->
 <!--------------------------->
 		<section>
-			<h2>Semestre</h2>
+			<h2>Semestre </h2>
 			<em>Les moyennes servent à situer l'étudiant dans la promotion et ne correspondent pas à des validations de compétences ou d'UE.</em>
 			<div class=infoSemestre></div>
 		</section>

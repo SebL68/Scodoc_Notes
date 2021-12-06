@@ -127,7 +127,7 @@
 		padding: 4px 4px;
 		border-bottom: 1px solid #aaa;
 	}
-	.eval:hover{
+	.eval:hover, .syntheseModule:hover{
 		background: var(--couleurIntense);
 		color: #FFF;
 	}
