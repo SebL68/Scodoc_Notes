@@ -133,6 +133,21 @@ class Annuaire{
 
 			$pattern = '/'. $user .'/i';
 
+		/* 
+		L'ordre est ici important : un étudiant peut également avoir le statut de personnel si par exemple il est en apprentissage à l'IUT.
+
+		De même, certains personnels peuvent encore avoir le statut d'étudiant (ATER par exemple).
+
+		On peut donc forcer un statut en plaçant la personne comme admin ou vacataire, sinon par défaut c'est étudiant et enfin personnel.
+		*/
+			/* Test administrateur */
+			foreach(json_decode(file_get_contents(self::$USERS_PATH)) as $departement => $dep){
+				if(preg_grep($pattern, $dep->administrateurs)){
+					$_SESSION['statut'] = ADMINISTRATEUR;
+					return $_SESSION['statut'];
+				}
+			}
+			
 			/* Test vacataire */
 			foreach(json_decode(file_get_contents(self::$USERS_PATH)) as $departement => $dep){
 				if(preg_grep($pattern, $dep->vacataires)){
@@ -145,14 +160,6 @@ class Annuaire{
 			if(preg_grep($pattern, file(self::$STUDENTS_PATH))){
 				$_SESSION['statut'] = ETUDIANT;
 				return $_SESSION['statut'];
-			}
-
-			/* Test administrateur */
-			foreach(json_decode(file_get_contents(self::$USERS_PATH)) as $departement => $dep){
-				if(preg_grep($pattern, $dep->administrateurs)){
-					$_SESSION['statut'] = ADMINISTRATEUR;
-					return $_SESSION['statut'];
-				}
 			}
 
 			/* Test personnel */
