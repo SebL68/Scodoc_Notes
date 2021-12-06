@@ -1,7 +1,8 @@
 /* Il manque :
+	- rangs
 	- Synthèse : moyenne UE
+	- Synthèse : min, max, moy classe
 	- Synthèse : absences
-	- Synthèse : string des notes
 	- Eval : absences
 
 Moi : 
