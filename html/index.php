@@ -426,7 +426,7 @@
 							<div>
 								<div>${e.titre}<span class=coef>Coef ${e.coefficient}</span></div>
 								<div>
-									Moyenne&nbsp;:&nbsp;${e.note.value} - Rang&nbsp;:&nbsp;${e.rang.value}<br>
+									Moyenne&nbsp;:&nbsp;${e.note.value} - Rang&nbsp;:&nbsp;${e.rang?.value || "-"}<br>
 									<span>
 										Classe&nbsp;:&nbsp;${e.note.moy} - Max&nbsp;:&nbsp;${e.note.max} - Min&nbsp;:&nbsp;${e.note.min}
 									</span>
