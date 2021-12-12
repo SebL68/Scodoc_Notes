@@ -325,7 +325,7 @@
 
 		/*************************/
 			case 'listeAdministrateurs':
-				if($user->getStatut() < ADMINISTRATEUR ){ returnError(); }
+				if($user->getStatut() < PERSONNEL ){ returnError(); }
 				$output = Admin::listeUtilisateurs($_GET['dep'], 'administrateurs');
 				break;
 
