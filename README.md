@@ -1,4 +1,4 @@
-# Ne pas utiliser car ce n'est plus à jour !
+# Ne pas utiliser cette document, ce n'est plus à jour !
 # !!! Nouvelle documentation en cours de rédaction !!!
 
 # Scodoc_Notes
