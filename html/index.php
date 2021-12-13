@@ -1,5 +1,6 @@
 <?php 
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
+	include_once "$path/config/config.php";
 ?>
 <!DOCTYPE html>
 <html lang=fr>
@@ -192,6 +193,10 @@
 				background: #09c;
 			}
 
+			.hideAbsences .absences{
+				display: none;
+			}
+
 /**********************/
 /* Mode personnels    */
 /**********************/
@@ -216,7 +221,11 @@
 		</style>
 		<meta name=description content="Relevé de notes de l'IUT de Mulhouse">
 	</head>
-	<body>
+	<body class="<?php
+		if(Config::$afficher_absences == false){
+			echo 'hideAbsences';
+		}
+	?>">
 		<?php 
 			$h1 = 'Relevé de notes';
 			include $_SERVER['DOCUMENT_ROOT']."/assets/header.php";
