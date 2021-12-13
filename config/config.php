@@ -33,7 +33,7 @@
 	/*********************************/
 	/* Données retournées par le CAS */
 	/*********************************/
-		public static $CAS_return_type = 'nip';	// Autre valeur possible : 'mail'
+		public static $CAS_return_type = 'nip';	// Valeurs possibles : 'mail' ou 'nip'
 
 
 	/********************************/
