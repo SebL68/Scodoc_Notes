@@ -1,3 +1,7 @@
+<?php 
+	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
+	include_once "$path/config/config.php";
+?>
 <header>
 	<h1><?php echo $h1; ?></h1>
 
