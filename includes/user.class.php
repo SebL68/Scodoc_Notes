@@ -107,9 +107,14 @@
 	/* Définition du statut à partir de l'annuaire */
 	/***********************************************/
 		private function defineStatut(){
-			include_once $this->path.'/includes/annuaire.class.php';
-			$_SESSION['statut'] = Annuaire::statut($this->session);
-			$this->statut = $_SESSION['statut'];
+			if(Config::$acces_enseignants == true){
+				include_once $this->path.'/includes/annuaire.class.php';
+				$_SESSION['statut'] = Annuaire::statut($this->session);
+				$this->statut = $_SESSION['statut'];
+			} else {
+				$_SESSION['statut'] = ETUDIANT;
+				$this->statut = $_SESSION['statut'];
+			}
 		}
 	};
 ?>

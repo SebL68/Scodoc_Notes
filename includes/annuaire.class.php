@@ -47,18 +47,22 @@ class Annuaire{
 		// e1912345:jean.dupont@uha.fr
 		// Attention, le listing LDAP fourni e1912345 alors que le vrai numéro est 21912345.
 
-		self::checkFile(self::$STUDENTS_PATH);
-		$handle = fopen(self::$STUDENTS_PATH, 'r');
-		while(($line = fgets($handle, 1000)) !== FALSE){
-			$data = explode(':', $line);
-			if(rtrim($data[1]) == $mail)
-				return '2'.substr($data[0], 1);
+		if(Config::$CAS_return_type == 'mail'){
+			self::checkFile(self::$STUDENTS_PATH);
+			$handle = fopen(self::$STUDENTS_PATH, 'r');
+			while(($line = fgets($handle, 1000)) !== FALSE){
+				$data = explode(':', $line);
+				if(rtrim($data[1]) == $mail)
+					return '2'.substr($data[0], 1);	// A Mulhouse, il y a une différence sur le premier caractère en APOGEE et LDAP.
+			}
+		} else {
+			return $mail;
 		}
 
 		exit(
 			json_encode(
 				array(
-					'erreur' => "Votre compte n'est pas encore dans l'annuaire. La mise à jour est faite en général tous les 15 jours, si le problème persiste, contactez votre responsable."
+					'erreur' => "Votre compte n'est pas encore dans l'annuaire. Si le problème persiste, contactez votre responsable."
 				)
 			)
 		);
