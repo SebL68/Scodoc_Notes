@@ -150,7 +150,6 @@
 			case 'listeEtudiants':
 				// Uniquement pour les personnels IUT.
 				if($user->getStatut() < PERSONNEL){ returnError(); }
-				include_once "$path/includes/annuaire.class.php";
 				$output = Annuaire::getAllStudents();
 				break;
 
@@ -195,7 +194,6 @@
 				// Uniquement les personnels IUT peuvent demander le relevé d'une autre personne.
 				if($user->getStatut() < PERSONNEL && isset($_GET['etudiant'])){ returnError(); } 
 				// Si c'est un personnel, on transmet l'étudiant par get, sinon on prend l'identifiant de la session.
-				include_once "$path/includes/annuaire.class.php";
 				include_once "$path/includes/serverIO.php";
 				$nip = Annuaire::getStudentNumberFromMail($_GET['etudiant'] ?? $user->getSessionName());
 				$dep = getStudentDepartment($nip);						// includes/serverIO.php
@@ -229,7 +227,6 @@
 					if($user->getStatut() == 'Compte_Demo.test@uha.fr'){
 						include 'data_demo.php';
 					} else {
-						include_once "$path/includes/annuaire.class.php";
 						include_once "$path/includes/serverIO.php";
 						$nip = Annuaire::getStudentNumberFromMail($user->getSessionName());
 						$dep = getStudentDepartment($nip);				// includes/serverIO.php
@@ -256,7 +253,6 @@
 						];
 					}
 				}else if($user->getStatut() >= PERSONNEL){
-					include_once "$path/includes/annuaire.class.php";
 					$output = [
 						'auth' => [
 							'session' => $user->getSessionName(),
