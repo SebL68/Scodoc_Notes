@@ -1,6 +1,8 @@
 # Ne pas utiliser cette documention, ce n'est plus à jour !
 # !!! Nouvelle documentation en cours de rédaction !!!
 
+git update-index --skip-worktree config/config.php
+
 # Scodoc_Notes
 
 Passerelle entre Scodoc et Internet pour l'affichage des notes aux étudiants.
