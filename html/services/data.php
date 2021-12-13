@@ -248,7 +248,7 @@
 							'absences' => Absences::getAbsence(
 								$dep,
 								$semestres[0],
-								$user->getStatut()
+								$user->getSessionName()
 							) ?? []
 						];
 					}
