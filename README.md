@@ -1,6 +1,8 @@
+# Ne pas utiliser car ce n'est plus à jour !
+# !!! Nouvelle documentation en cours de rédaction !!!
+
 # Scodoc_Notes
 
-# !!! Nouvelle documentation en cours de rédaction !!!
 Passerelle entre Scodoc et Internet pour l'affichage des notes aux étudiants.
 
 1. [Démonstration](#demonstration)
