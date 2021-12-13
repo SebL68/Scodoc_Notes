@@ -11,6 +11,45 @@
 				'MMI',
 				'SGM'
 			];
+	/**********************************/
+	/* Activation des modules du site */
+	/**********************************/
+		/* 
+			L'accès enseignants permet aux enseignants de :
+				- voir les notes de n'importe quel étudiant,
+				- obtenir des documents bien pratiques,
+				- gérer les absences sur la passerelle (système différent de Scodoc).
+
+			Cet accès nécessite de maintenir à jour les listes d'utilisateurs dans les fichiers /data/annuaires - le but étant de différencier un étudiant d'un enseignant.
+			Ces listes peuvent être générées automatiquement avec LDAP - voir la suite de la configuration.
+			Il est également possible d'ajouter les utilisateurs en tant que "vacataire" dans le menu "Comptes" du site sans passer par LDAP.
+
+			Acutellement les comptes sont gérés par des adresses mail - à voir s'il est nécessaire de configurer l'accès par des nip données par le CAS - me contacter.
+		*/
+		public static $acces_enseignants = false;
+		public static $afficher_absences = false;	// En dessous du relevé de notes étudiants
+		public static $module_absences = false;		// nécessite l'$acces_enseignants - ce module est différent de celui de Scodoc, il est géré entièrement par la passerelle.
+
+	/*********************************/
+	/* Données retournées par le CAS */
+	/*********************************/
+		public static $CAS_return_type = 'nip';	// Autre valeur possible : 'mail'
+
+
+	/********************************/
+	/* Accès à Scodoc               */
+	/********************************/
+	/*	Il faut créer compte avec un accès "secrétariat" qui a accès à tous les départements */
+
+		public static $scodoc_url = 'https://iutmscodoc9.uha.fr/ScoDoc';
+		public static $scodoc_login = [
+			'__ac_name' => 'LOGIN_SCODOC',
+			'__ac_password' => 'MDP_SCODOC'
+		];
+		
+		public static $scodoc_login2 = 'LOGIN_SCODOC';	// Test pour la nouvelle API
+		public static $scodoc_psw = 'MDP_SCODOC';
+		
 	/*******************************************/
 	/* Déclaration du domaine DNS de l'UFR pour
 		les mails utilisateurs dans la zone admin
@@ -20,14 +59,21 @@
 	/********************************/
 	/* Clé pour les jetons JWT      */
 	/********************************/
-		public static $JWT_key = ''; // Clé pour les jetons ou rien pour désactiver
+		public static $JWT_key = ''; // Laisser vide si on n'utilise pas les jetons JWT
 
 	/********************************************/
 	/* Class à utiliser pour l'authentification */
 	/* On peut alors utiliser un autre système  */
 	/********************************************/
 		public static $auth_class = 'auth_CAS.class.php';	
+
 	
+/* __________________________________________________________ */
+/*															  */
+/* LDAP n'est pas obligatoire et dépend des modules utilisés  */
+/* __________________________________________________________ */
+
+
 	/*******************************************************/
 	/* Class à utiliser pour accéder au service d'annuaire */
 	/* On peut aussi utiliser un autre système             */
@@ -40,7 +86,7 @@
 	// Identifiants pour accéder au serveur LDAP
 		public static $LDAP_url = 'ldap://ldap.uha.fr:389';
 		public static $LDAP_user = 'uid=didev,ou=dsa,dc=uha,dc=fr';
-		public static $LDAP_password = 'MDP_LDAP';
+		public static $LDAP_password = 'Mot_De_Passe';
 
 	// Désignation du Distinguished Name dans LDAP
 		public static $LDAP_dn = 'dc=uha,dc=fr';
@@ -72,20 +118,11 @@
 													// '*/2 * * * *' => Toutes les 2 minutes
 													// '0 * * * *'   => Toutes les heures à xxh00
 													// '0 0 * * *'   => Tous les jours à 00h00
+/* ________________ */
+/*				    */
+/* Fin config LDAP  */
+/* ________________ */
 
-	/********************************/
-	/* Accès à Scodoc               */
-	/********************************/
-	/*	Il faut créer compte avec un accès "secrétariat" qui a accès à tous les départements */
-
-		public static $scodoc_url = 'https://iutmscodoc9.uha.fr/ScoDoc';
-		public static $scodoc_login = [
-			'__ac_name' => 'utilisateurScodoc',
-			'__ac_password' => 'MDP_Scodoc'
-		];
-		
-		public static $scodoc_login2 = 'utilisateurScodoc';
-		public static $scodoc_psw = 'MDP_Scodoc';
 
 	/****************************/
 	/* Configuration du serveur */
@@ -94,9 +131,9 @@
 		public static $webServerGroup = 'www-data';	/* Nécessaire ? */
 		public static $PHP_cmd = '/usr/bin/php';
 	
-	/************************/
-	/* Gestion des absences */
-	/************************/
+	/**************************************************/
+	/* Gestion des absences - si le module est activé */
+	/**************************************************/
 		public static $absences_creneaux = [
 			[8, 10],
 			[10, 12],
