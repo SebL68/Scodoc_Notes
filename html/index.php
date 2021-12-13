@@ -12,7 +12,7 @@
 		<meta name="theme-color" content="#0084b0">
 		<link rel="apple-touch-icon" href="images/icons/192x192.png">
 		<style>
-			<?php include "$path/html/assets/header.css"?>
+			<?php include $_SERVER['DOCUMENT_ROOT']."/assets/header.css"?>
 /**********************/
 /* Gestion de semestres */
 /**********************/
@@ -219,7 +219,7 @@
 	<body>
 		<?php 
 			$h1 = 'Relevé de notes';
-			include "$path/html/assets/header.php";
+			include $_SERVER['DOCUMENT_ROOT']."/assets/header.php";
 		?>
 		<main>
 			<a href="avatar.php">

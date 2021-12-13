@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Absences</title>
     <style>
-        <?php include "$path/html/assets/header.css"?>
+        <?php include $_SERVER['DOCUMENT_ROOT']."/assets/header.css"?>
         .admin{
             background: #FFF;
             color: #424242;
@@ -243,7 +243,7 @@
 <body>
     <?php 
         $h1 = 'Absences';
-        include "$path/html/assets/header.php";
+        include $_SERVER['DOCUMENT_ROOT']."/assets/header.php";
     ?>
     <main>
         <p>

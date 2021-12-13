@@ -14,7 +14,7 @@
 					echo count(Config::$absences_creneaux); 
 				?>;
 		}
-        <?php include "$path/html/assets/header.css"?>
+        <?php include $_SERVER['DOCUMENT_ROOT']."/assets/header.css"?>
         header{
             position: sticky;
             left:0;
@@ -297,7 +297,7 @@
 <body>
     <?php 
         $h1 = 'Stats / Justif';
-        include "$path/html/assets/header.php";
+        include $_SERVER['DOCUMENT_ROOT']."/assets/header.php";
     ?>
     <main>
 		<p>

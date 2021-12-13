@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documents</title>
     <style>
-        <?php include "$path/html/assets/header.css"?>
+        <?php include $_SERVER['DOCUMENT_ROOT']."/assets/header.css"?>
         h2{
             margin: 20px 0 0 0;
             padding: 20px;
@@ -135,7 +135,7 @@
 <body>		
     <?php 
 		$h1 = 'Documents';
-		include "$path/html/assets/header.php";
+		include $_SERVER['DOCUMENT_ROOT']."/assets/header.php";
 	?>
     <main>
         <p>
