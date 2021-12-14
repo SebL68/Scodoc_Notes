@@ -1,3 +1,5 @@
+Vous pouvez utiliser le projet en entier pour plus de simplicité ou utiliser des parties pour coder votre propre plateforme.
+
 # Guide rapide d'installation
 ## Fichiers
 Le dossier "html" doit être la racine du site.  
