@@ -21,6 +21,8 @@ Il est à minima nécessaire de configurer :
     -  $scodoc_url,
     -  $scodoc_login
 
+L'utilisation du LDAP n'est pas obligatoire si le CAS renvoie le nip. Si le CAS renvoie l'adresse mail, il faut alors mettre en place le système qui permet de convertir les mails en nip. Dans /data/annuaires, il y a les fichiers pour cette conversion. Différentes fonctions permettent de remplir ces fichiers automatiquement à partir du LDAP.  
+  
 Par défaut, ce site ne diffuse que les relevés de notes aux étudiants.  
 Il est possible d'activer d'autres options prévus pour les enseignants comme :
  - la possibiltié de visualiser les relevés de n'importe quel étudiant,
