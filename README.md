@@ -17,7 +17,7 @@ DocumentRoot "${INSTALL_DIR}/www/html/"
 <Directory "${INSTALL_DIR}/www/html/">
 ```
 
-Si besoin, le dossier "html" peut être nommé différement, il peut par exemple être nommé "www".
+Si besoin, le dossier "html" peut être nommé différemment, il peut par exemple être nommé "www".
 
 ## Configuration
 L'ensemble des fichiers à configurer se trouvent dans "/config/".
@@ -33,11 +33,11 @@ L'utilisation du LDAP n'est pas obligatoire si le CAS renvoie le nip. Si le CAS 
   
 Par défaut, ce site ne diffuse que les relevés de notes aux étudiants.  
 Il est possible d'activer d'autres options prévus pour les enseignants comme :
- - la possibiltié de visualiser les relevés de n'importe quel étudiant,
+ - la possibilité de visualiser les relevés de n'importe quel étudiant,
  - récupérer des documents xls pratiques, automatiquement générés en fonction des listes Scodoc,
  - gérer les absences entièrement depuis la passerelle, avec des créneaux prédéfinis (sans utiliser Scodoc).
 
-# Ne pas utiliser la suite de cette documention, ce n'est plus à jour !
+# Ne pas utiliser la suite de cette documentation, ce n'est plus à jour !
 # !!! Nouvelle documentation en cours de rédaction !!!
 
 git update-index --skip-worktree config/config.php
