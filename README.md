@@ -1,4 +1,33 @@
-# Ne pas utiliser cette documention, ce n'est plus à jour !
+# Guide rapide d'installation
+## Fichiers
+Le dossier "html" doit être la racine du site.
+Les autres dossiers doivent être dans le dossier parent et donc inaccessible depuis le net.
+Ceci a été fait pour des raisons de sécurité : ces dossiers ne doivent pas être accessible en dehors du serveur car ils contiennent des données et fonctions sensibles (mot de passe, certificats, etc.). Le seul dossier accessible doit être "html". 
+Il est alors possible de les placer comme il faut par rapport au www ou de configurer dans Apache le fichier httpd-vhosts.conf :
+```
+DocumentRoot "${INSTALL_DIR}/www/html/"
+<Directory "${INSTALL_DIR}/www/html/">
+```
+
+Si besoin, le dossier "html" peut être nommé différement, il peut par exemple être nommé "www".
+
+## Configuration
+L'ensemble des fichiers à configurer se trouvent dans "/config/".
+Il est à minima nécessaire de configurer :
+  - cas.pem,
+  - cas_config.php,
+  - config.php :
+    -  $departements,
+    -  $scodoc_url,
+    -  $scodoc_login
+
+Par défaut, ce site ne diffuse que les relevés de notes aux étudiants.
+Il est possible d'activer d'autres options prévus pour les enseignants comme :
+ - la possibiltié de visualiser les relevés de n'importe quel étudiant,
+ - récupérer des documents xls pratiques, automatiquement générés en fonction des listes Scodoc,
+ - gérer les absences entièrement depuis la passerelle, avec des créneaux prédéfinis (sans utiliser Scodoc).
+
+# Ne pas utiliser la suite de cette documention, ce n'est plus à jour !
 # !!! Nouvelle documentation en cours de rédaction !!!
 
 git update-index --skip-worktree config/config.php
