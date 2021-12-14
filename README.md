@@ -1,6 +1,7 @@
 Les utilisateurs actuels sont :
  - IUT de Mulhouse (UHA),
- - IUT de Ville d'Avray.
+ - IUT de Ville d'Avray,
+ - IUT de Chartres.
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste :-)   
   
