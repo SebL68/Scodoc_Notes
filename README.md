@@ -1,8 +1,8 @@
 # Guide rapide d'installation
 ## Fichiers
-Le dossier "html" doit être la racine du site.
-Les autres dossiers doivent être dans le dossier parent et donc inaccessible depuis le net.
-Ceci a été fait pour des raisons de sécurité : ces dossiers ne doivent pas être accessible en dehors du serveur car ils contiennent des données et fonctions sensibles (mot de passe, certificats, etc.). Le seul dossier accessible doit être "html". 
+Le dossier "html" doit être la racine du site.  
+Les autres dossiers doivent être dans le dossier parent et donc inaccessible depuis le net.  
+Ceci a été fait pour des raisons de sécurité : ces dossiers ne doivent pas être accessible en dehors du serveur car ils contiennent des données et fonctions sensibles (mot de passe, certificats, etc.). Le seul dossier accessible doit être "html".  
 Il est alors possible de les placer comme il faut par rapport au www ou de configurer dans Apache le fichier httpd-vhosts.conf :
 ```
 DocumentRoot "${INSTALL_DIR}/www/html/"
@@ -21,7 +21,7 @@ Il est à minima nécessaire de configurer :
     -  $scodoc_url,
     -  $scodoc_login
 
-Par défaut, ce site ne diffuse que les relevés de notes aux étudiants.
+Par défaut, ce site ne diffuse que les relevés de notes aux étudiants.  
 Il est possible d'activer d'autres options prévus pour les enseignants comme :
  - la possibiltié de visualiser les relevés de n'importe quel étudiant,
  - récupérer des documents xls pratiques, automatiquement générés en fonction des listes Scodoc,
