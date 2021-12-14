@@ -287,7 +287,7 @@
 /* Début
 /**************************/
 			checkStatut();
-			document.querySelector("#notes").classList.add("navActif");
+			document.querySelector("#notes")?.classList.add("navActif");
 			<?php
 				include "$path/includes/clientIO.php";
 			?>
