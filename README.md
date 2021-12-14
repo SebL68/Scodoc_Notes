@@ -1,3 +1,9 @@
+Les utilisateurs actuels sont :
+ - IUT de Mulhouse (UHA),
+ - IUT de Ville d'Avray.
+  
+Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste :-)   
+  
 Vous pouvez utiliser le projet en entier pour plus de simplicité ou utiliser des parties pour coder votre propre plateforme.
 
 # Guide rapide d'installation
