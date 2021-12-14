@@ -116,7 +116,7 @@ Sortie :
 *******************************/
 function getStudentSemesters($data){
 	$data = (object) $data;
-	if($data->id){
+	if(isset($data->id)){
 		$nip = Annuaire::getStudentNumberFromMail($data->id);
 		$dep = getStudentDepartment($nip);
 	}else{
