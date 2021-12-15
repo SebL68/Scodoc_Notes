@@ -3,7 +3,7 @@ Les utilisateurs actuels sont :
  - IUT de Ville d'Avray,
  - IUT de Chartres.
   
-Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste :-)   
+Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
   
 Vous pouvez utiliser le projet en entier pour plus de simplicité ou utiliser des parties pour coder votre propre plateforme.
 
