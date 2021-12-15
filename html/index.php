@@ -276,6 +276,7 @@
 			Authentification en cours ...
 		</div>
 		
+		<script src="/assets/js/releve.js"></script>
 		<script>
 /**************************/
 /* Service Worker pour le message "Installer l'application" et pour le fonctionnement hors ligne PWA
@@ -311,7 +312,13 @@
 				} else {
 					document.querySelector("body").classList.add('etudiant');
 					feedSemesters(data.semestres);
-					feedReportCards(data.relevé, data.semestres[0], data.auth.session);
+					if(data.relevé.type == "BUT"){
+						document.querySelector("body").innerHTML += "<releve-but></releve-but>";
+						document.querySelector("releve-but").showData = data.relevé;
+					} else {
+						feedReportCards(data.relevé, data.semestres[0], data.auth.session);
+					}
+					
 					feedAbsences(data.absences);
 				}
 			}
@@ -370,7 +377,14 @@
 				let semestre = this.dataset.semestre;
 				let etudiant = this.parentElement.parentElement.dataset.etudiant;
 				let data = await fetchData("relevéEtudiant&semestre=" + semestre + (etudiant ? "&etudiant=" + etudiant : ""));
-				feedReportCards(data.relevé, semestre, etudiant);
+
+				if(data.relevé.type == "BUT"){
+					document.querySelector("body").innerHTML += "<releve-but></releve-but>";
+					document.querySelector("releve-but").showData = data.relevé;
+				} else {
+					feedReportCards(data.relevé, semestre, etudiant);
+				}
+
 				feedAbsences(data.absences);
 			}
 
