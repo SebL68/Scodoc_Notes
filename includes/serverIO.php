@@ -183,7 +183,7 @@ function getReportCards($data){
 		)
 	);
 
-	if($output->rang || $output->type == 'BUT'){	// Version BUT ou autres versions
+	if(isset($output->rang) || $output->type == 'BUT'){	// Version BUT ou autres versions
 		return $output;
 	}else{
 		returnError(
