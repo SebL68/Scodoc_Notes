@@ -215,6 +215,10 @@
 						}
 						releve.showData = data.relevé;
 						releve.shadowRoot.children[0].classList.add("hide_abs");
+						let styles = document.createElement('link');
+						styles.setAttribute('rel', 'stylesheet');
+						styles.setAttribute('href', '/assets/styles/releve-but-custom.css');
+						releve.shadowRoot.appendChild(styles);
 						releve.shadowRoot.querySelector(".studentPic").src = "/services/data.php?q=getStudentPic";
 					} else {
 						document.querySelector(".releve").innerHTML = "<releve-dut></releve-dut>";
@@ -288,6 +292,10 @@
 					}
 					releve.showData = data.relevé;
 					releve.shadowRoot.children[0].classList.add("hide_abs");
+					let styles = document.createElement('link');
+					styles.setAttribute('rel', 'stylesheet');
+					styles.setAttribute('href', '/assets/styles/releve-but-custom.css');
+					releve.shadowRoot.appendChild(styles);
 					releve.shadowRoot.querySelector(".studentPic").src = "/services/data.php?q=getStudentPic&email=" + etudiant;
 				} else {
 					document.querySelector(".releve").innerHTML = "<releve-dut></releve-dut>";

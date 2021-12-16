@@ -13,11 +13,11 @@
     100%{transform: translateY(40px) rotate(1turn);}
 }
 main{
-	--couleurPrincipale: #09c;
-    --couleurFondTitresUE: #09c;
+	--couleurPrincipale: rgb(240,250,255);
+    --couleurFondTitresUE: rgb(206,255,235);
     --couleurFondTitresRes: rgb(125, 170, 255);
     --couleurFondTitresSAE: rgb(255, 190, 69);
-    --couleurSecondaire: #c90;
+    --couleurSecondaire: #fec;
     --couleurIntense: #c09;
     --couleurSurlignage: rgba(232, 255, 132, 0.47);
     max-width: 1000px;
@@ -76,9 +76,7 @@ section>div:nth-child(1){
 .hide_coef .synthese em,
 .hide_coef .eval>em,
 .hide_date_inscr .dateInscription,
-.hide_ects .ects
-
-{
+.hide_ects .ects{
     display: none;
 }
 
@@ -161,9 +159,6 @@ section>div:nth-child(1){
     margin: 4px 0 2px 0;
     overflow: auto;
 }
-.sae .module, .sae .module h3 {
-    background: #d3ffff;
-}
 h3{
     display: flex;
     align-items: center;
@@ -173,6 +168,9 @@ h3{
     z-index: 1;
     font-size: 16px;
     background: var(--couleurSecondaire);
+}
+.sae .module, .sae h3{
+	background: var(--couleurFondTitresSAE);
 }
 
 .moyenne{

@@ -1,0 +1,24 @@
+main{
+	--couleurPrincipale: #09c;
+    --couleurFondTitresUE: #09c;
+    --couleurFondTitresRes: rgb(125, 170, 255);
+    --couleurFondTitresSAE: #ffc828;
+    --couleurSecondaire: #00be82;
+    --couleurIntense: #c09;
+    --couleurSurlignage: #c09;
+}
+.infoEtudiant, .ue, .module{
+	color: #FFF;
+}
+.module>div{
+	display: none;
+}
+.sae .module{
+	color: #1e1e1e;
+}
+.eval:hover, .syntheseModule:hover{
+    color: #FFF;
+}
+.dateInscription{
+	display: none;
+}
