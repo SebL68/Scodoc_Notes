@@ -46,114 +46,6 @@
 			}
 
 /**********************/
-/* Zone relevé de notes */
-/**********************/
-			.releve button, .button{
-				border-radius: 5px;
-				border: none;
-				margin: 10px;
-				padding: 10px;
-				display: table;
-				box-shadow: 0 0 4px #000;
-				background: #FFF;
-				color: #000;
-				text-decoration: none;
-				cursor: pointer;
-			}
-			.total{
-				font-size: 24px;
-				margin: 10px;
-				text-align: center;
-			}
-			.total>span{
-				font-size: 18px;
-				opacity: 0.6;
-			}
-			.ue, .module{
-				border-radius: 10px;
-				padding: 10px 20px;
-				margin: 10px;
-				box-shadow: 0 3px 6px #999;
-			}
-			.ue{
-				background: #09C;
-				color: #FFF;
-				display: flex;
-				justify-content: space-between;
-				gap: 10px;
-				cursor: pointer;
-			}
-			.ue>div:nth-child(1){
-				max-width: 50%;
-				display: -webkit-box;
-  				-webkit-line-clamp: 3;
-				-webkit-box-orient: vertical;  
-				overflow: hidden;
-			}
-			.ue>div:nth-child(2){
-				font-weight: bold;
-				text-align: right;
-			}
-			.module{
-				background: #FFF;
-				margin-left: 30px;
-			}
-			.module>div, .eval{
-				display: flex;
-				justify-content: space-between;
-				gap: 15px;
-			}
-			.module>div>div:nth-child(2){
-				text-align: right;
-			}
-			.module>div>div>span{
-				opacity: 0.6;
-			}
-			.coef{
-				font-style: italic;
-				opacity: 0.6;
-				display: block;
-			}
-			.eval .coef{
-				display:inline-block;
-				width: 65px;
-				text-align: left;
-			}
-			.eval{
-				padding: 5px;
-				background: #87efd5;
-				margin-top: 2px;
-				border-radius: 5px;
-				cursor:pointer;
-			}
-			.eval:nth-child(odd){
-				background: #a4d3e2;
-			}
-			.eval>div:nth-child(2){
-				flex-shrink:0;
-			}
-
-			.checked, [data-note=undefined], [data-note=NP]{
-				background: #D0D0D0;
-				
-			}
-			[data-note=undefined], [data-note=NP]{
-				cursor: initial;
-			}
-			.checked:nth-child(odd), [data-note=undefined]:nth-child(odd), [data-note=NP]:nth-child(odd){
-				background: #F0F0F0;
-			}
-			.hide{
-				display: none;
-			}
-			body:not(.ShowEmpty) [data-note=undefined], body:not(.ShowEmpty) [data-note=NP], body:not(.ShowEmpty) [data-note=EXC]{
-				display: none !important;
-			}
-			.ShowEmpty .button{
-				background: #0C9;
-				color: #FFF;
-			}
-/**********************/
 /* Zone absences */
 /**********************/
 			h2{
@@ -251,7 +143,7 @@
 			<hr>
 			<div class=wait></div>
 			<div class=releve></div>
-			<div class=button onclick="ShowEmpty()">Montrer les évaluations sans note</div>
+			<!--<div class=button onclick="ShowEmpty()">Montrer les évaluations sans note</div>-->
 			<hr>
 
 			<div class="absences">
@@ -275,8 +167,9 @@
 		<div class=auth>
 			Authentification en cours ...
 		</div>
-		
-		<script src="/assets/js/releve.js"></script>
+
+		<script src="/assets/js/releve-dut.js"></script>
+		<script src="/assets/js/releve-but.js"></script>
 		<script>
 /**************************/
 /* Service Worker pour le message "Installer l'application" et pour le fonctionnement hors ligne PWA
@@ -312,11 +205,13 @@
 				} else {
 					document.querySelector("body").classList.add('etudiant');
 					feedSemesters(data.semestres);
+					data.
 					if(data.relevé.type == "BUT"){
-						document.querySelector("body").innerHTML += "<releve-but></releve-but>";
+						document.querySelector(".releve").innerHTML = "<releve-but></releve-but>";
 						document.querySelector("releve-but").showData = data.relevé;
 					} else {
-						feedReportCards(data.relevé, data.semestres[0], data.auth.session);
+						document.querySelector(".releve").innerHTML = "<releve-dut></releve-dut>";
+						document.querySelector("releve-dut").showData = [data.relevé, data.semestres[0], data.auth.session];
 					}
 					
 					feedAbsences(data.absences);
@@ -379,104 +274,18 @@
 				let data = await fetchData("relevéEtudiant&semestre=" + semestre + (etudiant ? "&etudiant=" + etudiant : ""));
 
 				if(data.relevé.type == "BUT"){
-					document.querySelector("body").innerHTML += "<releve-but></releve-but>";
+					document.querySelector(".releve").innerHTML = "<releve-but></releve-but>";
 					document.querySelector("releve-but").showData = data.relevé;
 				} else {
-					feedReportCards(data.relevé, semestre, etudiant);
+					document.querySelector(".releve").innerHTML = "<releve-dut></releve-dut>";
+					document.querySelector("releve-dut").showData = [data.relevé, semestre, etudiant];
+					//feedReportCards(data.relevé, semestre, etudiant);
 				}
 
 				feedAbsences(data.absences);
 			}
 
-			function feedReportCards(data, semestre, etudiant){
-				document.querySelector(".releve").innerHTML = `
-					<form action=services/bulletin_PDF.php?sem_id=${semestre}&etudiant=${etudiant} target=_blank method=post>
-						<button type=submit>Télécharger le relevé au format PDF</button>
-					</form>
-				`;
-
-				if(data.rang_group[0]?.group_name){
-					document.querySelector(".releve").innerHTML += `<div class="total">Groupe ${data.rang_group[0].group_name}</div>`;
-				}
-				
-
-				let decision = data.situation?.split(". ") || [];
-				if(decision[1]){
-					decision = "<b>"+decision[1] + ". " + decision[2]+"</b><br>";
-				}else{
-					decision = "";
-				}
-				document.querySelector(".releve").innerHTML += `
-					<div class="total">
-						${decision}
-						Moyenne semestre : ${data.note.value} <br>
-						Rang : ${data.rang.value || "Attente"} / ${data.rang.ninscrits} <br>
-						<span>Classe : ${data.note.moy} - Max : ${data.note.max} - Min : ${data.note.min}</span>
-					</div>
-					${ue(data.ue)}`;
-
-				if(document.querySelector("body").classList.contains('etudiant')){
-					set_checked();
-				}
-			}
-
-/**************************/
-/* Création des bloques UE
-/**************************/
-			function ue(ue){
-				let output = "";
-				ue.forEach(e=>{
-					output += `
-						<div class=ue data-id="${e.acronyme}" onclick="openClose(this)">
-							<div>${e.acronyme} - ${e.titre}</div>
-							<div>
-								Moyenne&nbsp;:&nbsp;${e.note.value}<br>Rang&nbsp;:&nbsp;${e.rang}
-							</div>
-						</div>
-						${module(e.module)}`;
-				})
-				return output;
-			}
-
-/**************************/
-/* Création des bloques modules
-/**************************/
-			function module(module){
-				let output = "";
-				module.forEach(e=>{
-					output += `
-						<div class=module data-id="${e.code}">
-							<div>
-								<div>${e.titre}<span class=coef>Coef ${e.coefficient}</span></div>
-								<div>
-									Moyenne&nbsp;:&nbsp;${e.note.value} - Rang&nbsp;:&nbsp;${e.rang?.value || "-"}<br>
-									<span>
-										Classe&nbsp;:&nbsp;${e.note.moy} - Max&nbsp;:&nbsp;${e.note.max} - Min&nbsp;:&nbsp;${e.note.min}
-									</span>
-								</div>
-							</div>
-							
-
-							${evaluation(e.evaluation)}
-						</div>`;
-				})
-				return output;
-			}
-
-/**************************/
-/* Création des evaluations
-/**************************/
-			function evaluation(evaluation){
-				let output = "";
-				evaluation.forEach(e=>{
-					output += `
-						<div class=eval onclick="check_eval(this)" data-id="${e.description.replaceAll("&apos;", "")}" data-note=${e.note}>
-							<div>${e.description}</div>
-							<div>${e.note}&nbsp;<span class=coef>Coef&nbsp;${e.coefficient}</span></div>
-						</div>`;
-				})
-				return output;
-			}
+			
 
 /*********************************************/
 /* Affichage des absences

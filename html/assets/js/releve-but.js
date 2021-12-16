@@ -1,4 +1,4 @@
-class releve extends HTMLElement {
+class releveBUT extends HTMLElement {
 	constructor(){
 		super();
 		this.shadow = this.attachShadow({mode: 'open'});
@@ -9,7 +9,7 @@ class releve extends HTMLElement {
 		/* Style du module */
 		const styles = document.createElement('link');
 		styles.setAttribute('rel', 'stylesheet');
-		styles.setAttribute('href', '/assets/styles/releve.css');
+		styles.setAttribute('href', '/assets/styles/releve-but.css');
 		this.shadow.appendChild(styles);	
 
 		this.shadow.querySelectorAll(".CTA_Liste").forEach(e => {
@@ -311,4 +311,4 @@ class releve extends HTMLElement {
 	}
 
 }
-customElements.define('releve-but', releve);
+customElements.define('releve-but', releveBUT);

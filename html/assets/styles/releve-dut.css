@@ -1,0 +1,108 @@
+/************************/
+/* Zone relevé de notes */
+/************************/
+.releve button, .button{
+	border-radius: 5px;
+	border: none;
+	margin: 10px;
+	padding: 10px;
+	display: table;
+	box-shadow: 0 0 4px #000;
+	background: #FFF;
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+.total{
+	font-size: 24px;
+	margin: 10px;
+	text-align: center;
+}
+.total>span{
+	font-size: 18px;
+	opacity: 0.6;
+}
+.ue, .module{
+	border-radius: 10px;
+	padding: 10px 20px;
+	margin: 10px;
+	box-shadow: 0 3px 6px #999;
+}
+.ue{
+	background: #09C;
+	color: #FFF;
+	display: flex;
+	justify-content: space-between;
+	gap: 10px;
+	cursor: pointer;
+}
+.ue>div:nth-child(1){
+	max-width: 50%;
+	display: -webkit-box;
+	  -webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;  
+	overflow: hidden;
+}
+.ue>div:nth-child(2){
+	font-weight: bold;
+	text-align: right;
+}
+.module{
+	background: #FFF;
+	margin-left: 30px;
+}
+.module>div, .eval{
+	display: flex;
+	justify-content: space-between;
+	gap: 15px;
+}
+.module>div>div:nth-child(2){
+	text-align: right;
+}
+.module>div>div>span{
+	opacity: 0.6;
+}
+.coef{
+	font-style: italic;
+	opacity: 0.6;
+	display: block;
+}
+.eval .coef{
+	display:inline-block;
+	width: 65px;
+	text-align: left;
+}
+.eval{
+	padding: 5px;
+	background: #87efd5;
+	margin-top: 2px;
+	border-radius: 5px;
+	cursor:pointer;
+}
+.eval:nth-child(odd){
+	background: #a4d3e2;
+}
+.eval>div:nth-child(2){
+	flex-shrink:0;
+}
+
+.checked, [data-note=undefined], [data-note=NP]{
+	background: #D0D0D0;
+	
+}
+[data-note=undefined], [data-note=NP]{
+	cursor: initial;
+}
+.checked:nth-child(odd), [data-note=undefined]:nth-child(odd), [data-note=NP]:nth-child(odd){
+	background: #F0F0F0;
+}
+.hide{
+	display: none;
+}
+body:not(.ShowEmpty) [data-note=undefined], body:not(.ShowEmpty) [data-note=NP], body:not(.ShowEmpty) [data-note=EXC]{
+	display: none !important;
+}
+.ShowEmpty .button{
+	background: #0C9;
+	color: #FFF;
+}
