@@ -48,7 +48,6 @@ class releveBUT extends HTMLElement {
 <div>	
 	<div class="wait"></div>
 	<main class="releve">
-		<h1>Relevé encore en travaux !</h1>
 		<!--------------------------->
 		<!-- Info. étudiant        -->
 		<!--------------------------->
