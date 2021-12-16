@@ -205,10 +205,17 @@
 				} else {
 					document.querySelector("body").classList.add('etudiant');
 					feedSemesters(data.semestres);
-					data.
+
 					if(data.relevé.type == "BUT"){
 						document.querySelector(".releve").innerHTML = "<releve-but></releve-but>";
-						document.querySelector("releve-but").showData = data.relevé;
+
+						let releve = document.querySelector("releve-but");
+						releve.config = {
+							showURL: false
+						}
+						releve.showData = data.relevé;
+						releve.shadowRoot.children[0].classList.add("hide_abs");
+						releve.shadowRoot.querySelector(".studentPic").src = "/services/data.php?q=getStudentPic";
 					} else {
 						document.querySelector(".releve").innerHTML = "<releve-dut></releve-dut>";
 						document.querySelector("releve-dut").showData = [data.relevé, data.semestres[0], data.auth.session];
@@ -275,11 +282,16 @@
 
 				if(data.relevé.type == "BUT"){
 					document.querySelector(".releve").innerHTML = "<releve-but></releve-but>";
-					document.querySelector("releve-but").showData = data.relevé;
+					let releve = document.querySelector("releve-but");
+					releve.config = {
+						showURL: false
+					}
+					releve.showData = data.relevé;
+					releve.shadowRoot.children[0].classList.add("hide_abs");
+					releve.shadowRoot.querySelector(".studentPic").src = "/services/data.php?q=getStudentPic&email=" + etudiant;
 				} else {
 					document.querySelector(".releve").innerHTML = "<releve-dut></releve-dut>";
 					document.querySelector("releve-dut").showData = [data.relevé, semestre, etudiant];
-					//feedReportCards(data.relevé, semestre, etudiant);
 				}
 
 				feedAbsences(data.absences);

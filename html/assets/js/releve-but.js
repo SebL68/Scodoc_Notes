@@ -2,6 +2,11 @@ class releveBUT extends HTMLElement {
 	constructor(){
 		super();
 		this.shadow = this.attachShadow({mode: 'open'});
+
+		/* Config par defaut */
+		this.config = {
+			showURL: true
+		};
 		
 		/* Template du module */
 		this.shadow.innerHTML = this.template();
@@ -22,8 +27,11 @@ class releveBUT extends HTMLElement {
 		this.parentElement.parentElement.classList.toggle("listeOff")
 	}
 
-	set showData(data) {
-		
+	set setConfig(config){
+		this.config.showURL = config.showURL ?? this.config.showURL;
+	}
+
+	set showData(data) {	
 		this.showInformations(data);
 		this.showSemestre(data);
 		this.showSynthese(data);
@@ -38,76 +46,77 @@ class releveBUT extends HTMLElement {
 	template(){
 		return `
 <div>	
-<div class="wait"></div>
-<main class="releve">
-<!--------------------------->
-<!-- Info. étudiant        -->
-<!--------------------------->
-<section class=etudiant>
-	<img class=studentPic src="" alt="Photo de l'étudiant" width=100 height=120>
-	<div class=infoEtudiant></div>
-</section>
+	<div class="wait"></div>
+	<main class="releve">
+		<h1>Relevé encore en travaux !</h1>
+		<!--------------------------->
+		<!-- Info. étudiant        -->
+		<!--------------------------->
+		<section class=etudiant>
+			<img class=studentPic src="" alt="Photo de l'étudiant" width=100 height=120>
+			<div class=infoEtudiant></div>
+		</section>
 
-<!--------------------------->
-<!-- Semestre              -->
-<!--------------------------->
-<section>
-	<h2>Semestre </h2>
-	<div class=dateInscription>Inscrit le </div>
-	<em>Les moyennes servent à situer l'étudiant dans la promotion et ne correspondent pas à des validations de
-		compétences ou d'UE.</em>
-	<div class=infoSemestre></div>
-</section>
+		<!--------------------------->
+		<!-- Semestre              -->
+		<!--------------------------->
+		<section>
+			<h2>Semestre </h2>
+			<div class=dateInscription>Inscrit le </div>
+			<em>Les moyennes servent à situer l'étudiant dans la promotion et ne correspondent pas à des validations de
+				compétences ou d'UE.</em>
+			<div class=infoSemestre></div>
+		</section>
 
-<!--------------------------->
-<!-- Synthèse              -->
-<!--------------------------->
-<section>
-	<div>
-		<div>
-			<h2>Synthèse</h2>
-			<em>La moyenne des ressources dans une UE dépend des poids donnés aux évaluations.</em>
-		</div>
-		<div class=CTA_Liste>
-			Liste <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
-				stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-				<path d="M18 15l-6-6-6 6" />
-			</svg>
-		</div>
-	</div>
-	<div class=synthese></div>
-</section>
+		<!--------------------------->
+		<!-- Synthèse              -->
+		<!--------------------------->
+		<section>
+			<div>
+				<div>
+					<h2>Synthèse</h2>
+					<em>La moyenne des ressources dans une UE dépend des poids donnés aux évaluations.</em>
+				</div>
+				<div class=CTA_Liste>
+					Liste <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
+						stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<path d="M18 15l-6-6-6 6" />
+					</svg>
+				</div>
+			</div>
+			<div class=synthese></div>
+		</section>
 
-<!--------------------------->
-<!-- Evaluations           -->
-<!--------------------------->
-<section>
-	<div>
-		<h2>Ressources</h2>
-		<div class=CTA_Liste>
-			Liste <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
-				stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-				<path d="M18 15l-6-6-6 6" />
-			</svg>
-		</div>
-	</div>
-	<div class=evaluations></div>
-</section>
+		<!--------------------------->
+		<!-- Evaluations           -->
+		<!--------------------------->
+		<section>
+			<div>
+				<h2>Ressources</h2>
+				<div class=CTA_Liste>
+					Liste <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
+						stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<path d="M18 15l-6-6-6 6" />
+					</svg>
+				</div>
+			</div>
+			<div class=evaluations></div>
+		</section>
 
-<section>
-	<div>
-		<h2>SAÉ</h2>
-		<div class=CTA_Liste>
-			Liste <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
-				stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-				<path d="M18 15l-6-6-6 6" />
-			</svg>
-		</div>
-	</div>
-	<div class=sae></div>
-</section>
+		<section>
+			<div>
+				<h2>SAÉ</h2>
+				<div class=CTA_Liste>
+					Liste <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
+						stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<path d="M18 15l-6-6-6 6" />
+					</svg>
+				</div>
+			</div>
+			<div class=sae></div>
+		</section>
 
-</main>
+	</main>
 </div>`;
 	}
 
@@ -210,7 +219,7 @@ class releveBUT extends HTMLElement {
 			let url = data.ressources[module]?.url || data.saes[module]?.url;
 			output += `
 				<div class=syntheseModule>
-					<div><a href="${url}">${module}&nbsp;- ${titre}</a></div>
+					<div>${this.URL(url, `${module}&nbsp;- ${titre}`)}</div>
 					<div>
 						${dataModule.moyenne}
 						<em>Coef. ${dataModule.coef}</em>
@@ -234,7 +243,7 @@ class releveBUT extends HTMLElement {
 			output += `
 				<div>
 					<div class=module>
-						<h3><a href="${content.url}">${numero} - ${content.titre}</a></h3>
+						<h3>${this.URL(content.url, `${numero} - ${content.titre}`)}</h3>
 						<div>
 							<div class=moyenne>Moyenne&nbsp;indicative&nbsp;:&nbsp;${content.moyenne.value}</div>
 							<div class=info>
@@ -260,7 +269,7 @@ class releveBUT extends HTMLElement {
 		evaluations.forEach((evaluation) => {
 			output += `
 				<div class=eval>
-					<div><a href="${evaluation.url}">${evaluation.description}</a></div>
+					<div>${this.URL(evaluation.url, evaluation.description)}</div>
 					<div>
 						${evaluation.note.value}
 						<em>Coef. ${evaluation.coef}</em>
@@ -298,6 +307,13 @@ class releveBUT extends HTMLElement {
 	/********************/
 	/* Fonctions d'aide */
 	/********************/
+	URL(href, content){
+		if(this.config.showURL){
+			return `<a href=${href}>${content}</a>`;
+		} else {
+			return content;
+		}
+	}
 	civilite(txt) {
 		switch (txt) {
 			case "M": return "M.";

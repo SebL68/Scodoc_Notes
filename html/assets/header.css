@@ -20,7 +20,7 @@ header{
 	gap: 16px;
 	color:#FFF;
 	box-shadow: 0 2px 2px #888;
-	z-index:1;
+	z-index:100;
 }
 header a{
 	color: #FFF;
