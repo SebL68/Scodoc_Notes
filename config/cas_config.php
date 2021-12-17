@@ -10,5 +10,7 @@
 	$cas_port = 443;
 	// Path to the ca chain that issued the cas server certificate
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
-	$cas_server_ca_cert_path = $path . '/config/cas.pem';	// S'il n'y a pas de .pem, mettre une chaîne vide '', ce sera alors automatiquement phpCAS::setNoCasServerValidation(); 
+
+	$cas_server_ca_cert_path = ''; 							// Si vous n'utilisez pas cas.pem
+	//$cas_server_ca_cert_path = $path . '/config/cas.pem';	// Si vous utilisez cas.pem
 ?>
