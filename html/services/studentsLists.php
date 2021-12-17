@@ -442,7 +442,7 @@
                 sheet.cell("A1").value("Retours des notes").style("fontSize", 24)
                 sheet.cell("A2").value("Groupes " + h2.innerText).style("fontSize", 18);
                 sheet.cell("A3").value(groupes.join(", "));
-                sheet.cell("A5").value("Ces notes sont à transmettre au reponsable pour intégration dans Scodoc.")
+                sheet.cell("A5").value("Ces notes sont à transmettre au responsable pour intégration dans Scodoc.")
 
                 sheet.cell("E6").value("Date").style("bold", true).style("horizontalAlignment", "right");
                 sheet.cell("E7").value("Nom de l'enseignant").style("bold", true).style("horizontalAlignment", "right");
