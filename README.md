@@ -1,8 +1,8 @@
 Les utilisateurs actuels sont :
- - IUT de Mulhouse (UHA),
- - IUT de Ville d'Avray,
- - IUT de Chartres,
- - IUT de Lyon 1
+ - IUT de Mulhouse (UHA) => accès complet,
+ - IUT de Ville d'Avray => accès de base,
+ - IUT de Chartres => acces enseignant,
+ - IUT de Lyon 1 => acces enseignant.
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
   
