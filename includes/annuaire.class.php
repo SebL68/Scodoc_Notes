@@ -53,10 +53,10 @@ class Annuaire{
 			while(($line = fgets($handle, 1000)) !== FALSE){
 				$data = explode(':', $line);
 				if(rtrim($data[1]) == $mail)
-					return '2'.substr($data[0], 1);	// A Mulhouse, il y a une différence sur le premier caractère en APOGEE et LDAP.
+					return Config::nipModifier($data[0]);
 			}
 		} else {
-			return $mail;
+			return Config::nipModifier($mail);
 		}
 
 		exit(
