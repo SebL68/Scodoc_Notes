@@ -24,12 +24,11 @@
 
 			// Initialize phpCAS
 			phpCAS::client(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context);
-			if($cas_server_ca_cert_path) {
+			if($cas_server_ca_cert_path != '') {
 				phpCAS::setCasServerCACert($cas_server_ca_cert_path);
 			} else {
 				phpCAS::setNoCasServerValidation();
 			}
-			
 
 			if(phpCAS::isAuthenticated()){
 				// Utilisateur authentifié
@@ -61,9 +60,11 @@
 			// Initialize phpCAS
 			phpCAS::client(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context);
 				
-			// force CAS authentication
-			// phpCAS::setNoCasServerValidation() ;
-			phpCAS::setCasServerCACert($cas_server_ca_cert_path);
+			if($cas_server_ca_cert_path != '') {
+				phpCAS::setCasServerCACert($cas_server_ca_cert_path);
+			} else {
+				phpCAS::setNoCasServerValidation();
+			}
 			phpCAS::forceAuthentication(); 
 
 			header('Location: '. $_GET['href']);
