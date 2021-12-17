@@ -35,6 +35,17 @@
 	/*********************************/
 		public static $CAS_return_type = 'nip';	// Valeurs possibles : 'mail' ou 'nip'
 
+	/* Certains nip ou mails ne correspondent pas à ce qui est dans Scodoc, parfois une lettre à changer
+		La fonction nipModifier fonction permet d'appliquer une modification avant d'utilliser le nip / mail
+		
+		Voir /includes/annuaire.class.php -> getStudentNumberFromMail()
+	*/
+
+		public static function nipModifier($nip){
+			//return '2'.substr($nip, 1); // Exemple pour remplacer la première lettre par un 2
+			return $nip;
+		}
+
 
 	/********************************/
 	/* Accès à Scodoc               */
