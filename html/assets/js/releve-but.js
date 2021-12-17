@@ -139,7 +139,7 @@ class releveBUT extends HTMLElement {
 		output += `
 				</div>
 				<div class=numerosEtudiant>
-					Numéro étudiant : ${data.etudiant.code_nip}
+					Numéro étudiant : ${data.etudiant.code_nip} - 
 					Code INE : ${data.etudiant.code_ine}
 				</div>
 				<div>${data.formation.titre}</div>
