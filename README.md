@@ -21,6 +21,8 @@ DocumentRoot "${INSTALL_DIR}/www/html/"
 Si besoin, le dossier "html" peut être nommé différemment, il peut par exemple être nommé "www".
 
 ## Configuration
+Le serveur passerelle doit avoir accès au serveur Scodoc.
+
 L'ensemble des fichiers à configurer se trouvent dans "/config/".
 Il est à minima nécessaire de configurer :
   - cas.pem,
