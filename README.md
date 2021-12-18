@@ -50,6 +50,7 @@ Il est possible d'activer d'autres options prévus pour les enseignants comme :
 # !!! Nouvelle documentation en cours de rédaction !!!
 
 git update-index --skip-worktree config/config.php
+net start WinFSP.launcher
 
 # Scodoc_Notes
 
