@@ -125,8 +125,8 @@ class Annuaire{
 			[int] - ETUDIANT | PERSONNEL | ADMINISTRATEUR | INCONNU // INCONNU une personne connue mais pas dans les listings de la composante.
 	*/
 	/****************************************************/
-	public static function statut($user){
-		if(!isset($_SESSION['statut']) || $_SESSION['statut'] == ''){
+	public static function statut($user, $forceRenew = false){
+		if($forceRenew || !isset($_SESSION['statut']) || $_SESSION['statut'] == ''){
 			
 			/* Vérification de l'existence des fichiers de listes */
 			self::checkFile(self::$STUDENTS_PATH);
