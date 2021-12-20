@@ -32,9 +32,12 @@
 		public function __construct(){
 			$this->path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 
-			if(isset($_POST['token']) && Config::$JWT_key != ''){
+			$header = apache_request_headers()['Authorization'];
+			preg_match('/Bearer\s((.*)\.(.*)\.(.*))/', $header, $token);
+
+			if($token[1] != '' && Config::$JWT_key != ''){
 				/* Accès par jeton */
-				$this->tokenAuth();
+				$this->tokenAuth($token[1]);
 
 			} elseif(isset($_SESSION['statut']) && $_SESSION['statut'] != '') {
 				/* Utilisateur déjà authentifié */
@@ -62,22 +65,11 @@
 	/******************************/
 	/* Authentification par jeton */
 	/******************************/
-		private function tokenAuth(){
+		private function tokenAuth($token){
 			include_once $this->path . '/lib/JWT/JWT.php';
 			include_once $this->path . '/config/config.php';
-
-			// Message d'erreur si le serveur est mal configuré.
-			if(Config::$JWT_key == ""){
-				exit(
-					json_encode(
-						array(
-							'erreur' => 'ADMIN : veuillez définir une clé pour les jetons JWT.'
-						)
-					)
-				);
-			}
 			
-			$decoded = JWT::decode($_POST['token'], Config::$JWT_key, ['HS256']);
+			$decoded = JWT::decode($token, Config::$JWT_key, ['HS256']);
 			$_SESSION['id'] = $decoded->session;
 
 			switch($decoded->statut){

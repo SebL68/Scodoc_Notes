@@ -147,6 +147,14 @@
 				];
 				break;
 
+			case 'getStatut':
+				// Uniquement pour les personnels IUT.
+				if($user->getStatut() < PERSONNEL){ returnError(); }
+				$output = [
+					'statut' => Annuaire::statut($_GET['user'])
+				];
+				break;
+
 			case 'listeEtudiants':
 				// Uniquement pour les personnels IUT.
 				if($user->getStatut() < PERSONNEL){ returnError(); }
