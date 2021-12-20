@@ -32,10 +32,10 @@
 		public function __construct(){
 			$this->path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 
-			$header = apache_request_headers()['Authorization'];
+			$header = apache_request_headers()['Authorization'] ?? "";
 			preg_match('/Bearer\s((.*)\.(.*)\.(.*))/', $header, $token);
 
-			if($token[1] != '' && Config::$JWT_key != ''){
+			if(($token[1] ?? '') != '' && Config::$JWT_key != ''){
 				/* Accès par jeton */
 				$this->tokenAuth($token[1]);
 
