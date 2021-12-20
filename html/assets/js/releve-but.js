@@ -1,3 +1,4 @@
+/* Module par Seb. L. */
 class releveBUT extends HTMLElement {
 	constructor(){
 		super();
@@ -15,16 +16,17 @@ class releveBUT extends HTMLElement {
 		const styles = document.createElement('link');
 		styles.setAttribute('rel', 'stylesheet');
 		styles.setAttribute('href', '/assets/styles/releve-but.css');
+
 		this.shadow.appendChild(styles);	
-
-		this.shadow.querySelectorAll(".CTA_Liste").forEach(e => {
-			e.addEventListener("click", this.listeOnOff)
-		})
-
-		
 	}
 	listeOnOff() {
-		this.parentElement.parentElement.classList.toggle("listeOff")
+		this.parentElement.parentElement.classList.toggle("listeOff");
+		this.parentElement.parentElement.querySelectorAll(".moduleOnOff").forEach(e=>{
+			e.classList.remove("moduleOnOff")
+		})
+	}
+	moduleOnOff(){
+		this.parentElement.classList.toggle("moduleOnOff");
 	}
 
 	set setConfig(config){
@@ -39,9 +41,15 @@ class releveBUT extends HTMLElement {
 
 		this.setOptions(data.options);
 
+		this.shadow.querySelectorAll(".CTA_Liste").forEach(e => {
+			e.addEventListener("click", this.listeOnOff)
+		})	
+		this.shadow.querySelectorAll(".ue, .module").forEach(e => {
+			e.addEventListener("click", this.moduleOnOff)
+		})
+
 		this.shadow.children[0].classList.add("ready");
 	}
-
 
 	template(){
 		return `
@@ -55,7 +63,6 @@ class releveBUT extends HTMLElement {
 			<img class=studentPic src="" alt="Photo de l'étudiant" width=100 height=120>
 			<div class=infoEtudiant></div>
 		</section>
-
 		<!--------------------------->
 		<!-- Semestre              -->
 		<!--------------------------->
@@ -66,7 +73,6 @@ class releveBUT extends HTMLElement {
 				compétences ou d'UE.</em>
 			<div class=infoSemestre></div>
 		</section>
-
 		<!--------------------------->
 		<!-- Synthèse              -->
 		<!--------------------------->
@@ -85,7 +91,6 @@ class releveBUT extends HTMLElement {
 			</div>
 			<div class=synthese></div>
 		</section>
-
 		<!--------------------------->
 		<!-- Evaluations           -->
 		<!--------------------------->
@@ -101,7 +106,6 @@ class releveBUT extends HTMLElement {
 			</div>
 			<div class=evaluations></div>
 		</section>
-
 		<section>
 			<div>
 				<h2>SAÉ</h2>
@@ -114,7 +118,6 @@ class releveBUT extends HTMLElement {
 			</div>
 			<div class=sae></div>
 		</section>
-
 	</main>
 </div>`;
 	}
@@ -133,7 +136,7 @@ class releveBUT extends HTMLElement {
 					${data.etudiant.prenom}`;
 
 		if (data.etudiant.date_naissance) {
-			output += ` né${(data.etudiant.civilite == "F") ? "e" : ""} le ${this.ISOToDate(data.etudiant.date_naissance)}`;
+			output += ` <div class=dateNaissance>né${(data.etudiant.civilite == "F") ? "e" : ""} le ${this.ISOToDate(data.etudiant.date_naissance)}</div>`;
 		}
 
 		output += `
@@ -186,27 +189,29 @@ class releveBUT extends HTMLElement {
 		let output = ``;
 		Object.entries(data.ues).forEach(([ue, dataUE]) => {
 			output += `
-				<div class=ue>
-					<h3>
-						${(dataUE.competence) ? dataUE.competence + " - " : ""}${ue}
-					</h3>
-					<div>
-						<div class=moyenne>Moyenne&nbsp;:&nbsp;${dataUE.moyenne?.value || "-"}</div>
-						<div class=info>
-							Bonus&nbsp;:&nbsp;${dataUE.bonus || 0}&nbsp;- 
-							Malus&nbsp;:&nbsp;${dataUE.malus || 0}
-							<span class=ects>&nbsp;-
-								ECTS&nbsp;:&nbsp;${dataUE.ECTS.acquis}&nbsp;/&nbsp;${dataUE.ECTS.total}
-							</span>
+				<div>
+					<div class=ue>
+						<h3>
+							${(dataUE.competence) ? dataUE.competence + " - " : ""}${ue}
+						</h3>
+						<div>
+							<div class=moyenne>Moyenne&nbsp;:&nbsp;${dataUE.moyenne?.value || "-"}</div>
+							<div class=info>
+								Bonus&nbsp;:&nbsp;${dataUE.bonus || 0}&nbsp;- 
+								Malus&nbsp;:&nbsp;${dataUE.malus || 0}
+								<span class=ects>&nbsp;-
+									ECTS&nbsp;:&nbsp;${dataUE.ECTS.acquis}&nbsp;/&nbsp;${dataUE.ECTS.total}
+								</span>
+							</div>
+						</div>
+						<div class=absences>
+							<div>Abs&nbsp;N.J.</div><div>${dataUE.absences?.injustifie || 0}</div>
+							<div>Total</div><div>${dataUE.absences?.total || 0}</div>
 						</div>
 					</div>
-					<div class=absences>
-						<div>Abs&nbsp;N.J.</div><div>${dataUE.absences?.injustifie || 0}</div>
-						<div>Total</div><div>${dataUE.absences?.total || 0}</div>
-					</div>
+					${this.synthese(data, dataUE.ressources)}
+					${this.synthese(data, dataUE.saes)}
 				</div>
-				${this.synthese(data, dataUE.ressources)}
-				${this.synthese(data, dataUE.saes)}
 			`;
 		});
 		this.shadow.querySelector(".synthese").innerHTML = output;
@@ -221,7 +226,7 @@ class releveBUT extends HTMLElement {
 					<div>${this.URL(url, `${module}&nbsp;- ${titre}`)}</div>
 					<div>
 						${dataModule.moyenne}
-						<em>Coef. ${dataModule.coef}</em>
+						<em>Coef.&nbsp;${dataModule.coef}</em>
 					</div>
 				</div>
 			`;
@@ -271,7 +276,7 @@ class releveBUT extends HTMLElement {
 					<div>${this.URL(evaluation.url, evaluation.description)}</div>
 					<div>
 						${evaluation.note.value}
-						<em>Coef. ${evaluation.coef}</em>
+						<em>Coef.&nbsp;${evaluation.coef}</em>
 					</div>
 					<div class=complement>
 						<div>Coef</div><div>${evaluation.coef}</div>

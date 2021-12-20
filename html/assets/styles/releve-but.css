@@ -16,7 +16,7 @@ main{
 	--couleurPrincipale: rgb(240,250,255);
     --couleurFondTitresUE: rgb(206,255,235);
     --couleurFondTitresRes: rgb(125, 170, 255);
-    --couleurFondTitresSAE: rgb(255, 190, 69);
+    --couleurFondTitresSAE: rgb(211, 255, 255);
     --couleurSecondaire: #fec;
     --couleurIntense: #c09;
     --couleurSurlignage: rgba(232, 255, 132, 0.47);
@@ -68,6 +68,15 @@ section>div:nth-child(1){
     display: none;
 }
 
+.moduleOnOff>.syntheseModule,
+.moduleOnOff>.eval{
+	display: none;
+}
+.listeOff .moduleOnOff>.syntheseModule,
+.listeOff .moduleOnOff>.eval{
+	display: flex !important;
+}
+
 /***********************/
 /* Options d'affichage */
 /***********************/
@@ -78,6 +87,12 @@ section>div:nth-child(1){
 .hide_date_inscr .dateInscription,
 .hide_ects .ects{
     display: none;
+}
+
+.module>.absences,
+.module .moyenne,
+.module .info{
+	display: none;
 }
 
 /************/
@@ -133,16 +148,14 @@ section>div:nth-child(1){
 /***************/
 /* Synthèse    */
 /***************/
-.synthese>.ue{
-    background: var(--couleurFondTitresUE);
-}
+.synthese .ue,
 .synthese h3{
     background: var(--couleurFondTitresUE);
 }
 .synthese em,
 .eval em{
     opacity: 0.6;
-    width: 70px;
+    min-width: 80px;
     display: inline-block;
 }
 
@@ -158,6 +171,7 @@ section>div:nth-child(1){
     gap: 16px;
     margin: 4px 0 2px 0;
     overflow: auto;
+	cursor: pointer;
 }
 h3{
     display: flex;
@@ -184,10 +198,15 @@ h3{
     position: relative;
     display: flex;
     justify-content: space-between;
-    margin: 0 28px;
+    margin: 0 0 0 28px;
     padding: 0px 4px;
     border-bottom: 1px solid #aaa;
 }
+.eval>div, .syntheseModule>div{
+	display: flex;
+	gap: 4px;
+}
+
 .eval:hover, .syntheseModule:hover{
     background: var(--couleurSurlignage);
     /* color: #FFF; */
@@ -203,9 +222,10 @@ h3{
     color: #000;
     border: 1px solid var(--couleurIntense);
     opacity: 0;
-    display: grid;
+    display: grid !important;
     grid-template-columns: auto auto;
-    column-gap: 4px;
+	gap: 0 !important;
+    column-gap: 4px !important;
 }
 .eval:hover .complement{
     opacity: 1;

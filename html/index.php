@@ -220,6 +220,9 @@
 						styles.setAttribute('href', '/assets/styles/releve-but-custom.css');
 						releve.shadowRoot.appendChild(styles);
 						releve.shadowRoot.querySelector(".studentPic").src = "/services/data.php?q=getStudentPic";
+						if(!document.body.classList.contains("personnel")){
+							document.querySelector(".prenom").innerText = data.relevé.etudiant.prenom.toLowerCase();
+						}	
 					} else {
 						document.querySelector(".releve").innerHTML = "<releve-dut></releve-dut>";
 						document.querySelector("releve-dut").showData = [data.relevé, data.semestres[0], data.auth.session];
@@ -297,15 +300,16 @@
 					styles.setAttribute('href', '/assets/styles/releve-but-custom.css');
 					releve.shadowRoot.appendChild(styles);
 					releve.shadowRoot.querySelector(".studentPic").src = "/services/data.php?q=getStudentPic&email=" + etudiant;
+					if(!document.body.classList.contains("personnel")){
+						document.querySelector(".prenom").innerText = data.relevé.etudiant.prenom.toLowerCase();
+					}	
 				} else {
 					document.querySelector(".releve").innerHTML = "<releve-dut></releve-dut>";
 					document.querySelector("releve-dut").showData = [data.relevé, semestre, etudiant];
 				}
 
 				feedAbsences(data.absences);
-			}
-
-			
+			}	
 
 /*********************************************/
 /* Affichage des absences
