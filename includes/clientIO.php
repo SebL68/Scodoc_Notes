@@ -26,11 +26,11 @@ function fetchData(query){
 	return fetch(
 		"/services/data.php?q="+query, 
 		{
-			method: "post",
+			method: "get",
 			headers: {
-				"Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-			},
-			body: token ? "token="+token : ""
+				"Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+				"Authorization": token ? "Bearer " + token : ""
+			}
 		}
 	)
 	.then(res => { return res.json() })
