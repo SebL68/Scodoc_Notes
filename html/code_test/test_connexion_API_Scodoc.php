@@ -1,7 +1,8 @@
 <?php 
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 	include_once "$path/config/config.php";
-
+	error_reporting(E_ALL);
+	ini_set('display_errors', '1');
 	class Scodoc{
 		private $ch; // Connexion CURL
 
@@ -15,13 +16,18 @@
 			/* Configuration pour récupérer le token */ 
 			curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true); 
 			curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, false);
+			//curl_setopt($this->ch, CURLOPT_SSL_VERIFYHOST, false);
 			curl_setopt($this->ch, CURLOPT_POST, true);
 
 			curl_setopt($this->ch, CURLOPT_URL, Config::$scodoc_url.'/api/tokens');
+			curl_setopt($this->ch, CURLOPT_URL, 'http://192.168.1.49:5000/ScoDoc//api/tokens');
 			curl_setopt($this->ch, CURLOPT_USERPWD, Config::$scodoc_login2 . ':' . Config::$scodoc_psw);
 
-			$token = json_decode(curl_exec($this->ch))->token;
+			//$token = json_decode(curl_exec($this->ch))->token;
 			
+			if(curl_exec($this->ch) === false) {
+				throw new Exception(curl_error($this->ch), curl_errno($this->ch));
+			}
 			/* Token récupéré, changement de la configuration pour les autres requêtes */
 			$headers = array(
 				"Authorization: Bearer $token"
