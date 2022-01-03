@@ -30,7 +30,7 @@ Le serveur passerelle doit avoir accès au serveur Scodoc.
 
 L'ensemble des fichiers à configurer se trouvent dans "/config/".
 Il est à minima nécessaire de configurer :
-  - cas.pem,
+  - cas.pem (recommandé pour des raisons de sécurité : https://www.php.net/manual/fr/function.curl-setopt.php#110457),
   - cas_config.php,
   - config.php :
     -  $departements,
