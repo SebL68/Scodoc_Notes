@@ -5,6 +5,7 @@ Les utilisateurs actuels sont :
  - IUT de Lyon 1 => acces enseignant,
  - IUT de Tours ?
  - IUT Lannion ?
+ - IUT de Lille ?
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
   
