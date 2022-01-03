@@ -7,6 +7,7 @@ Les utilisateurs actuels sont :
  - IUT Lannion ?
  - IUT de Lille ?
  - IUT de Bordeaux ?
+ - IUT d'Orsey ?
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
   
