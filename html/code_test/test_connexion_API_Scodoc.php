@@ -13,6 +13,12 @@
 
 			$this->ch = curl_init();
 
+			/******************************************************/
+			/* Uniquement pour accéder à un serveur Scodoc de dev *
+				curl_setopt($this->ch, CURLOPT_HTTPHEADER, array('Expect:'));
+				Config::$scodoc_url = 'http://192.168.1.49:5000/ScoDoc';
+			/******************************************************/
+
 			/* Configuration pour récupérer le token */ 
 			curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true); 
 			curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -20,10 +26,9 @@
 			curl_setopt($this->ch, CURLOPT_POST, true);
 
 			curl_setopt($this->ch, CURLOPT_URL, Config::$scodoc_url.'/api/tokens');
-			curl_setopt($this->ch, CURLOPT_URL, 'http://192.168.1.49:5000/ScoDoc//api/tokens');
 			curl_setopt($this->ch, CURLOPT_USERPWD, Config::$scodoc_login2 . ':' . Config::$scodoc_psw);
 
-			//$token = json_decode(curl_exec($this->ch))->token;
+			$token = json_decode(curl_exec($this->ch))->token;
 			
 			if(curl_exec($this->ch) === false) {
 				throw new Exception(curl_error($this->ch), curl_errno($this->ch));
@@ -52,5 +57,6 @@
 
 	$Scodoc = new Scodoc();
 	echo $Scodoc->Ask_Scodoc('list_depts');
+	echo $Scodoc->Ask_Scodoc('etudiants/courant');
 
 ?>
