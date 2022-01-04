@@ -52,7 +52,7 @@
 	/********************************/
 	/*	Il faut créer compte avec un accès "secrétariat" qui a accès à tous les départements */
 
-		public static $scodoc_url = 'https://iutmscodoc9.uha.fr/ScoDoc';
+		public static $scodoc_url = 'https://iutmscodoc9.uha.fr/ScoDoc';	// Ne pas oublier de mettre /ScoDoc à la fin
 		public static $scodoc_login = [
 			'__ac_name' => 'LOGIN_SCODOC',
 			'__ac_password' => 'MDP_SCODOC'
