@@ -26,7 +26,7 @@ function fetchData(query){
 	return fetch(
 		"/services/data.php?q="+query, 
 		{
-			method: "get",
+			method: "post",
 			headers: {
 				"Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
 				"Authorization": token ? "Bearer " + token : ""
