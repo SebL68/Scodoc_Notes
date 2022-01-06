@@ -10,6 +10,7 @@ Les utilisateurs actuels sont :
  - IUT d'Orsey ?
  - IUT du Havre ?
  - IUT de Poitiers ?
+ - IUT de Calais ?
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
   
