@@ -1,0 +1,699 @@
+{
+    "dept_id": 3, 
+    "annexe": "19", 
+    "specialite": "MMI", 
+    "specialite_long": "M\u00e9tiers du Multim\u00e9dia et de l'Internet", 
+    "type_structure": "type2", 
+    "type_departement": "secondaire", 
+    "type_titre": "B.U.T.", 
+    "version_orebut": "2021-12-11 00:00:00", 
+    "scodoc_date_loaded": "2022-01-05T22:51:00.490118Z", 
+    "scodoc_orig_filename": "but-MMI-05012022-081708.xml", 
+    "competences": {
+      "Comprendre": {
+        "id_orebut": "688548e4666873aa7a49491ba88a7271", 
+        "titre": "Comprendre", 
+        "titre_long": "Comprendre les \u00e9cosyst\u00e8mes, les besoins des utilisateurs et les dispositifs de communication num\u00e9rique", 
+        "couleur": "c1", 
+        "numero": 1, 
+        "situations": [
+          {
+            "libelle": "Prestataire : Les livrables constituent la premi\u00e8re \u00e9tape de la mission, qui se poursuit avec du conseil et de la production (agence de communication digitale, consultant...)."
+          }, 
+          {
+            "libelle": "Organisation traditionnelle : Les livrables sont produits par les services de l\u2019organisation qui peut \u00eatre une entreprise, une administration ou une association."
+          }, 
+          {
+            "libelle": "Start-up : Les livrables sont utilis\u00e9s de fa\u00e7on it\u00e9rative pour am\u00e9liorer le produit cr\u00e9\u00e9 par l\u2019organisation, am\u00e9lioration pilot\u00e9e par un product owner."
+          }
+        ], 
+        "composantes_essentielles": [
+          {
+            "libelle": "en int\u00e9grant les enjeux humains, \u00e9cologiques et \u00e9thiques"
+          }, 
+          {
+            "libelle": "en \u00e9coutant et observant les utilisateurs"
+          }, 
+          {
+            "libelle": "en s\u2019appuyant sur des donn\u00e9es quantitatives pertinentes et des outils statistiques adapt\u00e9s"
+          }, 
+          {
+            "libelle": "en sollicitant des mod\u00e8les th\u00e9oriques issus des sciences humaines et sociales"
+          }, 
+          {
+            "libelle": "en restituant les r\u00e9sultats de mani\u00e8re synth\u00e9tique"
+          }
+        ], 
+        "niveaux": {
+          "BUT1": {
+            "libelle": "Comprend les \u00e9l\u00e9ments de communication et les attentes utilisateurs", 
+            "annee": "BUT1", 
+            "ordre": 1, 
+            "app_critiques": {
+              "AC11.01": {
+                "libelle": "Pr\u00e9senter une organisation, ses activit\u00e9s et son environnement (\u00e9conomique, sociologique, culturel, juridique, technologique, communicationnel et m\u00e9diatique)"
+              }, 
+              "AC11.02": {
+                "libelle": "\u00c9valuer un site web, un produit multim\u00e9dia ou un dispositif interactif existant en s\u2019appuyant sur des guides de bonnes pratiques"
+              }, 
+              "AC11.03": {
+                "libelle": "Produire des analyses statistiques descriptives et les interpr\u00e9ter pour \u00e9valuer un contexte socio-\u00e9conomique"
+              }, 
+              "AC11.04": {
+                "libelle": "Analyser des formes m\u00e9diatiques et leur s\u00e9miotique"
+              }, 
+              "AC11.05": {
+                "libelle": "Identifier les cibles (crit\u00e8res socio-\u00e9conomiques, d\u00e9mographiques, g\u00e9ographiques, culturels...)"
+              }, 
+              "AC11.06": {
+                "libelle": "R\u00e9aliser des entretiens utilisateurs pour construire des personae et des r\u00e9cits utilisateurs (user stories)"
+              }
+            }
+          }, 
+          "BUT2": {
+            "libelle": "Comprend la strat\u00e9gie de communication et l\u2019exp\u00e9rience utilisateur", 
+            "annee": "BUT2", 
+            "ordre": 2, 
+            "app_critiques": {
+              "AC21.01": {
+                "libelle": "Analyser la strat\u00e9gie de communication ou marketing d\u2019un acteur, d\u2019une organisation au regard d\u2019un secteur ou d\u2019un march\u00e9 (strat\u00e9gie, mission, valeurs...)"
+              }, 
+              "AC21.02": {
+                "libelle": "Auditer un site web, une marque ou un service, en termes de trafic et de r\u00e9f\u00e9rencement"
+              }, 
+              "AC21.03": {
+                "libelle": "Traiter des donn\u00e9es avec des outils statistiques pour faciliter leur analyse et leur exploitation"
+              }, 
+              "AC21.04": {
+                "libelle": "Identifier et d\u00e9crire les parcours client \u00e0 partir d\u2019enqu\u00eates de terrain"
+              }, 
+              "AC21.05": {
+                "libelle": "Cartographier les exp\u00e9riences utilisateur : points de contact, points de friction et de satisfaction, carte d\u2019empathie."
+              }
+            }
+          }
+        }
+      }, 
+      "Concevoir": {
+        "id_orebut": "786d957f2fd89908751ca0ea0a835a37", 
+        "titre": "Concevoir", 
+        "titre_long": "Concevoir ou co-concevoir une r\u00e9ponse strat\u00e9gique pertinente \u00e0 une probl\u00e9matique complexe", 
+        "couleur": "c2", 
+        "numero": 2, 
+        "situations": [
+          {
+            "libelle": "Prestataire : Livrables sous forme de recommandation strat\u00e9gique, dans une approche de communication ou de conception de produit / service."
+          }, 
+          {
+            "libelle": "Organisation traditionnelle : Direction marketing, communication, DPO, CRM\u2026 dans une entreprise, une administration ou une association."
+          }, 
+          {
+            "libelle": "Start-up : Les livrables sont utilis\u00e9s de fa\u00e7on it\u00e9rative pour am\u00e9liorer le produit cr\u00e9\u00e9 par l\u2019organisation, am\u00e9lioration pilot\u00e9e par un product owner."
+          }
+        ], 
+        "composantes_essentielles": [
+          {
+            "libelle": "en optimisant la responsabilit\u00e9 sociale et environnementale de l\u2019organisation"
+          }, 
+          {
+            "libelle": "en s\u2019int\u00e9grant aux \u00e9cosyst\u00e8mes physiques et num\u00e9riques des parties prenantes"
+          }, 
+          {
+            "libelle": "en s\u2019appuyant sur les usages et les modes de communication observ\u00e9s"
+          }, 
+          {
+            "libelle": "en enrichissant sa d\u00e9marche de connaissances sociologiques, esth\u00e9tiques, culturelles et inter-culturelles"
+          }, 
+          {
+            "libelle": "en pr\u00e9sentant de fa\u00e7on convaincante la r\u00e9ponse propos\u00e9e, en fran\u00e7ais, en anglais ou dans d\u2019autres langues"
+          }
+        ], 
+        "niveaux": {
+          "BUT1": {
+            "libelle": "Con\u00e7oit une r\u00e9ponse strat\u00e9gique", 
+            "annee": "BUT1", 
+            "ordre": 1, 
+            "app_critiques": {
+              "AC12.01": {
+                "libelle": "Concevoir un produit ou un service en terme d\u2019usage et de fonctionnalit\u00e9"
+              }, 
+              "AC12.02": {
+                "libelle": "Construire la proposition de valeur d\u2019un produit ou d\u2019un service"
+              }, 
+              "AC12.03": {
+                "libelle": "Proposer une recommandation marketing (cibles, objectifs, points de contact)"
+              }, 
+              "AC12.04": {
+                "libelle": "Proposer une strat\u00e9gie de communication"
+              }
+            }
+          }, 
+          "BUT2": {
+            "libelle": "Co-con\u00e7oit une r\u00e9ponse strat\u00e9gique", 
+            "annee": "BUT2", 
+            "ordre": 2, 
+            "app_critiques": {
+              "AC22.01": {
+                "libelle": "Co-concevoir un produit ou un service (proposition de valeur, fonctionnalit\u00e9s...)"
+              }, 
+              "AC22.02": {
+                "libelle": "Produire une recommandation ergonomique \u00e0 partir des tests utilisateurs (sur syst\u00e8me fonctionnel, prototype ou maquette interactive)"
+              }, 
+              "AC22.03": {
+                "libelle": "Co-construire une recommandation strat\u00e9gique (en structurant un plan d\u2019action)"
+              }, 
+              "AC22.04": {
+                "libelle": "Optimiser le r\u00e9f\u00e9rencement d\u2019un site web, d\u2019un produit ou d\u2019un service"
+              }, 
+              "AC22.05": {
+                "libelle": "Mettre en place une pr\u00e9sence sur les r\u00e9seaux sociaux"
+              }
+            }
+          }, 
+          "BUT3": {
+            "libelle": "Co-con\u00e7oit une r\u00e9ponse strat\u00e9gique complexe et prospective", 
+            "annee": "BUT3", 
+            "ordre": 3, 
+            "app_critiques": {
+              "AC32.01": {
+                "libelle": "Projeter les futurs possibles d\u2019une organisation, d\u2019une marque, d\u2019un service, produit ou secteur (tendances, \u00e9volutions, sc\u00e9narios prospectifs)"
+              }, 
+              "AC32.02": {
+                "libelle": "Co-construire un produit ou service de mani\u00e8re it\u00e9rative (ateliers de cr\u00e9ativit\u00e9, id\u00e9ation, d\u00e9finition de l\u2019exp\u00e9rience utilisateur, exploitation des r\u00e9sultats de test)"
+              }, 
+              "AC32.03": {
+                "libelle": "Concevoir et mettre en oeuvre une communication 360, plurim\u00e9dia ou transm\u00e9dia"
+              }, 
+              "AC32.04": {
+                "libelle": "Construire des outils de validation et de suivi (flux, indicateurs de performance, tableaux de bord, r\u00e9f\u00e9rencement, engagement...)"
+              }
+            }
+          }
+        }
+      }, 
+      "Exprimer": {
+        "id_orebut": "6a5a25b106187717ff27758e789dbde8", 
+        "titre": "Exprimer", 
+        "titre_long": "Exprimer un message avec les m\u00e9dias num\u00e9riques pour informer et communiquer", 
+        "couleur": "c3", 
+        "numero": 3, 
+        "situations": [
+          {
+            "libelle": "Prestataire : Cr\u00e9ation et r\u00e9alisation de contenu multim\u00e9dia dans une agence g\u00e9n\u00e9raliste ou sp\u00e9cialis\u00e9e (agence de communication digitale, studio graphique, studio digital, production de jeu vid\u00e9o, production vid\u00e9o\u2026)."
+          }, 
+          {
+            "libelle": "Organisation traditionnelle : Service int\u00e9gr\u00e9 dans une entreprise, une administration ou une association : production interne et gestion des utilisateurs."
+          }, 
+          {
+            "libelle": "Start-up : It\u00e9rations continues : le discours s\u2019adapte aux \u00e9volutions de l\u2019entreprise, de son march\u00e9 et de sa communaut\u00e9."
+          }
+        ], 
+        "composantes_essentielles": [
+          {
+            "libelle": "en veillant \u00e0 la qualit\u00e9 esth\u00e9tique des cr\u00e9ations et en la justifiant par des r\u00e9f\u00e9rences culturelles et artistiques"
+          }, 
+          {
+            "libelle": "en produisant un discours de qualit\u00e9, appuy\u00e9 sur les th\u00e9ories du r\u00e9cit et les traditions narratives"
+          }, 
+          {
+            "libelle": "en respectant la strat\u00e9gie de communication \u00e9tablie"
+          }, 
+          {
+            "libelle": "en veillant \u00e0 la qualit\u00e9 orthographique, grammaticale et typographique des productions"
+          }, 
+          {
+            "libelle": "en communiquant en fran\u00e7ais, en anglais ou dans d\u2019autres langues"
+          }
+        ], 
+        "niveaux": {
+          "BUT1": {
+            "libelle": "Exprime un message par des productions simples", 
+            "annee": "BUT1", 
+            "ordre": 1, 
+            "app_critiques": {
+              "AC13.01": {
+                "libelle": "Ecrire pour les m\u00e9dias num\u00e9riques"
+              }, 
+              "AC13.02": {
+                "libelle": "Produire des pistes graphiques et des planches d\u2019inspiration"
+              }, 
+              "AC13.03": {
+                "libelle": "Cr\u00e9er, composer et retoucher des visuels"
+              }, 
+              "AC13.04": {
+                "libelle": "Tourner et monter une vid\u00e9o (sc\u00e9nario, captation image et son...)"
+              }, 
+              "AC13.05": {
+                "libelle": "Designer une interface web (wireframes, UI)"
+              }, 
+              "AC13.06": {
+                "libelle": "Optimiser les m\u00e9dias en fonction de leurs usages et supports de diffusion"
+              }
+            }
+          }, 
+          "BUT2": {
+            "libelle": "Exprime une identit\u00e9 visuelle et \u00e9ditoriale transm\u00e9dia", 
+            "annee": "BUT2", 
+            "ordre": 2, 
+            "app_critiques": {
+              "AC23.01": {
+                "libelle": "Produire un \u00e9crit journalistique sourc\u00e9 et document\u00e9"
+              }, 
+              "AC23.02": {
+                "libelle": "D\u00e9finir une iconographie (illustrations, photographies, vid\u00e9os)"
+              }, 
+              "AC23.03": {
+                "libelle": "Cr\u00e9er et d\u00e9cliner une identit\u00e9 visuelle (charte graphique)"
+              }, 
+              "AC23.04": {
+                "libelle": "Imaginer, \u00e9crire et sc\u00e9nariser en vue d\u2019une communication multim\u00e9dia ou transm\u00e9dia"
+              }, 
+              "AC23.05": {
+                "libelle": "R\u00e9aliser, composer et produire pour une communication plurim\u00e9dia"
+              }, 
+              "AC23.06": {
+                "libelle": "\u00c9laborer et produire des animations, des designs sonores, des effets sp\u00e9ciaux, de la visualisation de donn\u00e9es ou de la 3D"
+              }
+            }
+          }, 
+          "BUT3": {
+            "libelle": "Exprime un r\u00e9cit interactif et une direction artistique", 
+            "annee": "BUT3", 
+            "ordre": 3, 
+            "app_critiques": {
+              "AC33.01": {
+                "libelle": "Adopter et justifier une d\u00e9marche originale et personnelle dans ses productions"
+              }, 
+              "AC33.02": {
+                "libelle": "Concevoir un design system et en produire les \u00e9l\u00e9ments visuels, graphiques ou sonores"
+              }, 
+              "AC33.03": {
+                "libelle": "Maitriser les \u00e9tapes de production d'un projet multim\u00e9dia"
+              }, 
+              "AC33.04": {
+                "libelle": "Produire les \u00e9l\u00e9ments pour une exp\u00e9rience sophistiqu\u00e9e (notamment immersive, en r\u00e9alit\u00e9 virtuelle, augment\u00e9e...)"
+              }, 
+              "AC33.05": {
+                "libelle": "Apprehender les enjeux li\u00e9s \u00e0 la direction artistique"
+              }
+            }
+          }
+        }
+      }, 
+      "D\u00e9velopper": {
+        "id_orebut": "bdeb25b7e21ebc4dc5f3c0f97db7285e", 
+        "titre": "D\u00e9velopper", 
+        "titre_long": "D\u00e9velopper pour le web et les m\u00e9dias num\u00e9riques", 
+        "couleur": "c4", 
+        "numero": 4, 
+        "situations": [
+          {
+            "libelle": "Petite structure : D\u00e9veloppement \u00e0 partir de 0 dans une petite structure, avec une grande libert\u00e9 en termes d\u2019outils, de technologies, de m\u00e9thodologie et de d\u00e9cision."
+          }, 
+          {
+            "libelle": "Grande organisation : D\u00e9veloppement dans une grande organisation en respectant des processus structur\u00e9s et contraignants."
+          }, 
+          {
+            "libelle": "Maintenance logicielle : Support, maintenance corrective et \u00e9volutive, gestion de la dette technique."
+          }
+        ], 
+        "composantes_essentielles": [
+          {
+            "libelle": "en se conformant aux standards du Web et aux normes d\u2019accessibilit\u00e9"
+          }, 
+          {
+            "libelle": "en s\u2019appuyant sur des concepts th\u00e9oriques issus de l\u2019informatique et des sciences de l\u2019information"
+          }, 
+          {
+            "libelle": "en produisant du code fonctionnel, sobre et r\u00e9utilisable"
+          }, 
+          {
+            "libelle": "en utilisant les outils favorisant un d\u00e9veloppement it\u00e9ratif et collaboratif"
+          }, 
+          {
+            "libelle": "en veillant \u00e0 la s\u00e9curit\u00e9 des syst\u00e8mes et des donn\u00e9es"
+          }
+        ], 
+        "niveaux": {
+          "BUT1": {
+            "libelle": "D\u00e9veloppe un site web simple et le met en ligne", 
+            "annee": "BUT1", 
+            "ordre": 1, 
+            "app_critiques": {
+              "AC14.01": {
+                "libelle": "Exploiter de mani\u00e8re autonome un environnement de d\u00e9veloppement efficace et productif"
+              }, 
+              "AC14.02": {
+                "libelle": "Produire des pages Web fluides incluant un balisage s\u00e9mantique efficace et des interactions simples"
+              }, 
+              "AC14.03": {
+                "libelle": "G\u00e9n\u00e9rer des pages Web \u00e0 partir de donn\u00e9es structur\u00e9es"
+              }, 
+              "AC14.04": {
+                "libelle": "Mettre en ligne une application Web en utilisant une solution d\u2019h\u00e9bergement standard"
+              }, 
+              "AC14.05": {
+                "libelle": "Mod\u00e9liser les donn\u00e9es d\u2019une application Web"
+              }, 
+              "AC14.06": {
+                "libelle": "D\u00e9ployer et personnaliser une application Web en utilisant un CMS ou un framework MVC"
+              }
+            }
+          }, 
+          "BUT2": {
+            "libelle": "D\u00e9veloppe une application Web interactive", 
+            "annee": "BUT2", 
+            "ordre": 2, 
+            "app_critiques": {
+              "AC24.01": {
+                "libelle": "Produire des pages et applications Web responsives"
+              }, 
+              "AC24.02": {
+                "libelle": "Mettre en place ou d\u00e9velopper un back office"
+              }, 
+              "AC24.03": {
+                "libelle": "Int\u00e9grer, produire ou d\u00e9velopper des interactions riches ou des dispositifs interactifs"
+              }, 
+              "AC24.04": {
+                "libelle": "Mod\u00e9liser les traitements d\u2019une application Web"
+              }, 
+              "AC24.05": {
+                "libelle": "Optimiser une application web en termes de r\u00e9f\u00e9rencement et de temps de chargement"
+              }, 
+              "AC24.06": {
+                "libelle": "Configurer une solution d\u2019h\u00e9bergement adapt\u00e9e aux besoins"
+              }
+            }
+          }, 
+          "BUT3": {
+            "libelle": "D\u00e9veloppe un \u00e9cosyst\u00e8me num\u00e9rique complexe", 
+            "annee": "BUT3", 
+            "ordre": 3, 
+            "app_critiques": {
+              "AC34.01": {
+                "libelle": "D\u00e9velopper \u00e0 l\u2019aide d\u2019un framework de d\u00e9veloppement c\u00f4t\u00e9 client"
+              }, 
+              "AC34.02": {
+                "libelle": "D\u00e9velopper \u00e0 l\u2019aide d\u2019un framework de d\u00e9veloppement c\u00f4t\u00e9 serveur"
+              }, 
+              "AC34.03": {
+                "libelle": "D\u00e9velopper des dispositifs interactifs sophistiqu\u00e9s"
+              }, 
+              "AC34.04": {
+                "libelle": "Concevoir et d\u00e9velopper des composants logiciels, plugins ou extensions"
+              }, 
+              "AC34.05": {
+                "libelle": "Maitriser l'h\u00e9bergement et le d\u00e9ploiement d'applications"
+              }
+            }
+          }
+        }
+      }, 
+      "Entreprendre": {
+        "id_orebut": "689e945289af4e30650a910291c38e8a", 
+        "titre": "Entreprendre", 
+        "titre_long": "Entreprendre dans le secteur du num\u00e9rique", 
+        "couleur": "c5", 
+        "numero": 5, 
+        "situations": [
+          {
+            "libelle": "Prestataire : Gestion de projet classique pour un client, dans une agence g\u00e9n\u00e9raliste ou sp\u00e9cialis\u00e9e (studio graphique, studio digital, production de jeu vid\u00e9o, production vid\u00e9o\u2026)."
+          }, 
+          {
+            "libelle": "Organisation traditionnelle : Accompagnement du changement et intrapreneuriat dans une entreprise, une administration ou une association."
+          }, 
+          {
+            "libelle": "Start-up: Entrepreneuriat et gestion de projet avec une m\u00e9thode d\u2019am\u00e9lioration continue."
+          }
+        ], 
+        "composantes_essentielles": [
+          {
+            "libelle": "en s\u2019appuyant sur une veille technologique et des mod\u00e8les de l\u2019innovation"
+          }, 
+          {
+            "libelle": "en favorisant la collaboration entre les parties prenantes du projet"
+          }, 
+          {
+            "libelle": "en respectant le droit et la vie priv\u00e9e"
+          }, 
+          {
+            "libelle": "en favorisant la sobri\u00e9t\u00e9 num\u00e9rique"
+          }, 
+          {
+            "libelle": "en exploitant des cadres de r\u00e9flexion fran\u00e7ais et internationaux"
+          }
+        ], 
+        "niveaux": {
+          "BUT1": {
+            "libelle": "Entreprend un projet num\u00e9rique", 
+            "annee": "BUT1", 
+            "ordre": 1, 
+            "app_critiques": {
+              "AC15.01": {
+                "libelle": "G\u00e9rer un projet avec une m\u00e9thode classique"
+              }, 
+              "AC15.02": {
+                "libelle": "Budg\u00e9ter un projet et suivre sa rentabilit\u00e9"
+              }, 
+              "AC15.03": {
+                "libelle": "D\u00e9couvrir les \u00e9cosyst\u00e8mes d\u2019innovation num\u00e9rique (fab labs, living labs, tiers-lieux, incubateurs\u2026)"
+              }, 
+              "AC15.04": {
+                "libelle": "Analyser un produit ou un service innovant en identifiant les propositions de valeurs et en \u00e9valuant les solutions propos\u00e9es"
+              }, 
+              "AC15.05": {
+                "libelle": "Construire une pr\u00e9sence en ligne professionnelle (personal branding)"
+              }, 
+              "AC15.06": {
+                "libelle": "Interagir au sein des organisations"
+              }, 
+              "AC15.07": {
+                "libelle": "Produire un message \u00e9crit ou oral professionnel"
+              }
+            }
+          }, 
+          "BUT2": {
+            "libelle": "Entreprend un projet au sein d\u2019un \u00e9cosyst\u00e8me num\u00e9rique", 
+            "annee": "BUT2", 
+            "ordre": 2, 
+            "app_critiques": {
+              "AC25.01": {
+                "libelle": "G\u00e9rer un projet avec une m\u00e9thode d\u2019am\u00e9lioration continue par exemple une m\u00e9thode agile"
+              }, 
+              "AC25.02": {
+                "libelle": "Cartographier un \u00e9cosyst\u00e8me (identification des acteurs, synth\u00e8se des propositions de valeur)"
+              }, 
+              "AC25.03": {
+                "libelle": "Initier la constitution d\u2019un r\u00e9seau professionnel"
+              }, 
+              "AC25.04": {
+                "libelle": "Collaborer au sein des organisations"
+              }, 
+              "AC25.05": {
+                "libelle": "Maitriser les codes des productions \u00e9crites et orales professionnelles"
+              }, 
+              "AC25.06": {
+                "libelle": "Prendre en compte les contraintes juridiques"
+              }
+            }
+          }, 
+          "BUT3": {
+            "libelle": "Entreprend dans le num\u00e9rique", 
+            "annee": "BUT3", 
+            "ordre": 3, 
+            "app_critiques": {
+              "AC35.01": {
+                "libelle": "Piloter un produit, un service ou une \u00e9quipe"
+              }, 
+              "AC35.02": {
+                "libelle": "Ma\u00eetriser la qualit\u00e9 en projet Web ou multim\u00e9dia"
+              }, 
+              "AC35.03": {
+                "libelle": "Concevoir un projet d\u2019entreprise innovante en d\u00e9finissant le nom, l\u2019identit\u00e9, la forme juridique et le ton de la marque"
+              }, 
+              "AC35.04": {
+                "libelle": "D\u00e9fendre un projet de mani\u00e8re convaincante"
+              }
+            }
+          }
+        }
+      }
+    }, 
+    "parcours": {
+      "Cr\u00e9a": {
+        "code": "Cr\u00e9a", 
+        "numero": 0, 
+        "libelle": "Cr\u00e9ation Num\u00e9rique", 
+        "annees": {
+          "1": {
+            "ordre": 1, 
+            "competences": {
+              "Comprendre": {
+                "niveau": 1
+              }, 
+              "Concevoir": {
+                "niveau": 1
+              }, 
+              "Exprimer": {
+                "niveau": 1
+              }, 
+              "D\u00e9velopper": {
+                "niveau": 1
+              }, 
+              "Entreprendre": {
+                "niveau": 1
+              }
+            }
+          }, 
+          "2": {
+            "ordre": 2, 
+            "competences": {
+              "Comprendre": {
+                "niveau": 2
+              }, 
+              "Concevoir": {
+                "niveau": 2
+              }, 
+              "Exprimer": {
+                "niveau": 2
+              }, 
+              "D\u00e9velopper": {
+                "niveau": 2
+              }, 
+              "Entreprendre": {
+                "niveau": 2
+              }
+            }
+          }, 
+          "3": {
+            "ordre": 3, 
+            "competences": {
+              "Exprimer": {
+                "niveau": 3
+              }, 
+              "Entreprendre": {
+                "niveau": 3
+              }
+            }
+          }
+        }
+      }, 
+      "Strat-UX": {
+        "code": "Strat-UX", 
+        "numero": 0, 
+        "libelle": "Strat\u00e9gie de communication num\u00e9rique et design d\u2019exp\u00e9rience", 
+        "annees": {
+          "1": {
+            "ordre": 1, 
+            "competences": {
+              "Comprendre": {
+                "niveau": 1
+              }, 
+              "Concevoir": {
+                "niveau": 1
+              }, 
+              "Entreprendre": {
+                "niveau": 1
+              }, 
+              "D\u00e9velopper": {
+                "niveau": 1
+              }, 
+              "Exprimer": {
+                "niveau": 1
+              }
+            }
+          }, 
+          "2": {
+            "ordre": 2, 
+            "competences": {
+              "Comprendre": {
+                "niveau": 2
+              }, 
+              "Concevoir": {
+                "niveau": 2
+              }, 
+              "Exprimer": {
+                "niveau": 2
+              }, 
+              "D\u00e9velopper": {
+                "niveau": 2
+              }, 
+              "Entreprendre": {
+                "niveau": 2
+              }
+            }
+          }, 
+          "3": {
+            "ordre": 3, 
+            "competences": {
+              "Concevoir": {
+                "niveau": 3
+              }, 
+              "Entreprendre": {
+                "niveau": 3
+              }
+            }
+          }
+        }
+      }, 
+      "DWeb-DI": {
+        "code": "DWeb-DI", 
+        "numero": 0, 
+        "libelle": "D\u00e9veloppement web et dispositifs interactifs", 
+        "annees": {
+          "1": {
+            "ordre": 1, 
+            "competences": {
+              "Comprendre": {
+                "niveau": 1
+              }, 
+              "Concevoir": {
+                "niveau": 1
+              }, 
+              "Exprimer": {
+                "niveau": 1
+              }, 
+              "D\u00e9velopper": {
+                "niveau": 1
+              }, 
+              "Entreprendre": {
+                "niveau": 1
+              }
+            }
+          }, 
+          "2": {
+            "ordre": 2, 
+            "competences": {
+              "Entreprendre": {
+                "niveau": 2
+              }, 
+              "D\u00e9velopper": {
+                "niveau": 2
+              }, 
+              "Exprimer": {
+                "niveau": 2
+              }, 
+              "Concevoir": {
+                "niveau": 2
+              }, 
+              "Comprendre": {
+                "niveau": 2
+              }
+            }
+          }, 
+          "3": {
+            "ordre": 3, 
+            "competences": {
+              "D\u00e9velopper": {
+                "niveau": 3
+              }, 
+              "Entreprendre": {
+                "niveau": 3
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  

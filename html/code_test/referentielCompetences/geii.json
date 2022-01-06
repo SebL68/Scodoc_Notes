@@ -1,0 +1,571 @@
+{
+    "dept_id": 3, 
+    "annexe": "8", 
+    "specialite": "GEII", 
+    "specialite_long": "G\u00e9nie \u00e9lectrique et informatique industrielle", 
+    "type_structure": "type1", 
+    "type_departement": "secondaire", 
+    "type_titre": "B.U.T.", 
+    "version_orebut": "2021-12-11 00:00:00", 
+    "scodoc_date_loaded": "2022-01-05T22:40:44.031841Z", 
+    "scodoc_orig_filename": "but-GEII-05012022-081639.xml", 
+    "competences": {
+      "Concevoir": {
+        "id_orebut": "b078d2f7f61c73d3d3c47a1b01b0ba4d", 
+        "titre": "Concevoir", 
+        "titre_long": "Concevoir la partie GEII d\u2019un syst\u00e8me", 
+        "couleur": "c1", 
+        "numero": 1, 
+        "situations": [
+          {
+            "libelle": "Conseil au client en menant une \u00e9tude de faisabilit\u00e9 \u00e0 partir d'un cahier des charges"
+          }, 
+          {
+            "libelle": "Chiffrage pour la r\u00e9alisation d'un prototype ou d\u2019un syst\u00e8me industriel en GEII"
+          }, 
+          {
+            "libelle": "Conception d\u2019un prototype ou d\u2019un sous syst\u00e8me \u00e0 partir d'un cahier des charges partiel"
+          }
+        ], 
+        "composantes_essentielles": [
+          {
+            "libelle": "En adoptant une approche holistique int\u00e9grant les innovations technologiques en lien avec la\n                    strat\u00e9gie de l\u2019entreprise pour r\u00e9pondre un besoin client."
+          }, 
+          {
+            "libelle": "En produisant l\u2019ensemble des documents n\u00e9cessaires pour le client et les diff\u00e9rents\n                    prestataires"
+          }, 
+          {
+            "libelle": "En communiquant de fa\u00e7on adapt\u00e9e avec les diff\u00e9rents acteurs avant et pendant la phase de\n                    conception."
+          }
+        ], 
+        "niveaux": {
+          "BUT1": {
+            "libelle": "Mener une conception partielle int\u00e9grant une d\u00e9marche projet ", 
+            "annee": "BUT1", 
+            "ordre": 1, 
+            "app_critiques": {
+              "AC11.01": {
+                "libelle": "Produire une analyse fonctionnelle d\u2019un syst\u00e8me simple"
+              }, 
+              "AC11.02": {
+                "libelle": "R\u00e9aliser un prototype pour des solutions techniques mat\u00e9riel et/ou logiciel"
+              }, 
+              "AC11.03": {
+                "libelle": "R\u00e9diger un dossier de fabrication \u00e0 partir d'un dossier de conception"
+              }
+            }
+          }, 
+          "BUT2": {
+            "libelle": "Concevoir un syst\u00e8me en fiabilisant les solutions propo\u00e9es", 
+            "annee": "BUT2", 
+            "ordre": 2, 
+            "app_critiques": {
+              "AC21.01": {
+                "libelle": "Proposer des solutions techniques li\u00e9es \u00e0 l'analyse fonctionnelle"
+              }, 
+              "AC21.02": {
+                "libelle": "D\u00e9risquer les solutions techniques retenues"
+              }
+            }
+          }, 
+          "BUT3": {
+            "libelle": "Concevoir un syst\u00e8me en adoptant une approche s\u00e9lective dans ses choix technologiques", 
+            "annee": "BUT3", 
+            "ordre": 3, 
+            "app_critiques": {
+              "AC31.01": {
+                "libelle": "Contribuer \u00e0 la r\u00e9daction d'un cahier des charges"
+              }, 
+              "AC31.02": {
+                "libelle": "Prouver la pertinence de ses choix technologiques"
+              }, 
+              "AC31.03": {
+                "libelle": "R\u00e9diger un dossier de conception"
+              }
+            }
+          }
+        }
+      }, 
+      "V\u00e9rifier": {
+        "id_orebut": "8d6ba092510bfa04de81c140fc69816d", 
+        "titre": "V\u00e9rifier", 
+        "titre_long": "V\u00e9rifier la partie GEII d\u2019un syst\u00e8me", 
+        "couleur": "c2", 
+        "numero": 2, 
+        "situations": [
+          {
+            "libelle": "Mise en place d'un protocole de tests et de mesures dans les domaines de la gestion,\n                    production et ma\u00eetrise de l\u2019\u00e9nergie"
+          }, 
+          {
+            "libelle": "Mise en place d'un protocole de tests et de mesures dans les process industriels"
+          }, 
+          {
+            "libelle": "Mise en place d'un protocole de tests et de mesures dans les syst\u00e8mes embarqu\u00e9s"
+          }
+        ], 
+        "composantes_essentielles": [
+          {
+            "libelle": "En tenant compte des sp\u00e9cificit\u00e9s mat\u00e9rielles, r\u00e9glementaires et contextuelles"
+          }, 
+          {
+            "libelle": "En mettant en oeuvre un plan d\u2019essais et d\u2019\u00e9valuations, dans une vis\u00e9e d'analyse qualitative\n                    et corrective"
+          }, 
+          {
+            "libelle": "En tenant compte des enjeux \u00e9conomiques, environnementaux et r\u00e9glementaires de la soci\u00e9t\u00e9"
+          }
+        ], 
+        "niveaux": {
+          "BUT1": {
+            "libelle": "Effectuer les tests et mesures n\u00e9cessaires \u00e0 une v\u00e9rification d\u2019un syst\u00e8me", 
+            "annee": "BUT1", 
+            "ordre": 1, 
+            "app_critiques": {
+              "AC12.01": {
+                "libelle": "Appliquer une proc\u00e9dure d\u2019essais"
+              }, 
+              "AC12.02": {
+                "libelle": "Identifier un dysfonctionnement"
+              }, 
+              "AC12.03": {
+                "libelle": "D\u00e9crire un dysfonctionnement"
+              }
+            }
+          }, 
+          "BUT2": {
+            "libelle": "Mettre en place un protocole de tests pour valider le fonctionnement d\u2019un syst\u00e8me", 
+            "annee": "BUT2", 
+            "ordre": 2, 
+            "app_critiques": {
+              "AC22.01": {
+                "libelle": "Identifier les tests et mesures \u00e0 mettre en place pour valider le\n                            fonctionnement d\u2019un syst\u00e8me"
+              }, 
+              "AC22.02": {
+                "libelle": "Certifier le fonctionnement d\u2019un nouvel \u00e9quipement industriel"
+              }
+            }
+          }, 
+          "BUT3": {
+            "libelle": "\u00c9laborer une proc\u00e9dure int\u00e9grant une d\u00e9marche qualit\u00e9 pour valider le fonctionnement d\u2019un syst\u00e8me", 
+            "annee": "BUT3", 
+            "ordre": 3, 
+            "app_critiques": {
+              "AC32.01": {
+                "libelle": "Evaluer la cause racine d\u2019un dysfonctionnement"
+              }, 
+              "AC32.02": {
+                "libelle": "Proposer une solution corrective \u00e0 un dysfonctionnement"
+              }, 
+              "AC32.03": {
+                "libelle": "Produire une proc\u00e9dure d\u2019essais pour valider la conformit\u00e9 d\u2019un syst\u00e8me"
+              }
+            }
+          }
+        }
+      }, 
+      "Maintenir": {
+        "id_orebut": "a1ca5c95c20b946c22eb8a1ce1047359", 
+        "titre": "Maintenir", 
+        "titre_long": "Assurer le maintien en condition op\u00e9rationnelle d'un syst\u00e8me", 
+        "couleur": "c3", 
+        "numero": 3, 
+        "situations": [
+          {
+            "libelle": "Maintenance corrective, pr\u00e9ventive et am\u00e9liorative dans les domaines de la gestion,\n                    production et ma\u00eetrise de l\u2019\u00e9nergie"
+          }, 
+          {
+            "libelle": "Maintenance corrective, pr\u00e9ventive et am\u00e9liorative dans les process industriels"
+          }, 
+          {
+            "libelle": "Maintenance corrective, pr\u00e9ventive et am\u00e9liorative dans les syst\u00e8mes embarqu\u00e9s"
+          }
+        ], 
+        "composantes_essentielles": [
+          {
+            "libelle": "En adoptant une communication proactive avec les diff\u00e9rents acteurs"
+          }, 
+          {
+            "libelle": "En adoptant une approche holistique int\u00e9grant les nouvelles technologies et la\n                    transformation digitale"
+          }
+        ], 
+        "niveaux": {
+          "BUT2": {
+            "libelle": "Intervenir sur un syst\u00e8me pour effectuer une op\u00e9ration de maintenance", 
+            "annee": "BUT2", 
+            "ordre": 1, 
+            "app_critiques": {
+              "AC23.01": {
+                "libelle": "Ex\u00e9cuter l\u2019entretien et le contr\u00f4le d\u2019un syst\u00e8me en respectant une proc\u00e9dure"
+              }, 
+              "AC23.02": {
+                "libelle": "Ex\u00e9cuter une op\u00e9ration de maintenance (corrective, pr\u00e9ventive, am\u00e9liorative)"
+              }, 
+              "AC23.03": {
+                "libelle": "Diagnostiquer un dysfonctionnement dans un syst\u00e8me"
+              }, 
+              "AC23.04": {
+                "libelle": "Identifier la cause racine du dysfonctionnement"
+              }
+            }
+          }, 
+          "BUT3": {
+            "libelle": "Mettre en place une strat\u00e9gie de maintenance pour garantir un fonctionnement optimal", 
+            "annee": "BUT3", 
+            "ordre": 2, 
+            "app_critiques": {
+              "AC33.03": {
+                "libelle": "Proposer un appui technique aux diff\u00e9rents acteurs \u00e0 l'\u00e9chelle nationale et\n                            internationale"
+              }, 
+              "AC33.01": {
+                "libelle": "Proposer une solution de maintenance"
+              }, 
+              "AC33.02": {
+                "libelle": "\u00c9valuer les co\u00fbts d\u2019indisponibilit\u00e9 et de maintenance d\u2019un syst\u00e8me"
+              }
+            }
+          }
+        }
+      }, 
+      "Implanter": {
+        "id_orebut": "28d79046d48712bcb7addd96d8244104", 
+        "titre": "Implanter", 
+        "titre_long": "Implanter un syst\u00e8me mat\u00e9riel ou logiciel", 
+        "couleur": "c4", 
+        "numero": 4, 
+        "situations": [
+          {
+            "libelle": "Homologation d\u2019un protocole de r\u00e9alisation pour un nouvel \u00e9quipement industriel"
+          }, 
+          {
+            "libelle": "Intervention chez un client pour la mise en place d\u2019un syst\u00e8me"
+          }, 
+          {
+            "libelle": "Implantation d\u2019une solution mat\u00e9rielle ou logicielle dans une partie ou sous partie d\u2019un\n                    syst\u00e8me"
+          }
+        ], 
+        "composantes_essentielles": [
+          {
+            "libelle": "En tenant compte des aspects organisationnels li\u00e9s aux contextes industriels, humains et\n                    environnementaux"
+          }, 
+          {
+            "libelle": "En garantissant un livrable conforme aux dossiers de conception, de fabrication et des\n                    normes"
+          }, 
+          {
+            "libelle": "En garantissant un accompagnement client amont, aval et transverse dans une d\u00e9marche\n                    qualit\u00e9"
+          }
+        ], 
+        "niveaux": {
+          "BUT2": {
+            "libelle": "R\u00e9aliser un syst\u00e8me en mettant en place une d\u00e9marche qualit\u00e9 en conformit\u00e9 avec le dossier de fabrication", 
+            "annee": "BUT2", 
+            "ordre": 1, 
+            "app_critiques": {
+              "AC24.01ESE": {
+                "libelle": "Appliquer une proc\u00e9dure de fabrication pour implanter les composants mat\u00e9riels\n                            et/ou logiciels dans un syst\u00e8me"
+              }, 
+              "AC24.02ESE": {
+                "libelle": "\u00c9valuer la conformit\u00e9 du syst\u00e8me"
+              }
+            }
+          }, 
+          "BUT3": {
+            "libelle": "Interagir avec les diff\u00e9rents acteurs, lors de l\u2019installation et de la mise en service d\u2019un syst\u00e8me, dans une d\u00e9marche qualit\u00e9", 
+            "annee": "BUT3", 
+            "ordre": 2, 
+            "app_critiques": {
+              "AC34.01ESE": {
+                "libelle": "Produire une proc\u00e9dure d\u2019installation et de mise en service d\u2019un syst\u00e8me"
+              }, 
+              "AC34.02ESE": {
+                "libelle": "Ex\u00e9cuter la mise en service d\u2019un syst\u00e8me en respectant la proc\u00e9dure"
+              }, 
+              "AC34.03ESE": {
+                "libelle": "Produire le dossier de conformit\u00e9 du syst\u00e8me en g\u00e9rant le versionnage"
+              }
+            }
+          }
+        }
+      }, 
+      "Installer": {
+        "id_orebut": "124219a128a6c4bf99fc3c45dbf0bf55", 
+        "titre": "Installer", 
+        "titre_long": "Installer tout ou partie d\u2019un syst\u00e8me de production, de conversion et de gestion d\u2019\u00e9nergie", 
+        "couleur": "c4", 
+        "numero": 4, 
+        "situations": [
+          {
+            "libelle": "Planification d\u2019op\u00e9rations d\u2019installation d\u2019\u00e9quipements industriels dans les domaines de\n                    courants forts"
+          }, 
+          {
+            "libelle": "Montage et installation d\u2019\u00e9l\u00e9ments ou sous-ensembles d\u2019un \u00e9quipement industriel en\n                    production, distribution, gestion ou conversion d\u2019\u00e9nergie"
+          }, 
+          {
+            "libelle": "Mise en service d\u2019un nouvel \u00e9quipement industriel en production, distribution , gestion ou\n                    conversion d\u2019\u00e9nergie"
+          }, 
+          {
+            "libelle": "\u00c9tude de l\u2019implantation d\u2019un \u00e9quipements de production, distribution , de gestion ou de\n                    conversion d\u2019\u00e9nergie"
+          }
+        ], 
+        "composantes_essentielles": [
+          {
+            "libelle": "En garantissant un accompagnement client amont, aval et transverse dans une d\u00e9marche\n                    qualit\u00e9"
+          }, 
+          {
+            "libelle": "En respectant les normes et les contraintes r\u00e9glementaires li\u00e9es aux courants forts, y\n                    compris dans un contexte international"
+          }
+        ], 
+        "niveaux": {
+          "BUT2": {
+            "libelle": "Proc\u00e9der \u00e0 une installation ou \u00e0 une mise en service en suivant un protocole", 
+            "annee": "BUT2", 
+            "ordre": 1, 
+            "app_critiques": {
+              "AC24.01EME": {
+                "libelle": "Appliquer la proc\u00e9dure d\u2019installation d\u2019un syst\u00e8me"
+              }, 
+              "AC24.02EME": {
+                "libelle": "Ex\u00e9cuter la mise en service d\u2019un syst\u00e8me en respectant la proc\u00e9dure"
+              }
+            }
+          }, 
+          "BUT3": {
+            "libelle": "Interagir avec les diff\u00e9rents acteurs, depuis l\u2019\u00e9laboration du protocole jusqu\u2019\u00e0 l\u2019installation, dans une vis\u00e9e de d\u00e9marche qualit\u00e9", 
+            "annee": "BUT3", 
+            "ordre": 2, 
+            "app_critiques": {
+              "AC34.01EME": {
+                "libelle": "Planifier l\u2019installation et la mise en service d\u2019un nouvel \u00e9quipement"
+              }, 
+              "AC34.02EME": {
+                "libelle": "Produire une proc\u00e9dure d\u2019installation et de mise en service d\u2019un syst\u00e8me"
+              }, 
+              "AC34.03EME": {
+                "libelle": "Produire le dossier de conformit\u00e9 du syst\u00e8me en g\u00e9rant le versionnage"
+              }
+            }
+          }
+        }
+      }, 
+      "Int\u00e9grer": {
+        "id_orebut": "022ed4cb9c2b145cc22bc9ac0b41a245", 
+        "titre": "Int\u00e9grer", 
+        "titre_long": "Int\u00e9grer un syst\u00e8me de commande et de contr\u00f4le dans un proc\u00e9d\u00e9 industriel", 
+        "couleur": "c4", 
+        "numero": 4, 
+        "situations": [
+          {
+            "libelle": "Planification d\u2019op\u00e9rations d\u2019installation d\u2019un syst\u00e8me automatis\u00e9 et/ou d\u2019une architecture\n                    r\u00e9seau"
+          }, 
+          {
+            "libelle": "Montage et installation d\u2019\u00e9l\u00e9ments ou sous-ensembles d\u2019un syst\u00e8me automatis\u00e9 et/ou d\u2019une\n                    architecture r\u00e9seau"
+          }, 
+          {
+            "libelle": "Mise en service d\u2019un syst\u00e8me automatis\u00e9 et/ou d\u2019une architecture r\u00e9seau"
+          }, 
+          {
+            "libelle": "\u00c9tude d\u2019implantation d\u2019un syst\u00e8me automatis\u00e9 et/ou d\u2019une architecture r\u00e9seau dans un contexte\n                    industriel"
+          }
+        ], 
+        "composantes_essentielles": [
+          {
+            "libelle": "En garantissant un accompagnement client amont, aval et transverse dans une d\u00e9marche\n                    qualit\u00e9"
+          }, 
+          {
+            "libelle": "En respectant les normes et les contraintes r\u00e9glementaires y compris dans un contexte\n                    international"
+          }, 
+          {
+            "libelle": "En g\u00e9rant les r\u00e9seaux industriels de communication pour une meilleure disponibilit\u00e9 et\n                    s\u00e9curit\u00e9"
+          }
+        ], 
+        "niveaux": {
+          "BUT2": {
+            "libelle": "Proc\u00e9der \u00e0 une installation ou \u00e0 une mise en service en suivant un protocole", 
+            "annee": "BUT2", 
+            "ordre": 1, 
+            "app_critiques": {
+              "AC24.01AII": {
+                "libelle": "Appliquer la proc\u00e9dure d\u2019installation d\u2019un syst\u00e8me"
+              }, 
+              "AC24.02AII": {
+                "libelle": "Ex\u00e9cuter la mise en service d\u2019un syst\u00e8me en respectant la proc\u00e9dure"
+              }
+            }
+          }, 
+          "BUT3": {
+            "libelle": "Interagir avec les diff\u00e9rents acteurs, depuis l\u2019\u00e9laboration du protocole jusqu\u2019\u00e0 l\u2019installation, dans une vis\u00e9e de d\u00e9marche qualit\u00e9", 
+            "annee": "BUT3", 
+            "ordre": 2, 
+            "app_critiques": {
+              "AC34.01AII": {
+                "libelle": "Planifier l\u2019installation et la mise en service d\u2019un nouvel \u00e9quipement"
+              }, 
+              "AC34.02AII": {
+                "libelle": "Produire une proc\u00e9dure d\u2019installation et de mise en service d\u2019un syst\u00e8me"
+              }, 
+              "AC34.03AII": {
+                "libelle": "Produire le dossier de conformit\u00e9 du syst\u00e8me en g\u00e9rant le versionnage"
+              }
+            }
+          }
+        }
+      }
+    }, 
+    "parcours": {
+      "ESE": {
+        "code": "ESE", 
+        "numero": 0, 
+        "libelle": "\u00c9lectronique et syst\u00e8mes embarqu\u00e9s", 
+        "annees": {
+          "1": {
+            "ordre": 1, 
+            "competences": {
+              "Concevoir": {
+                "niveau": 1
+              }, 
+              "V\u00e9rifier": {
+                "niveau": 1
+              }
+            }
+          }, 
+          "2": {
+            "ordre": 2, 
+            "competences": {
+              "Maintenir": {
+                "niveau": 1
+              }, 
+              "Concevoir": {
+                "niveau": 2
+              }, 
+              "V\u00e9rifier": {
+                "niveau": 2
+              }, 
+              "Implanter": {
+                "niveau": 1
+              }
+            }
+          }, 
+          "3": {
+            "ordre": 3, 
+            "competences": {
+              "Maintenir": {
+                "niveau": 2
+              }, 
+              "Concevoir": {
+                "niveau": 3
+              }, 
+              "V\u00e9rifier": {
+                "niveau": 3
+              }, 
+              "Implanter": {
+                "niveau": 2
+              }
+            }
+          }
+        }
+      }, 
+      "EME": {
+        "code": "EME", 
+        "numero": 0, 
+        "libelle": "\u00c9lectricit\u00e9 et ma\u00eetrise de l'\u00e9nergie", 
+        "annees": {
+          "1": {
+            "ordre": 1, 
+            "competences": {
+              "Concevoir": {
+                "niveau": 1
+              }, 
+              "V\u00e9rifier": {
+                "niveau": 1
+              }
+            }
+          }, 
+          "2": {
+            "ordre": 2, 
+            "competences": {
+              "Maintenir": {
+                "niveau": 1
+              }, 
+              "Concevoir": {
+                "niveau": 2
+              }, 
+              "V\u00e9rifier": {
+                "niveau": 2
+              }, 
+              "Installer": {
+                "niveau": 1
+              }
+            }
+          }, 
+          "3": {
+            "ordre": 3, 
+            "competences": {
+              "Maintenir": {
+                "niveau": 2
+              }, 
+              "Concevoir": {
+                "niveau": 3
+              }, 
+              "V\u00e9rifier": {
+                "niveau": 3
+              }, 
+              "Installer": {
+                "niveau": 2
+              }
+            }
+          }
+        }
+      }, 
+      "AII": {
+        "code": "AII", 
+        "numero": 0, 
+        "libelle": "Automatisme et informatique industrielle", 
+        "annees": {
+          "1": {
+            "ordre": 1, 
+            "competences": {
+              "Concevoir": {
+                "niveau": 1
+              }, 
+              "V\u00e9rifier": {
+                "niveau": 1
+              }
+            }
+          }, 
+          "2": {
+            "ordre": 2, 
+            "competences": {
+              "Maintenir": {
+                "niveau": 1
+              }, 
+              "Concevoir": {
+                "niveau": 2
+              }, 
+              "V\u00e9rifier": {
+                "niveau": 2
+              }, 
+              "Int\u00e9grer": {
+                "niveau": 1
+              }
+            }
+          }, 
+          "3": {
+            "ordre": 3, 
+            "competences": {
+              "Maintenir": {
+                "niveau": 2
+              }, 
+              "Concevoir": {
+                "niveau": 3
+              }, 
+              "V\u00e9rifier": {
+                "niveau": 3
+              }, 
+              "Int\u00e9grer": {
+                "niveau": 2
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
