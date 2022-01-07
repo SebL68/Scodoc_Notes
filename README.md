@@ -11,6 +11,7 @@ Les utilisateurs actuels sont :
  - IUT du Havre ?
  - IUT de Poitiers ?
  - IUT du Littoral Côte d'Opale ?
+ - IUT de la Rochelle ?
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
   
