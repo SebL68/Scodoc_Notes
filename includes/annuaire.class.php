@@ -45,7 +45,6 @@ class Annuaire{
 	public static function getStudentNumberFromMail($mail){
 		// Recherche du numero d'étudiant en fonction de son mail dans une chaîne de caractère de type :
 		// e1912345:jean.dupont@uha.fr
-		// Attention, le listing LDAP fourni e1912345 alors que le vrai numéro est 21912345.
 
 		if(Config::$CAS_return_type == 'mail'){
 			self::checkFile(self::$STUDENTS_PATH);
