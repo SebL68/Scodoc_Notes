@@ -173,7 +173,8 @@ class Annuaire{
 				}
 			}
 
-			$_SESSION['statut'] = INCONNU;
+			//$_SESSION['statut'] = INCONNU;
+			$_SESSION['statut'] = ETUDIANT;
 		}
 		return $_SESSION['statut'];	
 	}
