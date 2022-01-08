@@ -7,7 +7,7 @@ main{
     --couleurIntense: #c09;
     --couleurSurlignage: #c09;
 }
-.infoEtudiant, .ue, .module{
+.info_etudiant, .ue, .module{
 	color: #FFF;
 }
 .module>div{
