@@ -15,7 +15,7 @@ class releveBUT extends HTMLElement {
 		/* Style du module */
 		const styles = document.createElement('link');
 		styles.setAttribute('rel', 'stylesheet');
-		styles.setAttribute('href', '/ScoDoc/static/css/releve-but.css');
+		styles.setAttribute('href', '/assets/styles/releve-but.css');
 		this.shadow.appendChild(styles);	
 	}
 	listeOnOff() {
