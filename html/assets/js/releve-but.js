@@ -15,8 +15,7 @@ class releveBUT extends HTMLElement {
 		/* Style du module */
 		const styles = document.createElement('link');
 		styles.setAttribute('rel', 'stylesheet');
-		styles.setAttribute('href', '/assets/styles/releve-but.css');
-
+		styles.setAttribute('href', '/ScoDoc/static/css/releve-but.css');
 		this.shadow.appendChild(styles);	
 	}
 	listeOnOff() {
@@ -27,6 +26,10 @@ class releveBUT extends HTMLElement {
 	}
 	moduleOnOff(){
 		this.parentElement.classList.toggle("moduleOnOff");
+	}
+	goTo(){
+		let module = this.dataset.module;
+		this.parentElement.parentElement.parentElement.parentElement.querySelector("#Module_" + module).scrollIntoView();
 	}
 
 	set setConfig(config){
@@ -47,6 +50,9 @@ class releveBUT extends HTMLElement {
 		this.shadow.querySelectorAll(".ue, .module").forEach(e => {
 			e.addEventListener("click", this.moduleOnOff)
 		})
+		this.shadow.querySelectorAll(".syntheseModule").forEach(e => {
+			e.addEventListener("click", this.goTo)
+		})
 
 		this.shadow.children[0].classList.add("ready");
 	}
@@ -63,16 +69,23 @@ class releveBUT extends HTMLElement {
 			<img class=studentPic src="" alt="Photo de l'étudiant" width=100 height=120>
 			<div class=infoEtudiant></div>
 		</section>
+
 		<!--------------------------->
 		<!-- Semestre              -->
 		<!--------------------------->
 		<section>
 			<h2>Semestre </h2>
-			<div class=dateInscription>Inscrit le </div>
-			<em>Les moyennes servent à situer l'étudiant dans la promotion et ne correspondent pas à des validations de
-				compétences ou d'UE.</em>
-			<div class=infoSemestre></div>
+			<div class=flex>
+				<div class=infoSemestre></div>
+				<div>
+					<div class=decision>Validé !</div>
+					<div class=dateInscription>Inscrit le </div>
+					<em>Les moyennes servent à situer l'étudiant dans la promotion et ne correspondent pas à des validations de compétences ou d'UE.</em>
+				</div>
+			</div>
+			
 		</section>
+
 		<!--------------------------->
 		<!-- Synthèse              -->
 		<!--------------------------->
@@ -83,14 +96,14 @@ class releveBUT extends HTMLElement {
 					<em>La moyenne des ressources dans une UE dépend des poids donnés aux évaluations.</em>
 				</div>
 				<div class=CTA_Liste>
-					Liste <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
-						stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					Liste <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 						<path d="M18 15l-6-6-6 6" />
 					</svg>
 				</div>
 			</div>
 			<div class=synthese></div>
 		</section>
+
 		<!--------------------------->
 		<!-- Evaluations           -->
 		<!--------------------------->
@@ -98,26 +111,26 @@ class releveBUT extends HTMLElement {
 			<div>
 				<h2>Ressources</h2>
 				<div class=CTA_Liste>
-					Liste <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
-						stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					Liste <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 						<path d="M18 15l-6-6-6 6" />
 					</svg>
 				</div>
 			</div>
 			<div class=evaluations></div>
 		</section>
+
 		<section>
 			<div>
 				<h2>SAÉ</h2>
 				<div class=CTA_Liste>
-					Liste <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
-						stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					Liste <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 						<path d="M18 15l-6-6-6 6" />
 					</svg>
 				</div>
 			</div>
 			<div class=sae></div>
 		</section>
+
 	</main>
 </div>`;
 	}
@@ -128,8 +141,15 @@ class releveBUT extends HTMLElement {
 	showInformations(data) {
 		this.shadow.querySelector(".studentPic").src = data.etudiant.photo_url || "default_Student.svg";
 
-		let output = `
-			<div class=info_etudiant>
+		let output = '';
+		
+		if(this.config.showURL){
+			output += `<a href="${data.etudiant.fiche_url}" class=info_etudiant>`;
+		} else {
+			output += `<div class=info_etudiant>`;
+		}
+
+		output += `
 				<div class=civilite>
 					${this.civilite(data.etudiant.civilite)}
 					${data.etudiant.nom}
@@ -146,8 +166,12 @@ class releveBUT extends HTMLElement {
 					Code INE : ${data.etudiant.code_ine}
 				</div>
 				<div>${data.formation.titre}</div>
-			</div>
 		`;
+		if(this.config.showURL){
+			output += `</a>`;
+		} else {
+			output += `</div>`;
+		}
 
 		this.shadow.querySelector(".infoEtudiant").innerHTML = output;
 	}
@@ -165,9 +189,9 @@ class releveBUT extends HTMLElement {
 				<div>Max. promo. :</div><div>${data.semestre.notes.max}</div>
 				<div>Moy. promo. :</div><div>${data.semestre.notes.moy}</div>
 				<div>Min. promo. :</div><div>${data.semestre.notes.min}</div>
-			</div>
-			${data.semestre.groupes.map(groupe => {
-			return `
+			</div>`;
+			/*${data.semestre.groupes.map(groupe => {
+				return `
 						<div>
 							<div class=enteteSemestre>Groupe</div><div class=enteteSemestre>${groupe.nom}</div>
 							<div class=rang>Rang :</div><div class=rang>${groupe.rang.value} / ${groupe.rang.total}</div>
@@ -176,10 +200,10 @@ class releveBUT extends HTMLElement {
 							<div>Min. groupe :</div><div>${groupe.notes.min}</div>
 						</div>
 					`;
-		}).join("")
-			}
-		`;
+				}).join("")
+			}*/
 		this.shadow.querySelector(".infoSemestre").innerHTML = output;
+		this.shadow.querySelector(".decision").innerHTML = data.semestre.decision.code;
 	}
 
 	/*******************************/
@@ -222,8 +246,8 @@ class releveBUT extends HTMLElement {
 			let titre = data.ressources[module]?.titre || data.saes[module]?.titre;
 			let url = data.ressources[module]?.url || data.saes[module]?.url;
 			output += `
-				<div class=syntheseModule>
-					<div>${this.URL(url, `${module}&nbsp;- ${titre}`)}</div>
+				<div class=syntheseModule data-module="${module.replace(/[^a-zA-Z0-9]/g, "")}">
+					<div>${module}&nbsp;- ${titre}</div>
 					<div>
 						${dataModule.moyenne}
 						<em>Coef.&nbsp;${dataModule.coef}</em>
@@ -245,7 +269,7 @@ class releveBUT extends HTMLElement {
 		let output = "";
 		Object.entries(module).forEach(([numero, content]) => {
 			output += `
-				<div>
+				<div id="Module_${numero.replace(/[^a-zA-Z0-9]/g, "")}">
 					<div class=module>
 						<h3>${this.URL(content.url, `${numero} - ${content.titre}`)}</h3>
 						<div>

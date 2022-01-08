@@ -77,6 +77,17 @@ section>div:nth-child(1){
 	display: flex !important;
 }
 
+.listeOff .ue::before,
+.listeOff .module::before,
+.moduleOnOff .ue::before,
+.moduleOnOff .module::before{
+	transform: rotate(0);
+}
+.listeOff .moduleOnOff .ue::before,
+.listeOff .moduleOnOff .module::before{
+	transform: rotate(180deg) !important;
+}
+
 /***********************/
 /* Options d'affichage */
 /***********************/
@@ -98,6 +109,10 @@ section>div:nth-child(1){
 /************/
 /* Etudiant */
 /************/
+.info_etudiant{
+	color: #000;
+	text-decoration: none;
+}
 .etudiant{
     display: flex;
     align-items: center;
@@ -114,11 +129,16 @@ section>div:nth-child(1){
 /************/
 /* Semestre */
 /************/
+.flex{
+	display: flex;
+	gap: 16px;
+}
 .infoSemestre{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 4px;
+	flex: none;
 }
 .infoSemestre>div{
     border: 1px solid var(--couleurIntense);
@@ -137,7 +157,12 @@ section>div:nth-child(1){
 .rang{
     text-decoration: underline var(--couleurIntense);
 }
-
+.decision{
+	margin: 5px 0;
+	font-weight: bold;
+    font-size: 20px;
+	text-decoration: underline var(--couleurIntense);
+}
 .enteteSemestre{
     color:  black;
     font-weight: bold;
@@ -170,8 +195,21 @@ section>div:nth-child(1){
     display: flex;
     gap: 16px;
     margin: 4px 0 2px 0;
-    overflow: auto;
+    overflow-x: auto;
+	overflow-y: hidden;
 	cursor: pointer;
+	position: relative;
+}
+.module::before, .ue::before {
+	content:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='26px' height='26px' fill='black'><path d='M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z' /></svg>");
+	width: 26px;
+	height: 26px;
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	margin-left: -13px;
+	transform: rotate(180deg);
+	transition: 0.2s;
 }
 h3{
     display: flex;
@@ -193,6 +231,9 @@ h3{
 }
 .info{
     opacity: 0.9;
+}
+.syntheseModule{
+	cursor: pointer;
 }
 .eval, .syntheseModule{
     position: relative;
