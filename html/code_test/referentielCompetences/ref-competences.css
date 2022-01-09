@@ -4,6 +4,8 @@
 	display: block;
 	padding: 12px 32px;
 	color: #FFF;
+	max-width: 1000px;
+	margin: auto;
 }
 h1{
 	

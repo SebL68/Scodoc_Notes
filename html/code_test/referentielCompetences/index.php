@@ -19,25 +19,6 @@
 	<script>
 		let data = <?php include "mmi.json"; ?>
 		document.querySelector("ref-competences").setData = data;
-
-
-/*
-{
-	competences: Les 5 :{
-		situations
-		composantes essentielles
-		niveaux
-			BUT1
-				AC []
-			BUT2
-			BUT3
-	},
-
-	parcours:
-
-}
-*/
-
 	</script>
 </body>
 </html>
