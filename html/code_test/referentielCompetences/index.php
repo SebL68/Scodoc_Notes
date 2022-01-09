@@ -13,6 +13,7 @@
 </head>
 <body>
     
+<!-- A partir d'ici -->
 	<ref-competences></ref-competences>
 
 	<script src="ref_competences.js"></script>
@@ -20,5 +21,8 @@
 		let data = <?php include "mmi.json"; ?>
 		document.querySelector("ref-competences").setData = data;
 	</script>
+
+<!-- Jusque là -->
+
 </body>
 </html>
