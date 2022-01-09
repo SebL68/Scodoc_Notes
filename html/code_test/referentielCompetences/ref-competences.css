@@ -1,24 +1,89 @@
 :host{
-	--couleur-principale: #09c;
-	font-family: arial;
+	font-family: Verdana;
+	background: #222;
+	display: block;
+	padding: 12px 32px;
+	color: #FFF;
 }
+h1{
+	
+	font-weight: 100;
+}
+/**********************/
+/* Zone parcours      */
+/**********************/
 .parcours{
 	display: flex;
 	gap: 4px;
 }
 .parcours>div{
-	background: var(--couleur-principale);
-	color: #FFF;
+	background: #09c;
+	font-size: 18px;
 	text-align: center;
 	border-radius: 4px;
 	padding: 8px 16px;
 	cursor: pointer;
 	flex: 1;
 	transition: 0.1s;
+	opacity: 0.7;
 }
-.parcours>div:hover{
-	color: #424242;
+.parcours>div:hover,
+.competence>div:hover{
+	color: #ccc;
 }
+.parcours>.focus{
+	opacity: 1;
+}
+
+/**********************/
+/* Zone compétences   */
+/**********************/
 .competences{
 	display: flex;
+	gap: 4px;
+}
+.competence{
+	flex: 1;
+}
+.competence>div{
+	padding: 4px 8px;
+	margin-top: 4px;
+	border-radius: 4px;	
+	cursor: pointer;
+}
+
+.comp1{background:#a44;}
+.comp2{background:#84a}
+.comp3{background:#a84}
+.comp4{background:#8a4}
+.comp5{background:#4a8}
+.comp6{background:#48a}
+
+.competence>.focus{
+	outline: 1px solid;
+}
+
+/**********************/
+/* Zone AC            */
+/**********************/
+h2{
+	display: table;
+	padding: 8px 16px;
+	font-size: 20px;
+	border-radius: 16px 0;
+}
+.AC li{
+	display: grid;
+	grid-template-columns: auto 1fr;
+	align-items: start;
+	gap: 4px;
+	margin-bottom: 4px;
+    border-bottom: 1px solid;
+}
+.AC li>div:nth-child(1){
+	padding: 2px 4px;
+	border-radius: 4px;
+}
+.AC li>div:nth-child(2){
+	padding-bottom: 2px;
 }
