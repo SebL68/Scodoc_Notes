@@ -191,7 +191,7 @@
 			async function checkStatut(){
 				let data = await fetchData("dataPremièreConnexion");
 				document.querySelector(".studentPic").src = "/services/data.php?q=getStudentPic";
-				document.querySelector(".prenom").innerText = data.auth.session.split(".")[0];
+				document.querySelector(".prenom").innerText = data.auth.session.match(/(.*)./)?.[1] || "Mme, M.,";
 				let auth = document.querySelector(".auth");
 				auth.style.opacity = "0";
 				auth.style.pointerEvents = "none";
