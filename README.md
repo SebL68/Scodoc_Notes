@@ -13,6 +13,7 @@ Les utilisateurs actuels sont :
  - IUT du Littoral Côte d'Opale ?
  - IUT de la Rochelle ?
  - IUT Le Mans ?
+ - IUT de Mantes-En-Yvelines ?
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
   
