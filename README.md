@@ -12,6 +12,7 @@ Les utilisateurs actuels sont :
  - IUT de Poitiers ?
  - IUT du Littoral Côte d'Opale ?
  - IUT de la Rochelle ?
+ - IUT Le Mans ?
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
   
