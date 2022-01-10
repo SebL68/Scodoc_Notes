@@ -21,12 +21,14 @@
 
 	include $path . '/lib/JWT/JWT.php';
 
+	$exp = time() + 7 * 3600 * 24 ; // today + 7 days
+    $root_url = (isset($_SERVER["https"]) ? "https://" : "http://" ). $_SERVER["HTTP_HOST"];
 	$payload = [
 		'session' => 'sebastien.lehmann@uha.fr', // mail de la personne destinataire du jeton
 		'statut' => 'superadministrateur', // 'etudiant' | 'personnel' | 'administrateur' | 'superadministrateur' | INCONNU
-		//'exp' => 1608498444 // (optionnel) timestamp d'expiration du token 
+		'exp' => $exp // (optionnel) timestamp d'expiration du token
 	];
-	echo JWT::encode($payload, Config::$JWT_key);
+	echo $root_url."?token=".JWT::encode($payload, Config::$JWT_key);
 
 /**********************************/
 /* Compte demo étudiant :
