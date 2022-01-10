@@ -191,7 +191,11 @@
 			async function checkStatut(){
 				let data = await fetchData("dataPremièreConnexion");
 				document.querySelector(".studentPic").src = "/services/data.php?q=getStudentPic";
-				document.querySelector(".prenom").innerText = data.auth.session.split(".")[0];
+                if (typeof data.auth.session == 'string' && data.auth.session.indexOf(".") > -1) {
+                    document.querySelector(".prenom").innerText = data.auth.session.split(".")[0];
+                } else {
+                    document.querySelector(".prenom").innerText = "Mme, M.,";
+                }
 				let auth = document.querySelector(".auth");
 				auth.style.opacity = "0";
 				auth.style.pointerEvents = "none";
