@@ -14,7 +14,11 @@ class ref_competences extends HTMLElement {
 		/* Style du module */
 		const styles = document.createElement('link');
 		styles.setAttribute('rel', 'stylesheet');
-		styles.setAttribute('href', 'ref-competences.css');
+		if(location.href.split("/")[3] == "ScoDoc"){
+			styles.setAttribute('href', '/ScoDoc/static/css/ref-competences.css');
+		} else {
+			styles.setAttribute('href', 'ref-competences.css');
+		}
 
 		this.shadow.appendChild(styles);
 	}
@@ -66,18 +70,23 @@ class ref_competences extends HTMLElement {
 				let divCompetence = document.createElement("div");
 				divCompetence.innerText = `${competence} ${i+1}`;
 				divCompetence.className = "comp" + numTmp;
+				divCompetence.dataset.competence=`${competence} ${i+1}`;
 				divCompetence.addEventListener("click", (event)=>{this.AC(event, competence, numTmp, i+1)})
 				divCompetence3ans.appendChild(divCompetence);
 			}
 			this.shadow.querySelector(".competences").appendChild(divCompetence3ans);
 			numComp++;
 		})
+
+		this.shadow.querySelectorAll(".AC").forEach(ac =>{
+			this.shadow.querySelector(`[data-competence="${ac.dataset.competence}"]`).classList.add("focus");
+		});
 	}
 
 	AC(event, competence, numComp, annee){
 		event.currentTarget.classList.toggle("focus");
-		if(this.shadow.querySelector(`[data-competence="${competence} ${annee}"]`)){
-			this.shadow.querySelector(`[data-competence="${competence} ${annee}"]`).remove();
+		if(this.shadow.querySelector(`.ACs [data-competence="${competence} ${annee}"]`)){
+			this.shadow.querySelector(`.ACs [data-competence="${competence} ${annee}"]`).remove();
 		} else {
 			let output = `
 				<ul class=AC data-competence="${competence} ${annee}">
