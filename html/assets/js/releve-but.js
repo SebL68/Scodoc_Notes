@@ -15,7 +15,11 @@ class releveBUT extends HTMLElement {
 		/* Style du module */
 		const styles = document.createElement('link');
 		styles.setAttribute('rel', 'stylesheet');
-		styles.setAttribute('href', '/assets/styles/releve-but.css');
+		if(location.href.split("/")[3] == "ScoDoc"){
+			styles.setAttribute('href', '/ScoDoc/static/css/releve-but.css');	// Scodoc
+		} else {
+			styles.setAttribute('href', '/assets/styles/releve-but.css');		// Passerelle
+		}
 		this.shadow.appendChild(styles);	
 	}
 	listeOnOff() {
@@ -78,7 +82,7 @@ class releveBUT extends HTMLElement {
 			<div class=flex>
 				<div class=infoSemestre></div>
 				<div>
-					<div class=decision>Validé !</div>
+					<div class=decision></div>
 					<div class=dateInscription>Inscrit le </div>
 					<em>Les moyennes servent à situer l'étudiant dans la promotion et ne correspondent pas à des validations de compétences ou d'UE.</em>
 				</div>
