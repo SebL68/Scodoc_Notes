@@ -1,46 +1,46 @@
 /* Module par Seb. L. */
 class releveBUT extends HTMLElement {
-	constructor(){
+	constructor() {
 		super();
-		this.shadow = this.attachShadow({mode: 'open'});
+		this.shadow = this.attachShadow({ mode: 'open' });
 
 		/* Config par defaut */
 		this.config = {
 			showURL: true
 		};
-		
+
 		/* Template du module */
 		this.shadow.innerHTML = this.template();
-		
+
 		/* Style du module */
 		const styles = document.createElement('link');
 		styles.setAttribute('rel', 'stylesheet');
-		if(location.href.split("/")[3] == "ScoDoc"){
+		if (location.href.split("/")[3] == "ScoDoc") {
 			styles.setAttribute('href', '/ScoDoc/static/css/releve-but.css');	// Scodoc
 		} else {
 			styles.setAttribute('href', '/assets/styles/releve-but.css');		// Passerelle
 		}
-		this.shadow.appendChild(styles);	
+		this.shadow.appendChild(styles);
 	}
 	listeOnOff() {
 		this.parentElement.parentElement.classList.toggle("listeOff");
-		this.parentElement.parentElement.querySelectorAll(".moduleOnOff").forEach(e=>{
+		this.parentElement.parentElement.querySelectorAll(".moduleOnOff").forEach(e => {
 			e.classList.remove("moduleOnOff")
 		})
 	}
-	moduleOnOff(){
+	moduleOnOff() {
 		this.parentElement.classList.toggle("moduleOnOff");
 	}
-	goTo(){
+	goTo() {
 		let module = this.dataset.module;
 		this.parentElement.parentElement.parentElement.parentElement.querySelector("#Module_" + module).scrollIntoView();
 	}
 
-	set setConfig(config){
+	set setConfig(config) {
 		this.config.showURL = config.showURL ?? this.config.showURL;
 	}
 
-	set showData(data) {	
+	set showData(data) {
 		this.showInformations(data);
 		this.showSemestre(data);
 		this.showSynthese(data);
@@ -50,7 +50,7 @@ class releveBUT extends HTMLElement {
 
 		this.shadow.querySelectorAll(".CTA_Liste").forEach(e => {
 			e.addEventListener("click", this.listeOnOff)
-		})	
+		})
 		this.shadow.querySelectorAll(".ue, .module").forEach(e => {
 			e.addEventListener("click", this.moduleOnOff)
 		})
@@ -61,7 +61,7 @@ class releveBUT extends HTMLElement {
 		this.shadow.children[0].classList.add("ready");
 	}
 
-	template(){
+	template() {
 		return `
 <div>	
 	<div class="wait"></div>
@@ -146,8 +146,8 @@ class releveBUT extends HTMLElement {
 		this.shadow.querySelector(".studentPic").src = data.etudiant.photo_url || "default_Student.svg";
 
 		let output = '';
-		
-		if(this.config.showURL){
+
+		if (this.config.showURL) {
 			output += `<a href="${data.etudiant.fiche_url}" class=info_etudiant>`;
 		} else {
 			output += `<div class=info_etudiant>`;
@@ -171,7 +171,7 @@ class releveBUT extends HTMLElement {
 				</div>
 				<div>${data.formation.titre}</div>
 		`;
-		if(this.config.showURL){
+		if (this.config.showURL) {
 			output += `</a>`;
 		} else {
 			output += `</div>`;
@@ -194,18 +194,18 @@ class releveBUT extends HTMLElement {
 				<div>Moy. promo. :</div><div>${data.semestre.notes.moy}</div>
 				<div>Min. promo. :</div><div>${data.semestre.notes.min}</div>
 			</div>`;
-			/*${data.semestre.groupes.map(groupe => {
-				return `
-						<div>
-							<div class=enteteSemestre>Groupe</div><div class=enteteSemestre>${groupe.nom}</div>
-							<div class=rang>Rang :</div><div class=rang>${groupe.rang.value} / ${groupe.rang.total}</div>
-							<div>Max. groupe :</div><div>${groupe.notes.max}</div>
-							<div>Moy. groupe :</div><div>${groupe.notes.min}</div>
-							<div>Min. groupe :</div><div>${groupe.notes.min}</div>
-						</div>
-					`;
-				}).join("")
-			}*/
+		/*${data.semestre.groupes.map(groupe => {
+			return `
+					<div>
+						<div class=enteteSemestre>Groupe</div><div class=enteteSemestre>${groupe.nom}</div>
+						<div class=rang>Rang :</div><div class=rang>${groupe.rang.value} / ${groupe.rang.total}</div>
+						<div>Max. groupe :</div><div>${groupe.notes.max}</div>
+						<div>Moy. groupe :</div><div>${groupe.notes.min}</div>
+						<div>Min. groupe :</div><div>${groupe.notes.min}</div>
+					</div>
+				`;
+			}).join("")
+		}*/
 		this.shadow.querySelector(".infoSemestre").innerHTML = output;
 		this.shadow.querySelector(".decision").innerHTML = data.semestre.decision?.code || "";
 	}
@@ -261,7 +261,7 @@ class releveBUT extends HTMLElement {
 		})
 		return output;
 	}
-	
+
 	/*******************************/
 	/* Evaluations                 */
 	/*******************************/
@@ -339,8 +339,8 @@ class releveBUT extends HTMLElement {
 	/********************/
 	/* Fonctions d'aide */
 	/********************/
-	URL(href, content){
-		if(this.config.showURL){
+	URL(href, content) {
+		if (this.config.showURL) {
 			return `<a href=${href}>${content}</a>`;
 		} else {
 			return content;
