@@ -89,6 +89,11 @@
 		} else {
 			echo '<div class=wrong><span>❌</span> [OPTIONNEL] L\'extention LDAP n\'est pas installée.<br>Cette extention est nécessaire si vous avez besoin des fonctionnalitées liées au LDAP.<br>Le LDAP peut s\'avérer nécessaire si le CAS renvoie autre chose que le numéro d\'étudiant et pour automatiser la distinction entre les étudiants et les enseignants.</div>';
 		}
+		if($_SERVER['HTTPS']){
+			echo '<div><span>✔️</span> Votre serveur à bien le SSL / TLS de configuré.</div>';
+		} else {
+			echo '<div class=wrong><span>❌</span> Votre serveur n\'a pas le SSL / TLS de configurer, dans certains cas, ça peut poser des problèmes, comme par exemple pour l\'utilisation du CAS.</div>';
+		}
 
 	/**************************/
 	/* Configuration du vhost */
@@ -113,7 +118,7 @@
 		echo "<div><span>☑️</span> Vérifiez que c'est bien le CAS de votre université <a href=https://$cas_host>$cas_host</a></div>";
 		echo "<div class=spaceUnder><span></span> ==> Si ce n'est pas le cas, changez la configuration de cas_config.php</div>";
 		
-		echo "<div><span>☑️</span> Vérifiez que votre serveur à bien l'authorisation de se connecter au CAS : <a href=/services/doAuth.php>Authentifiation</a></div>";
+		echo "<div><span>☑️</span> Vérifiez que votre serveur à bien l'authorisation de se connecter au CAS : <a href=/services/doAuth.php?href=".$_SERVER['HTTP_HOST'].">Authentifiation</a></div>";
 		echo "<div class=spaceUnder><span></span> ==> Si ce n'est pas le cas, demandez l'authorisation à votre service informatique.</div>";
 
 		echo "<div><span>☑️</span><div>La passerelle attend du CAS ";
