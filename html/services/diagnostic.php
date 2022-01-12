@@ -147,6 +147,20 @@
 	/* Lien avec Scodoc */
 	/********************/
 		include_once "$path/includes/scodoc.class.php";
+		/*error_reporting(E_ALL);
+		ini_set('display_errors', '1');*/
+
+		/*$Scodoc = new Scodoc();
+		echo $Scodoc->getToken();
+		echo $Scodoc->Ask_Scodoc('list_depts');*/
+		echo "Tests en cours de rédactions ...";
+	?>
+
+	<h2>En option : LDAP</h2>
+	<?php
+	/********************/
+	/* Lien avec Scodoc */
+	/********************/
 		echo "Tests en cours de rédactions ...";
 	?>
 </body>
