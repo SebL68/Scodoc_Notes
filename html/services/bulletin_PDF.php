@@ -1,6 +1,6 @@
 <?php
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
-	include_once "$path/includes/default_config.class.php";
+	include_once "$path/includes/default_config.php";
 	include_once "$path/includes/annuaire.class.php";		// Class Annuaire
 	include_once "$path/includes/serverIO.php";
 	include_once "$path/includes/user.class.php";

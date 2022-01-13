@@ -5,7 +5,7 @@
 /*******************************************************************/
 
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
-	include_once "$path/includes/default_config.class.php";
+	include_once "$path/includes/default_config.php";
 	class Scodoc{
 		private $ch; // Connexion CURL
 

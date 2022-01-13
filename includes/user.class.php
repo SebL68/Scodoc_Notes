@@ -69,7 +69,7 @@
 		private function tokenAuth($token){
 			global $Config;
 			include_once $this->path . '/lib/JWT/JWT.php';
-			include_once $this->path . '/includes/default_config.class.php';
+			include_once $this->path . '/includes/default_config.php';
 			
 			$decoded = JWT::decode($token, $Config->JWT_key, ['HS256']);
 			$_SESSION['id'] = $decoded->session;

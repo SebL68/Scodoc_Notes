@@ -1,6 +1,6 @@
 <?php 
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
-	include_once "$path/includes/default_config.class.php";
+	include_once "$path/includes/default_config.php";
 ?>
 <header>
 	<h1><?php echo $h1; ?></h1>

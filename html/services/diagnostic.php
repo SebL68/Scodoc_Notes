@@ -98,8 +98,8 @@
 	/**************************/
 	/* Configuration du vhost */
 	/**************************/
-		if(file_exists("$path/includes/default_config.class.php")){
-			include_once "$path/includes/default_config.class.php";
+		if(file_exists("$path/includes/default_config.php")){
+			include_once "$path/includes/default_config.php";
 			echo '<div><span>✔️</span> La racine du site est bien configurée.</div>';
 		} else {
 			echo '<div class=wrong><span>❌</span> La racine du site n\'est pas configurée correctement : elle doit pointer vers le répertoire html.<br> Veuillez configurer le fichier httpd-vhosts.conf (si vous utilisez Apache).</div>';

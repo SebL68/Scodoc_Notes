@@ -10,7 +10,7 @@
     <style>
 		:root{
 			--nb-creneaux: <?php 
-					include_once "$path/includes/default_config.class.php";
+					include_once "$path/includes/default_config.php";
 					echo count($Config->absences_creneaux); 
 				?>;
 		}
@@ -337,7 +337,7 @@
 		?>  
         document.querySelector("#gestion").classList.add("navActif");
 		var creneaux = <?php
-            include_once "$path/includes/default_config.class.php";
+            include_once "$path/includes/default_config.php";
             echo json_encode($Config->absences_creneaux);
 		?>;
 /*********************************************/

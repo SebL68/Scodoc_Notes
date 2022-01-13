@@ -511,7 +511,7 @@
         let heure = date.getHours() + date.getMinutes() / 60; // Heure en décimale : exemple 10h30 => 10.5
         
         var creneaux = <?php
-            include_once "$path/includes/default_config.class.php";
+            include_once "$path/includes/default_config.php";
             echo json_encode($Config->absences_creneaux);
 		?>;
         var creneauxIndex = creneaux.length -1;
