@@ -1,6 +1,6 @@
 <?php
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
-	include_once "$path/config/config.php";
+	include_once "$path/includes/default_config.class.php";
 
   /************************************************/
   /* Définition des constantes JS liées au statut */
@@ -13,7 +13,7 @@
   /******************************************************/
   /* Définition de la constante du domaine DNS de l'UFR */
   /******************************************************/
-  echo "const DNS = '" . Config::$DNS . "'";
+  echo "const DNS = '" . $Config->DNS . "'";
 ?>
 /*********************************************/
 /* Fonction de communication avec le serveur

@@ -15,7 +15,7 @@
 /*   Configurations  */
 /*********************/
 $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
-include_once "$path/config/config.php";
+include_once "$path/includes/default_config.class.php";
 
 Annuaire::$STUDENTS_PATH = "$path/data/annuaires/liste_etu.txt";
 Annuaire::$USERS_PATH = "$path/data/annuaires/utilisateurs.json";
@@ -46,7 +46,7 @@ class Annuaire{
 		// Recherche du numero d'étudiant en fonction de son mail dans une chaîne de caractère de type :
 		// e1912345:jean.dupont@uha.fr
 
-		if(Config::$CAS_return_type == 'mail'){
+		if($Config->CAS_return_type != 'nip'){
 			self::checkFile(self::$STUDENTS_PATH);
 			$handle = fopen(self::$STUDENTS_PATH, 'r');
 			while(($line = fgets($handle, 1000)) !== FALSE){

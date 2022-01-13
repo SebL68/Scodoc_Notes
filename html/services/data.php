@@ -12,18 +12,18 @@
 	header('Content-type:application/json');
 
 /* Debug */
-	/*error_reporting(E_ALL);
-	ini_set('display_errors', '1');*/
+	error_reporting(E_ALL);
+	ini_set('display_errors', '1');
 
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 
-	include_once "$path/config/config.php";
+	include_once "$path/includes/default_config.class.php";
 	include_once "$path/includes/absences.class.php";
 	include_once "$path/includes/admin.class.php";
 	include_once "$path/includes/user.class.php";
 	include_once "$path/includes/annuaire.class.php";
-	include_once "$path/includes/".Config::$service_annuaire_class;	// Class Service_Annuaire
-	include_once "$path/includes/".Config::$scheduler_class;		// Class Scheduler
+	include_once "$path/includes/".$Config->service_annuaire_class;	// Class Service_Annuaire
+	include_once "$path/includes/".$Config->scheduler_class;		// Class Scheduler
 	$user = new User();
 
 /*******************************/

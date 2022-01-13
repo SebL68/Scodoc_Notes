@@ -10,8 +10,8 @@
     <style>
 		:root{
 			--nb-creneaux: <?php 
-					include_once "$path/config/config.php";
-					echo count(Config::$absences_creneaux); 
+					include_once "$path/includes/default_config.class.php";
+					echo count($Config->absences_creneaux); 
 				?>;
 		}
         <?php include $_SERVER['DOCUMENT_ROOT']."/assets/header.css"?>
@@ -206,7 +206,7 @@
 		}
 		.etudiants>div{
 			display: grid;
-			grid-template-columns: 300px repeat(6, 32px<?php for($i=0;$i<count(Config::$absences_creneaux)-1;$i++){echo " 24px";} ?>);
+			grid-template-columns: 300px repeat(6, 32px<?php for($i=0;$i<count($Config->absences_creneaux)-1;$i++){echo " 24px";} ?>);
 			gap: 1px;
 		}
 		.etudiants>div>div{
@@ -273,7 +273,7 @@
                 width: calc(100vw - 28px);
             }
             .etudiants>div{
-                grid-template-columns: 180px repeat(6, 32px<?php for($i=0;$i<count(Config::$absences_creneaux)-1;$i++){echo " 24px";} ?>);
+                grid-template-columns: 180px repeat(6, 32px<?php for($i=0;$i<count($Config->absences_creneaux)-1;$i++){echo " 24px";} ?>);
             }
             .etudiants .btnAbsences{
                 padding: 8px 16px;
@@ -337,8 +337,8 @@
 		?>  
         document.querySelector("#gestion").classList.add("navActif");
 		var creneaux = <?php
-            include_once "$path/config/config.php";
-            echo json_encode(Config::$absences_creneaux);
+            include_once "$path/includes/default_config.class.php";
+            echo json_encode($Config->absences_creneaux);
 		?>;
 /*********************************************/
 /* Vérifie l'identité de la personne et son statut

@@ -6,7 +6,7 @@
 
 	if(!isset($_SESSION)){ session_start(); }
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
-	include_once "$path/config/config.php";
+	include_once "$path/includes/default_config.class.php";
 	include_once "$path/includes/annuaire.class.php";		// Class Annuaire
 	
 /**************************/
@@ -45,14 +45,19 @@
 ****************************/
 	function Ask_Scodoc($url_query, $dep = '', $options = []){
 		$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
+
+		$login = [
+			'__ac_name' => $Config->scodoc_login,
+			'__ac_password' => $Config->scodoc_psw
+		];
 		
-		$data = http_build_query(array_merge(Config::$scodoc_login, $options));
+		$data = http_build_query(array_merge($login, $options));
 		
 		if($dep != ''){
 			$dep = '/'.$dep;
 		}
 
-		return CURL(Config::$scodoc_url . "$dep$url_query?$data");
+		return CURL($Config->scodoc_url . "$dep$url_query?$data");
 	}
 
 
@@ -412,7 +417,7 @@ Sortie :
 
 *******************************/
 function getDepartmentsList(){
-	return Config::$departements;
+	return $Config->departements;
 	
 	/*json_decode(
 			$output = Ask_Scodoc(

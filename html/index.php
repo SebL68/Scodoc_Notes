@@ -1,6 +1,6 @@
 <?php 
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
-	include_once "$path/config/config.php";
+	include_once "$path/includes/default_config.class.php";
 ?>
 <!DOCTYPE html>
 <html lang=fr>
@@ -114,7 +114,7 @@
 		<meta name=description content="Relevé de notes de l'IUT de Mulhouse">
 	</head>
 	<body class="<?php
-		if(Config::$afficher_absences == false){
+		if($Config->afficher_absences == false){
 			echo 'hideAbsences';
 		}
 	?>">

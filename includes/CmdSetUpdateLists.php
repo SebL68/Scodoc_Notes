@@ -8,8 +8,8 @@ else {
     $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');    // Exécution par serveur web
 }
 
-include_once "$path/config/config.php";
-include_once "$path/includes/".Config::$scheduler_class;	// Class Scheduler
+include_once "$path/includes/default_config.class.php";
+include_once "$path/includes/".$Config->scheduler_class;	// Class Scheduler
 
 Scheduler::setUpdateLists();
 ?>

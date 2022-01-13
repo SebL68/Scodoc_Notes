@@ -98,8 +98,8 @@
 	/**************************/
 	/* Configuration du vhost */
 	/**************************/
-		if(file_exists("$path/config/config.php")){
-			include_once "$path/config/config.php";
+		if(file_exists("$path/includes/default_config.class.php")){
+			include_once "$path/includes/default_config.class.php";
 			echo '<div><span>✔️</span> La racine du site est bien configurée.</div>';
 		} else {
 			echo '<div class=wrong><span>❌</span> La racine du site n\'est pas configurée correctement : elle doit pointer vers le répertoire html.<br> Veuillez configurer le fichier httpd-vhosts.conf (si vous utilisez Apache).</div>';
@@ -122,7 +122,7 @@
 		echo "<div class=spaceUnder><span></span> ==> Si ce n'est pas le cas, demandez l'authorisation à votre service informatique.</div>";
 
 		echo "<div><span>☑️</span><div>La passerelle attend du CAS ";
-		if (Config::$CAS_return_type == 'nip') {
+		if ($Config->CAS_return_type == 'nip') {
 			echo '<b>un numéro d\'étudiant</b>.';
 		} else {
 			echo '<b>une autre valeur que le numéro d\'étudiant</b>. Dans ce cas, il vous faudra certainement configurer le LDAP.';
@@ -130,7 +130,7 @@
 		echo '</div></div>';
 		echo "<div class=spaceUnder><span></span> ==> Si ce n'est pas le cas, changez la configuration dans config.php</div>";
 
-		if (Config::$CAS_return_type == 'nip') {
+		if ($Config->CAS_return_type == 'nip') {
 			echo "<div><span>☑️</span> Vérifiez que le numéro d'étudiant donné par le CAS correspond bien au numéro qui est dans Scodoc.</div>";
 			echo "<div class=spaceUnder><span></span> ==> Si ce n'est pas le cas, changez la fonction nipModifier() dans config.php</div>";
 		}

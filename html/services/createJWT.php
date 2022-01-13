@@ -6,7 +6,7 @@
 
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 
-	include_once "$path/config/config.php";
+	include_once "$path/includes/default_config.class.php";
 	include_once "$path/includes/user.class.php";
 	$user = new User();
 
@@ -28,7 +28,7 @@
 		'statut' => 'superadministrateur', // 'etudiant' | 'personnel' | 'administrateur' | 'superadministrateur' | INCONNU
 		'exp' => $exp // (optionnel) timestamp d'expiration du token
 	];
-	echo $root_url."?token=".JWT::encode($payload, Config::$JWT_key);
+	echo $root_url."?token=".JWT::encode($payload, $Config->JWT_key);
 
 /**********************************/
 /* Compte demo étudiant :

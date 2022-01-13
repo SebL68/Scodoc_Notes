@@ -30,11 +30,11 @@ class Scheduler{
       $output = shell_exec('crontab -l');
       echo "Ancienne commande dans crontab : <br>\n".$output."<br>\n";
 
-      $cron_cmd = Config::$CRON_delay." ".Config::$PHP_cmd." ".$path."/includes/CmdUpdateLists.php";
+      $cron_cmd = $Config->CRON_delay." ".$Config->PHP_cmd." ".$path."/includes/CmdUpdateLists.php";
       echo "Nouvelle commande CRON : ".$cron_cmd."<br>\n";
       
-      file_put_contents(Config::$tmp_dir . "/crontab.txt", $cron_cmd.PHP_EOL);
-      echo exec("crontab " . Config::$tmp_dir . "/crontab.txt");
+      file_put_contents($Config->tmp_dir . "/crontab.txt", $cron_cmd.PHP_EOL);
+      echo exec("crontab " . $Config->tmp_dir . "/crontab.txt");
 
       // Vérification de la nouvelle configuration
       $output = shell_exec('crontab -l');

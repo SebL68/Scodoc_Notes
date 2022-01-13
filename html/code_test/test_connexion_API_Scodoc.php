@@ -1,6 +1,6 @@
 <?php 
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
-	include_once "$path/config/config.php";
+	include_once "$path/includes/default_config.class.php";
 	error_reporting(E_ALL);
 	ini_set('display_errors', '1');
 	class Scodoc{
@@ -16,7 +16,7 @@
 			/******************************************************/
 			/* Uniquement pour accéder à un serveur Scodoc de dev *
 				curl_setopt($this->ch, CURLOPT_HTTPHEADER, array('Expect:'));
-				Config::$scodoc_url = 'http://192.168.1.49:5000/ScoDoc';
+				$Config->scodoc_url = 'http://192.168.1.49:5000/ScoDoc';
 			/******************************************************/
 
 			/* Configuration pour récupérer le token */ 
@@ -25,8 +25,8 @@
 			//curl_setopt($this->ch, CURLOPT_SSL_VERIFYHOST, false);
 			curl_setopt($this->ch, CURLOPT_POST, true);
 
-			curl_setopt($this->ch, CURLOPT_URL, Config::$scodoc_url.'/api/tokens');
-			curl_setopt($this->ch, CURLOPT_USERPWD, Config::$scodoc_login2 . ':' . Config::$scodoc_psw);
+			curl_setopt($this->ch, CURLOPT_URL, $Config->scodoc_url.'/api/tokens');
+			curl_setopt($this->ch, CURLOPT_USERPWD, $Config->scodoc_login . ':' . $Config->scodoc_psw);
 
 			$token = json_decode(curl_exec($this->ch))->token;
 			
@@ -49,7 +49,7 @@
 		public function Ask_Scodoc($url_query, $options = []){
 			$data = http_build_query($options);
 
-			curl_setopt($this->ch, CURLOPT_URL, Config::$scodoc_url . "/api/$url_query?$data");
+			curl_setopt($this->ch, CURLOPT_URL, $Config->scodoc_url . "/api/$url_query?$data");
 			return curl_exec($this->ch);
 		}
 	}

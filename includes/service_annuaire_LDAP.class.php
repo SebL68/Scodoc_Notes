@@ -28,9 +28,9 @@ class Service_Annuaire{
         $BIATSS_PATH = "$path/data/annuaires/liste_biat.txt";
         
         if ($id_LDAP = self::openLDAP()) {
-            self::updateList($id_LDAP, $STUDENTS_PATH, "(&(".Config::$LDAP_filtre_statut_etudiant.")(".Config::$LDAP_filtre_ufr."))", [Config::$LDAP_uid, Config::$LDAP_mail]);
-            self::updateList($id_LDAP, $TEACHERS_PATH, "(&(".Config::$LDAP_filtre_enseignant.")(".Config::$LDAP_filtre_ufr."))",      [Config::$LDAP_mail]);
-            self::updateList($id_LDAP, $BIATSS_PATH,   "(&(".Config::$LDAP_filtre_biatss.")(".Config::$LDAP_filtre_ufr."))",          [Config::$LDAP_mail]);
+            self::updateList($id_LDAP, $STUDENTS_PATH, "(&(".$Config->LDAP_filtre_statut_etudiant.")(".$Config->LDAP_filtre_ufr."))", [$Config->LDAP_uid, $Config->LDAP_mail]);
+            self::updateList($id_LDAP, $TEACHERS_PATH, "(&(".$Config->LDAP_filtre_enseignant.")(".$Config->LDAP_filtre_ufr."))",      [$Config->LDAP_mail]);
+            self::updateList($id_LDAP, $BIATSS_PATH,   "(&(".$Config->LDAP_filtre_biatss.")(".$Config->LDAP_filtre_ufr."))",          [$Config->LDAP_mail]);
         }
         else
             exit("Pas de connexion au serveur LDAP");
@@ -62,7 +62,7 @@ class Service_Annuaire{
         if(!flock($id_file, LOCK_EX))
             exit("Impossible de verrouiller le fichier $file");
 
-        $id_result = ldap_search($ds, Config::$LDAP_dn, $filter);
+        $id_result = ldap_search($ds, $Config->LDAP_dn, $filter);
         $result = ldap_get_entries($ds, $id_result);
         $nb = ldap_count_entries($ds, $id_result);
 
@@ -81,8 +81,6 @@ class Service_Annuaire{
         flock($id_file, LOCK_UN);
         fclose($id_file);
         chmod($file, 0664);
-        chown($file, Config::$webServerUser);
-        chgrp($file, Config::$webServerGroup);
         
         return ['result' => "OK"];
     }
@@ -97,7 +95,7 @@ class Service_Annuaire{
     /****************************************************/
     private static function openLDAP(){
 
-        $ds=ldap_connect(Config::$LDAP_url);
+        $ds=ldap_connect($Config->LDAP_url);
         if ($ds===FALSE)
             exit("Connexion au serveur LDAP impossible");
     
@@ -108,7 +106,7 @@ class Service_Annuaire{
             exit("Connexion TLS au serveur LDAP impossible");
         
         // Authentification sur le serveur LDAP
-        if (ldap_bind($ds, Config::$LDAP_user, Config::$LDAP_password))
+        if (ldap_bind($ds, $Config->LDAP_user, $Config->LDAP_password))
             return $ds;
         else
             exit("Authentification sur le serveur LDAP impossible");
