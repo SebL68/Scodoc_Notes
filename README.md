@@ -11,7 +11,7 @@ Les utilisateurs actuels sont :
  - IUT du Havre ?
  - IUT de Poitiers ?
  - IUT du Littoral Côte d'Opale ?
- - IUT de la Rochelle => accès de base,
+ - IUT de La Rochelle => accès de base,
  - IUT Le Mans ?
  - IUT de Mantes-En-Yvelines ?
   
