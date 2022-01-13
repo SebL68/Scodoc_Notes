@@ -10,7 +10,7 @@
 		/* Initialisation de la connexion et récupération du token */
 		/***********************************************************/
 		public function __construct(){
-
+			global $Config;
 			$this->ch = curl_init();
 
 			/******************************************************/
@@ -47,6 +47,7 @@
 		/* Accès à l'API Scodoc */
 		/************************/
 		public function Ask_Scodoc($url_query, $options = []){
+			global $Config;
 			$data = http_build_query($options);
 
 			curl_setopt($this->ch, CURLOPT_URL, $Config->scodoc_url . "/api/$url_query?$data");

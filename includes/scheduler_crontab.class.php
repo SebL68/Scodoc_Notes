@@ -20,6 +20,7 @@ class Scheduler{
 /****************************************************/
     public static function setUpdateLists(){
       global $argv;
+	  global $Config;
       
       if (isset($argv))
           $path = dirname(dirname(realpath($argv[0])));           // Exécution par CLI

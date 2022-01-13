@@ -44,6 +44,7 @@
 		Retour : [string] du résultat
 ****************************/
 	function Ask_Scodoc($url_query, $dep = '', $options = []){
+		global $Config;
 		$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 
 		$login = [
@@ -417,6 +418,7 @@ Sortie :
 
 *******************************/
 function getDepartmentsList(){
+	global $Config;
 	return $Config->departements;
 	
 	/*json_decode(

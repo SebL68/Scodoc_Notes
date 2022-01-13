@@ -30,6 +30,7 @@
 	/* Constructeur */
 	/****************/
 		public function __construct(){
+			global $Config;
 			$this->path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 
 			$header = apache_request_headers()['Authorization'] ?? "";
@@ -66,6 +67,7 @@
 	/* Authentification par jeton */
 	/******************************/
 		private function tokenAuth($token){
+			global $Config;
 			include_once $this->path . '/lib/JWT/JWT.php';
 			include_once $this->path . '/includes/default_config.class.php';
 			
@@ -99,6 +101,7 @@
 	/* Définition du statut à partir de l'annuaire */
 	/***********************************************/
 		private function defineStatut(){
+			global $Config;
 			if($Config->acces_enseignants == true){
 				include_once $this->path.'/includes/annuaire.class.php';
 				$_SESSION['statut'] = Annuaire::statut($this->session);

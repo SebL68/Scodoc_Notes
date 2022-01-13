@@ -20,6 +20,7 @@ class Service_Annuaire{
 /****************************************************/
     public static function updateLists(){
         global $path;
+		global $Config;
 
         echo "Enregistrement des listes dans : $path/data/annuaires/<br>\n";
 
@@ -55,7 +56,7 @@ class Service_Annuaire{
     */
     /****************************************************/
     private static function updateList($ds, $file, $filter, $data){
-
+		global $Config;
         if(!$id_file = fopen($file, "w"))
             exit("Impossible d'ouvrir le fichier $file");
 
@@ -94,7 +95,7 @@ class Service_Annuaire{
     */
     /****************************************************/
     private static function openLDAP(){
-
+		global $Config;
         $ds=ldap_connect($Config->LDAP_url);
         if ($ds===FALSE)
             exit("Connexion au serveur LDAP impossible");

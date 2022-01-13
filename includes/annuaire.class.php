@@ -45,7 +45,7 @@ class Annuaire{
 	public static function getStudentNumberFromMail($mail){
 		// Recherche du numero d'étudiant en fonction de son mail dans une chaîne de caractère de type :
 		// e1912345:jean.dupont@uha.fr
-
+		global $Config;
 		if($Config->CAS_return_type != 'nip'){
 			self::checkFile(self::$STUDENTS_PATH);
 			$handle = fopen(self::$STUDENTS_PATH, 'r');

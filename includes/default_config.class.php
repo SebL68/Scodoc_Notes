@@ -2,7 +2,7 @@
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 	include_once $path.'/config/config.php';
 
-	if(Config::$config_version != '1.0.0'){
+	if(!isset(Config::$config_version) || Config::$config_version != '1.0.0'){
 		die(
 			json_encode(
 				array(
