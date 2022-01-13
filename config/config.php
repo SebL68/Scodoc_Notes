@@ -3,6 +3,8 @@
 /* Class contenant les données de configuration */
 /************************************************/
 	class Config {
+		public static $config_version = '1.0.0';
+		/* Sensitif à la case */
 		public static $departements = [
 				'GEA',
 				'GEII',
@@ -11,9 +13,9 @@
 				'MMI',
 				'SGM'
 			];
-	/**********************************/
-	/* Activation des modules du site */
-	/**********************************/
+/**********************************/
+/* Activation des modules du site */
+/**********************************/
 		/* 
 			L'accès enseignants permet aux enseignants de :
 				- voir les notes de n'importe quel étudiant,
@@ -30,74 +32,51 @@
 		public static $afficher_absences = false;	// En dessous du relevé de notes étudiants
 		public static $module_absences = false;		// nécessite l'$acces_enseignants - ce module est différent de celui de Scodoc, il est géré entièrement par la passerelle.
 
-	/*********************************/
-	/* Données retournées par le CAS */
-	/*********************************/
-		public static $CAS_return_type = 'nip';	// Valeurs possibles : 'mail' ou 'nip'
+/*********************************/
+/* Données retournées par le CAS */
+/*********************************/
+		public static $CAS_return_type = 'nip';	// Valeurs possibles : 
+													//  - 'nip' : numéro d'étudiant
+													//  - 'idCAS' : un identificant autre (mail, identifiant LDAP ou autres)
 
-	/* Certains nip ou mails ne correspondent pas à ce qui est dans Scodoc, parfois une lettre à changer
+	/* Certains nip ne correspondent pas à ce qui est dans Scodoc, parfois une lettre à changer
 		La fonction nipModifier fonction permet d'appliquer une modification avant d'utilliser le nip / mail
 		
 		Voir /includes/annuaire.class.php -> getStudentNumberFromMail()
 	*/
 
 		public static function nipModifier($nip){
-			//return '2'.substr($nip, 1); // Exemple pour remplacer la première lettre par un 2
+			//return '2'.substr($nip, 1); // Exemple pour remplacer la première lettre du nip par un 2
 			return $nip;
+			
 		}
 
-
-	/********************************/
-	/* Accès à Scodoc               */
-	/********************************/
+/********************************/
+/* Accès à Scodoc               */
+/********************************/
 	/*	Il faut créer compte avec un accès "secrétariat" qui a accès à tous les départements */
 
-		public static $scodoc_url = 'https://iutmscodoc9.uha.fr/ScoDoc';	// Ne pas oublier de mettre /ScoDoc à la fin
-		public static $scodoc_login = [
-			'__ac_name' => 'LOGIN_SCODOC',
-			'__ac_password' => 'MDP_SCODOC'
-		];
-		
-		public static $scodoc_login2 = 'LOGIN_SCODOC';	// Test pour la nouvelle API
+		public static $scodoc_url = 'https://iutmscodoc9.uha.fr/ScoDoc';	// Attention, il doit y avoir /Scodoc à la fin	
+		public static $scodoc_login = 'LOGIN_SCODOC';
 		public static $scodoc_psw = 'MDP_SCODOC';
 		
-	/*******************************************/
-	/* Déclaration du domaine DNS de l'UFR pour
-		les mails utilisateurs dans la zone admin
-	/*******************************************/
+/*******************************************/
+/* Déclaration du domaine DNS de l'UFR pour
+	les mails utilisateurs dans la zone admin
+/*******************************************/
 		public static $DNS = 'uha.fr';
-		
-	/********************************/
-	/* Clé pour les jetons JWT      */
-	/********************************/
-		public static $JWT_key = ''; // Laisser vide si on n'utilise pas les jetons JWT
 
-	/********************************************/
-	/* Class à utiliser pour l'authentification */
-	/* On peut alors utiliser un autre système  */
-	/********************************************/
-		public static $auth_class = 'auth_CAS.class.php';	
-
-	
 /* __________________________________________________________ */
 /*															  */
 /* LDAP n'est pas obligatoire et dépend des modules utilisés  */
 /* __________________________________________________________ */
-
-
-	/*******************************************************/
-	/* Class à utiliser pour accéder au service d'annuaire */
-	/* On peut aussi utiliser un autre système             */
-	/*******************************************************/
-		public static $service_annuaire_class = 'service_annuaire_LDAP.class.php';
-
-	/**********************/
-	/* Configuration LDAP */
-	/**********************/
+/**********************/
+/* Configuration LDAP */
+/**********************/
 	// Identifiants pour accéder au serveur LDAP
 		public static $LDAP_url = 'ldap://ldap.uha.fr:389';
 		public static $LDAP_user = 'uid=didev,ou=dsa,dc=uha,dc=fr';
-		public static $LDAP_password = 'Mot_De_Passe';
+		public static $LDAP_password = 'MDP_LDAP';
 
 	// Désignation du Distinguished Name dans LDAP
 		public static $LDAP_dn = 'dc=uha,dc=fr';
@@ -115,36 +94,10 @@
 	// Filtre LDAP BIATSS (edupersonaffiliation)
 		public static $LDAP_filtre_biatss = '&(edupersonaffiliation=staff)(!(edupersonaffiliation=teacher))(!(edupersonaffiliation=affiliate))';
 
-	/**********************************************************/
-	/* Class à utiliser pour gérer la planification de tâches */
-	/* On peut aussi utiliser un autre système                */
-	/**********************************************************/
-		public static $scheduler_class = 'scheduler_crontab.class.php';
 
-	/**************************/
-	/* Paramétrage de crontab */
-	/**************************/
-		public static $tmp_dir = '/tmp';			// Dossier temporaire utilisé lors de la programmation de CRON
-		public static $CRON_delay = '0 0 * * *';	// Périodicité de mise à jour des listes d'utilisateurs :
-													// '*/2 * * * *' => Toutes les 2 minutes
-													// '0 * * * *'   => Toutes les heures à xxh00
-													// '0 0 * * *'   => Tous les jours à 00h00
-/* ________________ */
-/*				    */
-/* Fin config LDAP  */
-/* ________________ */
-
-
-	/****************************/
-	/* Configuration du serveur */
-	/****************************/
-		public static $webServerUser = 'www-data';	/* Nécessaire ? */
-		public static $webServerGroup = 'www-data';	/* Nécessaire ? */
-		public static $PHP_cmd = '/usr/bin/php';
-	
-	/**************************************************/
-	/* Gestion des absences - si le module est activé */
-	/**************************************************/
+/**************************************************/
+/* Gestion des absences - si le module est activé */
+/**************************************************/
 		public static $absences_creneaux = [
 			[8, 10],
 			[10, 12],
@@ -152,20 +105,5 @@
 			[16, 18],
 			[18, 20]
 		];
-	}
-
-/***************************************/
-/* Déclaration des constantes globales */
-/***************************************/
-	$CONSTANTES = [
-		'INCONNU'             => 0,
-		'ETUDIANT'            => 10,
-		'PERSONNEL'           => 20,
-		'ADMINISTRATEUR'      => 30,
-		'SUPERADMINISTRATEUR' => 40
-	];
-
-	foreach($CONSTANTES as $const => $val) {
-		define($const, $val);
 	}
 ?>
