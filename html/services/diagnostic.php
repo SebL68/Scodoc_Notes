@@ -113,55 +113,18 @@
 	/********************/
 	/* CAS */
 	/********************/
-		include_once "$path/config/cas_config.php";
+		if(file_exists("$path/config/cas_config.php")){
+			include_once "$path/config/cas_config.php";
 
-		echo "<div><span>☑️</span> Vérifiez que c'est bien le CAS de votre université <a href=https://$cas_host>$cas_host</a></div>";
-		echo "<div class=spaceUnder><span></span> ==> Si ce n'est pas le cas, changez la configuration de cas_config.php</div>";
-		
-		echo "<div><span>☑️</span> Vérifiez que votre serveur à bien l'authorisation de se connecter au CAS : <a href=/services/doAuth.php?href=https://".$_SERVER['HTTP_HOST'].">Authentifiation</a></div>";
-		echo "<div class=spaceUnder><span></span> ==> Si ce n'est pas le cas, demandez l'authorisation à votre service informatique.</div>";
-
-		echo "<div><span>☑️</span><div>La passerelle attend du CAS ";
-		if ($Config->CAS_return_type == 'nip') {
-			echo '<b>un numéro d\'étudiant</b>.';
+			echo "<div><span>💭</span> Vérifiez que c'est bien le CAS de votre université <a href=https://$cas_host>$cas_host</a></div>";
+			echo "<div class=spaceUnder><span></span> ==> Si ce n'est pas le cas, changez la configuration de cas_config.php</div>";
+			
+			echo "<div><span>💭</span> Vérifiez que votre serveur à bien l'authorisation de se connecter au CAS : <a href=/services/doAuth.php?href=https://".$_SERVER['HTTP_HOST'].">Authentifiation</a></div>";
+			echo "<div class=spaceUnder><span></span> ==> Si ce n'est pas le cas, demandez l'authorisation à votre service informatique.</div>";
+			echo "<a href=diagnostic2.php>La suite sur la deuxième page.</a>";
 		} else {
-			echo '<b>une autre valeur que le numéro d\'étudiant</b>. Dans ce cas, il vous faudra certainement configurer le LDAP.';
+			echo "Le CAS ne peut pas être utilisé sans une bonne configuration de la racine.";
 		}
-		echo '</div></div>';
-		echo "<div class=spaceUnder><span></span> ==> Si ce n'est pas le cas, changez la configuration dans config.php</div>";
-
-		if ($Config->CAS_return_type == 'nip') {
-			echo "<div><span>☑️</span> Vérifiez que le numéro d'étudiant donné par le CAS correspond bien au numéro qui est dans Scodoc.</div>";
-			echo "<div class=spaceUnder><span></span> ==> Si ce n'est pas le cas, changez la fonction nipModifier() dans config.php</div>";
-		}
-
-		if ($cas_server_ca_cert_path != '') {
-			echo '<div><span>✔️</span> Vous avez configuré un certificat pour le CAS.</div>';
-		} else {
-			echo '<div><span>🔞</span> Vous n\'avez pas configuré le certificat pour le CAS, ce n\'est pas obligatoire, mais fortement recommandé pour améliorer la sécurité du site.</div>';
-		}
-	?>
-	<h2>Lien avec Scodoc</h2>
-	<?php
-	/********************/
-	/* Lien avec Scodoc */
-	/********************/
-		include_once "$path/includes/scodoc.class.php";
-		/*error_reporting(E_ALL);
-		ini_set('display_errors', '1');*/
-
-		/*$Scodoc = new Scodoc();
-		echo $Scodoc->getToken();
-		echo $Scodoc->Ask_Scodoc('list_depts');*/
-		echo "Tests en cours de rédactions ...";
-	?>
-
-	<h2>En option : LDAP</h2>
-	<?php
-	/********************/
-	/* Lien avec Scodoc */
-	/********************/
-		echo "Tests en cours de rédactions ...";
 	?>
 </body>
 </html>
