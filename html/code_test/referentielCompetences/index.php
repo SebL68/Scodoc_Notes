@@ -18,7 +18,7 @@
 
 	<script src="ref_competences.js"></script>
 	<script>
-		let data = <?php include "mmi.json"; ?>
+		let data = <?php include "rt.json"; ?>
 		document.querySelector("ref-competences").setData = data;
 	</script>
 

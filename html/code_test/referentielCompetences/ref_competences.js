@@ -43,10 +43,10 @@ class ref_competences extends HTMLElement {
 	initCompetences() {
 		this.competencesNumber = {};
 		let gridTemplate = "";
-		let i = 1;
+		let i = 0;
 		Object.keys(this.data.competences).forEach(competence => {
-			gridTemplate += `[${competence}] 1fr`;
-			this.competencesNumber[competence] = i++;
+			gridTemplate += `[${competence}] auto`;
+			this.competencesNumber[competence] = 1+i++%6;
 		})
 		this.shadow.querySelector(".competences").style.gridTemplateColumns = gridTemplate;
 	}
