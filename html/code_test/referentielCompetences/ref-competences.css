@@ -7,8 +7,7 @@
 	max-width: 1000px;
 	margin: auto;
 }
-h1{
-	
+h1{	
 	font-weight: 100;
 }
 /**********************/
@@ -41,27 +40,24 @@ h1{
 /* Zone compétences   */
 /**********************/
 .competences{
-	display: flex;
+	display: grid;
 	gap: 4px;
+	margin-top: 8px;
 }
-.competence{
-	flex: 1;
-}
-.competence>div{
+.competences>div{
 	padding: 4px 8px;
-	margin-top: 4px;
 	border-radius: 4px;	
 	cursor: pointer;
 }
 
-.comp1{background:#a44;}
+.comp1{background:#a44}
 .comp2{background:#84a}
 .comp3{background:#a84}
 .comp4{background:#8a4}
 .comp5{background:#4a8}
 .comp6{background:#48a}
 
-.competence>.focus{
+.competences>.focus{
 	outline: 2px solid;
 }
 

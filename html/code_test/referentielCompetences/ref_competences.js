@@ -37,53 +37,63 @@ class ref_competences extends HTMLElement {
 			div.addEventListener("click", (event) => { this.competences(event, cle) })
 			parcoursDIV.appendChild(div);
 		})
-
+		this.initCompetences();
 	}
 
-	competences(event, cle) {
+	initCompetences(){
+		this.competencesNumber = {};
+		let gridTemplate = "";
+		let i = 1;
+		Object.keys(this.data.competences).forEach(competence=>{
+			gridTemplate += `[${competence}] 1fr`;
+			this.competencesNumber[competence] = i++;
+		})
+		this.shadow.querySelector(".competences").style.gridTemplateColumns = gridTemplate;
+	}
+
+	competences(event, cle){
 		this.shadow.querySelector(".parcours>.focus")?.classList.remove("focus");
 		event.currentTarget.classList.add("focus");
+		let divCompetences = this.shadow.querySelector(".competences");
 
-		/* Récupère une liste plate de toutes les compentences de toutes les années */
-		let bucketCompetences = [
-			Object.keys(this.data.parcours[
-				Object.keys(this.data.parcours)[0]
-			].annees[1].competences)
-			, Object.keys(this.data.parcours[cle].annees[2].competences)
-			, Object.keys(this.data.parcours[cle].annees[3].competences)
-		].flat();
-
-		/* Compte le nombre d'occurence de chaque compétence */
-		let competences = {};
-		bucketCompetences.forEach(competence => {
-			competences[competence] = ++competences[competence] || 1
-		})
-
-		/* Affichage */
-		let numComp = 1;
 		this.shadow.querySelector(".competences").innerHTML = "";
-		Object.entries(competences).forEach(([competence, nb]) => {
-			var divCompetence3ans = document.createElement("div");
-			divCompetence3ans.className = "competence";
-			let numTmp = numComp;
-			for (let i = 0; i < nb; i++) {
+
+		Object.entries(this.data.parcours[cle].annees).forEach(([annee, dataAnnee])=>{
+			Object.entries(dataAnnee.competences).forEach(([competence, niveauCle])=>{
+				let numComp = this.competencesNumber[competence];
 				let divCompetence = document.createElement("div");
-				divCompetence.innerText = `${competence} ${i + 1}`;
-				divCompetence.className = "comp" + numTmp;
-				divCompetence.dataset.competence = `${competence} ${i + 1}`;
-				divCompetence.addEventListener("click", (event) => { this.AC(event, competence, numTmp, i + 1) })
-				divCompetence3ans.appendChild(divCompetence);
-			}
-			this.shadow.querySelector(".competences").appendChild(divCompetence3ans);
-			numComp++;
+				divCompetence.innerText = `${competence} ${niveauCle.niveau}`;
+				divCompetence.style.gridRowStart = annee;
+				divCompetence.style.gridColumnStart = competence;
+				divCompetence.className = "comp" + numComp;
+				divCompetence.dataset.competence = `${competence} ${niveauCle.niveau}`;
+				divCompetence.addEventListener("click", (event) => { this.AC(event, competence, niveauCle.niveau, annee, numComp) })
+				divCompetences.appendChild(divCompetence);
+			})
 		})
 
+		/* Réaffectation des focus */
 		this.shadow.querySelectorAll(".AC").forEach(ac => {
 			this.shadow.querySelector(`[data-competence="${ac.dataset.competence}"]`).classList.add("focus");
 		});
 	}
 
-	AC(event, competence, numComp, annee) {
+	AC(event, competence, niveau, annee, numComp){
+		event.currentTarget.classList.toggle("focus");
+		if (this.shadow.querySelector(`.ACs [data-competence="${competence} ${niveau}"]`)) {
+			this.shadow.querySelector(`.ACs [data-competence="${competence} ${niveau}"]`).remove();
+		} else {
+			let output = `
+				<ul class=AC data-competence="${competence} ${niveau}">
+					<h2 class=comp${numComp}>${competence} ${niveau}</h2>
+			`;
+			Object.entries(this.data.competences[competence].niveaux["BUT" + annee].app_critiques).forEach(([num, contenu]) => {
+				output += `<li><div class=comp${numComp}>${num}</div><div>${contenu.libelle}</div></li>`;
+			})
+			this.shadow.querySelector(".ACs").innerHTML += output + "</ul>";
+		}
+	}
+	ACSave(event, competence, numComp, annee) {
 		event.currentTarget.classList.toggle("focus");
 		if (this.shadow.querySelector(`.ACs [data-competence="${competence} ${annee}"]`)) {
 			this.shadow.querySelector(`.ACs [data-competence="${competence} ${annee}"]`).remove();
