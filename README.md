@@ -6,7 +6,7 @@ Les utilisateurs actuels sont :
  - IUT de Tours ?
  - IUT Lannion ?
  - IUT de Lille ?
- - IUT de Bordeaux ?
+ - IUT de Bordeaux
  - IUT d'Orsey ?
  - IUT du Havre ?
  - IUT de Poitiers ?
