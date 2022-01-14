@@ -93,21 +93,5 @@ class ref_competences extends HTMLElement {
 			this.shadow.querySelector(".ACs").innerHTML += output + "</ul>";
 		}
 	}
-	ACSave(event, competence, numComp, annee) {
-		event.currentTarget.classList.toggle("focus");
-		if (this.shadow.querySelector(`.ACs [data-competence="${competence} ${annee}"]`)) {
-			this.shadow.querySelector(`.ACs [data-competence="${competence} ${annee}"]`).remove();
-		} else {
-			let output = `
-				<ul class=AC data-competence="${competence} ${annee}">
-					<h2 class=comp${numComp}>${competence} ${annee}</h2>
-			`;
-			Object.entries(this.data.competences[competence].niveaux["BUT" + annee].app_critiques).forEach(([num, contenu]) => {
-				output += `<li><div class=comp${numComp}>${num}</div><div>${contenu.libelle}</div></li>`;
-			})
-			this.shadow.querySelector(".ACs").innerHTML += output + "</ul>";
-		}
-
-	}
 }
 customElements.define('ref-competences', ref_competences);
