@@ -40,26 +40,26 @@ class ref_competences extends HTMLElement {
 		this.initCompetences();
 	}
 
-	initCompetences(){
+	initCompetences() {
 		this.competencesNumber = {};
 		let gridTemplate = "";
 		let i = 1;
-		Object.keys(this.data.competences).forEach(competence=>{
+		Object.keys(this.data.competences).forEach(competence => {
 			gridTemplate += `[${competence}] 1fr`;
 			this.competencesNumber[competence] = i++;
 		})
 		this.shadow.querySelector(".competences").style.gridTemplateColumns = gridTemplate;
 	}
 
-	competences(event, cle){
+	competences(event, cle) {
 		this.shadow.querySelector(".parcours>.focus")?.classList.remove("focus");
 		event.currentTarget.classList.add("focus");
 		let divCompetences = this.shadow.querySelector(".competences");
 
 		this.shadow.querySelector(".competences").innerHTML = "";
 
-		Object.entries(this.data.parcours[cle].annees).forEach(([annee, dataAnnee])=>{
-			Object.entries(dataAnnee.competences).forEach(([competence, niveauCle])=>{
+		Object.entries(this.data.parcours[cle].annees).forEach(([annee, dataAnnee]) => {
+			Object.entries(dataAnnee.competences).forEach(([competence, niveauCle]) => {
 				let numComp = this.competencesNumber[competence];
 				let divCompetence = document.createElement("div");
 				divCompetence.innerText = `${competence} ${niveauCle.niveau}`;
@@ -78,7 +78,7 @@ class ref_competences extends HTMLElement {
 		});
 	}
 
-	AC(event, competence, niveau, annee, numComp){
+	AC(event, competence, niveau, annee, numComp) {
 		event.currentTarget.classList.toggle("focus");
 		if (this.shadow.querySelector(`.ACs [data-competence="${competence} ${niveau}"]`)) {
 			this.shadow.querySelector(`.ACs [data-competence="${competence} ${niveau}"]`).remove();
