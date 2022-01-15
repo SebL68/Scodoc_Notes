@@ -8,7 +8,7 @@ Les utilisateurs actuels sont :
  - IUT de Lille ?
  - IUT de Bordeaux => accès étudiant,
  - IUT d'Orsey ?
- - IUT du Havre ?
+ - IUT du Havre => accès étudiant + enseignant,
  - IUT de Poitiers ?
  - IUT du Littoral Côte d'Opale ?
  - IUT de La Rochelle => accès étudiant,
