@@ -1,20 +1,20 @@
 Les utilisateurs actuels sont :
  - IUT de Mulhouse (UHA) => accès complet,
- - IUT de Ville d'Avray => accès de base,
- - IUT de Chartres => accès enseignant,
- - IUT de Lyon 1 => accès enseignant,
+ - IUT de Ville d'Avray => accès étudiant,
+ - IUT de Chartres => accès étudiant + enseignant,
+ - IUT de Lyon 1 => accès étudiant + enseignant,
  - IUT de Tours ?
  - IUT Lannion ?
  - IUT de Lille ?
- - IUT de Bordeaux => accès de base,
+ - IUT de Bordeaux => accès étudiant,
  - IUT d'Orsey ?
  - IUT du Havre ?
  - IUT de Poitiers ?
  - IUT du Littoral Côte d'Opale ?
- - IUT de La Rochelle => accès de base,
+ - IUT de La Rochelle => accès étudiant,
  - IUT Le Mans ?
  - IUT de Mantes-En-Yvelines ?
- - IUT de Saint-Malo => accès de base.
+ - IUT de Saint-Malo => accès étudiant.
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
   
