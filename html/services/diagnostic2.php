@@ -80,7 +80,7 @@
 			echo '<b>'.phpCAS::getUser().'</b>';
 
 		}else{
-			echo "*** Vous n'êtes pas authentifié *** => <a href=/services/doAuth.php?href=https://".$_SERVER['HTTP_HOST'].">Authentifiation</a><br><br>";
+			echo "*** Vous n'êtes pas authentifié *** => <a href=/services/doAuth.php?href=https://".$_SERVER['HTTP_HOST'].">Authentification</a><br><br>";
 		}
 
 		include_once "$path/includes/default_config.php";
