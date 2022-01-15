@@ -77,7 +77,7 @@
 
 		if(phpCAS::isAuthenticated()){
 			// Utilisateur authentifié
-			echo phpCAS::getUser();
+			echo '<b>'.phpCAS::getUser().'</b>';
 
 		}else{
 			echo "*** Vous n'êtes pas authentifié *** => <a href=/services/doAuth.php?href=https://".$_SERVER['HTTP_HOST'].">Authentifiation</a><br><br>";
@@ -85,11 +85,11 @@
 
 		include_once "$path/includes/default_config.php";
 
-		echo "Est-ce bien ";
+		echo " Est-ce bien ";
 		if ($Config->CAS_return_type == 'nip') {
 			echo '<b>un numéro d\'étudiant ?</b>.';
 		} else {
-			echo '<b>une autre valeur que le numéro d\'étudiant</b> ? Dans ce cas, il vous faudra certainement configurer le LDAP.';
+			echo '<b>une autre valeur que le numéro d\'étudiant</b> ?<br>Dans ce cas, il vous faudra certainement configurer le LDAP.';
 		}
 		echo '</div></div>';
 		echo "<div class=spaceUnder><span></span> ==> Si ce n'est pas le cas, changez la configuration dans config.php</div>";
