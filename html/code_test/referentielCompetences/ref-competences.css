@@ -16,6 +16,7 @@ h1{
 .parcours{
 	display: flex;
 	gap: 4px;
+	padding-right: 4px;
 }
 .parcours>div{
 	background: #09c;
@@ -40,14 +41,16 @@ h1{
 /* Zone compétences   */
 /**********************/
 .competences{
-	display: grid;
-	gap: 4px;
+	display: grid; 
 	margin-top: 8px;
+	row-gap: 4px;
 }
 .competences>div{
 	padding: 4px 8px;
 	border-radius: 4px;	
 	cursor: pointer;
+	width: var(--competence-size);
+	margin-right: 4px;
 }
 
 .comp1{background:#a44}
@@ -69,6 +72,9 @@ h2{
 	padding: 8px 16px;
 	font-size: 20px;
 	border-radius: 16px 0;
+}
+.ACs{
+	padding-right: 4px;
 }
 .AC li{
 	display: grid;
