@@ -16,6 +16,10 @@ main{
 .sae .module{
 	color: #1e1e1e;
 }
+.sae .module::before {
+    /* Passer le glyphe SVG du blanc au noir en utilisant le filtre inverser */
+    filter: invert(1);
+}
 .eval:hover, .syntheseModule:hover{
     color: #FFF;
 }
