@@ -6,7 +6,7 @@
 		die(
 			json_encode(
 				array(
-					'erreur' => 'ADMIN : La version du fichier de configuration est obsolète, veuillez la mettre à jour.'
+					'erreur' => 'ADMIN : Le fichier config est obsolète, veuillez récupérer et compléter la nouvelle version à partir du GIT.'
 				)
 			)
 		);
