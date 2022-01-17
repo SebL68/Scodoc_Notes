@@ -3,7 +3,7 @@ class ref_competences extends HTMLElement {
 		super();
 		this.shadow = this.attachShadow({ mode: 'open' });
 
-		/* Tempalate de base */
+		/* Template de base */
 		this.shadow.innerHTML = `
 			<h1></h1>
 			<div class=parcours></div>
@@ -44,7 +44,7 @@ class ref_competences extends HTMLElement {
 		this.competencesNumber = {};
 		let i = 0;
 		Object.keys(this.data.competences).forEach(competence => {
-			this.competencesNumber[competence] = 1+i++%6;
+			this.competencesNumber[competence] = 1 + i++ % 6;
 		})
 	}
 
@@ -77,9 +77,9 @@ class ref_competences extends HTMLElement {
 		//divCompetences.style.setProperty("--competence-size", `calc(${100 / competencesBucket.length}% )`);
 		let gridTemplate = "";
 		Object.keys(this.data.competences).forEach(competence => {
-			if(competencesBucket.indexOf(competence) == -1){
+			if(competencesBucket.indexOf(competence) == -1) {
 				gridTemplate += `[${competence}] 0`;
-			}else{
+			} else {
 				gridTemplate += `[${competence}] 1fr`;
 			}
 		})
