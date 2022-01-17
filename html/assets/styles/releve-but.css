@@ -205,15 +205,21 @@ section>div:nth-child(1){
 	position: relative;
 }
 .module::before, .ue::before {
-	content:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='26px' height='26px' fill='black'><path d='M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z' /></svg>");
+	content:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='26px' height='26px' fill='white'><path d='M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z' /></svg>");
 	width: 26px;
 	height: 26px;
 	position: absolute;
 	bottom: 0;
-	left: 50%;
-	margin-left: -13px;
+	left: calc(50% - 13px);
 	transform: rotate(180deg);
 	transition: 0.2s;
+}
+@media screen and (max-width: 1000px) {
+    /* Placer le chevron à gauche au lieu du milieu */
+    .module::before, .ue::before {
+        left: 2px;
+        bottom: calc(50% - 13px);
+    }
 }
 h3{
     display: flex;
