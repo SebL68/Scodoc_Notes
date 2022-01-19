@@ -5,7 +5,7 @@ Les utilisateurs actuels sont :
  - IUT de Lyon 1 => accès étudiant + enseignant,
  - IUT de Tours ?
  - IUT Lannion ?
- - IUT de Lille ?
+ - IUT de Lille => accès étudiant,
  - IUT de Bordeaux => accès étudiant,
  - IUT d'Orsey ?
  - IUT du Havre => accès étudiant + enseignant,
