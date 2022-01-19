@@ -42,6 +42,7 @@
             <li>Mise en place d'un fichier CSS dans /config pour personnaliser localement le style des relevés.</li>
 			<li>Liste des départements générés automatiquement depuis Scodoc (et plus dans le fichier config) en utilisant la nouvelle API.</li>
 			<li>Lors du clic sur un étudiant dans le trombinoscope ou sur les listes : affichage de son relevé de notes.</li>
+			<li>Modification du filtrage LDAP : possibilité de ne pas filtrer par UFR - contribution : Marc Leforestier (Bordeaux)</li>
         </ul>
 
 		<h2>19/01/2022 - V4.x.x</h2>

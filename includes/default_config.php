@@ -1,5 +1,7 @@
 <?php
-	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
+	if(!isset($path) && $path != ''){
+		$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
+	}	
 	include_once $path.'/config/config.php';
 
 	if(!isset(Config::$config_version) || Config::$config_version != '1.0.0'){

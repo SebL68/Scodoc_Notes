@@ -28,10 +28,16 @@ class Service_Annuaire{
         $TEACHERS_PATH = "$path/data/annuaires/liste_ens.txt";
         $BIATSS_PATH = "$path/data/annuaires/liste_biat.txt";
         
-        if ($id_LDAP = self::openLDAP()) {
-            self::updateList($id_LDAP, $STUDENTS_PATH, "(&(".$Config->LDAP_filtre_statut_etudiant.")(".$Config->LDAP_filtre_ufr."))", [$Config->LDAP_uid, $Config->LDAP_mail]);
-            self::updateList($id_LDAP, $TEACHERS_PATH, "(&(".$Config->LDAP_filtre_enseignant.")(".$Config->LDAP_filtre_ufr."))",      [$Config->LDAP_mail]);
-            self::updateList($id_LDAP, $BIATSS_PATH,   "(&(".$Config->LDAP_filtre_biatss.")(".$Config->LDAP_filtre_ufr."))",          [$Config->LDAP_mail]);
+		if ($id_LDAP = self::openLDAP()) {
+            if ($Config->LDAP_filtre_ufr != '') {
+                self::updateList($id_LDAP, $STUDENTS_PATH, "(&(".$Config->LDAP_filtre_statut_etudiant.")(".$Config->LDAP_filtre_ufr."))", [$Config->LDAP_uid, $Config->LDAP_mail]);
+                self::updateList($id_LDAP, $TEACHERS_PATH, "(&(".$Config->LDAP_filtre_enseignant.")(".$Config->LDAP_filtre_ufr."))",      [$Config->LDAP_mail]);
+                self::updateList($id_LDAP, $BIATSS_PATH,   "(&(".$Config->LDAP_filtre_biatss.")(".$Config->LDAP_filtre_ufr."))",          [$Config->LDAP_mail]);
+            } else {
+                self::updateList($id_LDAP, $STUDENTS_PATH, "(".$Config->LDAP_filtre_statut_etudiant.")", [$Config->LDAP_uid, $Config->LDAP_mail]);
+                self::updateList($id_LDAP, $TEACHERS_PATH, "(".$Config->LDAP_filtre_enseignant.")",      [$Config->LDAP_mail]);
+                self::updateList($id_LDAP, $BIATSS_PATH,   "(".$Config->LDAP_filtre_biatss.")",          [$Config->LDAP_mail]);
+            }
         }
         else
             exit("Pas de connexion au serveur LDAP");
