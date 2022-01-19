@@ -4,15 +4,7 @@
 /************************************************/
 	class Config {
 		public static $config_version = '1.0.0';
-		/* Sensitif à la case */
-		public static $departements = [
-				'GEA',
-				'GEII',
-				'GLT',
-				'GMP',
-				'MMI',
-				'SGM'
-			];
+
 /**********************************/
 /* Activation des modules du site */
 /**********************************/
