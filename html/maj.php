@@ -37,6 +37,25 @@
     <h1>Historique des mises à jours</h1>
 
     <main>
+		<h2>19/01/2022 - V4.6.2</h2>
+        <ul>
+            <li>Mise en place d'un fichier CSS dans /config pour personnaliser localement le style des relevés.</li>
+			<li>Liste des départements générés automatiquement depuis Scodoc (et plus dans le fichier config) en utilisant la nouvelle API.</li>
+			<li>Lors du clic sur un étudiant dans le trombinoscope ou sur les listes : affichage de son relevé de notes.</li>
+        </ul>
+
+		<h2>19/01/2022 - V4.x.x</h2>
+        <ul>
+            <li>Reprise des notes de version dans le fichier de mises à jours.</li>
+            <li>Refonte complète du système côté serveur : passage du code en POO, réorganisation des fichiers, etc.</li>
+			<li>Mise en place d'un système de gestion des absences.</li>
+			<li>Mise en place d'un système de gestion des comptes.</li>
+			<li>Mise en place d'une communication avec le LDAP pour récupérer statut.</li>
+			<li>Prise en charge automatique des relevés DUT et BUT.</li>
+			<li>Lise en place d'un système de gestion des photos étudiants : l'étudiant gère sa propre photo. Les photos serveur pour les trombinoscopes et les absences.</li>
+			<li>Mise en place d'un système pour un versionnage du fichier de configuration et d'une configuration par défaut.</li>
+        </ul>
+
         <h2>04/01/2021 - V3.0.1</h2>
         <ul>
             <li>Création d'un <a target=_blank href="https://notes.iutmulhouse.uha.fr/?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uIjoiQ29tcHRlX0RlbW8udGVzdEB1aGEuZnIiLCJzdGF0dXQiOiJldHVkaWFudCJ9.kHuiNx8X2mWUjv1LAHVOdcLGCu2yQS_i6fxqZZICuEA" >compte démo</a></li>
