@@ -418,8 +418,19 @@ Sortie :
 
 *******************************/
 function getDepartmentsList(){
-	global $Config;
-	return $Config->departements;
+	/*global $Config;
+	return $Config->departements;*/
+
+	include_once 'scodoc.class.php';
+	$Scodoc = new Scodoc();
+	$data = json_decode($Scodoc->Ask_Scodoc('list_depts'));
+
+	$output = [];
+	forEach($data as $value){
+		$output[] = $value->acronym;
+	}
+	
+	return $output;
 	
 	/*json_decode(
 			$output = Ask_Scodoc(

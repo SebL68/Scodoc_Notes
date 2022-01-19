@@ -14,9 +14,6 @@
 
 	$Config = (object) [];
 
-	/* Sensitif à la case */
-	$Config->departements = Config::$departements ?? [];
-
 /**********************************/
 /* Activation des modules du site */
 /**********************************/
