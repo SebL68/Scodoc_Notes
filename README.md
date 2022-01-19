@@ -45,12 +45,22 @@ Il est à minima nécessaire de configurer :
     -  $scodoc_url,
     -  $scodoc_login
 
+Pour simplifier le fichier de configuration pour les nouveaux admin, toutes les options ne sont pas dedans.  
+La liste de toutes les options est disponible dans le fichier /includes/default_config.php  
+Il faut alors ajouter, si nécessaire, l'option désirée comme pour les options déjà existantes.  
+  
 CAS nécessite des dépendances : https://apereo.atlassian.net/wiki/spaces/CASC/pages/103252625/phpCAS+requirements
  - CURL,
  - SSL,
  - DOM
 
-L'utilisation du LDAP n'est pas obligatoire si le CAS renvoie le nip. Si le CAS renvoie l'adresse mail, il faut alors mettre en place le système qui permet de convertir les mails en nip. Dans /data/annuaires, il y a les fichiers pour cette conversion. Différentes fonctions permettent de remplir ces fichiers automatiquement à partir du LDAP.  
+L'utilisation du LDAP n'est pas obligatoire si le CAS renvoie le nip. Si le CAS renvoie l'adresse mail, il faut alors mettre en place le système qui permet de convertir les mails en nip. Dans /data/annuaires, il y a les fichiers pour cette conversion. Différentes fonctions permettent de remplir ces fichiers automatiquement à partir du LDAP (voir ci-après).  
+  
+Il est possible de s'authentifier de manière forcée en utilisant les jetons JWT.  
+Ces jetons peuvent être créés dans le fichier /html/services/createJWT.php (à modifier).  
+Ces jetons sont notamment utile au début pour bypasser le CAS pour des premiers tests, ils servent également à utiliser un statut de SUPERADMIN. Ce statut permet de mettre en route le crontab pour la mise à jour du LDAP depuis le navigateur.  
+La mise à jour forcée du LDAP (pour les tests) se fait en exécutant le fichier /includes/CmdUpdateLists.php avec le statut SUPERADMIN ou en CLI ou en le déplaçant dans /html.  
+La mise en route du crontab se fait avec le fichier /includes/CmdSetUpdateLists.php suivant le même principe.
   
 Par défaut, ce site ne diffuse que les relevés de notes aux étudiants.  
 Il est possible d'activer d'autres options prévus pour les enseignants comme :
