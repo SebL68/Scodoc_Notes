@@ -1,3 +1,8 @@
+Travaux en cours :
+ - faire en sorte qu'on puisse gérer autre chose que les mails dans l'onglet "comptes"
+ - permettre d'attaquer directement le LDAP sans avoir besoin de faire de listes
+ - faire en sorte que le choix des étudiants sur la page relevé permette de choisir directement le nom / prenom plutôt qu'un mail ou nip  
+  
 Les utilisateurs actuels sont :
  - IUT de Mulhouse => accès complet,
  - IUT de Ville d'Avray => accès étudiant,
