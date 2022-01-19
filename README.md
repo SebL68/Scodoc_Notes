@@ -108,7 +108,7 @@ Pour réaliser la mise à jour, il faut alors copier et coller sur votre passere
  - /includes
  - /lib
 
-*** Expérimental et non approuvé pour le moment ***
+*** Expérimental et non approuvé pour le moment ***  
 Il devrait être possible de configurer un git pull de manière périodique pour une mise à jour automatique.
 
 # Indications pour les développeurs
@@ -120,11 +120,14 @@ Il y faut alors le prendre en compte de cette manière :
 Il faut donc faire un double rafraichissement pour voir la dernière version de ces derniers fichiers.  
   
 Je vous conseille alors, pour le développement, de "bypasser" le service worker - sous Chrome : F12 -> Applications -> Service Worker  
+
+_________________________
+
+Pour des développements locaux et des commits, il est nécessaire de ne pas prendre en compte les modifications de certains fichiers, il est alors possible de ne pas les ajouter à l'arbre GIT avec par exemple : git update-index --skip-worktree config/config.php 
   
 # Ne pas utiliser la suite de cette documentation, ce n'est plus à jour !
 # !!! Nouvelle documentation en cours de rédaction !!!
 
-git update-index --skip-worktree config/config.php  
 net start WinFSP.launcher
 
 # Scodoc_Notes
