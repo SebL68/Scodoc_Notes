@@ -1,3 +1,5 @@
+Pour suivre les évolutions : https://notes.iutmulhouse.uha.fr/maj.php
+
 Travaux en cours :
  - faire en sorte qu'on puisse gérer autre chose que les mails dans l'onglet "comptes"
  - permettre d'attaquer directement le LDAP sans avoir besoin de faire de listes
