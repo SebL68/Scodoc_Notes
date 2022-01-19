@@ -123,7 +123,8 @@ Je vous conseille alors, pour le développement, de "bypasser" le service worker
 
 _________________________
 
-Pour des développements locaux et des commits, il est nécessaire de ne pas prendre en compte les modifications de certains fichiers, il est alors possible de ne pas les ajouter à l'arbre GIT avec par exemple : git update-index --skip-worktree config/config.php 
+Pour des développements locaux et des commits, il est nécessaire de ne pas prendre en compte les modifications de certains fichiers, il est alors possible de ne pas les ajouter à l'arbre GIT avec :  
+git update-index --skip-worktree config/config.php 
   
 # Ne pas utiliser la suite de cette documentation, ce n'est plus à jour !
 # !!! Nouvelle documentation en cours de rédaction !!!
