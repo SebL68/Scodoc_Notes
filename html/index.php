@@ -202,6 +202,10 @@
 						document.querySelector("#admin").style.display = "inherit";
 					}
 					loadStudents(data.etudiants);
+					let etudiant = (window.location.search.match(/ask_student=([a-zA-Z0-9._@-]+)/)?.[1] || "");
+					if(etudiant){
+						loadSemesters(etudiant);
+					}
 				} else {
 					document.querySelector("body").classList.add('etudiant');
 					feedSemesters(data.semestres);
@@ -291,10 +295,13 @@
 					styles.innerText = `<?php include("$path/config/releve-but-local.css"); ?>`;
 					releve.shadowRoot.appendChild(styles);
 					<?php } ?>
-					releve.shadowRoot.querySelector(".studentPic").src = "/services/data.php?q=getStudentPic";
+					
 					if(!document.body.classList.contains("personnel")){
 						document.querySelector(".prenom").innerText = data.relevé.etudiant.prenom.toLowerCase();
-					}	
+						releve.shadowRoot.querySelector(".studentPic").src = "/services/data.php?q=getStudentPic";
+					} else {
+						releve.shadowRoot.querySelector(".studentPic").src = "/services/data.php?q=getStudentPic&email=" + etudiant;
+					}
 				} else {
 					document.querySelector(".releve").innerHTML = "<releve-dut></releve-dut>";
 					document.querySelector("releve-dut").showData = [data.relevé, semestre, etudiant];
