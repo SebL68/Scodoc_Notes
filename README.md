@@ -47,6 +47,8 @@ Il est possible d'automatiser la génération de ces fichiers à partir du LDAP 
 # Guide rapide d'installation
 ## Diagnostic
 Pour vous aider dans la configuration de votre serveur, un système de diagnostic a été mis en place : /html/sercices/diagnostic.php  
+Il est également possible d'activer les messages d'erreur dans /html/services/data.php --> Options de debug  
+La passerelle communique via un système d'API, il faut donc voir les réponses dans l'inspecter (F12) --> Network  
   
 ## Fichiers
 Le dossier "html" doit être la racine du site.  
