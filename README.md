@@ -1,5 +1,5 @@
 Les utilisateurs actuels sont :
- - IUT de Mulhouse (UHA) => accès complet,
+ - IUT de Mulhouse => accès complet,
  - IUT de Ville d'Avray => accès étudiant,
  - IUT de Chartres => accès étudiant + enseignant,
  - IUT de Lyon 1 => accès étudiant + enseignant,
@@ -18,9 +18,36 @@ Les utilisateurs actuels sont :
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
   
-Vous pouvez utiliser le projet en entier pour plus de simplicité ou utiliser des parties pour coder votre propre plateforme.
+Vous pouvez utiliser le projet en entier pour plus de simplicité ou utiliser des parties pour coder votre propre plateforme.  
+  
+L'assistance et les discussions par rapport à cette passerelle se font sur le Discord Assistance de Scodoc : https://discord.gg/p7DmgTWS
+  
+# A quoi sert cette passerelle ?
+La passerelle Scodoc-Notes est un projet permettant de faire le lien entre Scodoc et les étudiants.  
+Les étudiants peuvent consulter en ligne leurs notes. La passerelle gère automatiquement l'affichage des relevés pour les DUT et pour les BUT que ce soit sur mobile ou sur ordinateur.  
+  
+Il est possible de configurer un accès "enseignant". Cet accès permet aux utilisateurs reconnus de :
+ - consulté le relevé de n'importe quel étudiant,
+ - récupérer la liste des groupes, des fiches d'émargement, de quoi renvoyer les notes, etc. : ces fichiers sont synchronisés avec Scodoc.
+  
+Cet accès est notamment utile pour les vacataires qui n'ont pas accès à Scodoc, ils peuvent alors récupérer des fichiers à jour dès qu'ils en ont besoin.  
+  
+# Principe de la passerelle
+L'identification de la personne se fait le CAS.  
+Le CAS renvoie soit :
+ - le numéro d'étudiant,
+ - une variante du numéro d'étudiant qu'il est possible de transformer dans le fichier config,
+ - un autre identifiant, comme l'adresse mail.
+  
+C'est le numéro d'étudiant qui est nécessaire pour communiquer avec Scodoc, si votre CAS renvoie un autre identifiant, il faut mettre en place un système de correspondance.  
+Cette correspondance est faite dans les fichiers /data/annuaires/liste_*.php
+
+Il est possible d'automatiser la génération de ces fichiers à partir du LDAP (voir ci-après).
 
 # Guide rapide d'installation
+## Diagnostic
+Pour vous aider dans la configuration de votre serveur, un système de diagnostic a été mis en place : /html/sercices/diagnostic.php  
+  
 ## Fichiers
 Le dossier "html" doit être la racine du site.  
 Les autres dossiers doivent être dans le dossier parent et donc inaccessible depuis le net.  
@@ -67,11 +94,37 @@ Il est possible d'activer d'autres options prévus pour les enseignants comme :
  - la possibilité de visualiser les relevés de n'importe quel étudiant,
  - récupérer des documents xls pratiques, automatiquement générés en fonction des listes Scodoc,
  - gérer les absences entièrement depuis la passerelle, avec des créneaux prédéfinis (sans utiliser Scodoc).
+  
+# Comment connaitre la version de la passerelle ?
+La version est notée dans le fichier /html/sw.js
 
+# Procédures de mise à jour
+Les dossiers /config et /data sont des données locales qui permettent de faire fonctionner la passerelle dans votre environnement.  
+Ils ne sont (sauf cas exceptionnels) pas modifiés.  
+Si le fichier /config/config.php devait subir une modification important, un message s'afficherait sur la passerelle indiquant qu'il faut utiliser une nouvelle version de ce dernier.  
+
+Pour réaliser la mise à jour, il faut alors copier et coller sur votre passerelle les dossiers :
+ - /html
+ - /includes
+ - /lib
+
+*** Expérimental et non approuvé pour le moment ***
+Il devrait être possible de configurer un git pull de manière périodique pour une mise à jour automatique.
+
+# Indications pour les développeurs
+La passerelle utilise un système de cache côté client utilisant un service worker.  
+Il y faut alors le prendre en compte de cette manière :
+ - certains fichiers, comme l'index, ne sont pas mis à jour tant que la version du SW n'est pas mis à jour,
+ - les autres fichiers sont mis à jour après le chargement de la page.
+
+Il faut donc faire un double rafraichissement pour voir la dernière version de ces derniers fichiers.  
+  
+Je vous conseille alors, pour le développement, de "bypasser" le service worker - sous Chrome : F12 -> Applications -> Service Worker  
+  
 # Ne pas utiliser la suite de cette documentation, ce n'est plus à jour !
 # !!! Nouvelle documentation en cours de rédaction !!!
 
-git update-index --skip-worktree config/config.php
+git update-index --skip-worktree config/config.php  
 net start WinFSP.launcher
 
 # Scodoc_Notes
