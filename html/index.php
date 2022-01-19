@@ -205,29 +205,7 @@
 				} else {
 					document.querySelector("body").classList.add('etudiant');
 					feedSemesters(data.semestres);
-
-					if(data.relevé.type == "BUT"){
-						document.querySelector(".releve").innerHTML = "<releve-but></releve-but>";
-
-						let releve = document.querySelector("releve-but");
-						releve.config = {
-							showURL: false
-						}
-						releve.showData = data.relevé;
-						releve.shadowRoot.children[0].classList.add("hide_abs");
-						let styles = document.createElement('link');
-						styles.setAttribute('rel', 'stylesheet');
-						styles.setAttribute('href', '/assets/styles/releve-but-custom.css');
-						releve.shadowRoot.appendChild(styles);
-						releve.shadowRoot.querySelector(".studentPic").src = "/services/data.php?q=getStudentPic";
-						if(!document.body.classList.contains("personnel")){
-							document.querySelector(".prenom").innerText = data.relevé.etudiant.prenom.toLowerCase();
-						}	
-					} else {
-						document.querySelector(".releve").innerHTML = "<releve-dut></releve-dut>";
-						document.querySelector("releve-dut").showData = [data.relevé, data.semestres[0], data.auth.session];
-					}
-					
+					showReportCards(data, data.semestres[0], data.auth.session);
 					feedAbsences(data.absences);
 				}
 			}
@@ -287,19 +265,33 @@
 				let etudiant = this.parentElement.parentElement.dataset.etudiant;
 				let data = await fetchData("relevéEtudiant&semestre=" + semestre + (etudiant ? "&etudiant=" + etudiant : ""));
 
+				showReportCards(data, semestre, etudiant);
+				feedAbsences(data.absences);
+			}	
+
+			function showReportCards(data, semestre, etudiant){
 				if(data.relevé.type == "BUT"){
 					document.querySelector(".releve").innerHTML = "<releve-but></releve-but>";
+
 					let releve = document.querySelector("releve-but");
 					releve.config = {
 						showURL: false
 					}
 					releve.showData = data.relevé;
 					releve.shadowRoot.children[0].classList.add("hide_abs");
+
+					/* Styles différent de Scodoc */
 					let styles = document.createElement('link');
 					styles.setAttribute('rel', 'stylesheet');
 					styles.setAttribute('href', '/assets/styles/releve-but-custom.css');
 					releve.shadowRoot.appendChild(styles);
-					releve.shadowRoot.querySelector(".studentPic").src = "/services/data.php?q=getStudentPic&email=" + etudiant;
+					<?php if(file_exists("$path/config/releve-but-local.css") == true){ ?>
+					/* Styles locaux */
+					styles = document.createElement('style');
+					styles.innerText = `<?php include("$path/config/releve-but-local.css"); ?>`;
+					releve.shadowRoot.appendChild(styles);
+					<?php } ?>
+					releve.shadowRoot.querySelector(".studentPic").src = "/services/data.php?q=getStudentPic";
 					if(!document.body.classList.contains("personnel")){
 						document.querySelector(".prenom").innerText = data.relevé.etudiant.prenom.toLowerCase();
 					}	
@@ -307,9 +299,7 @@
 					document.querySelector(".releve").innerHTML = "<releve-dut></releve-dut>";
 					document.querySelector("releve-dut").showData = [data.relevé, semestre, etudiant];
 				}
-
-				feedAbsences(data.absences);
-			}	
+			}
 
 /*********************************************/
 /* Affichage des absences
