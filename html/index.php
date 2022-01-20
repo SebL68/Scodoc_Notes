@@ -161,7 +161,7 @@
 
 			<hr>
 			<small>Ce site utilise deux cookies permettant l'authentification au service et une analyse statistique anonymisée des connexions ne nécessitant pas de consentement selon les règles du RGPD.</small><br>
-			<small>Application réalisée par Sébastien Lehmann, enseignant MMI - <a href="maj.php">voir les MAJ</a>.</small>
+			<small>Application réalisée par Sébastien Lehmann, enseignant MMI - <a href="maj.php">voir les MAJ</a> - <a href="https://github.com/SebL68/Scodoc_Notes">code source</a>.</small>
 		</main>
 
 		<div class=auth>
