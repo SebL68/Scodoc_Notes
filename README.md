@@ -25,6 +25,7 @@ Les utilisateurs actuels sont :
  - IUT de Mantes-En-Yvelines ?
  - IUT de Saint-Malo => accès étudiant,
  - IUT de la Roche-sur-Yon ?
+ - IUT de Vélizy ?
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
   
