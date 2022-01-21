@@ -102,7 +102,7 @@
             opacity: 0.5;
         }
         .hide{
-            display: none;
+            display: none !important;
         }
         .etudiants{
             counter-reset: cpt;
@@ -111,10 +111,10 @@
 		.etudiants>a{
 			text-decoration: none;
 			color: #000;
+			display: block;
 		}
 		.etudiants>a:nth-child(odd){
 			background: #eee;
-			display: block;
 		}
         .etudiants>a:before{
             counter-increment: cpt;
@@ -360,7 +360,7 @@
 		function processTrombi(obj){
 			let h2 = obj.parentElement.parentElement.previousElementSibling;
 			let groupes = [...h2.nextElementSibling.querySelectorAll(".groupes>.groupe:not(.selected)")].map(function(e) { return e.innerText; });
-			let etudiants = [...h2.nextElementSibling.querySelectorAll(".etudiants>div:not(.hide)")].map(function(e) { 
+			let etudiants = [...h2.nextElementSibling.querySelectorAll(".etudiants>a:not(.hide)")].map(function(e) { 
 				return {
 					groupe: e.dataset.groupe,
 					nom: e.dataset.nom,
@@ -391,7 +391,7 @@
                 sheet.cell("A5").value(groupes.join(", "));
 
                 var i = 7;
-                h2.nextElementSibling.querySelectorAll(".etudiants>div:not(.hide)").forEach(etudiant=>{
+                h2.nextElementSibling.querySelectorAll(".etudiants>a:not(.hide)").forEach(etudiant=>{
                     sheet.row(i).height(38);
                     sheet.cell("A"+i).value(etudiant.dataset.nom).style("border", true);
                     sheet.cell("B"+i).value(etudiant.dataset.prenom).style("border", true);
@@ -469,7 +469,7 @@
                 sheet.cell("D6").value("Note /20").style("bold", true);
 
                 var i = 7;
-                h2.nextElementSibling.querySelectorAll(".etudiants>div:not(.hide)").forEach(etudiant=>{
+                h2.nextElementSibling.querySelectorAll(".etudiants>a:not(.hide)").forEach(etudiant=>{
                     sheet.cell("A"+i).value(etudiant.dataset.nom);
                     sheet.cell("B"+i).value(etudiant.dataset.prenom);
                     sheet.cell("C"+i).value(etudiant.dataset.groupe);
@@ -505,7 +505,7 @@
                 sheet.cell("F5").value("Email").style("bold", true);
 
                 var i = 6;
-                h2.nextElementSibling.querySelectorAll(".etudiants>div:not(.hide)").forEach(etudiant=>{
+                h2.nextElementSibling.querySelectorAll(".etudiants>a:not(.hide)").forEach(etudiant=>{
                     sheet.cell("A"+i).value(i-5);
                     sheet.cell("B"+i).value(etudiant.dataset.nom);
                     sheet.cell("C"+i).value(etudiant.dataset.prenom);
