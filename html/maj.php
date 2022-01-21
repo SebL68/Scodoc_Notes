@@ -43,6 +43,9 @@
 	    <h2>21/01/2022 - V4.6.3</h2>
         <ul>
             <li>Correction bug : concaténation prénom / nom dans les listes étudiants.</li>
+			<li>Correction bug : filtrage des groupes dans les listes étudiants.</li>
+			<li>Correction bug : données vides dans le téléchargement des fichiers XLSX dans les listes d'étudiants.</li>
+			<li>Correction bug : téléchargement des fichiers XLSX sans extension.</li>
         </ul>
 		<h2>19/01/2022 - V4.6.2</h2>
         <ul>
