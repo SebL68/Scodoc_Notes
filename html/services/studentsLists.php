@@ -323,11 +323,11 @@
         }
         function concat(obj){
             if(obj.classList.toggle("selected")){
-                document.querySelectorAll(".etudiants>div").forEach(function(e){
+                document.querySelectorAll(".etudiants>a").forEach(function(e){
                     e.innerHTML = `${e.dataset.nom} ${e.dataset.prenom}`;
                 })
             }else{
-                document.querySelectorAll(".etudiants>div").forEach(function(e){
+                document.querySelectorAll(".etudiants>a").forEach(function(e){
                     e.innerHTML = `<table><td>${e.dataset.nom}</td> <td>${e.dataset.prenom}</td></table>`;
                 })
             }
