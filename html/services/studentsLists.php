@@ -108,15 +108,15 @@
             counter-reset: cpt;
             margin-left: 20px;
         }
-		.etudiants>div>a{
+		.etudiants>a{
 			text-decoration: none;
 			color: #000;
 		}
-		.etudiants>div:nth-child(odd)>a{
+		.etudiants>a:nth-child(odd){
 			background: #eee;
 			display: block;
 		}
-        .etudiants>div>a:before{
+        .etudiants>a:before{
             counter-increment: cpt;
             content: counter(cpt) " - " attr(data-groupe);
 			display: inline-block;
@@ -275,13 +275,13 @@
            
 			etudiant.forEach(etudiant=>{
 				output += `
-					<div><a href="/?ask_student=${etudiant.email}"
+					<a href="/?ask_student=${etudiant.email}"
                         data-nom="${etudiant.nom}" 
                         data-prenom="${etudiant.prenom}" 
                         data-groupe="${etudiant.groupe}"
                         data-num="${etudiant.num_etudiant}"
                         data-email="${etudiant.email}"><table><td>${etudiant.nom}</td> <td>${etudiant.prenom}</td></table>
-                    </a></div>
+                    </a>
 				`;
 			})
 			return output;
