@@ -31,7 +31,7 @@ Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être égal
   
 Vous pouvez utiliser le projet en entier pour plus de simplicité ou utiliser des parties pour coder votre propre plateforme.  
   
-L'assistance et les discussions par rapport à cette passerelle se font sur le Discord Assistance de Scodoc : https://discord.gg/p7DmgTWS
+L'assistance et les discussions par rapport à cette passerelle se font sur le Discord Assistance de Scodoc : https://discord.gg/FgMNZ4SdD4
   
 # A quoi sert cette passerelle ?
 La passerelle Scodoc-Notes est un projet permettant de faire le lien entre Scodoc et les étudiants.  
