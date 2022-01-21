@@ -22,7 +22,7 @@ Les utilisateurs actuels sont :
  - IUT du Littoral Côte d'Opale ?
  - IUT de La Rochelle => accès étudiant,
  - IUT Le Mans ?
- - IUT de Mantes-En-Yvelines ?
+ - IUT de Mantes-En-Yvelines => accès étudiant,
  - IUT de Saint-Malo => accès étudiant,
  - IUT de la Roche-sur-Yon ?
  - IUT de Vélizy ?
