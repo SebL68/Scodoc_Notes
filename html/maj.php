@@ -40,6 +40,10 @@
     <h1>Historique des mises à jours</h1>
 
     <main>
+	    <h2>21/01/2022 - V4.6.3</h2>
+        <ul>
+            <li>Correction bug : concaténation prénom / nom dans les listes étudiants.</li>
+        </ul>
 		<h2>19/01/2022 - V4.6.2</h2>
         <ul>
             <li>Mise en place d'un fichier CSS dans /config pour personnaliser localement le style des relevés.</li>
