@@ -678,10 +678,6 @@
 /***************************/
 /* Gestion des rapports d'absence
 /***************************/
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx-populate/1.21.0/xlsx-populate.min.js"></script>
-
-    <script>
         function getExcel(obj, xlsxName) {
 			return fetch(xlsxName)
 				.then(function (response) { return response.blob() })
@@ -697,7 +693,7 @@
 				var a = document.createElement("a");
 				document.body.appendChild(a);
 				a.href = url;
-				a.download = name;
+				a.download = name + ".xlsx";
 				a.click();
 				window.URL.revokeObjectURL(url);
 				document.body.removeChild(a);
