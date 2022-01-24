@@ -26,6 +26,7 @@ Les utilisateurs actuels sont :
  - IUT de Saint-Malo => accès étudiant,
  - IUT de la Roche-sur-Yon ?
  - IUT de Vélizy ?
+ - IUT de Roanne ?
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
   
