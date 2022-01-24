@@ -16,6 +16,11 @@
 
 	$Config = (object) [];
 
+/***********************/
+/* Options d'affichage */
+/***********************/
+		$Config->releve_PDF = Config::$releve_PDF ?? true; // Affichage de l'option pour que les étudiants puissent télécharger leur relevé en version PDF.
+
 /**********************************/
 /* Activation des modules du site */
 /**********************************/

@@ -305,6 +305,9 @@
 				} else {
 					document.querySelector(".releve").innerHTML = "<releve-dut></releve-dut>";
 					document.querySelector("releve-dut").showData = [data.relevé, semestre, etudiant];
+					<?php if($Config->releve_PDF == false){
+						echo document.querySelector("releve-dut").hidePDF = false;
+					} ?>
 				}
 			}
 

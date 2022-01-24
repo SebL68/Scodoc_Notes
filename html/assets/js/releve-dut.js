@@ -14,6 +14,10 @@ class releveDUT extends HTMLElement {
 		this.feedReportCards(data, semestre, etudiant)
 	}
 
+	set hidePDF(statut){
+		this.shadow.querySelector("form").style.display = "none";
+	}
+
 	feedReportCards(data, semestre, etudiant){
 		this.shadow.innerHTML += `
 			<form action=services/bulletin_PDF.php?sem_id=${semestre}&etudiant=${etudiant} target=_blank method=post>
