@@ -33,7 +33,11 @@
 			if(phpCAS::isAuthenticated()){
 				// Utilisateur authentifié
 				$_SESSION['id'] = phpCAS::getUser();
-				return $_SESSION['id'];
+				if($Config->CAS_return_type == 'mail'){
+					return strtolower($_SESSION['id']);
+				} else {
+					return $_SESSION['id'];
+				}
 
 			}else{
 				// Utilisateur non authentifié, redirection vers une page pour s'authentifier au CAS.
