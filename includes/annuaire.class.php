@@ -51,7 +51,7 @@ class Annuaire{
 			$handle = fopen(self::$STUDENTS_PATH, 'r');
 			while(($line = fgets($handle, 1000)) !== FALSE){
 				$data = explode(':', $line);
-				if(rtrim($data[1]) == $mail)
+				if(strcasecmp(rtrim($data[1]), $mail) == 0)
 					return Config::nipModifier($data[0]);
 			}
 		} else {
