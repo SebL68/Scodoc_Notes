@@ -28,6 +28,7 @@ Les utilisateurs actuels sont :
  - IUT de Vélizy ?
  - IUT de Roanne ?
  - IUT de Kourou ?
+ - IUT de Brest ?
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
   
