@@ -4,6 +4,11 @@
 /************************************************/
 	class Config {
 		public static $config_version = '1.0.0';
+		
+/***********************/
+/* Options d'affichage */
+/***********************/
+		// public static $releve_PDF = false; // Affiche ou non l'option pour mettre aux étudiants de télécharger leur relevé au format PDF.
 
 /**********************************/
 /* Activation des modules du site */
@@ -57,9 +62,32 @@
 	les mails utilisateurs dans la zone admin
 /*******************************************/
 		public static $DNS = 'uha.fr';
-
+		
+/********************************/
+/* Clé pour les jetons JWT      */
+/********************************/
+		// public static $JWT_key = ''; // Clé de cryptage JWT : une chaine de caratères aléatoires. Laisser vide si vous n'utilisez pas les jetons
+		
+/********************************************/
+/* Class à utiliser pour l'authentification */
+/* On peut alors utiliser un autre système  */
+/********************************************/
+		/* Si vous souhaitez utiliser un autre système d'auhtentification :
+			- prenez pour exemple ce qui est dans auth_CAS.class.php,
+			- créez votre propre class, par exemple auth_OAuth.class.php,
+			- utilisez le même nom de class que dans la class d'origine,
+			- utilisez les mêmes méthodes et renvoyez les données suivant les mêmes formats
+		*/
+		// public static $auth_class = 'auth_CAS.class.php'; 
+		
+/*******************************************************/
+/* Class à utiliser pour accéder au service d'annuaire */
+/* On peut aussi utiliser un autre système             */
+/*******************************************************/
+		/* Voir commentaires pour auth_CAS.class.php */
+		// public static $service_annuaire_class = 'service_annuaire_LDAP.class.php';
 /* __________________________________________________________ */
-/*															  */
+/*                                                            */
 /* LDAP n'est pas obligatoire et dépend des modules utilisés  */
 /* __________________________________________________________ */
 /**********************/
@@ -86,7 +114,31 @@
 	// Filtre LDAP BIATSS (edupersonaffiliation)
 		public static $LDAP_filtre_biatss = '&(edupersonaffiliation=staff)(!(edupersonaffiliation=teacher))(!(edupersonaffiliation=affiliate))';
 
+	/**********************************************************/
+	/* Class à utiliser pour gérer la planification de tâches */
+	/* On peut aussi utiliser un autre système                */
+	/**********************************************************/
+		/* Voir commentaires pour auth_CAS.class.php */
+		//public static $scheduler_class = 'scheduler_crontab.class.php';
 
+	/**************************/
+	/* Paramétrage de crontab */
+	/**************************/
+		//public static $tmp_dir = '/tmp';		// Dossier temporaire utilisé lors de la programmation de CRON
+		//public static $CRON_delay = '0 0 * * *';	// Périodicité de mise à jour des listes d'utilisateurs :
+													// '*/2 * * * *' => Toutes les 2 minutes
+													// '0 * * * *'   => Toutes les heures à xxh00
+													// '0 0 * * *'   => Tous les jours à 00h00
+/* ________________ */
+/*                  */
+/* Fin config LDAP  */
+/* ________________ */
+
+/****************************/
+/* Configuration du serveur */
+/****************************/
+		// public static $PHP_cmd = '/usr/bin/php';		
+		
 /**************************************************/
 /* Gestion des absences - si le module est activé */
 /**************************************************/
