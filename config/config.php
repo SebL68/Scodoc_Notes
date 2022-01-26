@@ -134,6 +134,18 @@
 /* Fin config LDAP  */
 /* ________________ */
 
+/*******************************************************/
+/* Ajout de données "custom" à afficher dans le relevé */
+/*******************************************************/
+		/*public static function customOutput($output){
+			// $output contient les data juste avant de les renvoyer
+			// Il faut tester ce qui est renvoyé pour ajouter les données si nécessaire
+			// Les données doivent être sous la forme : ['custom' => "Données au format HTML"]
+			return ['custom' => $outputToAdd];
+			
+		}*/
+		
+		
 /****************************/
 /* Configuration du serveur */
 /****************************/
