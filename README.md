@@ -144,6 +144,19 @@ _________________________
 Pour des développements locaux et des commits, il est nécessaire de ne pas prendre en compte les modifications de certains fichiers, il est alors possible de ne pas les ajouter à l'arbre GIT avec :  
 `git update-index --skip-worktree config/config.php`
   
+  
+# Considérations de sécurité
+La passerelle a fait l'objet d'une attention particulière aux problèmes de sécurité et plusieurs personnes ont audité le code, voici des réponses aux questions qu'on pourrait se poser :  
+ - Il n'y a pas de faille en soit.  
+
+Parmi les échanges, il a été évoqué :  
+ - L'utilisation de chmod / chown dans le code PHP, c'était des restes des développements du début où c'était vachement pratique de pouvoir interagir avec les fichiers sur le serveur depuis plusieurs utilisateurs - les chmod ont été nettoyé et les chown le seront dans le futur.  
+ - L'utilisation d'une commande exec qui est normalement verrouillé en production pour une interface web - dans le cas de la passerelle, elle ne sert qu'à lancer le crontab lors de la configuration du début, par la suite, elle peut être désactivé, de plus, il n'y a aucun input utilisateur qui puisse être entré dans le exec, donc aucun problème de sécurité et on peut le désactivé par la suite.  
+ - La fragilité des jetons JWT côté client : ce mode de fonctionnement se fait à la marge, notamment pour tes tests, par défaut ces jetons sont désactivés et enfin, si on les utilise, la durée d'expiration des jetons est courte - c'est donc acceptable.  
+ - Il a évoqué le problème de l'accès aux fichiers comme les listes si jamais le serveur est mal configuré - si jamais le serveur est mal configuré, la passerelle ne peut pas démarrer, ce n'est donc pas un problème (mais c'était pas évident de savoir qu'elle ne peut pas démarrer en cas de mauvais config).  
+ - Il a également dit que ce serait mieux de faire un requêtage direct du LDAP plutôt que d'en faire une copie périodique - je suis d'accord, ce fonctionnement est avant tout historique car au début je n'avais pas accès au LDAP. Par la suite, je proposerai une solution pour ne plus passer par ces fichiers, mais je conserverai ce fonctionnement pour les personnes qui en auraient besoin (si l'accès au LDAP n'est pas possible notamment).  
+  
+  
 # Ne pas utiliser la suite de cette documentation, ce n'est plus à jour !
 # !!! Nouvelle documentation en cours de rédaction !!!
 
