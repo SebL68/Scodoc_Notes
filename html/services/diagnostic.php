@@ -74,6 +74,11 @@
 		} else {
 			echo '<div class=wrong><span>❌</span> Veuillez installer l\'extension CURL.</div>';
 		}
+		if(extension_loaded('php-curl')){
+			echo '<div><span>✔️</span> L\'extension php-curl est bien chargée.</div>';
+		} else {
+			echo '<div class=wrong><span>❌</span> Veuillez installer l\'extension php-curl.</div>';
+		}
 		if(extension_loaded('OpenSSL')){
 			echo '<div><span>✔️</span> L\'extension OpenSSL est bien chargée.</div>';
 		} else {
