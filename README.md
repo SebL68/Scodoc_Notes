@@ -30,6 +30,7 @@ Les utilisateurs actuels sont :
  - IUT de Kourou ?
  - IUT de Brest => accès étudiant,
  - IUT d'Annecy => accès étudiant + enseignant.
+ - IUT de Nantes ?
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
   
