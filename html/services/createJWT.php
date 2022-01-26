@@ -24,7 +24,7 @@
 	$exp = time() + 7 * 3600 * 24 ; // today + 7 days
     $root_url = (isset($_SERVER["https"]) ? "https://" : "http://" ). $_SERVER["HTTP_HOST"];
 	$payload = [
-		'session' => 'sebastien.lehmann@uha.fr', // mail de la personne destinataire du jeton
+		'session' => 'sebastien.lehmann@uha.fr', // identifiant (nip, mail ou autre), de la personne identifié dans le jeton (on peut se faire passer pour n'importe qui)
 		'statut' => 'superadministrateur', // 'etudiant' | 'personnel' | 'administrateur' | 'superadministrateur' | INCONNU
 		'exp' => $exp // (optionnel) timestamp d'expiration du token
 	];

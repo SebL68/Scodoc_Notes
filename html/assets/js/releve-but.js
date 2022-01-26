@@ -301,7 +301,7 @@ class releveBUT extends HTMLElement {
 		evaluations.forEach((evaluation) => {
 			output += `
 				<div class=eval>
-					<div>${this.URL(evaluation.url, evaluation.description)}</div>
+					<div>${this.URL(evaluation.url, evaluation.description ||"Évaluation")}</div>
 					<div>
 						${evaluation.note.value}
 						<em>Coef.&nbsp;${evaluation.coef}</em>

@@ -40,6 +40,21 @@
     <h1>Historique des mises à jours</h1>
 
     <main>
+		<h2>26/01/2022 - V4.6.6 NON PUBLIÉE pour le moment</h2>
+		<ul>
+			<li>Relevés BUT : correction de l'affichage des absences.</li>
+			<li>Relevés BUT : affichage des bonus dans une UE.</li>
+		</ul>
+		<h2>26/01/2022 - V4.6.5</h2>
+        <ul>
+            <li>Prise en charge de l'option Scodoc : ne pas publier les relevés sur la passerelle.</li>
+			<li>Relevés BUT : message par défaut sur nom de l'évaluation non défini.</li>	
+        </ul>
+		<h2>24/01/2022 - V4.6.4</h2>
+        <ul>
+            <li>Update CAS : mise en minucule automatique des mails renvoyés par CAS.</li>
+			<li>Config : option pour ne pas autoriser le téléchargement PDF des relevés.</li>
+        </ul>
 	    <h2>21/01/2022 - V4.6.3</h2>
         <ul>
             <li>Correction bug : concaténation prénom / nom dans les listes étudiants.</li>

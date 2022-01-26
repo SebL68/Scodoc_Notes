@@ -274,7 +274,9 @@
 			}	
 
 			function showReportCards(data, semestre, etudiant){
-				if(data.relevé.type == "BUT"){
+				if(data.relevé.publie == false){
+					document.querySelector(".releve").innerHTML = "<h2 style='background: #90c;'>Le responsable de votre formation a décidé de ne pas publier le relevé de notes de ce semestre.</h2>";
+				}else if(data.relevé.type == "BUT"){
 					document.querySelector(".releve").innerHTML = "<releve-but></releve-but>";
 
 					let releve = document.querySelector("releve-but");
