@@ -12,8 +12,8 @@
 	header('Content-type:application/json');
 
 /* Debug */
-	/*error_reporting(E_ALL);
-	ini_set('display_errors', '1');*/
+	error_reporting(E_ALL);
+	ini_set('display_errors', '1');
 
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 
@@ -405,6 +405,9 @@
 				break;
 		}	
 		if($output != ''){
+			if(method_exists('Config', 'customOutput') == true){
+				$output = [Config::customOutput($output)];
+			}
 			echo json_encode($output/*, JSON_PRETTY_PRINT*/);
 		}else{
 			returnError('Mauvaise requête.');

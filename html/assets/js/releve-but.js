@@ -46,6 +46,8 @@ class releveBUT extends HTMLElement {
 		this.showSynthese(data);
 		this.showEvaluations(data);
 
+		this.showCustom(data);
+
 		this.setOptions(data.options);
 
 		this.shadow.querySelectorAll(".CTA_Liste").forEach(e => {
@@ -73,6 +75,11 @@ class releveBUT extends HTMLElement {
 			<img class=studentPic src="" alt="Photo de l'étudiant" width=100 height=120>
 			<div class=infoEtudiant></div>
 		</section>
+
+		<!--------------------------------------------------------------------------------------->
+		<!-- Zone spéciale pour que les IUT puisse ajouter des infos locales sur la passerelle -->
+		<!--------------------------------------------------------------------------------------->
+		<section class=custom></section>
 
 		<!--------------------------->
 		<!-- Semestre              -->
@@ -178,6 +185,13 @@ class releveBUT extends HTMLElement {
 		}
 
 		this.shadow.querySelector(".infoEtudiant").innerHTML = output;
+	}
+
+	/*******************************/
+	/* Affichage local             */
+	/*******************************/
+	showCustom(data){
+			this.shadow.querySelector(".custom").innerHTML = data.custom || "";
 	}
 
 	/*******************************/
