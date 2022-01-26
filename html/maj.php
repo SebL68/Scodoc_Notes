@@ -40,16 +40,18 @@
 	<h1>Historique des mises à jours</h1>
 
 	<main>
-		<h2>26/01/2022 - V4.6.6 NON PUBLIÉE pour le moment</h2>
+		<h2>En cours de production</h2>
 		<ul>
 			<li>Relevés BUT : correction de l'affichage des absences.</li>
 			<li>Relevés BUT : affichage des bonus dans une UE.</li>
-			<li>Diagnostic : ajout du test extension php-curl.</li>
+			<li>Fetch relevé : gérer le 404 avec un message de retour</li>
+			<li>Ajout d'une zone "custom", remplie au choix de chaque IUT, depuis le fichier config.</li>
 		</ul>
 		<h2>26/01/2022 - V4.6.5</h2>
 		<ul>
 			<li>Prise en charge de l'option Scodoc : ne pas publier les relevés sur la passerelle.</li>
-			<li>Relevés BUT : message par défaut sur nom de l'évaluation non défini.</li>	
+			<li>Relevés BUT : message par défaut sur nom de l'évaluation non défini.</li>
+			<li>Diagnostic : ajout du test extension php-curl.</li>	
 		</ul>
 		<h2>24/01/2022 - V4.6.4</h2>
 		<ul>
