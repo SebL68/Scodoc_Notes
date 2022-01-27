@@ -31,6 +31,9 @@ Les utilisateurs actuels sont :
  - IUT de Brest => accès étudiant,
  - IUT d'Annecy => accès étudiant + enseignant.
  - IUT de Nantes ?
+ - IUT de Blagnac ?
+ - IUT de Vannes ?
+ - IUT Lorient & Pontivy ?
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
   
