@@ -3,7 +3,7 @@ Pour suivre les évolutions : https://notes.iutmulhouse.uha.fr/maj.php
 Travaux en cours :
  - faire en sorte qu'on puisse gérer autre chose que les mails dans l'onglet "comptes"
  - permettre d'attaquer directement le LDAP sans avoir besoin de faire de listes
- - faire en sorte que le choix des étudiants sur la page relevé permette de choisir directement le nom / prenom plutôt qu'un mail ou nip
+ - faire en sorte que le choix des étudiants sur la page relevé permette de choisir directement le nom / prénom plutôt qu'un mail ou nip
  - refonte du système d'absences : gérer par plages plutôt que créneaux + interconnexion avec Scodoc
  - lien pour les photos entre Scodoc et la passerelle  
   
@@ -16,7 +16,7 @@ Les utilisateurs actuels sont :
  - IUT Lannion ?
  - IUT de Lille => accès étudiant + enseignant,
  - IUT de Bordeaux => accès étudiant,
- - IUT d'Orsey ?
+ - IUT d'Orsay ?
  - IUT du Havre => accès étudiant + enseignant,
  - IUT de Poitiers ?
  - IUT du Littoral Côte d'Opale ?
@@ -67,12 +67,12 @@ Il est possible d'automatiser la génération de ces fichiers à partir du LDAP 
 ## Diagnostic
 Pour vous aider dans la configuration de votre serveur, un système de diagnostic a été mis en place : /html/sercices/diagnostic.php  
 Il est également possible d'activer les messages d'erreur dans /html/services/data.php --> Options de debug  
-La passerelle communique via un système d'API, il faut donc voir les réponses dans l'inspecter (F12) --> Network  
+La passerelle communique via un système d'API, il faut donc voir les réponses dans l'inspecteur (F12) --> Network  
   
 ## Fichiers
 Le dossier "html" doit être la racine du site.  
 Les autres dossiers doivent être dans le dossier parent et donc inaccessible depuis le net.  
-Ceci a été fait pour des raisons de sécurité : ces dossiers ne doivent pas être accessible en dehors du serveur car ils contiennent des données et fonctions sensibles (mot de passe, certificats, etc.). Le seul dossier accessible doit être "html".  
+Ceci a été fait pour des raisons de sécurité : ces dossiers ne doivent pas être accessibles en dehors du serveur car ils contiennent des données et fonctions sensibles (mot de passe, certificats, etc.). Le seul dossier accessible doit être "html".  
 Il est alors possible de les placer comme il faut par rapport au www ou de configurer dans Apache le fichier httpd-vhosts.conf :
 ```
 DocumentRoot "${INSTALL_DIR}/www/html/"
@@ -106,7 +106,7 @@ L'utilisation du LDAP n'est pas obligatoire si le CAS renvoie le nip. Si le CAS 
   
 Il est possible de s'authentifier de manière forcée en utilisant les jetons JWT.  
 Ces jetons peuvent être créés dans le fichier /html/services/createJWT.php (à modifier).  
-Ces jetons sont notamment utile au début pour bypasser le CAS pour des premiers tests, ils servent également à utiliser un statut de SUPERADMIN. Ce statut permet de mettre en route le crontab pour la mise à jour du LDAP depuis le navigateur.  
+Ces jetons sont notamment utiles au début pour bypasser le CAS pour des premiers tests, ils servent également à utiliser un statut de SUPERADMIN. Ce statut permet de mettre en route le crontab pour la mise à jour du LDAP depuis le navigateur.  
 La mise à jour forcée du LDAP (pour les tests) se fait en exécutant le fichier /includes/CmdUpdateLists.php avec le statut SUPERADMIN ou en CLI ou en le déplaçant dans /html.  
 La mise en route du crontab se fait avec le fichier /includes/CmdSetUpdateLists.php suivant le même principe.
   
@@ -116,13 +116,13 @@ Il est possible d'activer d'autres options prévus pour les enseignants comme :
  - récupérer des documents xls pratiques, automatiquement générés en fonction des listes Scodoc,
  - gérer les absences entièrement depuis la passerelle, avec des créneaux prédéfinis (sans utiliser Scodoc).
   
-# Comment connaitre la version de la passerelle ?
+# Comment connaître la version de la passerelle ?
 La version est notée dans le fichier /html/sw.js
 
 # Procédures de mise à jour
 Les dossiers /config et /data sont des données locales qui permettent de faire fonctionner la passerelle dans votre environnement.  
 Ils ne sont (sauf cas exceptionnels) pas modifiés.  
-Si le fichier /config/config.php devait subir une modification important, un message s'afficherait sur la passerelle indiquant qu'il faut utiliser une nouvelle version de ce dernier.  
+Si le fichier /config/config.php devait subir une modification importante, un message s'afficherait sur la passerelle indiquant qu'il faut utiliser une nouvelle version de ce dernier.  
 
 Pour réaliser la mise à jour, il faut alors copier et coller sur votre passerelle les dossiers :
  - /html
@@ -138,7 +138,7 @@ Il y faut alors le prendre en compte de cette manière :
  - certains fichiers, comme l'index, ne sont pas mis à jour tant que la version du SW n'est pas mis à jour,
  - les autres fichiers sont mis à jour après le chargement de la page.
 
-Il faut donc faire un double rafraichissement pour voir la dernière version de ces derniers fichiers.  
+Il faut donc faire un double rafraîchissement pour voir la dernière version de ces derniers fichiers.  
   
 Je vous conseille alors, pour le développement, de "bypasser" le service worker - sous Chrome : F12 -> Applications -> Service Worker  
 
@@ -150,11 +150,11 @@ Pour des développements locaux et des commits, il est nécessaire de ne pas pre
   
 # Considérations de sécurité
 La passerelle a fait l'objet d'une attention particulière aux problèmes de sécurité et plusieurs personnes ont audité le code, voici des réponses aux questions qu'on pourrait se poser :  
- - Il n'y a pas de faille en soit.  
+ - Il n'y a pas de failles connues.  
 
 Parmi les échanges, il a été évoqué :  
  - L'utilisation de chmod / chown dans le code PHP, c'était des restes des développements du début où c'était vachement pratique de pouvoir interagir avec les fichiers sur le serveur depuis plusieurs utilisateurs - les chmod ont été nettoyé et les chown le seront dans le futur.  
- - L'utilisation d'une commande exec qui est normalement verrouillé en production pour une interface web - dans le cas de la passerelle, elle ne sert qu'à lancer le crontab lors de la configuration du début, par la suite, elle peut être désactivé, de plus, il n'y a aucun input utilisateur qui puisse être entré dans le exec, donc aucun problème de sécurité et on peut le désactivé par la suite.  
+ - L'utilisation d'une commande exec qui est normalement verrouillé en production pour une interface web - dans le cas de la passerelle, elle ne sert qu'à lancer le crontab lors de la configuration du début, par la suite, elle peut être désactivé, de plus, il n'y a aucun input utilisateur qui puisse être entré dans le exec, donc aucun problème de sécurité et on peut le désactiver par la suite.  
  - La fragilité des jetons JWT côté client : ce mode de fonctionnement se fait à la marge, notamment pour tes tests, par défaut ces jetons sont désactivés et enfin, si on les utilise, la durée d'expiration des jetons est courte - c'est donc acceptable.  
  - Il a évoqué le problème de l'accès aux fichiers comme les listes si jamais le serveur est mal configuré - si jamais le serveur est mal configuré, la passerelle ne peut pas démarrer, ce n'est donc pas un problème (mais c'était pas évident de savoir qu'elle ne peut pas démarrer en cas de mauvais config).  
  - Il a également dit que ce serait mieux de faire un requêtage direct du LDAP plutôt que d'en faire une copie périodique - je suis d'accord, ce fonctionnement est avant tout historique car au début je n'avais pas accès au LDAP. Par la suite, je proposerai une solution pour ne plus passer par ces fichiers, mais je conserverai ce fonctionnement pour les personnes qui en auraient besoin (si l'accès au LDAP n'est pas possible notamment).  
