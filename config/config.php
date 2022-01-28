@@ -141,11 +141,21 @@
 		/*public static function customOutput($output){
 			// $output contient les data juste avant de les renvoyer
 			// Il faut tester ce qui est renvoyé pour ajouter les données si nécessaire
-			// Il est possible d'ajouter $output = ['custom' => "Données au format HTML"]
+			// Il est possible d'ajouter 
+			// if(isset($output['relevé'])){
+				$output['releve'] = ['custom' => "Données au format HTML"];
+			// }
 			// Ces données sont insérées dans le relevé BUT entre la fiche étudiant et la synthèse
+			
 			return $output;
 		}*/
 		
+/*******************************************/
+/* Permet de modifier les photos renvoyées */
+/*******************************************/
+		/*public static function customOutput($nip){
+		
+		}*/
 		
 /****************************/
 /* Configuration du serveur */
