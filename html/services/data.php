@@ -387,9 +387,15 @@
 					$url = "$path/data/studentsPic/" . $user->getSessionName() . '.jpg';
 				}
 				if(!file_exists($url)){ // Image par défaut si elle n'existe pas
-					header('Content-type:image/svg+xml');
-					echo '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>';
-					return;
+					if(method_exists('Config', 'customPic') == true){
+                        Config::customPic($_GET['email']);
+                        return;
+                    } else {
+						header('Content-type:image/svg+xml');
+						echo '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>';
+						return;	
+					}
+					
 				} else {
 					header('Content-type:image/jpeg');
 					echo file_get_contents($url);
