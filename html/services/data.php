@@ -406,7 +406,7 @@
 		}	
 		if($output != ''){
 			if(method_exists('Config', 'customOutput') == true){
-				$output = [Config::customOutput($output)];
+				$output = Config::customOutput($output);
 			}
 			echo json_encode($output/*, JSON_PRETTY_PRINT*/);
 		}else{
