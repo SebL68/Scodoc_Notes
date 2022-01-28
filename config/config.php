@@ -135,14 +135,15 @@
 /* ________________ */
 
 /*******************************************************/
-/* Ajout de données "custom" à afficher dans le relevé */
+/* Ajout de données "custom" à afficher dans le relevé 
+	Permet également de modifier les data avant l'envoi */
 /*******************************************************/
 		/*public static function customOutput($output){
 			// $output contient les data juste avant de les renvoyer
 			// Il faut tester ce qui est renvoyé pour ajouter les données si nécessaire
-			// Les données doivent être sous la forme : ['custom' => "Données au format HTML"]
-			return ['custom' => $outputToAdd];
-			
+			// Il est possible d'ajouter $output = ['custom' => "Données au format HTML"]
+			// Ces données sont insérées dans le relevé BUT entre la fiche étudiant et la synthèse
+			return $output;
 		}*/
 		
 		
