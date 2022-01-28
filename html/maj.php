@@ -47,15 +47,14 @@
 		<h2>28/01/2022 - V4.6.6</h2>
 		<ul>
 			<li>Relevés BUT : correction de l'affichage des absences : ajout du total semestre des absences.</li>
-			<li>Possibilité de modifier, à partir du fichier config, les data générés par l'API avant l'envoie => function customOutput()</li>
 			<li>Possibilité de modifier, à partir du fichier config, les photos renvoyées par l'API => function customPic()</li>
-			<li>Ajout d'une zone "custom", remplie au choix de chaque IUT, depuis le fichier config.</li>
+			<li>Possibilité de modifier, à partir du fichier config, les data générés par l'API avant l'envoie => function customOutput()</li>
+			<li>Ajout d'une zone "custom", remplie au choix de chaque IUT, depuis le fichier config => voir function customOutput().</li>
 		</ul>
 		<h2>26/01/2022 - V4.6.5</h2>
 		<ul>
 			<li>Prise en charge de l'option Scodoc : ne pas publier les relevés sur la passerelle.</li>
 			<li>Relevés BUT : message par défaut sur nom de l'évaluation non défini.</li>
-			<li>Diagnostic : ajout du test extension php-curl.</li>	
 		</ul>
 		<h2>24/01/2022 - V4.6.4</h2>
 		<ul>
