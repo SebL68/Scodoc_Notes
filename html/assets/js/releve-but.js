@@ -293,7 +293,7 @@ class releveBUT extends HTMLElement {
 		})
 		return output;
 	}
-	ueSport(modules){
+	ueSport(modules) {
 		let output = "";
 		Object.values(modules).forEach((module) => {
 			Object.values(module.evaluations).forEach((evaluation) => {
