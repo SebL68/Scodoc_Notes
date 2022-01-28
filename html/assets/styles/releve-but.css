@@ -172,6 +172,12 @@ section>div:nth-child(1){
     font-size: 20px;
     margin-bottom: 4px;
 }
+/***************/
+/* Zone custom */
+/***************/
+.custom:empty{
+	display: none;
+}
 
 /***************/
 /* Synthèse    */
