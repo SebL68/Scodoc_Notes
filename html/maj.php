@@ -42,9 +42,13 @@
 	<main>
 		<h2>En cours de production</h2>
 		<ul>
-			<li>Relevés BUT : correction de l'affichage des absences.</li>
-			<li>Relevés BUT : affichage des bonus dans une UE.</li>
 			<li>Fetch relevé : gérer le 404 avec un message de retour</li>
+		</ul>
+		<h2>28/01/2022 - V4.6.6</h2>
+		<ul>
+			<li>Relevés BUT : correction de l'affichage des absences : ajout du total semestre des absences.</li>
+			<li>Possibilité de modifier, à partir du fichier config, les data générés par l'API avant l'envoie => function customOutput()</li>
+			<li>Possibilité de modifier, à partir du fichier config, les photos renvoyées par l'API => function customPic()</li>
 			<li>Ajout d'une zone "custom", remplie au choix de chaque IUT, depuis le fichier config.</li>
 		</ul>
 		<h2>26/01/2022 - V4.6.5</h2>

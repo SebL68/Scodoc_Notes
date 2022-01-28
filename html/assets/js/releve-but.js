@@ -56,7 +56,7 @@ class releveBUT extends HTMLElement {
 		this.shadow.querySelectorAll(".ue, .module").forEach(e => {
 			e.addEventListener("click", this.moduleOnOff)
 		})
-		this.shadow.querySelectorAll(".syntheseModule").forEach(e => {
+		this.shadow.querySelectorAll(":not(.ueBonus)+.syntheseModule").forEach(e => {
 			e.addEventListener("click", this.goTo)
 		})
 
@@ -173,8 +173,8 @@ class releveBUT extends HTMLElement {
 		output += `
 				</div>
 				<div class=numerosEtudiant>
-					Numéro étudiant : ${data.etudiant.code_nip} - 
-					Code INE : ${data.etudiant.code_ine}
+					Numéro étudiant : ${data.etudiant.code_nip || "~"} - 
+					Code INE : ${data.etudiant.code_ine || "~"}
 				</div>
 				<div>${data.formation.titre}</div>
 		`;
@@ -190,8 +190,8 @@ class releveBUT extends HTMLElement {
 	/*******************************/
 	/* Affichage local             */
 	/*******************************/
-	showCustom(data){
-			this.shadow.querySelector(".custom").innerHTML = data.custom || "";
+	showCustom(data) {
+		this.shadow.querySelector(".custom").innerHTML = data.custom || "";
 	}
 
 	/*******************************/
@@ -235,31 +235,44 @@ class releveBUT extends HTMLElement {
 	showSynthese(data) {
 		let output = ``;
 		Object.entries(data.ues).forEach(([ue, dataUE]) => {
-			output += `
-				<div>
-					<div class=ue>
-						<h3>
-							${(dataUE.competence) ? dataUE.competence + " - " : ""}${ue}
-						</h3>
-						<div>
-							<div class=moyenne>Moyenne&nbsp;:&nbsp;${dataUE.moyenne?.value || "-"}</div>
-							<div class=info>
-								Bonus&nbsp;:&nbsp;${dataUE.bonus || 0}&nbsp;- 
-								Malus&nbsp;:&nbsp;${dataUE.malus || 0}
-								<span class=ects>&nbsp;-
-									ECTS&nbsp;:&nbsp;${dataUE.ECTS.acquis}&nbsp;/&nbsp;${dataUE.ECTS.total}
-								</span>
-							</div>
-						</div>`;
-						/*<div class=absences>
-							<div>Abs&nbsp;N.J.</div><div>${dataUE.absences?.injustifie || 0}</div>
-							<div>Total</div><div>${dataUE.absences?.total || 0}</div>
-						</div>*/
-			output += `</div>
-					${this.synthese(data, dataUE.ressources)}
-					${this.synthese(data, dataUE.saes)}
-				</div>
-			`;
+			if (dataUE.type == 1) {		// UE Sport / Bonus
+				output += `
+					<div>
+						<div class="ue ueBonus">
+							<h3>Bonus</h3>
+							<div>${dataUE.bonus_description}</div>
+						</div>
+						${this.ueSport(dataUE.modules)}
+					</div>
+				`;
+			} else {
+				output += `
+					<div>
+						<div class=ue>
+							<h3>
+								${(dataUE.competence) ? dataUE.competence + " - " : ""}${ue}
+							</h3>
+							<div>
+								<div class=moyenne>Moyenne&nbsp;:&nbsp;${dataUE.moyenne?.value || "-"}</div>
+								<div class=info>
+									Bonus&nbsp;:&nbsp;${dataUE.bonus || 0}&nbsp;- 
+									Malus&nbsp;:&nbsp;${dataUE.malus || 0}
+									<span class=ects>&nbsp;-
+										ECTS&nbsp;:&nbsp;${dataUE.ECTS.acquis}&nbsp;/&nbsp;${dataUE.ECTS.total}
+									</span>
+								</div>
+							</div>`;
+				/*<div class=absences>
+					<div>Abs&nbsp;N.J.</div><div>${dataUE.absences?.injustifie || 0}</div>
+					<div>Total</div><div>${dataUE.absences?.total || 0}</div>
+				</div>*/
+				output += `
+						</div>
+						${this.synthese(data, dataUE.ressources)}
+						${this.synthese(data, dataUE.saes)}
+					</div>
+				`;
+			}
 		});
 		this.shadow.querySelector(".synthese").innerHTML = output;
 	}
@@ -267,7 +280,7 @@ class releveBUT extends HTMLElement {
 		let output = "";
 		Object.entries(modules).forEach(([module, dataModule]) => {
 			let titre = data.ressources[module]?.titre || data.saes[module]?.titre;
-			let url = data.ressources[module]?.url || data.saes[module]?.url;
+			//let url = data.ressources[module]?.url || data.saes[module]?.url;
 			output += `
 				<div class=syntheseModule data-module="${module.replace(/[^a-zA-Z0-9]/g, "")}">
 					<div>${module}&nbsp;- ${titre}</div>
@@ -277,6 +290,23 @@ class releveBUT extends HTMLElement {
 					</div>
 				</div>
 			`;
+		})
+		return output;
+	}
+	ueSport(modules){
+		let output = "";
+		Object.values(modules).forEach((module) => {
+			Object.values(module.evaluations).forEach((evaluation) => {
+				output += `
+					<div class=syntheseModule>
+						<div>${module.titre} - ${evaluation.description}</div>
+						<div>
+							${evaluation.note.value ?? "-"}
+							<em>Coef.&nbsp;${evaluation.coef}</em>
+						</div>
+					</div>
+				`;
+			})
 		})
 		return output;
 	}
@@ -320,7 +350,7 @@ class releveBUT extends HTMLElement {
 		evaluations.forEach((evaluation) => {
 			output += `
 				<div class=eval>
-					<div>${this.URL(evaluation.url, evaluation.description ||"Évaluation")}</div>
+					<div>${this.URL(evaluation.url, evaluation.description || "Évaluation")}</div>
 					<div>
 						${evaluation.note.value}
 						<em>Coef.&nbsp;${evaluation.coef}</em>
