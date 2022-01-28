@@ -46,6 +46,7 @@
 		</ul>
 		<h2>28/01/2022 - V4.6.6</h2>
 		<ul>
+			<li>Relevés BUT : affichage des bonus dans une UE.</li>
 			<li>Relevés BUT : correction de l'affichage des absences : ajout du total semestre des absences.</li>
 			<li>Possibilité de modifier, à partir du fichier config, les photos renvoyées par l'API => function customPic()</li>
 			<li>Possibilité de modifier, à partir du fichier config, les data générés par l'API avant l'envoie => function customOutput()</li>
