@@ -153,7 +153,7 @@
 /*******************************************/
 /* Permet de modifier les photos renvoyées */
 /*******************************************/
-		/*public static function customOutput($nip){
+		/*public static function customPic($nip){
 		
 		}*/
 		
