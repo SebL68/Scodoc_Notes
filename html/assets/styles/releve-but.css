@@ -91,7 +91,8 @@ section>div:nth-child(1){
 /***********************/
 /* Options d'affichage */
 /***********************/
-.hide_abs .absences,
+.hide_abs .absencesRecap,
+/*.hide_abs .absences,*/
 .hide_abs_modules .module>.absences,
 .hide_coef .synthese em,
 .hide_coef .eval>em,
@@ -100,7 +101,7 @@ section>div:nth-child(1){
     display: none;
 }
 
-.module>.absences,
+/*.module>.absences,*/
 .module .moyenne,
 .module .info{
 	display: none;
@@ -131,14 +132,15 @@ section>div:nth-child(1){
 /************/
 .flex{
 	display: flex;
-	gap: 16px;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-top: 8px;
 }
 .infoSemestre{
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+	align-items: flex-start;
     gap: 4px;
-	flex: none;
 }
 .infoSemestre>div{
     border: 1px solid var(--couleurIntense);
@@ -147,6 +149,7 @@ section>div:nth-child(1){
     display: grid;
     grid-template-columns: auto auto;
     column-gap: 4px;
+	flex: none;
 }
 .infoSemestre>div:nth-child(1){
     margin-right: auto;
@@ -294,7 +297,7 @@ h3{
     margin-bottom: 8px;
 }
 
-.absences{
+/*.absences{
     display: grid;
     grid-template-columns: auto auto;
     column-gap: 4px;
@@ -305,4 +308,4 @@ h3{
 .absences>div:nth-child(1),
 .absences>div:nth-child(2){
     font-weight: bold;
-}
+}*/

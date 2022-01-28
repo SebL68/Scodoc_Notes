@@ -207,6 +207,11 @@ class releveBUT extends HTMLElement {
 				<div>Max. promo. :</div><div>${data.semestre.notes.max}</div>
 				<div>Moy. promo. :</div><div>${data.semestre.notes.moy}</div>
 				<div>Min. promo. :</div><div>${data.semestre.notes.min}</div>
+			</div>
+			<div class=absencesRecap>
+				<div class=enteteSemestre>Absences</div>
+				<div class=enteteSemestre>N.J. ${data.semestre.absences?.injustifie ?? "-"}</div>
+				<div style="grid-column: 2">Total ${data.semestre.absences?.total ?? "-"}</div>
 			</div>`;
 		/*${data.semestre.groupes.map(groupe => {
 			return `
@@ -245,12 +250,12 @@ class releveBUT extends HTMLElement {
 									ECTS&nbsp;:&nbsp;${dataUE.ECTS.acquis}&nbsp;/&nbsp;${dataUE.ECTS.total}
 								</span>
 							</div>
-						</div>
-						<div class=absences>
+						</div>`;
+						/*<div class=absences>
 							<div>Abs&nbsp;N.J.</div><div>${dataUE.absences?.injustifie || 0}</div>
 							<div>Total</div><div>${dataUE.absences?.total || 0}</div>
-						</div>
-					</div>
+						</div>*/
+			output += `</div>
 					${this.synthese(data, dataUE.ressources)}
 					${this.synthese(data, dataUE.saes)}
 				</div>
