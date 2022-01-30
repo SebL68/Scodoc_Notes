@@ -250,7 +250,7 @@ class releveBUT extends HTMLElement {
 					<div>
 						<div class=ue>
 							<h3>
-								${ue}${(dataUE.competence) ? " - " + dataUE.competence  : ""}
+								${ue}${(dataUE.titre) ? " - " + dataUE.titre  : ""}
 							</h3>
 							<div>
 								<div class=moyenne>Moyenne&nbsp;:&nbsp;${dataUE.moyenne?.value || "-"}</div>
