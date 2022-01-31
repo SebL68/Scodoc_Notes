@@ -18,7 +18,7 @@ class releveBUT extends HTMLElement {
 		if (location.href.split("/")[3] == "ScoDoc") {
 			styles.setAttribute('href', '/ScoDoc/static/css/releve-but.css');	// Scodoc
 		} else {
-			styles.setAttribute('href', '/assets/styles/releve-but.css');		// Passerelle
+			styles.setAttribute('href', 'assets/styles/releve-but.css');		// Passerelle
 		}
 		this.shadow.appendChild(styles);
 	}
