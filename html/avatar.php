@@ -194,7 +194,7 @@
 		let grabX;
 		let grabY;
 
-		fetch("/services/data.php?q=getStudentPic")
+		fetch("services/data.php?q=getStudentPic")
 		.then(r=>{
 			if(r.headers.get('Content-Type') != "image/svg+xml"){
 				return r.blob();
@@ -302,7 +302,7 @@
 				}
 				formData.append('image', blob, "photo.jpg");
 
-				fetch("/services/data.php?q=setStudentPic",
+				fetch("services/data.php?q=setStudentPic",
 					{
 						method: "POST",
 						body: formData
@@ -331,7 +331,7 @@
 		}
 
 		function supprimer(){
-			fetch("/services/data.php?q=deleteStudentPic")
+			fetch("services/data.php?q=deleteStudentPic")
 			.then(r=>{return r.json()})
 			.then(function(data) {
 				if(data.redirect){
@@ -345,7 +345,7 @@
 				}else if(data.result == "OK"){
 					document.body.classList.remove("etape2");
 					document.querySelector(".dropZone").classList.remove("fadeOff");
-					fetch("/services/data.php?q=getStudentPic");
+					fetch("services/data.php?q=getStudentPic");
 				}
 			})
 		}
