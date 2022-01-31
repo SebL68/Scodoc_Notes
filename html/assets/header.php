@@ -13,11 +13,11 @@
 			<a class="nav" id="documents" href="/services/studentsLists.php">Documents</a>
 
 			<?php if($Config->module_absences == true){ ?>
-				<a class="nav" id="absences" href="/absences/">Absences</a>
-				<a class="nav" id="gestion" href="/absences/gestion.php">Stats / Justif</a>
+				<a class="nav" id="absences" href="absences/">Absences</a>
+				<a class="nav" id="gestion" href="absences/gestion.php">Stats / Justif</a>
 			<?php } ?>
 
-			<a class="nav" id="admin" href="/admin/">Comptes</a>
+			<a class="nav" id="admin" href="admin/">Comptes</a>
 		<?php } ?>
 
 		<a href=/logout.php>Déconnexion</a>
