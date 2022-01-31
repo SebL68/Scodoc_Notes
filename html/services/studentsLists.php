@@ -381,7 +381,7 @@
 		}
 		async function processSigning(obj){
 			obj.classList.add("load");
-			var blob = await getExcel(obj, 'documents/Emargements.xlsx');
+			var blob = await getExcel(obj, '../documents/Emargements.xlsx');
 			XlsxPopulate.fromDataAsync(blob)
             .then(workbook => {
                 var h2 = obj.parentElement.parentElement.previousElementSibling;
