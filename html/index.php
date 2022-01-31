@@ -168,8 +168,8 @@
 			Authentification en cours ...
 		</div>
 
-		<script src="/assets/js/releve-dut.js"></script>
-		<script src="/assets/js/releve-but.js"></script>
+		<script src="assets/js/releve-dut.js"></script>
+		<script src="assets/js/releve-but.js"></script>
 		<script>
 /**************************/
 /* Service Worker pour le message "Installer l'application" et pour le fonctionnement hors ligne PWA
@@ -190,7 +190,7 @@
 /*********************************************/			
 			async function checkStatut(){
 				let data = await fetchData("dataPremièreConnexion");
-				document.querySelector(".studentPic").src = "/services/data.php?q=getStudentPic";
+				document.querySelector(".studentPic").src = "services/data.php?q=getStudentPic";
 				document.querySelector(".prenom").innerText = String(data.auth.session).match(/([a-z-]*)\./)?.[1] || "Mme, M.,";
 				let auth = document.querySelector(".auth");
 				auth.style.opacity = "0";
@@ -289,7 +289,7 @@
 					/* Styles différent de Scodoc */
 					let styles = document.createElement('link');
 					styles.setAttribute('rel', 'stylesheet');
-					styles.setAttribute('href', '/assets/styles/releve-but-custom.css');
+					styles.setAttribute('href', 'assets/styles/releve-but-custom.css');
 					releve.shadowRoot.appendChild(styles);
 					<?php if(file_exists("$path/config/releve-but-local.css") == true){ ?>
 					/* Styles locaux */
@@ -300,9 +300,9 @@
 					
 					if(!document.body.classList.contains("personnel")){
 						document.querySelector(".prenom").innerText = data.relevé.etudiant.prenom.toLowerCase();
-						releve.shadowRoot.querySelector(".studentPic").src = "/services/data.php?q=getStudentPic";
+						releve.shadowRoot.querySelector(".studentPic").src = "services/data.php?q=getStudentPic";
 					} else {
-						releve.shadowRoot.querySelector(".studentPic").src = "/services/data.php?q=getStudentPic&email=" + etudiant;
+						releve.shadowRoot.querySelector(".studentPic").src = "services/data.php?q=getStudentPic&email=" + etudiant;
 					}
 				} else {
 					document.querySelector(".releve").innerHTML = "<releve-dut></releve-dut>";
