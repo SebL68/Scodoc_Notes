@@ -196,4 +196,3 @@ class Annuaire{
 			returnError("Fichier inexistant : <b>$file</b><br>Veuillez mettre les listes des utilisateurs à jour.");
 	}
 }
-?>

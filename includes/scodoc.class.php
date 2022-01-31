@@ -61,4 +61,3 @@
 			return curl_exec($this->ch);
 		}
 	}
-?>

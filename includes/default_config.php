@@ -170,4 +170,3 @@
 	foreach($CONSTANTES as $const => $val) {
 		define($const, $val);
 	}
-?>

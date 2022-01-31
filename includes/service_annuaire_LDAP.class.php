@@ -119,4 +119,3 @@ class Service_Annuaire{
             exit("Authentification sur le serveur LDAP impossible");
     }
 };
-?>

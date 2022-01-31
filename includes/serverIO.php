@@ -443,4 +443,3 @@ function getDepartmentsList(){
 		)
 	);*/
 }
-?>
