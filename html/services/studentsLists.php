@@ -275,7 +275,7 @@
            
 			etudiant.forEach(etudiant=>{
 				output += `
-					<a href="/?ask_student=${etudiant.email}"
+					<a href="?ask_student=${etudiant.email}"
                         data-nom="${etudiant.nom}" 
                         data-prenom="${etudiant.prenom}" 
                         data-groupe="${etudiant.groupe}"
@@ -377,11 +377,11 @@
 
 			console.log(output);
 			localStorage.setItem("trombi", JSON.stringify(output));
-			window.open("/services/trombi.php");
+			window.open("services/trombi.php");
 		}
 		async function processSigning(obj){
 			obj.classList.add("load");
-			var blob = await getExcel(obj, '/documents/Emargements.xlsx');
+			var blob = await getExcel(obj, 'documents/Emargements.xlsx');
 			XlsxPopulate.fromDataAsync(blob)
             .then(workbook => {
                 var h2 = obj.parentElement.parentElement.previousElementSibling;
