@@ -104,17 +104,21 @@ CAS nécessite des dépendances : https://apereo.atlassian.net/wiki/spaces/CASC/
 
 L'utilisation du LDAP n'est pas obligatoire si le CAS renvoie le nip. Si le CAS renvoie l'adresse mail, il faut alors mettre en place le système qui permet de convertir les mails en nip. Dans /data/annuaires, il y a les fichiers pour cette conversion. Différentes fonctions permettent de remplir ces fichiers automatiquement à partir du LDAP (voir ci-après).  
   
+Pour tester la connexion avec Scodoc, il est possible de forcer un utilisateur (étudiant) dans /config/config.php => nipModifier().
+  
 Il est possible de s'authentifier de manière forcée en utilisant les jetons JWT.  
 Ces jetons peuvent être créés dans le fichier /html/services/createJWT.php (à modifier).  
 Ces jetons sont notamment utiles au début pour bypasser le CAS pour des premiers tests, ils servent également à utiliser un statut de SUPERADMIN. Ce statut permet de mettre en route le crontab pour la mise à jour du LDAP depuis le navigateur.  
 La mise à jour forcée du LDAP (pour les tests) se fait en exécutant le fichier /includes/CmdUpdateLists.php avec le statut SUPERADMIN ou en CLI ou en le déplaçant dans /html.  
-La mise en route du crontab se fait avec le fichier /includes/CmdSetUpdateLists.php suivant le même principe.
+La mise en route du crontab se fait avec le fichier /includes/CmdSetUpdateLists.php suivant le même principe.  
+  
+Les étudiants peuvent modifier leur "avatar" sur la passerelle, il faut vérifier que l'utiliseur www-data puisse bien modifier les fichiers du répertoire /data/studentPic  
   
 Par défaut, ce site ne diffuse que les relevés de notes aux étudiants.  
 Il est possible d'activer d'autres options prévus pour les enseignants comme :
  - la possibilité de visualiser les relevés de n'importe quel étudiant,
  - récupérer des documents xls pratiques, automatiquement générés en fonction des listes Scodoc,
- - gérer les absences entièrement depuis la passerelle, avec des créneaux prédéfinis (sans utiliser Scodoc).
+ - gérer les absences entièrement depuis la passerelle, avec des créneaux prédéfinis (sans utiliser Scodoc).  
   
 # Comment connaître la version de la passerelle ?
 La version est notée dans le fichier /html/sw.js
