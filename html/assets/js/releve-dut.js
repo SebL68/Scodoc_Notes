@@ -6,7 +6,7 @@ class releveDUT extends HTMLElement {
 		/* Style du module */
 		const styles = document.createElement('link');
 		styles.setAttribute('rel', 'stylesheet');
-		styles.setAttribute('href', '/assets/styles/releve-dut.css');
+		styles.setAttribute('href', 'assets/styles/releve-dut.css');
 		this.shadow.appendChild(styles);		
 	}
 
