@@ -281,7 +281,6 @@
         <!-- Site en maintenance -->
         Authentification en cours ...
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx-populate/1.21.0/xlsx-populate.min.js"></script>
     <script>
 		<?php
             include "$path/includes/clientIO.php";

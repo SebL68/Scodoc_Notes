@@ -377,7 +377,7 @@
 
 			console.log(output);
 			localStorage.setItem("trombi", JSON.stringify(output));
-			window.open("../services/trombi.php");
+			window.open("trombi.php");
 		}
 		async function processSigning(obj){
 			obj.classList.add("load");
