@@ -8,32 +8,33 @@ Travaux en cours :
  - lien pour les photos entre Scodoc et la passerelle  
   
 Les utilisateurs actuels sont :
- - IUT de Mulhouse => accès complet,
- - IUT de Ville d'Avray => accès étudiant,
- - IUT de Chartres => accès étudiant + enseignant,
- - IUT de Lyon 1 => accès étudiant + enseignant,
+ - IUT de Mulhouse => accès complet
+ - IUT de Ville d'Avray => accès étudiant
+ - IUT de Chartres => accès étudiant + enseignant
+ - IUT de Lyon 1 => accès étudiant + enseignant
  - IUT de Tours ?
  - IUT Lannion ?
- - IUT de Lille => accès étudiant + enseignant,
- - IUT de Bordeaux => accès étudiant,
+ - IUT de Lille => accès étudiant + enseignant
+ - IUT de Bordeaux => accès étudiant
  - IUT d'Orsay ?
- - IUT du Havre => accès étudiant + enseignant,
+ - IUT du Havre => accès étudiant + enseignant
  - IUT de Poitiers ?
  - IUT du Littoral Côte d'Opale ?
- - IUT de La Rochelle => accès étudiant,
+ - IUT de La Rochelle => accès étudiant
  - IUT Le Mans ?
- - IUT de Mantes-En-Yvelines => accès étudiant,
- - IUT de Saint-Malo => accès étudiant,
+ - IUT de Mantes-En-Yvelines => accès étudiant
+ - IUT de Saint-Malo => accès étudiant
  - IUT de la Roche-sur-Yon ?
  - IUT de Vélizy ?
  - IUT de Roanne ?
  - IUT de Kourou ?
- - IUT de Brest => accès étudiant,
- - IUT d'Annecy => accès étudiant + enseignant.
- - IUT de Nantes => accès étudiant,
+ - IUT de Brest => accès étudiant
+ - IUT d'Annecy => accès étudiant + enseignant
+ - IUT de Nantes => accès étudiant
  - IUT de Blagnac ?
  - IUT de Vannes ?
  - IUT Lorient & Pontivy ?
+ - IUT d'Orléans => accès étudiants
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
   
