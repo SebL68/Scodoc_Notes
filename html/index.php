@@ -185,6 +185,7 @@
 			<?php
 				include "$path/includes/clientIO.php";
 			?>
+			let CAS_return_type = "<?php echo $Config->CAS_return_type;?>";
 /*********************************************/
 /* Vérifie l'identité de la personne et son statut
 /*********************************************/			
@@ -218,11 +219,17 @@
 	Charge la liste d'étudiants pour en choisir un
 /*********************************************/
 			async function loadStudents(data){
-				//let data = await fetchData("listeEtudiants");
 				let output = "";
-				data.forEach(function(e){
-					output += `<option value='${e}'>${e}</option>`;
-				});
+				if(CAS_return_type == "nip"){
+					data.forEach(function(e){
+						output += `<option value='${e[0]}'>${e[1]}</option>`;
+					});
+				} else {
+					data.forEach(function(e){
+						output += `<option value='${e[1]}'>${e[1]}</option>`;
+					});
+				}
+				
 				document.querySelector("#etudiants").innerHTML = output;
 			}
 			

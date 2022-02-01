@@ -108,7 +108,7 @@ class Annuaire{
 		$handle = fopen(self::$STUDENTS_PATH, 'r');
 		$output = [];
 		while(($data = fgetcsv($handle, 1000, ':')) !== FALSE){
-			$output[] = rtrim($data[1]);
+			$output[] = [$data[0], rtrim($data[1])];
 		}
 		return $output;
 	}
