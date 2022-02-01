@@ -275,7 +275,7 @@
            
 			etudiant.forEach(etudiant=>{
 				output += `
-					<a href="?ask_student=${etudiant.email}"
+					<a href="/?ask_student=${etudiant.email}"
                         data-nom="${etudiant.nom}" 
                         data-prenom="${etudiant.prenom}" 
                         data-groupe="${etudiant.groupe}"
