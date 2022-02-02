@@ -122,20 +122,12 @@ Sortie :
 *******************************/
 function getStudentSemesters($data){
 	$data = (object) $data;
-	if(isset($data->id)){
-		$nip = Annuaire::getStudentNumberFromMail($data->id);
-		$dep = getStudentDepartment($nip);
-	}else{
-		$nip = $data->nip;
-		$dep = $data->dep;
-	}
-
 	$json = json_decode(
 			Ask_Scodoc(
 				'/Scolarite/etud_info',
-				$dep,
+				$data->dep,
 				[
-					'code_nip' => $nip,
+					'code_nip' => $data->nip,
 					'format' => 'json'
 				]
 			)
@@ -310,7 +302,7 @@ function getStudentsInSemester($dep, $sem){
 			'prenom' => $value->prenom,
 			'groupe' => $groupe,
 			'num_etudiant' => $value->code_nip,
-			'email' => Annuaire::getStudentMailFromNumber($value->code_nip)
+			'email' => Annuaire::getStudentIdCASFromNumber($value->code_nip)
 			// 'num_ine' => $value->code_ine
 			// 'email_perso' => $value->emailperso
 		];
@@ -418,9 +410,6 @@ Sortie :
 
 *******************************/
 function getDepartmentsList(){
-	/*global $Config;
-	return $Config->departements;*/
-
 	include_once 'scodoc.class.php';
 	$Scodoc = new Scodoc();
 	$data = json_decode($Scodoc->Ask_Scodoc('list_depts'));
@@ -431,15 +420,4 @@ function getDepartmentsList(){
 	}
 	
 	return $output;
-	
-	/*json_decode(
-			$output = Ask_Scodoc(
-			'/list_depts',
-			'MMI',
-			[
-				'viewable' => '0',
-				'format' => 'json'
-			]
-		)
-	);*/
 }

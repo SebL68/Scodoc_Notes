@@ -7,24 +7,11 @@
 	$user = new User();
 
 	if($user->getStatut() >= PERSONNEL){ 
-		$id = $_GET['etudiant'];
+		$nip = $_GET['etudiant'];
 	} else {
-		$id = $user->getSessionName();
+		$nip = Annuaire::getStudentNumberFromIdCAS($user->getSessionName());
 	}
-
-/**************************/
-/* Recherche de l'id étudiant scodoc à partir du nom */
-/*************************/
-	$nip = Annuaire::getStudentNumberFromMail($id);
-
-/**************************/
-/* Récupération du département */
-/**************************/
-	$dep = Ask_Scodoc(
-		'/get_etud_dept',
-		'',
-		[ 'code_nip' => $nip ]
-	);
+	$dep = getStudentDepartment($nip);
 
 /**************************/
 /* Envoi du relevé au format PDF */

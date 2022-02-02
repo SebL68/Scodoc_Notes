@@ -25,6 +25,7 @@
 	include_once "$path/includes/annuaire.class.php";
 	include_once "$path/includes/".$Config->service_annuaire_class;	// Class Service_Annuaire
 	include_once "$path/includes/".$Config->scheduler_class;		// Class Scheduler
+	include_once "$path/includes/serverIO.php";
 	$user = new User();
 
 /*******************************/
@@ -54,7 +55,7 @@
 
 	0	get listeEtudiantsSemestre : 
 	Liste les étudiants d'un semestre
-			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=listeEtudiantsSemestre&dep=MMI&semestre=SEM8871
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=listeEtudiantsSemestre&dep=MMI&semestre=871
 
 	0	get listesEtudiantsDépartement : 
 	Liste les étudiants d'un département
@@ -62,7 +63,7 @@
 
 	0	get semestresEtudiant :
 	Liste les identifiants semestres qu'un étudiant a suivi
-			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=semestresEtudiant&etudiant=alexandre.aab@uha.fr
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=semestresEtudiant&etudiant=123456
 
 	0	get relevéEtudiant :
 	Relevé de note de l'étudiant au format JSON
@@ -70,7 +71,7 @@
 	
 	0	get UEEtModules :
 	Récupère les UE et les modules d'un semestre
-			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=UEEtModules&dep=MMI&semestre=SEM8871
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=UEEtModules&dep=MMI&semestre=871
 	
 	0	get listeDépartements :
 	Récupère les UE et les modules d'un semestre
@@ -82,12 +83,12 @@
 
 	0	set setAbsence :
 	Change l'absence d'un étudiant
-			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=setAbsence&dep=MMI&semestre=SEM9743&matiere=M4101&etudiant=fares.abdelkrim@uha.fr&date=2021-01-30&creneau=18&statut=absent
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=setAbsence&dep=MMI&semestre=743&matiere=M4101&etudiant=fares.abdelkrim@uha.fr&date=2021-01-30&creneau=18&statut=absent
 
 	0	set getAbsence :
 	Récupère les absences d'un étudiant ou des étudiants d'un semestre complet
 	Ne pas transmettre le GET étudiant pour obtenir tout le semestre
-			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=getAbsence&dep=MMI&semestre=SEM9743&etudiant=fares.abdelkrim@uha.fr
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=getAbsence&dep=MMI&semestre=743&etudiant=fares.abdelkrim@uha.fr
 
 
 	0	get listeVacataires :
@@ -130,7 +131,7 @@
 	0	get getStudentPic :
 	Récupère la photo d'un étudiant - sortie sous la forme d'une image
 	Un personnel ou plus peut récupéréer la photo de n'importe quel étudiant en paramètre GET
-			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=getStudentPic&email=sebastien.lehmann@uha.fr
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=getStudentPic&idCAS=sebastien.lehmann@uha.fr
 
 	0	set deleteStudentPic :
 	Supprime la photo d'un étudiant
@@ -163,14 +164,12 @@
 				break;
 
 			case 'semestresDépartement':
-				include_once "$path/includes/serverIO.php";
 				$output = getDepartmentSemesters($_GET['dep']);			// includes/serverIO.php
 				break;
 
 			case 'listeEtudiantsSemestre':
 				// Uniquement pour les personnels IUT.
 				if($user->getStatut() < PERSONNEL){ returnError(); }
-				include_once "$path/includes/serverIO.php";
 				$output = getStudentsInSemester(						// includes/serverIO.php
 					$_GET['dep'], 
 					$_GET['semestre']
@@ -185,7 +184,6 @@
 			case 'listesEtudiantsDépartement':
 				// Uniquement pour les personnels IUT.
 				if($user->getStatut() < PERSONNEL){ returnError(); }
-				include_once "$path/includes/serverIO.php";
 				$output = getStudentsListsDepartement($_GET['dep']);	// includes/serverIO.php
 				break;
 
@@ -193,9 +191,12 @@
 				// Uniquement les personnels IUT peuvent demander le relevé d'une autre personne.
 				if($user->getStatut() < PERSONNEL && isset($_GET['etudiant'])){ returnError(); }
 				// Si c'est un personnel, on transmet l'étudiant par get, sinon on prend l'identifiant de la session.
-				include_once "$path/includes/serverIO.php";
-				$output = getStudentSemesters(							// includes/serverIO.php
-					['id' => $_GET['etudiant'] ?? $user->getSessionName()]
+				$nip = $_GET['etudiant'] ?? Annuaire::getStudentNumberFromIdCAS($user->getSessionName());
+				$dep = getStudentDepartment($nip);
+				$output = getStudentSemesters([							// includes/serverIO.php
+						'nip' => $nip, 
+						'dep' => $dep
+					]
 				);	
 				break;
 
@@ -203,8 +204,7 @@
 				// Uniquement les personnels IUT peuvent demander le relevé d'une autre personne.
 				if($user->getStatut() < PERSONNEL && isset($_GET['etudiant'])){ returnError(); } 
 				// Si c'est un personnel, on transmet l'étudiant par get, sinon on prend l'identifiant de la session.
-				include_once "$path/includes/serverIO.php";
-				$nip = Annuaire::getStudentNumberFromMail($_GET['etudiant'] ?? $user->getSessionName());
+				$nip = $_GET['etudiant'] ?? Annuaire::getStudentNumberFromIdCAS($user->getSessionName());
 				$dep = getStudentDepartment($nip);						// includes/serverIO.php
 				$output = [
 					'relevé' => getReportCards([						// includes/serverIO.php
@@ -222,12 +222,10 @@
 			
 			case 'UEEtModules':
 				if($user->getStatut() < PERSONNEL ){ returnError(); }
-				include_once "$path/includes/serverIO.php";
 				$output = UEAndModules($_GET['dep'], $_GET['semestre']);// includes/serverIO.php
 				break;
 
 			case 'listeDépartements':
-				include_once "$path/includes/serverIO.php";
 				$output = getDepartmentsList();							// includes/serverIO.php
 				break;
 			
@@ -236,8 +234,7 @@
 					if($user->getStatut() == 'Compte_Demo.test@uha.fr'){
 						include 'data_demo.php';
 					} else {
-						include_once "$path/includes/serverIO.php";
-						$nip = Annuaire::getStudentNumberFromMail($user->getSessionName());
+						$nip = Annuaire::getStudentNumberFromIdCAS($user->getSessionName());
 						$dep = getStudentDepartment($nip);				// includes/serverIO.php
 						$semestres = getStudentSemesters([				// includes/serverIO.php
 							'nip' => $nip, 
@@ -382,14 +379,15 @@
 				break;
 
 			case 'getStudentPic':
-				if ($user->getStatut() > ETUDIANT && isset($_GET['email'])) {
-					$url = "$path/data/studentsPic/" . $_GET['email'] . ".jpg";
+				if ($user->getStatut() > ETUDIANT && isset($_GET['idCAS'])) {
+					$url = "$path/data/studentsPic/" . $_GET['idCAS'] . ".jpg";
 				} else {
 					$url = "$path/data/studentsPic/" . $user->getSessionName() . '.jpg';
 				}
+
 				if(!file_exists($url)){ // Image par défaut si elle n'existe pas
 					if(method_exists('Config', 'customPic') == true){
-                        Config::customPic($_GET['email']);
+                        Config::customPic($_GET['idCAS']);
                         return;
                     } else {
 						header('Content-type:image/svg+xml');

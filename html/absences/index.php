@@ -459,7 +459,7 @@
 						title="${etudiant.groupe}">
                             <div>
 								<div class="miniature" onclick="event.stopPropagation()">
-									<img src="../services/data.php?q=getStudentPic&email=${etudiant.email}">
+									<img src="../services/data.php?q=getStudentPic&idCAS=${etudiant.email}">
 								</div>
                                 <b>${etudiant.nom}</b>
                                 <span>${etudiant.prenom}</span>

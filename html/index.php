@@ -136,7 +136,7 @@
 				</i>
 			</p>
 			<div class=etudiantHide>
-				Vous êtes un personnel de l'IUT , <input required list=etudiants name=etudiant placeholder="Choisissez un étudiant" onchange="loadSemesters(this.value);this.blur()">
+				Vous êtes un personnel de l'IUT , <input required list=etudiants name=etudiant placeholder="Choisissez un étudiant" onchange="loadSemesters(this);this.blur()">
 				<datalist id=etudiants></datalist>
 			</div>
 			<div class=semestres></div>
@@ -180,12 +180,13 @@
 /**************************/
 /* Début
 /**************************/
+			let idCAS = "";
+			let nip = "";
 			checkStatut();
 			document.querySelector("#notes")?.classList.add("navActif");
 			<?php
 				include "$path/includes/clientIO.php";
 			?>
-			let CAS_return_type = "<?php echo $Config->CAS_return_type;?>";
 /*********************************************/
 /* Vérifie l'identité de la personne et son statut
 /*********************************************/			
@@ -205,7 +206,9 @@
 					loadStudents(data.etudiants);
 					let etudiant = (window.location.search.match(/ask_student=([a-zA-Z0-9._@-]+)/)?.[1] || "");
 					if(etudiant){
-						loadSemesters(etudiant);
+						let input = document.querySelector("input");
+						input.value = etudiant;
+						loadSemesters(input);
 					}
 				} else {
 					document.querySelector("body").classList.add('etudiant');
@@ -220,15 +223,9 @@
 /*********************************************/
 			async function loadStudents(data){
 				let output = "";
-				if(CAS_return_type == "nip"){
-					data.forEach(function(e){
-						output += `<option value='${e[0]}'>${e[1]}</option>`;
-					});
-				} else {
-					data.forEach(function(e){
-						output += `<option value='${e[1]}'>${e[1]}</option>`;
-					});
-				}
+				data.forEach(function(e){
+					output += `<option value='${e[0]}'>${e[1]}</option>`;
+				});
 				
 				document.querySelector("#etudiants").innerHTML = output;
 			}
@@ -237,13 +234,15 @@
 /* Charge les semestres d'un étudiant
 	Paramètre étudiant pour un personnel qui en choisit un
 /*********************************************/
-			async function loadSemesters(etudiant = ""){
-				let data = await fetchData("semestresEtudiant" + (etudiant ? "&etudiant=" + etudiant : ""));
-				feedSemesters(data, etudiant);
+			async function loadSemesters(input = ""){
+				nip = input.value || "";
+				idCAS = input.nextElementSibling?.querySelector(`[value="${input.value}"]`).innerText || "";
+				let data = await fetchData("semestresEtudiant" + (input ? "&etudiant=" + nip : ""));
+				feedSemesters(data);
 				document.querySelector(".semestres>label:nth-child(1)>span").click();
 			}
 			
-			function feedSemesters(data, etudiant = ""){
+			function feedSemesters(data){
 				let output = document.querySelector(".semestres");
 				output.innerHTML = "";
 				for(let i=0, n=data.length;i<n;i++){
@@ -265,7 +264,6 @@
 					label.appendChild(span);
 					output.appendChild(label);
 				}
-				output.dataset.etudiant = etudiant;
 			}
 
 /*********************************************/
@@ -273,14 +271,13 @@
 /*********************************************/
 			async function getReportCards(){
 				let semestre = this.dataset.semestre;
-				let etudiant = this.parentElement.parentElement.dataset.etudiant;
-				let data = await fetchData("relevéEtudiant&semestre=" + semestre + (etudiant ? "&etudiant=" + etudiant : ""));
+				let data = await fetchData("relevéEtudiant&semestre=" + semestre + (nip ? "&etudiant=" + nip : ""));
 
-				showReportCards(data, semestre, etudiant);
+				showReportCards(data, semestre);
 				feedAbsences(data.absences);
 			}	
 
-			function showReportCards(data, semestre, etudiant){
+			function showReportCards(data, semestre){
 				if(data.relevé.publie == false){
 					document.querySelector(".releve").innerHTML = "<h2 style='background: #90c;'>Le responsable de votre formation a décidé de ne pas publier le relevé de notes de ce semestre.</h2>";
 				}else if(data.relevé.type == "BUT"){
@@ -309,11 +306,11 @@
 						document.querySelector(".prenom").innerText = data.relevé.etudiant.prenom.toLowerCase();
 						releve.shadowRoot.querySelector(".studentPic").src = "services/data.php?q=getStudentPic";
 					} else {
-						releve.shadowRoot.querySelector(".studentPic").src = "services/data.php?q=getStudentPic&email=" + etudiant;
+						releve.shadowRoot.querySelector(".studentPic").src = "services/data.php?q=getStudentPic&idCAS=" + idCAS;
 					}
 				} else {
 					document.querySelector(".releve").innerHTML = "<releve-dut></releve-dut>";
-					document.querySelector("releve-dut").showData = [data.relevé, semestre, etudiant];
+					document.querySelector("releve-dut").showData = [data.relevé, semestre, idCAS];
 					<?php if($Config->releve_PDF == false){ ?>
 						document.querySelector("releve-dut").hidePDF = false;
 					<?php } ?>

@@ -64,8 +64,8 @@
 
 		output = "";
 		data.etudiants.forEach(etudiant=>{
-			output += `<a href="?ask_student=${etudiant.email}">
-				<img src="data.php?q=getStudentPic&email=${etudiant.email}">
+			output += `<a href="../?ask_student=${etudiant.nip}">
+				<img src="data.php?q=getStudentPic&idCAS=${etudiant.email}">
 				<div>${etudiant.prenom}<br><b>${etudiant.nom}</b><br>${etudiant.groupe}</div>
 			</a>
 			`;

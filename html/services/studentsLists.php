@@ -275,7 +275,7 @@
            
 			etudiant.forEach(etudiant=>{
 				output += `
-					<a href="/?ask_student=${etudiant.email}"
+					<a href="/?ask_student=${etudiant.num_etudiant}"
                         data-nom="${etudiant.nom}" 
                         data-prenom="${etudiant.prenom}" 
                         data-groupe="${etudiant.groupe}"
@@ -365,7 +365,8 @@
 					groupe: e.dataset.groupe,
 					nom: e.dataset.nom,
 					prenom: e.dataset.prenom,
-					email: e.dataset.email
+					email: e.dataset.email,
+					nip: e.dataset.num
 				}
 			})
 
@@ -502,7 +503,7 @@
                 sheet.cell("C5").value("Prénom").style("bold", true);
                 sheet.cell("D5").value("Groupe").style("bold", true);
                 sheet.cell("E5").value("Num étudiant").style("bold", true);
-                sheet.cell("F5").value("Email").style("bold", true);
+                sheet.cell("F5").value("Identifiant").style("bold", true);
 
                 var i = 6;
                 h2.nextElementSibling.querySelectorAll(".etudiants>a:not(.hide)").forEach(etudiant=>{

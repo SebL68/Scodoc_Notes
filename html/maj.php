@@ -40,9 +40,19 @@
 	<h1>Historique des mises à jours</h1>
 
 	<main>
-		<h2>En cours de production</h2>
+		<h2>02/02/2022 - V4.7.1</h2>
 		<ul>
-			<li>Fetch relevé : gérer le 404 avec un message de retour</li>
+			<li>Ajout des informations identité de l'étudiant sur les relevés DUT.</li>
+		</ul>
+		<h2>02/02/2022 - V4.7.0</h2>
+		<ul>
+			<li>Passage de paramètres aux fonctions par rapport au NIP et plus par rapport à l'idCAS.</li>
+			<li>Gestion de l'autocomplétion à partir du NIP + idCAS.</li>
+			<li>Au clic sur un étudiant d'une liste : affichage du relevé à partir du NIP.</li>
+		</ul>
+		<h2>02/02/2022 - V4.6.7</h2>
+		<ul>
+			<li>Correction de bugs et amélioration du code.</li>
 		</ul>
 		<h2>28/01/2022 - V4.6.6</h2>
 		<ul>

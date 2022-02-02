@@ -499,7 +499,7 @@
 							data-email="${etudiant.email}"
                             title="${etudiant.groupe} - Télécharger le rapport d'absence de l'étudiant"
                             onclick="createStudentReport(this)">
-								<img src="../services/data.php?q=getStudentPic&email=${etudiant.email}" alt="etudiant" width="250" height="350">
+								<img src="../services/data.php?q=getStudentPic&idCAS=${etudiant.email}" alt="etudiant" width="250" height="350">
 								<div>
 									<b>${etudiant.nom}</b>
 									<span>${etudiant.prenom}</span>

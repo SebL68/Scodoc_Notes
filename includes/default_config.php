@@ -50,7 +50,7 @@
 	/* Certains nip ne correspondent pas à ce qui est dans Scodoc, parfois une lettre à changer
 		La fonction nipModifier fonction permet d'appliquer une modification avant d'utilliser le nip / mail
 		
-		Voir /includes/annuaire.class.php -> getStudentNumberFromMail()
+		Voir /includes/annuaire.class.php -> getStudentNumberFromIdCAS()
 	*/
 
 		/*$nipModifier = function($nip){

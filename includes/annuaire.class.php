@@ -4,8 +4,8 @@
         Cette classe permet de rechercher les informations des utilisateurs issues des annuaires
 
         La méthode attendue est :
-            - Annuaire::getStudentNumberFromMail()
-            - Annuaire::getStudentMailFromNumber()
+            - Annuaire::getStudentNumberFromIdCAS()
+            - Annuaire::getStudentIdCASFromNumber()
             - Annuaire::getAllStudents()
             - Annuaire::statut()
 
@@ -31,31 +31,30 @@ class Annuaire{
 	static $STAF_PATH;
 	
 	/****************************************************/
-	/* getStudentNumberFromMail()
-		Recherche du numéro d'étudiant en fonction de son mail dans l'annuaire
+	/* getStudentNumberFromIdCAS()
+		Recherche du numéro d'étudiant en fonction de son identifiant CAS dans l'annuaire
+		Prend en compte si le CAS renvoie déjà un numéro d'étudiant
 
 		Entrée :
-			$mail: [string] - 'jean.dupont@uha.fr' // adresse mail de l'utilisateur 
+			$id: [string] - 'jean.dupont@uha.fr' // identifiant 
 		
 		Sortie :
 			[string] - '21912345' // numéro d'étudiant
 	*/
 	/****************************************************/
 
-	public static function getStudentNumberFromMail($mail){
-		// Recherche du numero d'étudiant en fonction de son mail dans une chaîne de caractère de type :
-		// e1912345:jean.dupont@uha.fr
+	public static function getStudentNumberFromIdCAS($id){
 		global $Config;
 		if($Config->CAS_return_type != 'nip'){
 			self::checkFile(self::$STUDENTS_PATH);
 			$handle = fopen(self::$STUDENTS_PATH, 'r');
 			while(($line = fgets($handle, 1000)) !== FALSE){
 				$data = explode(':', $line);
-				if(strcasecmp(rtrim($data[1]), $mail) == 0)
+				if(strcasecmp(rtrim($data[1]), $id) == 0)
 					return Config::nipModifier($data[0]);
 			}
 		} else {
-			return Config::nipModifier($mail);
+			return Config::nipModifier($id);
 		}
 
 		exit(
@@ -68,27 +67,28 @@ class Annuaire{
 	}
 
 	/****************************************************/
-	/* getStudentMailFromNumber()
-		Recherche du mail de l'étudiant en fonction de son numéro dans l'annuaire
+	/* getStudentIdCASFromNumber()
+		Recherche du idCAS de l'étudiant en fonction de son numéro dans l'annuaire
 
 		Entrée :
 			$num: [string] - '21912345' // numéro d'étudiant
 		
 		Sortie :
-			[string] - 'jean.dupont@uha.fr' // adresse mail de l'utilisateur 
+			[string] - 'jean.dupont@uha.fr' // idCAS de l'utilisateur 
 	*/
 	/****************************************************/
-	public static function getStudentMailFromNumber($num){
-		// Recherche du mail en fonction du numéro dans une chaîne de caractère de type :
-		// e1912345:jean.dupont@uha.fr
-		// Attention, le listing LDAP fourni e1912345 alors que le vrai numéro est 21912345.
-
-		self::checkFile(self::$STUDENTS_PATH);
-		$handle = fopen(self::$STUDENTS_PATH, 'r');
-		while(($line = fgets($handle, 1000)) !== FALSE){
-			$data = explode(':', $line);
-			if(substr($data[0], 1) == substr($num, 1))
-				return rtrim($data[1]);
+	public static function getStudentIdCASFromNumber($num){
+		global $Config;
+		if($Config->CAS_return_type == 'nip'){
+			return $num;
+		} else {
+			self::checkFile(self::$STUDENTS_PATH);
+			$handle = fopen(self::$STUDENTS_PATH, 'r');
+			while(($line = fgets($handle, 1000)) !== FALSE){
+				$data = explode(':', $line);
+				if(substr($data[0], 1) == substr($num, 1))
+					return rtrim($data[1]);
+			}
 		}
 	}
 
@@ -108,7 +108,7 @@ class Annuaire{
 		$handle = fopen(self::$STUDENTS_PATH, 'r');
 		$output = [];
 		while(($data = fgetcsv($handle, 1000, ':')) !== FALSE){
-			$output[] = [$data[0], rtrim($data[1])];
+			$output[] = [Config::nipModifier($data[0]), rtrim($data[1])];
 		}
 		return $output;
 	}
