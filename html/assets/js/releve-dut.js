@@ -134,7 +134,7 @@ class releveDUT extends HTMLElement {
 			output += `
 				<div class=eval data-id="${e.description.replaceAll("&apos;", "")}" data-note=${e.note}>
 					<div>${e.description}</div>
-					<div>${e.note}&nbsp;<span class=coef>Coef&nbsp;${e.coefficient}</span></div>
+					<div>${e.note ?? "~"}&nbsp;<span class=coef>Coef&nbsp;${e.coefficient}</span></div>
 				</div>`;
 		})
 		return output;
