@@ -1,3 +1,28 @@
+/************/
+/* Etudiant */
+/************/
+.info_etudiant{
+	color: #000;
+	text-decoration: none;
+}
+.etudiant{
+	background: #0C9;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: #FFF;
+	padding: 4px;
+	border-radius: 8px;
+	margin: 16px 10px 0 10px;
+}
+.civilite{
+    font-weight: bold;
+    font-size: 130%;
+}
+img{
+	border-radius: 8px;;
+}
+
 /************************/
 /* Zone relevé de notes */
 /************************/
@@ -77,7 +102,6 @@
 	background: #87efd5;
 	margin-top: 2px;
 	border-radius: 5px;
-	cursor:pointer;
 }
 .eval:nth-child(odd){
 	background: #a4d3e2;
@@ -90,16 +114,15 @@
 	background: #D0D0D0;
 	
 }
-[data-note=undefined], [data-note=NP]{
-	cursor: initial;
-}
 .checked:nth-child(odd), [data-note=undefined]:nth-child(odd), [data-note=NP]:nth-child(odd){
 	background: #F0F0F0;
 }
 .hide{
 	display: none;
 }
-body:not(.ShowEmpty) [data-note=undefined], body:not(.ShowEmpty) [data-note=NP], body:not(.ShowEmpty) [data-note=EXC]{
+main:not(.ShowEmpty) [data-note=undefined], 
+main:not(.ShowEmpty) [data-note=NP], 
+main:not(.ShowEmpty) [data-note=EXC]{
 	display: none !important;
 }
 .ShowEmpty .button{

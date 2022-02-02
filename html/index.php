@@ -143,7 +143,6 @@
 			<hr>
 			<div class=wait></div>
 			<div class=releve></div>
-			<!--<div class=button onclick="ShowEmpty()">Montrer les évaluations sans note</div>-->
 			<hr>
 
 			<div class="absences">
@@ -395,69 +394,6 @@
 				
 
 				document.querySelector(".absences>.totauxAbsences").innerHTML = output;
-			}
-
-/**************************/
-/* Pointage des évaluations et stockage en local de l'action
-/**************************/
-			function check_eval(obj){
-				if(obj.dataset.note != "undefined" && obj.dataset.note != "NP"){
-					obj.classList.toggle("checked");
-					let ue = obj.parentElement;
-					let security = 100;
-					do{
-						ue = ue.previousElementSibling;
-						if(--security == 0)break;
-					}while(ue.className != "ue");
-
-					let id = `[data-id='${ue.dataset.id}']~[data-id='${obj.parentElement.dataset.id}']>[data-id='${obj.dataset.id}']`;
-
-					if(localStorage.getItem(id) != obj.dataset.note){
-						localStorage.setItem(id, obj.dataset.note);
-					}else{
-						localStorage.removeItem(id);
-					}
-				}
-			}
-
-/**************************/
-/* Pointage des évaluation déjà pointées ultérieurement
-/**************************/			
-			function set_checked(){
-				Object.keys(localStorage).forEach(function(e){
-					try{
-						var eval=document.querySelector(e);
-						if(eval && eval.dataset.note == localStorage.getItem(e)){
-							eval.classList.add("checked");
-						}
-					} catch(error){
-						console.log("Problème de selector des eval : " + e);
-						localStorage.removeItem(e);
-					}				
-					
-				})
-
-				let firstNotChecked = document.querySelector(".eval:not(.checked):not([data-note=undefined]):not([data-note=NP])");
-				if(firstNotChecked){
-					let y = firstNotChecked.parentElement.getBoundingClientRect().top + window.scrollY;
-
-					window.scrollTo(0, y - 65); 
-				}
-			}
-/**************************/
-/* Ouvrir / fermer les UE
-/**************************/
-			function openClose(obj){
-				while(obj.nextElementSibling && obj.nextElementSibling.classList.contains("module")){
-					obj = obj.nextElementSibling;
-					obj.classList.toggle("hide");
-				}
-			}
-/**************************/
-/* Afficher / masquer les évaluations sans notes
-/**************************/
-			function ShowEmpty(){
-				document.querySelector("body").classList.toggle("ShowEmpty");
 			}
 		</script>
 	

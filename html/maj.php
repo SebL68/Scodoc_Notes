@@ -43,6 +43,7 @@
 		<h2>02/02/2022 - V4.7.1</h2>
 		<ul>
 			<li>Ajout des informations identité de l'étudiant sur les relevés DUT.</li>
+			<li>Amélioration du relevé DUT.</li>
 		</ul>
 		<h2>02/02/2022 - V4.7.0</h2>
 		<ul>
