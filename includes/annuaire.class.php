@@ -100,7 +100,11 @@ class Annuaire{
 			/
 
 		Sortie :
-			["etudiant1@uha.fr", "etudiant2@uha.fr", etc.]
+			[
+				["numeroEtudiant1", "idCAS1"],
+				["numeroEtudiant2", "idCAS2"],
+				etc.
+			]
 	*/
 	/*******************************/
 	public static function getAllStudents(){

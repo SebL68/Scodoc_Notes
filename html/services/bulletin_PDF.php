@@ -7,11 +7,10 @@
 	$user = new User();
 
 	if($user->getStatut() >= PERSONNEL){ 
-		$id = $_GET['etudiant'];
+		$nip = $_GET['etudiant'];
 	} else {
-		$id = $user->getSessionName();
+		$nip = Annuaire::getStudentNumberFromIdCAS($user->getSessionName());
 	}
-	$nip = Annuaire::getStudentNumberFromIdCAS($id);
 	$dep = getStudentDepartment($nip);
 
 /*********************************/

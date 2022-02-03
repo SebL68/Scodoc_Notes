@@ -160,7 +160,7 @@
 
 			<hr>
 			<small>Ce site utilise deux cookies permettant l'authentification au service et une analyse statistique anonymisée des connexions ne nécessitant pas de consentement selon les règles du RGPD.</small><br>
-			<small>Application réalisée par Sébastien Lehmann, enseignant MMI - <a href="maj.php">version 4:7:1</a> - <a href="https://github.com/SebL68/Scodoc_Notes">code source</a></small>
+			<small>Application réalisée par Sébastien Lehmann, enseignant MMI - <a href="maj.php">version 4:7:2</a> - <a href="https://github.com/SebL68/Scodoc_Notes">code source</a></small>
 		</main>
 
 		<div class=auth>
@@ -191,6 +191,10 @@
 /*********************************************/			
 			async function checkStatut(){
 				let data = await fetchData("dataPremièreConnexion");
+
+				nip = data.auth.nip ?? "";
+				idCAS = data.auth.session;
+
 				document.querySelector(".studentPic").src = "services/data.php?q=getStudentPic";
 				document.querySelector(".prenom").innerText = String(data.auth.session).match(/([a-z-]*)\./)?.[1] || "Mme, M.,";
 				let auth = document.querySelector(".auth");
@@ -234,8 +238,10 @@
 	Paramètre étudiant pour un personnel qui en choisit un
 /*********************************************/
 			async function loadSemesters(input = ""){
-				nip = input.value || "";
-				idCAS = input.nextElementSibling?.querySelector(`[value="${input.value}"]`).innerText || "";
+				if(input){
+					nip = input.value;
+					idCAS = input.nextElementSibling?.querySelector(`[value="${input.value}"]`).innerText || "";
+				}				
 				let data = await fetchData("semestresEtudiant" + (input ? "&etudiant=" + nip : ""));
 				feedSemesters(data);
 				document.querySelector(".semestres>label:nth-child(1)>span").click();
@@ -309,7 +315,7 @@
 					}
 				} else {
 					document.querySelector(".releve").innerHTML = "<releve-dut></releve-dut>";
-					document.querySelector("releve-dut").showData = [data.relevé, semestre, idCAS];
+					document.querySelector("releve-dut").showData = [data.relevé, semestre, nip];
 					<?php if($Config->releve_PDF == false){ ?>
 						document.querySelector("releve-dut").hidePDF = false;
 					<?php } ?>

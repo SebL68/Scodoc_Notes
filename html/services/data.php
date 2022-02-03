@@ -243,6 +243,7 @@
 						$output = [
 							'auth' => [
 								'session' => $user->getSessionName(),
+								'nip' => $nip,
 								'statut' => $user->getStatut()
 							],
 							'semestres' => $semestres,
