@@ -1,21 +1,22 @@
 <?php
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 	include_once "$path/includes/default_config.php";
-	include_once "$path/includes/annuaire.class.php";		// Class Annuaire
+	include_once "$path/includes/annuaire.class.php";
 	include_once "$path/includes/serverIO.php";
 	include_once "$path/includes/user.class.php";
 	$user = new User();
 
 	if($user->getStatut() >= PERSONNEL){ 
-		$nip = $_GET['etudiant'];
+		$id = $_GET['etudiant'];
 	} else {
-		$nip = Annuaire::getStudentNumberFromIdCAS($user->getSessionName());
+		$id = $user->getSessionName();
 	}
+	$nip = Annuaire::getStudentNumberFromIdCAS($id);
 	$dep = getStudentDepartment($nip);
 
-/**************************/
+/*********************************/
 /* Envoi du relevé au format PDF */
-/**************************/
+/*********************************/
 	$result = Ask_Scodoc(
 		'/Scolarite/Notes/formsemestre_bulletinetud',
 		$dep,

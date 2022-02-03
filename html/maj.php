@@ -40,6 +40,10 @@
 	<h1>Historique des mises à jours</h1>
 
 	<main>
+		<h2>03/02/2022 - V4.7.2</h2>
+		<ul>
+			<li>Correction bug téléchargement relevé version PDF.</li>
+		</ul>
 		<h2>02/02/2022 - V4.7.1</h2>
 		<ul>
 			<li>Ajout des informations identité de l'étudiant sur les relevés DUT.</li>
