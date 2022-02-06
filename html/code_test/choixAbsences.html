@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Choix absences</title>
+	<style>
+		body{
+			font-family: arial;
+			background: #F1f1f1;
+			margin: 25vh 20% 0 20%;
+		}
+
+/********************************************/
+
+		.center>*:not(.info){
+			background: #FFF;
+			box-shadow: 0 4px 4px rgba(0,0,0,0.25);
+			border-radius: 8px;
+		}
+		.date>.info{
+			text-align: center;
+			font-size: 24px;
+		}
+		.date>.center{
+			display: flex;
+			gap: 8px;
+			height: 60px;
+		}
+		.center>svg{
+			cursor: pointer;
+			transition: 0.06s;
+			transition-timing-function: ease-in;
+		}
+		.center>svg:active{
+			box-shadow: 0 1px 1px rgba(0,0,0,0.25);
+			transform: translateY(3px);
+		}
+		.timeZone{
+			flex: 1;
+			position: relative;
+			touch-action: none;
+		}
+		.timeZone>.slider{
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			background: rgba(0, 204, 153, 0.5);
+			border: 2px solid #0c9;
+			border-radius: 8px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			cursor: grab;
+		}
+		.timeZone>.slider>.sizer{
+			position: absolute;
+			top: 13px;
+			bottom: 13px;
+			right: -1px;
+			transform: translateX(50%);
+			background: #0c9;
+			border-radius: 4px;
+			display: flex;
+			cursor: e-resize;
+		}
+		.timeZone>.slider>.sizer::before{
+			content: "";
+			display: inline-block;
+			background: #FFF;
+			width: 2px;
+			margin: 6px;
+		}
+		.infoHeures{
+			display: flex;
+			justify-content: space-between;
+			margin: -8px 68px 0 68px;
+		}
+		.infoHeures>div{
+			position: relative;
+			width: 2px;
+			height: 16px;
+			background: #424242;
+		}
+		.infoHeures>div>div{
+			position: absolute;
+			top: calc(100% + 2px);
+			left: 1px;
+			transform: translateX(-50%);
+		}		
+	</style>
+</head>
+<body>
+	<div class="date">
+		<div class="info">Vendredi 04/02/2022</div>
+		<div class="center">
+			<svg class="jourMoins" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#424242" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"></path></svg>
+			<div class="timeZone">
+				<div class="slider">
+					<div class="sizer"></div>
+				</div>
+			</div>
+			<svg class="jourPlus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#424242" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"></path></svg>
+		</div>
+		<div class="infoHeures"></div>
+	</div>
+	<script>
+		class choixDate{
+			constructor(heureDebut, heureFin, pas, dureeSeance){
+				this.heureDebut = heureDebut || 8;		// heures
+				this.heureFin = heureFin || 20;			// heures
+				this.pas = pas || 2;					// heures
+				this.dureeSeance = dureeSeance || 2;	// heures
+
+				this.pasSize = 100/((this.heureFin-this.heureDebut)/this.pas);
+				this.slider = document.querySelector(".slider");
+
+				this.posiXStart;
+				this.timeZoneSize;
+				this.sliderSize;
+
+				this.handleSliderMove = (event)=>{this.sliderMove(event)};
+				this.handleSliderStop = (event)=>{this.sliderStopGrab(event)}
+
+				/* Mise en place des heures */
+				let output = "";
+
+				for(let i=this.heureDebut ; i<=this.heureFin ; i += this.pas){
+					output +=  `<div>
+									<div>${(i%1==0)?i:/*Math.floor(i)+"<sup>½</sup>"*/""}</div>
+								</div>`;
+				}
+				document.querySelector(".infoHeures").innerHTML = output;
+				this.slider.style.width = `calc(${this.dureeSeance / this.pas * this.pasSize}% - 2px)`;
+				
+				/* Gestion du grab */
+				this.slider.addEventListener("mousedown", (event)=>{this.sliderStartGrab(event)});
+				this.slider.addEventListener("touchstart", (event)=>{this.sliderStartGrab(event)});
+
+				/* Initialisation de l'heure actuelle */
+				let date = new Date();
+				let heure = date.getHours() + date.getMinutes() / 60;	// Heure en décimale : exemple 10h30 => 10.5
+				let startPosition = this.limit(
+					Math.floor((heure - this.heureDebut) / this.pas), 
+					0, 
+					(this.heureFin - this.heureDebut - this.dureeSeance) / this.pas
+				);
+				this.setPosition(startPosition);
+			}
+
+			limit(value, min, max){
+				if(value > max){
+					return max;
+				} else if(value < min){
+					return min;
+				} else {
+					return value;
+				}
+			}
+
+		/**********************************/
+		/* Gestion du changement d'heures */
+		/**********************************/
+			sliderStartGrab(event){
+				this.posiXStart = (event.pageX || event.changedTouches[0].pageX) - this.slider.offsetLeft;	// Position souris - position de départ
+				this.timeZoneSize = document.querySelector(".timeZone").offsetWidth;
+				this.sliderSize = this.slider.offsetWidth;
+
+				this.slider.style.cursor = "grabbing";
+				document.addEventListener("mousemove", this.handleSliderMove);
+				document.addEventListener("touchmove", this.handleSliderMove);
+				document.addEventListener("mouseup", this.handleSliderStop);
+				document.addEventListener("touchend", this.handleSliderStop);
+			}
+
+			sliderMove(event){
+				let deltaX = Math.min(
+					this.timeZoneSize - this.sliderSize,	// On soustrait la taille de l'élément
+					Math.max(
+						0,
+						(event.pageX || event.changedTouches[0].pageX) - this.posiXStart
+					)
+				);	// Borné entre le début et la fin de timeZone;
+				
+				this.slider.style.left = 100 * deltaX / this.timeZoneSize + "%";
+				event.preventDefault();
+			}
+			sliderStopGrab(event){
+				let numPosi = Math.round(parseInt(this.slider.style.left) / this.pasSize);
+				this.setPosition(numPosi);
+				this.slider.style.cursor = "";
+				document.removeEventListener("mousemove", this.handleSliderMove);
+				document.removeEventListener("touchmove", this.handleSliderMove);
+				document.removeEventListener("mouseup", this.handleSliderStop);
+				document.removeEventListener("touchend", this.handleSliderStop);
+			}
+			setPosition(position){
+				this.slider.style.left =  `calc(${position*this.pasSize}% - ${2*Math.round(position*this.pasSize/100)}px)`;
+			}
+
+		/**********************************/
+		/* Gestion de la plage horaire    */
+		/**********************************/
+			
+		}
+
+		new choixDate(/*8, 20, 2, 2*/);
+
+	</script>
+</body>
+</html>
