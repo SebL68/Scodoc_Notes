@@ -124,6 +124,11 @@
 				this.handleSliderMove = (event)=>{this.sliderMove(event)};
 				this.handleSliderStop = (event)=>{this.sliderStopGrab(event)}
 
+				/* Mise en place du jour actuel */
+				this.date = new Date();
+				this.joursFR = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+				document.querySelector(".date>.info").innerText = `${this.joursFR[this.date.getDay()]} ${this.date.toLocaleDateString()}`;        
+
 				/* Mise en place des heures */
 				let output = "";
 
@@ -140,8 +145,7 @@
 				this.slider.addEventListener("touchstart", (event)=>{this.sliderStartGrab(event)});
 
 				/* Initialisation de l'heure actuelle */
-				let date = new Date();
-				let heure = date.getHours() + date.getMinutes() / 60;	// Heure en décimale : exemple 10h30 => 10.5
+				let heure = this.date.getHours() + this.date.getMinutes() / 60;	// Heure en décimale : exemple 10h30 => 10.5
 				let startPosition = this.limit(
 					Math.floor((heure - this.heureDebut) / this.pas), 
 					0, 
