@@ -127,7 +127,11 @@
 				/* Mise en place du jour actuel */
 				this.date = new Date();
 				this.joursFR = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
-				document.querySelector(".date>.info").innerText = `${this.joursFR[this.date.getDay()]} ${this.date.toLocaleDateString()}`;        
+				document.querySelector(".date>.info").innerText = `${this.joursFR[this.date.getDay()]} ${this.date.toLocaleDateString()}`;  
+				document.querySelector(".jourMoins").addEventListener("click", (event)=>{this.changeJour(event)});
+				document.querySelector(".jourPlus").addEventListener("click", (event)=>{this.changeJour(event)});
+				document.querySelector(".jourMoins").addEventListener("mousedown", (event)=>{event.preventDefault()});	// Eviter la selection au double click,
+				document.querySelector(".jourPlus").addEventListener("mousedown", (event)=>{event.preventDefault()});
 
 				/* Mise en place des heures */
 				let output = "";
@@ -163,6 +167,17 @@
 					return value;
 				}
 			}
+		/**********************************/
+		/* Jours + / -                    */
+		/**********************************/
+			changeJour(event){
+				if(event.currentTarget.classList.contains("jourPlus")){
+					this.date.setDate(this.date.getDate() + 1);
+				} else {
+					this.date.setDate(this.date.getDate() - 1);
+				}
+				document.querySelector(".date>.info").innerText = `${this.joursFR[this.date.getDay()]} ${this.date.toLocaleDateString()}`; 
+			}
 
 		/**********************************/
 		/* Gestion du changement d'heures */
@@ -180,13 +195,11 @@
 			}
 
 			sliderMove(event){
-				let deltaX = Math.min(
-					this.timeZoneSize - this.sliderSize,	// On soustrait la taille de l'élément
-					Math.max(
-						0,
-						(event.pageX || event.changedTouches[0].pageX) - this.posiXStart
-					)
-				);	// Borné entre le début et la fin de timeZone;
+				let deltaX = this.limit(	// Borné entre le début et la fin de timeZone;
+					(event.pageX || event.changedTouches[0].pageX) - this.posiXStart,
+					0,
+					this.timeZoneSize - this.sliderSize	// On soustrait la taille de l'élément
+				);
 				
 				this.slider.style.left = 100 * deltaX / this.timeZoneSize + "%";
 				event.preventDefault();
