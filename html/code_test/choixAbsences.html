@@ -1,48 +1,55 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Choix absences</title>
 	<style>
-		body{
+		body {
 			font-family: arial;
 			background: #F1f1f1;
 			margin: 25vh 20% 0 20%;
 		}
 
-/********************************************/
+		/********************************************/
 
-		.center>*:not(.info){
+		.center>*:not(.info) {
 			background: #FFF;
-			box-shadow: 0 4px 4px rgba(0,0,0,0.25);
+			box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 			border-radius: 8px;
 		}
-		.date>.info{
+
+		.date>.info {
 			text-align: center;
 			font-size: 24px;
 		}
-		.date>.center{
+
+		.date>.center {
 			display: flex;
 			gap: 8px;
 			height: 60px;
 		}
-		.center>svg{
+
+		.center>svg {
 			cursor: pointer;
 			transition: 0.06s;
 			transition-timing-function: ease-in;
 		}
-		.center>svg:active{
-			box-shadow: 0 1px 1px rgba(0,0,0,0.25);
+
+		.center>svg:active {
+			box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
 			transform: translateY(3px);
 		}
-		.timeZone{
+
+		.timeZone {
 			flex: 1;
 			position: relative;
 			touch-action: none;
 		}
-		.timeZone>.slider{
+
+		.timeZone>.slider {
 			position: absolute;
 			top: 0;
 			bottom: 0;
@@ -55,7 +62,8 @@
 			align-items: center;
 			cursor: grab;
 		}
-		.timeZone>.slider>.sizer{
+
+		.timeZone>.slider>.sizer {
 			position: absolute;
 			top: 13px;
 			bottom: 13px;
@@ -66,123 +74,160 @@
 			display: flex;
 			cursor: e-resize;
 		}
-		.timeZone>.slider>.sizer::before{
+
+		.timeZone>.slider>.sizer::before {
 			content: "";
 			display: inline-block;
 			background: #FFF;
 			width: 2px;
 			margin: 6px;
 		}
-		.infoHeures{
+
+		.infoHeures {
 			display: flex;
 			justify-content: space-between;
 			margin: -8px 68px 0 68px;
 		}
-		.infoHeures>div{
+
+		.infoHeures>div {
 			position: relative;
 			width: 2px;
 			height: 16px;
 			background: #424242;
 		}
-		.infoHeures>div>div{
+
+		.infoHeures>div>div {
 			position: absolute;
 			top: calc(100% + 2px);
 			left: 1px;
 			transform: translateX(-50%);
-		}		
+		}
 	</style>
 </head>
+
 <body>
 	<div class="date">
 		<div class="info">Vendredi 04/02/2022</div>
 		<div class="center">
-			<svg class="jourMoins" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#424242" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"></path></svg>
+			<svg class="jourMoins" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#424242"
+				stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M15 18l-6-6 6-6"></path>
+			</svg>
 			<div class="timeZone">
 				<div class="slider">
 					<div class="sizer"></div>
+					<div class="sliderInfo"></div>
 				</div>
 			</div>
-			<svg class="jourPlus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#424242" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"></path></svg>
+			<svg class="jourPlus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#424242"
+				stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M9 18l6-6-6-6"></path>
+			</svg>
 		</div>
 		<div class="infoHeures"></div>
 	</div>
 	<script>
-		class choixDate{
-			constructor(heureDebut, heureFin, pas, dureeSeance){
-				this.heureDebut = heureDebut || 8;		// heures
-				this.heureFin = heureFin || 20;			// heures
-				this.pas = pas || 2;					// heures
-				this.dureeSeance = dureeSeance || 2;	// heures
+		class choixDate {
+			constructor(config) {
+				this.heureDebut = config.heureDebut || 8;
+				this.heureFin = config.heureFin || 20;
+				this.pas = config.pas || 2;
+				this.dureeSeance = config.dureeSeance || 2;
+				this.callback = config.callback;
 
-				this.pasSize = 100/((this.heureFin-this.heureDebut)/this.pas);
+				this.debut;
+				this.fin;
+
+				this.pasSize = 100 / ((this.heureFin - this.heureDebut) / this.pas);
 				this.slider = document.querySelector(".slider");
+				this.sizer = document.querySelector(".sizer");
 
 				this.posiXStart;
 				this.timeZoneSize;
 				this.sliderSize;
 
-				this.handleSliderMove = (event)=>{this.sliderMove(event)};
-				this.handleSliderStop = (event)=>{this.sliderStopGrab(event)}
+				this.handleSliderMove = (event) => { this.sliderMove(event) };
+				this.handleSliderStop = (event) => { this.sliderStopGrab(event) };
+				this.handleSizerMove = (event) => { this.sizerMove(event) };
+				this.handleSizerStop = (event) => { this.sizerStopGrab(event) };
 
 				/* Mise en place du jour actuel */
 				this.date = new Date();
 				this.joursFR = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
-				document.querySelector(".date>.info").innerText = `${this.joursFR[this.date.getDay()]} ${this.date.toLocaleDateString()}`;  
-				document.querySelector(".jourMoins").addEventListener("click", (event)=>{this.changeJour(event)});
-				document.querySelector(".jourPlus").addEventListener("click", (event)=>{this.changeJour(event)});
-				document.querySelector(".jourMoins").addEventListener("mousedown", (event)=>{event.preventDefault()});	// Eviter la selection au double click,
-				document.querySelector(".jourPlus").addEventListener("mousedown", (event)=>{event.preventDefault()});
+				document.querySelector(".date>.info").innerText = `${this.joursFR[this.date.getDay()]} ${this.date.toLocaleDateString()}`;
+				document.querySelector(".jourMoins").addEventListener("click", (event) => { this.changeJour(event) });
+				document.querySelector(".jourPlus").addEventListener("click", (event) => { this.changeJour(event) });
+				document.querySelector(".jourMoins").addEventListener("mousedown", (event) => { event.preventDefault() });	// Eviter la selection au double click,
+				document.querySelector(".jourPlus").addEventListener("mousedown", (event) => { event.preventDefault() });
 
 				/* Mise en place des heures */
 				let output = "";
 
-				for(let i=this.heureDebut ; i<=this.heureFin ; i += this.pas){
-					output +=  `<div>
-									<div>${(i%1==0)?i:/*Math.floor(i)+"<sup>½</sup>"*/""}</div>
+				for (let i = this.heureDebut; i <= this.heureFin; i += this.pas) {
+					output += `<div>
+									<div>${(i % 1 == 0) ? i :/*Math.floor(i)+"<sup>½</sup>"*/""}</div>
 								</div>`;
 				}
 				document.querySelector(".infoHeures").innerHTML = output;
 				this.slider.style.width = `calc(${this.dureeSeance / this.pas * this.pasSize}% - 2px)`;
-				
-				/* Gestion du grab */
-				this.slider.addEventListener("mousedown", (event)=>{this.sliderStartGrab(event)});
-				this.slider.addEventListener("touchstart", (event)=>{this.sliderStartGrab(event)});
+
+				/* Gestion du slider */
+				this.slider.addEventListener("mousedown", (event) => { this.sliderStartGrab(event) });
+				this.slider.addEventListener("touchstart", (event) => { this.sliderStartGrab(event) });
+
+				/* Gestion du sizer */
+				this.sizer.addEventListener("mousedown", (event) => { this.sizerStartGrab(event) });
+				this.sizer.addEventListener("touchstart", (event) => { this.sizerStartGrab(event) });
 
 				/* Initialisation de l'heure actuelle */
 				let heure = this.date.getHours() + this.date.getMinutes() / 60;	// Heure en décimale : exemple 10h30 => 10.5
 				let startPosition = this.limit(
-					Math.floor((heure - this.heureDebut) / this.pas), 
-					0, 
+					Math.floor((heure - this.heureDebut) / this.pas),
+					0,
 					(this.heureFin - this.heureDebut - this.dureeSeance) / this.pas
 				);
 				this.setPosition(startPosition);
 			}
-
-			limit(value, min, max){
-				if(value > max){
+			/**********************************/
+			/* Méthode d'aide                 */
+			/**********************************/
+			limit(value, min, max) {
+				if (value > max) {
 					return max;
-				} else if(value < min){
+				} else if (value < min) {
 					return min;
 				} else {
 					return value;
 				}
 			}
-		/**********************************/
-		/* Jours + / -                    */
-		/**********************************/
-			changeJour(event){
-				if(event.currentTarget.classList.contains("jourPlus")){
+
+			doCallback(){
+				if(typeof(this.callback) === "function"){
+					this.callback(
+						{
+							date: this.date.toISOString().split("T")[0],
+							debut: this.debut,
+							fin: this.fin
+						}
+					);
+				}
+			}
+			/**********************************/
+			/* Jours + / -                    */
+			/**********************************/
+			changeJour(event) {
+				if (event.currentTarget.classList.contains("jourPlus")) {
 					this.date.setDate(this.date.getDate() + 1);
 				} else {
 					this.date.setDate(this.date.getDate() - 1);
 				}
-				document.querySelector(".date>.info").innerText = `${this.joursFR[this.date.getDay()]} ${this.date.toLocaleDateString()}`; 
+				document.querySelector(".date>.info").innerText = `${this.joursFR[this.date.getDay()]} ${this.date.toLocaleDateString()}`;
 			}
 
-		/**********************************/
-		/* Gestion du changement d'heures */
-		/**********************************/
-			sliderStartGrab(event){
+			/**********************************/
+			/* Gestion du changement d'heures */
+			/**********************************/
+			sliderStartGrab(event) {
 				this.posiXStart = (event.pageX || event.changedTouches[0].pageX) - this.slider.offsetLeft;	// Position souris - position de départ
 				this.timeZoneSize = document.querySelector(".timeZone").offsetWidth;
 				this.sliderSize = this.slider.offsetWidth;
@@ -194,37 +239,99 @@
 				document.addEventListener("touchend", this.handleSliderStop);
 			}
 
-			sliderMove(event){
+			sliderMove(event) {
 				let deltaX = this.limit(	// Borné entre le début et la fin de timeZone;
 					(event.pageX || event.changedTouches[0].pageX) - this.posiXStart,
 					0,
 					this.timeZoneSize - this.sliderSize	// On soustrait la taille de l'élément
 				);
-				
+
 				this.slider.style.left = 100 * deltaX / this.timeZoneSize + "%";
 				event.preventDefault();
 			}
-			sliderStopGrab(event){
+			sliderStopGrab(event) {
 				let numPosi = Math.round(parseInt(this.slider.style.left) / this.pasSize);
 				this.setPosition(numPosi);
+				this.slider.children[1].innerText = "";
+
 				this.slider.style.cursor = "";
 				document.removeEventListener("mousemove", this.handleSliderMove);
 				document.removeEventListener("touchmove", this.handleSliderMove);
 				document.removeEventListener("mouseup", this.handleSliderStop);
 				document.removeEventListener("touchend", this.handleSliderStop);
+
+				this.doCallback();
 			}
-			setPosition(position){
-				this.slider.style.left =  `calc(${position*this.pasSize}% - ${2*Math.round(position*this.pasSize/100)}px)`;
+			setPosition(position) {
+				this.slider.style.left = `calc(${position * this.pasSize}% - ${2 * Math.round(position * this.pasSize / 100)}px)`;
+				this.debut = position * this.pas + this.heureDebut;
+				this.fin = this.debut + this.dureeSeance;
 			}
 
-		/**********************************/
-		/* Gestion de la plage horaire    */
-		/**********************************/
-			
+			/**********************************/
+			/* Gestion de la plage horaire    */
+			/**********************************/
+			sizerStartGrab(event) {
+				event.stopPropagation();
+				this.posiXStart = (event.pageX || event.changedTouches[0].pageX);
+				this.timeZoneSize = document.querySelector(".timeZone").offsetWidth;
+				this.sliderSize = this.slider.offsetWidth;
+
+				document.addEventListener("mousemove", this.handleSizerMove);
+				document.addEventListener("touchmove", this.handleSizerMove);
+				document.addEventListener("mouseup", this.handleSizerStop);
+				document.addEventListener("touchend", this.handleSizerStop);
+			}
+
+			sizerMove(event) {
+				let deltaX = (event.pageX || event.changedTouches[0].pageX) - this.posiXStart;
+				let size = this.limit(
+					100 * (this.sliderSize + deltaX) / this.timeZoneSize,
+					0,
+					100 * (this.timeZoneSize - this.slider.offsetLeft - 4) / this.timeZoneSize
+				);
+
+				this.slider.style.width = size + "%";
+
+				let numSize = Math.round(parseInt(this.slider.style.width) / this.pasSize);
+				if(numSize == 0) numSize = 1;
+				this.slider.children[1].innerText = numSize * this.pas + "h";
+				event.preventDefault();
+			}
+
+			sizerStopGrab(event) {
+				let numSize = Math.round(parseInt(this.slider.style.width) / this.pasSize);
+				if(numSize == 0) numSize = 1;
+				this.slider.style.width =  `calc(${numSize * this.pasSize}% - 2px)`;
+				this.slider.children[1].innerText = "";
+
+				this.dureeSeance = this.pas * numSize;
+				this.fin = this.debut + this.dureeSeance;
+
+				document.removeEventListener("mousemove", this.handleSizerMove);
+				document.removeEventListener("touchmove", this.handleSizerMove);
+				document.removeEventListener("mouseup", this.handleSizerStop);
+				document.removeEventListener("touchend", this.handleSizerStop);
+
+				this.doCallback();
+			}
+
 		}
 
-		new choixDate(/*8, 20, 2, 2*/);
+		new choixDate(
+			{
+				heureDebut: 8,	// Heure de debut
+				heureFin: 20,	// Heure de fin
+				pas: 2,			// Pas en heure - accepte les demi-heures, par exemple : 1.5
+				dureeSeance: 2,	// Durée en heure par défaut d'une séance
+				callback: afficher
+			}
+		);
 
+		function afficher(heure) {
+			console.log(heure);
+		}
 	</script>
 </body>
+
 </html>
