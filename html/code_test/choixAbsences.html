@@ -15,38 +15,40 @@
 
 		/********************************************/
 
-		.center>*:not(.info) {
-			background: #FFF;
-			box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-			border-radius: 8px;
+		.date{
+			display: grid;
+			grid-template-columns: 60px 1fr 60px;
+			column-gap: 8px;
 		}
 
 		.date>.info {
 			text-align: center;
 			font-size: 24px;
+			grid-column: span 3;
 		}
 
-		.date>.center {
-			display: flex;
-			gap: 8px;
-			height: 60px;
-		}
-
-		.center>svg {
+		.date>svg {
 			cursor: pointer;
 			transition: 0.06s;
 			transition-timing-function: ease-in;
+			background: #FFF;
+			box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+			border-radius: 8px;
 		}
 
-		.center>svg:active {
+		.date>svg:active {
 			box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
 			transform: translateY(3px);
 		}
 
 		.timeZone {
+			height: 60px;
 			flex: 1;
 			position: relative;
 			touch-action: none;
+			background: #FFF;
+			box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+			border-radius: 8px;
 		}
 
 		.timeZone>.slider {
@@ -87,6 +89,7 @@
 			display: flex;
 			justify-content: space-between;
 			margin: -8px 68px 0 68px;
+			grid-column: span 3;
 		}
 
 		.infoHeures>div {
@@ -107,28 +110,48 @@
 				margin: 25vh 8px 0 8px;
 			}
 		}
+		@media screen and (max-width: 600px) {
+			.date{
+				gap: 8px;
+			}
+			.date>.info{
+				grid-column: span 1;
+				align-self: center;
+			}
+			.date>.jourMoins{
+				grid-row: 1;
+			}
+			.date>.jourPlus{
+				grid-row: 1;
+				grid-column: 3;
+			}
+			.date>.timeZone{
+				grid-column: span 3;
+			}
+			.date>.infoHeures{
+				margin: -16px 0 0 0;
+			}
+		}
 	</style>
 </head>
 
 <body>
 	<div class="date">
 		<div class="info">Vendredi 04/02/2022</div>
-		<div class="center">
-			<svg class="jourMoins" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#424242"
-				stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-				<path d="M15 18l-6-6 6-6"></path>
-			</svg>
-			<div class="timeZone">
-				<div class="slider">
-					<div class="sizer"></div>
-					<div class="sliderInfo"></div>
-				</div>
+		<svg class="jourMoins" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#424242"
+			stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+			<path d="M15 18l-6-6 6-6"></path>
+		</svg>
+		<div class="timeZone">
+			<div class="slider">
+				<div class="sizer"></div>
+				<div class="sliderInfo"></div>
 			</div>
-			<svg class="jourPlus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#424242"
-				stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-				<path d="M9 18l6-6-6-6"></path>
-			</svg>
 		</div>
+		<svg class="jourPlus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#424242"
+			stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+			<path d="M9 18l6-6-6-6"></path>
+		</svg>
 		<div class="infoHeures"></div>
 	</div>
 	<script>
