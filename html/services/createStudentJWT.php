@@ -19,7 +19,10 @@
 	$payload = [
 		'session' => $user->getSessionName(), // mail de la personne destinataire du jeton
 		'statut' => 'etudiant', 
-		'exp' => time() + (26*7*24*60*60) // Valide pour ce semestre (6 mois de plus par rapport à maintenant)
+		'exp' => time() + (1*7*24*60*60) // Valide pour ce semestre (7 jours de plus par rapport à maintenant)
 	];
-	echo 'Votre jeton d\'accès est : <br>' . JWT::encode($payload, $Config->JWT_key);
+	echo 'Votre jeton d\'accès est : <br>'; //. JWT::encode($payload, $Config->JWT_key);
+
+	$root_url = (isset($_SERVER["https"]) ? "https://" : "http://" ). $_SERVER["HTTP_HOST"];
+	echo $root_url."?token=".JWT::encode($payload, $Config->JWT_key);
 ?>
