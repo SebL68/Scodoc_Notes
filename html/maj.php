@@ -40,6 +40,10 @@
 	<h1>Historique des mises à jours</h1>
 
 	<main>
+		<h2>14/02/2022 - V4.7.3</h2>
+		<ul>
+			<li>Correction bug choix semestre étudiant.</li>
+		</ul>
 		<h2>03/02/2022 - V4.7.2</h2>
 		<ul>
 			<li>Correction bug téléchargement relevé version PDF.</li>

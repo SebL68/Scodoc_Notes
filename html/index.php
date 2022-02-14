@@ -160,7 +160,7 @@
 
 			<hr>
 			<small>Ce site utilise deux cookies permettant l'authentification au service et une analyse statistique anonymisée des connexions ne nécessitant pas de consentement selon les règles du RGPD.</small><br>
-			<small>Application réalisée par Sébastien Lehmann, enseignant MMI - <a href="maj.php">version 4:7:2</a> - <a href="https://github.com/SebL68/Scodoc_Notes">code source</a></small>
+			<small>Application réalisée par Sébastien Lehmann, enseignant MMI - <a href="maj.php">version 4:7:3</a> - <a href="https://github.com/SebL68/Scodoc_Notes">code source</a></small>
 		</main>
 
 		<div class=auth>
@@ -181,6 +181,7 @@
 /**************************/
 			let idCAS = "";
 			let nip = "";
+			let statut = "";
 			checkStatut();
 			document.querySelector("#notes")?.classList.add("navActif");
 			<?php
@@ -194,6 +195,7 @@
 
 				nip = data.auth.nip ?? "";
 				idCAS = data.auth.session;
+				statut = data.auth.statut;
 
 				document.querySelector(".studentPic").src = "services/data.php?q=getStudentPic";
 				document.querySelector(".prenom").innerText = String(data.auth.session).match(/([a-z-]*)\./)?.[1] || "Mme, M.,";
@@ -276,7 +278,7 @@
 /*********************************************/
 			async function getReportCards(){
 				let semestre = this.dataset.semestre;
-				let data = await fetchData("relevéEtudiant&semestre=" + semestre + (nip ? "&etudiant=" + nip : ""));
+				let data = await fetchData("relevéEtudiant&semestre=" + semestre + ((nip && statut >= PERSONNEL) ? "&etudiant=" + nip : ""));
 
 				showReportCards(data, semestre);
 				feedAbsences(data.absences);

@@ -142,6 +142,7 @@ main{
 	padding: 28px 10px 0 10px;
 	text-align: center;
 	transition: 0.4s;
+	z-index: 100;
 }
 
 #admin{
