@@ -299,7 +299,7 @@ class releveBUT extends HTMLElement {
 			Object.values(module.evaluations).forEach((evaluation) => {
 				output += `
 					<div class=syntheseModule>
-						<div>${module.titre} - ${evaluation.description}</div>
+						<div>${module.titre} - ${evaluation.description || "Note"}</div>
 						<div>
 							${evaluation.note.value ?? "-"}
 							<em>Coef.&nbsp;${evaluation.coef}</em>
