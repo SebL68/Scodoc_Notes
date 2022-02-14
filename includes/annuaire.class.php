@@ -128,8 +128,11 @@ class Annuaire{
 			[int] - ETUDIANT | PERSONNEL | ADMINISTRATEUR | INCONNU // INCONNU une personne connue mais pas dans les listings de la composante.
 	*/
 	/****************************************************/
-	public static function statut($user, $forceRenew = false){
-		if($forceRenew || !isset($_SESSION['statut']) || $_SESSION['statut'] == ''){
+	public static function statut($user, $justAsk = false){
+		if($justAsk || !isset($_SESSION['statut']) || $_SESSION['statut'] == ''){
+			if($user == ""){
+				return INCONNU;
+			}
 			
 			/* Vérification de l'existence des fichiers de listes */
 			self::checkFile(self::$STUDENTS_PATH);
@@ -150,37 +153,47 @@ class Annuaire{
 			/* Test administrateur */
 			foreach(json_decode(file_get_contents(self::$USERS_PATH)) as $departement => $dep){
 				if(preg_grep($pattern, $dep->administrateurs)){
-					$_SESSION['statut'] = ADMINISTRATEUR;
-					return $_SESSION['statut'];
+					$statut = ADMINISTRATEUR;
+					if(!$justAsk){ $_SESSION['statut'] = $statut; }
+					return $statut;
 				}
 			}
 			
 			/* Test vacataire */
 			foreach(json_decode(file_get_contents(self::$USERS_PATH)) as $departement => $dep){
 				if(preg_grep($pattern, $dep->vacataires)){
-					$_SESSION['statut'] = PERSONNEL;
-					return $_SESSION['statut'];
+					$statut = PERSONNEL;
+					if(!$justAsk){ $_SESSION['statut'] = $statut; }
+					return $statut;
 				}
 			}
 
 			/* Test étudiant */
 			if(preg_grep($pattern, file(self::$STUDENTS_PATH))){
-				$_SESSION['statut'] = ETUDIANT;
-				return $_SESSION['statut'];
+				$statut = ETUDIANT;
+				if(!$justAsk){ $_SESSION['statut'] = $statut; }
+				return $statut;
 			}
 
 			/* Test personnel */
 			foreach(self::$STAF_PATH as $stafPath){
 				if(preg_grep($pattern, file($stafPath))){
-					$_SESSION['statut'] = PERSONNEL;
-					return $_SESSION['statut'];
+					$statut = PERSONNEL;
+					if(!$justAsk){ $_SESSION['statut'] = $statut; }
+					return $statut;
 				}
 			}
 
 			//$_SESSION['statut'] = INCONNU;
-			$_SESSION['statut'] = ETUDIANT;
+			$statut = ETUDIANT;
+			if(!$justAsk){ $_SESSION['statut'] = $statut; }
+			return $statut;
 		}
 		return $_SESSION['statut'];	
+	}
+
+	private static function setCurrentStatut(){
+
 	}
 
 	/****************************************************/

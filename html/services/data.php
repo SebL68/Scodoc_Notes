@@ -150,6 +150,9 @@
 				break;
 
 			case 'getStatut':
+				if(!isset($_GET['user']) || $_GET['user'] == ""){
+					break;
+				}
 				$output = [
 					'statut' => Annuaire::statut($_GET['user'], true)
 				];

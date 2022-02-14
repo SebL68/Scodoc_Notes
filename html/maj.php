@@ -40,6 +40,10 @@
 	<h1>Historique des mises à jours</h1>
 
 	<main>
+		<h2>14/02/2022 - V4.7.4</h2>
+		<ul>
+			<li>Correction bug : getStatut modifie l'utilisateur.</li>
+		</ul>
 		<h2>14/02/2022 - V4.7.3</h2>
 		<ul>
 			<li>Correction bug choix semestre étudiant.</li>
