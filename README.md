@@ -27,7 +27,7 @@ Les utilisateurs actuels sont :
  - IUT de la Roche-sur-Yon ?
  - IUT de Vélizy ?
  - IUT de Roanne ?
- - IUT de Kourou => accès étudiant + enseignant
+ - IUT de Kourou => accès complet
  - IUT de Brest => accès étudiant
  - IUT d'Annecy => accès étudiant + enseignant
  - IUT de Nantes => accès étudiant
