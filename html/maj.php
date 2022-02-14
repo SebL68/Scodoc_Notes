@@ -42,7 +42,7 @@
 	<main>
 		<h2>14/02/2022 - V4.7.4</h2>
 		<ul>
-			<li>Correction bug : getStatut modifie l'utilisateur.</li>
+			<li>Correction faille critique : getStatut modifie le statut de l'utilisateur.</li>
 		</ul>
 		<h2>14/02/2022 - V4.7.3</h2>
 		<ul>
