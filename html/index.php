@@ -242,7 +242,7 @@
 			async function loadSemesters(input = ""){
 				if(input){
 					nip = input.value;
-					idCAS = input.nextElementSibling?.querySelector(`[value="${input.value}"]`).innerText || "";
+					idCAS = input.nextElementSibling?.querySelector(`[value="${input.value}"]`)?.innerText || "";
 				}				
 				let data = await fetchData("semestresEtudiant" + (input ? "&etudiant=" + nip : ""));
 				feedSemesters(data);
@@ -278,7 +278,7 @@
 /*********************************************/
 			async function getReportCards(){
 				let semestre = this.dataset.semestre;
-				let data = await fetchData("relevéEtudiant&semestre=" + semestre + ((nip && statut >= PERSONNEL) ? ("&etudiant=" + nip + "&idCAS=" + idCAS) : ""));
+				let data = await fetchData("relevéEtudiant&semestre=" + semestre + ((nip && statut >= PERSONNEL) ? ("&etudiant=" + nip + "&idCAS=" + (idCAS || nip)) : ""));
 
 				showReportCards(data, semestre);
 				feedAbsences(data.absences);
