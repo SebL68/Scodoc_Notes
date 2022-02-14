@@ -160,7 +160,7 @@
 
 			<hr>
 			<small>Ce site utilise deux cookies permettant l'authentification au service et une analyse statistique anonymisée des connexions ne nécessitant pas de consentement selon les règles du RGPD.</small><br>
-			<small>Application réalisée par Sébastien Lehmann, enseignant MMI - <a href="maj.php">version 4:7:4</a> - <a href="https://github.com/SebL68/Scodoc_Notes">code source</a></small>
+			<small>Application réalisée par Sébastien Lehmann, enseignant MMI - <a href="maj.php">version 4:7:5</a> - <a href="https://github.com/SebL68/Scodoc_Notes">code source</a></small>
 		</main>
 
 		<div class=auth>
@@ -278,7 +278,7 @@
 /*********************************************/
 			async function getReportCards(){
 				let semestre = this.dataset.semestre;
-				let data = await fetchData("relevéEtudiant&semestre=" + semestre + ((nip && statut >= PERSONNEL) ? "&etudiant=" + nip : ""));
+				let data = await fetchData("relevéEtudiant&semestre=" + semestre + ((nip && statut >= PERSONNEL) ? ("&etudiant=" + nip + "&idCAS=" + idCAS) : ""));
 
 				showReportCards(data, semestre);
 				feedAbsences(data.absences);

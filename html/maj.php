@@ -40,6 +40,10 @@
 	<h1>Historique des mises à jours</h1>
 
 	<main>
+		<h2>14/02/2022 - V4.7.5</h2>
+		<ul>
+			<li>Correction bug : les absences étudiants ne s'affichaient plus pour les personnels.</li>
+		</ul>
 		<h2>14/02/2022 - V4.7.4</h2>
 		<ul>
 			<li>Correction faille critique : getStatut modifie le statut de l'utilisateur.</li>

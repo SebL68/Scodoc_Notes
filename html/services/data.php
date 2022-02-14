@@ -216,7 +216,7 @@
 					'absences' => Absences::getAbsence(
 						$dep,
 						$_GET['semestre'],
-						$_GET['etudiant'] ?? $user->getSessionName()
+						$_GET['idCAS'] ?? $user->getSessionName()
 					) ?? []
 				];
 				break;
