@@ -254,6 +254,7 @@ class releveBUT extends HTMLElement {
 							</h3>
 							<div>
 								<div class=moyenne>Moyenne&nbsp;:&nbsp;${dataUE.moyenne?.value || "-"}</div>
+								<div class=rang>Rang&nbsp;:&nbsp;${dataUE.moyenne?.rang}&nbsp;/&nbsp;${dataUE.moyenne?.total}</div>
 								<div class=info>
 									Bonus&nbsp;:&nbsp;${dataUE.bonus || 0}&nbsp;- 
 									Malus&nbsp;:&nbsp;${dataUE.malus || 0}

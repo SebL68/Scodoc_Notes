@@ -40,6 +40,12 @@
 	<h1>Historique des mises à jours</h1>
 
 	<main>
+		<h2>15/02/2022 - V4.7.6</h2>
+		<ul>
+			<li>Relevé BUT : amélioration des espacements en mode mobile.</li>
+			<li>Relevé BUT : affichage du rang UE.</li>
+			<li>Relevé BUT : prise en compte de l'option "ne pas afficher le rang".</li>
+		</ul>
 		<h2>14/02/2022 - V4.7.5</h2>
 		<ul>
 			<li>Correction bug : les absences étudiants ne s'affichaient plus pour les personnels.</li>

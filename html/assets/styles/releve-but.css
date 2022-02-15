@@ -97,7 +97,8 @@ section>div:nth-child(1){
 .hide_coef .synthese em,
 .hide_coef .eval>em,
 .hide_date_inscr .dateInscription,
-.hide_ects .ects{
+.hide_ects .ects,
+.hide_rangs .rang{
     display: none;
 }
 
@@ -158,7 +159,10 @@ section>div:nth-child(1){
     text-align: right;
 }
 .rang{
-    text-decoration: underline var(--couleurIntense);
+	font-weight: bold;
+}
+.ue .rang{
+	font-weight: 400;
 }
 .decision{
 	margin: 5px 0;
@@ -185,6 +189,9 @@ section>div:nth-child(1){
 .synthese .ue,
 .synthese h3{
     background: var(--couleurFondTitresUE);
+}
+.synthese .ue>div{
+	text-align: right;
 }
 .synthese em,
 .eval em{
@@ -308,6 +315,14 @@ h3{
     margin-bottom: 8px;
 }
 
+@media screen and (max-width: 700px) {
+	section{
+		padding: 16px;
+	}
+    .syntheseModule, .eval {
+        margin: 0;
+    }
+}
 /*.absences{
     display: grid;
     grid-template-columns: auto auto;
