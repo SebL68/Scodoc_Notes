@@ -139,14 +139,25 @@
 	Permet également de modifier les data avant l'envoi */
 /*******************************************************/
 		/*public static function customOutput($output){
+			/////////////////////////////////////////////////////////////////////
 			// $output contient les data juste avant de les renvoyer
 			// Il faut tester ce qui est renvoyé pour ajouter les données si nécessaire
 			// Il est possible d'ajouter 
 			// if(isset($output['relevé'])){
-				$output['releve'] = ['custom' => "Données au format HTML"];
+			//	$output['releve'] = ['custom' => "Données au format HTML"];
 			// }
 			// Ces données sont insérées dans le relevé BUT entre la fiche étudiant et la synthèse
 			
+			/////////////////////////////////////////////////////////////////////
+			// Autre exemple, pour supprimer les données de la partie synthèse :
+			// if( isset($output['relevé']) 
+			// 	&& isset($output['relevé']->type) 
+			// 	&& $output['relevé']->type == 'BUT'
+			// ){
+			// 	$output['relevé']->ues = array();
+			// }
+			
+			////////////////////////////////////////////////////////////////////
 			return $output;
 		}*/
 		
