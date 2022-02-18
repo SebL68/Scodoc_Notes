@@ -1,0 +1,6 @@
+/* Exemple pour masquer la partie synthèse : */
+/*
+.releve>section:nth-child(4) {
+    display: none;
+}
+*/
