@@ -15,7 +15,7 @@ Les utilisateurs actuels sont :
  - IUT de Tours => utilisation de parties du code
  - IUT Lannion ?
  - IUT de Lille => accès étudiant + enseignant
- - IUT de Bordeaux => accès étudiant
+ - IUT de Bordeaux => accès étudiant + enseignant
  - IUT d'Orsay ?
  - IUT du Havre => accès étudiant + enseignant
  - IUT de Poitiers ?
