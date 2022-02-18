@@ -48,7 +48,7 @@ La passerelle Scodoc-Notes est un projet permettant de faire le lien entre Scodo
 Les étudiants peuvent consulter en ligne leurs notes. La passerelle gère automatiquement l'affichage des relevés pour les DUT et pour les BUT que ce soit sur mobile ou sur ordinateur.  
   
 Il est possible de configurer un accès "enseignant". Cet accès permet aux utilisateurs reconnus de :
- - consulté le relevé de n'importe quel étudiant,
+ - consulter le relevé de n'importe quel étudiant,
  - récupérer la liste des groupes, des fiches d'émargement, de quoi renvoyer les notes, etc. : ces fichiers sont synchronisés avec Scodoc.
   
 Cet accès est notamment utile pour les vacataires qui n'ont pas accès à Scodoc, ils peuvent alors récupérer des fichiers à jour dès qu'ils en ont besoin.  
