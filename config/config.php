@@ -103,9 +103,9 @@
 	// Désignation du Distinguished Name dans LDAP
 		public static $LDAP_dn = 'dc=uha,dc=fr';
 
-	// Champs LDAP utilisés pour les listes d'utilisateurs
-		public static $LDAP_uid = 'uid';      // Numéro d'étudiant ou d'enseignant
-		public static $LDAP_mail = 'mail';	// Ce champs reflète l'idCAS qui se trouve dans le LDAP - peut être différent de mail.
+	// Champs LDAP utilisés pour créer les listes d'utilisateurs
+		public static $LDAP_uid = 'uid';      	// Numéro d'étudiant ou d'enseignant
+		public static $LDAP_idCAS = 'mail';		// Ce champs reflète l'idCAS qui se trouve dans le LDAP - peut être différent de mail.
 
 	// Filtre LDAP de l'UFR (supannaffectation)
 		public static $LDAP_filtre_ufr = 'supannaffectation=Institut Universitaire de Technologie de Mulhouse';

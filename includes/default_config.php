@@ -111,7 +111,7 @@
 
 	// Champs LDAP utilisés pour les listes d'utilisateurs
 		$Config->LDAP_uid = Config::$LDAP_uid ?? 'uid';      // Numéro d'étudiant ou d'enseignant
-		$Config->LDAP_mail = Config::$LDAP_mail ?? 'mail';
+		$Config->LDAP_idCAS = Config::$LDAP_idCAS ?? 'mail';
 
 	// Filtre LDAP de l'UFR (supannaffectation)
 		$Config->LDAP_filtre_ufr = Config::$LDAP_filtre_ufr ?? '';
