@@ -30,11 +30,11 @@ class Service_Annuaire{
         
 		if ($id_LDAP = self::openLDAP()) {
             if ($Config->LDAP_filtre_ufr != '') {
-                self::updateList($id_LDAP, $STUDENTS_PATH, "(&(".$Config->LDAP_filtre_statut_etudiant.")(".$Config->LDAP_filtre_ufr."))", [$Config->LDAP_uid, $Config->LDAP_idCAS]);
+                self::updateList($id_LDAP, $STUDENTS_PATH, "(&(".$Config->LDAP_filtre_statut_etudiant.")(".$Config->LDAP_filtre_ufr."))", [$Config->LDAP_uid, $Config->LDAP_autocompletion]);
                 self::updateList($id_LDAP, $TEACHERS_PATH, "(&(".$Config->LDAP_filtre_enseignant.")(".$Config->LDAP_filtre_ufr."))",      [$Config->LDAP_idCAS]);
                 self::updateList($id_LDAP, $BIATSS_PATH,   "(&(".$Config->LDAP_filtre_biatss.")(".$Config->LDAP_filtre_ufr."))",          [$Config->LDAP_idCAS]);
             } else {
-                self::updateList($id_LDAP, $STUDENTS_PATH, "(".$Config->LDAP_filtre_statut_etudiant.")", [$Config->LDAP_uid, $Config->LDAP_idCAS]);
+                self::updateList($id_LDAP, $STUDENTS_PATH, "(".$Config->LDAP_filtre_statut_etudiant.")", [$Config->LDAP_uid, $Config->LDAP_autocompletion]);
                 self::updateList($id_LDAP, $TEACHERS_PATH, "(".$Config->LDAP_filtre_enseignant.")",      [$Config->LDAP_idCAS]);
                 self::updateList($id_LDAP, $BIATSS_PATH,   "(".$Config->LDAP_filtre_biatss.")",          [$Config->LDAP_idCAS]);
             }
