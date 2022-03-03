@@ -77,7 +77,7 @@ DocumentRoot "${INSTALL_DIR}/www/html/"
 <Directory "${INSTALL_DIR}/www/html/">
 ```
 Faites en sorte que le dossier data apparatienne à l'utilisateur www-data, car le serveur doit pouvoir y modifier les données.  
-```chown -R www-data var/www/data```  
+```chown -R www-data /var/www/data```  
   
 ## Diagnostic
 Pour vous aider dans la configuration de votre serveur, un système de diagnostic a été mis en place : /html/sercices/diagnostic.php  
