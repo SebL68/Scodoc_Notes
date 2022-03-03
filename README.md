@@ -66,23 +66,24 @@ Cette correspondance est faite dans les fichiers /data/annuaires/liste_*.php
 Il est possible d'automatiser la génération de ces fichiers à partir du LDAP (voir ci-après).
 
 # Guide rapide d'installation
+## Fichiers
+Récupérez l'ensemble des fichiers et ajoutez les sur votre serveur.  
+Le dossier "html" doit être la racine du site.  
+Les autres dossiers doivent être dans le dossier parent et donc inaccessible depuis le net.  
+Ceci a été fait pour des raisons de sécurité : ces dossiers ne doivent pas être accessibles en dehors du serveur car ils contiennent des données et fonctions sensibles (mot de passe, certificats, etc.). Le seul dossier accessible doit être "html".  
+Il est alors possible de configurer le fichier httpd-vhosts.conf d'Apache:
+```
+DocumentRoot "${INSTALL_DIR}/www/html/"
+<Directory "${INSTALL_DIR}/www/html/">
+```
+Faites en sorte que le dossier data apparatienne à l'utilisateur www-data, car le serveur doit pouvoir y modifier les données.  
+```chown -R www-data var/www/data```  
+  
 ## Diagnostic
 Pour vous aider dans la configuration de votre serveur, un système de diagnostic a été mis en place : /html/sercices/diagnostic.php  
 Il est également possible d'activer les messages d'erreur dans /html/services/data.php --> Options de debug  
 La passerelle communique via un système d'API, il faut donc voir les réponses dans l'inspecteur (F12) --> Network  
   
-## Fichiers
-Le dossier "html" doit être la racine du site.  
-Les autres dossiers doivent être dans le dossier parent et donc inaccessible depuis le net.  
-Ceci a été fait pour des raisons de sécurité : ces dossiers ne doivent pas être accessibles en dehors du serveur car ils contiennent des données et fonctions sensibles (mot de passe, certificats, etc.). Le seul dossier accessible doit être "html".  
-Il est alors possible de les placer comme il faut par rapport au www ou de configurer dans Apache le fichier httpd-vhosts.conf :
-```
-DocumentRoot "${INSTALL_DIR}/www/html/"
-<Directory "${INSTALL_DIR}/www/html/">
-```
-
-Si besoin, le dossier "html" peut être nommé différemment, il peut par exemple être nommé "www".
-
 ## Configuration
 Le serveur passerelle doit avoir accès au serveur Scodoc.
 
