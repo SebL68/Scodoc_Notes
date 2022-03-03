@@ -98,6 +98,8 @@
 		public static $LDAP_user = 'uid=didev,ou=dsa,dc=uha,dc=fr';
 		public static $LDAP_password = 'MDP_LDAP';
 
+		public static $LDAP_verify_TLS = true;	// Active ou désactive le TLS pour la connexion LDAP
+
 	// Désignation du Distinguished Name dans LDAP
 		public static $LDAP_dn = 'dc=uha,dc=fr';
 

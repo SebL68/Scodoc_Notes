@@ -104,6 +104,8 @@
 		$Config->LDAP_user = Config::$LDAP_user ?? '';
 		$Config->LDAP_password = Config::$LDAP_password ?? '';
 
+		$Config->LDAP_password =  Config::$LDAP_verify_TLS ?? true;
+
 	// Désignation du Distinguished Name dans LDAP
 		$Config->LDAP_dn = Config::$LDAP_dn ?? '';
 
