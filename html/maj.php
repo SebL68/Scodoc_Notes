@@ -40,6 +40,12 @@
 	<h1>Historique des mises à jours</h1>
 
 	<main>
+		<h2>04/03/2022 - V4.7.7</h2>
+		<ul>
+			<li>LDAP : ajout d'une option pour désactiver le TLS.</li>
+			<li>LDAP : amélioration du nom d'une variable de configuration : $LDAP_mail -> $LDAP_idCAS.</li>
+			<li>LDAP : possibilité de choisir un champ LDAP différent que l'idCAS pour l'autocomplétion - attention, ne pas modifier si $CAS_return_type != 'nip' - pour plus d'info, voir dans le fichier config.php</li>
+		</ul>
 		<h2>15/02/2022 - V4.7.6</h2>
 		<ul>
 			<li>Relevé BUT : amélioration des espacements en mode mobile.</li>
