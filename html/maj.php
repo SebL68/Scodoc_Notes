@@ -41,6 +41,7 @@
 
 	<main>
 		<h2>04/03/2022 - V4.7.7</h2>
+		<div>!!! <b>Attention</b>, pour cette mise à jour, si vous utilisez le LDAP, il faut vérifier que les variables $LDAP_idCAS et $LDAP_autocompletion soient conformes à votre configuration.<br>Par défaut, leur valeur est à 'mail'.</div>
 		<ul>
 			<li>LDAP : ajout d'une option pour désactiver le TLS.</li>
 			<li>LDAP : amélioration du nom d'une variable de configuration : $LDAP_mail -> $LDAP_idCAS.</li>
