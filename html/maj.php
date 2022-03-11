@@ -40,6 +40,10 @@
 	<h1>Historique des mises à jours</h1>
 
 	<main>
+		<h2>11/03/2022 - V4.7.8</h2>
+		<ul>
+			<li>Changement de l'indication textuelle pour les justifications d'absences et ainsi coller au code du travail - avant, 48h après le retour pour justifier - maintenant, 48h après le début de l'absence pour justifier.</li>
+		</ul>
 		<h2>04/03/2022 - V4.7.7</h2>
 		<div>!!! <b>Attention</b>, pour cette mise à jour, si vous utilisez le LDAP, il faut vérifier que les variables $LDAP_idCAS et $LDAP_autocompletion soient conformes à votre configuration.<br>Par défaut, leur valeur est à 'mail'.</div>
 		<ul>
