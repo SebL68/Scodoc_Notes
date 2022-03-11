@@ -148,8 +148,7 @@
 			<div class="absences">
 				<h2>Rapport d'absences</h2>
 				<p><i>
-					Vous avez jusqu'à 48h après votre retour pour justifier une absence auprès du secrétariat.<br>
-					Les créneaux horaires sont indicatifs et susceptibles de varier en fonction du département.
+				Les causes de l’absence doivent être notifiées par écrit à l'aide d'un justificatif dans les 48 heures à compter du début de l’absence au secrétariat du département. Voir règlement intérieur pour les motifs légitimes d'absence.<br>Les créneaux horaires sont indicatifs et susceptibles de varier en fonction du département.
 				</i></p>
 				<div class=toutesAbsences></div>
 				<h3>Totaux</h3>
