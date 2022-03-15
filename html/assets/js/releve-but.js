@@ -380,7 +380,7 @@ class releveBUT extends HTMLElement {
 	setOptions(options) {
 		Object.entries(options).forEach(([option, value]) => {
 			if (value === false) {
-				document.body.classList.add(option.replace("show", "hide"))
+				this.shadow.children[0].classList.add(option.replace("show", "hide"))
 			}
 		})
 	}
