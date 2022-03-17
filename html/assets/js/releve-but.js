@@ -259,7 +259,7 @@ class releveBUT extends HTMLElement {
 									Bonus&nbsp;:&nbsp;${dataUE.bonus || 0}&nbsp;- 
 									Malus&nbsp;:&nbsp;${dataUE.malus || 0}
 									<span class=ects>&nbsp;-
-										ECTS&nbsp;:&nbsp;${dataUE.ECTS.acquis}&nbsp;/&nbsp;${dataUE.ECTS.total}
+										ECTS&nbsp;:&nbsp;${dataUE.ECTS?.acquis || "-"}&nbsp;/&nbsp;${dataUE.ECTS?.total || "-"}
 									</span>
 								</div>
 							</div>`;

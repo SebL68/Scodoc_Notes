@@ -40,6 +40,10 @@
 	<h1>Historique des mises à jours</h1>
 
 	<main>
+		<h2>17/03/2022 - V4.7.10</h2>
+		<ul>
+			<li>Correction bug : prise en compte du non export des ECTS.</li>
+		</ul>
 		<h2>15/03/2022 - V4.7.9</h2>
 		<ul>
 			<li>Correction bug : prise en compte des options d'affichage Scodoc pour les relevés BUT.</li>
