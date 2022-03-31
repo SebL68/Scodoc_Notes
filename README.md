@@ -36,6 +36,7 @@ Les utilisateurs actuels sont :
  - IUT Lorient & Pontivy ?
  - IUT d'Orléans => accès étudiants
  - IUT de Rennes ?
+ - IUT de Perpignan ?
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
   
