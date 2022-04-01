@@ -373,7 +373,7 @@
 						'result' => "Not ok"
 					];
 				}else{
-					chmod("$path/data/studentsPic/".$user->getSessionName().'.jpg', 0664);
+					//chmod("$path/data/studentsPic/".$user->getSessionName().'.jpg', 0664);
 					$output = [
 						'result' => "OK"
 					];

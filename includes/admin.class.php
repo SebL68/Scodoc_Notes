@@ -37,7 +37,7 @@
 				self::$file,
 				json_encode($json) //, JSON_PRETTY_PRINT)
 			);
-			chmod(self::$file, 0664);
+			//chmod(self::$file, 0664);
 		}
 
 		$json = json_decode(file_get_contents(self::$file));

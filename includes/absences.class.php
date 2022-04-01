@@ -26,7 +26,7 @@
 						]
 					)
 				);
-				chmod($file, 0774);
+				//chmod($file, 0774);
 			} else { // Fichier d'absence présent pour cet étudiant
 				$json = json_decode(file_get_contents($file), true);
 				if(isset($json[$date][$creneau])){ // Déjà une absence sur cette date / créneau

@@ -87,7 +87,7 @@ class Service_Annuaire{
 
         flock($id_file, LOCK_UN);
         fclose($id_file);
-        chmod($file, 0664);
+        //chmod($file, 0664);
         
         return ['result' => "OK"];
     }

@@ -40,6 +40,10 @@
 	<h1>Historique des mises à jours</h1>
 
 	<main>
+		<h2>01/04/2022 - V4.7.11</h2>
+		<ul>
+			<li>Suppression des chmod qu'il restait dans le code : attention, /data/* doivent appartenir à www-data.</li>
+		</ul>
 		<h2>17/03/2022 - V4.7.10</h2>
 		<ul>
 			<li>Correction bug : prise en compte du non export des ECTS.</li>

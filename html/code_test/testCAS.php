@@ -6,7 +6,7 @@ Authentification en cours ...
 	require_once $path . '/lib/CAS/CAS.php';
 	require_once $path . '/config/cas_config.php';
 	
-	phpCAS::client(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context);
+	phpCAS::client(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context, 'https://notes.iutmulhouse.uha.fr/');
 
 	phpCAS::forceAuthentication();
 
