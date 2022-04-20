@@ -23,7 +23,7 @@
 
 		h2{
 			background: #9C0;
-			display: table;
+			display: table;y
 			padding: 10px;
 			color: #FFF;
 		}
@@ -40,6 +40,10 @@
 	<h1>Historique des mises à jours</h1>
 
 	<main>
+		<h2>20/04/2022 - V4.7.12</h2>
+		<ul>
+			<li>Fichier config.php - Ligne 12 - $nom_IUT : possibilité de choisir le nom de l'IUT, si le fichier config n'est pas modifié, ce sera par défaut 'IUT'?</li>
+		</ul>
 		<h2>01/04/2022 - V4.7.11</h2>
 		<ul>
 			<li>Suppression des chmod qu'il restait dans le code : attention, /data/* doivent appartenir à www-data.</li>

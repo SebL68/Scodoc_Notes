@@ -238,7 +238,7 @@
             background: #0C9 !important;
         }
     </style>
-    <meta name=description content="Gestion des absences de l'IUT de Mulhouse">
+    <meta name=description content="Gestion des absences de l'<?php echo $Config->nom_IUT; ?>">
 </head>
 <body>
     <?php 

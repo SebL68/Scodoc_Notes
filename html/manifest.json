@@ -3,7 +3,7 @@
   "short_name": "Notes",
   "theme_color": "#2196f3",
   "background_color": "#2196f3",
-  "description": "Relevé de notes de l'IUT de Mulhouse",
+  "description": "Passerelle notes",
   "display": "standalone",
   "Scope": "/",
   "start_url": "/",

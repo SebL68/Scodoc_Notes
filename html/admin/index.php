@@ -131,7 +131,7 @@
             80% {transform: translate(-50%, 100%)}
         }
     </style>
-    <meta name=description content="Gestion des administrateurs de l'IUT de Mulhouse">
+    <meta name=description content="Gestion des administrateurs de l'<?php echo $Config->nom_IUT; ?>">
 </head>
 
 <body>

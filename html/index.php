@@ -111,7 +111,7 @@
 				margin: 10px;
 			}
 		</style>
-		<meta name=description content="Relevé de notes de l'IUT de Mulhouse">
+		<meta name=description content="Relevé de notes de l'<?php echo $Config->nom_IUT; ?>">
 	</head>
 	<body class="<?php
 		if($Config->afficher_absences == false){
@@ -159,7 +159,7 @@
 
 			<hr>
 			<small>Ce site utilise deux cookies permettant l'authentification au service et une analyse statistique anonymisée des connexions ne nécessitant pas de consentement selon les règles du RGPD.</small><br>
-			<small>Application réalisée par Sébastien Lehmann, enseignant MMI - <a href="maj.php">version 4:7:11</a> - <a href="https://github.com/SebL68/Scodoc_Notes">code source</a></small>
+			<small>Application réalisée par Sébastien Lehmann, enseignant MMI à l'IUT de Mulhouse- <a href="maj.php">version 4:7:12</a> - <a href="https://github.com/SebL68/Scodoc_Notes">code source</a></small>
 		</main>
 
 		<div class=auth>

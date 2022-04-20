@@ -135,7 +135,7 @@
             100%{stroke-dasharray: 25;stroke-dashoffset:100;}
         }
     </style>
-    <meta name=description content="Interface documents de l'IUT de Mulhouse">
+    <meta name=description content="Interface documents de l'<?php echo $Config->nom_IUT; ?>">
 </head>
 <body>		
     <?php 
