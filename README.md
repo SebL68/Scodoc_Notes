@@ -37,6 +37,7 @@ Les utilisateurs actuels sont :
  - IUT d'Orléans => accès étudiants
  - IUT de Rennes ?
  - IUT de Perpignan ?
+ - IUT de Villetaneuse => accès étudiants
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
   
