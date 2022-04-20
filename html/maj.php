@@ -23,7 +23,7 @@
 
 		h2{
 			background: #9C0;
-			display: table;y
+			display: table;
 			padding: 10px;
 			color: #FFF;
 		}
@@ -42,7 +42,7 @@
 	<main>
 		<h2>20/04/2022 - V4.7.12</h2>
 		<ul>
-			<li>Fichier config.php - Ligne 12 - $nom_IUT : possibilité de choisir le nom de l'IUT, si le fichier config n'est pas modifié, ce sera par défaut 'IUT'?</li>
+			<li>Fichier config.php - Ligne 12 - $nom_IUT : possibilité de choisir le nom de l'IUT, si le fichier config n'est pas modifié, ce sera par défaut 'IUT'.</li>
 		</ul>
 		<h2>01/04/2022 - V4.7.11</h2>
 		<ul>
