@@ -9,6 +9,7 @@
 /* Options d'affichage */
 /***********************/
 		// public static $releve_PDF = false; // Affiche ou non l'option pour mettre aux étudiants de télécharger leur relevé au format PDF.
+		public static $nom_IUT = 'IUT'; // Nom de votre IUT, par exemple : 'IUT de Mulhouse'.
 
 /**********************************/
 /* Activation des modules du site */
