@@ -72,7 +72,7 @@
 		if(extension_loaded('CURL')){
 			echo '<div><span>✔️</span> L\'extension CURL est bien chargée.</div>';
 		} else {
-			echo '<div class=wrong><span>❌</span> Veuillez installer l\'extension CURL.</div>';
+			echo '<div class=wrong><span>❌</span> Veuillez installer l\'extension curl et php-curl.</div>';
 		}
 		if(extension_loaded('OpenSSL')){
 			echo '<div><span>✔️</span> L\'extension OpenSSL est bien chargée.</div>';
