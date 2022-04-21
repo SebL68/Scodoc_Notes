@@ -103,10 +103,6 @@ Il est à minima nécessaire de configurer :
     -  $departements,
     -  $scodoc_url,
     -  $scodoc_login
-
-Pour simplifier le fichier de configuration pour les nouveaux admin, toutes les options ne sont pas dedans.  
-La liste de toutes les options est disponible dans le fichier /includes/default_config.php  
-Il faut alors ajouter, si nécessaire, l'option désirée comme pour les options déjà existantes.  
   
 CAS nécessite des dépendances : https://apereo.atlassian.net/wiki/spaces/CASC/pages/103252625/phpCAS+requirements
  - CURL,
