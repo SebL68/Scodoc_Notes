@@ -82,7 +82,7 @@
 		if(extension_loaded('dom')){
 			echo '<div><span>✔️</span> L\'extension DOM est bien chargée.</div>';
 		} else {
-			echo '<div class=wrong><span>❌</span> Veuillez installer l\'extension DOM.</div>';
+			echo '<div class=wrong><span>❌</span> Veuillez installer l\'extension DOM php-xml.</div>';
 		}
 		if(extension_loaded('ldap')){
 			echo '<div><span>✔️</span> L\'extension LDAP est bien chargée.</div>';
