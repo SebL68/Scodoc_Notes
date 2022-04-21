@@ -71,11 +71,15 @@ Il est possible d'automatiser la génération de ces fichiers à partir du LDAP 
 
 # Guide rapide d'installation
 ## Fichiers
-Récupérez l'ensemble des fichiers et ajoutez les sur votre serveur.  
+Récupérez l'ensemble des fichiers et ajoutez les sur votre serveur dans le dossier www.  
+Vous pouvez utiliser du SFTP, git ou en ligne de commande avec  
+```wget https://github.com/SebL68/Scodoc_Notes/archive/refs/heads/main.zip```  
+  
 Le dossier "html" doit être la racine du site.  
-Les autres dossiers doivent être dans le dossier parent et donc inaccessible depuis le net.  
+Les autres dossiers doivent être dans le dossier parent, ils seront inaccessibles depuis le net.  
 Ceci a été fait pour des raisons de sécurité : ces dossiers ne doivent pas être accessibles en dehors du serveur car ils contiennent des données et fonctions sensibles (mot de passe, certificats, etc.). Le seul dossier accessible doit être "html".  
-Il est alors possible de configurer le fichier httpd-vhosts.conf d'Apache:
+Si votre sereur n'a pas le vhost configuré par défaut sur /var/www/html, vous pouvez le modifier :  
+Fichier httpd-vhosts.conf d'Apache:
 ```
 DocumentRoot "${INSTALL_DIR}/www/html/"
 <Directory "${INSTALL_DIR}/www/html/">
