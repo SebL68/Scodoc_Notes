@@ -1,5 +1,6 @@
 <?php 
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
+	include_once "$path/includes/default_config.php";
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -509,10 +510,7 @@
         var date = new Date();
         let heure = date.getHours() + date.getMinutes() / 60; // Heure en décimale : exemple 10h30 => 10.5
         
-        var creneaux = <?php
-            include_once "$path/includes/default_config.php";
-            echo json_encode($Config->absences_creneaux);
-		?>;
+        var creneaux = <?php echo json_encode($Config->absences_creneaux); ?>;
         var creneauxIndex = creneaux.length -1;
 
         let hintHours = `<div class=hint onclick="messageHint(event)">${
