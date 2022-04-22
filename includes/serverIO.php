@@ -3,8 +3,6 @@
 /* serverIO.php
 	Fonctions de communication vers le serveur Scodoc
 *******************************************/
-
-	if(!isset($_SESSION)){ session_start(); }
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 	include_once "$path/includes/default_config.php";
 	include_once "$path/includes/annuaire.class.php";		// Class Annuaire
