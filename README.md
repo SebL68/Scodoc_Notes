@@ -37,7 +37,7 @@ Les utilisateurs actuels sont :
  - IUT d'Orléans => accès étudiants
  - IUT de Rennes => accès étudiants
  - IUT de Perpignan ?
- - IUT de Villetaneuse => accès étudiants
+ - IUT de Villetaneuse => accès étudiants + enseignant
  - IUT de Cergy-Pontoise ?
  - IUT de Mantes ?
   
