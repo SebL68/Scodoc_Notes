@@ -33,9 +33,9 @@ warn "| Script d'installation et de mise à jour de la passerelle |"
 warn '+----------------------------------------------------------+'
 echo
 
-# if [ $(id -u) = 0 ]; then
- #   error "merci de faire sudo $0"
-#fi
+if [ $(id -u) != 0 ]; then
+	error "merci de faire sudo $0"
+fi
 
 if $(which dpkg) -L apt  2>/dev/null | grep -q $(which apt-get); then
 	echo ' -- Système Debian ou Ubuntu - compatible avec le script'
@@ -48,6 +48,7 @@ apt -yq update
 apt -yq install openssl apache2 wget unzip links
 apt -yq install php php-curl php-xml php-ldap
 
+echo
 if [ -d "$INSTALLDIR/config" ]; then
 	warn ' *** Une installation de Scodoc_Notes semble déjà présente ***'
 	warn ' *** Mise à jour uniquement des dossiers html, includes et lib ***'
@@ -60,18 +61,20 @@ else
 	doinstall=1
 fi
 
+echo
 warn " *** Récupération de l'archive sur git ... ***"
 cd "$INSTALLDIR"
 wget -q https://github.com/SebL68/Scodoc_Notes/archive/refs/heads/main.zip
-success 'OK'
+success  '     ==> Fait'
 
+echo
 warn " *** Extraction de l'archive ... ***"
 unzip -q main.zip
 rm -rf html includes lib 
 mv  Scodoc_Notes-main/html .
 mv  Scodoc_Notes-main/includes .
 mv  Scodoc_Notes-main/lib .
-success 'OK'
+success  '     ==> Fait'
 
 if [ $doinstall ]; then
 	mv Scodoc_Notes-main/data .
@@ -81,6 +84,7 @@ if [ $doinstall ]; then
 	chgrp -R www-data config data
 	chmod -R o-rx config data
 	chmod g+w data
+	success  '     ==> Fait'
 	cat << FIN 
 L'installation automatique est terminée, maintenant, à vous de jouer :
 - modifiez les fichiers /config/config.php et /config/cas_config.php suivant vos paramètres,
@@ -91,6 +95,7 @@ FIN
 	echo
 	warn 'ATTENTION Il est fortement conseillé de changer le certificat auto-signé pour un vrai! Contactez votre DSI'
 else
+	echo
 	success ' *** Mise à jour terminée, toutes nos félicitations ***'
 fi
 
