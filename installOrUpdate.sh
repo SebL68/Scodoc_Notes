@@ -28,16 +28,14 @@ if [ $# = 1 ]; then
 fi   
 
 echo
-echo '+----------------------------------------------------------+'
-echo "| Script d'installation et de mise à jour de la passerelle |"
-echo '+----------------------------------------------------------+'
+warn '+----------------------------------------------------------+'
+warn "| Script d'installation et de mise à jour de la passerelle |"
+warn '+----------------------------------------------------------+'
 echo
 
-if [ $USER != root ]; then
-        error "merci de faire sudo $0"
-fi
-
-warn '   Attention, ce script est toujours en phase de test et donc fourni SANS garantie'
+# if [ $(id -u) = 0 ]; then
+ #   error "merci de faire sudo $0"
+#fi
 
 if $(which dpkg) -L apt  2>/dev/null | grep -q $(which apt-get); then
 	echo ' -- Système Debian ou Ubuntu - compatible avec le script'
@@ -45,14 +43,16 @@ else
 	error 'Désolé ce script est conçu pour une distribution Debian ou Ubuntu ! Vous pouvez vous inspirer du script et de la documentation pour installer sur un autre système'
 fi
 
-if [ -d "$INSTALLDIR/config" ]; then
-	warn 'Une installation de Scodoc_Notes semble déjà présente, mise à jour des dossiers html, includes et lib'
+warn ' *** Installation ou mise à jour des paquets *** '
+apt -yq update
+apt -yq install openssl apache2 wget unzip links
+apt -yq install php php-curl php-xml php-ldap
 
+if [ -d "$INSTALLDIR/config" ]; then
+	warn ' *** Une installation de Scodoc_Notes semble déjà présente ***'
+	warn ' *** Mise à jour uniquement des dossiers html, includes et lib ***'
 else
-	warn 'Nouvelle installation détectée, installation des packages'
-	apt -yq update
-	apt -yq install openssl apache2 wget unzip links
-	apt -yq install php php-curl php-xml php-ldap
+	warn ' *** Nouvelle installation détectée, configuration ssl et ldap ***'
 	a2enmod ssl
 	phpenmod ldap
 	systemctl restart apache2
@@ -60,17 +60,18 @@ else
 	doinstall=1
 fi
 
-success "Récupération de l'archive sur git"
-wget -q https://github.com/SebL68/Scodoc_Notes/archive/refs/heads/main.zip
-mv main.zip "$INSTALLDIR"
+warn " *** Récupération de l'archive sur git ... ***"
 cd "$INSTALLDIR"
+wget -q https://github.com/SebL68/Scodoc_Notes/archive/refs/heads/main.zip
+success 'OK'
 
-success "Extraction de l'archive"
+warn " *** Extraction de l'archive ... ***"
 unzip -q main.zip
 rm -rf html includes lib 
 mv  Scodoc_Notes-main/html .
 mv  Scodoc_Notes-main/includes .
 mv  Scodoc_Notes-main/lib .
+success 'OK'
 
 if [ $doinstall ]; then
 	mv Scodoc_Notes-main/data .
@@ -86,11 +87,11 @@ L'installation automatique est terminée, maintenant, à vous de jouer :
 - redémarrez le serveur web par : sudo systemctl restart apache2,
 - pour vous aider, vous pouvez diagnostiquer le fonctionnement de la passerelle avec un navigateur https://votre_serveur/services/diagnostic.php ou en mode texte avec :  
 FIN
-     	success 'links https://localhost/services/diagnostic.php'
+    success 'links https://localhost/services/diagnostic.php'
 	echo
 	warn 'ATTENTION Il est fortement conseillé de changer le certificat auto-signé pour un vrai! Contactez votre DSI'
 else
-	echo 'Mise à jour terminée'
+	success ' *** Mise à jour terminée, toutes nos félicitations ***'
 fi
 
 #Nettoyage
