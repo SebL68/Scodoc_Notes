@@ -83,6 +83,9 @@
 			echo "<b>*** Vous n'êtes pas authentifié ***</b> => <a href=/services/doAuth.php?href=https://".$_SERVER['HTTP_HOST'].">Authentification</a><br><br>";
 		}
 
+		echo 'Pour plus de tests sur le CAS, allez sur cette page <a href="/code_test/testCAS.php">Test CAS</a><br>';
+		echo 'ATTENTION : la gestion du cache est agressive, actualisez systématiquement deux fois pour avoir la dernière version (vider le cache ou ctrl+F5 ne suffisent pas)';
+
 		include_once "$path/includes/default_config.php";
 
 		echo " Est-ce bien ";
