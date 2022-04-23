@@ -31,14 +31,13 @@ echo
 success '+----------------------------------------------------------+'
 success "| Script d'installation et de mise à jour de la passerelle |"
 success '+----------------------------------------------------------+'
-echo
 
 if [ $(id -u) != 0 ]; then
 	error "merci de faire sudo $0"
 fi
 
 if $(which dpkg) -L apt  2>/dev/null | grep -q $(which apt-get); then
-	echo ' -- Système Debian ou Ubuntu - compatible avec le script'
+	success 'Système Debian ou Ubuntu - compatible avec le script'
 else
 	error 'Désolé ce script est conçu pour une distribution Debian ou Ubuntu ! Vous pouvez vous inspirer du script et de la documentation pour installer sur un autre système'
 fi
@@ -97,7 +96,7 @@ FIN
 else
 	echo
 	success '+------------------------------------------------+'
-	success '+ Mise à jour terminée, toutes nos félicitations +'
+	success '| Mise à jour terminée, toutes nos félicitations |'
 	success '+------------------------------------------------+'
 	echo
 fi
