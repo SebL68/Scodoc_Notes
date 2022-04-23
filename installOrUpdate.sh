@@ -43,7 +43,7 @@ else
 fi
 
 warn ' *** Installation ou mise à jour des paquets *** '
-# apt -qq update
+apt -qq update
 apt -qq install openssl apache2 unzip links
 apt -qq install php php-curl php-xml php-ldap
 
