@@ -15,6 +15,18 @@ warn() {
     echo -e "${SETCOLOR_WARNING}$*${SETCOLOR_NORMAL}"
 }
 
+INSTALLDIR=/var/www
+
+if [ $# = 1 ]; then 
+	if [ $1 = '-h' ] || [ $1 = '--help' ]; then
+		warn "Usage: $0 [repertoire_d_installation]"
+		echo "par défaut le répertoire d'installation est $INSTALLDIR"
+    	exit 0
+	else
+		INSTALLDIR="$1"
+	fi
+fi   
+
 echo
 echo '+----------------------------------------------------------+'
 echo "| Script d'installation et de mise à jour de la passerelle |"
@@ -25,7 +37,7 @@ if [ $USER != root ]; then
         error "merci de faire sudo $0"
 fi
 
-warn '   Attention ce script est fourni SANS garantie'
+warn '   Attention, ce script est toujours en phase de test et donc fourni SANS garantie'
 
 if $(which dpkg) -L apt  2>/dev/null | grep -q $(which apt-get); then
 	echo ' -- Système Debian ou Ubuntu - compatible avec le script'
@@ -33,14 +45,8 @@ else
 	error 'Désolé ce script est conçu pour une distribution Debian ou Ubuntu ! Vous pouvez vous inspirer du script et de la documentation pour installer sur un autre système.'
 fi
 
-if [ -d /var/www/config ]; then
+if [ -d "$INSTALLDIR/config" ]; then
 	warn 'Une installation de Scodoc_Notes semble déjà présente, mise à jour des dossiers html, includes et lib'
-	#echo -n 'o: pour tout supprimer et repartir de zéro, n: RECOMMANDÉ pour la mettre à jour en conservant les fichiers config et data:'
-	#read rep
-	#if [ "A$rep" = "Ao" ] || [ "A$rep" = "AO" ]; then 
-	#	echo "choix d'écraser l'installation existante"
-	#	doinstall=1
-	#fi
 else
 	warn 'Nouvelle installation détectée, installation complète des fichiers et des packages'
 	doinstall=1
@@ -48,8 +54,8 @@ fi
 
 success "Récupération de l'archive sur git"
 wget -q https://github.com/SebL68/Scodoc_Notes/archive/refs/heads/main.zip
-mv main.zip /var/www
-cd /var/www
+mv main.zip "$INSTALLDIR"
+cd "$INSTALLDIR"
 
 success "Extraction de l'archive"
 unzip -q main.zip
