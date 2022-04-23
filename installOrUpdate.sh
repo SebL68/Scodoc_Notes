@@ -74,6 +74,7 @@ mv Scodoc_Notes-main/html .
 mv Scodoc_Notes-main/includes .
 mv Scodoc_Notes-main/lib .
 mv Scodoc_Notes-main/installOrUpdate.sh .
+chmod +x installOrUpdate.sh
 success  '     ==> Fait'
 
 if [ $doinstall ]; then
