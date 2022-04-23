@@ -40,7 +40,7 @@ if [ -d /var/www/config ]; then
 	#if [ "A$rep" = "Ao" ] || [ "A$rep" = "AO" ]; then 
 	#	echo "choix d'écraser l'installation existante"
 	#	doinstall=1
-	fi
+	#fi
 else
 	warn 'Nouvelle installation détectée, installation complète des fichiers et des packages'
 	doinstall=1
