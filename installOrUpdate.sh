@@ -33,7 +33,7 @@ success "| Script d'installation et de mise à jour de la passerelle |"
 success '+----------------------------------------------------------+'
 
 if [ $(id -u) != 0 ]; then
-	error "merci de faire sudo $0"
+	error "Ce script nécessaire des droits root, merci de faire su ou sudo $0"
 fi
 
 if $(which dpkg) -L apt  2>/dev/null | grep -q $(which apt-get); then
