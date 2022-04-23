@@ -1,4 +1,5 @@
 #!/bin/bash
+# Contribution de Franck Butelle 23/04/2022
 
 SETCOLOR_FAILURE="\\033[1;31m"
 SETCOLOR_SUCCESS="\\033[1;32m"
