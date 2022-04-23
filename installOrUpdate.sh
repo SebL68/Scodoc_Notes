@@ -28,9 +28,9 @@ if [ $# = 1 ]; then
 fi   
 
 echo
-warn '+----------------------------------------------------------+'
-warn "| Script d'installation et de mise à jour de la passerelle |"
-warn '+----------------------------------------------------------+'
+success '+----------------------------------------------------------+'
+success "| Script d'installation et de mise à jour de la passerelle |"
+success '+----------------------------------------------------------+'
 echo
 
 if [ $(id -u) != 0 ]; then
@@ -96,7 +96,10 @@ FIN
 	warn 'ATTENTION Il est fortement conseillé de changer le certificat auto-signé pour un vrai! Contactez votre DSI'
 else
 	echo
-	success ' *** Mise à jour terminée, toutes nos félicitations ***'
+	success '+------------------------------------------------+'
+	success '+ Mise à jour terminée, toutes nos félicitations +'
+	success '+------------------------------------------------+'
+	echo
 fi
 
 #Nettoyage
