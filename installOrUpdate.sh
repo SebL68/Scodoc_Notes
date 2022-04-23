@@ -73,8 +73,10 @@ rm -rf html includes lib
 mv Scodoc_Notes-main/html .
 mv Scodoc_Notes-main/includes .
 mv Scodoc_Notes-main/lib .
-mv Scodoc_Notes-main/installOrUpdate.sh .
-chmod +x installOrUpdate.sh
+# mv Scodoc_Notes-main/installOrUpdate.sh .
+# chmod +x installOrUpdate.sh
+chown -R www-data html includes lib
+
 success  '     ==> Fait'
 
 if [ $doinstall ]; then
@@ -82,7 +84,7 @@ if [ $doinstall ]; then
 	mv Scodoc_Notes-main/config .
 
 	echo 'Changement des droits sur le répetoire data'
-	chgrp -R www-data config data
+	chown -R www-data config data
 	chmod -R o-rx config data
 	chmod g+w data
 	success  '     ==> Fait'
