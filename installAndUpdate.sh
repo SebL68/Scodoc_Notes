@@ -16,9 +16,9 @@ warn() {
 }
 
 echo
-echo '+-----------------------------------------------------+'
-echo "| Script d'installation de la passerelle Scodoc_Notes |"
-echo '+-----------------------------------------------------+'
+echo '+----------------------------------------------------------+'
+echo "| Script d'installation et de mise à jour de la passerelle |"
+echo '+----------------------------------------------------------+'
 echo
 
 if [ $USER != root ]; then
@@ -28,29 +28,30 @@ fi
 warn '   Attention ce script est fourni SANS garantie'
 
 if $(which dpkg) -L apt  2>/dev/null | grep -q $(which apt-get); then
-	echo ' -- Ok on est bien sur une debian ou ubuntu ou similaire'
+	echo ' -- Système Debian ou Ubuntu - compatible avec le script'
 else
-	error 'Désolé ce script est conçu pour une distribution Debian ou Ubuntu !'
+	error 'Désolé ce script est conçu pour une distribution Debian ou Ubuntu ! Vous pouvez vous inspirer du script et de la documentation pour installer sur un autre système.'
 fi
 
 if [ -d /var/www/config ]; then
-	warn 'Une installation de Scodoc_Notes semble déjà présente'
-	echo -n 'o: pour la supprimer, n: pour la mettre à jour :'
-	read rep
-	if [ "A$rep" = "Ao" ] || [ "A$rep" = "AO" ]; then 
-		echo "choix d'écraser l'installation existante"
-		doinstall=1
+	warn 'Une installation de Scodoc_Notes semble déjà présente, mise à jour des dossiers html, includes et lib'
+	#echo -n 'o: pour tout supprimer et repartir de zéro, n: RECOMMANDÉ pour la mettre à jour en conservant les fichiers config et data:'
+	#read rep
+	#if [ "A$rep" = "Ao" ] || [ "A$rep" = "AO" ]; then 
+	#	echo "choix d'écraser l'installation existante"
+	#	doinstall=1
 	fi
 else
+	warn 'Nouvelle installation détectée, installation complète des fichiers et des packages'
 	doinstall=1
 fi
 
-success "Récupération de l'archive"
+success "Récupération de l'archive sur git"
 wget -q https://github.com/SebL68/Scodoc_Notes/archive/refs/heads/main.zip
 mv main.zip /var/www
 cd /var/www
 
-success "extraction de l'archive"
+success "Extraction de l'archive"
 unzip -q main.zip
 rm -rf html includes lib 
 mv  Scodoc_Notes-main/html .
@@ -75,9 +76,9 @@ if [ $doinstall ]; then
 	chmod -R o-rx config data
 	chmod g+w data
 	cat << FIN 
-- Modifiez config/config.php suivant vos paramètres...
+- Modifiez les fichiers /config/config.php et /config/cas_config.php suivant vos paramètres...
 - Puis redémarrez le serveur web par : sudo systemctl restart apache2
-- ensuite vous pouvez tester en mode texte avec :  
+- Vous pouvez diagnostiquer le fonctionnement de la passerelle avec un navigateur https://votre_serveur/services/diagnostic.php ou en mode texte avec :  
 FIN
      	success 'links https://localhost/services/diagnostic.php'
 	echo
@@ -88,4 +89,3 @@ fi
 
 #Nettoyage
 rm -rf Scodoc_Notes-main main.zip
-
