@@ -43,9 +43,9 @@ else
 fi
 
 warn ' *** Installation ou mise à jour des paquets *** '
-apt -yq update
-apt -yq install openssl apache2 wget unzip links
-apt -yq install php php-curl php-xml php-ldap
+# apt -qq update
+apt -qq install openssl apache2 unzip links
+apt -qq install php php-curl php-xml php-ldap
 
 echo
 if [ -d "$INSTALLDIR/config" ]; then
@@ -70,9 +70,10 @@ echo
 warn " *** Extraction de l'archive ... ***"
 unzip -q main.zip
 rm -rf html includes lib 
-mv  Scodoc_Notes-main/html .
-mv  Scodoc_Notes-main/includes .
-mv  Scodoc_Notes-main/lib .
+mv Scodoc_Notes-main/html .
+mv Scodoc_Notes-main/includes .
+mv Scodoc_Notes-main/lib .
+mv Scodoc_Notes-main/installOrUpdate.sh .
 success  '     ==> Fait'
 
 if [ $doinstall ]; then
