@@ -1,8 +1,7 @@
 Authentification en cours ...<br>
 <style>
 	body{
-		background: #111;
-		color: #FFF;
+		background: #f0f0f0;
 		font-family: arial;
 	}
 </style>
@@ -22,7 +21,7 @@ Authentification en cours ...<br>
 	phpCAS::setLogger();
 	phpCAS::setVerbose(true);
 	
-	phpCAS::proxy(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context);
+	phpCAS::client(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context);
 	phpCAS::setNoCasServerValidation();
 
 	/* Authentification */
