@@ -83,7 +83,6 @@
 			<pre><code>chown www-data installOrUpdate.sh
 chmod 744 installOrUpdate.sh
 ./installOrUpdate.sh</code></pre>
-			<br><br>
 
 			Procédure de mise à jour par la suite :<br>
 			<code>./installOrUpdate.sh</code>
