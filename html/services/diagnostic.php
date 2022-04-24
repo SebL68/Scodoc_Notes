@@ -121,7 +121,7 @@
 			
 			echo "<div><span>💭</span> Vérifiez que votre serveur à bien l'autorisation de se connecter au CAS : <a href=/services/doAuth.php?href=https://".$_SERVER['HTTP_HOST'].">Authentifiation</a></div>";
 			echo "<div class=spaceUnder><span></span> ==> Si ce n'est pas le cas, demandez l'autorisation à votre service informatique.</div>";
-			echo "<a href=diagnostic2.php>La suite sur la deuxième page.</a>";
+			echo "<a href=diagnostic2.php?-no-sw>La suite sur la deuxième page.</a>";
 		} else {
 			echo "Le CAS ne peut pas être utilisé sans une bonne configuration de la racine.";
 		}
