@@ -73,7 +73,10 @@ Il est possible d'automatiser la génération de ces fichiers à partir du LDAP 
 # Guide rapide d'installation
 ## Fichiers
 
-*** NOUVEAU ***
+***************  
+*** NOUVEAU ***  
+***************  
+  
 Un script d'installation et de mise à jour a été ajouté au projet : `/installOrUpdate.sh`  
 Ce script est compatible Ubuntu et Debian, il permet lors d'une première installation d'installer tout le nécessaire sur le serveur, il reste alors à configurer les fichiers `/config/*`  
   
@@ -95,8 +98,10 @@ Procédure de mise à jour par la suite :
 Par défaut, la mise à jour se fait dans `/var/www/`.  
 Le script accepte comme paramètre un chemin différent afin de permettre la mise à jour pour ceux qui ont configurer des Virtual Hosts.  
 `./installOrUpdate.sh cheminVersLaPasserelle`  
+****************  
 *** /NOUVEAU ***  
-  
+****************  
+    
 Récupérez l'ensemble des fichiers et ajoutez les sur votre serveur dans le dossier www.  
 Vous pouvez utiliser du SFTP, git ou en ligne de commande avec  
 ```wget https://github.com/SebL68/Scodoc_Notes/archive/refs/heads/main.zip```  
