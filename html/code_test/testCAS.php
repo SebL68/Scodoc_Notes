@@ -1,4 +1,12 @@
 Authentification en cours ...<br>
+<style>
+	body{
+		background: #111;
+		color: #FFF;
+		font-family: arial;
+	}
+</style>
+
 <?php
 	/* Debug */
 	error_reporting(E_ALL);
@@ -11,7 +19,7 @@ Authentification en cours ...<br>
 	require_once $path . '/lib/CAS/CAS.php';
 	require_once $path . '/config/cas_config.php';
 
-	phpCAS::setDebug();
+	phpCAS::setLogger();
 	phpCAS::setVerbose(true);
 	
 	phpCAS::proxy(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context);
