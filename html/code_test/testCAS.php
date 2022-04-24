@@ -1,4 +1,4 @@
-Authentification en cours ...<br>
+Authentification en cours ...<br><br>
 <style>
 	body{
 		background: #f0f0f0;
@@ -29,9 +29,10 @@ Authentification en cours ...<br>
 	
 	$attribs= phpCAS::getAttributes();
 
-	echo 'Informations sur le CAS : <br>';
-	var_dump($attribs);
-
-	echo "<br><br>C'est bien authentifié, votre identifiant est :<br>";
+	echo "<br><h2>C'est bien authentifié, votre identifiant est :<br><b>";
 	echo phpCAS::getUser();
+	echo '</b></h2>';
+	
+	echo '<hr><br>Informations sur le CAS : <br><pre>';
+	var_dump($attribs);
 ?>
