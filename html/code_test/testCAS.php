@@ -32,6 +32,6 @@ Authentification en cours ...
 	echo "<h3>C'est bien authentifié, votre identifiant est :</h3><b>";
 	echo phpCAS::getUser();
 	
-	echo '<br><hr><br>Informations sur le CAS : </b><pre>';
+	echo '<br><br><hr><br>Informations sur le CAS : </b><pre>';
 	var_dump($attribs);
 ?>
