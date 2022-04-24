@@ -34,12 +34,63 @@
 		.txt-barre{
 			text-decoration:line-through;
 		}
+
+		code{
+			background: #424242;
+			color: #FFF;
+			padding: 4px 8px;
+			border-radius: 2px;
+		}
 	</style>
 </head>
 <body>
 	<h1>Historique des mises à jours</h1>
 
 	<main>
+		<h2>24/04/2022 - 4.7.13</h2>
+		<ul>
+			<li>Mise en place d'un système de désactivation du cache agressif : ajouter <code>?-no-sw</code> dans l'URL.</li>
+			<li>Amélioration des diagnostics page 2 :
+				<ul>
+					<li>Mise en place d'une page debug du CAS : <code>/code_test/testCAS.php?-no-sw</code></li>
+					<li>Amélioration des tests et conseils<li>
+				</ul>
+			</li>
+			<li>Mise en place des diagnostics Scodoc sur la page 2 :
+				<ul>
+					<li>Essaie de la communication entre le serveur passerelle et Scodoc.</li>
+					<li>Vérification de l'authentification a Scodoc.</li>
+					<li>Test de récupération de données => liste des départements.</li>
+				</ul>
+			</li>
+			<li>Correction d'un bug sur la balise meta description.</li>
+			<li>Correction d'un session_start() mal placé.</li>
+		</ul>
+		<h2>23/04/2022 - Pas de changement de numéro de version</h2>
+		<p>
+			Un script d'installation et de mise à jour a été ajouté au projet : <code>/installOrUpdate.sh</code><br>
+			Ce script est compatible Ubuntu et Debian, il permet lors d'une première installation d'installer tout le nécessaire sur le serveur, il reste alors à configurer les fichiers /config/*<br><br>
+			
+			Lorsque le serveur est déjà opérationnel, il permet de faire une mise à jour de /html, /includes et /lib.<br>
+			Pour des raisons de sécurité, le fichier installOrUpdate.sh ne se met pas automatiquement à jour.<br><br>
+
+			Procédure pour la première utilisation :<br>
+			Télécharger et ajouter le fichier à la racine de la passerelle<br>
+			Commandes en ROOT :<br>
+			<code><pre>chown www-data installOrUpdate.sh
+			chmod 744 installOrUpdate.sh
+			./installOrUpdate.sh</pre></code>
+			<br><br>
+
+			Procédure de mise à jour par la suite :<br>
+			<code><pre>./installOrUpdate.sh</pre></code>
+			<br><br>
+
+			[Option]
+			Par défaut, la mise à jour se fait dans /var/www/. 
+			Le script accepte comme paramètre un chemin différent afin de permettre la mise à jour pour ceux qui ont configurer des Virtual Hosts.
+			<code><pre>./installOrUpdate.sh cheminVersLaPasserelle</pre></code>
+		</p>
 		<h2>20/04/2022 - V4.7.12</h2>
 		<ul>
 			<li>Fichier config.php - Ligne 12 - $nom_IUT : possibilité de choisir le nom de l'IUT, si le fichier config n'est pas modifié, ce sera par défaut 'IUT'.</li>
