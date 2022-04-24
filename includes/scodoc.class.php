@@ -46,9 +46,9 @@
 
 		}
 
-		public function getToken(){
+		/*public function getToken(){
 			return curl_getinfo($this->ch, CURLOPT_HTTPHEADER);
-		}
+		}*/
 
 		/************************/
 		/* Accès à l'API Scodoc */
