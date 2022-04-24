@@ -11,10 +11,9 @@ Authentification en cours ...<br>
 	
 	phpCAS::proxy(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context);
 
-	$attribs= phpCAS::getAttributes();
-
 	phpCAS::forceAuthentication();
-
+	
+	$attribs= phpCAS::getAttributes();
 	echo 'Informations sur le CAS : <br>';
 	var_dump($attribs);
 

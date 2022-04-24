@@ -83,13 +83,13 @@
 			echo "<b>*** Vous n'êtes pas authentifié ***</b> => <a href=/services/doAuth.php?href=https://".$_SERVER['HTTP_HOST'].">Authentification</a><br><br>";
 		}
 
-		echo '<br><br>Pour plus de tests sur le CAS, allez sur cette page <a href="/code_test/testCAS.php?-no-sw">Test CAS</a><br>';
+		echo '<br><br>Pour plus de tests sur le CAS, allez sur cette page <a href="/code_test/testCAS.php?-no-sw">Test CAS</a><br><br>';
 
 		include_once "$path/includes/default_config.php";
 
 		echo " Est-ce bien ";
 		if ($Config->CAS_return_type == 'nip') {
-			echo '<b>un numéro d\'étudiant ?</b>.';
+			echo '<b>un numéro d\'étudiant ou quelque chose de proche ?</b>.';
 		} else {
 			echo '<b>une autre valeur que le numéro d\'étudiant</b> ?<br>Dans ce cas, il vous faudra certainement configurer le LDAP.';
 		}
@@ -110,9 +110,20 @@
 	/********************/
 	/* Lien avec Scodoc */
 	/********************/
-		include_once "$path/includes/scodoc.class.php";
-		/*error_reporting(E_ALL);
-		ini_set('display_errors', '1');*/
+		//include_once "$path/includes/scodoc.class.php";
+		error_reporting(E_ALL);
+		ini_set('display_errors', '1');
+
+		$ch = curl_init($Config->scodoc_url);
+		curl_setopt($ch, CURLOPT_HEADER, true);    // we want headers
+		curl_setopt($ch, CURLOPT_NOBODY, true);    // we don't need body
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+		curl_setopt($ch, CURLOPT_TIMEOUT,1);	// Scodoc devrait répondre en moins d'une seconde
+		$output = curl_exec($ch);
+		$httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		curl_close($ch);
+		
+		echo 'HTTP code: ' . $httpcode;
 
 		/*$Scodoc = new Scodoc();
 		echo $Scodoc->getToken();
