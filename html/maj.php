@@ -35,11 +35,14 @@
 			text-decoration:line-through;
 		}
 
-		code{
+		pre,code{
 			background: #424242;
 			color: #FFF;
 			padding: 4px 8px;
 			border-radius: 2px;
+		}
+		pre>code{
+			background: initial;
 		}
 	</style>
 </head>
@@ -78,8 +81,8 @@
 			Télécharger et ajouter le fichier à la racine de la passerelle<br>
 			Commandes en ROOT :<br>
 			<pre><code>chown www-data installOrUpdate.sh
-			chmod 744 installOrUpdate.sh
-			./installOrUpdate.sh</code></pre>
+chmod 744 installOrUpdate.sh
+./installOrUpdate.sh</code></pre>
 			<br><br>
 
 			Procédure de mise à jour par la suite :<br>
