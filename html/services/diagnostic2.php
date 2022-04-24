@@ -110,7 +110,7 @@
 	/********************/
 	/* Lien avec Scodoc */
 	/********************/
-		//include_once "$path/includes/scodoc.class.php";
+		
 		error_reporting(E_ALL);
 		ini_set('display_errors', '1');
 
@@ -126,8 +126,15 @@
 	
 		curl_close($ch);
 		
-		echo 'HTTP code: ' . $httpcode;
+		if ($httpcode == 200) {
+			echo '<div><span>✔️</span> La communication entre le serveur passerelle et le serveur Scodoc est fonctionnelle.</div>';
+		} else {
+			echo '<div class=wrong><span>❌</span> La communication entre le serveur passerelle et le serveur Scodoc est fonctionnelle, le code retourné est <b>' . $httpcode . '</b><br></div>';
+			die();
+		}
 
+		//include_once "$path/includes/scodoc.class.php";
+		
 		/*$Scodoc = new Scodoc();
 		echo $Scodoc->getToken();
 		echo $Scodoc->Ask_Scodoc('list_depts');*/
