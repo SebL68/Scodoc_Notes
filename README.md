@@ -89,7 +89,7 @@ Faites en sorte que le dossier data apparatienne à l'utilisateur www-data, car 
 ```chown -R www-data /var/www/data```  
   
 ## Diagnostic
-Pour vous aider dans la configuration de votre serveur, un système de diagnostic a été mis en place : /html/sercices/diagnostic.php  
+Pour vous aider dans la configuration de votre serveur, un système de diagnostic a été mis en place : /html/sercices/diagnostic.php?-no-sw  
 Il est également possible d'activer les messages d'erreur dans /html/services/data.php --> Options de debug  
 La passerelle communique via un système d'API, il faut donc voir les réponses dans l'inspecteur (F12) --> Network  
   
