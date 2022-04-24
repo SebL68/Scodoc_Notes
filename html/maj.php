@@ -36,7 +36,7 @@
 		}
 
 		pre,code{
-			background: #424242;
+			background: #222;
 			color: #FFF;
 			padding: 4px 8px;
 			border-radius: 2px;
