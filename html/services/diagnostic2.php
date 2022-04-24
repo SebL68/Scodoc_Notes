@@ -155,7 +155,7 @@
 		echo '<div><span>💭</span> Essai de récupération de données scodoc, vous devriez voir apparaître un jeton d\'authentification et la liste des départements:</div>';
 
 		echo '<div><b>' . $Scodoc->getToken() . '</b></div>';
-		echo '<div><b>' . $Scodoc->Ask_Scodoc('list_depts') . '</b></div>';
+		echo '<div><b><pre>' . $Scodoc->Ask_Scodoc('list_depts') . '<pre></b></div>';
 
 		/*******************/
 		echo '<div><span>💭</span> Une option Scodoc permet de choisir de diffuser ou non les relevés pour chaque département.</div>';
