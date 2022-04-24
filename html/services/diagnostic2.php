@@ -56,10 +56,11 @@
 	<h2>CAS</h2>
 	<?php
 		$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
+		error_reporting(E_ALL);
+		ini_set('display_errors', '1');
 	/********************/
 	/* CAS */
 	/********************/
-		
 		include_once "$path/config/cas_config.php";
 
 		echo "<div><span>💭</span><div>L'authentification au CAS renvoie :<br><br>";
@@ -111,9 +112,7 @@
 	/* Lien avec Scodoc */
 	/********************/
 		
-		error_reporting(E_ALL);
-		ini_set('display_errors', '1');
-
+		/* Test liaison Scodoc */
 		$ch = curl_init($Config->scodoc_url);
 		curl_setopt($ch, CURLOPT_HEADER, true);    // we want headers
 		curl_setopt($ch, CURLOPT_NOBODY, true);    // we don't need body
@@ -132,13 +131,32 @@
 			echo '<div class=wrong><span>❌</span> La communication entre le serveur passerelle et le serveur Scodoc est fonctionnelle, le code retourné est <b>' . $httpcode . '</b><br></div>';
 			die();
 		}
-
-		//include_once "$path/includes/scodoc.class.php";
 		
-		/*$Scodoc = new Scodoc();
-		echo $Scodoc->getToken();
-		echo $Scodoc->Ask_Scodoc('list_depts');*/
-		echo "Tests en cours de rédactions ...";
+		echo '<div><span>💭</span> L\'authentification a Scodoc nécessite un compte avec les authorisations "Secr" sur l\'ensemble des départements : vérifiez que ce compte soit bien créé dans Scodoc.<div>';
+		if($Config->scodoc_login != 'LOGIN_SCODOC' && $Config->scodoc_psw != 'MDP_SCODOC') {
+			echo '<div><span>✔️</span> Vous avez configuré un login et mot de passe pour vous authentifier à Scodoc.</div>';
+		} else {
+			echo '<div class=wrong><span>❌</span>Veuillez configurer le login et le mot de passe pour vous authentifier à Scodoc.</div>';
+			die();
+		}
+
+		/*Auth à Scodoc*/
+		include_once "$path/includes/scodoc.class.php";
+		try{
+			$Scodoc = new Scodoc();
+		} catch(Exception $e) {
+			echo '<div class=wrong><span>❌</span> Il semblerait que l\'authentification auprès de Scodoc ait échoué. Vérifiez que le compte que vous avez créé a bien un accès "Scre" à l\'ensemble des départements.</div>';
+			die();
+		}
+
+		echo '<div><span>✔️</span> L\'authentification aurpès de Scodoc a réussi.</div>';
+
+		/* Récupération de données Scodoc */
+		echo '<div><span>💭</span> Essai de récupération de données scodoc, vous devriez voir apparaître un jeton d\'authentification et la liste des départements:<div>';
+
+		echo '<div><b>' . $Scodoc->getToken() . '</b></div>';
+		echo '<div><b>' . $Scodoc->Ask_Scodoc('list_depts') . '</b></div>';
+
 	?>
 
 	<h2>En option : LDAP</h2>
@@ -146,7 +164,7 @@
 	/********************/
 	/* Lien avec Scodoc */
 	/********************/
-		echo "Tests en cours de rédactions ...";
+		echo "<div>Tests en cours de rédactions ...</div>";
 	?>
 </body>
 </html>
