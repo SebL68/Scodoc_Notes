@@ -72,6 +72,31 @@ Il est possible d'automatiser la génération de ces fichiers à partir du LDAP 
 
 # Guide rapide d'installation
 ## Fichiers
+
+*** NOUVEAU ***
+Un script d'installation et de mise à jour a été ajouté au projet : `/installOrUpdate.sh`  
+Ce script est compatible Ubuntu et Debian, il permet lors d'une première installation d'installer tout le nécessaire sur le serveur, il reste alors à configurer les fichiers `/config/*`  
+  
+Lorsque le serveur est déjà opérationnel, il permet de faire une mise à jour de /html, /includes et /lib.
+Pour des raisons de sécurité, le fichier installOrUpdate.sh ne se met pas automatiquement à jour.
+
+Télécharger et ajouter le fichier `installOrUpdate.sh` dans le répertoire `/var/www`  
+Commandes en ROOT :  
+```
+chown www-data installOrUpdate.sh
+chmod 744 installOrUpdate.sh
+./installOrUpdate.sh
+```  
+  
+Procédure de mise à jour par la suite :  
+```./installOrUpdate.sh```  
+  
+[Option]  
+Par défaut, la mise à jour se fait dans `/var/www/`.  
+Le script accepte comme paramètre un chemin différent afin de permettre la mise à jour pour ceux qui ont configurer des Virtual Hosts.  
+`./installOrUpdate.sh cheminVersLaPasserelle`  
+*** /NOUVEAU ***  
+  
 Récupérez l'ensemble des fichiers et ajoutez les sur votre serveur dans le dossier www.  
 Vous pouvez utiliser du SFTP, git ou en ligne de commande avec  
 ```wget https://github.com/SebL68/Scodoc_Notes/archive/refs/heads/main.zip```  
@@ -90,7 +115,10 @@ Faites en sorte que le dossier data apparatienne à l'utilisateur www-data, car 
   
 ## Diagnostic
 Pour vous aider dans la configuration de votre serveur, un système de diagnostic a été mis en place : /html/sercices/diagnostic.php?-no-sw  
-Il est également possible d'activer les messages d'erreur dans /html/services/data.php --> Options de debug  
+  
+Exemple : https://notes.iutmulhouse.uha.fr/services/diagnostic.php?-no-sw
+  
+Lors de l'utilisation de la passerelle, il est également possible d'activer les messages d'erreur dans /html/services/data.php --> Options de debug  
 La passerelle communique via un système d'API, il faut donc voir les réponses dans l'inspecteur (F12) --> Network  
   
 ## Configuration
