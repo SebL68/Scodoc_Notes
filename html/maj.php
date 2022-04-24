@@ -77,19 +77,19 @@
 			Procédure pour la première utilisation :<br>
 			Télécharger et ajouter le fichier à la racine de la passerelle<br>
 			Commandes en ROOT :<br>
-			<code><pre>chown www-data installOrUpdate.sh
+			<pre><code>chown www-data installOrUpdate.sh
 			chmod 744 installOrUpdate.sh
-			./installOrUpdate.sh</pre></code>
+			./installOrUpdate.sh</code></pre>
 			<br><br>
 
 			Procédure de mise à jour par la suite :<br>
-			<code><pre>./installOrUpdate.sh</pre></code>
+			<code>./installOrUpdate.sh</code>
 			<br><br>
 
 			[Option]
 			Par défaut, la mise à jour se fait dans /var/www/. 
 			Le script accepte comme paramètre un chemin différent afin de permettre la mise à jour pour ceux qui ont configurer des Virtual Hosts.
-			<code><pre>./installOrUpdate.sh cheminVersLaPasserelle</pre></code>
+			<code>./installOrUpdate.sh cheminVersLaPasserelle</code>
 		</p>
 		<h2>20/04/2022 - V4.7.12</h2>
 		<ul>
