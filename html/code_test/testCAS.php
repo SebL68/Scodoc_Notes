@@ -29,10 +29,9 @@ Authentification en cours ...<br><br>
 	
 	$attribs= phpCAS::getAttributes();
 
-	echo "<br><h2>C'est bien authentifié, votre identifiant est :<br><b>";
+	echo "<h3>C'est bien authentifié, votre identifiant est :</h3><b>";
 	echo phpCAS::getUser();
-	echo '</b></h2>';
 	
-	echo '<hr><br>Informations sur le CAS : <br><pre>';
+	echo '<br><hr><br>Informations sur le CAS : </b><br><pre>';
 	var_dump($attribs);
 ?>
