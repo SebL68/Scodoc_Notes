@@ -119,8 +119,11 @@
 		curl_setopt($ch, CURLOPT_NOBODY, true);    // we don't need body
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
 		curl_setopt($ch, CURLOPT_TIMEOUT,1);	// Scodoc devrait répondre en moins d'une seconde
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 		$output = curl_exec($ch);
 		$httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+	
 		curl_close($ch);
 		
 		echo 'HTTP code: ' . $httpcode;
