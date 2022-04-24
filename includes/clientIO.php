@@ -49,6 +49,11 @@ function fetchData(query){
 			return data;
 		}
 	})
+	.catch(error => {
+		document.querySelector(".wait").style.display = "none";
+		displayError("Une erreur s'est produite lors du transfère des données.");
+		throw 'Fin du script - données invalides';
+	})
 }
 
 function displayError(message){
