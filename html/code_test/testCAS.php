@@ -1,8 +1,13 @@
 Authentification en cours ...<br>
 <?php
+	/* Debug */
+	error_reporting(E_ALL);
+	ini_set('display_errors', '1');
+
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 	require_once $path.'/includes/default_config.php';
 	
+	/* CAS config */
 	require_once $path . '/lib/CAS/CAS.php';
 	require_once $path . '/config/cas_config.php';
 
@@ -12,6 +17,7 @@ Authentification en cours ...<br>
 	phpCAS::proxy(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context);
 	phpCAS::setNoCasServerValidation();
 
+	/* Authentification */
 	phpCAS::forceAuthentication();
 	
 	$attribs= phpCAS::getAttributes();
