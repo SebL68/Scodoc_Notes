@@ -30,6 +30,7 @@
 
 			curl_setopt($this->ch, CURLOPT_URL, $Config->scodoc_url.'/api/tokens');
 			curl_setopt($this->ch, CURLOPT_USERPWD, $Config->scodoc_login . ':' . $Config->scodoc_psw);
+			curl_setopt($this->ch, CURLOPT_REFERER, $_SERVER['SERVER_NAME'] . '/?passerelle=' . $Config->passerelle_version);
 
 			$token = json_decode(curl_exec($this->ch))->token;
 

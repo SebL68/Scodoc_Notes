@@ -16,6 +16,8 @@
 
 	$Config = (object) [];
 
+		$Config->passerelle_version = '4:7:14';
+
 /***********************/
 /* Options d'affichage */
 /***********************/

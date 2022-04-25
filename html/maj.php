@@ -50,6 +50,11 @@
 	<h1>Historique des mises à jours</h1>
 
 	<main>
+		<h2>25/04/2022 - 4.7.14</h2>
+		<ul>
+			<li>Mise en place du numéro de version dans le fichier defaut_config pour l'avoir accessible dans l'ensemble du code.</li>
+			<li>Identification de la passerelle aurpès de Scodoc : ajout de l'entête HTTP referer avec l'URL du serveur et la version de la passerelle pour la communication avec Scodoc.</li>
+		</ul>
 		<h2>24/04/2022 - 4.7.13</h2>
 		<ul>
 			<li>Mise en place d'un système de désactivation du cache agressif : ajouter <code>?-no-sw</code> dans l'URL.</li>

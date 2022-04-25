@@ -21,6 +21,7 @@
 		curl_setopt($ch, CURLOPT_COOKIEFILE, __DIR__.'/cookie.txt');
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false); // Serveur Scodoc non accéssible depuis le net, donc vérification impossible
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_REFERER, $_SERVER['SERVER_NAME'] . '/?passerelle=' . $Config->passerelle_version);
 
 		$output = curl_exec($ch);
 		curl_close($ch);
