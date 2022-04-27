@@ -81,8 +81,6 @@ mv Scodoc_Notes-main/includes .
 mv Scodoc_Notes-main/lib .
 # mv Scodoc_Notes-main/installOrUpdate.sh .
 # chmod +x installOrUpdate.sh
-chown -R www-data html includes lib
-
 success  '     ==> Fait'
 
 if [ $doinstall ]; then
@@ -106,6 +104,7 @@ FIN
 else
 	warn ' *** Restauration de la favicon et des icones ***'
 	mv favicon.ico html/favicon.ico
+	rm -rf html/images/icons
 	mv icons html/images/icons
 	success  '     ==> Fait'
 
@@ -117,4 +116,5 @@ else
 fi
 
 #Nettoyage
+chown -R www-data html includes lib
 rm -rf Scodoc_Notes-main main.zip
