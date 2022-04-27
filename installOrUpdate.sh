@@ -102,6 +102,7 @@ FIN
 	echo
 	warn 'ATTENTION Il est fortement conseillé de changer le certificat auto-signé pour un vrai! Contactez votre DSI'
 else
+	echo
 	warn ' *** Restauration de la favicon et des icones ***'
 	mv favicon.ico html/favicon.ico
 	rm -rf html/images/icons
