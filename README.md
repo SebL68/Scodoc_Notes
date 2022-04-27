@@ -40,7 +40,7 @@ Les utilisateurs actuels sont :
  - IUT de Villetaneuse => accès étudiants + enseignant
  - IUT de Cergy-Pontoise ?
  - IUT de Mantes ?
- - IUT de Béziers ?
+ - IUT de Béziers => accès étudiants
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
   
