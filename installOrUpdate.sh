@@ -57,7 +57,7 @@ if [ -d "$INSTALLDIR/config" ]; then
 	warn ' *** Mise à jour uniquement des dossiers html, includes et lib ***'
 
 	mv html/favicon.ico .
-	mv html/images/icones .
+	mv html/images/icons .
 else
 	warn ' *** Nouvelle installation détectée, configuration ssl et ldap ***'
 	a2enmod ssl
@@ -106,7 +106,7 @@ FIN
 else
 	warn ' *** Restauration de la favicon et des icones ***'
 	mv favicon.ico html/favicon.ico
-	mv icones html/images/icones
+	mv icons html/images/icons
 	success  '     ==> Fait'
 
 	echo
