@@ -28,6 +28,8 @@ if [ $# = 1 ]; then
 	fi
 fi   
 
+cd "$INSTALLDIR"
+
 echo
 success '+----------------------------------------------------------+'
 success "| Script d'installation et de mise à jour de la passerelle |"
@@ -51,7 +53,11 @@ apt -qq install php php-curl php-xml php-ldap
 echo
 if [ -d "$INSTALLDIR/config" ]; then
 	warn ' *** Une installation de Scodoc_Notes semble déjà présente ***'
+	warn ' *** Sauvegarde de la favicon et des icones ***'
 	warn ' *** Mise à jour uniquement des dossiers html, includes et lib ***'
+
+	mv html/favicon.ico .
+	mv html/images/icones .
 else
 	warn ' *** Nouvelle installation détectée, configuration ssl et ldap ***'
 	a2enmod ssl
@@ -63,7 +69,6 @@ fi
 
 echo
 warn " *** Récupération de l'archive sur git ... ***"
-cd "$INSTALLDIR"
 wget -q https://github.com/SebL68/Scodoc_Notes/archive/refs/heads/main.zip
 success  '     ==> Fait'
 
@@ -99,6 +104,11 @@ FIN
 	echo
 	warn 'ATTENTION Il est fortement conseillé de changer le certificat auto-signé pour un vrai! Contactez votre DSI'
 else
+	warn ' *** Restauration de la favicon et des icones ***'
+	mv favicon.ico html/favicon.ico
+	mv icones html/images/icones
+	success  '     ==> Fait'
+
 	echo
 	success '+------------------------------------------------+'
 	success '| Mise à jour terminée, toutes nos félicitations |'
