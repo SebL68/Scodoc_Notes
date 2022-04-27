@@ -58,6 +58,6 @@
 
 	$Scodoc = new Scodoc();
 	echo $Scodoc->Ask_Scodoc('list_depts');
-	echo $Scodoc->Ask_Scodoc('etudiants/courant');
+	//echo $Scodoc->Ask_Scodoc('etudiants/courant');
 
 ?>
