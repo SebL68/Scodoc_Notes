@@ -149,7 +149,7 @@
 			die();
 		}
 
-		echo '<div><span>✔️</span> L\'authentification aurpès de Scodoc a réussi.</div>';
+		echo '<div><span>✔️</span> L\'authentification auprès de Scodoc a réussi.</div>';
 
 		/* Récupération de données Scodoc */
 		echo '<div><span>💭</span> Essai de récupération de données scodoc, vous devriez voir apparaître la liste des départements:</div>';
