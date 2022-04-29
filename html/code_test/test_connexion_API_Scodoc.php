@@ -89,9 +89,15 @@
 	
 	$Scodoc = new Scodoc();
 	
-	//echo $Scodoc->Ask_Scodoc('departements');
-	//echo $Scodoc->Ask_Scodoc('etudiants/courant');
+	//echo $Scodoc->Ask_Scodoc('departements');	// ok
+	//echo $Scodoc->Ask_Scodoc('departements/MMI/etudiants/liste');	// ok
+	//echo $Scodoc->Ask_Scodoc('departements/MMI/etudiants/liste/418');	// changer pour /formsemestre/<int:formsemestre_id>/liste_etudiants
+	//echo $Scodoc->Ask_Scodoc('departements/MMI/formsemestre/418/programme');	// Juste formsemestre sans "departements/MMI" + manque ressources et saes (et aussi modules DUT)
+	//echo $Scodoc->Ask_Scodoc('departements/MMI/semestres_courants');	// simplifier data + titre court et num semestre
 
-	//echo json_encode($Scodoc->getAllStudents());
+	//echo $Scodoc->Ask_Scodoc('etudiants/courant');	// ok
+	//echo $Scodoc->Ask_Scodoc('etudiant/nip/22003752');	// ok
+	//echo $Scodoc->Ask_Scodoc('etudiant/nip/22003752/formsemestres');	// simplifier data + titre court et num semestre
 
+	//echo $Scodoc->Ask_Scodoc('formsemestre/418/departements/MMI/etudiant/nip/22002244/bulletin');	// Voir si on peut ne pas mettre le departement
 ?>
