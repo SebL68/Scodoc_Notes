@@ -160,6 +160,7 @@
 			case 'listeEtudiants':
 				// Uniquement pour les personnels IUT.
 				if($user->getStatut() < PERSONNEL){ returnError(); }
+				$Scodoc = new Scodoc();
 				$output = $Scodoc->getAllStudents();
 				break;
 
@@ -226,10 +227,12 @@
 				break;
 
 			case 'listeDépartements':
+				$Scodoc = new Scodoc();
 				$output = $Scodoc->getDepartmentsList();
 				break;
 			
 			case 'dataPremièreConnexion':
+				$Scodoc = new Scodoc();
 				if($user->getStatut() == ETUDIANT){
 					if($user->getStatut() == 'Compte_Demo.test@uha.fr'){
 						include 'data_demo.php';

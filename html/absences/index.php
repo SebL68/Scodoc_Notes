@@ -256,6 +256,7 @@
                 <option value="" disabled selected hidden>Choisir un département</option>
                 <?php
                     include "$path/includes/scodoc.class.php";
+					$Scodoc = new Scodoc();
 					$listDepartement = $Scodoc->getDepartmentsList();
                     foreach($listDepartement as $departement){
                         echo "<option value=$departement>$departement</option>";

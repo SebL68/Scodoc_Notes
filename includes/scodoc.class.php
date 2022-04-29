@@ -106,5 +106,3 @@ class Scodoc{
 		return $output;
 	}
 }
-
-$Scodoc = new Scodoc();
