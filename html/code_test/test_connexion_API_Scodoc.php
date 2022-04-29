@@ -92,7 +92,7 @@
 	//echo $Scodoc->Ask_Scodoc('departements');	// ok
 	//echo $Scodoc->Ask_Scodoc('departements/MMI/etudiants/liste');	// ok
 	//echo $Scodoc->Ask_Scodoc('departements/MMI/etudiants/liste/418');	// changer pour /formsemestre/<int:formsemestre_id>/liste_etudiants
-	echo $Scodoc->Ask_Scodoc('departements/MMI/formsemestre/419/programme');	// Juste formsemestre sans "departements/MMI" + manque ressources et saes (et aussi modules DUT) + lier les UE aux ressources et sae
+	//echo $Scodoc->Ask_Scodoc('departements/MMI/formsemestre/419/programme');	// Juste formsemestre sans "departements/MMI" + manque ressources et saes (et aussi modules DUT) + lier les UE aux ressources et sae
 	//echo $Scodoc->Ask_Scodoc('departements/MMI/semestres_courants');	// simplifier data + titre court et num semestre
 
 	//echo $Scodoc->Ask_Scodoc('etudiants/courant');	// ok
