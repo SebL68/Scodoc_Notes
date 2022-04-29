@@ -392,31 +392,3 @@ function UEAndModules($dep, $sem){
 
 	return $output_json;
 }
-
-/*******************************/
-/* getDepartmentsList()
-Liste les départements de Scodoc
-
-Entrées : 
-	/
-
-Sortie :
-	[
-		"MMI",
-		"GEII",
-		etc.
-	]
-
-*******************************/
-function getDepartmentsList(){
-	include_once 'scodoc.class.php';
-	$Scodoc = new Scodoc();
-	$data = json_decode($Scodoc->Ask_Scodoc('list_depts'));
-
-	$output = [];
-	forEach($data as $value){
-		$output[] = $value->acronym;
-	}
-	
-	return $output;
-}

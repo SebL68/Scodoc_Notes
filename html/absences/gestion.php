@@ -308,8 +308,8 @@
 			<select id=departement class=highlight onchange="clearStorage(['semestre', 'matiere']);selectDepartment(this.value)">
 				<option value="" disabled selected hidden>Choisir un département</option>
 				<?php
-					include "$path/includes/serverIO.php";
-					$listDepartement = getDepartmentsList();
+					include "$path/includes/scodoc.class.php";
+					$listDepartement = $Scodoc->getDepartmentsList();
 					foreach($listDepartement as $departement){
 						echo "<option value=$departement>$departement</option>";
 					}

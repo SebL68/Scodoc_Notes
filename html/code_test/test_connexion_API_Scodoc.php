@@ -1,8 +1,10 @@
 <?php 
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 	include_once "$path/includes/default_config.php";
+
 	error_reporting(E_ALL);
 	ini_set('display_errors', '1');
+
 	class Scodoc{
 		private $ch; // Connexion CURL
 
@@ -53,11 +55,43 @@
 			curl_setopt($this->ch, CURLOPT_URL, $Config->scodoc_url . "/api/$url_query?$data");
 			return curl_exec($this->ch);
 		}
+
+
+		
+/*************************************************************************************/
+/* A conserver : mise en cache de données et mise à jour si les données ont expirées */
+/*************************************************************************************/
+// Il faudrait ajouter un traitement asynchrone ou un autre thread pour sauvegarder les données pendant que les anciennes sont envoyées.
+/*
+		public function getAllStudents(){
+			global $path;
+			$file = $path . '/data/annuaires/autocompletion_students.json';
+
+			if(!file_exists($file) || (filemtime($file) > (time() + 4 * 3600))){	// Nouveau fichier ou données anciennes : + de 4h
+				$output = [];
+				$json = json_decode($this->Ask_Scodoc('etudiants/courant'));
+				forEach($json as $value){
+					$output[] = [
+						$value->code_nip,
+						$value->nom . ' ' . ucfirst(strtolower($value->prenom))
+					];
+				}
+				file_put_contents($file, json_encode($json));
+				return $output;
+			}
+
+			// renvoie données
+			return json_decode(file_get_contents($file));
+		}
+*************************************************************************************/
 	}
 
-
+	
 	$Scodoc = new Scodoc();
-	echo $Scodoc->Ask_Scodoc('list_depts');
+	
+	//echo $Scodoc->Ask_Scodoc('departements');
 	//echo $Scodoc->Ask_Scodoc('etudiants/courant');
+
+	//echo json_encode($Scodoc->getAllStudents());
 
 ?>

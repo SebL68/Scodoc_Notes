@@ -26,15 +26,14 @@
 	include_once "$path/includes/".$Config->service_annuaire_class;	// Class Service_Annuaire
 	include_once "$path/includes/".$Config->scheduler_class;		// Class Scheduler
 	include_once "$path/includes/serverIO.php";
+	include_once "$path/includes/scodoc.class.php";
+
 	$user = new User();
 
 /*******************************/
 /* Mise en maintenance du site */
 /*******************************/
 	//if($user->getSessionName() != 'sebastien.lehmann@uha.fr') returnError('Site en cours de maintenance ...');
-
-/* Utilisateur qui n'est pas dans la composante : n'est pas autorisé. */
-	if($user->getStatut() == INCONNU){ returnError('Ce site est réservé aux étudiants et personnels de l\'IUT.'); }
 
 /******************************************
  * 
@@ -161,7 +160,7 @@
 			case 'listeEtudiants':
 				// Uniquement pour les personnels IUT.
 				if($user->getStatut() < PERSONNEL){ returnError(); }
-				$output = Annuaire::getAllStudents();
+				$output = $Scodoc->getAllStudents();
 				break;
 
 			case 'semestresDépartement':
@@ -227,7 +226,7 @@
 				break;
 
 			case 'listeDépartements':
-				$output = getDepartmentsList();							// includes/serverIO.php
+				$output = $Scodoc->getDepartmentsList();
 				break;
 			
 			case 'dataPremièreConnexion':
@@ -266,7 +265,7 @@
 							'session' => $user->getSessionName(),
 							'statut' => $user->getStatut()
 						],
-						'etudiants' => Annuaire::getAllStudents()
+						'etudiants' => $Scodoc->getAllStudents()
 					];
 				}
 				break;

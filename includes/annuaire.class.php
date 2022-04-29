@@ -6,7 +6,6 @@
         La méthode attendue est :
             - Annuaire::getStudentNumberFromIdCAS()
             - Annuaire::getStudentIdCASFromNumber()
-            - Annuaire::getAllStudents()
             - Annuaire::statut()
 
 /****************************/
@@ -23,7 +22,6 @@ Annuaire::$STAF_PATH = [
 	$path.'/data/annuaires/liste_ens.txt',
 	$path.'/data/annuaires/liste_biat.txt'
 ];
-/* !!! Il faut certainement vérifier si les "pattern" dans les fonctions et la sélection dans getAllStudents() correspondent à vos fichiers d'annuaires !!! */
 
 class Annuaire{
 	static $STUDENTS_PATH;
@@ -90,31 +88,6 @@ class Annuaire{
 					return rtrim($data[1]);
 			}
 		}
-	}
-
-	/*******************************/
-	/* getAllStudents()
-		Liste de l'ensemble des étudiants de l'annuaire
-
-		Entrée :
-			/
-
-		Sortie :
-			[
-				["numeroEtudiant1", "idCAS1"],
-				["numeroEtudiant2", "idCAS2"],
-				etc.
-			]
-	*/
-	/*******************************/
-	public static function getAllStudents(){
-		self::checkFile(self::$STUDENTS_PATH);
-		$handle = fopen(self::$STUDENTS_PATH, 'r');
-		$output = [];
-		while(($data = fgetcsv($handle, 1000, ':')) !== FALSE){
-			$output[] = [Config::nipModifier($data[0]), rtrim($data[1])];
-		}
-		return $output;
 	}
 
 	/****************************************************/
