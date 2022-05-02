@@ -22,7 +22,7 @@ class Scodoc{
 		curl_setopt($this->ch, CURLOPT_HTTPHEADER, array('Expect:'));
 		curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true); 
 		curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, false);
-		//curl_setopt($this->ch, CURLOPT_SSL_VERIFYHOST, false);
+		curl_setopt($this->ch, CURLOPT_SSL_VERIFYHOST, false);
 		curl_setopt($this->ch, CURLOPT_POST, true);
 
 		curl_setopt($this->ch, CURLOPT_URL, $Config->scodoc_url.'/api/tokens');
