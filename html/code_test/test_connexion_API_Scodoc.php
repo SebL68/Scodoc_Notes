@@ -99,5 +99,6 @@
 	//echo $Scodoc->Ask_Scodoc('etudiant/nip/22003752');	// ok
 	//echo $Scodoc->Ask_Scodoc('etudiant/nip/22003752/formsemestres');	// simplifier data + titre court et num semestre
 
+	//echo $Scodoc->Ask_Scodoc('formsemestre/418');
 	//echo $Scodoc->Ask_Scodoc('formsemestre/418/departements/MMI/etudiant/nip/22002244/bulletin');	// Voir si on peut ne pas mettre le departement
 ?>

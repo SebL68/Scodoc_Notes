@@ -154,7 +154,7 @@
 		/* Récupération de données Scodoc */
 		echo '<div><span>💭</span> Essai de récupération de données scodoc, vous devriez voir apparaître la liste des départements:</div>';
 
-		echo '<div><b><pre>' . json_encode(json_decode($Scodoc->Ask_Scodoc('list_depts')), JSON_PRETTY_PRINT) . '<pre></b></div>';
+		echo '<div><b><pre>' . json_encode($Scodoc->getDepartmentsList(), JSON_PRETTY_PRINT) . '<pre></b></div>';
 
 		/*******************/
 		echo '<div><span>💭</span> Une option Scodoc permet de choisir de diffuser ou non les relevés pour chaque département.</div>';
