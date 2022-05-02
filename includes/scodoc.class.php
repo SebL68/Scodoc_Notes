@@ -15,11 +15,11 @@ class Scodoc{
 
 		/******************************************************/
 		/* Uniquement pour accéder à un serveur Scodoc de dev *
-			curl_setopt($this->ch, CURLOPT_HTTPHEADER, array('Expect:'));
 			$Config->scodoc_url = 'http://192.168.1.49:5000/ScoDoc';
 		/******************************************************/
 
 		/* Configuration pour récupérer le token */ 
+		curl_setopt($this->ch, CURLOPT_HTTPHEADER, array('Expect:'));
 		curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true); 
 		curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, false);
 		//curl_setopt($this->ch, CURLOPT_SSL_VERIFYHOST, false);
