@@ -29,7 +29,7 @@ class Scodoc{
 		curl_setopt($this->ch, CURLOPT_USERPWD, $Config->scodoc_login . ':' . $Config->scodoc_psw);
 		curl_setopt($this->ch, CURLOPT_REFERER, $_SERVER['SERVER_NAME'] . '/?passerelle=' . $Config->passerelle_version);
 
-		$token = json_decode(curl_exec($this->ch))->token;
+		$token = json_decode(curl_exec($this->ch), false)->token;
 
 		if(curl_exec($this->ch)  === false) {
 			throw new Exception(curl_error($this->ch), curl_errno($this->ch));
