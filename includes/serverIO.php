@@ -11,6 +11,7 @@
 /* Configuration du CURL  */
 /**************************/
 	function CURL($url){
+		global $Config;
 		$ch = curl_init(); 
 		curl_setopt($ch, CURLOPT_URL, $url); 
 
