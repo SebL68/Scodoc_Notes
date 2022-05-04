@@ -39,6 +39,7 @@
 				padding: 10px;
 				margin: 10px;
 				display: block;
+				text-align: right;
 			}
 			.semestres input:checked+span{
 				background: #0C9;
@@ -251,7 +252,7 @@
 			function feedSemesters(data){
 				let output = document.querySelector(".semestres");
 				output.innerHTML = "";
-				for(let i=0, n=data.length;i<n;i++){
+				for(let i=data.length-1 ; i>=0 ; i--){
 					let label = document.createElement("label");
 					
 					let input = document.createElement("input");
@@ -261,9 +262,15 @@
 						input.checked = true;
 					}
 
+					let date = parseInt(data[i].date_debut.split("/")[2]);
+					if(data[i].semestre_id % 2 == 1){
+						date = date + " - " + (date+1);
+					} else {
+						date = (date-1) + " - " + date;
+					}
 					let span = document.createElement("span");
-					span.innerText = "Semestre " + (n-i);
-					span.dataset.semestre = data[i];
+					span.innerHTML = "Semestre " + data[i].semestre_id + "<br><small>" + date + "</small>";
+					span.dataset.semestre = data[i].formsemestre_id;
 					span.addEventListener("click", getReportCards);
 
 					label.appendChild(input);

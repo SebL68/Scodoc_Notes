@@ -189,16 +189,12 @@
 				break;
 
 			case 'semestresEtudiant':
+				$Scodoc = new Scodoc();
 				// Uniquement les personnels IUT peuvent demander le relevé d'une autre personne.
 				if($user->getStatut() < PERSONNEL && isset($_GET['etudiant'])){ returnError(); }
 				// Si c'est un personnel, on transmet l'étudiant par get, sinon on prend l'identifiant de la session.
 				$nip = $_GET['etudiant'] ?? Annuaire::getStudentNumberFromIdCAS($user->getSessionName());
-				$dep = getStudentDepartment($nip);
-				$output = getStudentSemesters([							// includes/serverIO.php
-						'nip' => $nip, 
-						'dep' => $dep
-					]
-				);	
+				$output = $Scodoc->getStudentSemesters($nip);
 				break;
 
 			case 'relevéEtudiant':
@@ -239,10 +235,7 @@
 					} else {
 						$nip = Annuaire::getStudentNumberFromIdCAS($user->getSessionName());
 						$dep = getStudentDepartment($nip);				// includes/serverIO.php
-						$semestres = getStudentSemesters([				// includes/serverIO.php
-							'nip' => $nip, 
-							'dep' => $dep
-						]);
+						$semestres = $Scodoc->getStudentSemesters($nip);
 						$output = [
 							'auth' => [
 								'session' => $user->getSessionName(),

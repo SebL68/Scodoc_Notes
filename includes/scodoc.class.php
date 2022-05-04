@@ -13,27 +13,20 @@ class Scodoc{
 		global $Config;
 		$this->ch = curl_init();
 
-		/******************************************************/
-		/* Uniquement pour accéder à un serveur Scodoc de dev *
-			$Config->scodoc_url = 'http://192.168.1.49:5000/ScoDoc';
-		/******************************************************/
-
 		/* Configuration pour récupérer le token */ 
-		curl_setopt($this->ch, CURLOPT_HTTPHEADER, array('Expect:'));
-		curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true); 
-		curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, false);
-		curl_setopt($this->ch, CURLOPT_SSL_VERIFYHOST, false);
-		curl_setopt($this->ch, CURLOPT_POST, true);
-
-		curl_setopt($this->ch, CURLOPT_URL, $Config->scodoc_url.'/api/tokens');
-		curl_setopt($this->ch, CURLOPT_USERPWD, $Config->scodoc_login . ':' . $Config->scodoc_psw);
-		curl_setopt($this->ch, CURLOPT_REFERER, $_SERVER['SERVER_NAME'] . '/?passerelle=' . $Config->passerelle_version);
-
+		$options = array(
+			CURLOPT_HTTPHEADER => array('Expect:'),
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_SSL_VERIFYPEER => false,
+			CURLOPT_SSL_VERIFYHOST => false,
+			CURLOPT_POST => true,
+			CURLOPT_URL => $Config->scodoc_url.'/api/tokens',
+			CURLOPT_USERPWD => $Config->scodoc_login . ':' . $Config->scodoc_psw,
+			CURLOPT_REFERER => $_SERVER['SERVER_NAME'] . '/?passerelle=' . $Config->passerelle_version
+		);
+		curl_setopt_array($this->ch, $options);
 		$token = json_decode(curl_exec($this->ch), false)->token;
 
-		if(curl_exec($this->ch)  === false) {
-			throw new Exception(curl_error($this->ch), curl_errno($this->ch));
-		}
 		/* Token récupéré, changement de la configuration pour les autres requêtes */
 		$headers = array(
 			"Authorization: Bearer $token"
@@ -41,7 +34,6 @@ class Scodoc{
 		curl_setopt($this->ch, CURLOPT_HTTPHEADER, $headers);
 		curl_setopt($this->ch, CURLOPT_USERPWD, NULL);
 		curl_setopt($this->ch, CURLOPT_POST, false);
-
 	}
 
 	/************************/
@@ -101,6 +93,40 @@ class Scodoc{
 		$output = [];
 		forEach($data as $value){
 			$output[] = $value->acronym;
+		}
+		
+		return $output;
+	}
+
+	/*******************************/
+	/* getStudentSemesters()
+	Liste les identifiants semestres qu'un étudiant a suivi
+
+	Entrée :
+		'21800202' 	// numéro étudiant
+
+	Sortie :
+		[
+			{
+				formsemestre_id: 319,	// code semestre Scodoc
+				semestre_id: 3, 		// numéro du semestre
+				date_debut: "26/08/2021",
+				date_fin: "17/01/2022"
+			}
+		]
+
+	*******************************/
+	public function getStudentSemesters($nip){
+		$data = json_decode($this->Ask_Scodoc('etudiant/nip/' . $nip . '/formsemestres'));
+
+		$output = [];
+		forEach($data as $value){
+			$output[] = [
+				'formsemestre_id' => $value->formsemestre_id,
+				'semestre_id' => $value->semestre_id,
+				'date_debut' => $value->date_debut,
+				'date_fin' => $value->date_fin
+			];
 		}
 		
 		return $output;
