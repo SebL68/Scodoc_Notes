@@ -28,19 +28,19 @@ Les utilisateurs actuels sont :
  - IUT de Vélizy => accès étudiant
  - IUT de Roanne ?
  - IUT de Kourou => accès complet
- - IUT de Brest => accès étudiants
+ - IUT de Brest => accès étudiant
  - IUT d'Annecy => accès étudiant + enseignant
  - IUT de Nantes => accès étudiant + enseignant
  - IUT de Blagnac ?
  - IUT de Vannes ?
  - IUT Lorient & Pontivy ?
- - IUT d'Orléans => accès étudiants
- - IUT de Rennes => accès étudiants
- - IUT de Perpignan ?
+ - IUT d'Orléans => accès étudiant
+ - IUT de Rennes => accès étudiant
+ - IUT de Perpignan sites de Narbonne et Carcassonne => accès étudiant + enseignant
  - IUT de Villetaneuse => accès étudiants + enseignant
  - IUT de Cergy-Pontoise ?
  - IUT de Mantes ?
- - IUT de Béziers => accès étudiants
+ - IUT de Béziers => accès étudiant
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
   
