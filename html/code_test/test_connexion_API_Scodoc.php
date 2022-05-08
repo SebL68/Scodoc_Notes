@@ -68,7 +68,7 @@
 	//echo $Scodoc->Ask_Scodoc('/departement/MMI/formsemestres_courants');			
 	//echo $Scodoc->Ask_Scodoc('departements/MMI/semestres_courants');	// manque titre court, exemple : BUT MMI
 
-	echo $Scodoc->Ask_Scodoc('etudiants/courant');					// ok
+	//echo $Scodoc->Ask_Scodoc('etudiants/courant');					// ok
 	//echo $Scodoc->Ask_Scodoc('etudiant/nip/22003752');				// ok
 	//echo $Scodoc->Ask_Scodoc('etudiant/nip/22003752/formsemestres');	// manque titre court, exemple : BUT MMI
 
