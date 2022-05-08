@@ -61,16 +61,13 @@
 		return CURL($Config->scodoc_url . "$dep$url_query?$data");
 	}
 
-
 /*******************************/
 /*******************************/
 /*******************************/
 /* getDepartmentSemesters()
 	Liste des semestres actif d'un département
-
 	Entrée :
 		$dep : [string] département - exemple : 'MMI'
-
 	Sortie :
 		[
 			{
@@ -79,7 +76,6 @@
 			},
 			etc.
 		]
-
 *******************************/
 function getDepartmentSemesters($dep){
 	$json = json_decode(
@@ -101,93 +97,6 @@ function getDepartmentSemesters($dep){
 		}
 	}
 	return $output;
-}
-
-/*******************************/
-/* getStudentSemesters()
-Liste les identifiants semestres qu'un étudiant a suivi
-
-Entrée :
-	['id' => $id] : [string] identifiant de l'étudiant - exemple : 'jean.dupont@uha.fr'
-ou
-	[
-		'nip' => '21800202', 	// numéro étudiant
-		'dep' => 'MMI' 			// département de l'étudiant
-	]
-
-Sortie :
-	Tableau des codes semestres
-	["SEM8871", "SEM8833", etc.]
-
-*******************************/
-function getStudentSemesters($data){
-	$data = (object) $data;
-	$json = json_decode(
-			Ask_Scodoc(
-				'/Scolarite/etud_info',
-				$data->dep,
-				[
-					'code_nip' => $data->nip,
-					'format' => 'json'
-				]
-			)
-		);
-	if($json != ''){
-		$output = [];
-	
-		for($i=0 ; $i<count($json->insemestre) ; $i++){
-			$output[] = $json->insemestre[$i]->formsemestre_id;
-		}
-		return $output;
-	}else{
-		returnError(
-			"Problème de compte, vous n'êtes pas dans Scodoc ou votre numéro d'étudiant est erroné, si le problème persiste, contactez votre responsable en lui précisant : il y a peut être un .0 à la fin du numéro d'étudiant dans Scodoc."
-		);
-	}
-}
-/*******************************/
-/* getReportCards()
-Renvoie les notes d'un étudiants pour un semestre choisi
-
-Entrée :
-	[
-		'semestre' => 'SEM8833', 		// Semestre
-		'id' => 'jean.dupont@uha.fr', 	// Identifiant de l'étudiant
-	]
-ou
-	[
-		'semestre' => 'SEM8833', 		// Semestre
-		'nip' => '21800202', 			// numéro étudiant
-		'dep' => 'MMI' 					// département de l'étudiant
-	]
-
-Sortie :
-	// JSON avec les données du relevé de notes.
-
-*******************************/
-function getReportCards($data){
-	$data = (object) $data;
-
-	$output = json_decode(
-		Ask_Scodoc(
-			'/Scolarite/Notes/formsemestre_bulletinetud',
-			$data->dep,
-			[
-				'formsemestre_id' => $data->semestre,
-				'code_nip' => $data->nip,
-				'format' => 'json',
-				'version' => 'long'
-			]
-		)
-	);
-
-	if(isset($output->rang) || $output->type == 'BUT'){	// Version BUT ou autres versions
-		return $output;
-	}else{
-		returnError(
-			"Relevé non disponible pour ce semestre, veuillez contacter votre responsable en lui précisant : vérifier si l'export des notes du semestre est autorisé dans Scodoc."
-		);
-	}
 }
 
 /*******************************/

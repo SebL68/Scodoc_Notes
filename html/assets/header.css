@@ -143,6 +143,7 @@ main{
 	text-align: center;
 	transition: 0.4s;
 	z-index: 100;
+	overflow: auto;
 }
 
 #admin{

@@ -165,7 +165,8 @@
 				break;
 
 			case 'semestresDépartement':
-				$output = getDepartmentSemesters($_GET['dep']);			// includes/serverIO.php
+				//$Scodoc = new Scodoc();
+				$output = /*$Scodoc->*/getDepartmentSemesters($_GET['dep']);
 				break;
 
 			case 'listeEtudiantsSemestre':
@@ -189,10 +190,10 @@
 				break;
 
 			case 'semestresEtudiant':
-				$Scodoc = new Scodoc();
 				// Uniquement les personnels IUT peuvent demander le relevé d'une autre personne.
 				if($user->getStatut() < PERSONNEL && isset($_GET['etudiant'])){ returnError(); }
 				// Si c'est un personnel, on transmet l'étudiant par get, sinon on prend l'identifiant de la session.
+				$Scodoc = new Scodoc();
 				$nip = $_GET['etudiant'] ?? Annuaire::getStudentNumberFromIdCAS($user->getSessionName());
 				$output = $Scodoc->getStudentSemesters($nip);
 				break;
@@ -201,14 +202,11 @@
 				// Uniquement les personnels IUT peuvent demander le relevé d'une autre personne.
 				if($user->getStatut() < PERSONNEL && isset($_GET['etudiant'])){ returnError(); } 
 				// Si c'est un personnel, on transmet l'étudiant par get, sinon on prend l'identifiant de la session.
+				$Scodoc = new Scodoc();
 				$nip = $_GET['etudiant'] ?? Annuaire::getStudentNumberFromIdCAS($user->getSessionName());
 				$dep = getStudentDepartment($nip);						// includes/serverIO.php
 				$output = [
-					'relevé' => getReportCards([						// includes/serverIO.php
-						'semestre' => $_GET['semestre'], 
-						'nip' => $nip, 
-						'dep' => $dep
-					]),
+					'relevé' => $Scodoc->getReportCards($_GET['semestre'], $nip),
 					'absences' => Absences::getAbsence(
 						$dep,
 						$_GET['semestre'],
@@ -243,14 +241,10 @@
 								'statut' => $user->getStatut()
 							],
 							'semestres' => $semestres,
-							'relevé' => getReportCards([				// includes/serverIO.php
-								'semestre' => $semestres[0],
-								'nip' => $nip, 
-								'dep' => $dep
-							]),
+							'relevé' => $Scodoc->getReportCards(end($semestres)['formsemestre_id'], $nip),
 							'absences' => Absences::getAbsence(
 								$dep,
-								$semestres[0],
+								end($semestres)['formsemestre_id'],
 								$user->getSessionName()
 							) ?? []
 						];

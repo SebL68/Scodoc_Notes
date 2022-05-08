@@ -12,10 +12,10 @@ class Scodoc{
 	public function __construct(){
 		global $Config;
 		$this->ch = curl_init();
-
+		//$Config->scodoc_url = 'http://192.168.1.49:5000/ScoDoc';
 		/* Configuration pour récupérer le token */ 
 		$options = array(
-			CURLOPT_HTTPHEADER => array('Expect:'),
+			//CURLOPT_FORBID_REUSE => true,
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_SSL_VERIFYPEER => false,
 			CURLOPT_SSL_VERIFYHOST => false,
@@ -90,12 +90,18 @@ class Scodoc{
 	public function getDepartmentsList(){
 		$data = json_decode($this->Ask_Scodoc('departements'));
 	
-		$output = [];
-		forEach($data as $value){
-			$output[] = $value->acronym;
-		}
-		
-		return $output;
+		if($data != ''){
+			$output = [];
+			forEach($data as $value){
+				$output[] = $value->acronym;
+			}
+			
+			return $output;
+		}else{
+			returnError(
+				"Impossible de récupérer la liste des départements, vérifiez que Scodoc fonctionne."
+			);
+		}	
 	}
 
 	/*******************************/
@@ -117,18 +123,84 @@ class Scodoc{
 
 	*******************************/
 	public function getStudentSemesters($nip){
-		$data = json_decode($this->Ask_Scodoc('etudiant/nip/' . $nip . '/formsemestres'));
+		$data = json_decode($this->Ask_Scodoc("etudiant/nip/$nip/formsemestres"));
+		
+		if($data != ''){
+			$output = [];
+			forEach($data as $value){
+				$output[] = [
+					'formsemestre_id' => $value->formsemestre_id,
+					'semestre_id' => $value->semestre_id,
+					'date_debut' => $value->date_debut,
+					'date_fin' => $value->date_fin
+				];
+			}
+			
+			return $output;
+		}else{
+			returnError(
+				"Problème de compte, vous n'êtes pas dans Scodoc ou votre numéro d'étudiant est erroné, si le problème persiste, contactez votre responsable en lui précisant : il y a peut être un .0 à la fin du numéro d'étudiant dans Scodoc."
+			);
+		}			
+	}
+
+	/*******************************/
+	/* getReportCards()
+	Renvoie les notes d'un étudiants pour un semestre choisi
+
+	Entrée :
+		[
+			'semestre' => '833', 		// Semestre
+			'nip' => '21800202', 			// numéro étudiant
+		]
+
+	Sortie :
+		// JSON avec les données du relevé de notes.
+
+	*******************************/
+	public function getReportCards($semestre, $nip){
+		$output = json_decode($this->Ask_Scodoc("etudiant/nip/$nip/formsemestre/$semestre/bulletin"));
+
+		if(isset($output->rang) || $output->type == 'BUT'){	// Version BUT ou autres versions
+			return $output;
+		}else{
+			returnError(
+				"Relevé non disponible pour ce semestre, veuillez contacter votre responsable en lui précisant : vérifier si l'export des notes du semestre est autorisé dans Scodoc."
+			);
+		}
+	}
+
+	/*******************************/
+	/*******************************/
+	/*******************************/
+	/* getDepartmentSemesters()
+		Liste des semestres actif d'un département
+
+		Entrée :
+			$dep : [string] département - exemple : 'MMI'
+
+		Sortie :
+			[
+				{
+					'titre' => 'titre du semestre',
+					'semestre_id' => 'code semestre' // exemple : '871'
+				},
+				etc.
+			]
+
+	*******************************/
+	/*public function getDepartmentSemesters($dep){
+		$json = json_decode($this->Ask_Scodoc('departements/' . $dep . '/semestres_courants'));
 
 		$output = [];
-		forEach($data as $value){
-			$output[] = [
-				'formsemestre_id' => $value->formsemestre_id,
-				'semestre_id' => $value->semestre_id,
-				'date_debut' => $value->date_debut,
-				'date_fin' => $value->date_fin
-			];
+		foreach($json as $value){
+			if($value->etat == true){
+				$output[] = [
+					'titre' => $value->titre_num,
+					'semestre_id' => $value->formsemestre_id
+				];
+			}
 		}
-		
 		return $output;
-	}
+	}*/
 }

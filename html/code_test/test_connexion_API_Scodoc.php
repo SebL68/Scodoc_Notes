@@ -16,10 +16,16 @@
 		public function __construct(){
 			global $Config;
 			$this->ch = curl_init();
-	
+
+			/*$fp = fopen(dirname(__FILE__).'/errorlog.txt', 'w');
+			curl_setopt($this->ch, CURLOPT_VERBOSE, 1);
+			curl_setopt($this->ch, CURLOPT_STDERR, $fp);*/
+
+			//$Config->scodoc_url = 'http://192.168.1.49:5000/ScoDoc';
 			/* Configuration pour récupérer le token */ 
 			$options = array(
-				CURLOPT_HTTPHEADER => array('Expect:'),
+				//CURLOPT_HTTPHEADER => array('Expect:'),
+				//CURLOPT_FORBID_REUSE => true,
 				CURLOPT_RETURNTRANSFER => true,
 				CURLOPT_SSL_VERIFYPEER => false,
 				CURLOPT_SSL_VERIFYHOST => false,
@@ -30,7 +36,7 @@
 			);
 			curl_setopt_array($this->ch, $options);
 			$token = json_decode(curl_exec($this->ch), false)->token;
-	
+
 			/* Token récupéré, changement de la configuration pour les autres requêtes */
 			$headers = array(
 				"Authorization: Bearer $token"
@@ -46,8 +52,8 @@
 		public function Ask_Scodoc($url_query, $options = []){
 			global $Config;
 			$data = http_build_query($options);
-
 			curl_setopt($this->ch, CURLOPT_URL, $Config->scodoc_url . "/api/$url_query?$data");
+		//	var_dump(curl_exec($this->ch));
 			return curl_exec($this->ch);
 		}
 	}
@@ -55,18 +61,21 @@
 	
 	$Scodoc = new Scodoc();
 	
-	//echo $Scodoc->Ask_Scodoc('departements');	// ok
-	//echo $Scodoc->Ask_Scodoc('departements/MMI/etudiants/liste');	// ok
-	//echo $Scodoc->Ask_Scodoc('departements/MMI/etudiants/liste/418');
-	//echo $Scodoc->Ask_Scodoc('formsemestre/419/programme');	// manque des ressources et saes (et aussi modules DUT) + lier les ressources et sae à toutes les UE
-	//echo $Scodoc->Ask_Scodoc('departements/MMI/semestres_courants');	// titre court
+	//echo $Scodoc->Ask_Scodoc('departements');							// ok
+	//echo $Scodoc->Ask_Scodoc('departements/MMI/etudiants/list');		// ok
+	//echo $Scodoc->Ask_Scodoc('departements/MMI/etudiants/list/349');	// ok
+	//echo $Scodoc->Ask_Scodoc('formsemestre/349/programme');			// 404
+	//echo $Scodoc->Ask_Scodoc('/departement/MMI/formsemestres_courants');			
+	//echo $Scodoc->Ask_Scodoc('departements/MMI/semestres_courants');	// manque titre court, exemple : BUT MMI
 
-	//echo $Scodoc->Ask_Scodoc('etudiants/courant');	// ok
-	//echo $Scodoc->Ask_Scodoc('etudiant/nip/22003752');	// ok
-	//echo $Scodoc->Ask_Scodoc('etudiant/nip/22003752/formsemestres');	// titre court 
+	echo $Scodoc->Ask_Scodoc('etudiants/courant');					// ok
+	//echo $Scodoc->Ask_Scodoc('etudiant/nip/22003752');				// ok
+	//echo $Scodoc->Ask_Scodoc('etudiant/nip/22003752/formsemestres');	// manque titre court, exemple : BUT MMI
 
-	//echo $Scodoc->Ask_Scodoc('formsemestre/418/etudiant/nip/22002244/bulletin');	// ok
-	//echo $Scodoc->Ask_Scodoc('formsemestre/418/liste_etudiants');	// A ajouter
+	//echo $Scodoc->Ask_Scodoc('etudiant/nip/22003752/formsemestre/349/bulletin');	// 404 - changé ?
+	//echo $Scodoc->Ask_Scodoc('formsemestre/418/liste_etudiants');		// Supprimé je crois ?
 
 
+
+	// Ajouter titre sur les semestres pour le choix.
 ?>
