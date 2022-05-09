@@ -258,7 +258,7 @@
 					let input = document.createElement("input");
 					input.type = "radio";
 					input.name = "semestre";
-					if(i==0){
+					if(i==data.length-1){
 						input.checked = true;
 					}
 

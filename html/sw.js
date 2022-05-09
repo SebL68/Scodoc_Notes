@@ -1,4 +1,4 @@
-var version = 'v4:7:14-07/05/21';
+var version = 'v4:7:14-09/05/21';
 
 self.addEventListener("install", function (event) {
 	self.skipWaiting();
