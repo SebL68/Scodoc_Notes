@@ -237,7 +237,7 @@ function findTP($json){
 
 /*******************************/
 /* UEAndModules()
-Liste les UE et modules d'un département
+Liste les UE et modules d'un département + semestre
 
 Entrées : 
 	$dep : [string] département - exemple : MMI

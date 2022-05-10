@@ -33,19 +33,29 @@
 			.semestres input{
 				display: none;
 			}
-			.semestres span{
-				border: 1px solid #777;
+			.semestres>label>div{
 				background: #FFF;
-				padding: 10px;
-				margin: 10px;
-				display: block;
+				padding: 8px 16px;
+				margin: 8px;
+				font-size: 18px;
 				text-align: right;
+				border-radius: 8px;
+				box-shadow: 0 2px 2px rgb(0 0 0 / 26%);
 			}
-			.semestres input:checked+span{
+			.semestres>label>div:hover{
+				outline: 2px solid #424242;
+			}
+			.semestres>label>div>div:nth-child(2){
+				font-weight: bold;
+				color: #09c;
+			}
+			.semestres input:checked+div{
 				background: #0C9;
 				color: #FFF;
 			}
-
+			.semestres input:checked+div>div:nth-child(2){
+				color: #FFF;
+			}
 /**********************/
 /* Zone absences */
 /**********************/
@@ -246,7 +256,7 @@
 				}				
 				let data = await fetchData("semestresEtudiant" + (input ? "&etudiant=" + nip : ""));
 				feedSemesters(data);
-				document.querySelector(".semestres>label:nth-child(1)>span").click();
+				document.querySelector(".semestres>label:nth-child(1)>div").click();
 			}
 			
 			function feedSemesters(data){
@@ -264,17 +274,20 @@
 
 					let date = parseInt(data[i].date_debut.split("/")[2]);
 					if(data[i].semestre_id % 2 == 1){
-						date = date + " - " + (date+1);
+						date = date + "/" + (date+1);
 					} else {
-						date = (date-1) + " - " + date;
+						date = (date-1) + "/" + date;
 					}
-					let span = document.createElement("span");
-					span.innerHTML = "Semestre " + data[i].semestre_id + "<br><small>" + date + "</small>";
-					span.dataset.semestre = data[i].formsemestre_id;
-					span.addEventListener("click", getReportCards);
+					let vignette = document.createElement("div");
+					vignette.innerHTML = `
+						<div>${data[i].titre_court} - ${date}</div>
+						<div>Semestre ${data[i].semestre_id}</div>
+					`;
+					vignette.dataset.semestre = data[i].formsemestre_id;
+					vignette.addEventListener("click", getReportCards);
 
 					label.appendChild(input);
-					label.appendChild(span);
+					label.appendChild(vignette);
 					output.appendChild(label);
 				}
 			}

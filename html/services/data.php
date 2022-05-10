@@ -165,8 +165,8 @@
 				break;
 
 			case 'semestresDépartement':
-				//$Scodoc = new Scodoc();
-				$output = /*$Scodoc->*/getDepartmentSemesters($_GET['dep']);
+				$Scodoc = new Scodoc();
+				$output = $Scodoc->getDepartmentSemesters($_GET['dep']);
 				break;
 
 			case 'listeEtudiantsSemestre':

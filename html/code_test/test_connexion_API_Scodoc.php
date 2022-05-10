@@ -61,21 +61,15 @@
 	
 	$Scodoc = new Scodoc();
 	
-	//echo $Scodoc->Ask_Scodoc('departements');							// ok
-	//echo $Scodoc->Ask_Scodoc('departements/MMI/etudiants/list');		// ok
-	//echo $Scodoc->Ask_Scodoc('departements/MMI/etudiants/list/349');	// ok
-	//echo $Scodoc->Ask_Scodoc('formsemestre/349/programme');			// 404
+	//echo $Scodoc->Ask_Scodoc('departements');
+	//echo $Scodoc->Ask_Scodoc('departements/MMI/etudiants/list');
+	//echo $Scodoc->Ask_Scodoc('departements/MMI/etudiants/list/349');
+	//echo $Scodoc->Ask_Scodoc('formsemestre/349/programme');
 	//echo $Scodoc->Ask_Scodoc('/departement/MMI/formsemestres_courants');			
-	//echo $Scodoc->Ask_Scodoc('departements/MMI/semestres_courants');	// manque titre court, exemple : BUT MMI
+	//echo $Scodoc->Ask_Scodoc('departement/MMI/formsemestres_courants');
 
-	//echo $Scodoc->Ask_Scodoc('etudiants/courant');					// ok
-	//echo $Scodoc->Ask_Scodoc('etudiant/nip/22003752');				// ok
-	//echo $Scodoc->Ask_Scodoc('etudiant/nip/22003752/formsemestres');	// manque titre court, exemple : BUT MMI
+	//echo $Scodoc->Ask_Scodoc('etudiants/courant');
+	//echo $Scodoc->Ask_Scodoc('etudiant/nip/22003752');
+	//echo $Scodoc->Ask_Scodoc('etudiant/nip/22003752/formsemestres');
 
-	//echo $Scodoc->Ask_Scodoc('etudiant/nip/22003752/formsemestre/349/bulletin');	// 404 - changé ?
-	//echo $Scodoc->Ask_Scodoc('formsemestre/418/liste_etudiants');		// Supprimé je crois ?
-
-
-
-	// Ajouter titre sur les semestres pour le choix.
 ?>

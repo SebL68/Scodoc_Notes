@@ -336,8 +336,8 @@
 			select.innerHTML = `<option value="" disabled selected hidden>Choisir un semestre</option>`;
 			data.forEach(function(semestre){
 				let option = document.createElement("option");
-				option.value = semestre.semestre_id;
-				option.innerText = semestre.titre;
+				option.value = semestre.id;
+				option.innerText = `${semestre.titre_court} - semestre ${semestre.num}`;
 				select.appendChild(option);
             });
             document.querySelector("#departement").classList.remove("highlight");

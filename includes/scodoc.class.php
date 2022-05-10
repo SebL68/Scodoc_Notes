@@ -129,6 +129,7 @@ class Scodoc{
 			$output = [];
 			forEach($data as $value){
 				$output[] = [
+					'titre_court' => $value->titre_formation,
 					'formsemestre_id' => $value->formsemestre_id,
 					'semestre_id' => $value->semestre_id,
 					'date_debut' => $value->date_debut,
@@ -182,25 +183,27 @@ class Scodoc{
 		Sortie :
 			[
 				{
-					'titre' => 'titre du semestre',
-					'semestre_id' => 'code semestre' // exemple : '871'
+					'titre_court' => 'BUT MMI',
+					'titre_long' => 'BUT Métiers du Multimédia et de l\'Internet',
+					'num' => 2,			// Numéro du semestre
+					'id' => 384			// Code semestre Scodoc
 				},
 				etc.
 			]
 
 	*******************************/
-	/*public function getDepartmentSemesters($dep){
-		$json = json_decode($this->Ask_Scodoc('departements/' . $dep . '/semestres_courants'));
+	public function getDepartmentSemesters($dep){
+		$json = json_decode($this->Ask_Scodoc('departement/' . $dep . '/formsemestres_courants'));
 
 		$output = [];
 		foreach($json as $value){
-			if($value->etat == true){
-				$output[] = [
-					'titre' => $value->titre_num,
-					'semestre_id' => $value->formsemestre_id
-				];
-			}
+			$output[] = [
+				'titre_court' => $value->titre_formation,
+				'titre_long' => $value->titre,
+				'num' => $value->semestre_id,
+				'id' => $value->formsemestre_id
+			];
 		}
 		return $output;
-	}*/
+	}
 }
