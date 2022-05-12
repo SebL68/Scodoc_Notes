@@ -61,6 +61,7 @@ if [ -d "$INSTALLDIR/config" ]; then
 else
 	warn ' *** Nouvelle installation détectée, configuration ssl et ldap ***'
 	a2enmod ssl
+	a2ensite default-ssl
 	phpenmod ldap
 	systemctl restart apache2
 
