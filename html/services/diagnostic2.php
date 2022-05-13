@@ -111,6 +111,13 @@
 	/********************/
 	/* Lien avec Scodoc */
 	/********************/
+	
+		if (end(explode($Config->scodoc_url)) == 'ScoDoc') {
+			echo '<div><span>✔️</span> L\'URL vers Scodoc se fini bien par /ScoDoc.</div>';
+		} else {
+			echo '<div class=wrong><span>❌</span>  L\'URL vers Scodoc doit se finir par /ScoDoc - attention aux majuscules.</div>';
+			die();
+		}
 		
 		/* Test liaison Scodoc */
 		$ch = curl_init($Config->scodoc_url);

@@ -269,7 +269,7 @@ function UEAndModules($dep, $sem){
 		]
 	));
 
-	array_pop($json); // Supprime le récapitulatif de tous les UE
+	array_pop($json); // Supprime le récapitulatif de toutes les UE
 	$output_json = [];
 
 	/* 

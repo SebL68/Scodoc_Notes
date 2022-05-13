@@ -69,7 +69,7 @@
 	//echo $Scodoc->Ask_Scodoc('departement/MMI/formsemestres_courants');
 
 	//echo $Scodoc->Ask_Scodoc('etudiants/courant');
-	//echo $Scodoc->Ask_Scodoc('etudiant/nip/22003752');
+	//echo $Scodoc->Ask_Scodoc('etudiant/nip/21902367');
 	//echo $Scodoc->Ask_Scodoc('etudiant/nip/22003752/formsemestres');
 
 ?>
