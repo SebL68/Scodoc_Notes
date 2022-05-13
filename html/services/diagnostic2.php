@@ -112,7 +112,8 @@
 	/* Lien avec Scodoc */
 	/********************/
 	
-		if (end(explode($Config->scodoc_url)) == 'ScoDoc') {
+		$url_exploded = explode('/', $Config->scodoc_url);
+		if (end($url_exploded) == 'ScoDoc') {
 			echo '<div><span>✔️</span> L\'URL vers Scodoc se fini bien par /ScoDoc.</div>';
 		} else {
 			echo '<div class=wrong><span>❌</span>  L\'URL vers Scodoc doit se finir par /ScoDoc - attention aux majuscules.</div>';
@@ -135,7 +136,7 @@
 		if ($httpcode == 200) {
 			echo '<div><span>✔️</span> La communication entre le serveur passerelle et le serveur Scodoc est fonctionnelle.</div>';
 		} else {
-			echo '<div class=wrong><span>❌</span> La communication entre le serveur passerelle et le serveur Scodoc est fonctionnelle, le code retourné est <b>' . $httpcode . '</b><br></div>';
+			echo '<div class=wrong><span>❌</span> La communication entre le serveur passerelle et le serveur Scodoc n\'est pas fonctionnelle, le code retourné est <b>' . $httpcode . '</b><br></div>';
 			die();
 		}
 		
