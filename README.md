@@ -16,7 +16,7 @@ Les utilisateurs actuels sont :
  - IUT Lannion => accès étudiant
  - IUT de Lille => accès étudiant + enseignant
  - IUT de Bordeaux => accès étudiant + enseignant
- - IUT d'Orsay ?
+ - IUT d'Orsay => accès étudiant + enseignent
  - IUT du Havre => accès étudiant + enseignant
  - IUT de Poitiers ?
  - IUT du Littoral Côte d'Opale ?
