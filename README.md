@@ -85,13 +85,15 @@ Ce script est compatible Ubuntu et Debian, il permet lors d'une première instal
 Lorsque le serveur est déjà opérationnel, il permet de faire une mise à jour de /html, /includes et /lib.
 Pour des raisons de sécurité, le fichier installOrUpdate.sh ne se met pas automatiquement à jour.
 
-Télécharger et ajouter le fichier `installOrUpdate.sh` dans le répertoire `/var/www`  
-Commandes en ROOT :  
+Télécharger et ajouter le fichier `installOrUpdate.sh` dans le répertoire `/var/www` en tant que ROOT :  
 ```
-chown www-data installOrUpdate.sh
-chmod 744 installOrUpdate.sh
+cd /var/www
+wget -q https://raw.githubusercontent.com/SebL68/Scodoc_Notes/main/installOrUpdate.sh
+chmod +x installOrUpdate.sh
+
+# puis pour installer
 ./installOrUpdate.sh
-```  
+```
   
 Procédure de mise à jour par la suite :  
 ```./installOrUpdate.sh```  
