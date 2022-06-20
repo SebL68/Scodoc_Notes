@@ -1,4 +1,4 @@
-Pour suivre les évolutions : https://notes.iutmulhouse.uha.fr/maj.php
+Pour suivre les évolutions, l'idéal est d'aller voir sur le Discord (voir ci-dessous), sinon il y a ce lien qui est mis à jour moins souvent : https://notes.iutmulhouse.uha.fr/maj.php
 
 Travaux en cours :
  - faire en sorte qu'on puisse gérer autre chose que les mails dans l'onglet "comptes"
