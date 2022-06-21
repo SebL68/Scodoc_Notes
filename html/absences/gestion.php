@@ -931,10 +931,12 @@
 
 				Object.values(dataEtudiants.absences[etudiant.email] || {}).forEach(dateAbsence=>{
 					Object.values(dateAbsence).forEach(creneau=>{
-						if(creneau.statut == "absent"){
-							output[etudiant.email][creneau.UE].injustifie += 1;
-						} else {
-							output[etudiant.email][creneau.UE].justifie += 1;
+						if(creneau.UE != "pas besoin"){
+							if(creneau.statut == "absent"){
+								output[etudiant.email][creneau.UE].injustifie += 1;
+							} else {
+								output[etudiant.email][creneau.UE].justifie += 1;
+							}
 						}
 					})
 				})
