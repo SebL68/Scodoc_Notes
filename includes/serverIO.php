@@ -62,44 +62,6 @@
 	}
 
 /*******************************/
-/*******************************/
-/*******************************/
-/* getDepartmentSemesters()
-	Liste des semestres actif d'un département
-	Entrée :
-		$dep : [string] département - exemple : 'MMI'
-	Sortie :
-		[
-			{
-				'titre' => 'titre du semestre',
-				'semestre_id' => 'code semestre' // exemple : 'SEM8871'
-			},
-			etc.
-		]
-*******************************/
-function getDepartmentSemesters($dep){
-	$json = json_decode(
-		Ask_Scodoc(
-			'/Scolarite/Notes/formsemestre_list',
-			$dep,
-			[
-				'format' => 'json'
-			]
-		)
-	);
-	$output = [];
-	foreach($json as $value){
-		if($value->etat == "1"){
-			$output[] = [
-				'titre' => $value->titre_num,
-				'semestre_id' => $value->formsemestre_id
-			];
-		}
-	}
-	return $output;
-}
-
-/*******************************/
 /* getStudentsListsDepartement()
 Liste les étudiants d'un département par semestre actif
 
@@ -110,7 +72,7 @@ Sortie :
 	[
 		{
 			'titre': 'Nom du semestre',
-			'semestre_id': 'SEM8732',
+			'semestre_id': '132',
 			'groupes': ['groupe 1', 'groupe 2', etc.], // Exemple : TP11, TP12, etc.
 			'etudiants': [
 				{
@@ -126,7 +88,8 @@ Sortie :
 	
 *******************************/
 function getStudentsListsDepartement($dep){
-	$dataSEM = getDepartmentSemesters($dep);
+	$Scodoc = new Scodoc();
+	$dataSEM = $Scodoc->getDepartmentSemesters($dep);
 	$output = [];
 	foreach($dataSEM as $value){
 		$value = (object) $value;
@@ -167,7 +130,7 @@ Liste de tous les étudiants dans un semestre
 
 Entrées : 
 	$dep : [string] département - exemple : MMI
-	$sem : [string] code semestre Scodoc - exemple : SEM8871
+	$sem : [string] code semestre Scodoc - exemple : 171
 
 Sortie :
 	{
@@ -241,7 +204,7 @@ Liste les UE et modules d'un département + semestre
 
 Entrées : 
 	$dep : [string] département - exemple : MMI
-	$sem : [string] code semestre Scodoc - exemple : SEM8871
+	$sem : [string] code semestre Scodoc - exemple : 871
 
 Sortie :
 	[

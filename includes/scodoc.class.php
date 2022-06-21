@@ -124,10 +124,11 @@ class Scodoc{
 	*******************************/
 	public function getStudentSemesters($nip){
 		$data = json_decode($this->Ask_Scodoc("etudiant/nip/$nip/formsemestres"));
-		
+
 		if($data != ''){
 			$output = [];
 			forEach($data as $value){
+				
 				$output[] = [
 					'titre_court' => $value->titre_formation,
 					'formsemestre_id' => $value->formsemestre_id,
@@ -171,8 +172,6 @@ class Scodoc{
 		}
 	}
 
-	/*******************************/
-	/*******************************/
 	/*******************************/
 	/* getDepartmentSemesters()
 		Liste des semestres actif d'un département
