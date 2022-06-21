@@ -62,6 +62,44 @@
 	}
 
 /*******************************/
+/*******************************/
+/*******************************/
+/* getDepartmentSemesters()
+	Liste des semestres actif d'un département
+	Entrée :
+		$dep : [string] département - exemple : 'MMI'
+	Sortie :
+		[
+			{
+				'titre' => 'titre du semestre',
+				'semestre_id' => 'code semestre' // exemple : 'SEM8871'
+			},
+			etc.
+		]
+*******************************/
+function getDepartmentSemesters($dep){
+	$json = json_decode(
+		Ask_Scodoc(
+			'/Scolarite/Notes/formsemestre_list',
+			$dep,
+			[
+				'format' => 'json'
+			]
+		)
+	);
+	$output = [];
+	foreach($json as $value){
+		if($value->etat == "1"){
+			$output[] = [
+				'titre' => $value->titre_num,
+				'semestre_id' => $value->formsemestre_id
+			];
+		}
+	}
+	return $output;
+}
+
+/*******************************/
 /* getStudentsListsDepartement()
 Liste les étudiants d'un département par semestre actif
 
@@ -90,6 +128,8 @@ Sortie :
 function getStudentsListsDepartement($dep){
 	$Scodoc = new Scodoc();
 	$dataSEM = $Scodoc->getDepartmentSemesters($dep);
+	$dataSEM = getDepartmentSemesters($dep);
+	//var_dump($dataSEM);die();
 	$output = [];
 	foreach($dataSEM as $value){
 		$value = (object) $value;
