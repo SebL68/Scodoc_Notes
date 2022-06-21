@@ -50,6 +50,37 @@
 	<h1>Historique des mises à jours</h1>
 
 	<main>
+		<h2>25/04/2022 - 4.7.15</h2>
+		<ul>
+			<li>Amélioration du script installOrUpdate.sh : ajout de fonctionnalités pour l'installation et lors de la mise à jour, conservation des favicon.ico et images/icons/* pour une adaptation locale de ces fichiers.</li>
+			<li>Utilisation en partie de la nouvelle API Scodoc.</li>
+			<li>Utilisation des données Scodoc pour choisir un relevé étudiants => plus besoin de renseigner le fichier liste_etu.txt pour avoir l'autocomplétion en mode enseignant.</li>
+			<li>Amélioration des l'affichage des données de cette listes.</li>
+			<li>Correctif mineur d'affichage : le semestre affiché par défaut aux étudiants était celui en cours, mais l'affichage au niveau des choix montrait le S1.</li>
+			<li>Amélioration des diagnistics.</li>
+			<li>Amélioration de l'affichage des semestres aux étudiants : changement de styles, ajout des années, ajout du "vrai" semestre, etc.</li>
+			<li>Corrections de bugs introduits par la nouvelle liste étudiants : affichage des photos en mode enseignant et affichage des absences de la passerelle aux étudiants.</li>
+			<li>Divers correctifs et amélioration des performances.</li>
+		</ul>
+		<p>
+			[Optionnel] : pour la mise à jour, il est recommandé de récupérer la nouvelle version de installOrUpdate.sh : <br>
+			<pre><code>cd /var/www
+rm installOrUpdate.sh
+wget -q https://raw.githubusercontent.com/SebL68/Scodoc_Notes/main/installOrUpdate.sh
+chmod +x installOrUpdate.sh</pre></code>
+		</p>
+		<p><b>⚠️⚠️⚠️ ATTENTION : IL EST NECESSAIRE MODIFIER LE RÔLE et DE LIER LE RÔLE AUX PERMISSIONS DANS SCODOC (si ce n'est pas déjà fait) ⚠️⚠️⚠️</b></p>
+		<p><i>==> Ajoutez le rôle LecteurAPI au compte qui se connecte à l'API (pour le moment il faut laisser le rôle Secr car la passerelle utilise en partie l'ancienne API)</i></p>
+		<p>
+			<i>
+				Le rôle "LecteurAPI" n'est pas lié aux permissions APIView dans Scodoc.<br>
+				==> Ouvrez un terminal sur le serveur Scodoc avec l'utilisateur Scodoc puis :
+			</i>
+			<pre><code>cd /opt/scodoc
+source venv/bin/activate
+flask edit-role -a APIView LecteurAPI</pre></code>
+		</p>
+		<p></p>
 		<h2>25/04/2022 - 4.7.14</h2>
 		<ul>
 			<li>Mise en place du numéro de version dans le fichier defaut_config pour l'avoir accessible dans l'ensemble du code.</li>
