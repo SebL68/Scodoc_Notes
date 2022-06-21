@@ -1,4 +1,4 @@
-Pour suivre les évolutions : https://notes.iutmulhouse.uha.fr/maj.php
+Pour suivre les évolutions, l'idéal est d'aller voir sur le Discord (voir ci-dessous), sinon il y a ce lien qui est mis à jour moins souvent : https://notes.iutmulhouse.uha.fr/maj.php
 
 Travaux en cours :
  - faire en sorte qu'on puisse gérer autre chose que les mails dans l'onglet "comptes"
@@ -42,6 +42,7 @@ Les utilisateurs actuels sont :
  - IUT de Mantes ?
  - IUT de Béziers => accès étudiant
  - IUT de Saint Denis => A venir
+ - IUT d'Amiens => accès étudiant
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
   
@@ -84,13 +85,15 @@ Ce script est compatible Ubuntu et Debian, il permet lors d'une première instal
 Lorsque le serveur est déjà opérationnel, il permet de faire une mise à jour de /html, /includes et /lib.
 Pour des raisons de sécurité, le fichier installOrUpdate.sh ne se met pas automatiquement à jour.
 
-Télécharger et ajouter le fichier `installOrUpdate.sh` dans le répertoire `/var/www`  
-Commandes en ROOT :  
+Télécharger et ajouter le fichier `installOrUpdate.sh` dans le répertoire `/var/www` en tant que ROOT :  
 ```
-chown www-data installOrUpdate.sh
-chmod 744 installOrUpdate.sh
+cd /var/www
+wget -q https://raw.githubusercontent.com/SebL68/Scodoc_Notes/main/installOrUpdate.sh
+chmod +x installOrUpdate.sh
+
+# puis pour installer
 ./installOrUpdate.sh
-```  
+```
   
 Procédure de mise à jour par la suite :  
 ```./installOrUpdate.sh```  
