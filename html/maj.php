@@ -57,7 +57,7 @@
 			<li>Utilisation des données Scodoc pour choisir un relevé étudiants => plus besoin de renseigner le fichier liste_etu.txt pour avoir l'autocomplétion en mode enseignant.</li>
 			<li>Amélioration des l'affichage des données de cette listes.</li>
 			<li>Correctif mineur d'affichage : le semestre affiché par défaut aux étudiants était celui en cours, mais l'affichage au niveau des choix montrait le S1.</li>
-			<li>Amélioration des diagnistics.</li>
+			<li>Amélioration des diagnostics.</li>
 			<li>Amélioration de l'affichage des semestres aux étudiants : changement de styles, ajout des années, ajout du "vrai" semestre, etc.</li>
 			<li>Corrections de bugs introduits par la nouvelle liste étudiants : affichage des photos en mode enseignant et affichage des absences de la passerelle aux étudiants.</li>
 			<li>Divers correctifs et amélioration des performances.</li>
