@@ -67,7 +67,7 @@ class Scodoc{
 		forEach($json as $value){
 			$output[] = [
 				$value->nip,
-				$value->nom . ' ' . ucfirst(strtolower($value->prenom))
+				$value->nom . ' ' . ucfirst(mb_strtolower($value->prenom))
 			];
 		}
 		return $output;
