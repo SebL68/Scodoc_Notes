@@ -332,7 +332,7 @@
 						document.querySelector(".prenom").innerText = data.relevé.etudiant.prenom.toLowerCase();
 						releve.shadowRoot.querySelector(".studentPic").src = "services/data.php?q=getStudentPic";
 					} else {
-						releve.shadowRoot.querySelector(".studentPic").src = "services/data.php?q=getStudentPic&idCAS=" + idCAS;
+						releve.shadowRoot.querySelector(".studentPic").src = "services/data.php?q=getStudentPic&nip=" + nip;
 					}
 				} else {
 					document.querySelector(".releve").innerHTML = "<releve-dut></releve-dut>";
