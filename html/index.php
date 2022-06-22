@@ -21,6 +21,7 @@
 				float: left;
 				border-radius: 8px;
 				width: 52px;
+				height: auto;
     			margin-right: 16px;
 			}
 			.semestres{
@@ -134,8 +135,8 @@
 			include $_SERVER['DOCUMENT_ROOT']."/assets/header.php";
 		?>
 		<main>
-			<a href="avatar.php">
-				<img class=studentPic src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+			<a href="avatar.php" aria-label="Changer la photo">
+				<img alt="Photo de profil" class=studentPic src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" width=350 height=450>
 			</a>
 			<p>
 				Bonjour <span class=prenom></span>.
