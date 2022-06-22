@@ -48,7 +48,7 @@ fi
 warn ' *** Installation ou mise à jour des paquets *** '
 apt -qq update
 apt -qq install openssl apache2 unzip links
-apt -qq install php php-curl php-xml php-ldap mbstring
+apt -qq install php php-curl php-xml php-ldap php-mbstring
 
 echo
 if [ -d "$INSTALLDIR/config" ]; then
