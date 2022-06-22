@@ -50,7 +50,14 @@
 	<h1>Historique des mises à jours</h1>
 
 	<main>
-		<h2>25/04/2022 - 4.7.15</h2>
+		<h2>25/04/2022 - 4.7.16</h2>
+		<ul>
+			<li>Correctif manifest.json - Merci Franck Butelle.</li>
+			<li>Amélioration des audits Lighthouse : accessibilité et SEO.</li>
+			<li>Ajout de mbstring dans installOrUpdate.sh</li>
+			
+		</ul>
+		<h2>21/06/2022 - 4.7.15</h2>
 		<ul>
 			<li>Amélioration du script installOrUpdate.sh : ajout de fonctionnalités pour l'installation et lors de la mise à jour, conservation des favicon.ico et images/icons/* pour une adaptation locale de ces fichiers.</li>
 			<li>Utilisation en partie de la nouvelle API Scodoc.</li>
