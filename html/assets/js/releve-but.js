@@ -226,7 +226,7 @@ class releveBUT extends HTMLElement {
 			}).join("")
 		}*/
 		this.shadow.querySelector(".infoSemestre").innerHTML = output;
-		this.shadow.querySelector(".decision").innerHTML = data.semestre.decision?.code || "";
+		this.shadow.querySelector(".decision").innerHTML = data.semestre.situation || "";
 	}
 
 	/*******************************/

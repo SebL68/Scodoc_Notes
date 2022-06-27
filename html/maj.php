@@ -50,12 +50,12 @@
 	<h1>Historique des mises à jours</h1>
 
 	<main>
-		<h2>25/04/2022 - 4.7.16</h2>
+		<h2>25/04/2022 - 4.7.16 (en préparation) </h2>
 		<ul>
 			<li>Correctif manifest.json - Merci Franck Butelle.</li>
 			<li>Amélioration des audits Lighthouse : accessibilité et SEO.</li>
 			<li>Ajout de mbstring dans installOrUpdate.sh</li>
-			
+			<li>Affichage de la situation du semestre à la place du code d'admission.</li>
 		</ul>
 		<h2>21/06/2022 - 4.7.15</h2>
 		<ul>
