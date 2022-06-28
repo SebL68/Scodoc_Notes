@@ -371,9 +371,10 @@
 				break;
 
 			case 'getStudentPic':
-				if ($user->getStatut() > ETUDIANT && isset($_GET['nip'])) {
-					$url = "$path/data/studentsPic/" . Annuaire::getStudentIdCASFromNumber($_GET['nip']) . ".jpg";
-				} else {
+				if ($user->getStatut() > ETUDIANT && (isset($_GET['nip']) || isset($_GET['idCAS']))) {
+					
+					$url = "$path/data/studentsPic/" . /*Annuaire::getStudentIdCASFromNumber($_GET['nip'])*/$_GET['idCAS'] . ".jpg";
+				} else {die("ok");
 					$url = "$path/data/studentsPic/" . $user->getSessionName() . '.jpg';
 				}
 
