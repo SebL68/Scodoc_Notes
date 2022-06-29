@@ -89,7 +89,7 @@ class releveBUT extends HTMLElement {
 			<div class=flex>
 				<div class=infoSemestre></div>
 				<div>
-					<div class=decision></div>
+					<div><span class=decision></span><span class="ects" id="ects_tot"></span></div>
 					<div class=dateInscription>Inscrit le </div>
 					<em>Les moyennes servent à situer l'étudiant dans la promotion et ne correspondent pas à des validations de compétences ou d'UE.</em>
 				</div>
@@ -226,7 +226,11 @@ class releveBUT extends HTMLElement {
 			}).join("")
 		}*/
 		this.shadow.querySelector(".infoSemestre").innerHTML = output;
-		this.shadow.querySelector(".decision").innerHTML = data.semestre.situation || "";
+		//this.shadow.querySelector(".decision").innerHTML = data.semestre.situation || "";
+		if (data.semestre.decision?.code) {
+			this.shadow.querySelector(".decision").innerHTML = "Décision jury: " + (data.semestre.decision?.code || "");
+		}
+		this.shadow.querySelector("#ects_tot").innerHTML = "ECTS&nbsp;:&nbsp;" + (data.semestre.ECTS?.acquis || "-") + "&nbsp;/&nbsp;" + (data.semestre.ECTS?.total || "-");
 	}
 
 	/*******************************/
