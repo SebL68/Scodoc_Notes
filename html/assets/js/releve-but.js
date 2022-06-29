@@ -226,9 +226,10 @@ class releveBUT extends HTMLElement {
 			}).join("")
 		}*/
 		this.shadow.querySelector(".infoSemestre").innerHTML = output;
-		if (data.semestre.decision?.code) {
-			this.shadow.querySelector(".decision").innerHTML = "Décision jury: " + (data.semestre.decision?.code || "") + (data.semestre.situation || "");
-		}
+		this.shadow.querySelector(".decision").innerHTML = data.semestre.situation || "";
+		/*if (data.semestre.decision?.code) {
+			this.shadow.querySelector(".decision").innerHTML = "Décision jury: " + (data.semestre.decision?.code || "");
+		}*/
 		this.shadow.querySelector("#ects_tot").innerHTML = "ECTS&nbsp;:&nbsp;" + (data.semestre.ECTS?.acquis || "-") + "&nbsp;/&nbsp;" + (data.semestre.ECTS?.total || "-");
 	}
 
