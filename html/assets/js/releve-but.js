@@ -200,6 +200,22 @@ class releveBUT extends HTMLElement {
 	/* Information sur le semestre */
 	/*******************************/
 	showSemestre(data) {
+		let correspondanceCodes = {
+			"ADM": "Admis",
+			"AJD": "Admis par décision de jury",
+			"PASD": "Passage de droit : tout n'est pas validé, mais d'après les règles du BUT, vous passez",
+			"PAS1NCI": "Vous passez par décision de jury mais attention, vous n'avez pas partout le niveau suffisant",
+			"RED": "Ajourné mais autorisé à redoubler",
+			"NAR": "Non admis et non autorisé à redoubler : réorientation",
+			"DEM": "Démission",
+			"ABAN": "Abandon constaté sans lettre de démission",
+			"RAT": "En attente d'un rattrapage",
+			"EXCLU": "Exclusion dans le cadre d'une décision disciplinaire",
+			"DEF": "Défaillance : non évalué par manque d'assiduité",
+			"ABL": "Année blanche"
+		}
+
+
 		this.shadow.querySelector("h2").innerHTML += data.semestre.numero;
 		this.shadow.querySelector(".dateInscription").innerHTML += this.ISOToDate(data.semestre.inscription);
 		let output = `
@@ -230,14 +246,14 @@ class releveBUT extends HTMLElement {
 		this.shadow.querySelector(".infoSemestre").innerHTML = output;
 
 		if(data.semestre.decision_annee?.code){
-			this.shadow.querySelector(".decision_annee").innerHTML = "Décision année : " + data.semestre.decision_annee.code;
+			this.shadow.querySelector(".decision_annee").innerHTML = "Décision année : " + data.semestre.decision_annee.code + " - " + correspondanceCodes[data.semestre.decision_annee.code];
 		}
 		
 		this.shadow.querySelector(".decision").innerHTML = data.semestre.situation || "";
 		/*if (data.semestre.decision?.code) {
 			this.shadow.querySelector(".decision").innerHTML = "Décision jury: " + (data.semestre.decision?.code || "");
 		}*/
-		this.shadow.querySelector("#ects_tot").innerHTML = "ECTS&nbsp;:&nbsp;" + (data.semestre.ECTS?.acquis || "-") + "&nbsp;/&nbsp;" + (data.semestre.ECTS?.total || "-");
+		this.shadow.querySelector("#ects_tot").innerHTML = "ECTS&nbsp;:&nbsp;" + (data.semestre.ECTS?.acquis ?? "-") + "&nbsp;/&nbsp;" + (data.semestre.ECTS?.total ?? "-");
 	}
 
 	/*******************************/
@@ -270,7 +286,7 @@ class releveBUT extends HTMLElement {
 									Bonus&nbsp;:&nbsp;${dataUE.bonus || 0}&nbsp;- 
 									Malus&nbsp;:&nbsp;${dataUE.malus || 0}
 									<span class=ects>&nbsp;-
-										ECTS&nbsp;:&nbsp;${dataUE.ECTS?.acquis || "-"}&nbsp;/&nbsp;${dataUE.ECTS?.total || "-"}
+										ECTS&nbsp;:&nbsp;${dataUE.ECTS?.acquis ?? "-"}&nbsp;/&nbsp;${dataUE.ECTS?.total ?? "-"}
 									</span>
 								</div>
 							</div>`;
