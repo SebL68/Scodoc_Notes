@@ -89,7 +89,9 @@ class releveBUT extends HTMLElement {
 			<div class=flex>
 				<div class=infoSemestre></div>
 				<div>
-					<div><span class=decision></span><span class="ects" id="ects_tot"></span></div>
+					<div class=decision_annee></div>
+					<div class=decision></div>
+					<div class="ects" id="ects_tot"></div>
 					<div class=dateInscription>Inscrit le </div>
 					<em>Les moyennes servent à situer l'étudiant dans la promotion et ne correspondent pas à des validations de compétences ou d'UE.</em>
 				</div>
@@ -226,6 +228,11 @@ class releveBUT extends HTMLElement {
 			}).join("")
 		}*/
 		this.shadow.querySelector(".infoSemestre").innerHTML = output;
+
+		if(data.semestre.decision_annee?.code){
+			this.shadow.querySelector(".decision_annee").innerHTML = "Décision année : " + data.semestre.decision_annee.code;
+		}
+		
 		this.shadow.querySelector(".decision").innerHTML = data.semestre.situation || "";
 		/*if (data.semestre.decision?.code) {
 			this.shadow.querySelector(".decision").innerHTML = "Décision jury: " + (data.semestre.decision?.code || "");

@@ -164,7 +164,7 @@ section>div:nth-child(1){
 .ue .rang{
 	font-weight: 400;
 }
-.decision{
+.decision, .decision_annee{
 	margin: 5px 0;
 	font-weight: bold;
     font-size: 20px;
@@ -191,7 +191,6 @@ section>div:nth-child(1){
     background: var(--couleurFondTitresUE);
 }
 #ects_tot {
-    margin-left: 8px;
     font-weight: bold;
     font-size: 20px;
 }
