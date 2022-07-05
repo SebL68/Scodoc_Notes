@@ -56,6 +56,9 @@
 			<li>Amélioration des audits Lighthouse : accessibilité et SEO.</li>
 			<li>Ajout de mbstring dans installOrUpdate.sh</li>
 			<li>Affichage de la situation du semestre à la place du code d'admission.</li>
+			<li>Amélioration de l'affichage des décisions semestres / années.</li>
+			<li>Ajout des décisions RCUE semestres pairs.</li>
+			<li>Divers correctifs et améliorations.</li>
 		</ul>
 		<h2>21/06/2022 - 4.7.15</h2>
 		<ul>
