@@ -219,7 +219,7 @@ class releveBUT extends HTMLElement {
 		this.shadow.querySelector("h2").innerHTML += data.semestre.numero;
 		this.shadow.querySelector(".dateInscription").innerHTML += this.ISOToDate(data.semestre.inscription);
 		let output = `
-			<div>
+		<div>
 				<div class=enteteSemestre>Moyenne</div><div class=enteteSemestre>${data.semestre.notes.value}</div>
 				<div class=rang>Rang :</div><div class=rang>${data.semestre.rang.value} / ${data.semestre.rang.total}</div>
 				<div>Max. promo. :</div><div>${data.semestre.notes.max}</div>
@@ -227,10 +227,25 @@ class releveBUT extends HTMLElement {
 				<div>Min. promo. :</div><div>${data.semestre.notes.min}</div>
 			</div>
 			<div class=absencesRecap>
-				<div class=enteteSemestre>Absences</div>
-				<div class=enteteSemestre>N.J. ${data.semestre.absences?.injustifie ?? "-"}</div>
-				<div style="grid-column: 2">Total ${data.semestre.absences?.total ?? "-"}</div>
+				<div class=enteteSemestre>Absences</div><div class=enteteSemestre>1/2 jour.</div>
+				<div class=abs>Non justifiées</div>
+				<div>${data.semestre.absences?.injustifie ?? "-"}</div>
+				<div class=abs>Total</div><div>${data.semestre.absences?.total ?? "-"}</div>
 			</div>`;
+		if(data.semestre.decision_rcue.length){
+			output += `
+			<div>
+				<div class=enteteSemestre>RCUE</div><div></div>
+				${(()=>{
+					let output = "";
+					data.semestre.decision_rcue.forEach(competence=>{
+						output += `<div class=rang>${competence.niveau.competence.titre}</div><div>${competence.code}</div>`;
+					})
+					return output;
+				})()}
+				</div>
+			</div>`
+		}
 		/*${data.semestre.groupes.map(groupe => {
 			return `
 					<div>
