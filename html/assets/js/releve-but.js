@@ -202,7 +202,7 @@ class releveBUT extends HTMLElement {
 	showSemestre(data) {
 		let correspondanceCodes = {
 			"ADM": "Admis",
-			"AJD": "Admis par décision de jury",
+			"ADJ": "Admis par décision de jury",
 			"PASD": "Passage de droit : tout n'est pas validé, mais d'après les règles du BUT, vous passez",
 			"PAS1NCI": "Vous passez par décision de jury mais attention, vous n'avez pas partout le niveau suffisant",
 			"RED": "Ajourné mais autorisé à redoubler",
