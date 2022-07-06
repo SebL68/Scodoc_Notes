@@ -43,6 +43,7 @@ Les utilisateurs actuels sont :
  - IUT de Béziers => accès étudiant
  - IUT de Saint Denis => A venir
  - IUT d'Amiens => accès étudiant
+ - IUT de Caen (IFS) => A venir
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
   
