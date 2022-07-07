@@ -186,7 +186,8 @@
 			case 'listesEtudiantsDépartement':
 				// Uniquement pour les personnels IUT.
 				if($user->getStatut() < PERSONNEL){ returnError(); }
-				$output = getStudentsListsDepartement($_GET['dep']);	// includes/serverIO.php
+				$Scodoc = new Scodoc();
+				$output = $Scodoc->getStudentsListsDepartement($_GET['dep']);
 				break;
 
 			case 'semestresEtudiant':
@@ -204,7 +205,7 @@
 				// Si c'est un personnel, on transmet l'étudiant par get, sinon on prend l'identifiant de la session.
 				$Scodoc = new Scodoc();
 				$nip = $_GET['etudiant'] ?? Annuaire::getStudentNumberFromIdCAS($user->getSessionName());
-				$dep = getStudentDepartment($nip);						// includes/serverIO.php
+				$dep = $Scodoc->getStudentDepartment($nip);
 				$idCAS = Annuaire::getStudentIdCASFromNumber($nip);
 				$output = [
 					'relevé' => $Scodoc->getReportCards($_GET['semestre'], $nip),
@@ -233,7 +234,7 @@
 						include 'data_demo.php';
 					} else {
 						$nip = Annuaire::getStudentNumberFromIdCAS($user->getSessionName());
-						$dep = getStudentDepartment($nip);				// includes/serverIO.php
+						$dep = $Scodoc->getStudentDepartment($nip);
 						$semestres = $Scodoc->getStudentSemesters($nip);
 						$output = [
 							'auth' => [

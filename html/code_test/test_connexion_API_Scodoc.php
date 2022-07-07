@@ -62,14 +62,16 @@
 	$Scodoc = new Scodoc();
 	
 	//echo $Scodoc->Ask_Scodoc('departements');
-	//echo $Scodoc->Ask_Scodoc('departement/MMI/etudiants');		// Pour 
+	//echo $Scodoc->Ask_Scodoc('departement/MMI/etudiants');
 	//echo $Scodoc->Ask_Scodoc('departements/MMI/etudiants/list/349');
 	//echo $Scodoc->Ask_Scodoc('formsemestre/419/programme');		// Pour UEetModules : bug pour les DUT
 	//echo $Scodoc->Ask_Scodoc('formsemestre/319/etudiants');		// Pour getStudentsInSemester
 	//echo $Scodoc->Ask_Scodoc('departement/MMI/formsemestres_courants');			
 
 	//echo $Scodoc->Ask_Scodoc('etudiants/courant');
-	//echo $Scodoc->Ask_Scodoc('etudiant/nip/21902367');			// Pour récupérer le département d'un étudiant : manque l'acronym : ça arrive
+	//echo $Scodoc->Ask_Scodoc('etudiant/nip/21902367');
 	//echo $Scodoc->Ask_Scodoc('etudiant/nip/22003752/formsemestres');
+
+	//echo $Scodoc->Ask_Scodoc('etudiant/nip/22003752/formsemestre/419/bulletin?format=pdf');
 
 ?>

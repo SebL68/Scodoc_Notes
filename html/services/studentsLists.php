@@ -10,14 +10,6 @@
     <title>Documents</title>
     <style>
         <?php include $_SERVER['DOCUMENT_ROOT']."/assets/header.css"?>
-        h2{
-            margin: 20px 0 0 0;
-            padding: 20px;
-            background: #0C9;
-            color: #FFF;
-            border-radius: 10px;
-            cursor: pointer;
-        }
         main{
             margin: 0 auto 20px auto;
         }
