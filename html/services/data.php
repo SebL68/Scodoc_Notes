@@ -251,6 +251,7 @@
 					$output = [
 						'auth' => [
 							'session' => $user->getId(),
+							'name' => $user->getName(),
 							'statut' => $user->getStatut()
 						],
 						'etudiants' => $Scodoc->getAllStudents()
