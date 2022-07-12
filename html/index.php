@@ -190,7 +190,6 @@
 /**************************/
 /* Début
 /**************************/
-			let idCAS = "";
 			let nip = "";
 			let statut = "";
 			checkStatut();
@@ -204,8 +203,7 @@
 			async function checkStatut(){
 				let data = await fetchData("dataPremièreConnexion");
 
-				nip = data.auth.nip ?? "";
-				idCAS = data.auth.session;
+				nip = data.auth.session;
 				statut = data.auth.statut;
 
 				document.querySelector(".studentPic").src = "services/data.php?q=getStudentPic";
@@ -253,7 +251,6 @@
 			async function loadSemesters(input = ""){
 				if(input){
 					nip = input.value;
-					idCAS = input.nextElementSibling?.querySelector(`[value="${input.value}"]`)?.innerText || "";
 				}				
 				let data = await fetchData("semestresEtudiant" + (input ? "&etudiant=" + nip : ""));
 				feedSemesters(data);
@@ -298,7 +295,7 @@
 /*********************************************/
 			async function getReportCards(){
 				let semestre = this.dataset.semestre;
-				let data = await fetchData("relevéEtudiant&semestre=" + semestre + ((nip && statut >= PERSONNEL) ? ("&etudiant=" + nip + "&idCAS=" + (idCAS || nip)) : ""));
+				let data = await fetchData("relevéEtudiant&semestre=" + semestre + ((nip && statut >= PERSONNEL) ? ("&etudiant=" + nip) : ""));
 
 				showReportCards(data, semestre);
 				feedAbsences(data.absences);

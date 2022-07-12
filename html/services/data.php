@@ -202,13 +202,12 @@
 				$Scodoc = new Scodoc();
 				$nip = $_GET['etudiant'] ?? $user->getId();
 				$dep = $Scodoc->getStudentDepartment($nip);
-				$idCAS = Annuaire::getStudentIdCASFromNumber($nip);
 				$output = [
 					'relevé' => $Scodoc->getReportCards($_GET['semestre'], $nip),
 					'absences' => Absences::getAbsence(
 						$dep,
 						$_GET['semestre'],
-						$idCAS
+						$nip
 					) ?? []
 				];
 				break;
