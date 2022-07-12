@@ -27,7 +27,8 @@
 
 	/////////////
 	
-	
+die("Fonctionnalité momentanément désactivée");
+
 	$result = Ask_Scodoc(
 		'/Scolarite/Notes/formsemestre_bulletinetud',
 		$dep,
