@@ -61,7 +61,7 @@
 					$infoCAS[1]['displayName'] ?? 
 					'Mme, M.';
 				$this->statut = $this->defineStatut($this->idCAS);
-var_dump($this->statut);die();
+var_dump($this->idCAS);die();
 				if($this->statut < PERSONNEL){
 					$this->id = Annuaire::getStudentNumberFromIdCAS($this->idCAS);
 				} else {
