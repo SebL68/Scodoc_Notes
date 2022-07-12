@@ -248,7 +248,7 @@
     ?>
     <main>
         <p>
-            Bonjour <span class=prenom></span>. 
+            Bonjour <span class=nom></span>. 
         </p>
 
         <div class="zone">
@@ -296,7 +296,7 @@
         async function checkStatut(){
             let data = await fetchData("donnéesAuthentification");
             session = data.session;
-            document.querySelector(".prenom").innerText = data.session.split(".")[0];
+            document.querySelector(".nom").innerText = data.name;
             let auth = document.querySelector(".auth");
             auth.style.opacity = "0";
             auth.style.pointerEvents = "none";
@@ -461,7 +461,7 @@
 						title="${etudiant.groupe}">
                             <div>
 								<div class="miniature" onclick="event.stopPropagation()">
-									<img src="../services/data.php?q=getStudentPic&idCAS=${etudiant.email}">
+									<img src="../services/data.php?q=getStudentPic&nip=${etudiant.num_etudiant}">
 								</div>
                                 <b>${etudiant.nom}</b>
                                 <span>${etudiant.prenom}</span>

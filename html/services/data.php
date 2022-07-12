@@ -127,7 +127,7 @@
 	0	get getStudentPic :
 	Récupère la photo d'un étudiant - sortie sous la forme d'une image
 	Un personnel ou plus peut récupéréer la photo de n'importe quel étudiant en paramètre GET
-			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=getStudentPic&idCAS=sebastien.lehmann@uha.fr
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=getStudentPic&nip=20222123
 
 	0	set deleteStudentPic :
 	Supprime la photo d'un étudiant

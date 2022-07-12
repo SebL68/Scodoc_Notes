@@ -112,7 +112,7 @@ main{
 	margin: auto;
 	margin-bottom: 32px;
 }
-.prenom{
+.nom{
 	text-transform: capitalize;
 	color:#de2a1c;
 }

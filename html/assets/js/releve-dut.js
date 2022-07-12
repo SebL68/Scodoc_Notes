@@ -65,7 +65,7 @@ class releveDUT extends HTMLElement {
 	showInformations(data) {
 		let output = `
 			<section class=etudiant>
-				<img class=studentPic src="services/data.php?q=getStudentPic&idCAS=${idCAS}" alt="Photo de l'étudiant" width=100 height=120>
+				<img class=studentPic src="services/data.php?q=getStudentPic&nip=${data.etudiant.code_nip}" alt="Photo de l'étudiant" width=100 height=120>
 				<div class=infoEtudiant>
 					<div class=civilite>
 						${data.etudiant.sexe}

@@ -137,7 +137,7 @@
 	?>
     <main>
         <p>
-            Bonjour <span class=prenom></span>.
+            Bonjour <span class=nom></span>.
         </p>
         <div class="groupe petit" style=margin-top:6px onclick=concat(this)>
             Séparer nom / prénom
@@ -177,7 +177,7 @@
 /*********************************************/			
         async function checkStatut(){
             let data = await fetchData("donnéesAuthentification");
-            document.querySelector(".prenom").innerText = data.session.split(".")[0];
+            document.querySelector(".nom").innerText = data.name;
             let auth = document.querySelector(".auth");
             auth.style.opacity = "0";
             auth.style.pointerEvents = "none";

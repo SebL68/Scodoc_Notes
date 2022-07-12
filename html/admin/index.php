@@ -142,7 +142,7 @@
     ?>
     <main>
         <p>
-            Bonjour <span class=prenom></span>.
+            Bonjour <span class=nom></span>.
         </p>
 
         <div class="zone">
@@ -186,7 +186,7 @@
         /***************************************************/
         async function checkStatut() {
             let data = await fetchData("donnéesAuthentification");
-            document.querySelector(".prenom").innerText = data.session.split(".")[0];
+            document.querySelector(".nom").innerText = data.name;
             utilisateur = data.session;
             let auth = document.querySelector(".auth");
             auth.style.opacity = "0";

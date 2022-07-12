@@ -139,7 +139,7 @@
 				<img alt="Photo de profil" class=studentPic src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" width=350 height=450>
 			</a>
 			<p>
-				Bonjour <span class=prenom></span>.
+				Bonjour <span class=nom></span>.
 			</p>
 			<p>
 				<i>
@@ -209,7 +209,7 @@
 				statut = data.auth.statut;
 
 				document.querySelector(".studentPic").src = "services/data.php?q=getStudentPic";
-				document.querySelector(".prenom").innerText = data.auth.name;
+				document.querySelector(".nom").innerText = data.auth.name;
 				let auth = document.querySelector(".auth");
 				auth.style.opacity = "0";
 				auth.style.pointerEvents = "none";
@@ -330,7 +330,7 @@
 					<?php } ?>
 					
 					if(!document.body.classList.contains("personnel")){
-						document.querySelector(".prenom").innerText = data.relevé.etudiant.prenom.toLowerCase();
+						document.querySelector(".nom").innerText = data.relevé.etudiant.prenom.toLowerCase();
 						releve.shadowRoot.querySelector(".studentPic").src = "services/data.php?q=getStudentPic";
 					} else {
 						releve.shadowRoot.querySelector(".studentPic").src = "services/data.php?q=getStudentPic&nip=" + nip;
