@@ -72,6 +72,7 @@
 	//echo $Scodoc->Ask_Scodoc('etudiant/nip/21902367');
 	//echo $Scodoc->Ask_Scodoc('etudiant/nip/22003752/formsemestres');
 
+	//echo $Scodoc->Ask_Scodoc('etudiant/nip/22003752/formsemestre/419/bulletin');
 	//echo $Scodoc->Ask_Scodoc('etudiant/nip/22003752/formsemestre/419/bulletin?format=pdf');
 
 ?>

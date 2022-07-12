@@ -32,8 +32,10 @@
 
 			if(phpCAS::isAuthenticated()){
 				// Utilisateur authentifié
-				$_SESSION['id'] = phpCAS::getUser();
-				return $_SESSION['id'];
+				return [
+					phpCAS::getUser(),
+					phpCAS::getAttributes()
+				];
 
 			}else{
 				// Utilisateur non authentifié, redirection vers une page pour s'authentifier au CAS.

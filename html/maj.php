@@ -50,7 +50,7 @@
 	<h1>Historique des mises à jours</h1>
 
 	<main>
-		<h2>25/04/2022 - 4.7.16 (en préparation) </h2>
+		<h2>25/04/2022 - 5.0.0 (en préparation) </h2>
 		<ul>
 			<li>Correctif manifest.json - Merci Franck Butelle.</li>
 			<li>Amélioration des audits Lighthouse : accessibilité et SEO.</li>
@@ -58,6 +58,10 @@
 			<li>Affichage de la situation du semestre à la place du code d'admission.</li>
 			<li>Amélioration de l'affichage des décisions semestres / années.</li>
 			<li>Ajout des décisions RCUE semestres pairs.</li>
+			<li>Correction bug potentiel d'authentification si l'idCAS étudiant ou enseignant est une fraction l'un de l'autre.</li>
+			<li>Ajout d'une méthode dans config pour extraire le nom de l'utilisateur de l'idCAS.</li>
+			<li>Sinon, par défaut : récupération du nom de l'utilisateur avec les info CAS cn ou displayName. Si aucun de fonctionne, affichage de 'Mme, M.'.</li>
+			<li>Suppression du message d'erreur en cas de réauthentification.</li>
 			<li>Divers correctifs et améliorations.</li>
 		</ul>
 		<h2>21/06/2022 - 4.7.15</h2>

@@ -114,8 +114,6 @@ class Annuaire{
 				self::checkFile($stafPath);
 			}
 
-			$pattern = '/'. $user .'/i';
-
 		/* 
 		L'ordre est ici important : un étudiant peut également avoir le statut de personnel si par exemple il est en apprentissage à l'IUT.
 
@@ -125,7 +123,7 @@ class Annuaire{
 		*/
 			/* Test administrateur */
 			foreach(json_decode(file_get_contents(self::$USERS_PATH)) as $departement => $dep){
-				if(preg_grep($pattern, $dep->administrateurs)){
+				if($user == $dep->administrateurs){
 					$statut = ADMINISTRATEUR;
 					if(!$justAsk){ $_SESSION['statut'] = $statut; }
 					return $statut;
@@ -134,7 +132,7 @@ class Annuaire{
 			
 			/* Test vacataire */
 			foreach(json_decode(file_get_contents(self::$USERS_PATH)) as $departement => $dep){
-				if(preg_grep($pattern, $dep->vacataires)){
+				if($user == $dep->vacataires){
 					$statut = PERSONNEL;
 					if(!$justAsk){ $_SESSION['statut'] = $statut; }
 					return $statut;
@@ -142,6 +140,7 @@ class Annuaire{
 			}
 
 			/* Test étudiant */
+			$pattern = '/^'. $user .':/i';
 			if(preg_grep($pattern, file(self::$STUDENTS_PATH))){
 				$statut = ETUDIANT;
 				if(!$justAsk){ $_SESSION['statut'] = $statut; }
@@ -149,6 +148,7 @@ class Annuaire{
 			}
 
 			/* Test personnel */
+			$pattern = '/\b'. $user .'\b/i';
 			foreach(self::$STAF_PATH as $stafPath){
 				if(preg_grep($pattern, file($stafPath))){
 					$statut = PERSONNEL;

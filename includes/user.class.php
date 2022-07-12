@@ -19,10 +19,13 @@
 	if(!isset($_SESSION)){ session_start(); }
 	use \Firebase\JWT\JWT;
 
-	require $Config->auth_class;	// Class Auth
+	require_once $Config->auth_class;	// Class Auth
+	require_once $Config->service_annuaire_class;	// Class Service_Annuaire
 
 	class User{
-		private $session;
+		private $id;
+		private $idCAS;
+		private $name;
 		private $statut;
 		private $path;
 
@@ -39,24 +42,52 @@
 			if(($token[1] ?? '') != '' && $Config->JWT_key != ''){
 				/* Accès par jeton */
 				$this->tokenAuth($token[1]);
+				$this->defineSession();
 
 			} elseif(isset($_SESSION['statut']) && $_SESSION['statut'] != '') {
 				/* Utilisateur déjà authentifié */
-				$this->session = $_SESSION['id'];
+				$this->id = $_SESSION['id'];
+				$this->idCAS = $_SESSION['idCAS'];
+				$this->name = $_SESSION['name'];
 				$this->statut = $_SESSION['statut'];
 
 			} else {
 				/* Procédure d'authentification */
-				$this->session = Auth::defaultAuth();
-				$this->defineStatut();
+				$infoCAS = Auth::defaultAuth();
+				$this->idCAS = $infoCAS[0];
+				$this->name = 
+					($Config->nameFromIdCAS)($idCAS) ??
+					$infoCAS[1]['cn'] ?? 
+					$infoCAS[1]['displayName'] ?? 
+					'Mme, M.';
+				$this->statut = $this->defineStatut($this->idCAS);
+
+				if($this->statut < PERSONNEL){
+					$this->id = Annuaire::getStudentNumberFromIdCAS($this->idCAS);
+				} else {
+					$this->id = $this->idCAS;
+				}
+				
+				$this->defineSession();
 			}
+		}
+
+		private function defineSession(){
+			$_SESSION['id'] = $this->id;
+			$_SESSION['idCAS'] = $this->idCAS;
+			$_SESSION['name'] = $this->name;
+			$_SESSION['statut'] = $this->statut;
 		}
 
 	/*************/
 	/* Interface */
 	/*************/
-		public function getSessionName(){
-			return $this->session;
+		public function getId(){
+			return $this->id;
+		}
+
+		public function getName(){
+			return $this->name;
 		}
 
 		public function getStatut(){
@@ -72,43 +103,39 @@
 			include_once $this->path . '/includes/default_config.php';
 			
 			$decoded = JWT::decode($token, $Config->JWT_key, ['HS256']);
-			$_SESSION['id'] = $decoded->session;
+
+			$this->id = $decoded->id;
+			$this->idCAS = $decoded->idCAS;
+			$this->name = $decoded->name;
 
 			switch($decoded->statut){
 				case 'inconnu':
-					$_SESSION['statut'] = INCONNU;
+					$this->statut = INCONNU;
 					break;
 				case 'etudiant':
-					$_SESSION['statut'] = ETUDIANT;
+					$this->statut = ETUDIANT;
 					break;
 				case 'personnel':
-					$_SESSION['statut'] = PERSONNEL;
+					$this->statut = PERSONNEL;
 					break;
 				case 'administrateur':
-					$_SESSION['statut'] = ADMINISTRATEUR;
+					$this->statut = ADMINISTRATEUR;
 					break;
 				case 'superadministrateur':
-					$_SESSION['statut'] = SUPERADMINISTRATEUR;
+					$this->statut = SUPERADMINISTRATEUR;
 					break;
 			}
-
-			$this->session = $_SESSION['id'];
-			$this->statut = $_SESSION['statut'];
 		}
-	
 
 	/***********************************************/
 	/* Définition du statut à partir de l'annuaire */
 	/***********************************************/
-		private function defineStatut(){
+		private function defineStatut($id){
 			global $Config;
 			if($Config->acces_enseignants == true){
-				include_once $this->path.'/includes/annuaire.class.php';
-				$_SESSION['statut'] = Annuaire::statut($this->session);
-				$this->statut = $_SESSION['statut'];
+				return Annuaire::statut($this->id);
 			} else {
-				$_SESSION['statut'] = ETUDIANT;
-				$this->statut = $_SESSION['statut'];
+				return ETUDIANT;
 			}
 		}
 	};

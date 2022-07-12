@@ -17,7 +17,8 @@
 	include $path . '/lib/JWT/key.php';
 
 	$payload = [
-		'session' => $user->getSessionName(), // mail de la personne destinataire du jeton
+		'session' => $user->getId(), // mail de la personne destinataire du jeton
+		'name' => $user->getName(),
 		'statut' => 'etudiant', 
 		'exp' => time() + (1*7*24*60*60) // Valide pour ce semestre (7 jours de plus par rapport à maintenant)
 	];

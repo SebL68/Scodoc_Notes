@@ -8,15 +8,15 @@
 		die(
 			json_encode(
 				array(
-					'erreur' => 'ADMIN : Le fichier config est obsolète, veuillez récupérer et compléter la nouvelle version à partir du GIT.'
+					'erreur' => 'ADMIN : Le fichier config est obsolète, veuillez récupérer et compléter la nouvelle version à partir de GIT.'
 				)
 			)
 		);
 	}
 
-	$Config = (object) [];
+	$Config = new stdClass();
 
-		$Config->passerelle_version = '4:7:15';
+		$Config->passerelle_version = '5:0:0';
 
 /***********************/
 /* Options d'affichage */
@@ -52,20 +52,30 @@
 
 	/* Certains nip ne correspondent pas à ce qui est dans Scodoc, parfois une lettre à changer
 		La fonction nipModifier fonction permet d'appliquer une modification avant d'utilliser le nip / mail
-		
-		Voir /includes/annuaire.class.php -> getStudentNumberFromIdCAS()
 	*/
 
 		/*$nipModifier = function($nip){
-			Config::nipModifier();
+			return Config::nipModifier($nip);
 		};*/
+
+	/* La passerelle tente de récupérer le nom de l'utilisateur depuis le CAS (champs cn ou displayName), mais cette donnée n'est pas toujours disponible. Il est alors parfois possible de récupérer ce nom de l'utilisateur à afficher à partir de l'idCAS.
+
+	Si aucune de ces solutions ne fonctionne, le système affiche par défaut 'Mme, M.'. */
+
+		$Config->nameFromIdCAS = function($idCAS) {
+			if(method_exists(Config::class, 'nameFromIdCAS')){
+				return Config::nameFromIdCAS($idCAS);
+			}else{
+				return;
+			}
+		};
 
 /********************************/
 /* Accès à Scodoc               */
 /********************************/
 	/*	Il faut créer compte avec un accès "secrétariat" qui a accès à tous les départements */
 
-		$Config->scodoc_url = Config::$scodoc_url;	// Attention, il doit y avoir /Scodoc à la fin	
+		$Config->scodoc_url = Config::$scodoc_url;	// ⚠️⚠️⚠️ Attention, il doit y avoir /Scodoc à la fin	
 		$Config->scodoc_login = Config::$scodoc_login;
 		$Config->scodoc_psw = Config::$scodoc_psw;
 		

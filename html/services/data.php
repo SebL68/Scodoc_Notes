@@ -1,10 +1,7 @@
 <?php
-/*****************************************/
-/* Gère la communication des données entre
-	le client (typiquement le navigateur) 
-	et le serveur */
-
-/*****************************************/
+/***********************************************************************************************/
+/* Gère la communication des données entre le client (typiquement le navigateur) et le serveur */
+/***********************************************************************************************/
 
 	ob_start("ob_gzhandler");
 	header('Access-Control-Allow-Origin: *');
@@ -18,22 +15,22 @@
 
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 
-	include_once "$path/includes/default_config.php";
-	include_once "$path/includes/absences.class.php";
-	include_once "$path/includes/admin.class.php";
-	include_once "$path/includes/user.class.php";
-	include_once "$path/includes/annuaire.class.php";
-	include_once "$path/includes/".$Config->service_annuaire_class;	// Class Service_Annuaire
-	include_once "$path/includes/".$Config->scheduler_class;		// Class Scheduler
-	include_once "$path/includes/serverIO.php";
-	include_once "$path/includes/scodoc.class.php";
+	require_once "$path/includes/default_config.php";
+	require_once "$path/includes/absences.class.php";
+	require_once "$path/includes/admin.class.php";
+	require_once "$path/includes/user.class.php";
+	require_once "$path/includes/annuaire.class.php";
+	require_once "$path/includes/".$Config->service_annuaire_class;	// Class Service_Annuaire
+	require_once "$path/includes/".$Config->scheduler_class;		// Class Scheduler
+	require_once "$path/includes/serverIO.php";
+	require_once "$path/includes/scodoc.class.php";
 
 	$user = new User();
 
 /*******************************/
 /* Mise en maintenance du site */
 /*******************************/
-	//if($user->getSessionName() != 'sebastien.lehmann@uha.fr') returnError('Site en cours de maintenance ...');
+	//if($user->getId() != 'sebastien.lehmann@uha.fr') returnError('Site en cours de maintenance ...');
 
 /******************************************
  * 
@@ -143,15 +140,14 @@
 
 			case 'donnéesAuthentification':
 				$output = [
-					'session' => $user->getSessionName(),
+					'session' => $user->getId(),
+					'name' => $user->getName(),
 					'statut' => $user->getStatut()
 				];
 				break;
 
 			case 'getStatut':
-				if(!isset($_GET['user']) || $_GET['user'] == ""){
-					break;
-				}
+				if(!isset($_GET['user']) || $_GET['user'] == ""){ break; }
 				$output = [
 					'statut' => Annuaire::statut($_GET['user'], true)
 				];
@@ -195,7 +191,7 @@
 				if($user->getStatut() < PERSONNEL && isset($_GET['etudiant'])){ returnError(); }
 				// Si c'est un personnel, on transmet l'étudiant par get, sinon on prend l'identifiant de la session.
 				$Scodoc = new Scodoc();
-				$nip = $_GET['etudiant'] ?? Annuaire::getStudentNumberFromIdCAS($user->getSessionName());
+				$nip = $_GET['etudiant'] ?? $user->getId();
 				$output = $Scodoc->getStudentSemesters($nip);
 				break;
 
@@ -204,7 +200,7 @@
 				if($user->getStatut() < PERSONNEL && isset($_GET['etudiant'])){ returnError(); } 
 				// Si c'est un personnel, on transmet l'étudiant par get, sinon on prend l'identifiant de la session.
 				$Scodoc = new Scodoc();
-				$nip = $_GET['etudiant'] ?? Annuaire::getStudentNumberFromIdCAS($user->getSessionName());
+				$nip = $_GET['etudiant'] ?? $user->getId();
 				$dep = $Scodoc->getStudentDepartment($nip);
 				$idCAS = Annuaire::getStudentIdCASFromNumber($nip);
 				$output = [
@@ -233,13 +229,13 @@
 					if($user->getStatut() == 'Compte_Demo.test@uha.fr'){
 						include 'data_demo.php';
 					} else {
-						$nip = Annuaire::getStudentNumberFromIdCAS($user->getSessionName());
+						$nip = $user->getId();
 						$dep = $Scodoc->getStudentDepartment($nip);
 						$semestres = $Scodoc->getStudentSemesters($nip);
 						$output = [
 							'auth' => [
-								'session' => $user->getSessionName(),
-								'nip' => $nip,
+								'session' => $user->getId(),
+								'name' => $user->getName(),
 								'statut' => $user->getStatut()
 							],
 							'semestres' => $semestres,
@@ -247,14 +243,14 @@
 							'absences' => Absences::getAbsence(
 								$dep,
 								end($semestres)['formsemestre_id'],
-								$user->getSessionName()
+								$user->getId()
 							) ?? []
 						];
 					}
 				}else if($user->getStatut() >= PERSONNEL){
 					$output = [
 						'auth' => [
-							'session' => $user->getSessionName(),
+							'session' => $user->getId(),
 							'statut' => $user->getStatut()
 						],
 						'etudiants' => $Scodoc->getAllStudents()
@@ -266,7 +262,7 @@
 			case 'setAbsence':
 				if($user->getStatut() < PERSONNEL ){ returnError(); }
 				Absences::setAbsence(
-					$user->getSessionName(),
+					$user->getId(),
 					$_GET['dep'],
 					$_GET['semestre'],
 					$_GET['matiere'],
@@ -359,12 +355,11 @@
 		/************************/
 			case 'setStudentPic':
 				if($user->getStatut() < ETUDIANT){ returnError(); }
-				if(!move_uploaded_file($_FILES['image']['tmp_name'], "$path/data/studentsPic/".$user->getSessionName().'.jpg')){
+				if(!move_uploaded_file($_FILES['image']['tmp_name'], "$path/data/studentsPic/".$user->getId().'.jpg')){
 					$output = [
 						'result' => "Not ok"
 					];
 				}else{
-					//chmod("$path/data/studentsPic/".$user->getSessionName().'.jpg', 0664);
 					$output = [
 						'result' => "OK"
 					];
@@ -372,20 +367,15 @@
 				break;
 
 			case 'getStudentPic':
-				if ($user->getStatut() > ETUDIANT && (isset($_GET['nip']) || isset($_GET['idCAS']))) {
-					if($_GET['idCAS']){
-						$id = $_GET['idCAS'];
-					} else {
-						$id = Annuaire::getStudentIdCASFromNumber($_GET['nip']);
-					}
-					$url = "$path/data/studentsPic/" . $id . ".jpg";
+				if ($user->getStatut() > ETUDIANT && isset($_GET['nip'])) {
+					$url = "$path/data/studentsPic/" . $_GET['nip'] . ".jpg";
 				} else {
-					$url = "$path/data/studentsPic/" . $user->getSessionName() . '.jpg';
+					$url = "$path/data/studentsPic/" . $user->getId() . '.jpg';
 				}
 
 				if(!file_exists($url)){ // Image par défaut si elle n'existe pas
 					if(method_exists('Config', 'customPic') == true){
-                        Config::customPic($_GET['idCAS']);
+                        Config::customPic($_GET['nip']);
                         return;
                     } else {
 						header('Content-type:image/svg+xml');
@@ -401,7 +391,7 @@
 				break;
 
 			case 'deleteStudentPic':
-				unlink("$path/data/studentsPic/" . $user->getSessionName() . '.jpg');
+				unlink("$path/data/studentsPic/" . $user->getId() . '.jpg');
 				$output = [
 					'result' => "OK"
 				];

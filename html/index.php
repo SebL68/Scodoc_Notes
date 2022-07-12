@@ -131,7 +131,7 @@
 		}
 	?>">
 		<?php 
-			$h1 = 'Relevé de notes';
+			$h1 = '⚠️⚠️⚠️ PRÉVERSION pour tests ⚠️⚠️⚠️ Relevé de notes';
 			include $_SERVER['DOCUMENT_ROOT']."/assets/header.php";
 		?>
 		<main>
@@ -209,7 +209,7 @@
 				statut = data.auth.statut;
 
 				document.querySelector(".studentPic").src = "services/data.php?q=getStudentPic";
-				document.querySelector(".prenom").innerText = String(data.auth.session).match(/([a-z-]*)\./)?.[1] || "Mme, M.,";
+				document.querySelector(".prenom").innerText = data.auth.name;
 				let auth = document.querySelector(".auth");
 				auth.style.opacity = "0";
 				auth.style.pointerEvents = "none";

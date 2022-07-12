@@ -246,6 +246,20 @@ class releveBUT extends HTMLElement {
 				</div>
 			</div>`
 		}
+		if(data.semestre.decision_ue?.length){
+			output += `
+			<div>
+				<div class=enteteSemestre>UE</div><div></div>
+				${(()=>{
+					let output = "";
+					data.semestre.decision_ue.forEach(ue=>{
+						output += `<div class=competence>${ue.acronyme}</div><div>${ue.code}</div>`;
+					})
+					return output;
+				})()}
+				</div>
+			</div>`
+		}
 		/*${data.semestre.groupes.map(groupe => {
 			return `
 					<div>
