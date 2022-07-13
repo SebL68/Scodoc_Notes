@@ -163,11 +163,15 @@ class Scodoc{
 
 	*******************************/
 	public function getReportCards($semestre, $nip, $format = 'json'){
+		global $Config;
 		$output = json_decode($this->Ask_Scodoc("etudiant/nip/$nip/formsemestre/$semestre/bulletin?format=$format"));
 
 		////////// TODO gérer l'export de la version PDF
 
 		if(isset($output->rang) || $output->type == 'BUT'){	// Version BUT ou autres versions
+			if($output->relevé->publie === false){
+				$output->message = $Config->message_non_publication_releve;
+			}
 			return $output;
 		}else{
 			returnError(
