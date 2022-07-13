@@ -75,18 +75,18 @@ success  '     ==> Fait'
 
 echo
 warn " *** Extraction de l'archive ... ***"
-unzip -q main.zip
+unzip -q 9d6c41f443bc0630ef8d66b3a5eec1f0c7e0ed58.zip
 rm -rf html includes lib 
-mv Scodoc_Notes-main/html .
-mv Scodoc_Notes-main/includes .
-mv Scodoc_Notes-main/lib .
+mv Scodoc_Notes-9d6c41f443bc0630ef8d66b3a5eec1f0c7e0ed58/html .
+mv Scodoc_Notes-9d6c41f443bc0630ef8d66b3a5eec1f0c7e0ed58/includes .
+mv Scodoc_Notes-9d6c41f443bc0630ef8d66b3a5eec1f0c7e0ed58/lib .
 # mv Scodoc_Notes-main/installOrUpdate.sh .
 # chmod +x installOrUpdate.sh
 success  '     ==> Fait'
 
 if [ $doinstall ]; then
-	mv Scodoc_Notes-main/data .
-	mv Scodoc_Notes-main/config .
+	mv Scodoc_Notes-9d6c41f443bc0630ef8d66b3a5eec1f0c7e0ed58/data .
+	mv Scodoc_Notes-9d6c41f443bc0630ef8d66b3a5eec1f0c7e0ed58/config .
 
 	echo 'Changement des droits sur le répetoire data'
 	chown -R www-data config data
@@ -119,4 +119,4 @@ fi
 
 #Nettoyage
 chown -R www-data html includes lib
-rm -rf Scodoc_Notes-main main.zip
+rm -rf Scodoc_Notes-9d6c41f443bc0630ef8d66b3a5eec1f0c7e0ed58 9d6c41f443bc0630ef8d66b3a5eec1f0c7e0ed58.zip
