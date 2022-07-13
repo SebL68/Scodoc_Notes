@@ -253,11 +253,11 @@
 					nip = input.value;
 				}				
 				let data = await fetchData("semestresEtudiant" + (input ? "&etudiant=" + nip : ""));
-				feedSemesters(data);
+				feedSemesters(data, nip);
 				document.querySelector(".semestres>label:nth-child(1)>div").click();
 			}
 			
-			function feedSemesters(data){
+			function feedSemesters(data, nip){
 				let output = document.querySelector(".semestres");
 				output.innerHTML = "";
 				for(let i=data.length-1 ; i>=0 ; i--){
@@ -287,6 +287,13 @@
 					label.appendChild(input);
 					label.appendChild(vignette);
 					output.appendChild(label);
+				}
+
+				if(statut >= 20){
+					let url = window.location.origin + "/?ask_student=" + nip;
+					let div = document.createElement("div");
+					div.innerHTML = `<div style="width:100%; margin: 8px;">Lien pour accéder directement aux relevés : <a href=${url}>${url}</a></div>`;
+					output.appendChild(div);
 				}
 			}
 

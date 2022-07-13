@@ -7,6 +7,10 @@
 	include_once "$path/includes/user.class.php";
 	$user = new User();
 
+	if(!$Config->releve_PDF){
+		die('Cette opération n\'est au autorisée, malotru !');
+	}
+
 	if($user->getStatut() >= PERSONNEL){ 
 		$nip = $_GET['etudiant'];
 	} else {
@@ -27,7 +31,7 @@
 
 	/////////////
 	
-die("Fonctionnalité momentanément désactivée");
+	$dep = getStudentDepartment($nip);
 
 	$result = Ask_Scodoc(
 		'/Scolarite/Notes/formsemestre_bulletinetud',
