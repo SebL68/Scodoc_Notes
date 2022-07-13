@@ -169,7 +169,7 @@ class Scodoc{
 		////////// TODO gérer l'export de la version PDF
 
 		if(isset($output->rang) || $output->type == 'BUT'){	// Version BUT ou autres versions
-			if($output->relevé->publie === false){
+			if($output->publie === false){
 				$output->message = $Config->message_non_publication_releve;
 			}
 			return $output;
