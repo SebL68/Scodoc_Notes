@@ -49,7 +49,6 @@
             z-index: 10;
             padding: 20px;
             border-radius: 0 0 10px 10px;
-            background: #ec7068;
             background: #90c;
             color: #FFF;
             font-size: 24px;
@@ -57,8 +56,7 @@
             transform: translate(-50%, 0);
         }
         @keyframes message{
-            20%{transform: translate(-50%, 100%)}
-            80%{transform: translate(-50%, 100%)}
+            20%, 80%{transform: translate(-50%, 100%)}
         }
         .capitalize{
             text-transform: capitalize;

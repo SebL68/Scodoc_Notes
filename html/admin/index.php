@@ -128,8 +128,7 @@
             transform: translate(-50%, 0);
         }
         @keyframes message {
-            20% {transform: translate(-50%, 100%)}
-            80% {transform: translate(-50%, 100%)}
+            20%, 80% {transform: translate(-50%, 100%)}
         }
     </style>
     <meta name=description content="Gestion des administrateurs de l'<?php echo $Config->nom_IUT; ?>">
