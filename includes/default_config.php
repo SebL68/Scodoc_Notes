@@ -45,6 +45,17 @@
 		$Config->afficher_absences = Config::$afficher_absences ?? false;	// En dessous du relevé de notes étudiants
 		$Config->module_absences = Config::$module_absences ?? false;		// nécessite l'acces_enseignants - ce module est différent de celui de Scodoc, il est géré entièrement par la passerelle.
 
+/*********************/
+/* Analyse du trafic */
+/*********************/
+	/*
+		Module optionnel d'analyse des connexions au site
+		Ce module est interne à la passerelle et conforme au RGPD.
+		Il peut dans une certains mesure remplacer un système de type Google Analytics ou Matomo.
+		Si vous souhaitez utiliser un autre système, vous pouvez compléter le fichier analytics.php 
+	*/
+		$Config->analystics_interne = Config::$analystics_interne ?? false;
+
 /*********************************/
 /* Données retournées par le CAS */
 /*********************************/

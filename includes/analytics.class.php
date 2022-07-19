@@ -3,6 +3,11 @@ class Analytics{
 
 	public static function add($type, $user = ''){
 		global $path;
+		global $Config;
+
+		if($Config->analystics_interne == false){
+			return;
+		}
 
 		$dir = $path . '/data/analytics/';
 		$file = $dir . date('Y-m-j') . '.txt';

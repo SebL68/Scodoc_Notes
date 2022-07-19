@@ -62,6 +62,7 @@
 			<li>Ajout d'une méthode dans config pour extraire le nom de l'utilisateur de l'idCAS.</li>
 			<li>Sinon, par défaut : récupération du nom de l'utilisateur avec les info CAS cn ou displayName. Si aucun de fonctionne, affichage de 'Mme, M.'.</li>
 			<li>Suppression du message d'erreur en cas de réauthentification.</li>
+			<li>Ajout d'un système d'analyse du trafic interne à la passerelle : à activer dans config.php</li>
 			<li>Divers correctifs et améliorations.</li>
 		</ul>
 		<h2>21/06/2022 - 4.7.15</h2>
