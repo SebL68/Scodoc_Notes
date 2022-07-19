@@ -31,6 +31,16 @@
 
 	/////////////
 	
+	function getStudentDepartment($nip){
+		return Ask_Scodoc(
+			'/get_etud_dept',
+			'',
+			[
+				'code_nip' => $nip
+			]
+		);
+	}
+
 	$dep = getStudentDepartment($nip);
 
 	$result = Ask_Scodoc(
