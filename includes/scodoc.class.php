@@ -172,6 +172,7 @@ class Scodoc{
 			if($output->publie === false){
 				$output->message = $Config->message_non_publication_releve;
 			}
+			Analytics::add('relevé');
 			return $output;
 		}else{
 			returnError(

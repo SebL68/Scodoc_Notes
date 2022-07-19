@@ -1,6 +1,8 @@
 <?php 
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 	include_once "$path/includes/default_config.php";
+	require_once "$path/includes/analytics.class.php";
+	Analytics::add('absences');
 ?>
 <!DOCTYPE html>
 <html lang="fr">
