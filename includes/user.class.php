@@ -69,6 +69,8 @@
 				}
 				
 				$this->defineSession();
+
+				Analytics::add('newSession', true);
 			}
 		}
 

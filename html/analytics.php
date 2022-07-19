@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <title>Fréquentation</title>
+	<style>
+		.wait{
+			position: fixed;
+			width: 50px;
+			height: 10px;
+			background: #424242;
+			top: 80px;
+			left: 50%;
+			margin-left: -25px;
+			animation: wait 0.6s ease-out alternate infinite;
+		}
+		@keyframes wait{
+			100%{transform: translateY(-30px) rotate(360deg)}
+		}
+	</style>
+</head>
+<body>
+    <div class="wait"></div>
+	<canvas id="myChart" width="400" height="400"></canvas>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script>
+
+		<?php
+			$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
+			include "$path/includes/clientIO.php";
+		?>
+
+		async function getData(){
+			let data = await fetchData("getAnalyticsData");
+			//document.body.innerHTML = data;
+			const ctx = document.getElementById('myChart').getContext('2d');
+			const myChart = new Chart(ctx, {
+				type: 'line',
+				data: {
+					datasets: [{
+
+						//data: Object.values(data)
+						data: [{
+							x: '2021-11-01 23:39:30',
+							y: 50
+						}, {
+							x: '2021-11-07 01:00:28',
+							y: 60
+						}, {
+							x: '2021-11-07 09:00:28',
+							y: 20
+						}]
+					}]
+				},
+				
+			});
+		}
+
+		getData();
+		
+	</script>
+
+</body>
+</html>
+
+
+
+

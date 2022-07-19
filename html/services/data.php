@@ -10,8 +10,8 @@
 	header('Content-type:application/json');
 
 /* Debug */
-	error_reporting(E_ALL);
-	ini_set('display_errors', '1');
+	/*error_reporting(E_ALL);
+	ini_set('display_errors', '1');*/
 
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 
@@ -24,6 +24,7 @@
 	require_once "$path/includes/".$Config->scheduler_class;		// Class Scheduler
 	require_once "$path/includes/serverIO.php";
 	require_once "$path/includes/scodoc.class.php";
+	require_once "$path/includes/analytics.class.php";
 
 	$user = new User();
 
@@ -395,6 +396,10 @@
 				$output = [
 					'result' => "OK"
 				];
+				break;
+
+			case 'getAnalyticsData':
+				$output = Analytics::getData();
 				break;
 		}	
 		if($output != ''){

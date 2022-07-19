@@ -6,9 +6,7 @@ data/annuaires/utilisateurs.json
 data/annuaires/administrateurs.json
 data/annuaires/vacataires.json
 
-#Anciennes versions
-html/saveV1
-html/saveV2
+data/analytics/*
 
 #Cookies
 cookie.txt

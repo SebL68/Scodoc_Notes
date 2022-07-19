@@ -123,46 +123,38 @@ class Annuaire{
 		*/
 			/* Test administrateur */
 			foreach(json_decode(file_get_contents(self::$USERS_PATH)) as $departement => $dep){
-				if($user == $dep->administrateurs){
-					$statut = ADMINISTRATEUR;
-					if(!$justAsk){ $_SESSION['statut'] = $statut; }
-					return $statut;
+				foreach($dep->administrateurs as $identifiant){
+					if($user == $identifiant){
+						return ADMINISTRATEUR;
+					}
 				}
 			}
 			
 			/* Test vacataire */
 			foreach(json_decode(file_get_contents(self::$USERS_PATH)) as $departement => $dep){
-				if($user == $dep->vacataires){
-					$statut = PERSONNEL;
-					if(!$justAsk){ $_SESSION['statut'] = $statut; }
-					return $statut;
+				foreach($dep->vacataires as $identifiant){
+					if($user == $identifiant){
+						return PERSONNEL;
+					}
 				}
 			}
 
 			/* Test étudiant */
 			$pattern = '/^'. $user .':/i';
 			if(preg_grep($pattern, file(self::$STUDENTS_PATH))){
-				$statut = ETUDIANT;
-				if(!$justAsk){ $_SESSION['statut'] = $statut; }
-				return $statut;
+				return ETUDIANT;
 			}
 
 			/* Test personnel */
 			$pattern = '/\b'. $user .'\b/i';
 			foreach(self::$STAF_PATH as $stafPath){
 				if(preg_grep($pattern, file($stafPath))){
-					$statut = PERSONNEL;
-					if(!$justAsk){ $_SESSION['statut'] = $statut; }
-					return $statut;
+					return PERSONNEL;
 				}
 			}
 
-			//$_SESSION['statut'] = INCONNU;
-			$statut = ETUDIANT;
-			if(!$justAsk){ $_SESSION['statut'] = $statut; }
-			return $statut;
+			return ETUDIANT;
 		}
-		return $_SESSION['statut'];	
 	}
 
 	private static function setCurrentStatut(){
