@@ -1,4 +1,5 @@
 <?php
+require_once "$path/includes/default_config.php";
 class Analytics{
 
 	public static function add($type, $user = ''){
