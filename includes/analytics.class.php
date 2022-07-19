@@ -1,7 +1,7 @@
 <?php
 class Analytics{
 
-	public static function add($type, $user){
+	public static function add($type, $user = ''){
 		global $path;
 
 		$dir = $path . '/data/analytics/';
