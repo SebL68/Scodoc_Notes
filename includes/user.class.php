@@ -56,7 +56,7 @@
 				$infoCAS = Auth::defaultAuth();
 				$this->idCAS = $infoCAS[0];
 				$this->name = 
-					($Config->nameFromIdCAS)($idCAS) ??
+					($Config->nameFromIdCAS)($this->$idCAS) ??
 					$infoCAS[1]['cn'] ?? 
 					$infoCAS[1]['displayName'] ?? 
 					'Mme, M.';
