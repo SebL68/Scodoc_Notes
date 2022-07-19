@@ -57,6 +57,10 @@
 		}
 
 		getData();
+
+		function accumulator(data, duration){
+			
+		}
 		
 	</script>
 
