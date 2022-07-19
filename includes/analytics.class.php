@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 class Analytics{
 
 	public static function add($type, $user = ''){
