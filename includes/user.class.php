@@ -70,7 +70,7 @@
 				
 				$this->defineSession();
 
-				Analytics::add('newSession', true);
+				Analytics::add('newSession', $this);
 			}
 		}
 

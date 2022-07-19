@@ -1,13 +1,8 @@
 <?php
-	
-$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
-include_once "$path/includes/default_config.php";
-
 class Analytics{
 
-	public static function add($type){
+	public static function add($type, $user){
 		global $path;
-		global $user;
 
 		$dir = $path . '/data/analytics/';
 		$file = $dir . date('Y-m-j') . '.txt';
@@ -46,5 +41,4 @@ class Analytics{
 		$file = $dir . date('Y-m-j') . '.txt';
 		return json_decode('{"'. date('Y-m-j') . '":[' . file_get_contents($file) . ']}');
 	}
-
 }
