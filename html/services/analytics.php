@@ -32,7 +32,7 @@
 
 		async function getData(){
 			let data = await fetchData("getAnalyticsData");
-			//document.body.innerHTML = data;
+
 			const ctx = document.getElementById('myChart').getContext('2d');
 			const myChart = new Chart(ctx, {
 				type: 'line',

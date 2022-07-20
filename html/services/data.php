@@ -398,10 +398,16 @@
 				];
 				break;
 
+		/************************/
+		/* Analytics interne	*/
+		/************************/
 			case 'getAnalyticsData':
 				$output = Analytics::getData();
 				break;
 		}	
+		
+/*************************************************/
+
 		if($output != ''){
 			if(method_exists('Config', 'customOutput') == true){
 				$output = Config::customOutput($output);
