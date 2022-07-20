@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Choix groupes</title>
+	<style>
+		body{
+			background:#f0f0f0;
+			font-family: Verdana, Geneva, Tahoma, sans-serif;
+		}
+		main{
+			display: flex;
+			flex-wrap: wrap;
+			gap: 32px;
+		}
+		h2, h3{
+			font-weight: 400;
+		}
+
+	/*****************************/
+	/* Zone Choix                */
+	/*****************************/
+		.filtres{
+			display: flex;
+			gap: 4px;
+			margin-bottom: 16px;
+		}
+		.filtres>div{
+			background: #09c;
+			color: #FFF;
+			border-radius: 4px;
+			padding: 8px 32px;
+			box-shadow: 0 2px 2px rgba(0,0,0,0.25);
+			cursor: pointer;
+		}
+		.filtres>div:hover{
+			box-shadow: 0 2px 2px rgba(0,0,0,0.6);
+		}
+		.filtres>div:active{
+			box-shadow: 0 0 0 #000;
+			transform: translateY(2px);
+		}
+		.filtres>.unselect{
+			background: rgba(0, 153, 204, 0.5);
+		}
+		#zoneChoix .etudiants>div{
+			background: #FFF;
+			border: 1px solid #aaa;
+			border-radius: 4px;
+			padding: 4px 8px;
+			margin: 4px 0;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			gap: 8px;
+		}
+
+		#zoneChoix .etudiants .nom{
+			flex: 1;
+		}
+		#zoneChoix .etudiants small{
+			color: #444;
+			font-style: italic;
+		}
+		#zoneChoix .etudiants .partition{
+			display: flex;
+			flex-wrap: wrap;
+			gap: 4px;
+			margin-bottom: 4px;
+		}
+		#zoneChoix label{
+			cursor: pointer;
+		}
+		#zoneChoix .etudiants .partition>div,
+		#zoneChoix .etudiants .partition span{
+			display: block;
+			padding: 4px 8px;
+			border: 1px solid #aaa;
+			border-radius: 4px;
+		}
+		#zoneChoix .etudiants .partition input{
+			display: none;
+		}
+		#zoneChoix .etudiants .partition input:checked:not([value=aucun])+span{
+			background: #c09;
+			border-color: #c09;
+			color: #fff;
+		}
+		#zoneChoix .etudiants .partition>:nth-child(1){
+			background: #09c;
+			border-color: #09c;
+			color: #fff;
+		}
+		.hide{
+			display: none !important;
+		}
+
+	/*****************************/
+	/* Zone Groupes              */
+	/*****************************/
+		#zoneGroupes{
+			flex: 1;
+		}
+		#zoneGroupes .groupes{
+			display: flex;
+			flex-wrap: wrap;
+			align-items: flex-start;
+			gap: 16px;
+		}
+		#zoneGroupes .partition{
+			background: #ddd;
+			padding: 8px;
+			border-radius: 8px;
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+		}
+		h3{
+			margin: 0;
+		}
+		#zoneGroupes .groupe{
+			background: #FFF;
+			border-radius: 8px;
+		}
+		#zoneGroupes .groupe>div{
+			padding: 8px 16px;
+		}
+		#zoneGroupes .groupe>div:nth-child(1){
+			color: #09c;
+			border-bottom: 1px solid #aaa;
+		}
+
+		#zoneGroupes .etudiants{
+			counter-reset: cpt;
+		}
+		#zoneGroupes .etudiants>*::before{
+			counter-increment: cpt;
+    		content: counter(cpt) " - ";
+		}
+		[data-idgroupe=aucun]{
+			background: #b5c2c3 !important;
+		}
+	</style>
+</head>
+<body>
+	<main>
+		<section id="zoneChoix">
+			<h2>Choix</h2>
+			<div class="filtres"></div>
+			<div class="etudiants"></div>
+		</section>
+		<section id="zoneGroupes">
+			<h2>Groupes</h2>
+			<div class="groupes"></div>
+		</section>
+	</main>
+
+	<script>
+		// Partitions
+		let partitions = {
+			"P1": {
+				"titre": "TD",
+				"groupes": {
+					"G1": "TD 1",
+					"G2": "TD 2"
+				}
+			},
+			"P2": {
+				"titre": "TP",
+				"groupes": {
+					"G3": "TP 11",
+					"G4": "TP 12",
+					"G5": "TP 21",
+					"G6": "TP 22"
+				}
+			}
+		}
+
+		// Etudiants
+		let etudiants = [
+			{
+				"etudid": 6,
+				"nom": "Alain",
+				"prenom": "Verse",
+				"bac": "S",
+				"partitions": {
+					"P1": "",
+					"P2": ""
+				}
+			},{
+				"etudid": 2,
+				"nom": "Alex",
+				"prenom": "Terieur",
+				"bac": "STMG",
+				"partitions": {
+					"P1": "G2",
+					"P2": "G5"
+				}
+			},{
+				"etudid": 5,
+				"nom": "Barack",
+				"prenom": "Afrit",
+				"bac": "Nop",
+				"partitions": {
+					"P1": "G1",
+					"P2": "G4"
+				}
+			},{
+				"etudid": 3,
+				"nom": "Bono",
+				"prenom": "Beau",
+				"bac": "L",
+				"partitions": {
+					"P1": "G1",
+					"P2": "G3"
+				}
+			},{
+				"etudid": 4,
+				"nom": "Jean",
+				"prenom": "Bon",
+				"bac": "Bac Pro",
+				"partitions": {
+					"P1": "G1",
+					"P2": "G4"
+				}
+			},{
+				"etudid": 1,
+				"nom": "Lehmann",
+				"prenom": "Sébastien",
+				"bac": "S",
+				"partitions": {
+					"P1": "G1",
+					"P2": "G4"
+				}
+			}
+		]
+	</script>
+	<script>
+
+		processDatas(partitions, etudiants);
+		processEvents();
+
+		function processDatas(partitions, etudiants){
+
+			/* Filtres et groupes */
+			let outputFiltres = "";
+			let outputGroupes = "";
+			Object.entries(partitions).forEach(([idPartition, partition])=>{
+				// Filtres
+				outputFiltres += `<div data-idpartition="${idPartition}">${partition.titre}</div>`;
+
+				// Groupes
+				outputGroupes += `
+					<div class=partition data-idpartition="${idPartition}">
+						<h3>${partition.titre}</h3>
+						<div class=groupe data-idgroupe=aucun>
+							<div>Non affecté(s)</div>
+							<div class=etudiants></div>
+						</div>
+						${(()=>{
+							let output = "";
+							Object.entries(partition.groupes).forEach(([idGroupe, titreGroupe])=>{
+								output += `
+									<div class=groupe data-idgroupe="${idGroupe}">
+										<div>${titreGroupe}</div>
+										<div class=etudiants></div>
+									</div>`;
+							})
+							return output;
+						})()}
+					</div>`;
+			})
+			document.querySelector(".filtres").innerHTML = outputFiltres;
+			document.querySelector("#zoneGroupes>.groupes").innerHTML = outputGroupes;
+			
+
+			/* Etudiants */
+			output = "";
+			etudiants.forEach(etudiant=>{
+				output += `
+					<div>
+						<div class=nom data-etudid="${etudiant.etudid}" data-nom="${etudiant.nom}" data-prenom="${etudiant.prenom}">${etudiant.nom} ${etudiant.prenom}<br><small>${etudiant.bac}</small></div>
+						${(()=>{
+							let output = "<div class=grpPartitions>";
+							Object.entries(partitions).forEach(([idPartition, dataPartition])=>{
+								output += `
+									<div class=partition data-idpartition="${idPartition}">
+										<div>${dataPartition.titre}</div>
+										${(()=>{
+											let output = `<label><input type=radio name="${etudiant.etudid}-${idPartition}" value="aucun"><span>N / A</span></label>`;
+											let affected = false;
+											Object.entries(dataPartition.groupes).forEach(([idGroupe, titreGroupe])=>{
+												output += `
+													<label><input type=radio name="${etudiant.etudid}-${idPartition}" value="${idGroupe}" ${(etudiant.partitions[idPartition] == idGroupe)?"checked":""}><span>${titreGroupe}</span></label>`;
+													
+													if(etudiant.partitions[idPartition] == idGroupe){
+														affected = true;
+														document.querySelector(`#zoneGroupes [data-idgroupe="${idGroupe}"]>.etudiants`).innerHTML += templateEtudiantGroupes(etudiant);
+													}
+											})
+											if(!affected){
+												document.querySelector(`#zoneGroupes [data-idpartition="${idPartition}"]>[data-idgroupe="aucun"]>.etudiants`).innerHTML += templateEtudiantGroupes(etudiant);
+											}
+											return output;
+										})()}
+									</div>`;
+							})
+							return output + "</div>";
+						})()}
+					</div>`;
+			})
+			document.querySelector("#zoneChoix>.etudiants").innerHTML = output;
+			
+
+		}
+
+		function templateEtudiantGroupes(etudiant){
+			return `<div data-etudid="${etudiant.etudid}" data-nom="${etudiant.nom}" data-prenom="${etudiant.prenom}">${etudiant.nom} ${etudiant.prenom}</div>`
+		}
+
+		function processEvents(){
+			document.querySelectorAll(".filtres>div").forEach(btn=>{ 
+				btn.addEventListener("click", filtre);
+				btn.addEventListener("mousedown", (event)=>{event.preventDefault()}) // Eviter de sélectionner le texte si on clique plusieurs fois frénétiquement
+			});
+			document.querySelectorAll("#zoneChoix label").forEach(btn=>{btn.addEventListener("mousedown", (event)=>{event.preventDefault()})});
+			
+			document.querySelectorAll(".etudiants input").forEach(input=>{
+				input.addEventListener("input", assignment);
+			})
+		}
+
+		function filtre(){
+
+			let nbUnselected = this.parentElement.querySelectorAll(".unselect").length;
+			let nbBtn = this.parentElement.children.length;
+			
+			if(nbUnselected == 0){
+				Array.from(this.parentElement.children).forEach(e=>{
+					e.classList.toggle("unselect");
+				})
+			}
+			this.classList.toggle("unselect");
+
+			nbUnselected = this.parentElement.querySelectorAll(".unselect").length;
+			if(nbUnselected == nbBtn){
+				Array.from(this.parentElement.children).forEach(e=>{
+					e.classList.toggle("unselect");
+				})
+			}
+
+			let groupesSelected = [];
+			this.parentElement.querySelectorAll(":not(.unselect)").forEach(e=>{
+				groupesSelected.push(e.dataset.idpartition);
+			})
+
+			document.querySelectorAll(`
+				.etudiants [data-idpartition],
+				#zoneGroupes  [data-idpartition]
+			`).forEach(e=>{
+				if(groupesSelected.includes(e.dataset.idpartition)){
+					e.classList.remove("hide")
+				} else {
+					e.classList.add("hide")
+				}	
+			})			
+		}
+
+		function assignment(){
+			let groupe = this.parentElement.parentElement.parentElement.parentElement;
+			let nom = groupe.children[0].dataset.nom;
+			let prenom = groupe.children[0].dataset.prenom;
+			let etudid = groupe.children[0].dataset.etudid;
+			let idPartition = this.parentElement.parentElement.dataset.idpartition;
+			let idGroupe = this.value;
+			
+			document.querySelector(`#zoneGroupes [data-idPartition="${idPartition}"] [data-etudid="${etudid}"]`).remove();
+
+			let etudiant = {
+				etudid: etudid,
+				nom: nom,
+				prenom: prenom
+			}
+			
+			let results = document.querySelector(`#zoneGroupes [data-idPartition="${idPartition}"] [data-idgroupe="${idGroupe}"]>.etudiants`);
+			results.innerHTML += templateEtudiantGroupes(etudiant);
+
+			/* Tri */
+			let results2 = [...results.children];
+			results2.sort((a, b)=>{
+				return (a.dataset.nom + a.dataset.prenom).localeCompare(b.dataset.nom + b.dataset.prenom)
+			})
+			results.innerHTML = "";
+			results.append(...results2);
+		}
+
+	</script>
+</body>
+</html>
