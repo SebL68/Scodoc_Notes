@@ -22,12 +22,19 @@
 	/*****************************/
 	/* Zone Choix                */
 	/*****************************/
-		.filtres{
-			display: flex;
-			gap: 4px;
-			margin-bottom: 16px;
-		}
 		.filtres>div{
+			background: #ddd;
+			padding: 8px;
+			border-radius: 8px;
+			margin-bottom: 8px;
+		}
+		.filtres>div>div{
+			display: flex;
+			flex-wrap: wrap;
+			gap: 4px;
+			margin: 4px 0;
+		}
+		.filtres>div>div>div{
 			background: #09c;
 			color: #FFF;
 			border-radius: 4px;
@@ -35,16 +42,17 @@
 			box-shadow: 0 2px 2px rgba(0,0,0,0.25);
 			cursor: pointer;
 		}
-		.filtres>div:hover{
+		.filtres>div>div>div:hover{
 			box-shadow: 0 2px 2px rgba(0,0,0,0.6);
 		}
-		.filtres>div:active{
+		.filtres>div>div>div:active{
 			box-shadow: 0 0 0 #000;
 			transform: translateY(2px);
 		}
-		.filtres>.unselect{
+		.filtres>div>div>.unselect{
 			background: rgba(0, 153, 204, 0.5);
 		}
+
 		#zoneChoix .etudiants>div{
 			background: #FFF;
 			border: 1px solid #aaa;
@@ -60,7 +68,7 @@
 		#zoneChoix .etudiants .nom{
 			flex: 1;
 		}
-		#zoneChoix .etudiants small{
+		#zoneChoix small{
 			color: #444;
 			font-style: italic;
 		}
@@ -139,7 +147,7 @@
 			counter-increment: cpt;
     		content: counter(cpt) " - ";
 		}
-		[data-idgroupe=aucun]{
+		#zoneGroupes [data-idgroupe=aucun]{
 			background: #b5c2c3 !important;
 		}
 	</style>
@@ -148,7 +156,19 @@
 	<main>
 		<section id="zoneChoix">
 			<h2>Choix</h2>
-			<div class="filtres"></div>
+			<div class="filtres">
+				<div class="partitions">
+					<h3>Afficher les partitions</h3>
+					<div></div>
+				</div>
+				<div class="masques">
+					<h3>
+						Afficher les étudiants affectés aux groupes<br>
+						<small>Ne s'actualise pas automatiquement lors d'une modification</small>
+					</h3>
+					<div></div>
+				</div>
+			</div>
 			<div class="etudiants"></div>
 		</section>
 		<section id="zoneGroupes">
@@ -245,11 +265,12 @@
 		function processDatas(partitions, etudiants){
 
 			/* Filtres et groupes */
-			let outputFiltres = "";
+			let outputPartitions = "";
+			let outputMasques = "<div data-idgroupe=aucun>N/A</div>";
 			let outputGroupes = "";
 			Object.entries(partitions).forEach(([idPartition, partition])=>{
 				// Filtres
-				outputFiltres += `<div data-idpartition="${idPartition}">${partition.titre}</div>`;
+				outputPartitions += `<div data-idpartition="${idPartition}">${partition.titre}</div>`;
 
 				// Groupes
 				outputGroupes += `
@@ -262,6 +283,9 @@
 						${(()=>{
 							let output = "";
 							Object.entries(partition.groupes).forEach(([idGroupe, titreGroupe])=>{
+							/***************/
+								outputMasques += `<div data-idgroupe="${idGroupe}">${titreGroupe}</div>`;
+							/***************/
 								output += `
 									<div class=groupe data-idgroupe="${idGroupe}">
 										<div>${titreGroupe}</div>
@@ -272,7 +296,8 @@
 						})()}
 					</div>`;
 			})
-			document.querySelector(".filtres").innerHTML = outputFiltres;
+			document.querySelector(".filtres>.partitions>div").innerHTML = outputPartitions;
+			document.querySelector(".filtres>.masques>div").innerHTML = outputMasques;
 			document.querySelector("#zoneGroupes>.groupes").innerHTML = outputGroupes;
 			
 
@@ -289,7 +314,7 @@
 									<div class=partition data-idpartition="${idPartition}">
 										<div>${dataPartition.titre}</div>
 										${(()=>{
-											let output = `<label><input type=radio name="${etudiant.etudid}-${idPartition}" value="aucun"><span>N / A</span></label>`;
+											let output = "";
 											let affected = false;
 											Object.entries(dataPartition.groupes).forEach(([idGroupe, titreGroupe])=>{
 												output += `
@@ -303,7 +328,7 @@
 											if(!affected){
 												document.querySelector(`#zoneGroupes [data-idpartition="${idPartition}"]>[data-idgroupe="aucun"]>.etudiants`).innerHTML += templateEtudiantGroupes(etudiant);
 											}
-											return output;
+											return `<label><input type=radio name="${etudiant.etudid}-${idPartition}" value="aucun" ${(!affected)?"checked":""}><span>N/A</span></label>` + output;
 										})()}
 									</div>`;
 							})
@@ -313,7 +338,6 @@
 			})
 			document.querySelector("#zoneChoix>.etudiants").innerHTML = output;
 			
-
 		}
 
 		function templateEtudiantGroupes(etudiant){
@@ -321,7 +345,7 @@
 		}
 
 		function processEvents(){
-			document.querySelectorAll(".filtres>div").forEach(btn=>{ 
+			document.querySelectorAll(".filtres>div>div>div").forEach(btn=>{ 
 				btn.addEventListener("click", filtre);
 				btn.addEventListener("mousedown", (event)=>{event.preventDefault()}) // Eviter de sélectionner le texte si on clique plusieurs fois frénétiquement
 			});
@@ -353,19 +377,36 @@
 
 			let groupesSelected = [];
 			this.parentElement.querySelectorAll(":not(.unselect)").forEach(e=>{
-				groupesSelected.push(e.dataset.idpartition);
+				groupesSelected.push(e.dataset.idpartition || e.dataset.idgroupe);
 			})
 
-			document.querySelectorAll(`
-				.etudiants [data-idpartition],
-				#zoneGroupes  [data-idpartition]
-			`).forEach(e=>{
-				if(groupesSelected.includes(e.dataset.idpartition)){
-					e.classList.remove("hide")
-				} else {
-					e.classList.add("hide")
-				}	
-			})			
+			if(this.dataset.idpartition){
+				document.querySelectorAll(`
+					.etudiants [data-idpartition],
+					#zoneGroupes  [data-idpartition]
+				`).forEach(e=>{
+					if(groupesSelected.includes(e.dataset.idpartition)){
+						e.classList.remove("hide")
+					} else {
+						e.classList.add("hide")
+					}	
+				})	
+			} else {
+				document.querySelectorAll("#zoneChoix .etudiants>div").forEach(e=>{
+					let found = false;
+					for(let i=0 ; i<groupesSelected.length ; i++){
+						if(e.querySelector(`input[value="${groupesSelected[i]}"]:checked`)){
+							found = true;
+							break;
+						}
+					}
+					if(found){
+						e.classList.remove("hide")
+					} else {
+						e.classList.add("hide")
+					}	
+				})	
+			}		
 		}
 
 		function assignment(){
