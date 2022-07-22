@@ -13,7 +13,7 @@ class Scodoc{
 	public function __construct(){
 		global $Config;
 		$this->ch = curl_init();
-		$Config->scodoc_url = 'http://192.168.43.67:5000/ScoDoc';
+		//$Config->scodoc_url = 'http://192.168.43.67:5000/ScoDoc';
 		/* Configuration pour récupérer le token */ 
 		$options = array(
 			CURLOPT_FORBID_REUSE => true,
