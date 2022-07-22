@@ -389,10 +389,18 @@
 
 			if(!this.dataset.idgroupe){
 				document.querySelectorAll(`
-					.etudiants [data-idpartition],
+					.etudiants .partition[data-idpartition],
 					#zoneGroupes [data-idpartition]
 				`).forEach(e=>{
-					if(groupesSelected.includes(e.dataset.idpartition)){
+					let found = false;
+					for(let i=0 ; i<groupesSelected.length ; i++){
+						if(groupesSelected[i].idpartition == e.dataset.idpartition){
+							found = true;
+							break;
+						}
+					}
+
+					if(found){
 						e.classList.remove("hide")
 					} else {
 						e.classList.add("hide")
