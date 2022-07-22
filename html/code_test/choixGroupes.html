@@ -32,6 +32,7 @@
 			display: flex;
 			flex-wrap: wrap;
 			gap: 4px;
+			row-gap: 2px;
 			margin: 4px 0;
 		}
 		.filtres>div>div>div{
@@ -266,11 +267,12 @@
 
 			/* Filtres et groupes */
 			let outputPartitions = "";
-			let outputMasques = "<div data-idgroupe=aucun>N/A</div>";
+			let outputMasques = "";
 			let outputGroupes = "";
 			Object.entries(partitions).forEach(([idPartition, partition])=>{
 				// Filtres
 				outputPartitions += `<div data-idpartition="${idPartition}">${partition.titre}</div>`;
+				outputMasques += `<span style="flex-basis: 100%"></span><div data-idpartition="${idPartition}" data-idgroupe=aucun>${partition.titre} N/A</div>`;
 
 				// Groupes
 				outputGroupes += `
@@ -377,13 +379,18 @@
 
 			let groupesSelected = [];
 			this.parentElement.querySelectorAll(":not(.unselect)").forEach(e=>{
-				groupesSelected.push(e.dataset.idpartition || e.dataset.idgroupe);
+				groupesSelected.push(
+					{
+						idpartition: e.dataset.idpartition, 
+						idgroupe: e.dataset.idgroupe
+					}
+				);
 			})
 
-			if(this.dataset.idpartition){
+			if(!this.dataset.idgroupe){
 				document.querySelectorAll(`
 					.etudiants [data-idpartition],
-					#zoneGroupes  [data-idpartition]
+					#zoneGroupes [data-idpartition]
 				`).forEach(e=>{
 					if(groupesSelected.includes(e.dataset.idpartition)){
 						e.classList.remove("hide")
@@ -395,7 +402,11 @@
 				document.querySelectorAll("#zoneChoix .etudiants>div").forEach(e=>{
 					let found = false;
 					for(let i=0 ; i<groupesSelected.length ; i++){
-						if(e.querySelector(`input[value="${groupesSelected[i]}"]:checked`)){
+						let partition = "";
+						if(groupesSelected[i].idpartition){
+							partition = `[data-idpartition="${groupesSelected[i].idpartition}"] `;
+						}
+						if(e.querySelector(`${partition}input[value="${groupesSelected[i].idgroupe}"]:checked`)){
 							found = true;
 							break;
 						}
