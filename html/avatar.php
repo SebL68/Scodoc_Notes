@@ -151,7 +151,7 @@
 				<ul>
 					<li>les filtres,</li>
 					<li>les grimaces,</li>
-					<li>les dégisements,</li>
+					<li>les déguisements,</li>
 					<li>etc.</li>
 				</ul>
 			</div>
