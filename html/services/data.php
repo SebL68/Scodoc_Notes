@@ -93,12 +93,12 @@
 			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=listeVacataires&dep=MMI
 
 	0	set modifVacataire :
-	Enregistre l'adresse mail d'un vacataire existant ou nouveau dans un département
-			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=modifVacataire&dep=MMI&ancienMail=ancien.nom@uha.fr&nouveau.nom@uha.fr
+	Enregistre l'id et le nom d'un vacataire existant ou nouveau dans un département
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=modifVacataire&dep=MMI&ancienId=ancien.nom@uha.fr&nouveauId=nouveau.nom@uha.fr&nouveauName=NomNouveau
 			
 	0	set supVacataire :
-	Supprime l'adresse mail d'un vacataire existant dans un département
-			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=supVacataire&dep=MMI&email=prenom.nom@uha.fr
+	Supprime l'enregistrement (id et name) d'un vacataire existant dans un département
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=supVacataire&dep=MMI&id=prenom.nom@uha.fr
 
 
 	0	get listeAdministrateurs :
@@ -106,12 +106,12 @@
 			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=listeAdministrateurs&dep=MMI
 
 	0	set modifAdministrateur :
-	Enregistre l'adresse mail d'un administrateur existant ou nouveau dans un département
-			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=modifAdministrateur&dep=MMI&ancienMail=ancien.nom@uha.fr&nouveau.nom@uha.fr
+	Enregistre l'id et le nom d'un administrateur existant ou nouveau dans un département
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=modifAdministrateur&dep=MMI&ancienId=ancien.nom@uha.fr&nouveauId=nouveau.nom@uha.fr&nouveauName=NomNouveau
 			
 	0	set supAdministrateur :
-	Supprime l'adresse mail d'un administrateur existant dans un département
-			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=supAdministrateur&dep=MMI&email=prenom.nom@uha.fr
+	Supprime l'enregistrement (id et name) d'un administrateur existant dans un département
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=supAdministrateur&dep=MMI&id=prenom.nom@uha.fr
 
 	0	set updateLists :
 	Met les listes des utilisateurs à jour à partir du serveur d'annuaire
@@ -301,8 +301,9 @@
 				$output = Admin::modifUtilisateur(
 					$_GET['dep'], 
 					'vacataires',
-					$_GET['ancienMail'], 
-					$_GET['nouveauMail']
+					$_GET['ancienId'], 
+					$_GET['nouveauId'],
+					$_GET['nouveauName']
 				);
 				break;
 
@@ -311,7 +312,7 @@
 				$output = Admin::supUtilisateur(
 					$_GET['dep'],
 					'vacataires',
-					$_GET['email']
+					$_GET['id']
 				);
 				break;
 
@@ -326,8 +327,9 @@
 				$output = Admin::modifUtilisateur(
 					$_GET['dep'],
 					'administrateurs',
-					$_GET['ancienMail'], 
-					$_GET['nouveauMail']
+					$_GET['ancienId'], 
+					$_GET['nouveauId'],
+					$_GET['nouveauName']
 				);
 				break;
 
@@ -336,7 +338,7 @@
 				$output = Admin::supUtilisateur(
 					$_GET['dep'], 
 					'administrateurs',
-					$_GET['email']
+					$_GET['id']
 				);
 				break;
 

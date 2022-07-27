@@ -27,8 +27,8 @@
 		'id' => 'lorenzo.jacq@uha.fr', // nip ou autre si la personne n'a pas de nip
 		'idCAS' => 'lorenzo.jacq@uha.fr',
 		'name' => 'Lorenzo',
-		'statut' => 'etudiant'//, // 'etudiant' | 'personnel' | 'administrateur' | 'superadministrateur' | INCONNU
-		//'exp' => $exp // (optionnel) timestamp d'expiration du token
+		'statut' => 'etudiant', // 'etudiant' | 'personnel' | 'administrateur' | 'superadministrateur' | INCONNU
+		'exp' => $exp // (optionnel) timestamp d'expiration du token
 	];
 	echo $root_url."?token=".JWT::encode($payload, $Config->JWT_key);
 ?>

@@ -92,12 +92,16 @@
 		$Config->scodoc_login = Config::$scodoc_login;
 		$Config->scodoc_psw = Config::$scodoc_psw;
 		
-/*******************************************/
-/* Déclaration du domaine DNS de l'UFR pour
-	les mails utilisateurs dans la zone admin
-/*******************************************/
-		$Config->DNS = Config::$DNS;
-		
+	/*********************************************/
+	/* Configuration du format des ID et Nom des */ 
+	/* comptes utilisateurs dans la partie Admin */
+	/*********************************************/
+//		$Config->DNS = Config::$DNS;
+		$Config->idReg = Config::$idReg;
+		$Config->idPlaceHolder = Config::$idPlaceHolder;
+		$Config->nameReg = Config::$nameReg;
+		$Config->namePlaceHolder = Config::$namePlaceHolder;
+				
 /********************************/
 /* Clé pour les jetons JWT      */
 /********************************/
