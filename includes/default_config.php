@@ -92,15 +92,17 @@
 		$Config->scodoc_login = Config::$scodoc_login;
 		$Config->scodoc_psw = Config::$scodoc_psw;
 		
-	/*********************************************/
-	/* Configuration du format des ID et Nom des */ 
-	/* comptes utilisateurs dans la partie Admin */
-	/*********************************************/
+/*********************************************/
+/* Configuration du format des ID et Nom des */
+/* comptes utilisateurs dans la partie Admin */
+/*********************************************/
 //		$Config->DNS = Config::$DNS;
 		$Config->idReg = Config::$idReg;
 		$Config->idPlaceHolder = Config::$idPlaceHolder;
+		$Config->idInfo = Config::$idInfo;
 		$Config->nameReg = Config::$nameReg;
 		$Config->namePlaceHolder = Config::$namePlaceHolder;
+		$Config->nameInfo = Config::$nameInfo;
 				
 /********************************/
 /* Clé pour les jetons JWT      */

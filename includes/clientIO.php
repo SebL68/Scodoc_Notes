@@ -16,8 +16,10 @@
   /**************************************************************/
   echo "const IDREG = '" . $Config->idReg . "';";
   echo "const IDPH = '" . $Config->idPlaceHolder . "';";
+  echo "const IDINFO = '" . $Config->idInfo . "';";
   echo "const NAMEREG = '" . $Config->nameReg . "';";
   echo "const NAMEPH = '" . $Config->namePlaceHolder . "';";
+  echo "const NAMEINFO = '" . $Config->nameInfo . "';";
 ?>
 /*********************************************/
 /* Fonction de communication avec le serveur

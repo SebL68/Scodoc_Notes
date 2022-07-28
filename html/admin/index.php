@@ -83,7 +83,36 @@
       font-weight: bold;
       padding: 5px;
     }
-    input:not(:first-child) {
+    .info {
+      position: relative;  /* les .infobulle deviennent référents */
+    }
+    /* on génère un élément :after lors du survol et du focus :*/
+    .info:hover::after,
+    .info:focus::after {
+      content: attr(data-title);  /* on affiche aria-label */
+      position: absolute;
+      top: -2.9em;
+      left: 50%;
+      transform: translateX(-50%); /* on centre horizontalement  */
+      z-index: 1; /* pour s'afficher au dessus des éléments en position relative */
+      white-space: nowrap;  /* on interdit le retour à la ligne */
+
+      padding: 5px 5px;
+      background: #0C9;
+      color: #fff;
+      border-radius: 5px;
+    }
+    [data-title]:hover:before,
+    [data-title]:focus:before {
+      content: "▼";
+      position: absolute;
+      top: -1.3em;
+      left: 50%;
+      transform: translateX(-50%); /* on centre horizontalement  */
+      font-size: 20px;
+      color: #0C9;
+    }
+    div.userInput>div>span:not(:first-child)>input {
       margin-top: 5px;
     }
     .ready {
@@ -144,7 +173,7 @@
   ?>
   <main>
     <p>
-      Bonjour <span class=compte></span>.
+      Bonjour <span class=nom></span>.
     </p>
 
     <div class="zone">
@@ -188,7 +217,7 @@
     /***************************************************/
     async function checkStatut() {
       let data = await fetchData("donnéesAuthentification");
-      document.querySelector(".compte").innerText = data.name;
+      document.querySelector(".nom").innerText = data.name;
       utilisateur = data.session;
       let auth = document.querySelector(".auth");
       auth.style.opacity = "0";
@@ -265,8 +294,7 @@
     */
     /*******************************************************/
     function createList(liste, type, modeAdmin) {
-      // Pour ajouter un personnel
-      if (modeAdmin)
+      if (modeAdmin)    // Affichage du formulaire d'ajout d'une personne
         var output = `
             <div class="${type}" data-id="">
               <div class="compte" onclick="modifPerson(this, '${type}')">
@@ -275,10 +303,10 @@
               </div>
               <div class="confirm hide"></div>
               <div class="userInput hide">
-                <span>
-                  <input type="text" class="userName" placeholder="${NAMEPH}" required><br>
-                  <input type="text" class="userId" placeholder="${IDPH}" required>
-                </span>
+                <div>
+                  <span class="info" data-title="${NAMEINFO}"><input type="text" class="userName" placeholder="${NAMEPH}"></span><br>
+                  <span class="info" data-title="${IDINFO}"><input type="text" class="userId" placeholder="${IDPH}"></span>
+                </div>
                 <span>
                   <svg onclick="processPerson(this, '${type}')" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Valider</title><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
                   <svg onclick="cancel(this, '${type}')" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Annuler</title><path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38"/></svg>
@@ -317,10 +345,10 @@
                   </span>
                 </div>
                 <div class="userInput hide">
-                  <span>
-                    <input type="text" class="userName" value="${nom}" placeholder="${NAMEPH}" required><br>
-                    <input type="text" class="userId" value="${id}" placeholder="${IDPH}" required>
-                  </span>
+                  <div>
+                    <span class="info" data-title="${NAMEINFO}"><input type="text" class="userName" value="${nom}" placeholder="${NAMEPH}"></span><br>
+                    <span class="info" data-title="${IDINFO}"><input type="text" class="userId" value="${id}" placeholder="${IDPH}"></span>
+                  </div>
                   <span>
                     <svg onclick="processPerson(this, '${type}')" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Valider</title><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
                     <svg onclick="cancel(this, '${type}')" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Annuler</title><path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38"/></svg>
