@@ -83,37 +83,35 @@
       font-weight: bold;
       padding: 5px;
     }
-    .info {
-      position: relative;  /* les .infobulle deviennent référents */
+    div.userInput>div>span:not(:first-child)>input {
+      margin-top: 5px;
     }
-    /* on génère un élément :after lors du survol et du focus :*/
-    .info:hover::after,
-    .info:focus::after {
-      content: attr(data-title);  /* on affiche aria-label */
+    .info {
+      position: relative;           /* les infobulles deviennent référents */
+    }
+    /* on génère un élément :after lors du survol */
+    .info:hover::after {
+      content: attr(data-title);    /* on affiche data-title */
       position: absolute;
       top: -2.9em;
       left: 50%;
-      transform: translateX(-50%); /* on centre horizontalement  */
-      z-index: 1; /* pour s'afficher au dessus des éléments en position relative */
-      white-space: nowrap;  /* on interdit le retour à la ligne */
+      transform: translateX(-50%);  /* on centre horizontalement  */
+      z-index: 1;                   /* pour s'afficher au dessus des éléments en position relative */
+      white-space: nowrap;          /* on interdit le retour à la ligne */
 
       padding: 5px 5px;
       background: #0C9;
       color: #fff;
       border-radius: 5px;
     }
-    [data-title]:hover:before,
-    [data-title]:focus:before {
+    [data-title]:hover:before {
       content: "▼";
       position: absolute;
       top: -1.3em;
       left: 50%;
-      transform: translateX(-50%); /* on centre horizontalement  */
+      transform: translateX(-50%);  /* on centre horizontalement  */
       font-size: 20px;
       color: #0C9;
-    }
-    div.userInput>div>span:not(:first-child)>input {
-      margin-top: 5px;
     }
     .ready {
       /*opacity: initial;*/
