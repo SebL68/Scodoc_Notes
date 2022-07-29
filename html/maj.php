@@ -88,12 +88,12 @@ chmod +x installOrUpdate.sh</pre></code>
 		<p><i>==> Ajoutez le rôle LecteurAPI au compte qui se connecte à l'API (pour le moment il faut laisser le rôle Secr car la passerelle utilise en partie l'ancienne API)</i></p>
 		<p>
 			<i>
-				Le rôle "LecteurAPI" n'est pas lié aux permissions APIView dans Scodoc.<br>
+				Le rôle "LecteurAPI" n'est pas lié à la permission ScoView dans Scodoc.<br>
 				==> Ouvrez un terminal sur le serveur Scodoc avec l'utilisateur Scodoc puis :
 			</i>
 			<pre><code>cd /opt/scodoc
 source venv/bin/activate
-flask edit-role -a APIView LecteurAPI</pre></code>
+flask edit-role -a ScoView LecteurAPI</pre></code>
 		</p>
 		<p></p>
 		<h2>25/04/2022 - 4.7.14</h2>
