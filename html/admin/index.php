@@ -357,7 +357,7 @@
           else
             output += `
               <div class="${type}">
-                <div class="compte">
+                <div class="compte" title="${id}">
                   <span><b>${nom}</b></span>
                 </div>
               </div>

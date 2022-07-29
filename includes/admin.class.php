@@ -113,7 +113,6 @@
   public static function supUtilisateur($dep, $statut, $id) {
     $json = json_decode(file_get_contents(self::$file));
     $util = $json -> $dep -> $statut;
-//    if (array_search($email, $util) === FALSE)
     if(in_array($id, array_column($util, 'id')) === FALSE)
       return ['result' => "Erreur : Utilisateur $id inconnu dans la liste des $statut du département $dep"];
 
