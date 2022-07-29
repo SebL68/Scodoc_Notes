@@ -58,12 +58,20 @@
 		public static $scodoc_login = 'LOGIN_SCODOC';
 		public static $scodoc_psw = 'MDP_SCODOC';
 		
-/*******************************************/
-/* Déclaration du domaine DNS de l'UFR pour
-	les mails utilisateurs dans la zone admin
-/*******************************************/
-		public static $DNS = 'uha.fr';
-		
+/*****************************************************/
+/* Configuration du format des ID et Nom des comptes */ 
+/* utilisateurs dans la partie Admininistration      */
+/*****************************************************/
+	// Format de l'ID : Adresse mail @uha.fr
+	public static $idReg = '^[a-z0-9_-]+[.][a-z0-9_-]+@uha.fr$';
+	public static $idPlaceHolder = 'prenom.nom@uha.fr';
+	public static $idInfo = 'Adresse mail de l\x27utilisateur';					// Message affiché dans l'infobulle - \x27 = unicode de l'apostrophe
+
+	// Format du Nom : Une chaine de caractères commençant par une lettre majuscule
+	public static $nameReg = '^[A-Z][a-zA-Z\xc0-\xff\x27 -]*$';					// \xc0-\xff = plage unicodes des caractères accentués - \x27 = unicode de l'apostrophe
+	public static $namePlaceHolder = 'Nom Prénom';
+	public static $nameInfo = 'Nom et prénom de l\x27utilisateur';			// Message affiché dans l'infobulle - \x27 = unicode de l'apostrophe
+
 /********************************/
 /* Clé pour les jetons JWT      */
 /********************************/
