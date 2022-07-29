@@ -96,7 +96,6 @@
 /* Configuration du format des ID et Nom des */
 /* comptes utilisateurs dans la partie Admin */
 /*********************************************/
-//		$Config->DNS = Config::$DNS;
 		$Config->idReg = Config::$idReg;
 		$Config->idPlaceHolder = Config::$idPlaceHolder;
 		$Config->idInfo = Config::$idInfo;
