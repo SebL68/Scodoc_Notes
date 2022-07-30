@@ -10,10 +10,16 @@
     echo "const $const = $val;";
   }
 
-  /******************************************************/
-  /* Définition de la constante du domaine DNS de l'UFR */
-  /******************************************************/
-  echo "const DNS = '" . $Config->DNS . "'";
+  /**************************************************************/
+  /* Définition des constantes JS liées au format des ID et Nom */
+	/* des comptes utilisateurs dans la partie Administration     */
+  /**************************************************************/
+  echo "const IDREG = '" . $Config->idReg . "';";
+  echo "const IDPH = '" . $Config->idPlaceHolder . "';";
+  echo "const IDINFO = '" . $Config->idInfo . "';";
+  echo "const NAMEREG = '" . $Config->nameReg . "';";
+  echo "const NAMEPH = '" . $Config->namePlaceHolder . "';";
+  echo "const NAMEINFO = '" . $Config->nameInfo . "';";
 ?>
 /*********************************************/
 /* Fonction de communication avec le serveur

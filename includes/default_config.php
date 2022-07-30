@@ -92,12 +92,17 @@
 		$Config->scodoc_login = Config::$scodoc_login;
 		$Config->scodoc_psw = Config::$scodoc_psw;
 		
-/*******************************************/
-/* Déclaration du domaine DNS de l'UFR pour
-	les mails utilisateurs dans la zone admin
-/*******************************************/
-		$Config->DNS = Config::$DNS;
-		
+/*********************************************/
+/* Configuration du format des ID et Nom des */
+/* comptes utilisateurs dans la partie Admin */
+/*********************************************/
+		$Config->idReg = Config::$idReg ?? '^.+$';																	// On accepte tous les ID CAS
+		$Config->idPlaceHolder = Config::$idPlaceHolder ?? 'Identifiant CAS';				// Place Holder pour saisie de l'ID CAS
+		$Config->idInfo = Config::$idInfo ?? 'Ajoutez l\x27identifiant CAS';				// Infobulle pour saisie de l'ID CAS (\x27 = unicode de l'apostrophe)
+		$Config->nameReg = Config::$nameReg ?? '^.+$';															// On accepte tous les Noms
+		$Config->namePlaceHolder = Config::$namePlaceHolder ?? 'Nom utlisateur';		// Place Holder pour saisie du Nom de l'utilisateur
+		$Config->nameInfo = Config::$nameInfo ?? 'Indiquez le nom';									// Infobulle pour saisie du Nom de l'utilisateur
+				
 /********************************/
 /* Clé pour les jetons JWT      */
 /********************************/
