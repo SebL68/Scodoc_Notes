@@ -124,7 +124,7 @@ class Annuaire{
 			/* Test administrateur */
 			foreach(json_decode(file_get_contents(self::$USERS_PATH)) as $departement => $dep){
 				foreach($dep->administrateurs as $identifiant){
-					if($user == $identifiant){
+					if($user == $identifiant->id){
 						return ADMINISTRATEUR;
 					}
 				}
@@ -133,7 +133,7 @@ class Annuaire{
 			/* Test vacataire */
 			foreach(json_decode(file_get_contents(self::$USERS_PATH)) as $departement => $dep){
 				foreach($dep->vacataires as $identifiant){
-					if($user == $identifiant){
+					if($user == $identifiant->id){
 						return PERSONNEL;
 					}
 				}
