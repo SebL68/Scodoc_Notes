@@ -169,8 +169,8 @@
 			case 'listeEtudiantsSemestre':
 				// Uniquement pour les personnels IUT.
 				if($user->getStatut() < PERSONNEL){ returnError(); }
-				$output = getStudentsInSemester(						// includes/serverIO.php
-					$_GET['dep'], 
+				$Scodoc = new Scodoc();
+				$output = $Scodoc->getStudentsInSemester(
 					$_GET['semestre']
 				); 
 				if(isset($_GET['absences']) && $_GET['absences'] == 'true'){

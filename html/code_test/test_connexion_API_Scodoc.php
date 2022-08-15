@@ -21,7 +21,7 @@
 			curl_setopt($this->ch, CURLOPT_VERBOSE, 1);
 			curl_setopt($this->ch, CURLOPT_STDERR, $fp);*/
 
-			$Config->scodoc_url = 'http://192.168.43.67:5000/ScoDoc';
+			//$Config->scodoc_url = 'http://192.168.43.67:5000/ScoDoc';
 			/* Configuration pour récupérer le token */ 
 			$options = array(
 				//CURLOPT_HTTPHEADER => array('Expect:'),
@@ -65,7 +65,7 @@
 	//echo $Scodoc->Ask_Scodoc('departement/MMI/etudiants');
 	//echo $Scodoc->Ask_Scodoc('departements/MMI/etudiants/list/349');
 	//echo $Scodoc->Ask_Scodoc('formsemestre/419/programme');		// Pour UEetModules : bug pour les DUT	// MANQUE sur passerelle et HS sur Scodoc 319 ou 419
-	//echo $Scodoc->Ask_Scodoc('formsemestre/419/etudiants');		// Pour getStudentsInSemester	// MANQUE sur passerelle
+	//echo $Scodoc->Ask_Scodoc('formsemestre/349/etudiants');
 	//echo $Scodoc->Ask_Scodoc('departement/MMI/formsemestres_courants');			
 
 	//echo $Scodoc->Ask_Scodoc('etudiants/courants');

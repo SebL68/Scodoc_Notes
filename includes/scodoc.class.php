@@ -297,33 +297,25 @@ class Scodoc{
 		}
 
 	*******************************/
-	public function getStudentsInSemester($dep, $sem){
+	public function getStudentsInSemester($sem){
 		$json = json_decode(
-			Ask_Scodoc(
-				'/Scolarite/groups_view',
-				$dep,
-				[
-					'formsemestre_id' => $sem,
-					'with_codes' => 1,
-					'format' => 'json'
-				]
-			)
+			$this->Ask_Scodoc("formsemestre/$sem/etudiants")
 		);
 
 		$groupes = [];
 		$output_json = [];
 		foreach($json as $value){
-			$groupe = findTP($value);
+			$groupe = end($value->groups)->group_name;
 			if(!in_array($groupe, $groupes)){
 				$groupes[] = $groupe;
 			}
 
 			$output_json[] = [
-				'nom' => $value->nom_disp,
+				'nom' => $value->nom,
 				'prenom' => $value->prenom,
 				'groupe' => $groupe,
-				'num_etudiant' => $value->code_nip,
-				'email' => Annuaire::getStudentIdCASFromNumber($value->code_nip)
+				'nip' => $value->nip
+				//'email' => Annuaire::getStudentIdCASFromNumber($value->nip)
 				// 'num_ine' => $value->code_ine
 				// 'email_perso' => $value->emailperso
 			];
@@ -333,18 +325,6 @@ class Scodoc{
 			'groupes' => $groupes, 
 			'etudiants' => $output_json
 		];
-	}
-
-	private function findTP($json){
-		// Recherche du groupe TP dans la key Pxxxx
-		//$output = [];
-		foreach($json as $key => $value){
-			if(is_numeric($key)){
-				return $json->$key;
-				//$output[] = $json->$key;
-			}
-		};
-		//return $output;
 	}
 
 	/*******************************/
