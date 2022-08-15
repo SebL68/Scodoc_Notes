@@ -270,15 +270,9 @@
 						input.checked = true;
 					}
 
-					let date = parseInt(data[i].date_debut.split("/")[2]);
-					if(data[i].semestre_id % 2 == 1){
-						date = date + "/" + (date+1);
-					} else {
-						date = (date-1) + "/" + date;
-					}
 					let vignette = document.createElement("div");
 					vignette.innerHTML = `
-						<div>${data[i].titre_court} - ${date}</div>
+						<div>${data[i].titre} - ${data[i].annee_scolaire}</div>
 						<div>Semestre ${data[i].semestre_id}</div>
 					`;
 					vignette.dataset.semestre = data[i].formsemestre_id;

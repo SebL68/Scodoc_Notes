@@ -50,10 +50,12 @@
 	<h1>Historique des mises à jours</h1>
 
 	<main>
-		<h2>25/04/2022 - 5.0.0 (en préparation) </h2>
+		<h2>01/09/2022 - 5.0.0 (en préparation) </h2>
 		<ul>
+			<li>L'onglet compte permet désormais de gérer tous les idCAS et pas que les mails - Merci Denis Graef.</li>
 			<li>Correctif manifest.json - Merci Franck Butelle.</li>
 			<li>Amélioration des audits Lighthouse : accessibilité et SEO.</li>
+			<li>Ajout d'un lien pour accéder directement aux relevés de l'étudiant à partir de la fiche étudiant.</li>
 			<li>Ajout de mbstring dans installOrUpdate.sh</li>
 			<li>Affichage de la situation du semestre à la place du code d'admission.</li>
 			<li>Amélioration de l'affichage des décisions semestres / années.</li>
@@ -63,6 +65,7 @@
 			<li>Sinon, par défaut : récupération du nom de l'utilisateur avec les info CAS cn ou displayName. Si aucun de fonctionne, affichage de 'Mme, M.'.</li>
 			<li>Suppression du message d'erreur en cas de réauthentification.</li>
 			<li>Ajout d'un système d'analyse du trafic interne à la passerelle : à activer dans config.php</li>
+			<li>Utilisation de l'année universitaire fourni par Scodoc pour la liste des semestres qu'un étudiant à suivi.</li>
 			<li>Divers correctifs et améliorations.</li>
 		</ul>
 		<h2>21/06/2022 - 4.7.15</h2>

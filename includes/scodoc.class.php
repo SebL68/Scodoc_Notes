@@ -129,12 +129,12 @@ class Scodoc{
 		if($data != ''){
 			$output = [];
 			forEach($data as $value){
-				
+
 				$output[] = [
-					'titre_court' => $value->titre_formation,
+					'titre' => $value->formation->acronyme,
 					'formsemestre_id' => $value->formsemestre_id,
 					'semestre_id' => $value->semestre_id,
-					'date_debut' => $value->date_debut,
+					'annee_scolaire' => str_replace(' - ', '/', $value->annee_scolaire),
 					'date_fin' => $value->date_fin
 				];
 			}
