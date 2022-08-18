@@ -271,8 +271,16 @@
 					}
 
 					let vignette = document.createElement("div");
+					
+					/*
 					vignette.innerHTML = `
 						<div>${data[i].titre} - ${data[i].annee_scolaire}</div>
+						<div>Semestre ${data[i].semestre_id}</div>
+					`;
+					*/
+					
+					vignette.innerHTML = `
+						<div>${data[i].annee_scolaire}</div>
 						<div>Semestre ${data[i].semestre_id}</div>
 					`;
 					vignette.dataset.semestre = data[i].formsemestre_id;
