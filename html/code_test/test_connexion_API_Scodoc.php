@@ -64,7 +64,7 @@
 	//echo $Scodoc->Ask_Scodoc('departements');
 	//echo $Scodoc->Ask_Scodoc('departement/MMI/etudiants');
 	//echo $Scodoc->Ask_Scodoc('departements/MMI/etudiants/list/349');
-	//echo $Scodoc->Ask_Scodoc('formsemestre/419/programme');		// Pour UEetModules : bug pour les DUT	// MANQUE sur passerelle et HS sur Scodoc 319 ou 419
+	//echo $Scodoc->Ask_Scodoc('formsemestre/319/programme');		// Pour UEetModules : bug pour les DUT	// MANQUE sur passerelle et HS sur Scodoc 349 ou 419
 	//echo $Scodoc->Ask_Scodoc('formsemestre/349/etudiants');
 	//echo $Scodoc->Ask_Scodoc('departement/MMI/formsemestres_courants');			
 

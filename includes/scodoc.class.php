@@ -314,7 +314,7 @@ class Scodoc{
 				'nom' => $value->nom,
 				'prenom' => $value->prenom,
 				'groupe' => $groupe,
-				'nip' => $value->nip
+				'nip' => $value->code_nip
 				//'email' => Annuaire::getStudentIdCASFromNumber($value->nip)
 				// 'num_ine' => $value->code_ine
 				// 'email_perso' => $value->emailperso

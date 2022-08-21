@@ -175,7 +175,6 @@
 				); 
 				if(isset($_GET['absences']) && $_GET['absences'] == 'true'){
 					$output['absences'] = Absences::getAbsence(
-						$_GET['dep'],
 						$_GET['semestre']
 					);
 				}
@@ -202,11 +201,9 @@
 				// Si c'est un personnel, on transmet l'étudiant par get, sinon on prend l'identifiant de la session.
 				$Scodoc = new Scodoc();
 				$nip = $_GET['etudiant'] ?? $user->getId();
-				$dep = $Scodoc->getStudentDepartment($nip);
 				$output = [
 					'relevé' => $Scodoc->getReportCards($_GET['semestre'], $nip),
 					'absences' => Absences::getAbsence(
-						$dep,
 						$_GET['semestre'],
 						$nip
 					) ?? []
@@ -241,7 +238,6 @@
 							'semestres' => $semestres,
 							'relevé' => $Scodoc->getReportCards(end($semestres)['formsemestre_id'], $nip),
 							'absences' => Absences::getAbsence(
-								$dep,
 								end($semestres)['formsemestre_id'],
 								$user->getId()
 							) ?? []
@@ -262,29 +258,25 @@
 		/*************************/
 			case 'setAbsence':
 				if($user->getStatut() < PERSONNEL ){ returnError(); }
-				Absences::setAbsence(
+				if($user->getStatut() < ADMINISTRATEUR && $_GET['statut'] == 'justifie' ){ returnError(); }
+				$output = Absences::setAbsence(
 					$user->getId(),
-					$_GET['dep'],
 					$_GET['semestre'],
 					$_GET['matiere'],
 					$_GET['matiereComplet'],
 					$_GET['UE'],
 					$_GET['etudiant'],
 					$_GET['date'],
-					$_GET['creneau'],
-					$_GET['creneauxIndex'],
+					$_GET['debut'],
+					$_GET['fin'],
 					$_GET['statut']
 				);
-				$output = [
-					'result' => "OK"
-				];
 				break;
 
 		/*************************/
 			case 'getAbsence':
 				if($user->getStatut() < PERSONNEL ){ returnError(); }
 				$output = Absences::getAbsence(
-					$_GET['dep'],
 					$_GET['semestre'],
 					$_GET['etudiant'] ?? ''
 				);

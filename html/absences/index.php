@@ -36,7 +36,7 @@
             position: fixed;
             bottom: 100%;
             left: 50%;
-            z-index: 10;
+            z-index: 1000;
             padding: 20px;
             border-radius: 0 0 10px 10px;
             background: #90c;
@@ -128,40 +128,159 @@
         }
         .etudiants{
             counter-reset: cpt;
+			display: grid;
+			justify-content: center;
+			gap: 2px;
         }
        
+/*****************************/
+/* Module choix heure / date */
+/*****************************/
+		.date{
+			display: grid;
+			grid-template-columns: 60px 1fr 60px;
+			column-gap: 8px;
+			margin-bottom: 32px;
+		}
+
+		.date>.info {
+			text-align: center;
+			font-size: 24px;
+			grid-column: span 3;
+		}
+
+		.date>svg {
+			cursor: pointer;
+			transition: 0.06s;
+			transition-timing-function: ease-in;
+			background: #FFF;
+			box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+			border-radius: 8px;
+		}
+
+		.date>svg:active {
+			box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+			transform: translateY(3px);
+		}
+
+		.timeZone {
+			height: 60px;
+			flex: 1;
+			position: relative;
+			touch-action: none;
+			background: #FFF;
+			box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+			border-radius: 8px;
+		}
+
+		.timeZone>.slider {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			background: rgba(0, 204, 153, 0.5);
+			border: 2px solid #0c9;
+			border-radius: 8px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			cursor: grab;
+		}
+
+		.timeZone>.slider>.sizer {
+			position: absolute;
+			top: 13px;
+			bottom: 13px;
+			right: -1px;
+			transform: translateX(50%);
+			background: #0c9;
+			border-radius: 4px;
+			display: flex;
+			cursor: e-resize;
+		}
+
+		.timeZone>.slider>.sizer::before {
+			content: "";
+			display: inline-block;
+			background: #FFF;
+			width: 2px;
+			margin: 6px;
+		}
+
+		.infoHeures {
+			display: flex;
+			justify-content: space-between;
+			margin: -8px 68px 0 68px;
+			grid-column: span 3;
+		}
+
+		.infoHeures>div {
+			position: relative;
+			width: 2px;
+			height: 16px;
+			background: #424242;
+		}
+
+		.infoHeures>div>div {
+			position: absolute;
+			top: calc(100% + 2px);
+			left: 1px;
+			transform: translateX(-50%);
+		}
+		/*@media screen and (max-width: 600px) {*/
+			.date{
+				gap: 8px;
+			}
+			.date>.info{
+				grid-column: span 1;
+				align-self: center;
+			}
+			.date>.jourMoins{
+				grid-row: 1;
+			}
+			.date>.jourPlus{
+				grid-row: 1;
+				grid-column: 3;
+			}
+			.date>.timeZone{
+				grid-column: span 3;
+			}
+			.date>.infoHeures{
+				margin: -16px 0 0 0;
+			}
+		/*}*/
 
 /*****************************/
-/* Zone absences */
+/* Liste étudiants */
 /*****************************/
-        .date{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 20px;
-            background: #0C9;
-            color: #FFF;
-            border-radius: 10px;
-            border: none;
-        }
-        .date>svg{
-            cursor: pointer;
-        }
-        #actualDate{
-            padding: 4px 0;
-        }
         .btnAbsences{
             position: relative;
             text-align: left;
-            border-radius: 10px;
-            box-shadow: 0 2px 2px 2px #ddd;
-            border: 1px solid transparent;
-            background: #FFF;
-            padding: 14px 20px 10px 20px;
-			margin: 10px 22px 10px 62px;
-            cursor: pointer;
-            transition: 0.1s;  
+            padding: 4px 4px 6px 20px;
+			margin: 0px 22px 0px 62px;
+			border-radius: 12px;
+
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+            gap:6px;
+			row-gap: 10px;
         }
+		.btnAbsences:hover{
+			background: #ccc;
+		}
+		.grpBtn{
+			display: flex;
+			gap:4px;
+		}
+		.btn{
+			border-radius: 10px;
+            box-shadow: 0 2px 2px 2px #ddd;
+			background: #FFF;
+			cursor: pointer;
+			transition: 0.1s;
+			padding: 4px;
+		}
 		.miniature{
 			position: absolute;
 			top: -2px;
@@ -187,57 +306,72 @@
 			border-radius: 2px;
 			box-shadow: none;
 		}
-        .btnAbsences>div:nth-child(1){
-            display: flex;
-            gap:5px;
-        }
-        .btnAbsences>div:nth-child(1)::before{
+        .btnAbsences>.nomEtudiants::before{
             counter-increment: cpt;
             content: counter(cpt) " - ";
             display: inline-block;
         }
-        .btnAbsences>div:nth-child(1)>:last-child{
-            margin-left: auto;
+        .btnAbsences>.nomEtudiants{
+            flex: 1;
+			position: relative;
         }
-		.btnAbsences:hover{
-			border: 1px solid #90c;
+		.hint{
+			position: absolute;
+			top: calc(100% + 4px);
+			left: 0;
+			right: 0;
+			height: 4px;
+			background: #fff;
+			outline: 1px solid #aaa;
 		}
-        .btnAbsences:active{
+		.hint>div{
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			background: red;
+		}
+		.hintCreneau{
+			position: absolute;
+			top: calc(100% + 3px);
+			height: 6px;
+			/*background: rgba(0, 204, 153, 0.5);*/
+			outline: 2px solid #0c9;
+			border-radius: 2px;
+			transition: 0.2s;
+			pointer-events: none;
+		}
+		.btn{
+			display: flex;
+		}
+		.btn:hover{
+			outline: 1px solid #90c;
+		}
+        .btn:active{
             transform: translateY(2px);
             box-shadow: 0 0 0 0 #777;
-            border: 1px solid #777;
+            outline: 1px solid #777;
             transition: 0s;
 			z-index: 1;
         }
-        .hint{
-            display: grid;
-            grid-auto-flow: column;
-            grid-auto-columns: 1fr;
-            gap:1px;
-            transform: translateY(16px);
+		[data-statut=present] [data-command=present],
+		.hint [data-statut=present]{
+            background: #00bcd4 !important;
+			color: #FFF;
         }
-        .hint>div{
-            outline: 1px dashed #ddd;
-            height: 4px;
-            background: #FFF;
-            cursor: initial;
-        }
-		@media screen and (max-width: 700px){
-			.hint{
-				pointer-events: none;
-			}
-		}
-        .hint>.now{
-            outline: none;
-            background: transparent;
-        }
-        .absent{
+        [data-statut=absent] [data-command=absent],
+		.hint [data-statut=absent]{
             background: #ec7068 !important;
             color: #FFF;
         }
-        .excuse{
-            background: #0C9 !important;
+		[data-statut=retard] [data-command=retard],
+		.hint [data-statut=retard]{
+            background: #f3a027 !important;
+            color: #FFF;
         }
+        /*[data-statut=excuse] [data-command=present],
+		.hint [data-statut=present]{
+            background: #0C9 !important;
+        }*/
     </style>
     <meta name=description content="Gestion des absences de l'<?php echo $Config->nom_IUT; ?>">
 </head>
@@ -327,6 +461,7 @@
         var UE = "";
         var matiereComplet = "";
         var dataEtudiants;
+		var moduleDate;
 
         async function selectDepartment(dep){
             departement = dep;
@@ -404,10 +539,25 @@
         }
 
         async function getStudentsListes(){
-            dataEtudiants = await fetchData(`listeEtudiantsSemestre&dep=${departement}&semestre=${semestre}&absences=true`);
-            document.querySelector(".contenu").innerHTML = createSemester(dataEtudiants);
+            dataEtudiants = await fetchData(`listeEtudiantsSemestre&semestre=${semestre}&absences=true`);
+            document.querySelector(".contenu").innerHTML += createSemester(dataEtudiants);
 
-            setAbsences();  
+			document.querySelectorAll(".btn").forEach(btn=>{ 
+				btn.addEventListener("click", setAbsence) 
+			});
+
+			moduleDate = new choixDate(
+				{
+					heureDebut: <?php echo $Config->absence_heureDebut; ?>,
+					heureFin: <?php echo $Config->absence_heureFin; ?>,
+					pas: <?php echo $Config->absence_pas; ?>,
+					dureeSeance: <?php echo $Config->absence_dureeSeance; ?>,
+					callback: setDate
+				}
+			);
+
+			moduleDate.doCallback();
+            //showAbsences();  
         }
 
         function clearStorage(keys){
@@ -426,22 +576,28 @@
                 })
             }
             output += `
-                <div class=flex>
-                    <div>
-                        <div class=groupes>${groupes}</div>
-                        <div class=date>
-
-                            <svg onclick=changeDate(-1) xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-
-                            <div id=actualDate>${actualDate()}</div>
-
-                            <svg onclick=changeDate(1) xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-
-                        </div>
-                        <div class=etudiants>${createStudents(liste.etudiants)}</div>
-                    </div>
-                    
-                </div>
+				<div class=groupes>${groupes}</div>
+				<!-- Module choix date / heure -->
+				<div class="date">
+					<div class="info">Vendredi 04/02/2022</div>
+					<svg class="jourMoins" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#424242"
+						stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+						<path d="M15 18l-6-6 6-6"></path>
+					</svg>
+					<div class="timeZone">
+						<div class="slider">
+							<div class="sizer"></div>
+							<div class="sliderInfo"></div>
+						</div>
+					</div>
+					<svg class="jourPlus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#424242"
+						stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+						<path d="M9 18l6-6-6-6"></path>
+					</svg>
+					<div class="infoHeures"></div>
+				</div>
+				<!-- / -->
+				<div class=etudiants>${createStudents(liste.etudiants)}</div>
             `;
 
             return output;
@@ -452,21 +608,39 @@
            
 			etudiants.forEach(etudiant=>{
 				output += `
-					<div class="btnAbsences ${etudiant.groupe?.replace(/ |\./g, "") || "Groupe1"}" onclick="absent(this)"
-                        data-nom="${etudiant.nom}" 
-                        data-prenom="${etudiant.prenom}" 
-                        data-groupe="${etudiant.groupe}"
-                        data-num="${etudiant.num_etudiant}"
-                        data-email="${etudiant.email}"
+					<div class="btnAbsences ${etudiant.groupe?.replace(/ |\./g, "") || "Groupe1"}"
+						data-nom="${etudiant.nom}" 
+						data-prenom="${etudiant.prenom}" 
+						data-groupe="${etudiant.groupe}"
+						data-nip="${etudiant.nip}"
 						title="${etudiant.groupe}">
-                            <div>
-								<div class="miniature" onclick="event.stopPropagation()">
-									<img src="../services/data.php?q=getStudentPic&nip=${etudiant.num_etudiant}">
-								</div>
-                                <b>${etudiant.nom}</b>
-                                <span>${etudiant.prenom}</span>
-                            </div>
-                            ${hintHours}             
+
+						<div class="miniature" onclick="event.stopPropagation()">
+							<img src="../services/data.php?q=getStudentPic&nip=${etudiant.num_etudiant}">
+						</div>
+						
+						<div class="nomEtudiants">
+							<b>${etudiant.nom}</b>
+							<span>${etudiant.prenom}</span>
+							<div class=hint></div>
+							<div class=hintCreneau></div>
+						</div>
+
+						<div class=grpBtn>
+							<div class=btn data-command=present  title=Présent>
+								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+							</div>
+							<div class=btn data-command=absent title=Absent>
+								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+							</div>
+							<div class=btn data-command=retard title="En retard">
+								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+							</div>
+							<div class=btn data-command=unset title=Annuler>
+								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+							</div>
+						</div>
+        
                     </div>
 				`;
 			})
@@ -505,154 +679,267 @@
 			})
         }
 
+/*****************************/
+/* Module choix date / heure */
+/*****************************/
+		class choixDate {
+			constructor(config) {
+				this.heureDebut = config.heureDebut || 8;
+				this.heureFin = config.heureFin || 20;
+				this.pas = config.pas || 2;
+				this.dureeSeance = config.dureeSeance || 2;
+				this.callback = config.callback;
+
+				this.debut;
+				this.fin;
+
+				this.pasSize = 100 / ((this.heureFin - this.heureDebut) / this.pas);
+				this.slider = document.querySelector(".slider");
+				this.sizer = document.querySelector(".sizer");
+
+				this.posiXStart;
+				this.timeZoneSize;
+				this.sliderSize;
+
+				this.handleSliderMove = (event) => { this.sliderMove(event) };
+				this.handleSliderStop = (event) => { this.sliderStopGrab(event) };
+				this.handleSizerMove = (event) => { this.sizerMove(event) };
+				this.handleSizerStop = (event) => { this.sizerStopGrab(event) };
+
+				/* Mise en place du jour actuel */
+				this.date = new Date();
+				this.joursFR = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+				document.querySelector(".date>.info").innerText = `${this.joursFR[this.date.getDay()]} ${this.date.toLocaleDateString()}`;
+				document.querySelector(".jourMoins").addEventListener("click", (event) => { this.changeJour(event) });
+				document.querySelector(".jourPlus").addEventListener("click", (event) => { this.changeJour(event) });
+				document.querySelector(".jourMoins").addEventListener("mousedown", (event) => { event.preventDefault() });	// Eviter la selection au double click,
+				document.querySelector(".jourPlus").addEventListener("mousedown", (event) => { event.preventDefault() });
+
+				/* Mise en place des heures */
+				let output = "";
+
+				for (let i = this.heureDebut; i <= this.heureFin; i += this.pas) {
+					output += `<div>
+									<div>${(i % 1 == 0) ? i :/*Math.floor(i)+"<sup>½</sup>"*/""}</div>
+								</div>`;
+				}
+				document.querySelector(".infoHeures").innerHTML = output;
+				this.slider.style.width = `calc(${this.dureeSeance / this.pas * this.pasSize}% + 2px)`;
+
+				/* Gestion du slider */
+				this.slider.addEventListener("mousedown", (event) => { this.sliderStartGrab(event) });
+				this.slider.addEventListener("touchstart", (event) => { this.sliderStartGrab(event) });
+
+				/* Gestion du sizer */
+				this.sizer.addEventListener("mousedown", (event) => { this.sizerStartGrab(event) });
+				this.sizer.addEventListener("touchstart", (event) => { this.sizerStartGrab(event) });
+
+				/* Initialisation de l'heure actuelle */
+				let heure = this.date.getHours() + this.date.getMinutes() / 60;	// Heure en décimale : exemple 10h30 => 10.5
+				let startPosition = this.limit(
+					Math.floor((heure - this.heureDebut) / this.pas),
+					0,
+					(this.heureFin - this.heureDebut - this.dureeSeance) / this.pas
+				);
+				this.setPosition(startPosition);
+
+				return this;
+			}
+			/**********************************/
+			/* Méthode d'aide                 */
+			/**********************************/
+			limit(value, min, max) {
+				if (value > max) {
+					return max;
+				} else if (value < min) {
+					return min;
+				} else {
+					return value;
+				}
+			}
+
+			doCallback(){
+				if(typeof(this.callback) === "function"){
+					this.callback(
+						{
+							date: this.date.toISOString().split("T")[0],
+							debut: this.debut,
+							fin: this.fin
+						}
+					);
+				}
+			}
+			/**********************************/
+			/* Jours + / -                    */
+			/**********************************/
+			changeJour(event) {
+				if (event.currentTarget.classList.contains("jourPlus")) {
+					this.date.setDate(this.date.getDate() + 1);
+				} else {
+					this.date.setDate(this.date.getDate() - 1);
+				}
+				document.querySelector(".date>.info").innerText = `${this.joursFR[this.date.getDay()]} ${this.date.toLocaleDateString()}`;
+
+				this.doCallback();
+			}
+
+			/**********************************/
+			/* Gestion du changement d'heures */
+			/**********************************/
+			sliderStartGrab(event) {
+				this.posiXStart = (event.pageX || event.changedTouches[0].pageX) - this.slider.offsetLeft;	// Position souris - position de départ
+				this.timeZoneSize = document.querySelector(".timeZone").offsetWidth;
+				this.sliderSize = this.slider.offsetWidth;
+
+				this.slider.style.cursor = "grabbing";
+				document.addEventListener("mousemove", this.handleSliderMove);
+				document.addEventListener("touchmove", this.handleSliderMove);
+				document.addEventListener("mouseup", this.handleSliderStop);
+				document.addEventListener("touchend", this.handleSliderStop);
+			}
+
+			sliderMove(event) {
+				let deltaX = this.limit(	// Borné entre le début et la fin de timeZone;
+					(event.pageX || event.changedTouches[0].pageX) - this.posiXStart,
+					0,
+					this.timeZoneSize - this.sliderSize	// On soustrait la taille de l'élément
+				);
+
+				this.slider.style.left = 100 * deltaX / this.timeZoneSize + "%";
+				event.preventDefault();
+			}
+			sliderStopGrab(event) {
+				let numPosi = Math.round(parseInt(this.slider.style.left) / this.pasSize);
+				this.setPosition(numPosi);
+				this.slider.children[1].innerText = "";
+
+				this.slider.style.cursor = "";
+				document.removeEventListener("mousemove", this.handleSliderMove);
+				document.removeEventListener("touchmove", this.handleSliderMove);
+				document.removeEventListener("mouseup", this.handleSliderStop);
+				document.removeEventListener("touchend", this.handleSliderStop);
+
+				this.doCallback();
+			}
+			setPosition(position) {
+				this.slider.style.left = `calc(${position * this.pasSize}% - ${2 * Math.round(position * this.pasSize / 100)}px)`;
+				this.debut = position * this.pas + this.heureDebut;
+				this.fin = this.debut + this.dureeSeance;
+			}
+
+			/**********************************/
+			/* Gestion de la plage horaire    */
+			/**********************************/
+			sizerStartGrab(event) {
+				event.stopPropagation();
+				this.posiXStart = (event.pageX || event.changedTouches[0].pageX);
+				this.timeZoneSize = document.querySelector(".timeZone").offsetWidth;
+				this.sliderSize = this.slider.offsetWidth;
+
+				document.addEventListener("mousemove", this.handleSizerMove);
+				document.addEventListener("touchmove", this.handleSizerMove);
+				document.addEventListener("mouseup", this.handleSizerStop);
+				document.addEventListener("touchend", this.handleSizerStop);
+			}
+
+			sizerMove(event) {
+				let deltaX = (event.pageX || event.changedTouches[0].pageX) - this.posiXStart;
+				let size = this.limit(
+					100 * (this.sliderSize + deltaX) / this.timeZoneSize,
+					0,
+					100 * (this.timeZoneSize - this.slider.offsetLeft - 4) / this.timeZoneSize
+				);
+
+				this.slider.style.width = size + "%";
+
+				let numSize = Math.round(parseInt(this.slider.style.width) / this.pasSize);
+				if(numSize == 0) numSize = 1;
+				this.slider.children[1].innerText = numSize * this.pas + "h";
+				event.preventDefault();
+			}
+
+			sizerStopGrab(event) {
+				let numSize = Math.round(parseInt(this.slider.style.width) / this.pasSize);
+				if(numSize == 0) numSize = 1;
+				this.slider.style.width =  `calc(${numSize * this.pasSize}% + 2px)`;
+				this.slider.children[1].innerText = "";
+
+				this.dureeSeance = this.pas * numSize;
+				this.fin = this.debut + this.dureeSeance;
+
+				document.removeEventListener("mousemove", this.handleSizerMove);
+				document.removeEventListener("touchmove", this.handleSizerMove);
+				document.removeEventListener("mouseup", this.handleSizerStop);
+				document.removeEventListener("touchend", this.handleSizerStop);
+
+				this.doCallback();
+			}
+
+		}
+
 /*************************************/
 /* Gestion des dates et des absences */
 /*************************************/
-        var date = new Date();
-        let heure = date.getHours() + date.getMinutes() / 60; // Heure en décimale : exemple 10h30 => 10.5
-        
-        var creneaux = <?php echo json_encode($Config->absences_creneaux); ?>;
-        var creneauxIndex = creneaux.length -1;
-
-        let hintHours = `<div class=hint onclick="messageHint(event)">${
-            creneaux.map(e=>{
-                return `<div title="Créneau ${e[0]}-${e[1]}"></div>`
-            }).join("")
-        }</div>`;
-
-        for(let i=0 ; i<creneaux.length ; i++){
-            if(heure  < creneaux[i][1] - 0.5){ // 30 min avant la fin on change de créneaux
-                creneauxIndex = i;
-                break;
-            }
+		let creneau;
+        function setDate(data){
+			creneau = data;
+			showAbsences();
         }
 
-        function messageHint(event){
-            event.stopPropagation();
-            message("Ceci est une zone d'information pour indiquer si l'étudiant a été absent à d'autres créneaux.");
-        }
+        async function setAbsence(){
+			let etudiant = this.parentElement.parentElement;
 
-        function actualDate(){
-            let jours = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
-            return `${jours[date.getDay()]} ${date.toLocaleDateString()} <br> ${creneaux[creneauxIndex][0]}h / ${creneaux[creneauxIndex][1]}h`;
-        }
+			etudiant.dataset.statut = this.dataset.command;
 
-        function changeDate(num){
-
-            document.querySelectorAll(".hint").forEach(e=>{
-                e.children[creneauxIndex].classList.remove("now");
-            })
-
-            creneauxIndex += num;
-            if(creneauxIndex < 0){
-                date.setDate(date.getDate() - 1);
-                creneauxIndex = creneaux.length-1;
-            }else if(creneauxIndex > creneaux.length - 1){
-                date.setDate(date.getDate() + 1);
-                creneauxIndex = 0;
-            }
-            if(date.getDay() == 0){ // Dimanche
-                date.setDate(date.getDate() + num);
-            }
-            document.querySelector("#actualDate").innerHTML = actualDate();
-
-            setAbsences();
-        }
-
-        async function absent(obj){
-            
-            var date = ISODate();
-            var numAbsence = null;
-            var absencesEtudiant = dataEtudiants.absences[obj.dataset.email];
-        // Recherche s'il y a une absence et si un autre enseignant l'a entré
-            if(absencesEtudiant){
-                if(
-                    (absencesEtudiant[date]?.[creneaux[creneauxIndex]]?.enseignant || session) != session
-                    && statutSession < ADMINISTRATEUR
-                ){
-                    return message("Vous ne pouvez changer l'absence d'un autre enseignant : <span class=capitalize>" + absencesEtudiant[date][creneaux[creneauxIndex]].enseignant.split("@")[0].replace(/[.]/g, " ") + "</span>");
-                }
-            }
-        // Il faut choisir une matière pour ajouter une absence
-            if(matiere == ""){
-                return message("Vous devez dabord choisir une matière pour ajouter une absence.");
-            }
-
-        // On ne peut pas toucher à une absence justifiée
-            if(obj.classList.contains("excuse")){
-                return message("Vous ne pouvez pas supprimer une absence qui est justifiée.");
-            }
-        
-        // Toggle de l'absence
-            if(obj.classList.toggle("absent")){
-                var statut = "absent";
-
-                // Ajouter l'absence aux données stockée côté client
-                if(!dataEtudiants.absences[obj.dataset.email]){
-                    dataEtudiants.absences[obj.dataset.email] = {};
-                }
-                if(!dataEtudiants.absences[obj.dataset.email][ISODate()]){
-                    dataEtudiants.absences[obj.dataset.email][ISODate()] = {};
-                }
-                dataEtudiants.absences[obj.dataset.email][ISODate()][creneaux[creneauxIndex]] =
-                    {
-                        "enseignant": session,
-                        "creneauxIndex": creneauxIndex,
-                        "matiere": matiere,
-                        "matiereComplet": matiereComplet,
-                        "UE": UE,
-                        "statut": statut
-                    };
-                
-            } else {
-                var statut = "présent";
-                obj.classList.remove("excuse");
-                // Supprimer l'absence des données
-                delete dataEtudiants.absences[obj.dataset.email][ISODate()][creneaux[creneauxIndex]];
-            }
-
-        // Sauvegarde de l'absence sur le serveur
-            let response = await fetchData("setAbsence" + 
-                "&dep=" + departement +
+			let reponse = await fetchData("setAbsence" + 
                 "&semestre=" + semestre +
                 "&matiere=" + matiere +
                 "&matiereComplet=" + matiereComplet +
                 "&UE=" + UE +
-                "&etudiant=" + obj.dataset.email +
-                "&date=" + date +
-                "&creneau=" + creneaux[creneauxIndex] +
-                "&creneauxIndex=" + creneauxIndex +
-                "&statut=" + statut
+                "&etudiant=" + etudiant.dataset.nip +
+                "&date=" + creneau.date +
+                "&debut=" + creneau.debut +
+                "&fin=" + creneau.fin +
+                "&statut=" + this.dataset.command
             );
-            if(response.result != "OK"){
-                displayError("Il y a un problème - l'absence n'a pas été enregistrée.");
-            }
+
+			if(reponse.problem) {
+				etudiant.dataset.statut = "";
+				message(reponse.problem)
+			}
         }
 
-        function setAbsences(){
-            document.querySelectorAll(".absent").forEach(e=>e.classList.remove("absent", "excuse"));
+        function showAbsences(){
+            document.querySelectorAll(".btnAbsences[data-statut]").forEach(e=>e.dataset.statut = "");
+			document.querySelectorAll(".hint").forEach(e=>e.innerHTML = "");
 
-            var date = ISODate();
+			let posiDebut = (moduleDate.debut - moduleDate.heureDebut) / (moduleDate.heureFin - moduleDate.heureDebut) * 100;
+			let tailleDuree = (moduleDate.fin - moduleDate.debut) / (moduleDate.heureFin - moduleDate.heureDebut) * 100;
 
-            Object.entries(dataEtudiants.absences).forEach(([etudiant, listeAbsences])=>{
-                Object.entries(listeAbsences[date] || {}).forEach(([creneauNom, dataAbsence])=>{
-                    let ligne = document.querySelector(`[data-email="${etudiant}"]`);
-                    if(dataAbsence.creneauxIndex == creneauxIndex){
-                        ligne.classList.add(...dataAbsence.statut.split(" ")); // Changement de couleur de la ligne
-                    } else {
-                        ligne.children[1].children[dataAbsence.creneauxIndex].classList.add(...dataAbsence.statut.split(" ")); // Changement de couleur des barres pour la journée
-                    }
+			document.querySelectorAll(".hintCreneau").forEach(e=>{
+				e.style.left = posiDebut + "%";
+				e.style.width = tailleDuree + "%";
+			});
+
+            Object.entries(dataEtudiants.absences).forEach(([etudiant, datesAbsences])=>{
+                datesAbsences[creneau.date]?.forEach( absenceJour=>{
+					
+					let ligne = document.querySelector(`[data-nip="${etudiant}"]`);
+
+					if(absenceJour.debut == creneau.debut 
+						&& absenceJour.fin == creneau.fin ) {
+						ligne.dataset.statut = absenceJour.statut;
+					}
+
+					/********/
+
+					posiDebut = (absenceJour.debut - moduleDate.heureDebut) / (moduleDate.heureFin - moduleDate.heureDebut) * 100;
+					tailleDuree = (absenceJour.fin - absenceJour.debut) / (moduleDate.heureFin - moduleDate.heureDebut) * 100;
+					
+					ligne.querySelector(".hint").innerHTML += `<div style="left:${posiDebut}%;width:${tailleDuree}%" data-statut="${absenceJour.statut}" title="${absenceJour.debut}h - ${absenceJour.fin} - ${absenceJour.enseignant}"></div>`;
+
                 })
             })
-
-            document.querySelectorAll(".hint").forEach(e=>{
-                e.children[creneauxIndex].classList.add("now");
-            })
-        }
-
-        function ISODate(){
-            // Date ISO du type : 2021-01-28T15:38:04.622Z -- on ne récupère que AAAA-MM-JJ.
-            return date.toISOString().split("T")[0];
         }
 
         function message(msg){

@@ -182,13 +182,10 @@
 /**************************************************/
 /* Gestion des absences - si le module est activé */
 /**************************************************/
-		$Config->absences_creneaux = Config::$absences_creneaux ?? [
-			[8, 10],
-			[10, 12],
-			[14, 16],
-			[16, 18],
-			[18, 20]
-		];
+		$Config->absence_heureDebut = Config::$absence_heureDebut ?? 8;
+		$Config->absence_heureFin = Config::$absence_heureFin ?? 20;
+		$Config->absence_pas = Config::$absence_pas ?? 0.5;
+		$Config->absence_dureeSeance = Config::$absence_dureeSeance ?? 2;
 
 /***************************************/
 /* Déclaration des constantes globales */
