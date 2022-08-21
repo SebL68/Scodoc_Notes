@@ -10,12 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Absences</title>
     <style>
-		:root{
-			--nb-creneaux: <?php 
-					include_once "$path/includes/default_config.php";
-					echo count($Config->absences_creneaux); 
-				?>;
-		}
         <?php include $_SERVER['DOCUMENT_ROOT']."/assets/header.css"?>
         header{
             position: sticky;
@@ -188,7 +182,6 @@
 			margin-top: 4px;
 		}
 		.etudiants>.semaine>div{
-			grid-column: span var(--nb-creneaux);
 			cursor: initial !important;
 			transition-delay: .035s;
 			border-color: #09c;
@@ -196,7 +189,7 @@
             margin-left: 8px;
 		}
 		.semaine>div:nth-child(1){
-			grid-column: 2 / span var(--nb-creneaux);
+			grid-column: 2;
 		}
 		.etudiants>div:hover:not(.semaine)>div:nth-child(1), .showDay{
 			background: #c09 !important;
@@ -206,8 +199,8 @@
 		}
 		.etudiants>div{
 			display: grid;
-			grid-template-columns: 300px repeat(6, 32px<?php for($i=0;$i<count($Config->absences_creneaux)-1;$i++){echo " 24px";} ?>);
-			gap: 1px;
+			grid-template-columns: 300px repeat(6, 144px);
+			gap: 5px;
 		}
 		.etudiants>div>div{
 			border-radius: 10px;
@@ -272,9 +265,6 @@
                 left: 10px;
                 width: calc(100vw - 28px);
             }
-            .etudiants>div{
-                grid-template-columns: 180px repeat(6, 32px<?php for($i=0;$i<count($Config->absences_creneaux)-1;$i++){echo " 24px";} ?>);
-            }
             .etudiants .btnAbsences{
                 padding: 8px 16px;
                 position: sticky;
@@ -337,10 +327,7 @@
             include "$path/includes/clientIO.php";
 		?>  
         document.querySelector("#gestion").classList.add("navActif");
-		var creneaux = <?php
-            include_once "$path/includes/default_config.php";
-            echo json_encode($Config->absences_creneaux);
-		?>;
+
 /*********************************************/
 /* Vérifie l'identité de la personne et son statut
 /*********************************************/		
@@ -477,7 +464,7 @@
 			`;
 			var calFrame = "";
 
-			for(let i=0 ; i<creneaux.length * 6 ; i++){
+			/*for(let i=0 ; i<creneaux.length * 6 ; i++){
 				calFrame += `
 					<div 
 						data-num="${Math.floor(i/creneaux.length)}" 
@@ -487,7 +474,7 @@
 						onmouseout="stopShowDay(this)"
 						onclick="justify(this)">
 					</div>`;
-			}
+			}*/
            
 			etudiants.forEach(etudiant=>{
 				output += `
