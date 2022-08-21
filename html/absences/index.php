@@ -905,8 +905,40 @@
 
 			if(reponse.problem) {
 				etudiant.dataset.statut = "";
-				message(reponse.problem)
+				message(reponse.problem);
+				return;
 			}
+
+			////////////// 
+
+			let data = dataEtudiants.absences[etudiant.dataset.nip] ??= {};
+			data = data[creneau.date] ??= [];
+
+			for(var i=0 ; i<data.length ; i++){
+				if(data[i].debut == creneau.debut && data[i].fin == creneau.fin){
+					data[i].statut = this.dataset.command;
+					break;
+				}
+			}
+
+			if(i == data.length){
+				dataEtudiants.absences[etudiant.dataset.nip][creneau.date][i] = {
+					UE: UE,
+					debut: creneau.debut,
+					fin: creneau.fin,
+					matiere: matiere,
+					matiereComplet: matiereComplet,
+					statut: this.dataset.command
+				}
+				addHint(
+					etudiant.querySelector(".hint"),
+					creneau.debut,
+					creneau.fin,
+					this.dataset.command,
+					"Vous-même"
+				)
+			}
+			
         }
 
         function showAbsences(){
@@ -931,16 +963,24 @@
 						ligne.dataset.statut = absenceJour.statut;
 					}
 
-					/********/
-
-					posiDebut = (absenceJour.debut - moduleDate.heureDebut) / (moduleDate.heureFin - moduleDate.heureDebut) * 100;
-					tailleDuree = (absenceJour.fin - absenceJour.debut) / (moduleDate.heureFin - moduleDate.heureDebut) * 100;
-					
-					ligne.querySelector(".hint").innerHTML += `<div style="left:${posiDebut}%;width:${tailleDuree}%" data-statut="${absenceJour.statut}" title="${absenceJour.debut}h - ${absenceJour.fin} - ${absenceJour.enseignant}"></div>`;
+					addHint(
+						ligne.querySelector(".hint"),
+						absenceJour.debut,
+						absenceJour.fin,
+						absenceJour.statut,
+						absenceJour.enseignant
+					)
 
                 })
             })
         }
+
+		function addHint(target, debut, fin, statut, enseignant){
+			let posiDebut = (debut - moduleDate.heureDebut) / (moduleDate.heureFin - moduleDate.heureDebut) * 100;
+			let tailleDuree = (fin - debut) / (moduleDate.heureFin - moduleDate.heureDebut) * 100;
+					
+			target.innerHTML += `<div style="left:${posiDebut}%;width:${tailleDuree}%" data-statut="${statut}" title="${enseignant}"></div>`;
+		}
 
         function message(msg){
             var div = document.createElement("div");
@@ -951,6 +991,7 @@
                 div.remove();
             }, 3000);
         }
+
 /***************************/
 /* C'est parti !
 /***************************/
