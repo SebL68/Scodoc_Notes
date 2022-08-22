@@ -44,7 +44,7 @@
 						if ( $json[$date][$i]['debut'] == $debut // Même créneau
 							&& $json[$date][$i]['fin'] == $fin ) {
 							
-							if ($json[$date][$i][$enseignant] == $enseignant) {
+							if ($json[$date][$i]['enseignant'] == $enseignant) {
 								$found = true;
 
 								if($statut == 'unset'){
@@ -58,7 +58,7 @@
 								
 								break;
 							} else {
-								return ['problem' => 'Une absence est déjà renseigné sur ce créneau par ' . $json[$date][$i][$enseignant]];
+								return ['problem' => 'Une absence est déjà renseigné sur ce créneau par ' . $json[$date][$i]['enseignant']];
 							}
 
 						} elseif ( $json[$date][$i]['debut'] >= $fin	// N'existe pas encore
@@ -68,7 +68,7 @@
 
 						} else {	// A cheval
 
-							return ['problem' => 'Le créneau est à cheval avec une autre absence renseignée par ' . $json[$date][$i][$enseignant]];
+							return ['problem' => 'Le créneau est à cheval avec une autre absence renseignée par ' . $json[$date][$i]['enseignant']];
 							
 						}
 					}
