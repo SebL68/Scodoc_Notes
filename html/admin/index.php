@@ -264,7 +264,7 @@
       let isAdmin = (administrateurs.findIndex(x => x.id === utilisateur) >= 0) || (statut >= SUPERADMINISTRATEUR);
       
       document.querySelector(".contenu>div#administrateurs").innerHTML = createList(administrateurs, "administrateur", isAdmin);
-      document.querySelector(".contenu>div#vacataires").innerHTML = createList(vacataires, "vacataire", isAdmin);
+      document.querySelector(".contenu>div#vacataires").innerHTML = createList(vacataires, "personnel / vacataire", isAdmin);
       
       document.querySelector("#departement").classList.remove("highlight");
 

@@ -52,7 +52,7 @@
 	<main>
 		<h2>01/09/2022 - 5.0.0 (en préparation) </h2>
 		<ul>
-			<li>L'onglet compte permet désormais de gérer tous les idCAS et pas que les mails - Merci Denis Graef.</li>
+			<li>L'onglet compte permet désormais de gérer tous les idCAS et pas que les mails, si vous l'utilisiez déjà, il est nécessaire d'exécuter le script CmdUpgradeUserListToV5.0.0.php - Merci Denis Graef.</li>
 			<li>Correctif manifest.json - Merci Franck Butelle.</li>
 			<li>Amélioration des audits Lighthouse : accessibilité et SEO.</li>
 			<li>Ajout d'un lien pour accéder directement aux relevés de l'étudiant à partir de la fiche étudiant.</li>
