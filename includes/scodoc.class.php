@@ -247,7 +247,7 @@ class Scodoc{
 		$output = [];
 		foreach($dataSEM as $value){
 			$value = (object) $value;
-			$data_students = (object) getStudentsInSemester($dep, $value->id);
+			$data_students = (object) $this->getStudentsInSemester($value->id);
 			$output[] = [
 				'titre' => $value->titre_court . ' - semestre ' . $value->num,
 				'semestre_id' => $value->id,
