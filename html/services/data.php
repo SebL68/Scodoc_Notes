@@ -273,12 +273,22 @@
 				);
 				break;
 
-		/*************************/
 			case 'getAbsence':
 				if($user->getStatut() < PERSONNEL ){ returnError(); }
 				$output = Absences::getAbsence(
 					$_GET['semestre'],
 					$_GET['etudiant'] ?? ''
+				);
+				break;
+
+			case 'setJustifie':
+				if($user->getStatut() < ADMINISTRATEUR ){ returnError(); }
+				$output = Absences::setJustifie(
+					$_GET['semestre'],
+					$_GET['etudiant'],
+					$_GET['date'],
+					$_GET['debut'],
+					$_GET['justifie']
 				);
 				break;
 

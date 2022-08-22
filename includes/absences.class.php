@@ -139,4 +139,35 @@
 			
 			return $output;
 		}
+
+	/************************************
+	* setJustify
+	*	Justification a true ou false
+	*
+	************************************/
+		public static function setJustifie($semestre, $etudiant, $date, $debut, $justifie){
+			global $path;
+			$dir = "$path/data/absences/$semestre/";
+			$file = $dir.$etudiant.'.json';
+			
+			$debut = floatval($debut);
+
+			$data = json_decode(file_get_contents($file), true);
+
+			$dates = $data[$date];
+
+			for($i=0 ; $i<count($dates) ; $i++){
+				if($dates[$i]['debut'] == $debut){
+					$data[$date][$i]['justifie'] = $justifie;
+					break;
+				}
+			}
+
+			file_put_contents(
+				$file, 
+				json_encode($data)
+			);
+
+			return ['result' => 'OK'];
+		}
 	}

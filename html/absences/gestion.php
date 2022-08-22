@@ -1,5 +1,6 @@
 <?php 
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
+	require_once "$path/includes/default_config.php";
 	require_once "$path/includes/analytics.class.php";
 	Analytics::add('gestionAbsences');
 ?>
@@ -186,7 +187,6 @@
 			transition-delay: .035s;
 			border-color: #09c;
             width: initial;
-            margin-left: 8px;
 		}
 		.semaine>div:nth-child(1){
 			grid-column: 2;
@@ -207,13 +207,28 @@
             border: 1px solid #eee;
             background: #FFF; 
             cursor: pointer;
-            width: 24px;
 		}
-        .etudiants [title]{
-            justify-self: end;
-        }
-		.etudiants>div:not(.semaine)>div:hover{
+		.etudiants>div>.dayStudent{
+			position: relative;
+			overflow: hidden;
+			cursor: initial;
+		}
+		.etudiants>div>.dayStudent:hover{
 			border: 1px solid #777;
+		}
+		.etudiants>div>.dayStudent>div{
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			border-radius: 10px;
+			border: 1px solid #FFF;
+		}
+
+		.etudiants>div>.dayStudent>div:not([data-statut=present]){
+			cursor: pointer;
+		}
+		.etudiants>div>.dayStudent>div:not([data-statut=present]):hover{
+			border: 2px solid #0C9;
 		}
 
         .etudiants .btnAbsences{
@@ -274,12 +289,17 @@
                 display: none;
             }
         }
-        .absent{
-            background: #ec7068 !important;
-            color: #FFF;
+		[data-statut=present]{
+            background: #00bcd4;
         }
-        .excuse{
-            background: #0C9 !important;
+        [data-statut=absent]{
+            background: #ec7068;
+        }
+		[data-statut=retard]{
+            background: #f3a027;
+        }
+		[data-justifie=true]{
+            background: #0C9;
         }
     </style>
     <meta name=description content="Gestion des absences de l'<?php echo $Config->nom_IUT; ?>">
@@ -452,7 +472,7 @@
         }
 
         function createStudents(etudiants){
-			var output = `
+			let output = `
 				<div class=semaine>
 					<div>Lundi</div>
 					<div>Mardi</div>
@@ -462,20 +482,16 @@
 					<div>Samedi</div>
 				</div>
 			`;
-			var calFrame = "";
 
-			/*for(let i=0 ; i<creneaux.length * 6 ; i++){
-				calFrame += `
-					<div 
-						data-num="${Math.floor(i/creneaux.length)}" 
-                        data-creneauxindex="${i%creneaux.length}"
-						title="${creneaux[i%creneaux.length][0]}-${creneaux[i%creneaux.length][1]}" 
-						onmouseenter="showDay(this)" 
-						onmouseout="stopShowDay(this)"
-						onclick="justify(this)">
-					</div>`;
-			}*/
-           
+			let calFrame = `
+				<div class=dayStudent data-day=0 onmouseenter="showDay(this)" onmouseleave="stopShowDay(this)"></div>
+				<div class=dayStudent data-day=1 onmouseenter="showDay(this)" onmouseleave="stopShowDay(this)"></div>
+				<div class=dayStudent data-day=2 onmouseenter="showDay(this)" onmouseleave="stopShowDay(this)"></div>
+				<div class=dayStudent data-day=3 onmouseenter="showDay(this)" onmouseleave="stopShowDay(this)"></div>
+				<div class=dayStudent data-day=4 onmouseenter="showDay(this)" onmouseleave="stopShowDay(this)"></div>
+				<div class=dayStudent data-day=5 onmouseenter="showDay(this)" onmouseleave="stopShowDay(this)"></div>
+			`;
+
 			etudiants.forEach(etudiant=>{
 				output += `
 					<div>
@@ -483,11 +499,10 @@
 							data-nom="${etudiant.nom}" 
 							data-prenom="${etudiant.prenom}" 
 							data-groupe="${etudiant.groupe}"
-							data-num="${etudiant.num_etudiant}"
-							data-email="${etudiant.email}"
+							data-nip="${etudiant.nip}"
                             title="${etudiant.groupe} - Télécharger le rapport d'absence de l'étudiant"
                             onclick="createStudentReport(this)">
-								<img src="../services/data.php?q=getStudentPic&nip=${etudiant.num_etudiant}" alt="etudiant" width="250" height="350">
+								<img src="../services/data.php?q=getStudentPic&nip=${etudiant.nip}" alt="etudiant" width="250" height="350">
 								<div>
 									<b>${etudiant.nom}</b>
 									<span>${etudiant.prenom}</span>
@@ -502,10 +517,10 @@
 		}
 
 		function showDay(obj){
-			document.querySelector(".semaine").children[obj.dataset.num].classList.add("showDay");
+			document.querySelector(".semaine").children[obj.dataset.day].classList.add("showDay");
 		}
 		function stopShowDay(obj){
-			document.querySelector(".semaine").children[obj.dataset.num].classList.remove("showDay");
+			document.querySelector(".semaine").children[obj.dataset.day].classList.remove("showDay");
 		}
 
 		function hideGroupe(obj, num){
@@ -563,93 +578,79 @@
                 dateTemp.setDate(dateTemp.getDate() + 1);
             }
 
-            setAbsences();
+            showAbsences();
         }
 
-		function setAbsences(){
-            document.querySelectorAll(".absent").forEach(e=>{
-                e.classList.remove("absent", "excuse");
-				e.title = e.title.split(" - ")[0];
-            })
-            
-			Object.entries(dataEtudiants.absences).forEach(([etudiant, listeAbsences])=>{
-                for(let i=0 ; i<6 ; i++){
+		function showAbsences(){
+            document.querySelectorAll(".dayStudent").forEach(e=>e.innerHTML = "");
+
+            Object.entries(dataEtudiants.absences).forEach(([etudiant, datesAbsences])=>{
+				for(let i=0 ; i<6 ; i++){
 					let date = new Date(dateLundi);
                     date.setDate(date.getDate() + i);
-                    let absencesJour = listeAbsences[ISODate(date)];
+                    let absencesJour = datesAbsences[ISODate(date)];
 
-                    if(absencesJour){
-                        Object.entries(absencesJour).forEach(([creneau, data])=>{
-                            let diffDay = getDayNumber(date);
-							let divEtudiant = document.querySelector(`[data-email="${etudiant}"]`);
-							if(divEtudiant){
-								let cellule = divEtudiant.parentElement.children[diffDay * creneaux.length + parseInt(data.creneauxIndex) + 1];
-								cellule.className = data.statut;
-								cellule.title += 
-									" - " + 
-									data.enseignant
-										.split("@")[0]
-										.split(".")
-										.map(
-											e=>{
-												return e[0].toUpperCase() + e.substring(1);
-											})
-										.join(" ");
-							}
-                        })
-                    }
-                }
+					absencesJour?.forEach(absence=>{
+						let heureDebut = <?php echo $Config->absence_heureDebut; ?>;
+						let heureFin = <?php echo $Config->absence_heureFin; ?>;
+
+						let posiDebut = (absence.debut - heureDebut) / (heureFin - heureDebut) * 100;
+						let tailleDuree = (absence.fin - absence.debut) / (heureFin - heureDebut) * 100;
+
+						document.querySelector(`[data-nip="${etudiant}"]`).parentElement.children[i+1].innerHTML += `
+							<div 
+								style="left:${posiDebut}%;width:${tailleDuree}%" 
+								data-statut="${absence.statut}" 
+								data-justifie="${absence.justifie}" 
+								data-debut="${absence.debut}"
+								data-fin="${absence.fin}"
+								title="${absence.enseignant}"
+								onclick="${(absence.statut != "present") ? "justify(this)":""}">
+							</div>`;
+					})
+				}
             })
-		}
-
-        function getDayNumber(dateStr){
-            let date = new Date(dateStr);
-            let dayNbr = date.getDay();
-            dayNbr -= dayNbr == 0 ? -6:1;
-            return dayNbr;
         }
 
 		async function justify(obj){
-
 			if(statutSession < ADMINISTRATEUR){
 				return message("Seul un administrateur peut justifier une absence");
 			}
             if(depAdmins.indexOf(session) == -1 && statutSession < SUPERADMINISTRATEUR){
-                return message("Vous ne pouvez pas modifier une absence d'un autre département");
+              //  return message("Vous ne pouvez pas modifier une absence d'un autre département");
             }
-			if(!obj.classList.contains("absent")){
-				return message("Vous ne pouvez pas justifier s'il n'y a pas d'absence");
-			} 
-            if(obj.classList.toggle("excuse")){
-                var statut = "absent excuse";
+
+            if(obj.dataset.justifie == "false"){
+				obj.setAttribute("data-justifie", "true")
             } else {
-                var statut = "absent";
+                obj.setAttribute("data-justifie", "false")
             }
 
             let date = new Date(dateLundi);
-            date.setDate(dateLundi.getDate() + parseInt(obj.dataset.num));
+            date.setDate(dateLundi.getDate() + parseInt(obj.parentElement.dataset.day));
             date = ISODate(date);
-            dataEtudiants.absences[obj.parentElement.children[0].dataset.email][date][creneaux[parseInt(obj.dataset.creneauxindex)]].statut = statut;
-
-            let response = await fetchData("setAbsence" + 
-                "&dep=" + departement +
+           
+            let response = await fetchData("setJustifie" + 
                 "&semestre=" + semestre +
-                "&matiere=" + "pas besoin" +
-                "&matiereComplet=" + "pas besoin" +
-                "&UE=" + "pas besoin" +
-                "&etudiant=" + obj.parentElement.children[0].dataset.email +
+                "&etudiant=" + obj.parentElement.parentElement.children[0].dataset.nip +
                 "&date=" + date +
-                "&creneau=" + creneaux[obj.dataset.creneauxindex] +
-                "&creneauxIndex=" + "pas besoin" +
-                "&statut=" + statut
+                "&debut=" + obj.dataset.debut +
+                "&justifie=" + obj.dataset.justifie
             );
+
             if(response.result != "OK"){
                 displayError("Il y a un problème - l'absence n'a pas été enregistrée.");
+				return;
             }
-            
+
+            dataEtudiants.absences[obj.parentElement.parentElement.children[0].dataset.nip][date].map(e=>{
+				if(e.debut == obj.dataset.debut){
+					return (obj.dataset.justifie == "true") ? true : false;
+				}
+			})
         }
 
-        function ISODate(date){
+		function ISODate(date){
             // Date ISO du type : 2021-01-28T15:38:04.622Z -- on ne récupère que AAAA-MM-JJ.
             return date.toISOString().split("T")[0];
         }
