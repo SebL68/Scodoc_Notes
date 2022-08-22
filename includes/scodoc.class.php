@@ -67,7 +67,7 @@ class Scodoc{
 		$json = json_decode($this->Ask_Scodoc('etudiants/courants'));
 		forEach($json as $value){
 			$output[] = [
-				$value->nip,
+				$value->code_nip,
 				$value->nom . ' ' . ucfirst(mb_strtolower($value->prenom))
 			];
 		}
