@@ -914,14 +914,22 @@
 			let data = dataEtudiants.absences[etudiant.dataset.nip] ??= {};
 			data = data[creneau.date] ??= [];
 
+			let found = false;
 			for(var i=0 ; i<data.length ; i++){
 				if(data[i].debut == creneau.debut && data[i].fin == creneau.fin){
-					data[i].statut = this.dataset.command;
+					if(this.dataset.command == "unset"){
+						etudiant.querySelector(".hint").children[i].remove();
+						dataEtudiants.absences[etudiant.dataset.nip][creneau.date].splice(i, 1);
+					} else {
+						etudiant.querySelector(".hint").children[i].dataset.statut = this.dataset.command;
+						dataEtudiants.absences[etudiant.dataset.nip][creneau.date][i].statut = this.dataset.command;
+					}
+					found = true;
 					break;
 				}
 			}
 
-			if(i == data.length){
+			if(!found){
 				dataEtudiants.absences[etudiant.dataset.nip][creneau.date][i] = {
 					UE: UE,
 					debut: creneau.debut,
