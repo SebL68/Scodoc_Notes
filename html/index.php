@@ -131,7 +131,7 @@
 		}
 	?>">
 		<?php 
-			$h1 = '⚠️PRÉ-VERSION⚠️ Relevé de notes';
+			$h1 = 'Relevé de notes';
 			include $_SERVER['DOCUMENT_ROOT']."/assets/header.php";
 		?>
 		<main>
