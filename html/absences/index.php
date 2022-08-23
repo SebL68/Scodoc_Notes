@@ -907,6 +907,7 @@
 			if(	this.dataset.command == "unset" && 
 				(
 					etudiant.dataset.statut == "unset" ||
+					etudiant.dataset.statut == "" ||
 					etudiant.dataset.statut == undefined
 				)
 			){
