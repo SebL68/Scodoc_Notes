@@ -220,6 +220,10 @@
 			height: 16px;
 			background: #424242;
 		}
+		.infoHeures>.small{
+			margin-top: 4px;
+			height: 8px;
+		}
 
 		.infoHeures>div>div {
 			position: absolute;
@@ -353,20 +357,31 @@
             transition: 0s;
 			z-index: 1;
         }
+
+		[data-command=present]{
+            background: rgba(0, 188, 212, 0.1);
+        }
+        [data-command=absent]{
+            background: rgba(236, 112, 104, 0.1);
+        }
+		[data-command=retard]{
+            background: rgba(243, 160, 39, 0.1);
+        }
+		[data-command=unset]{
+            background: #ddd;
+        }
+		/*************************/
 		[data-statut=present] [data-command=present],
 		.hint [data-statut=present]{
             background: #00bcd4 !important;
-			color: #FFF;
         }
         [data-statut=absent] [data-command=absent],
 		.hint [data-statut=absent]{
             background: #ec7068 !important;
-            color: #FFF;
         }
 		[data-statut=retard] [data-command=retard],
 		.hint [data-statut=retard]{
             background: #f3a027 !important;
-            color: #FFF;
         }
         /*[data-statut=excuse] [data-command=present],
 		.hint [data-statut=present]{
@@ -719,7 +734,7 @@
 				let output = "";
 
 				for (let i = this.heureDebut; i <= this.heureFin; i += this.pas) {
-					output += `<div>
+					output += `<div class=${(i % 1 != 0) ? "small" :""}>
 									<div>${(i % 1 == 0) ? i :/*Math.floor(i)+"<sup>½</sup>"*/""}</div>
 								</div>`;
 				}
@@ -888,6 +903,15 @@
 
         async function setAbsence(){
 			let etudiant = this.parentElement.parentElement;
+
+			if(	this.dataset.command == "unset" && 
+				(
+					etudiant.dataset.statut == "unset" ||
+					etudiant.dataset.statut == undefined
+				)
+			){
+				return;
+			}
 
 			etudiant.dataset.statut = this.dataset.command;
 

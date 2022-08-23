@@ -86,6 +86,17 @@ Sortie :
 
 *******************************/
 function UEAndModules($dep, $sem){
+	
+	/* Juste pour récupérer le cookie */
+		Ask_Scodoc(
+			'/Scolarite/Notes/formsemestre_list',
+			$dep,
+			[
+				'format' => 'json'
+			]
+		);
+	/**************/
+
 	$json = json_decode(Ask_Scodoc(
 		'/Scolarite/Notes/formsemestre_description',
 		$dep,
