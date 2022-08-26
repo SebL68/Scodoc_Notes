@@ -5,7 +5,7 @@
 		*	Créé ou modifie le fichier d'absence d'un étudiant
 		*
 		************************************/
-		public static function setAbsence($enseignant, $semestre, $matiere, $matiereComplet, $UE, $etudiant, $date, $debut, $fin, $statut){
+		public static function setAbsence($enseignant, $semestre, $matiere, $matiereComplet, $etudiant, $date, $debut, $fin, $statut){
 			global $path;
 
 			$debut = floatval($debut);
@@ -22,7 +22,7 @@
 
 				$json = [
 					$date => [
-						self::newAbsence($enseignant, $matiere, $matiereComplet, $UE, $debut, $fin, $statut)
+						self::newAbsence($enseignant, $matiere, $matiereComplet, $debut, $fin, $statut)
 					]
 				];
 
@@ -33,7 +33,7 @@
 				if (!$json[$date]){	// Date non présente
 
 					$json[$date] = [
-						self::newAbsence($enseignant, $matiere, $matiereComplet, $UE, $debut, $fin, $statut)
+						self::newAbsence($enseignant, $matiere, $matiereComplet, $debut, $fin, $statut)
 					];
 
 				} else { // Date présente
@@ -74,7 +74,7 @@
 					}
 
 					if(!$found){
-						$json[$date][] = self::newAbsence($enseignant, $matiere, $matiereComplet, $UE, $debut, $fin, $statut);
+						$json[$date][] = self::newAbsence($enseignant, $matiere, $matiereComplet, $debut, $fin, $statut);
 					}
 				}
 			}
@@ -92,7 +92,7 @@
 			return ['result' => 'OK'];
 		}
 	
-		private static function newAbsence($enseignant, $matiere, $matiereComplet, $UE, $debut, $fin, $statut){
+		private static function newAbsence($enseignant, $matiere, $matiereComplet, $debut, $fin, $statut){
 			return [
 				"debut" => $debut,
 				"fin" => $fin,
@@ -100,8 +100,7 @@
 				"justifie" => false,
 				"enseignant" => $enseignant,
 				"matiere" => $matiere,
-				"matiereComplet" => $matiereComplet,
-				"UE" => $UE
+				"matiereComplet" => $matiereComplet
 			];
 		}
 	/************************************

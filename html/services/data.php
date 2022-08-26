@@ -22,7 +22,6 @@
 	require_once "$path/includes/annuaire.class.php";
 	require_once "$path/includes/".$Config->service_annuaire_class;	// Class Service_Annuaire
 	require_once "$path/includes/".$Config->scheduler_class;		// Class Scheduler
-	require_once "$path/includes/serverIO.php";
 	require_once "$path/includes/scodoc.class.php";
 	require_once "$path/includes/analytics.class.php";
 
@@ -66,9 +65,9 @@
 	Relevé de note de l'étudiant au format JSON
 			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=relevéEtudiant&semestre=SEM8871&etudiant=alexandre.aab@uha.fr
 	
-	0	get UEEtModules :
-	Récupère les UE et les modules d'un semestre
-			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=UEEtModules&dep=MMI&semestre=871
+	0	get modules :
+	Récupère les modules d'un semestre
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=modules&semestre=871
 	
 	0	get listeDépartements :
 	Récupère les UE et les modules d'un semestre
@@ -210,9 +209,10 @@
 				];
 				break;
 			
-			case 'UEEtModules':
+			case 'modules':
 				if($user->getStatut() < PERSONNEL ){ returnError(); }
-				$output = UEAndModules($_GET['dep'], $_GET['semestre']);// includes/serverIO.php
+				$Scodoc = new Scodoc();
+				$output = $Scodoc->modules($_GET['semestre']);
 				break;
 
 			case 'listeDépartements':

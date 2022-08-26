@@ -2,7 +2,6 @@
 
 $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 include_once "$path/includes/default_config.php";
-include_once "$path/includes/serverIO.php";
 
 class Scodoc{
 	private $ch; // Connexion CURL
@@ -328,71 +327,60 @@ class Scodoc{
 	}
 
 	/*******************************/
-	/* UEAndModules()
-	Liste les UE et modules d'un département + semestre
+	/* modules()
+	Liste les modules d'un département + semestre
 
 	Entrées : 
-		$dep : [string] département - exemple : MMI
 		$sem : [string] code semestre Scodoc - exemple : 871
 
 	Sortie :
-		[
-			{
-				UE: "UE1 nom de l'UE",
-				modules: [
-					{
-						"titre": "nom du module 1",
-						"code": "W511" // Code scodoc du module
-					},
-					etc.
-				]
-			},
-			etc.
-		]
+		{
+			modules: [
+				{
+					"titre": "nom du module 1",
+					"code": "R101" 
+				},
+				etc.
+			],
+			[OPTIONNEL] saes: [
+				{
+					"titre": "nom du module 1",
+					"code": "R101" 
+				},
+				etc.
+			],
+		},
+
 
 	*******************************/
-	public function UEAndModules($dep, $sem){
-		$json = json_decode(Ask_Scodoc(
-			'/Scolarite/Notes/formsemestre_description',
-			$dep,
-			[
-				'formsemestre_id' => $sem,
-				'format' => 'json'
-			]
-		));
+	public function modules($sem){
+		$json = json_decode(
+			$this->Ask_Scodoc("formsemestre/$sem/programme")
+		);
 
-		array_pop($json); // Supprime le récapitulatif de toutes les UE
 		$output_json = [];
 
-		/* 
-		Listes des UE et des Modules les uns après les autres 
-		Données dispo :
-			Code: 'W511',				// null si c'est une UE
-			Coef.: '0.5',				// null si c'est une UE
-			Inscrits: '12',				// null si c'est une UE
-			Module: 'Ecriture numérique',
-			Responsable: 'Graef D.',	// null si c'est une UE
-			UE: 'UE1 Culture Com &amp; Entreprise',
-		*/
-		foreach($json as $value){
-			if($value->Module != 'Bonus'){
-				
-				if($value->Responsable == NULL){
-					$output_json[] = [
-						'UE' => $value->UE,
-						'modules' => []
-					];
-				}else{
-					$output_json[count($output_json)-1]['modules'][] = [
-						'titre' => $value->Module,
-						'code' => $value->Code
-					];
-						
-				}
-			}
+		if(count($json->ressources) > 0){
+			$output_json["modules"] = $this->getModulesData($json->ressources);
+		} else {
+			$output_json["modules"] = $this->getModulesData($json->modules);
+		}
+		if(count($json->saes) > 0){
+			$output_json["saes"] = $this->getModulesData($json->saes);
 		}
 
 		return $output_json;
+	}
+
+	private function getModulesData($data){
+		$output = [];
+		foreach($data as $value){
+			$output[] = [
+				'titre' => $value->module->titre,
+				'code' => $value->module->code
+			];
+		}
+		return $output;
 	}
 
 }

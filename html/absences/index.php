@@ -508,23 +508,23 @@
 		
 		async function selectSemester(sem){
             semestre = sem;
-            let data = await fetchData(`UEEtModules&dep=${departement}&semestre=${semestre}`);
+            let data = await fetchData(`modules&semestre=${semestre}`);
 
 			let select = document.querySelector("#matiere");
 			select.innerHTML = `<option value="" disabled selected hidden>Choisir une matière</option>`;
-			data.forEach(function(ue){
-                let optgroup = document.createElement("optgroup");
-                optgroup.label = ue.UE;
-
-                ue.modules.forEach(function(module){
-                    let option = document.createElement("option");
-                    option.value = module.code;
-                    option.innerText = module.titre;
-                    optgroup.appendChild(option);
-                });
-
-				select.appendChild(optgroup);
+			data.modules.forEach(module=>{
+				let option = document.createElement("option");
+				option.value = module.code;
+				option.innerText = module.titre;
+				select.appendChild(option);
             });
+			data.saes?.forEach(module=>{
+				let option = document.createElement("option");
+				option.value = module.code;
+				option.innerText = module.titre;
+				select.appendChild(option);
+            });
+			
             document.querySelector("#semestre").classList.remove("highlight");
             select.disabled = false;
             document.querySelector(".contenu").classList.remove("ready");

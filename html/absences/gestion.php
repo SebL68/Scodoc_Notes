@@ -385,7 +385,6 @@
         var semestre = "";
         var dataEtudiants;
         var depAdmins = [];
-		var UE = []
 
         async function selectDepartment(dep){
             departement = dep;
@@ -424,8 +423,6 @@
             getStudentsListes();
             /* Gestion du storage remettre le même état au retour */
             localStorage.setItem('semestre', semestre);
-
-			UE = await fetchData(`UEEtModules&dep=${departement}&semestre=${semestre}`);
 		}
 
         async function getStudentsListes(){
