@@ -23,7 +23,7 @@
       .contenu{
         display: block;
       }
-      #vacataires{
+      #enseignants{
         margin-top: 32px;
       }
       .contenu>div>div:nth-child(1){
@@ -64,7 +64,7 @@
     /***********************/
     /* Liste des personnes */
     /***********************/
-    .administrateur, .vacataire {
+    .administrateur, .enseignant {
       user-select: none;
       border-radius: 10px;
       box-shadow: 0 2px 2px 2px #ddd;
@@ -75,10 +75,10 @@
       transition: 0.1s;
     }
     .administrateur:first-child>.compte, .administrateur svg,
-    .vacataire:first-child>.compte, .vacataire svg {
+    .enseignant:first-child>.compte, .enseignant svg {
       cursor: pointer;
     }
-    .administrateur input, .vacataire input {
+    .administrateur input, .enseignant input {
       font-size: 16px;
       font-weight: bold;
       padding: 5px;
@@ -190,7 +190,7 @@
 
     <div class=contenu>
       <div id="administrateurs"></div>
-      <div id="vacataires"></div>
+      <div id="enseignants"></div>
     </div>
     <div class=wait></div>
 
@@ -259,12 +259,12 @@
     async function selectDepartment(departement) {
       selectDep = departement;
       let administrateurs = await fetchData("listeAdministrateurs&dep=" + departement);
-      let vacataires = await fetchData("listeVacataires&dep=" + departement);
+      let enseignants = await fetchData("listeVacataires&dep=" + departement);
       // Est-ce que l'utilisateur est un administrateur du département sélectionné ou un SuperAdministrateur?
       let isAdmin = (administrateurs.findIndex(x => x.id === utilisateur) >= 0) || (statut >= SUPERADMINISTRATEUR);
       
       document.querySelector(".contenu>div#administrateurs").innerHTML = createList(administrateurs, "administrateur", isAdmin);
-      document.querySelector(".contenu>div#vacataires").innerHTML = createList(vacataires, "personnel / vacataire", isAdmin);
+      document.querySelector(".contenu>div#enseignants").innerHTML = createList(enseignants, "enseignant", isAdmin);
       
       document.querySelector("#departement").classList.remove("highlight");
 
@@ -284,7 +284,7 @@
     /* Affiche une liste d'utilisateurs 
       Entrée : 
         liste [array] : Liste des utilisateurs
-        type [string] : Catégorie des utilisateurs (administrateur ou vacataire) utilisé pour la classe CSS
+        type [string] : Catégorie des utilisateurs (administrateur ou enseignant) utilisé pour la classe CSS
         modeAdmin [bool]: modification de la liste possible si TRUE; uniquement affichage de la liste si FALSE
     
       Retour : 
@@ -432,12 +432,12 @@
         } else
           message(response.result);
       }
-      if (type == "vacataire") {
+      if (type == "enseignant") {
         let response = await fetchData("modifVacataire&dep=" + departement + "&ancienId=" + oldId + "&nouveauId=" + newId + "&nouveauName=" + userName);
 
         if (response.result == "OK") {      // Rechargement de la liste modifiée à partir du serveur
           let liste = await fetchData("listeVacataires&dep=" + departement);
-          document.querySelector(".contenu>div#vacataires").innerHTML = createList(liste, type, true);
+          document.querySelector(".contenu>div#enseignants").innerHTML = createList(liste, type, true);
         } else
           message(response.result);
       }
@@ -461,7 +461,7 @@
 
         // Suppression de l'utilisateur dans la liste sur le serveur
         if (type == "administrateur") response = await fetchData("supAdministrateur&dep=" + departement + "&id=" + id);
-        if (type == "vacataire")      response = await fetchData("supVacataire&dep=" + departement + "&id=" + id);
+        if (type == "enseignant")      response = await fetchData("supVacataire&dep=" + departement + "&id=" + id);
 
         if (response.result != "OK") {
           message(response.result);
@@ -470,13 +470,13 @@
             let administrateurs = await fetchData("listeAdministrateurs&dep=" + departement);
             document.querySelector(".contenu>div#administrateurs").innerHTML = createList(administrateurs, "administrateur", true);
           }
-          if (type == "vacataire") {
-            let vacataires = await fetchData("listeVacataires&dep=" + departement);
-            document.querySelector(".contenu>div#vacataires").innerHTML = createList(vacataires, "vacataire", true);
+          if (type == "enseignant") {
+            let enseignants = await fetchData("listeVacataires&dep=" + departement);
+            document.querySelector(".contenu>div#enseignants").innerHTML = createList(enseignants, "enseignant", true);
           }
         }
       } else {      // Affichage de la demande de confirmation avant suppression
-        if ((type == "vacataire") || ((type == "administrateur") && (document.querySelectorAll("div.administrateur").length > 2))) {
+        if ((type == "enseignant") || ((type == "administrateur") && (document.querySelectorAll("div.administrateur").length > 2))) {
           document.querySelector("div.confirm.show")?.classList.remove("show");
           document.querySelector("div.compte.hide")?.classList.remove("hide");
 
