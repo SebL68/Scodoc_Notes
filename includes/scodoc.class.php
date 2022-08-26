@@ -161,12 +161,16 @@ class Scodoc{
 		// ou PDF du relevé
 
 	*******************************/
-	public function getReportCards($semestre, $nip, $format = 'json'){
+	public function getReportCards($semestre, $nip, $format = ''){
 		global $Config;
-		$output = json_decode($this->Ask_Scodoc("etudiant/nip/$nip/formsemestre/$semestre/bulletin?format=$format"));
 
-		////////// TODO gérer l'export de la version PDF
+		if($format == 'pdf'){
+			$output = $this->Ask_Scodoc("etudiant/nip/$nip/formsemestre/$semestre/bulletin/$format");
+			Analytics::add('relevéPDF');
+			return $output;
+		}
 
+		$output = json_decode($this->Ask_Scodoc("etudiant/nip/$nip/formsemestre/$semestre/bulletin"));
 		if(isset($output->rang) || $output->type == 'BUT'){	// Version BUT ou autres versions
 			if($output->publie === false){
 				$output->message = $Config->message_non_publication_releve;
