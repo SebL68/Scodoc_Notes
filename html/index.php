@@ -362,9 +362,9 @@
 								return;
 							}
 							if(absence.justifie == true){
-								totaux.justifie += 1;
+								totaux.justifie += absence.fin - absence.debut;
 							}else{
-								totaux[absence.statut] += 1;
+								totaux[absence.statut] += absence.fin - absence.debut;
 							}
 							output = `
 								<div>${date.split("-").reverse().join("/")}</div> 
@@ -401,9 +401,9 @@
 					<div class="entete absent">Nombre injustifiées</div>
 					<div class="entete retard">Nombre retards</div>
 
-					<div>${totaux.justifie}</div>
-					<div>${totaux.absent}</div>
-					<div>${totaux.retard}</div>
+					<div>${totaux.justifie}h</div>
+					<div>${totaux.absent}h</div>
+					<div>${totaux.retard}h</div>
 				`;
 			}
 		</script>
