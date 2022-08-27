@@ -920,7 +920,6 @@
                 "&semestre=" + semestre +
                 "&matiere=" + matiere +
                 "&matiereComplet=" + matiereComplet +
-                "&UE=" + UE +
                 "&etudiant=" + etudiant.dataset.nip +
                 "&date=" + creneau.date +
                 "&debut=" + creneau.debut +
