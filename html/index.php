@@ -65,7 +65,7 @@
 			}
 			.absences>div{
 				display: grid;
-				grid-template-columns: repeat(6, auto);
+				grid-template-columns: repeat(5, auto);
 				gap: 2px;
 				padding: 4px;
 				overflow: auto;
@@ -83,11 +83,13 @@
 			.absences>div>.enseignant{
 				text-transform: capitalize;
 			}
-			.absences>div>.absent{background: #c09; color: #FFF;}
-			.absences>div>.excuse{background: #0c9}
+			.absences>div>.absent{background: #ec7068; color: #FFF;}
+			.absences>div>.retard{background: #f3a027; color: #FFF;}
+			.absences>div>.justifie{background: #0c9}
 
 			.absences>.toutesAbsences>.absent:before{content:"Absent"}
-			.absences>.toutesAbsences>.excuse:before{content:"Justifiée"}
+			.absences>.toutesAbsences>.retard:before{content:"Retard"}
+			.absences>.toutesAbsences>.justifie:before{content:"Justifiée"}
 
 			.absences>.totauxAbsences{
 				grid-template-columns: repeat(3, auto);
@@ -160,7 +162,7 @@
 			<div class="absences">
 				<h2>Rapport d'absences</h2>
 				<p><i>
-				Les causes de l’absence doivent être notifiées par écrit à l'aide d'un justificatif dans les 48 heures à compter du début de l’absence au secrétariat du département. Voir règlement intérieur pour les motifs légitimes d'absence.<br>Les créneaux horaires sont indicatifs et susceptibles de varier en fonction du département.
+				Les causes de l’absence doivent être notifiées par écrit à l'aide d'un justificatif dans les 48 heures à compter du début de l’absence au secrétariat du département. Voir règlement intérieur pour les motifs légitimes d'absence.
 				</i></p>
 				<div class=toutesAbsences></div>
 				<h3>Totaux</h3>
@@ -346,30 +348,30 @@
 /* Affichage des absences
 /*********************************************/
 			function feedAbsences(data){
-				var totaux = {};
+				var totaux = {
+					justifie: 0,
+					absent: 0,
+					retard: 0
+				};
 				let output = "";
 
 				if(Object.entries(data).length){
-					Object.entries(data).forEach(([date, creneaux])=>{
-						Object.entries(creneaux).forEach(([creneau, dataAbsence])=>{
-							if(!totaux[dataAbsence.UE]){
-								totaux[dataAbsence.UE] = {
-									justifie: 0,
-									injustifie: 0
-								};
+					Object.entries(data).forEach(([date, listeAbsences])=>{
+						listeAbsences.forEach(absence=>{
+							if(absence.statut == "present"){
+								return;
 							}
-							if(dataAbsence.statut == "absent"){
-								totaux[dataAbsence.UE].injustifie += 1;
+							if(absence.justifie == true){
+								totaux.justifie += 1;
 							}else{
-								totaux[dataAbsence.UE].justifie += 1;
+								totaux[absence.statut] += 1;
 							}
 							output = `
-								<div>${date}</div> 
-								<div>${creneau.replace(",", " - ")}</div>
-								<div>${dataAbsence.matiereComplet}</div>
-								<div class=enseignant>${dataAbsence.enseignant.split('@')[0].split(".").join(" ")}</div>
-								<div>${dataAbsence.UE}</div>
-								<div class="${dataAbsence.statut}"></div>
+								<div>${date.split("-").reverse().join("/")}</div> 
+								<div>${absence.debut}h - ${absence.fin}h</div>
+								<div>${absence.matiereComplet}</div>
+								<div class=enseignant>${absence.enseignant.split('@')[0].split(".").join(" ")}</div>
+								<div class="${absence.justifie ? "justifie" : absence.statut}"></div>
 							` + output;
 						})
 					})
@@ -384,42 +386,25 @@
 					`
 				}
 				
-
 				document.querySelector(".absences>.toutesAbsences").innerHTML = `
 					<div class=entete>Date</div> 
-					<div class=entete>Créneau</div>
+					<div class=entete>Heures</div>
 					<div class=entete>Matière</div>
 					<div class=entete>Enseignant</div>
-					<div class=entete>UE</div>
 					<div class=entete>Statut</div>
 				` + output;
 
 				/* Totaux */
-				output = `
-					<div class=entete>UE</div>
+
+				document.querySelector(".absences>.totauxAbsences").innerHTML = `
 					<div class=entete>Nombre justifiées</div>
 					<div class="entete absent">Nombre injustifiées</div>
+					<div class="entete retard">Nombre retards</div>
+
+					<div>${totaux.justifie}</div>
+					<div>${totaux.absent}</div>
+					<div>${totaux.retard}</div>
 				`;
-
-				if(Object.entries(totaux).length){
-					Object.entries(totaux).forEach(([UE, total])=>{
-						output += `
-							<div>${UE}</div>
-							<div>${total.justifie}</div>
-							<div>${total.injustifie}</div>
-						`;
-					})
-				} else {
-					output += `
-						<div>/</div>
-						<div>0</div>
-						<div>0</div>
-					`;
-				}
-
-				
-
-				document.querySelector(".absences>.totauxAbsences").innerHTML = output;
 			}
 		</script>
 	
