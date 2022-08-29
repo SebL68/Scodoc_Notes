@@ -271,11 +271,11 @@
            
 			etudiant.forEach(etudiant=>{
 				output += `
-					<a href="/?ask_student=${etudiant.num_etudiant}"
+					<a href="/?ask_student=${etudiant.nip}"
                         data-nom="${etudiant.nom}" 
                         data-prenom="${etudiant.prenom}" 
                         data-groupe="${etudiant.groupe}"
-                        data-num="${etudiant.num_etudiant}"
+                        data-num="${etudiant.nip}"
                         data-email="${etudiant.email}"><table><td>${etudiant.nom}</td> <td>${etudiant.prenom}</td></table>
                     </a>
 				`;
