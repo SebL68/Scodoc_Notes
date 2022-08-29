@@ -1,10 +1,10 @@
 Pour suivre les évolutions, l'idéal est d'aller voir sur le Discord (voir ci-dessous), sinon il y a ce lien qui est mis à jour moins souvent : https://notes.iutmulhouse.uha.fr/maj.php
 
 Travaux en cours :
- - faire en sorte qu'on puisse gérer autre chose que les mails dans l'onglet "comptes"
+ - ~~faire en sorte qu'on puisse gérer autre chose que les mails dans l'onglet "comptes"~~
  - permettre d'attaquer directement le LDAP sans avoir besoin de faire de listes
  - ~~faire en sorte que le choix des étudiants sur la page relevé permette de choisir directement le nom / prénom plutôt qu'un mail ou nip~~
- - refonte du système d'absences : gérer par plages plutôt que créneaux + interconnexion avec Scodoc
+ - ~~refonte du système d'absences : gérer par plages plutôt que créneaux + interconnexion avec Scodoc~~
  - lien pour les photos entre Scodoc et la passerelle  
   
 Les utilisateurs actuels sont :
