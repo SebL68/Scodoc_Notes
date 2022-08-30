@@ -50,23 +50,53 @@
 	<h1>Historique des mises à jours</h1>
 
 	<main>
-		<h2>01/09/2022 - 5.0.0</h2>
+		<h2>30/08/2022 - 5.0.0</h2>
 		<ul>
-			<li>L'onglet compte permet désormais de gérer tous les idCAS et pas que les mails, ⚠️⚠️⚠️ il est nécessaire d'exécuter le script /includes/CmdUpgradeUserListToV5.0.0.php ⚠️⚠️⚠️ - Merci Denis Graef.</li>
-			<li>Correctif manifest.json - Merci Franck Butelle.</li>
-			<li>Amélioration des audits Lighthouse : accessibilité et SEO.</li>
+			<b>Attention</b>
+			<li>L'onglet "comptes" permet désormais de gérer tous les idCAS et pas que les mails, ⚠️⚠️⚠️ il est nécessaire d'exécuter le script /includes/CmdUpgradeUserListToV5.0.0.php ⚠️⚠️⚠️ - Merci Denis Graef.</li>
+
+			<br>
+			<b>Absences</b>
+			<li>Refonte du module d'absence :
+				<ul>
+					<li>Pestion par créneaux libres sur la journée.</li>
+					<li>Prise en compte des présences, retard et absences.</li>
+					<li>A venir : création de rapport d'absences par mois.</li>
+				</ul>
+			</li>
+
+			<br>
+			<b>Under the hood</b>
+			<li>Bascule de toutes les identifications internes à la passerelle vers les nip.</li>
+			<li>Bascule complète vers la nouvelle API Scodoc.</li>
+
+			<br>
+			<b>Ajouts</b>
+			<li>Ajout d'un système d'analyse du trafic interne à la passerelle : à activer dans config.php - les graphiques d'analyse viendront dans une autre version.</li>
 			<li>Ajout d'un lien pour accéder directement aux relevés de l'étudiant à partir de la fiche étudiant.</li>
+			<li>Ajout d'une méthode dans config pour extraire le nom de l'utilisateur de l'idCAS.<br>
+			Sinon, par défaut : récupération du nom de l'utilisateur avec les info CAS "cn" ou "displayName". Si aucun de fonctionne, affichage de 'Mme, M.'.
+			</li>
+			<li>Ajout du groupe étudiant sur le relevé.</li>
+			<li>Ajout d'une option dans config.php pour personnaliser le message en cas de non diffusion des relevés par Scodoc.</li>
+
+			<br>
+			<b>Améliorations</b>
 			<li>Ajout de mbstring dans installOrUpdate.sh</li>
+			<li>Amélioration des audits Lighthouse : accessibilité et SEO.</li>
+			<li>Utilisation de l'année universitaire fourni par Scodoc pour la liste des semestres qu'un étudiant à suivi.</li>
 			<li>Affichage de la situation du semestre à la place du code d'admission.</li>
 			<li>Amélioration de l'affichage des décisions semestres / années.</li>
 			<li>Ajout des décisions RCUE semestres pairs.</li>
-			<li>Correction bug potentiel d'authentification si l'idCAS étudiant ou enseignant est une fraction l'un de l'autre.</li>
-			<li>Ajout d'une méthode dans config pour extraire le nom de l'utilisateur de l'idCAS.</li>
-			<li>Sinon, par défaut : récupération du nom de l'utilisateur avec les info CAS "cn" ou "displayName". Si aucun de fonctionne, affichage de 'Mme, M.'.</li>
 			<li>Suppression du message d'erreur en cas de réauthentification.</li>
-			<li>Ajout d'un système d'analyse du trafic interne à la passerelle : à activer dans config.php</li>
-			<li>Utilisation de l'année universitaire fourni par Scodoc pour la liste des semestres qu'un étudiant à suivi.</li>
-			<li>Divers correctifs et améliorations.</li>
+
+			<br>
+			<b>Corrections</b>
+			<li>Correction bug potentiel d'authentification si l'idCAS étudiant ou enseignant est une fraction l'un de l'autre.</li>
+			<li>Correctif manifest.json - Merci Franck Butelle.</li>
+
+			<br>
+			<li>Divers autres correctifs et améliorations.</li>
 		</ul>
 		<h2>21/06/2022 - 4.7.15</h2>
 		<ul>
