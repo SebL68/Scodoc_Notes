@@ -96,16 +96,20 @@
 /* Configuration du format des ID et Nom des */
 /* comptes utilisateurs dans la partie Admin */
 /*********************************************/
-		$Config->idReg = Config::$idReg ?? '^.+$';																	// On accepte tous les ID CAS
-		$Config->idPlaceHolder = Config::$idPlaceHolder ?? 'Identifiant CAS';				// Place Holder pour saisie de l'ID CAS
-		$Config->idInfo = Config::$idInfo ?? 'Ajoutez l\x27identifiant CAS';				// Infobulle pour saisie de l'ID CAS (\x27 = unicode de l'apostrophe)
-		$Config->nameReg = Config::$nameReg ?? '^.+$';															// On accepte tous les Noms
+	/* Contribution de Denis Graef */
+
+		$Config->idReg = Config::$idReg ?? '^.+$';										// On accepte tous les ID CAS
+		$Config->idPlaceHolder = Config::$idPlaceHolder ?? 'Identifiant CAS';			// Place Holder pour saisie de l'ID CAS
+		$Config->idInfo = Config::$idInfo ?? 'Ajoutez l\x27identifiant CAS';			// Infobulle pour saisie de l'ID CAS (\x27 = unicode de l'apostrophe)
+		$Config->nameReg = Config::$nameReg ?? '^.+$';									// On accepte tous les Noms
 		$Config->namePlaceHolder = Config::$namePlaceHolder ?? 'Nom utilisateur';		// Place Holder pour saisie du Nom de l'utilisateur
-		$Config->nameInfo = Config::$nameInfo ?? 'Indiquez le nom';									// Infobulle pour saisie du Nom de l'utilisateur
+		$Config->nameInfo = Config::$nameInfo ?? 'Indiquez le nom';						// Infobulle pour saisie du Nom de l'utilisateur
 				
 /********************************/
 /* Clé pour les jetons JWT      */
 /********************************/
+	// Les jetons JWT peuvent être utilisés pour se faire passer pour n'importe quel utilisateur
+	// C'est également le seul moyen d'avoir le statut superadministrateur
 		$Config->JWT_key = Config::$JWT_key ?? ''; // Laisser vide si vous n'utilisez pas les jetons
 
 /********************************************/
