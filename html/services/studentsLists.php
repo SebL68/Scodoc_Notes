@@ -276,7 +276,7 @@
                         data-prenom="${etudiant.prenom}" 
                         data-groupe="${etudiant.groupe}"
                         data-num="${etudiant.nip}"
-                        data-email="${etudiant.email}"><table><td>${etudiant.nom}</td> <td>${etudiant.prenom}</td></table>
+                        data-idcas="${etudiant.idcas}"><table><td>${etudiant.nom}</td> <td>${etudiant.prenom}</td></table>
                     </a>
 				`;
 			})
@@ -361,7 +361,7 @@
 					groupe: e.dataset.groupe,
 					nom: e.dataset.nom,
 					prenom: e.dataset.prenom,
-					email: e.dataset.email,
+					idcas: e.dataset.idcas,
 					nip: e.dataset.num
 				}
 			})
@@ -508,7 +508,7 @@
                     sheet.cell("C"+i).value(etudiant.dataset.prenom);
                     sheet.cell("D"+i).value(etudiant.dataset.groupe);
                     sheet.cell("E"+i).value(etudiant.dataset.num);
-                    sheet.cell("F"+i).value(etudiant.dataset.email);
+                    sheet.cell("F"+i).value(etudiant.dataset.idcas);
                     i++;
                 });
 
