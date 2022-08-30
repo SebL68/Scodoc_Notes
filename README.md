@@ -105,6 +105,8 @@ Voir "Configuration" pour la suite.
   
 ## Installation manuelle
   
+Il est recommandé de vous inspirer du contenu du fichier installOrUpdate.sh.  
+  
 Récupérez l'ensemble des fichiers et ajoutez les sur votre serveur dans le dossier www.  
 Vous pouvez utiliser du SFTP, git ou en ligne de commande avec  
 ```wget https://github.com/SebL68/Scodoc_Notes/archive/refs/heads/main.zip```  
@@ -121,10 +123,6 @@ DocumentRoot "${INSTALL_DIR}/www/html/"
 Faites en sorte que le dossier data apparatienne à l'utilisateur www-data, car le serveur doit pouvoir y modifier les données.  
 ```chown -R www-data /var/www/data```  
   
-CAS nécessite des dépendances : https://apereo.atlassian.net/wiki/spaces/CASC/pages/103252625/phpCAS+requirements
- - CURL,
- - SSL,
- - DOM
   
 ## Diagnostic
 Pour vous aider dans la configuration de votre serveur, un système de diagnostic a été mis en place : /html/sercices/diagnostic.php?-no-sw  
