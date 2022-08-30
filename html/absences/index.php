@@ -515,13 +515,13 @@
 			data.modules.forEach(module=>{
 				let option = document.createElement("option");
 				option.value = module.code;
-				option.innerText = module.code + " " + module.titre;
+				option.innerText = module.code + " - " + module.titre;
 				select.appendChild(option);
             });
 			data.saes?.forEach(module=>{
 				let option = document.createElement("option");
 				option.value = module.code;
-				option.innerText = module.titre;
+				option.innerText = module.code + " - " + module.titre;
 				select.appendChild(option);
             });
 			
