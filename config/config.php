@@ -8,8 +8,9 @@
 /***********************/
 /* Options d'affichage */
 /***********************/
-		// public static $releve_PDF = false; // Affiche ou non l'option pour mettre aux étudiants de télécharger leur relevé au format PDF.
+		public static $releve_PDF = true; // Affiche ou non l'option pour mettre aux étudiants de télécharger leur relevé au format PDF.
 		public static $nom_IUT = 'IUT'; // Nom de votre IUT, par exemple : 'IUT de Mulhouse'.
+		public static $message_non_publication_releve = 'Le responsable de votre formation a décidé de ne pas publier le relevé de notes de ce semestre.'; // Le message à afficher si le relevé n'est pas publié.
 
 /**********************************/
 /* Activation des modules du site */
@@ -30,12 +31,23 @@
 		public static $afficher_absences = false;	// En dessous du relevé de notes étudiants
 		public static $module_absences = false;		// nécessite l'$acces_enseignants - ce module est différent de celui de Scodoc, il est géré entièrement par la passerelle.
 
+/*********************/
+/* Analyse du trafic */
+/*********************/
+		/*
+			Module optionnel d'analyse des connexions au site
+			Ce module est interne à la passerelle et conforme au RGPD.
+			Il peut dans une certains mesure remplacer un système de type Google Analytics ou Matomo.
+			Si vous souhaitez utiliser un autre système, vous pouvez compléter le fichier analytics.php 
+		*/
+		public static $analystics_interne = false;
+		
 /*********************************/
 /* Données retournées par le CAS */
 /*********************************/
 		public static $CAS_return_type = 'nip';	// Valeurs possibles : 
-													//  - 'nip' : numéro d'étudiant
-													//  - 'idCAS' : un identificant autre (mail, identifiant LDAP ou autres)
+								//  - 'nip' : numéro d'étudiant
+								//  - 'idCAS' : un identificant autre (mail, identifiant LDAP ou autres)
 
 	/* Certains nip ne correspondent pas à ce qui est dans Scodoc, parfois une lettre à changer
 		La fonction nipModifier fonction permet d'appliquer une modification avant d'utilliser le nip / mail
@@ -47,6 +59,13 @@
 			//return '2'.substr($nip, 1); // Exemple pour remplacer la première lettre du nip par un 2
 			return $nip;
 			
+		}
+		
+	/* La passerelle tente de récupérer le nom de l'utilisateur depuis le CAS (champs cn ou displayName), mais cette donnée n'est pas toujours disponible. Il est alors parfois possible de récupérer ce nom de l'utilisateur à afficher à partir de l'idCAS.
+	Si aucune de ces solutions ne fonctionne, le système affiche par défaut 'Mme, M.'. */
+
+		public static function nameFromIdCAS($idCAS){
+			return; // Par défaut on n'utilise pas cette méthode.
 		}
 
 /********************************/
@@ -62,20 +81,24 @@
 /* Configuration du format des ID et Nom des comptes */ 
 /* utilisateurs dans la partie Admininistration      */
 /*****************************************************/
+	/* Contribution de Denis Graef */
+		
 	// Format de l'ID : Adresse mail @uha.fr
-	public static $idReg = '^[a-z0-9_-]+[.][a-z0-9_-]+@uha.fr$';
-	public static $idPlaceHolder = 'prenom.nom@uha.fr';
-	public static $idInfo = 'Adresse mail de l\x27utilisateur';					// Message affiché dans l'infobulle - \x27 = unicode de l'apostrophe
+		public static $idReg = '^.+$';				// Exemple pour un mail : '^[a-z0-9_-]+[.][a-z0-9_-]+@uha.fr$'
+		public static $idPlaceHolder = 'Identifiant CAS';	// Place Holder pour saisie de l'ID CAS
+		public static $idInfo = 'Ajoutez l\x27identifiant CAS';	// Message affiché dans l'infobulle - \x27 = unicode de l'apostrophe
 
 	// Format du Nom : Une chaine de caractères commençant par une lettre majuscule
-	public static $nameReg = '^[A-Z][a-zA-Z\xc0-\xff\x27 -]*$';					// \xc0-\xff = plage unicodes des caractères accentués - \x27 = unicode de l'apostrophe
-	public static $namePlaceHolder = 'Nom Prénom';
-	public static $nameInfo = 'Nom et prénom de l\x27utilisateur';			// Message affiché dans l'infobulle - \x27 = unicode de l'apostrophe
+		public static $nameReg = '^[A-Z][a-zA-Z\xc0-\xff\x27 -]*$';	// \xc0-\xff = plage unicodes des caractères accentués - \x27 = unicode de l'apostrophe
+		public static $namePlaceHolder = 'Nom Prénom';
+		public static $nameInfo = 'Nom et prénom de l\x27utilisateur';	// Message affiché dans l'infobulle - \x27 = unicode de l'apostrophe
 
 /********************************/
 /* Clé pour les jetons JWT      */
 /********************************/
-		// public static $JWT_key = ''; // Clé de cryptage JWT : une chaine de caratères aléatoires. Laisser vide si vous n'utilisez pas les jetons
+	// Les jetons JWT peuvent être utilisés pour se faire passer pour n'importe quel utilisateur
+	// C'est également le seul moyen d'avoir le statut superadministrateur
+		public static $JWT_key = ''; // Clé de cryptage JWT : une chaine de caratères aléatoires. Laisser vide si vous n'utilisez pas les jetons
 		
 /********************************************/
 /* Class à utiliser pour l'authentification */
@@ -98,6 +121,14 @@
 /* __________________________________________________________ */
 /*                                                            */
 /* LDAP n'est pas obligatoire et dépend des modules utilisés  */
+/* 	Le LDAP permet de remplir des fichiers d'utilisateurs pour identifier les personnels de l'IUT et leur donner le statut qui va avec.
+	Il est également possible de compléter le fichier data/annuaires/utilisateurs.json pour définir des admins et des enseignants.
+	Un admin d'un département peut ajouter des enseignants via l'interface "Comptes" qui est en ligne.
+
+	Le LDAP permet également de remplir le fichier étudiant pour faire le lien entre l'idCAS et le numéro d'étudiant.
+	La passerelle utilise le numéro d'étudiant pour communiquer avec Scodoc.
+	Si votre idCAS est le numéro d'étudiant ou quelque chose de proche, vous n'avez pas besoin du LDAP pour faire cette conversion.
+	Sinon, c'est obligatoire.
 /* __________________________________________________________ */
 /**********************/
 /* Configuration LDAP */
@@ -192,12 +223,9 @@
 /**************************************************/
 /* Gestion des absences - si le module est activé */
 /**************************************************/
-		public static $absences_creneaux = [
-			[8, 10],
-			[10, 12],
-			[14, 16],
-			[16, 18],
-			[18, 20]
-		];
+		$absence_heureDebut = 8;
+		$absence_heureFin = 20;
+		$absence_pas = 0.5;
+		$absence_dureeSeance = 2;
 	}
 ?>
