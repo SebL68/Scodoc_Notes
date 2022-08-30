@@ -133,7 +133,7 @@ class Scodoc{
 					'titre' => $value->formation->acronyme,
 					'formsemestre_id' => $value->formsemestre_id,
 					'semestre_id' => $value->semestre_id,
-					'annee_scolaire' => str_replace(' - ', '/', $value->annee_scolaire),
+					'annee_scolaire' => $value->annee_scolaire . '/' . ($value->annee_scolaire+1),
 					'date_fin' => $value->date_fin
 				];
 			}
