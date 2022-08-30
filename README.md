@@ -74,14 +74,10 @@ Cette correspondance est faite dans les fichiers /data/annuaires/liste_*.php
 
 Il est possible d'automatiser la génération de ces fichiers à partir du LDAP (voir ci-après).
 
-# Guide rapide d'installation
-## Fichiers
-
-***************  
-*** NOUVEAU ***  
-***************  
+# Guide d'installation
+## Installation automatique (recommandé)
   
-Un script d'installation et de mise à jour a été ajouté au projet : `/installOrUpdate.sh`  
+Le script : `/installOrUpdate.sh`  permet d'installer et de mettre à jour la passerelle.
 Ce script est compatible Ubuntu et Debian, il permet lors d'une première installation d'installer tout le nécessaire sur le serveur, il reste alors à configurer les fichiers `/config/*`  
   
 Lorsque le serveur est déjà opérationnel, il permet de faire une mise à jour de /html, /includes et /lib.
@@ -98,16 +94,18 @@ chmod +x installOrUpdate.sh
 ```
   
 Procédure de mise à jour par la suite :  
-```./installOrUpdate.sh```  
+```
+cd /var/www
+./installOrUpdate.sh
+```  
   
 [Option]  
 Par défaut, la mise à jour se fait dans `/var/www/`.  
 Le script accepte comme paramètre un chemin différent afin de permettre la mise à jour pour ceux qui ont configurer des Virtual Hosts.  
 `./installOrUpdate.sh cheminVersLaPasserelle`  
-****************  
-*** /NOUVEAU ***  
-****************  
-    
+
+## Installation manuelle
+  
 Récupérez l'ensemble des fichiers et ajoutez les sur votre serveur dans le dossier www.  
 Vous pouvez utiliser du SFTP, git ou en ligne de commande avec  
 ```wget https://github.com/SebL68/Scodoc_Notes/archive/refs/heads/main.zip```  
@@ -115,7 +113,7 @@ Vous pouvez utiliser du SFTP, git ou en ligne de commande avec
 Le dossier "html" doit être la racine du site.  
 Les autres dossiers doivent être dans le dossier parent, ils seront inaccessibles depuis le net.  
 Ceci a été fait pour des raisons de sécurité : ces dossiers ne doivent pas être accessibles en dehors du serveur car ils contiennent des données et fonctions sensibles (mot de passe, certificats, etc.). Le seul dossier accessible doit être "html".  
-Si votre sereur n'a pas le vhost configuré par défaut sur /var/www/html, vous pouvez le modifier :  
+Si votre serveur n'a pas le vhost configuré par défaut sur /var/www/html, vous pouvez le modifier :  
 Fichier httpd-vhosts.conf d'Apache:
 ```
 DocumentRoot "${INSTALL_DIR}/www/html/"
@@ -123,6 +121,11 @@ DocumentRoot "${INSTALL_DIR}/www/html/"
 ```
 Faites en sorte que le dossier data apparatienne à l'utilisateur www-data, car le serveur doit pouvoir y modifier les données.  
 ```chown -R www-data /var/www/data```  
+  
+CAS nécessite des dépendances : https://apereo.atlassian.net/wiki/spaces/CASC/pages/103252625/phpCAS+requirements
+ - CURL,
+ - SSL,
+ - DOM
   
 ## Diagnostic
 Pour vous aider dans la configuration de votre serveur, un système de diagnostic a été mis en place : /html/sercices/diagnostic.php?-no-sw  
@@ -133,8 +136,8 @@ Lors de l'utilisation de la passerelle, il est également possible d'activer les
 La passerelle communique via un système d'API, il faut donc voir les réponses dans l'inspecteur (F12) --> Network  
   
 ## Configuration
-Le serveur passerelle doit avoir accès au serveur Scodoc.
-
+Le serveur passerelle doit avoir accès au serveur Scodoc.  
+  
 L'ensemble des fichiers à configurer se trouvent dans "/config/".
 Il est à minima nécessaire de configurer :
   - cas.pem (recommandé pour des raisons de sécurité : https://www.php.net/manual/fr/function.curl-setopt.php#110457),
@@ -144,11 +147,6 @@ Il est à minima nécessaire de configurer :
     -  $scodoc_url,
     -  $scodoc_login
   
-CAS nécessite des dépendances : https://apereo.atlassian.net/wiki/spaces/CASC/pages/103252625/phpCAS+requirements
- - CURL,
- - SSL,
- - DOM
-
 L'utilisation du LDAP n'est pas obligatoire si le CAS renvoie le nip. Si le CAS renvoie l'adresse mail, il faut alors mettre en place le système qui permet de convertir les mails en nip. Dans /data/annuaires, il y a les fichiers pour cette conversion. Différentes fonctions permettent de remplir ces fichiers automatiquement à partir du LDAP (voir ci-après).  
   
 Pour tester la connexion avec Scodoc, il est possible de forcer un utilisateur (étudiant) dans /config/config.php => nipModifier().
@@ -173,12 +171,7 @@ La version est notée dans le fichier /html/sw.js
 # Procédures de mise à jour
 Les dossiers /config et /data sont des données locales qui permettent de faire fonctionner la passerelle dans votre environnement.  
 Ils ne sont (sauf cas exceptionnels) pas modifiés.  
-Si le fichier /config/config.php devait subir une modification importante, un message s'afficherait sur la passerelle indiquant qu'il faut utiliser une nouvelle version de ce dernier.  
-
-Pour réaliser la mise à jour, il faut alors copier et coller sur votre passerelle les dossiers :
- - /html
- - /includes
- - /lib
+Utilisez alors le script `installOrUpdate.sh`
 
 *** Expérimental et non approuvé pour le moment ***  
 Il devrait être possible de configurer un git pull de manière périodique pour une mise à jour automatique.
