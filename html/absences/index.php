@@ -555,7 +555,7 @@
 
         async function getStudentsListes(){
             dataEtudiants = await fetchData(`listeEtudiantsSemestre&semestre=${semestre}&absences=true`);
-            document.querySelector(".contenu").innerHTML += createSemester(dataEtudiants);
+            document.querySelector(".contenu").innerHTML = createSemester(dataEtudiants);
 
 			document.querySelectorAll(".btn").forEach(btn=>{ 
 				btn.addEventListener("click", setAbsence) 
