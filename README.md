@@ -1,11 +1,8 @@
 Pour suivre les évolutions, l'idéal est d'aller voir sur le Discord (voir ci-dessous), sinon il y a ce lien qui est mis à jour moins souvent : https://notes.iutmulhouse.uha.fr/maj.php
 
 Travaux en cours :
- - ~~faire en sorte qu'on puisse gérer autre chose que les mails dans l'onglet "comptes"~~
- - permettre d'attaquer directement le LDAP sans avoir besoin de faire de listes
- - ~~faire en sorte que le choix des étudiants sur la page relevé permette de choisir directement le nom / prénom plutôt qu'un mail ou nip~~
- - ~~refonte du système d'absences : gérer par plages plutôt que créneaux + interconnexion avec Scodoc~~
- - afficher les absences depuis Scodoc
+ - affichage de l'analyse du trafic sur la passerelle respectant le RGPD
+ - afficher les absences depuis Scodoc -> en attente du nouveau module Scodoc
  - lien pour les photos entre Scodoc et la passerelle  
   
 Les utilisateurs actuels sont :
@@ -103,7 +100,9 @@ cd /var/www
 Par défaut, la mise à jour se fait dans `/var/www/`.  
 Le script accepte comme paramètre un chemin différent afin de permettre la mise à jour pour ceux qui ont configurer des Virtual Hosts.  
 `./installOrUpdate.sh cheminVersLaPasserelle`  
-
+  
+Voir "Configuration" pour la suite.  
+  
 ## Installation manuelle
   
 Récupérez l'ensemble des fichiers et ajoutez les sur votre serveur dans le dossier www.  
@@ -134,18 +133,18 @@ Exemple : https://notes.iutmulhouse.uha.fr/services/diagnostic.php?-no-sw
   
 Lors de l'utilisation de la passerelle, il est également possible d'activer les messages d'erreur dans /html/services/data.php --> Options de debug  
 La passerelle communique via un système d'API, il faut donc voir les réponses dans l'inspecteur (F12) --> Network  
-  
+ 
 ## Configuration
-Le serveur passerelle doit avoir accès au serveur Scodoc.  
+### Configuration Scodoc
+Il est nécessaire d'avoir un utilisateur avec les droits de lecture pour l'API Scodoc : https://scodoc.org/ScoDoc9API/#configuration-de-scodoc-pour-utiliser-lapi
+
+### Configuration Passerelle
   
 L'ensemble des fichiers à configurer se trouvent dans "/config/".
 Il est à minima nécessaire de configurer :
   - cas.pem (recommandé pour des raisons de sécurité : https://www.php.net/manual/fr/function.curl-setopt.php#110457),
   - cas_config.php,
-  - config.php :
-    -  $departements,
-    -  $scodoc_url,
-    -  $scodoc_login
+  - config.php 
   
 L'utilisation du LDAP n'est pas obligatoire si le CAS renvoie le nip. Si le CAS renvoie l'adresse mail, il faut alors mettre en place le système qui permet de convertir les mails en nip. Dans /data/annuaires, il y a les fichiers pour cette conversion. Différentes fonctions permettent de remplir ces fichiers automatiquement à partir du LDAP (voir ci-après).  
   
