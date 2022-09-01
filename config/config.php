@@ -223,9 +223,9 @@
 /**************************************************/
 /* Gestion des absences - si le module est activé */
 /**************************************************/
-		$absence_heureDebut = 8;
-		$absence_heureFin = 20;
-		$absence_pas = 0.5;
-		$absence_dureeSeance = 2;
+		public static $absence_heureDebut = 8;
+		public static $absence_heureFin = 20;
+		public static $absence_pas = 0.5;
+		public static $absence_dureeSeance = 2;
 	}
 ?>
