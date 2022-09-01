@@ -170,9 +170,6 @@ Les dossiers /config et /data sont des données locales qui permettent de faire 
 Ils ne sont (sauf cas exceptionnels) pas modifiés.  
 Utilisez alors le script `installOrUpdate.sh`
 
-*** Expérimental et non approuvé pour le moment ***  
-Il devrait être possible de configurer un git pull de manière périodique pour une mise à jour automatique.
-
 # Indications pour les développeurs
 La passerelle utilise un système de cache côté client utilisant un service worker.  
 Il y faut alors le prendre en compte de cette manière :
