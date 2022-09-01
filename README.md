@@ -101,7 +101,7 @@ Par défaut, la mise à jour se fait dans `/var/www/`.
 Le script accepte comme paramètre un chemin différent afin de permettre la mise à jour pour ceux qui ont configurer des Virtual Hosts.  
 `./installOrUpdate.sh cheminVersLaPasserelle`  
   
-Voir "Configuration" pour la suite.  
+Voir "Diagnostic" et "Configuration" pour la suite.  
   
 ## Installation manuelle
   
