@@ -64,6 +64,7 @@ class Scodoc{
 	/*******************************/
 	public function getAllStudents(){
 		$json = json_decode($this->Ask_Scodoc('etudiants/courants'));
+		$output = [];
 		forEach($json as $value){
 			$output[] = [
 				$value->code_nip,
