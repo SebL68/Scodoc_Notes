@@ -9,7 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Absences</title>
+    <title>Justif. absences</title>
     <style>
         <?php include $_SERVER['DOCUMENT_ROOT']."/assets/header.css"?>
         header{

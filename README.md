@@ -101,7 +101,7 @@ Par défaut, la mise à jour se fait dans `/var/www/`.
 Le script accepte comme paramètre un chemin différent afin de permettre la mise à jour pour ceux qui ont configurer des Virtual Hosts.  
 `./installOrUpdate.sh cheminVersLaPasserelle`  
   
-Voir "Configuration" pour la suite.  
+Voir "Diagnostic" et "Configuration" pour la suite.  
   
 ## Installation manuelle
   
@@ -169,9 +169,6 @@ La version est notée dans le fichier /html/sw.js
 Les dossiers /config et /data sont des données locales qui permettent de faire fonctionner la passerelle dans votre environnement.  
 Ils ne sont (sauf cas exceptionnels) pas modifiés.  
 Utilisez alors le script `installOrUpdate.sh`
-
-*** Expérimental et non approuvé pour le moment ***  
-Il devrait être possible de configurer un git pull de manière périodique pour une mise à jour automatique.
 
 # Indications pour les développeurs
 La passerelle utilise un système de cache côté client utilisant un service worker.  

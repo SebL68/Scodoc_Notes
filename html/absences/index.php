@@ -631,7 +631,7 @@
 						title="${etudiant.groupe}">
 
 						<div class="miniature" onclick="event.stopPropagation()">
-							<img src="../services/data.php?q=getStudentPic&nip=${etudiant.num_etudiant}">
+							<img src="../services/data.php?q=getStudentPic&nip=${etudiant.nip}">
 						</div>
 						
 						<div class="nomEtudiants">
