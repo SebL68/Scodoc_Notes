@@ -276,7 +276,8 @@
                         data-prenom="${etudiant.prenom}" 
                         data-groupe="${etudiant.groupe}"
                         data-num="${etudiant.nip}"
-                        data-idcas="${etudiant.idcas}"><table><td>${etudiant.nom}</td> <td>${etudiant.prenom}</td></table>
+                        data-idcas="${etudiant.idcas}"
+						data-datenaissance="${new Date(etudiant.date_naissance).toLocaleDateString()}"><table><td>${etudiant.nom}</td> <td>${etudiant.prenom}</td></table>
                     </a>
 				`;
 			})
@@ -500,6 +501,7 @@
                 sheet.cell("D5").value("Groupe").style("bold", true);
                 sheet.cell("E5").value("Num étudiant").style("bold", true);
                 sheet.cell("F5").value("Identifiant").style("bold", true);
+                sheet.cell("G5").value("Date de naissance").style("bold", true);
 
                 var i = 6;
                 h2.nextElementSibling.querySelectorAll(".etudiants>a:not(.hide)").forEach(etudiant=>{
@@ -509,6 +511,7 @@
                     sheet.cell("D"+i).value(etudiant.dataset.groupe);
                     sheet.cell("E"+i).value(etudiant.dataset.num);
                     sheet.cell("F"+i).value(etudiant.dataset.idcas);
+                    sheet.cell("G"+i).value(etudiant.dataset.datenaissance);
                     i++;
                 });
 

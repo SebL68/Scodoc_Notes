@@ -50,6 +50,11 @@
 	<h1>Historique des mises à jours</h1>
 
 	<main>
+		<h2>05/09/2022 - 5.0.1 (en cours de préparation)</h2>
+		<ul>
+			<li>Saisie absences : correction bug photo étudiants.</li>
+			<li>Ajout de la date de naissance dans les documents.</li>
+		</ul>
 		<h2>30/08/2022 - 5.0.0</h2>
 		<ul>
 			<b>Attention</b>

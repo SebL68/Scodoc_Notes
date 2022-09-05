@@ -246,7 +246,7 @@ class Scodoc{
 	*******************************/
 	public function getStudentsListsDepartement($dep){
 		$dataSEM = $this->getDepartmentSemesters($dep);
-		//var_dump($dataSEM);die();
+		
 		$output = [];
 		foreach($dataSEM as $value){
 			$value = (object) $value;
@@ -302,7 +302,7 @@ class Scodoc{
 	*******************************/
 	public function getStudentsInSemester($sem){
 		$json = json_decode(
-			$this->Ask_Scodoc("formsemestre/$sem/etudiants")
+			$this->Ask_Scodoc("formsemestre/$sem/etudiants/long")
 		);
 
 		$groupes = [];
@@ -318,7 +318,8 @@ class Scodoc{
 				'prenom' => $value->prenom,
 				'groupe' => $groupe,
 				'nip' => $value->code_nip,
-				'idcas' => Annuaire::getStudentIdCASFromNumber($value->code_nip)
+				'idcas' => Annuaire::getStudentIdCASFromNumber($value->code_nip),
+				'date_naissance' => $value->date_naissance
 				// 'num_ine' => $value->code_ine
 
 			];
