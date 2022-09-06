@@ -72,6 +72,14 @@ Cette correspondance est faite dans les fichiers /data/annuaires/liste_*.php
 Il est possible d'automatiser la génération de ces fichiers à partir du LDAP (voir ci-après).
 
 # Guide d'installation
+## Système requis  
+  
+ - Il est recommandé d'avoir un système Debian ou Ubuntu, pour pouvoir utiliser l'installeur automatique, mais ça peut fonctionner avec d'autres systèmes.
+ - Il est nécessaire d'avoir PHP version 7.3 ou plus.
+ - Il est recommandé d'utiliser Apache, mais ça fonctionne avec Nginx - il faudra juste un peu de config manuelle.
+ - Les dépendances sont installées automatiquement.
+ - Le serveur doit être reconnu et autorisé par le CAS.  
+  
 ## Installation automatique (recommandé)
   
 Le script : `/installOrUpdate.sh`  permet d'installer et de mettre à jour la passerelle.
