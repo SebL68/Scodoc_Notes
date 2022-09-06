@@ -409,7 +409,11 @@
             let semestre = localStorage.getItem("semestre");
             if(semestre){
                 document.querySelector("#semestre").value = semestre;
-                selectSemester(semestre);
+				if(document.querySelector("#semestre").value){
+					selectSemester(semestre);
+				} else {
+					document.querySelector("#semestre").value = "";
+				}
             }
             depAdmins = await fetchData("listeAdministrateurs&dep=" + departement);
 		}

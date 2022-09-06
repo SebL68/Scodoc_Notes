@@ -502,7 +502,11 @@
             let semestre = localStorage.getItem("semestre");
             if(semestre){
                 document.querySelector("#semestre").value = semestre;
-                selectSemester(semestre);
+				if(document.querySelector("#semestre").value){
+					selectSemester(semestre);
+				} else {
+					document.querySelector("#semestre").value = "";
+				}
             }
 		}
 		
@@ -537,7 +541,11 @@
             let matiere = localStorage.getItem("matiere");
             if(matiere){
                 document.querySelector("#matiere").value = matiere;
-                selectMatiere(matiere);
+				if(document.querySelector("#matiere").value){
+					selectMatiere(matiere);
+				} else {
+					document.querySelector("#matiere").value = "";
+				}
             }
 		}
         
