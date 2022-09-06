@@ -487,7 +487,7 @@
 			data.forEach(function(semestre){
 				let option = document.createElement("option");
 				option.value = semestre.id;
-				option.innerText = `${semestre.titre_court} - semestre ${semestre.num}`;
+				option.innerText = `${semestre.titre_long} - semestre ${semestre.num}`;
 				select.appendChild(option);
             });
             document.querySelector("#departement").classList.remove("highlight");
