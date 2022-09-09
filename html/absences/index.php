@@ -579,7 +579,8 @@
             dataEtudiants = await fetchData(`listeEtudiantsSemestre&semestre=${semestre}&absences=true`);
             document.querySelector(".contenu").innerHTML = createSemester(dataEtudiants);
 
-			document.querySelector(".validCreneau").addEventListener("click", ()=>{
+			document.querySelector(".validCreneau").addEventListener("click", function(){
+				this.style.display = "none";
 				document.querySelector(".etudiants").classList.add("ready");
 			});
 
