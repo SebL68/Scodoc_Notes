@@ -605,7 +605,7 @@
 								data-justifie="${absence.justifie}" 
 								data-debut="${absence.debut}"
 								data-fin="${absence.fin}"
-								title="${absence.debut} - ${absence.fin} - ${absence.enseignant}"
+								title="${absence.debut}h - ${absence.fin}h - ${absence.enseignant}"
 								onclick="${(absence.statut != "present") ? "justify(this)":""}">
 							</div>`;
 					})
