@@ -56,6 +56,7 @@
 			<li>Ajout de la date de naissance dans l'onglet Documents.</li>
 			<li>Utilisation des titres long des semestres pour les onglets Documents, Absences et Justif.</li>
 			<li>Ajout d'un bouton de validation du créneau.</li>
+			<li>Justif absences : ajout d'un title avec le début et la fin du créneau.</li>
 		</ul>
 		<h2>30/08/2022 - 5.0.0</h2>
 		<ul>
