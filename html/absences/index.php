@@ -23,7 +23,7 @@
             margin: 0 auto 20px auto;
             text-align: center;
         }
-        .contenu{
+        .contenu, .etudiants{
             opacity: 0.5;
             pointer-events: none;
             user-select: none;
@@ -254,6 +254,20 @@
 			}
 		/*}*/
 
+		.validCreneau{
+			font-size: 21px;
+			color: #fff;
+			background: #90c;
+			display: table;
+			margin: 0 auto 16px auto;
+			padding: 16px 32px;
+			border-radius: 8px;
+			box-shadow: 0 2px 2px 2px #ddd;
+			cursor: pointer;
+		}
+		.validCreneau:hover{
+			box-shadow: 0 2px 2px 2px #bbb;
+		}
 /*****************************/
 /* Liste étudiants */
 /*****************************/
@@ -555,7 +569,7 @@
             matiereComplet = obj.innerText;
             UE = obj.parentElement.label;
 
-            document.querySelector(".contenu").classList.add("ready");
+			document.querySelector(".contenu").classList.add("ready");
             document.querySelector("#matiere").classList.remove("highlight");
             /* Gestion du storage remettre le même état au retour */
             localStorage.setItem('matiere', matiere);
@@ -564,6 +578,10 @@
         async function getStudentsListes(){
             dataEtudiants = await fetchData(`listeEtudiantsSemestre&semestre=${semestre}&absences=true`);
             document.querySelector(".contenu").innerHTML = createSemester(dataEtudiants);
+
+			document.querySelector(".validCreneau").addEventListener("click", ()=>{
+				document.querySelector(".etudiants").classList.add("ready");
+			});
 
 			document.querySelectorAll(".btn").forEach(btn=>{ 
 				btn.addEventListener("click", setAbsence) 
@@ -619,6 +637,7 @@
 					</svg>
 					<div class="infoHeures"></div>
 				</div>
+				<div class="validCreneau">Valider le créneau</div>
 				<!-- / -->
 				<div class=etudiants>${createStudents(liste.etudiants)}</div>
             `;
@@ -906,6 +925,7 @@
 		let creneau;
         function setDate(data){
 			creneau = data;
+			document.querySelector(".validCreneau").innerText = `Valider le créneau ${creneau.debut} - ${creneau.fin}`;
 			showAbsences();
         }
 

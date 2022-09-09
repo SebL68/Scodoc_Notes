@@ -53,7 +53,9 @@
 		<h2>05/09/2022 - 5.0.1 (en cours de préparation)</h2>
 		<ul>
 			<li>Saisie absences : correction bug photo étudiants.</li>
-			<li>Ajout de la date de naissance dans les documents.</li>
+			<li>Ajout de la date de naissance dans l'onglet Documents.</li>
+			<li>Utilisation des titres long des semestres pour les onglets Documents, Absences et Justif.</li>
+			<li>Ajout d'un bouton de validation du créneau.</li>
 		</ul>
 		<h2>30/08/2022 - 5.0.0</h2>
 		<ul>
