@@ -1019,19 +1019,20 @@
 					
 					let ligne = document.querySelector(`[data-nip="${etudiant}"]`);
 
-					if(absenceJour.debut == creneau.debut 
-						&& absenceJour.fin == creneau.fin ) {
-						ligne.dataset.statut = absenceJour.statut;
+					if(ligne){
+						if(absenceJour.debut == creneau.debut 
+							&& absenceJour.fin == creneau.fin ) {
+							ligne.dataset.statut = absenceJour.statut;
+						}
+
+						addHint(
+							ligne.querySelector(".hint"),
+							absenceJour.debut,
+							absenceJour.fin,
+							absenceJour.statut,
+							absenceJour.enseignant
+						)
 					}
-
-					addHint(
-						ligne.querySelector(".hint"),
-						absenceJour.debut,
-						absenceJour.fin,
-						absenceJour.statut,
-						absenceJour.enseignant
-					)
-
                 })
             })
         }
