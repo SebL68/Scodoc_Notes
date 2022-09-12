@@ -598,7 +598,7 @@
 						let posiDebut = (absence.debut - heureDebut) / (heureFin - heureDebut) * 100;
 						let tailleDuree = (absence.fin - absence.debut) / (heureFin - heureDebut) * 100;
 
-						document.querySelector(`[data-nip="${etudiant}"]`).parentElement.children[i+1].innerHTML += `
+						document.querySelector(`[data-nip="${etudiant}"]`)?.parentElement.children[i+1].innerHTML += `
 							<div 
 								style="left:${posiDebut}%;width:${tailleDuree}%" 
 								data-statut="${absence.statut}" 
