@@ -239,7 +239,7 @@ class releveBUT extends HTMLElement {
 				${(()=>{
 					let output = "";
 					data.semestre.decision_rcue.forEach(competence=>{
-						output += `<div class=rang>${competence.niveau.competence.titre}</div><div>${competence.code}</div>`;
+						output += `<div class=competence>${competence.niveau.competence.titre}</div><div>${competence.code}</div>`;
 					})
 					return output;
 				})()}

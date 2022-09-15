@@ -158,7 +158,8 @@ section>div:nth-child(1){
 .infoSemestre>div>div:nth-child(even){
     text-align: right;
 }
-.rang{
+.rang,
+.competence{
 	font-weight: bold;
 }
 .ue .rang{
