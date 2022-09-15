@@ -597,17 +597,21 @@
 
 						let posiDebut = (absence.debut - heureDebut) / (heureFin - heureDebut) * 100;
 						let tailleDuree = (absence.fin - absence.debut) / (heureFin - heureDebut) * 100;
+						
+						let ligne = document.querySelector(`[data-nip="${etudiant}"]`);
 
-						document.querySelector(`[data-nip="${etudiant}"]`).parentElement.children[i+1].innerHTML += `
-							<div 
-								style="left:${posiDebut}%;width:${tailleDuree}%" 
-								data-statut="${absence.statut}" 
-								data-justifie="${absence.justifie}" 
-								data-debut="${absence.debut}"
-								data-fin="${absence.fin}"
-								title="${absence.debut}h - ${absence.fin}h - ${absence.enseignant}"
-								onclick="${(absence.statut != "present") ? "justify(this)":""}">
-							</div>`;
+						if(ligne){
+							ligne.parentElement.children[i+1].innerHTML += `
+								<div 
+									style="left:${posiDebut}%;width:${tailleDuree}%" 
+									data-statut="${absence.statut}" 
+									data-justifie="${absence.justifie}" 
+									data-debut="${absence.debut}"
+									data-fin="${absence.fin}"
+									title="${absence.debut}h - ${absence.fin}h - ${absence.enseignant}"
+									onclick="${(absence.statut != "present") ? "justify(this)":""}">
+								</div>`;
+						}
 					})
 				}
             })
