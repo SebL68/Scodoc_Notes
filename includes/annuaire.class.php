@@ -140,7 +140,7 @@ class Annuaire{
 			}
 
 			/* Test étudiant */
-			$pattern = '/^'. $user .':/i';
+			$pattern = '/:'. $user .'\b/i';
 			if(preg_grep($pattern, file(self::$STUDENTS_PATH))){
 				return ETUDIANT;
 			}
