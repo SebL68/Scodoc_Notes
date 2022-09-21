@@ -10,7 +10,7 @@ Les utilisateurs actuels sont :
  - IUT de Ville d'Avray => accès étudiant
  - IUT de Chartres => accès étudiant + enseignant
  - IUT de Lyon 1 => accès étudiant + enseignant
- - IUT de Tours => installation en cours
+ - IUT de Tours => accès étudiant
  - IUT Lannion => accès étudiant
  - IUT de Lille => accès étudiant + enseignant
  - IUT de Bordeaux => accès étudiant + enseignant
