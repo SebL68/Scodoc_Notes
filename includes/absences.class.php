@@ -157,7 +157,7 @@
 
 			for($i=0 ; $i<count($dates) ; $i++){
 				if($dates[$i]['debut'] == $debut){
-					$data[$date][$i]['justifie'] = $justifie;
+					$data[$date][$i]['justifie'] = $justifie === 'true';
 					break;
 				}
 			}
