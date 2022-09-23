@@ -361,7 +361,7 @@
 							if(absence.statut == "present"){
 								return;
 							}
-							if(absence.justifie == true){
+							if(absence.justifie == true || absence.justifie == "true"){
 								totaux.justifie += absence.fin - absence.debut;
 							}else{
 								totaux[absence.statut] += absence.fin - absence.debut;
