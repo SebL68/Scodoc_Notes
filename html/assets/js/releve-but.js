@@ -232,7 +232,7 @@ class releveBUT extends HTMLElement {
 				<div>${data.semestre.absences?.injustifie ?? "-"}</div>
 				<div class=abs>Total</div><div>${data.semestre.absences?.total ?? "-"}</div>
 			</div>`;
-		if(data.semestre.decision_rcue.length){
+		if(data.semestre.decision_rcue?.length){
 			output += `
 			<div>
 				<div class=enteteSemestre>RCUE</div><div></div>
