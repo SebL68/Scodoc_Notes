@@ -152,7 +152,7 @@ class releveBUT extends HTMLElement {
 	/* Informations sur l'étudiant  */
 	/********************************/
 	showInformations(data) {
-		this.shadow.querySelector(".studentPic").src = data.etudiant.photo_url || "default_Student.svg";
+		this.shadow.querySelector(".studentPic").src = /*data.etudiant.photo_url || */"default_Student.svg";
 
 		let output = '';
 
