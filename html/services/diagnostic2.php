@@ -140,7 +140,7 @@
 			die();
 		}
 		
-		echo '<div><span>💭</span> L\'authentification a Scodoc nécessite un compte avec les authorisations "Secr" sur l\'ensemble des départements : vérifiez que ce compte soit bien créé dans Scodoc.</div>';
+		echo '<div><span>💭</span> L\'authentification a Scodoc nécessite un compte compte utilisateur avec la permission ScoView lié au rôle LecteurAPI. Vérifiez que ce compte soit bien créé dans Scodoc, sinon : <a href=https://scodoc.org/ScoDoc9API/#configuration-de-scodoc-pour-utiliser-lapi>lien vers la doc Scodoc</a>.</div>';
 		if($Config->scodoc_login != 'LOGIN_SCODOC' && $Config->scodoc_psw != 'MDP_SCODOC') {
 			echo '<div><span>✔️</span> Vous avez configuré un login et mot de passe pour vous authentifier à Scodoc.</div>';
 		} else {
