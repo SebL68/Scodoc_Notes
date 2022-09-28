@@ -35,14 +35,14 @@ Les utilisateurs actuels sont :
  - IUT d'Orléans => accès étudiant
  - IUT de Rennes => accès étudiant
  - IUT de Perpignan sites de Narbonne et Carcassonne => accès étudiant + enseignant
- - IUT de Villetaneuse => accès étudiants + enseignant
+ - IUT de Villetaneuse => accès étudiant + enseignant
  - IUT de Cergy-Pontoise ?
  - IUT de Mantes ?
  - IUT de Béziers => accès étudiant
  - IUT de Saint Denis => A venir
  - IUT d'Amiens => accès étudiant
  - IUT de Caen (IFS) => A venir
- - IUT de Saint-Nazaire => accès étudiant
+ - IUT de Saint-Nazaire => accès étudiant + enseignant
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
   
