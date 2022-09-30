@@ -897,7 +897,7 @@
 
 				let numSize = Math.round(parseInt(this.slider.style.width) / this.pasSize);
 				if(numSize == 0) numSize = 1;
-				this.slider.children[1].innerText = numSize * this.pas + "h";
+				this.slider.children[1].innerText = numSize * floatToHour(this.pas);
 				event.preventDefault();
 			}
 
@@ -926,7 +926,7 @@
 		let creneau;
         function setDate(data){
 			creneau = data;
-			document.querySelector(".validCreneau").innerText = `Valider le créneau ${creneau.debut} - ${creneau.fin}`;
+			document.querySelector(".validCreneau").innerText = `Valider le créneau ${floatToHour(creneau.debut)} - ${floatToHour(creneau.fin)}`;
 			showAbsences();
         }
 
@@ -1053,6 +1053,10 @@
                 div.remove();
             }, 3000);
         }
+
+		function floatToHour(heure){
+			return Math.floor(heure) + "h"+ ((heure%1*60 < 10)?"0"+heure%1*60 : heure%1*60)
+		}
 
 /***************************/
 /* C'est parti !

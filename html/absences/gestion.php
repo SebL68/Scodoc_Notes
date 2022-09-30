@@ -608,7 +608,7 @@
 									data-justifie="${absence.justifie}" 
 									data-debut="${absence.debut}"
 									data-fin="${absence.fin}"
-									title="${absence.debut}h - ${absence.fin}h - ${absence.enseignant}"
+									title="${floatToHour(absence.debut)} - ${floatToHour(absence.fin)} - ${absence.enseignant}"
 									onclick="${(absence.statut != "present") ? "justify(this)":""}">
 								</div>`;
 						}
@@ -669,6 +669,9 @@
                 div.remove();
             }, 3000);
         }
+		function floatToHour(heure){
+			return Math.floor(heure) + "h"+ ((heure%1*60 < 10)?"0"+heure%1*60 : heure%1*60)
+		}
 /***************************/
 /* Gestion des rapports d'absence
 /***************************/
