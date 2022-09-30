@@ -805,7 +805,7 @@
 				if(typeof(this.callback) === "function"){
 					this.callback(
 						{
-							date: this.date.toISOString().split("T")[0],
+							date: this.date.toLocaleDateString().split("/").reverse().join("-"),
 							debut: this.debut,
 							fin: this.fin
 						}

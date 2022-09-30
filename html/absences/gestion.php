@@ -657,7 +657,10 @@
 
 		function ISODate(date){
             // Date ISO du type : 2021-01-28T15:38:04.622Z -- on ne récupère que AAAA-MM-JJ.
-            return date.toISOString().split("T")[0];
+            //return date.toISOString().split("T")[0]; // Problème d'heure UTC
+
+			// Transforme la date en date ISO
+			return date.toLocaleDateString().split("/").reverse().join("-")
         }
 
         function message(msg){
@@ -783,7 +786,7 @@
 				total = 0;
 				Object.entries(dataEtudiants.absences[obj.dataset.nip] || {}).forEach(([date, listeCreneaux])=>{
 					listeCreneaux.forEach((data)=>{
-						if(data.statut == "retard"){
+						if(data.statut == "retard" && (data.justifie == "false" || data.justifie == false)){
 							sheet.cell("A"+i).value(date.split("-").reverse().join("/"));
 							sheet.cell("B"+i).value(floatToHour(data.debut) + " - " + floatToHour(data.fin));
 							sheet.cell("C"+i).value(mailToTxt(data.enseignant));
@@ -864,69 +867,102 @@
 
                 sheet.cell("A1").value("Rapport d'absences").style("fontSize", 18);
                 sheet.cell("A2").value(`${semestreTxt}`).style("fontSize", 24);
-                sheet.cell("A3").value(`${now}`);
+                sheet.cell("A3").value(now);
                 
-				var i = 5;
-
-				var colonne = 'D';
-				UE.forEach(e=>{
-					sheet.cell(colonne+i).value(e.UE).style({
-						bold: true,
-						fill: "00CC99",
-						fontColor: "FFFFFF"
-					});
-					sheet.cell(colonne+(i+1)).value([["Justifié", "Injustifié"]]).style({
-						bold: true,
-						fill: "0099CC",
-						fontColor: "FFFFFF"
-					});
-					colonne = changeChar(colonne, 2);
-				})
-				sheet.cell(colonne+i).value([
-					["Totaux", ""],
-					["Justifié", "Injustifié"]
-				]).style({
+				sheet.cell("G4").value("Détail nombre d'heures d'absences");
+				sheet.range("G4:J4").style({
 					bold: true,
-					fill: "9900CC",
+					fill: "00CC99",
 					fontColor: "FFFFFF"
 				});
-
-				i++;
-				sheet.cell("A"+i).value([[
-						"Nom",
-						"Prénom",
-						"Numéro"
-					]]).style({
+				sheet.cell("A5")
+					.value([["Nom", "Prenom", "Numéro", "H absen.", "Nb retar.", "H justif.", "Septemb.", "Octobre", "Novemb.", "Décemb.", "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout"]])
+					.style({
 						bold: true,
 						fill: "0099CC",
 						fontColor: "FFFFFF"
 					});
-				i++;
+				sheet.range("G5:R5").style({fill: "00CC99"});
 
-				var absences = nbAbsences();
+				//sheet.cell("C6").formula("=A6+B6");
+				
+				var i = 6;
+
+				var colonne = 'D';
+
+				let totaux = {};
 
 				dataEtudiants.etudiants.forEach(etudiant=>{
 					sheet.cell("A"+i).value([[
 						etudiant.nom,
 						etudiant.prenom,
-						etudiant.num_etudiant
+						etudiant.nip
 					]]);
-					colonne = "D";
-					totJust = 0;
-					totInjust = 0;
-					UE.forEach(e=>{
-						sheet.cell(colonne+i).value([[
-							absences[etudiant.email][e.UE].justifie,
-							absences[etudiant.email][e.UE].injustifie
-						]]);
-						totJust += absences[etudiant.email][e.UE].justifie;
-						totInjust += absences[etudiant.email][e.UE].injustifie;
-						colonne = changeChar(colonne, 2);
+					let totaux = {
+						"01": 0,
+						"02": 0,
+						"03": 0,
+						"04": 0,
+						"05": 0,
+						"06": 0,
+						"07": 0,
+						"08": 0,
+						"09": 0,
+						"10": 0,
+						"11": 0,
+						"12": 0,
+						absent: 0,
+						justifie: 0,
+						retard: 0
+					}
+					Object.entries(dataEtudiants.absences[etudiant.nip]).forEach(([date, liste])=>{
+						liste.forEach(data=>{
+							if(data.statut == "retard" && (data.justifie == "false" || data.justifie == false)){
+								totaux.retard++;
+							} else if(data.statut == "absent" && (data.justifie == "true" || data.justifie == true)){
+								totaux.justifie += data.fin - data.debut;
+							} else if(data.statut == "absent" && (data.justifie == "false" || data.justifie == false)){
+								let mois = date.split("-")[1];
+								totaux[mois] += data.fin - data.debut;
+								totaux.absent += data.fin - data.debut;
+							}
+						})
 					})
-					sheet.cell(colonne+i).value([[
-						totJust,
-						totInjust
-					]]);
+
+					sheet.cell("D"+i).value([[
+						totaux.absent,
+						totaux.retard,
+						totaux.justifie,
+						totaux["09"],
+						totaux["10"],
+						totaux["11"],
+						totaux["12"],
+						totaux["01"],
+						totaux["02"],
+						totaux["03"],
+						totaux["04"],
+						totaux["05"],
+						totaux["06"],
+						totaux["07"],
+						totaux["08"]
+					]])
+
+					sheet.cell("D"+i).style({
+						bold: true,
+						fill: "ec7068",
+						fontColor: "FFFFFF"
+					});
+					sheet.cell("E"+i).style({
+						bold: true,
+						fill: "f3a027",
+						fontColor: "FFFFFF"
+					});
+					sheet.cell("F"+i).style({
+						bold: true,
+						fill: "00cc99",
+						fontColor: "FFFFFF"
+					});
+
 					i++;
 				})
 
@@ -936,48 +972,6 @@
 
 		function changeChar(char, nb){
 			return String.fromCharCode(char.charCodeAt(0) + nb);
-		}
-
-		function nbAbsences(){
-			/*Réponse sous la forme d'une strucutre :
-				{
-					"mail etudiant": {
-						"UE1": {
-							"jusitifie": 22,
-							"injustifie" : 33
-						},
-						"UE2": {
-							"jusitifie": 22,
-							"injustifie" : 33
-						}
-					}
-				}
-			*/
-			var output = {};
-			dataEtudiants.etudiants.forEach(etudiant=>{
-				if(!output[etudiant.email]){
-					output[etudiant.email] = {};
-					UE.forEach(ue=>{
-						output[etudiant.email][ue.UE] = {
-							justifie: 0,
-							injustifie: 0
-						}
-					})
-				}
-
-				Object.values(dataEtudiants.absences[etudiant.email] || {}).forEach(dateAbsence=>{
-					Object.values(dateAbsence).forEach(creneau=>{
-						if(creneau.UE != "pas besoin"){
-							if(creneau.statut == "absent"){
-								output[etudiant.email][creneau.UE].injustifie += 1;
-							} else {
-								output[etudiant.email][creneau.UE].justifie += 1;
-							}
-						}
-					})
-				})
-			})
-			return output;
 		}
 
 		function mailToTxt(mail){
