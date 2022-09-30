@@ -708,16 +708,20 @@
                 const sheet = workbook.sheet(0);
                 sheet.name("Absences");
 
-				sheet.column("A").width(11);
+				sheet.column("A").width(14);
+				sheet.column("B").width(16);
 				sheet.column("C").width(22);
-				sheet.column("D").width(22);
+				sheet.column("D").width(36);
 
                 sheet.cell("A1").value("Rapport d'absences").style("fontSize", 18);
                 sheet.cell("A2").value(`${semestreTxt}`).style("fontSize", 24);
                 sheet.cell("A3").value(`${obj.dataset.prenom} ${obj.dataset.nom}`).style("fontSize", 24);
-                sheet.cell("A4").value(`${obj.dataset.num}`);
+                sheet.cell("A4").value(`${obj.dataset.nip}`);
                 sheet.cell("A5").value(`${now}`);
                 
+			/*************************/
+			/* Absences injustifiées */
+			/*************************/
 				var i = 7;
                 sheet.cell("A"+i).value("Absences injustifiées").style("fontSize", 18);
 				i++;
@@ -726,8 +730,7 @@
 						"Date",
 						"Créneau",
 						"Enseignant",
-						"Matière",
-						"UE"
+						"Matière"
 					]]).style({
 						bold: true,
 						fill: "0099CC",
@@ -735,32 +738,74 @@
 					});
 				i++;
 
-				var total = {};
-				Object.entries(dataEtudiants.absences[obj.dataset.email] || {}).forEach(([date, listeCreneaux])=>{
-					Object.entries(listeCreneaux).forEach(([creneau, data])=>{
-						if(data.statut == "absent"){
+				var total = 0;
+				Object.entries(dataEtudiants.absences[obj.dataset.nip] || {}).forEach(([date, listeCreneaux])=>{
+					listeCreneaux.forEach((data)=>{
+						if(data.statut == "absent" && (data.justifie == "false" || data.justifie == false)){
 							sheet.cell("A"+i).value(date.split("-").reverse().join("/"));
-							sheet.cell("B"+i).value(creneau.replace(",", "-"));
+							sheet.cell("B"+i).value(floatToHour(data.debut) + " - " + floatToHour(data.fin));
 							sheet.cell("C"+i).value(mailToTxt(data.enseignant));
 							sheet.cell("D"+i).value(data.matiereComplet);
-							sheet.cell("E"+i).value(data.UE);
 
-							total[data.UE] = (total[data.UE] + 1) || 1;
+							total += data.fin - data.debut;
 							i++;
 						}
 					})
 				})
 
-				Object.entries(total).forEach(([ue, nombre])=>{
-					sheet.cell("A"+i).value(`Nombre d'absences injustifiées ${ue} : ${nombre}`);
-					sheet.range("A"+i+":E"+i).style({
+				sheet.cell("A"+i).value(`Nombre d'absences injustifiées : ${floatToHour(total)}`);
+				sheet.range("A"+i+":D"+i).style({
+					bold: true,
+					fill: "00CC99",
+					fontColor: "FFFFFF"
+				});
+
+			/***********/
+			/* Retards */
+			/***********/
+				i++;
+				i++;
+ 				sheet.cell("A"+i).value("Retards").style("fontSize", 18);
+				i++;
+
+                sheet.cell("A"+i).value([[
+						"Date",
+						"Créneau",
+						"Enseignant",
+						"Matière"
+					]]).style({
 						bold: true,
-						fill: "00CC99",
+						fill: "0099CC",
 						fontColor: "FFFFFF"
 					});
-					i++;
+				i++;
+				
+				total = 0;
+				Object.entries(dataEtudiants.absences[obj.dataset.nip] || {}).forEach(([date, listeCreneaux])=>{
+					listeCreneaux.forEach((data)=>{
+						if(data.statut == "retard"){
+							sheet.cell("A"+i).value(date.split("-").reverse().join("/"));
+							sheet.cell("B"+i).value(floatToHour(data.debut) + " - " + floatToHour(data.fin));
+							sheet.cell("C"+i).value(mailToTxt(data.enseignant));
+							sheet.cell("D"+i).value(data.matiereComplet);
+
+							total++;
+							i++;
+						}
+					})
 				})
 
+				sheet.cell("A"+i).value(`Nombre de retards : ${total}`);
+				sheet.range("A"+i+":D"+i).style({
+					bold: true,
+					fill: "00CC99",
+					fontColor: "FFFFFF"
+				});
+
+			/***********************/
+			/* Absences justifiées */
+			/***********************/
+				i++;
 				i++;
  				sheet.cell("A"+i).value("Absences justifiées").style("fontSize", 18);
 				i++;
@@ -769,8 +814,7 @@
 						"Date",
 						"Créneau",
 						"Enseignant",
-						"Matière",
-						"UE"
+						"Matière"
 					]]).style({
 						bold: true,
 						fill: "0099CC",
@@ -778,33 +822,29 @@
 					});
 				i++;
 				
-				total = {};
-				Object.entries(dataEtudiants.absences[obj.dataset.email] || {}).forEach(([date, listeCreneaux])=>{
-					Object.entries(listeCreneaux).forEach(([creneau, data])=>{
-						if(data.statut == "absent excuse"){
+				total = 0;
+				Object.entries(dataEtudiants.absences[obj.dataset.nip] || {}).forEach(([date, listeCreneaux])=>{
+					listeCreneaux.forEach((data)=>{
+						if(data.statut == "absent" && (data.justifie == "true" || data.justifie == true)){
 							sheet.cell("A"+i).value(date.split("-").reverse().join("/"));
-							sheet.cell("B"+i).value(creneau.replace(",", "-"));
+							sheet.cell("B"+i).value(floatToHour(data.debut) + " - " + floatToHour(data.fin));
 							sheet.cell("C"+i).value(mailToTxt(data.enseignant));
 							sheet.cell("D"+i).value(data.matiereComplet);
-							sheet.cell("E"+i).value(data.UE);
 
-							total[data.UE] = (total[data.UE] + 1) || 1;
+							total += data.fin - data.debut;
 							i++;
 						}
 					})
 				})
 
-				Object.entries(total).forEach(([ue, nombre])=>{
-					sheet.cell("A"+i).value(`Nombre d'absences justifiées ${ue} : ${nombre}`);
-					sheet.range("A"+i+":E"+i).style({
-						bold: true,
-						fill: "00CC99",
-						fontColor: "FFFFFF"
-					});
-					i++;
-				})
+				sheet.cell("A"+i).value(`Nombre d'absences justifiées : ${floatToHour(total)}`);
+				sheet.range("A"+i+":D"+i).style({
+					bold: true,
+					fill: "00CC99",
+					fontColor: "FFFFFF"
+				});
 
-                saveFile("Absences - " + semestreTxt + " " + obj.dataset.email.split("@")[0].replaceAll(".", " ").toUpperCase(), workbook);
+                saveFile("Absences - " + semestreTxt + " " + obj.dataset.nom + " " + obj.dataset.prenom, workbook);
             });
         }
 
