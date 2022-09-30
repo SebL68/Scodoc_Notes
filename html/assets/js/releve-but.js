@@ -216,7 +216,7 @@ class releveBUT extends HTMLElement {
 		}
 
 
-		this.shadow.querySelector("h2").innerHTML += data.semestre.numero + " - " + data.semestre.groupes[0]?.group_name;
+		this.shadow.querySelector("h2").innerHTML += data.semestre.numero + " - " + data.semestre.groupes[0]?.group_name || "";
 		this.shadow.querySelector(".dateInscription").innerHTML += this.ISOToDate(data.semestre.inscription);
 		let output = `
 		<div>
