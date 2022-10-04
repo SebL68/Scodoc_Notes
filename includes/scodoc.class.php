@@ -115,10 +115,10 @@ class Scodoc{
 	Sortie :
 		[
 			{
+				titre: "BUT MMI",
 				formsemestre_id: 319,	// code semestre Scodoc
 				semestre_id: 3, 		// numéro du semestre
-				date_debut: "26/08/2021",
-				date_fin: "17/01/2022"
+				annee_scolaire: 2022/2023
 			}
 		]
 
@@ -134,8 +134,7 @@ class Scodoc{
 					'titre' => $value->formation->acronyme,
 					'formsemestre_id' => $value->formsemestre_id,
 					'semestre_id' => $value->semestre_id,
-					'annee_scolaire' => $value->annee_scolaire . '/' . ($value->annee_scolaire+1),
-					'date_fin' => $value->date_fin
+					'annee_scolaire' => $value->annee_scolaire . '/' . ($value->annee_scolaire+1)
 				];
 			}
 			
