@@ -84,7 +84,7 @@ class Annuaire{
 			$handle = fopen(self::$STUDENTS_PATH, 'r');
 			while(($line = fgets($handle, 1000)) !== FALSE){
 				$data = explode(':', $line);
-				if(substr($data[0], 1) == substr($num, 1))
+				if(isset($data[1]) && substr($data[0], 1) == substr($num, 1))
 					return rtrim($data[1]);
 			}
 		}
