@@ -30,7 +30,7 @@
 
 				$json = json_decode(file_get_contents($file), true);
 
-				if (!$json[$date]){	// Date non présente
+				if (!isset($json[$date])){	// Date non présente
 
 					$json[$date] = [
 						self::newAbsence($enseignant, $matiere, $matiereComplet, $debut, $fin, $statut)
