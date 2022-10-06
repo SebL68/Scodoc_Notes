@@ -147,7 +147,6 @@
 	// Champs LDAP utilisés pour les listes d'utilisateurs
 		$Config->LDAP_uid = Config::$LDAP_uid ?? 'uid';
 		$Config->LDAP_idCAS = Config::$LDAP_idCAS ?? 'mail';
-		$Config->LDAP_autocompletion = Config::$LDAP_autocompletion ?? 'mail';
 
 	// Filtre LDAP de l'UFR (supannaffectation)
 		$Config->LDAP_filtre_ufr = Config::$LDAP_filtre_ufr ?? '';
