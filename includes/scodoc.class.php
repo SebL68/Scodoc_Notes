@@ -309,7 +309,12 @@ class Scodoc{
 		$groupes = [];
 		$output_json = [];
 		foreach($json as $value){
-			$groupe = end($value->groups)->group_name;
+			if(end($value->groups)){
+				$groupe = end($value->groups)->group_name;
+			} else {
+				$groupe = 'Groupe 1';
+			}
+			
 			if(!in_array($groupe, $groupes)){
 				$groupes[] = $groupe;
 			}
