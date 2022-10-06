@@ -146,11 +146,6 @@
 	// Champs LDAP utilisés pour créer les listes d'utilisateurs
 		public static $LDAP_uid = 'uid';      	// Numéro d'étudiant ou d'enseignant
 		public static $LDAP_idCAS = 'mail';		// Ce champs reflète l'idCAS qui se trouve dans le LDAP - peut être différent de mail.
-		public static $LDAP_autocompletion = 'mail';	// Données qui servent pour l'autocomplétion du mode enseignant
-		/* !!!!!!!!!!!!!!!!!
-			LDAP_autocompletion peut être différent de LDAP_idCAS que si $CAS_return_type = 'nip'
-			La raison est que si $CAS_return_type != 'nip', on utilise le fichier pour faire le lien entre l'idCAS et le nip
-		!!!!!!!!!!!!!!!!! */
 
 	// Filtre LDAP de l'UFR (supannaffectation)
 		public static $LDAP_filtre_ufr = 'supannaffectation=Institut Universitaire de Technologie de Mulhouse';
