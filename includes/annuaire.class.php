@@ -47,9 +47,11 @@ class Annuaire{
 			self::checkFile(self::$STUDENTS_PATH);
 			$handle = fopen(self::$STUDENTS_PATH, 'r');
 			while(($line = fgets($handle, 1000)) !== FALSE){
-				$data = explode(':', $line);
-				if(strcasecmp(rtrim($data[1]), $id) == 0)
-					return Config::nipModifier($data[0]);
+				if($line != ''){
+					$data = explode(':', $line);
+					if(strcasecmp(rtrim($data[1]), $id) == 0)
+						return Config::nipModifier($data[0]);
+				}
 			}
 		} else {
 			return Config::nipModifier($id);
