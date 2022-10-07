@@ -84,14 +84,13 @@ class Service_Annuaire{
 					$ligne = ($ligne=="") ? $result[$i][$entry][0] : $ligne.":".$result[$i][$entry][0];
 				}
             }
-            //echo $ligne."\n";
+
             if (fwrite($id_file, $ligne."\n") === FALSE)
                 exit("Impossible d'écrire dans le fichier $file");
         }
 
         flock($id_file, LOCK_UN);
         fclose($id_file);
-        //chmod($file, 0664);
         
         return ['result' => "OK"];
     }
