@@ -78,7 +78,11 @@ class Service_Annuaire{
         for ($i=0; $i<$nb; $i++){
             $ligne="";
             foreach($data as $entry){
-                $ligne = ($ligne=="") ? $result[$i][$entry][0] : $ligne.":".$result[$i][$entry][0];
+				if(!isset($result[$i][$entry][0])) {
+					echo 'Problème avec l\'utilisateur : ' . var_dump($result[$i]);
+				} else {
+					$ligne = ($ligne=="") ? $result[$i][$entry][0] : $ligne.":".$result[$i][$entry][0];
+				}
             }
             //echo $ligne."\n";
             if (fwrite($id_file, $ligne."\n") === FALSE)
