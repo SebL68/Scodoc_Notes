@@ -897,7 +897,7 @@
 
 				let numSize = Math.round(parseInt(this.slider.style.width) / this.pasSize);
 				if(numSize == 0) numSize = 1;
-				this.slider.children[1].innerText = numSize * floatToHour(this.pas);
+				this.slider.children[1].innerText = floatToHour(numSize * this.pas);
 				event.preventDefault();
 			}
 
