@@ -73,13 +73,13 @@ class Service_Annuaire{
         $result = ldap_get_entries($ds, $id_result);
         $nb = ldap_count_entries($ds, $id_result);
 
-        echo "$nb lignes dans la liste $file\n";
+        echo "$nb entrées LDAP pour la liste $file\n";
         
         for ($i=0; $i<$nb; $i++){
             $ligne="";
             foreach($data as $entry){
 				if(!isset($result[$i][$entry][0])) {
-					echo "\nProblème avec l\'utilisateur : " . $result[$i]['uid'][0];
+					echo 'Problème avec l\'utilisateur : ' . $result[$i]['uid'][0] . "\n";
 					$ligne = false;
 					break;
 				} else {
