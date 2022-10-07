@@ -139,6 +139,9 @@
 		public static $LDAP_password = 'MDP_LDAP';
 
 		public static $LDAP_verify_TLS = true;	// Active ou désactive le TLS pour la connexion LDAP
+		public static $LDAP_protocol_3 = false; /* Active les options : 
+													ldap_set_option($ds, LDAP_OPT_REFERRALS, 0);
+													ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3); */
 
 	// Désignation du Distinguished Name dans LDAP
 		public static $LDAP_dn = 'dc=uha,dc=fr';

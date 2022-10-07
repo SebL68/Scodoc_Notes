@@ -140,6 +140,9 @@
 		$Config->LDAP_password = Config::$LDAP_password ?? '';
 
 		$Config->LDAP_verify_TLS =  Config::$LDAP_verify_TLS ?? true;
+		$Config->LDAP_protocol_3 = Config::$LDAP_protocol_3 ?? false; /* Active les options : 
+																			ldap_set_option($ds, LDAP_OPT_REFERRALS, 0);
+																			ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3); */
 
 	// Désignation du Distinguished Name dans LDAP
 		$Config->LDAP_dn = Config::$LDAP_dn ?? '';

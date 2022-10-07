@@ -106,9 +106,11 @@ class Service_Annuaire{
         if ($ds===FALSE)
             exit("Connexion au serveur LDAP impossible");
     
-        // ldap_set_option($ds, LDAP_OPT_REFERRALS, 0);
-        // ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3);
-
+        if($Config->LDAP_protocol_3){
+            ldap_set_option($ds, LDAP_OPT_REFERRALS, 0);
+            ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3);
+        }
+        
         if($Config->LDAP_verify_TLS == true){
             if (!ldap_start_tls($ds))
                 exit("Connexion TLS au serveur LDAP impossible");
