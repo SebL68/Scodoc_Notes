@@ -83,9 +83,11 @@ class Annuaire{
 			self::checkFile(self::$STUDENTS_PATH);
 			$handle = fopen(self::$STUDENTS_PATH, 'r');
 			while(($line = fgets($handle, 1000)) !== FALSE){
-				$data = explode(':', $line);
-				if(substr($data[0], 1) == substr($num, 1))
-					return rtrim($data[1]);
+				if($line != ''){
+					$data = explode(':', $line);
+					if(substr($data[0], 1) == substr($num, 1))
+						return rtrim($data[1]);
+				}
 			}
 		}
 	}
