@@ -79,7 +79,7 @@ class Service_Annuaire{
             $ligne="";
             foreach($data as $entry){
 				if(!isset($result[$i][$entry][0])) {
-					echo '\nProblème avec l\'utilisateur : ' . $result[$i]['uid'];
+					echo "\nProblème avec l\'utilisateur : " . $result[$i]['uid'][0];
 					$ligne = false;
 					break;
 				} else {
