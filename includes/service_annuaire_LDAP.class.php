@@ -79,14 +79,18 @@ class Service_Annuaire{
             $ligne="";
             foreach($data as $entry){
 				if(!isset($result[$i][$entry][0])) {
-					echo 'Problème avec l\'utilisateur : ' . $ligne;
+					echo '\nProblème avec l\'utilisateur : ' . $result[$i]['uid'];
+					$ligne = false;
+					break;
 				} else {
 					$ligne = ($ligne=="") ? $result[$i][$entry][0] : $ligne.":".$result[$i][$entry][0];
 				}
             }
 
-            if (fwrite($id_file, $ligne."\n") === FALSE)
-                exit("Impossible d'écrire dans le fichier $file");
+			if($ligne){
+				if (fwrite($id_file, $ligne."\n") === FALSE)
+                	exit("Impossible d'écrire dans le fichier $file");
+			}
         }
 
         flock($id_file, LOCK_UN);
