@@ -11,7 +11,7 @@ class Analytics{
 		}
 
 		$dir = $path . '/data/analytics/';
-		$file = $dir . date('Y-m-j') . '.txt';
+		$file = $dir . date('Y-m-d') . '.txt';
 
 		$data = [
 			'type' => $type,
@@ -44,7 +44,7 @@ class Analytics{
 	public static function getData(/*$start, $end*/){
 		global $path;
 		$dir = $path . '/data/analytics/';
-		$file = $dir . date('Y-m-j') . '.txt';
-		return json_decode('{"'. date('Y-m-j') . '":[' . file_get_contents($file) . ']}');
+		$file = $dir . date('Y-m-d') . '.txt';
+		return json_decode('{"'. date('Y-m-d') . '":[' . file_get_contents($file) . ']}');
 	}
 }
