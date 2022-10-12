@@ -376,7 +376,7 @@
 								<div>${floatToHour(absence.debut)} - ${floatToHour(absence.fin)}</div>
 								<div>${absence.matiereComplet}</div>
 								<div class=enseignant>${absence.enseignant.split('@')[0].split(".").join(" ")}</div>
-								<div class="${absence.justifie ? "justifie" : absence.statut}"></div>
+								<div class="${(absence.justifie === true || absence.justifie === "true" ) ? "justifie" : absence.statut}"></div>
 							` + output;
 						})
 					})
