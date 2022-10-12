@@ -85,7 +85,7 @@
 			}
 			.absences>div>.absent{background: #ec7068; color: #FFF;}
 			.absences>div>.retard{background: #f3a027; color: #FFF;}
-			.absences>div>.justifie{background: #0c9}
+			.absences>div>.justifie{background: #0c9 !important}
 
 			.absences>.toutesAbsences>.absent:before{content:"Absent"}
 			.absences>.toutesAbsences>.retard:before{content:"Retard"}
@@ -364,7 +364,12 @@
 							if(absence.justifie == true || absence.justifie == "true"){
 								totaux.justifie += absence.fin - absence.debut;
 							}else{
-								totaux[absence.statut] += absence.fin - absence.debut;
+								if(absence.statut == "retard") {
+									totaux[absence.statut] += 1;
+								} else {
+									totaux[absence.statut] += absence.fin - absence.debut;
+								}
+								
 							}
 							output = `
 								<div>${date.split("-").reverse().join("/")}</div> 
@@ -396,13 +401,13 @@
 				/* Totaux */
 
 				document.querySelector(".absences>.totauxAbsences").innerHTML = `
-					<div class=entete>Nombre justifiées</div>
+					<div class="entete justifie">Nombre justifiées</div>
 					<div class="entete absent">Nombre injustifiées</div>
 					<div class="entete retard">Nombre retards</div>
 
 					<div>${floatToHour(totaux.justifie)}</div>
 					<div>${floatToHour(totaux.absent)}</div>
-					<div>${floatToHour(totaux.retard)}</div>
+					<div>${totaux.retard}</div>
 				`;
 			}
 
