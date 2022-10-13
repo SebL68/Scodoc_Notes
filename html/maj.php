@@ -50,14 +50,25 @@
 	<h1>Historique des mises à jours</h1>
 
 	<main>
-		<h2>05/09/2022 - 5.1.0 (en cours de préparation)</h2>
+		<h2>13/10/2022 - 5.0.1</h2>
 		<ul>
-			<li>Saisie absences : correction bug photo étudiants.</li>
-			<li>Ajout de la date de naissance dans l'onglet Documents.</li>
 			<li>Utilisation des titres long des semestres pour les onglets Documents, Absences et Justif.</li>
-			<li>Ajout d'un bouton de validation du créneau.</li>
-			<li>Justif absences : ajout d'un title avec le début et la fin du créneau.</li>
+			<li>Documents : ajout de la date de naissance dans les données étuidants.</li>
+			<li>Absences : utilisation du format heure à la place du format floatant pour l'affichage (8.5 -> 8h30).</li>
+			<li>Absences : correction bug photo étudiants.</li>
+			<li>Absences : ajout d'un bouton de validation du créneau.</li>
+			<li>Absences : éviter les requêtes fantomes en cas d'ancien semestres.</li>
 			<li>Absences : prise en compte des heures UTC.</li>
+			<li>Absences : correction statut justification string à la place de bool.</li>
+			<li>Absences : comptage du nombre de retard à la place du nombre d'heures.</li>
+			<li>Justif absences : ajout d'un title avec le début et la fin du créneau.</li>
+			<li>Stats absences : exports des données étudiants individuelles.</li>
+			<li>Stats absences : exports des données semestre avec détail par mois.</li>
+			<li>Correction bug format date ISO data analytics interne</li>
+			<li>liste_etu.txt : correction bug de recherche d'étudiant.</li>
+			<li>config.php : ajout d'une option pour le protocole LDAP.</li>
+			<li>Chasse aux "Notices" et "Warning".</li>
+			<li>Différents correctifs et améliorations.</li>
 		</ul>
 		<h2>30/08/2022 - 5.0.0</h2>
 		<ul>
