@@ -12,14 +12,23 @@
 	}
 
 	if($user->getStatut() >= PERSONNEL){ 
+		sanitize($_GET['etudiant']);
 		$nip = $_GET['etudiant'];
 	} else {
 		$nip = $user->getId();
 	}
 
+	function sanitize($data){
+		/* Nettoyage des entrées */
+		if(preg_match('/\.\.|\\|\//', $data)){
+			returnError('Données envoyées au serveur non valide - try to hack ?!');
+		}
+	}
+
 /************************/
 /* Relevé au format PDF */
 /************************/
+	sanitize($_GET["sem_id"]);
 	$Scodoc = new Scodoc();
 
 	$result = $Scodoc->getReportCards(

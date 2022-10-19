@@ -136,6 +136,9 @@
 *******************************/
 
 	if(isset($_GET['q'])){
+
+		sanitize($_GET['q']);
+
 		switch($_GET['q']){
 
 			case 'donnéesAuthentification':
@@ -168,6 +171,7 @@
 			case 'listeEtudiantsSemestre':
 				// Uniquement pour les personnels IUT.
 				if($user->getStatut() < PERSONNEL){ returnError(); }
+				sanitize($_GET['semestre']);
 				$Scodoc = new Scodoc();
 				$output = $Scodoc->getStudentsInSemester(
 					$_GET['semestre']
@@ -181,6 +185,7 @@
 			case 'listesEtudiantsDépartement':
 				// Uniquement pour les personnels IUT.
 				if($user->getStatut() < PERSONNEL){ returnError(); }
+				sanitize($_GET['dep']);
 				$Scodoc = new Scodoc();
 				$output = $Scodoc->getStudentsListsDepartement($_GET['dep']);
 				break;
@@ -189,6 +194,7 @@
 				// Uniquement les personnels IUT peuvent demander le relevé d'une autre personne.
 				if($user->getStatut() < PERSONNEL && isset($_GET['etudiant'])){ returnError(); }
 				// Si c'est un personnel, on transmet l'étudiant par get, sinon on prend l'identifiant de la session.
+				sanitize($_GET['etudiant']);
 				$Scodoc = new Scodoc();
 				$nip = $_GET['etudiant'] ?? $user->getId();
 				$output = $Scodoc->getStudentSemesters($nip);
@@ -198,6 +204,8 @@
 				// Uniquement les personnels IUT peuvent demander le relevé d'une autre personne.
 				if($user->getStatut() < PERSONNEL && isset($_GET['etudiant'])){ returnError(); } 
 				// Si c'est un personnel, on transmet l'étudiant par get, sinon on prend l'identifiant de la session.
+				sanitize($_GET['etudiant']);
+				sanitize($_GET['semestre']);
 				$Scodoc = new Scodoc();
 				$nip = $_GET['etudiant'] ?? $user->getId();
 				$output = [
@@ -211,6 +219,7 @@
 			
 			case 'modules':
 				if($user->getStatut() < PERSONNEL ){ returnError(); }
+				sanitize($_GET['semestre']);
 				$Scodoc = new Scodoc();
 				$output = $Scodoc->modules($_GET['semestre']);
 				break;
@@ -259,6 +268,16 @@
 			case 'setAbsence':
 				if($user->getStatut() < PERSONNEL ){ returnError(); }
 				if($user->getStatut() < ADMINISTRATEUR && $_GET['statut'] == 'justifie' ){ returnError(); }
+				
+				sanitize($_GET['semestre']);
+				//sanitize($_GET['matiere']);
+				//sanitize($_GET['matiereComplet']);
+				sanitize($_GET['etudiant']);
+				sanitize($_GET['date']);
+				sanitize($_GET['debut']);
+				sanitize($_GET['fin']);
+				sanitize($_GET['statut']);
+
 				$output = Absences::setAbsence(
 					$user->getId(),
 					$_GET['semestre'],
@@ -274,6 +293,8 @@
 
 			case 'getAbsence':
 				if($user->getStatut() < PERSONNEL ){ returnError(); }
+				sanitize($_GET['semestre']);
+				sanitize($_GET['etudiant']);
 				$output = Absences::getAbsence(
 					$_GET['semestre'],
 					$_GET['etudiant'] ?? ''
@@ -282,6 +303,11 @@
 
 			case 'setJustifie':
 				if($user->getStatut() < ADMINISTRATEUR ){ returnError(); }
+				sanitize($_GET['semestre']);
+				sanitize($_GET['etudiant']);
+				sanitize($_GET['date']);
+				sanitize($_GET['debut']);
+				sanitize($_GET['justifie']);
 				$output = Absences::setJustifie(
 					$_GET['semestre'],
 					$_GET['etudiant'],
@@ -294,11 +320,16 @@
 		/*************************/
 			case 'listeVacataires':
 				if($user->getStatut() < ADMINISTRATEUR ){ returnError(); }
+				sanitize($_GET['dep']);
 				$output = Admin::listeUtilisateurs($_GET['dep'], 'vacataires');
 				break;
 
 			case 'modifVacataire':
 				if($user->getStatut() < ADMINISTRATEUR ){ returnError(); }
+				sanitize($_GET['dep']);
+				sanitize($_GET['ancienId']);
+				sanitize($_GET['nouveauId']);
+				sanitize($_GET['nouveauName']);
 				$output = Admin::modifUtilisateur(
 					$_GET['dep'], 
 					'vacataires',
@@ -310,6 +341,8 @@
 
 			case 'supVacataire':
 				if($user->getStatut() < ADMINISTRATEUR ){ returnError(); }
+				sanitize($_GET['dep']);
+				sanitize($_GET['id']);
 				$output = Admin::supUtilisateur(
 					$_GET['dep'],
 					'vacataires',
@@ -320,11 +353,16 @@
 		/*************************/
 			case 'listeAdministrateurs':
 				if($user->getStatut() < PERSONNEL ){ returnError(); }
+				sanitize($_GET['dep']);
 				$output = Admin::listeUtilisateurs($_GET['dep'], 'administrateurs');
 				break;
 
 			case 'modifAdministrateur':
 				if($user->getStatut() < ADMINISTRATEUR ){ returnError(); }
+				sanitize($_GET['dep']);
+				sanitize($_GET['ancienId']);
+				sanitize($_GET['nouveauId']);
+				sanitize($_GET['nouveauName']);
 				$output = Admin::modifUtilisateur(
 					$_GET['dep'],
 					'administrateurs',
@@ -336,6 +374,8 @@
 
 			case 'supAdministrateur':
 				if($user->getStatut() < ADMINISTRATEUR ){ returnError(); }
+				sanitize($_GET['dep']);
+				sanitize($_GET['id']);
 				$output = Admin::supUtilisateur(
 					$_GET['dep'], 
 					'administrateurs',
@@ -371,6 +411,7 @@
 				break;
 
 			case 'getStudentPic':
+				sanitize($_GET['nip']);
 				if ($user->getStatut() > ETUDIANT && isset($_GET['nip'])) {
 					$url = "$path/data/studentsPic/" . $_GET['nip'] . ".jpg";
 				} else {
@@ -418,6 +459,13 @@
 			echo json_encode($output/*, JSON_PRETTY_PRINT*/);
 		}else{
 			returnError('Mauvaise requête.');
+		}
+	}
+
+	function sanitize($data, $regex = '/\.\.|\\|\//'){
+		/* Nettoyage des entrées */
+		if(preg_match($regex, $data)){
+			returnError('Données envoyées au serveur non valide - try to hack ?!');
 		}
 	}
 

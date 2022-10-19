@@ -50,6 +50,12 @@
 	<h1>Historique des mises à jours</h1>
 
 	<main>
+		<h2>19/10/2022 - 5.0.2</h2>
+		<ul>
+			<li>⚠️⚠️⚠️ Correctif majeur de sécurité ! ⚠️⚠️⚠️ Mise à jour obligatoire ! ⚠️⚠️⚠️</li>
+			<li>Merci à Vincent Rousset (DSI Lyon) et Pascal Bouron pour le travail.</li>
+		</ul>
+
 		<h2>13/10/2022 - 5.0.1</h2>
 		<ul>
 			<li>Utilisation des titres long des semestres pour les onglets Documents, Absences et Justif.</li>

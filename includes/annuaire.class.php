@@ -144,13 +144,13 @@ class Annuaire{
 			}
 
 			/* Test étudiant */
-			$pattern = '/:'. $user .'\b/i';
+			$pattern = '/:'. preg_quote($user) .'\b/i';
 			if(preg_grep($pattern, file(self::$STUDENTS_PATH))){
 				return ETUDIANT;
 			}
 
 			/* Test personnel */
-			$pattern = '/\b'. $user .'\b/i';
+			$pattern = '/\b'. preg_quote($user) .'\b/i';
 			foreach(self::$STAF_PATH as $stafPath){
 				if(preg_grep($pattern, file($stafPath))){
 					return PERSONNEL;
