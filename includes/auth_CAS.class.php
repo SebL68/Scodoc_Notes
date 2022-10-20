@@ -69,7 +69,8 @@
 			}
 			phpCAS::forceAuthentication(); 
 
-			if( substr_compare( ltrim($_GET['href'], 'https'), '://'.$_SERVER['HTTP_HOST'].'/', 0, strlen('://'.$_SERVER['HTTP_HOST']) + 1) === 0 ) {	// Vérifier qu'on redifige vers le même domaine
+			$serverName = '://' . strstr($_SERVER['HTTP_HOST'], ':', true) .'/';
+			if( substr_compare( ltrim($_GET['href'], 'https'), $serverName, 0, strlen($serverName)) === 0 ) {	// Vérifier qu'on redifige vers le même domaine
 				header('Location: '. $_GET['href']);
 			} else {
 				exit(
