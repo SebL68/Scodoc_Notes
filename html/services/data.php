@@ -411,8 +411,8 @@
 				break;
 
 			case 'getStudentPic':
-				sanitize($_GET['nip']);
 				if ($user->getStatut() > ETUDIANT && isset($_GET['nip'])) {
+					sanitize($_GET['nip']);
 					$url = "$path/data/studentsPic/" . $_GET['nip'] . ".jpg";
 				} else {
 					$url = "$path/data/studentsPic/" . $user->getId() . '.jpg';
@@ -420,6 +420,7 @@
 
 				if(!file_exists($url)){ // Image par défaut si elle n'existe pas
 					if(method_exists('Config', 'customPic') == true){
+						sanitize($_GET['nip']);
                         Config::customPic($_GET['nip']);
                         return;
                     } else {
