@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Mises à jours</title>
+	<title>Mises à jour</title>
 	<style>
 		body{
 			margin:0;
@@ -47,7 +47,7 @@
 	</style>
 </head>
 <body>
-	<h1>Historique des mises à jours</h1>
+	<h1>Historique des mises à jour</h1>
 
 	<main>
 		<h2>19/10/2022 - 5.0.2</h2>
