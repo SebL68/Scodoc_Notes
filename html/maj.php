@@ -50,6 +50,11 @@
 	<h1>Historique des mises à jours</h1>
 
 	<main>
+		<h2>23/10/2022 - 5.0.3</h2>
+		<ul>
+			<li>Prise en compte du changement API : date au format ISO.</li>
+		</ul>
+
 		<h2>19/10/2022 - 5.0.2</h2>
 		<ul>
 			<li>⚠️⚠️⚠️ Correctif majeur de sécurité ! ⚠️⚠️⚠️ Mise à jour obligatoire ! ⚠️⚠️⚠️</li>
