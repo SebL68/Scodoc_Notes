@@ -50,6 +50,11 @@
 	<h1>Historique des mises à jour</h1>
 
 	<main>
+		<h2>24/10/2022 - 5.0.4</h2>
+		<ul>
+			<li>Correction bug date_naissance.</li>
+			<li>Prise en compte des options d'affichage ue_rangs sur le relevé BUT.</li>
+		</ul>
 		<h2>23/10/2022 - 5.0.3</h2>
 		<ul>
 			<li>Prise en compte du changement API : date au format ISO.</li>
