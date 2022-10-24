@@ -277,7 +277,7 @@
                         data-groupe="${etudiant.groupe}"
                         data-num="${etudiant.nip}"
                         data-idcas="${etudiant.idcas}"
-						data-datenaissance="${etudiant.date_naissance.split("-").reverse().join("/")}"><table><td>${etudiant.nom}</td> <td>${etudiant.prenom}</td></table>
+						data-datenaissance="${etudiant.date_naissance?.split("-").reverse().join("/") || "Non défini"}"><table><td>${etudiant.nom}</td> <td>${etudiant.prenom}</td></table>
                     </a>
 				`;
 			})
