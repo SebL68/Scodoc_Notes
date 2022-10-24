@@ -98,7 +98,8 @@ section>div:nth-child(1){
 .hide_coef .eval>em,
 .hide_date_inscr .dateInscription,
 .hide_ects .ects,
-.hide_rangs .rang{
+.hide_rangs .rang,
+.hide_ue_rangs .ue_rang{
     display: none;
 }
 
