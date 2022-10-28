@@ -50,6 +50,11 @@
 	<h1>Historique des mises à jour</h1>
 
 	<main>
+		<h2>28/10/2022 - 5.0.5</h2>
+		<ul>
+			<li>Ne plus afficher les étudiants démissionnaires dans les listes "Documents" et "Absences".</li>
+			<li>Prise en compte des options d'affichage date_inscr sur le relevé BUT.</li>
+		</ul>
 		<h2>24/10/2022 - 5.0.4</h2>
 		<ul>
 			<li>Correction bug date_naissance.</li>
