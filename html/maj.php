@@ -50,6 +50,11 @@
 	<h1>Historique des mises à jour</h1>
 
 	<main>
+		<h2>28/10/2022 - 5.0.6</h2>
+		<ul>
+			<li>Ajout d'un bouton pour télécharger le relevé PDF à partir du relevé BUT - option modifiable dans config.php</li>
+			<li>Prise en compte d'une nouvelle route Scodoc permettant d'éviter un bug lorsqu'un étudiant change de département dans la même année.</li>
+		</ul>
 		<h2>28/10/2022 - 5.0.5</h2>
 		<ul>
 			<li>Ne plus afficher les étudiants démissionnaires dans les listes "Documents" et "Absences".</li>
