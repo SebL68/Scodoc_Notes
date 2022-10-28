@@ -124,7 +124,7 @@ class Scodoc{
 
 	*******************************/
 	public function getStudentSemesters($nip){
-		$data = json_decode($this->Ask_Scodoc("etudiant/nip/$nip/formsemestres"));
+		$data = json_decode($this->Ask_Scodoc('formsemestres/query', ['nip' => $nip]));
 
 		if($data != ''){
 			$output = [];
