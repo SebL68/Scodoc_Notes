@@ -21,7 +21,7 @@
 	function sanitize($data){
 		/* Nettoyage des entrées */
 		if(preg_match('/\.\.|\\|\//', $data)){
-			returnError('Données envoyées au serveur non valide - try to hack ?!');
+			returnError('Données envoyées au serveur non valides - try to hack ?!');
 		}
 	}
 

@@ -57,6 +57,18 @@
 			.semestres input:checked+div>div:nth-child(2){
 				color: #FFF;
 			}
+
+			form{
+				text-align: right;
+			}
+			form>button{
+				border: none;
+				background: #09c;
+				padding: 8px 32px;
+				color: #FFF;
+				border-radius: 8px;
+				cursor: pointer;
+			}
 /**********************/
 /* Zone absences */
 /**********************/
@@ -308,7 +320,13 @@
 				if(data.relevé.publie == false){
 					document.querySelector(".releve").innerHTML = "<h2 style='background: #90c;'>" + data.relevé.message + "</h2>";
 				}else if(data.relevé.type == "BUT"){
-					document.querySelector(".releve").innerHTML = "<releve-but></releve-but>";
+					document.querySelector(".releve").innerHTML = `
+						<?php if($Config->releve_PDF == true){ ?>
+							<form action="services/bulletin_PDF.php?sem_id=${semestre}&etudiant=${nip}" target="_blank" method="post">
+								<button type="submit">Télécharger le relevé au format PDF</button>
+							</form>
+						<?php } ?>
+						<releve-but></releve-but>`;
 
 					let releve = document.querySelector("releve-but");
 					releve.config = {
