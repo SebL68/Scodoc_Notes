@@ -303,7 +303,7 @@ class Scodoc{
 	*******************************/
 	public function getStudentsInSemester($sem){
 		$json = json_decode(
-			$this->Ask_Scodoc("formsemestre/$sem/etudiants/long")
+			$this->Ask_Scodoc("formsemestre/$sem/etudiants/long/query", ['etat' => "I"])
 		);
 
 		$groupes = [];
