@@ -2,7 +2,7 @@
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 	include_once "$path/includes/default_config.php";
 	include_once "$path/includes/annuaire.class.php";
-	include_once "$path/includes/scodoc.class.php";
+	require_once "$path/includes/".$Config->service_data_class;		// Class service_data - typiquement Scodoc
 	include_once "$path/includes/user.class.php";
 	require_once "$path/includes/analytics.class.php";
 	$user = new User();

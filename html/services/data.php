@@ -22,7 +22,7 @@
 	require_once "$path/includes/annuaire.class.php";
 	require_once "$path/includes/".$Config->service_annuaire_class;	// Class Service_Annuaire
 	require_once "$path/includes/".$Config->scheduler_class;		// Class Scheduler
-	require_once "$path/includes/scodoc.class.php";
+	require_once "$path/includes/".$Config->service_data_class;		// Class service_data - typiquement Scodoc
 	require_once "$path/includes/analytics.class.php";
 
 	$user = new User();

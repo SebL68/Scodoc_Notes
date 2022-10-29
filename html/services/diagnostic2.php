@@ -149,7 +149,7 @@
 		}
 
 		/*Auth à Scodoc*/
-		include_once "$path/includes/scodoc.class.php";
+		require_once "$path/includes/".$Config->service_data_class;		// Class service_data - typiquement Scodoc
 		try{
 			$Scodoc = new Scodoc();
 		} catch(Exception $e) {

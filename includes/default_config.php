@@ -91,6 +91,11 @@
 		$Config->scodoc_url = Config::$scodoc_url;	// ⚠️⚠️⚠️ Attention, il doit y avoir /Scodoc à la fin	
 		$Config->scodoc_login = Config::$scodoc_login;
 		$Config->scodoc_psw = Config::$scodoc_psw;
+
+/********************************************/
+/* OU accès à un autre système de données   */
+/********************************************/
+		$Config->service_data_class = Config::$service_data_class ?? 'scodoc.class.php';	// autre valeur possible : 'service_data_standalone.class.php'
 		
 /*********************************************/
 /* Configuration du format des ID et Nom des */

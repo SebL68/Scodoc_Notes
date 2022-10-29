@@ -318,7 +318,7 @@
 			<select id=departement class=highlight onchange="clearStorage(['semestre', 'matiere']);selectDepartment(this.value)">
 				<option value="" disabled selected hidden>Choisir un département</option>
 				<?php
-					include "$path/includes/scodoc.class.php";
+					require_once "$path/includes/".$Config->service_data_class;		// Class service_data - typiquement Scodoc
 					$Scodoc = new Scodoc();
 					$listDepartement = $Scodoc->getDepartmentsList();
 					foreach($listDepartement as $departement){
