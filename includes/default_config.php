@@ -41,6 +41,7 @@
 
 			Acutellement les comptes sont gérés par des adresses mail - à voir s'il est nécessaire de configurer l'accès par des nip données par le CAS - me contacter.
 		*/
+		$Config->afficher_releves = Config::$afficher_releves ?? true;		// Permet d'utiliser la passerelle uniquement pour les absences en standalone
 		$Config->acces_enseignants = Config::$acces_enseignants ?? false;
 		$Config->afficher_absences = Config::$afficher_absences ?? false;	// En dessous du relevé de notes étudiants
 		$Config->module_absences = Config::$module_absences ?? false;		// nécessite l'acces_enseignants - ce module est différent de celui de Scodoc, il est géré entièrement par la passerelle.

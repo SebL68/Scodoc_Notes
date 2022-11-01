@@ -21,7 +21,9 @@ class Scodoc{
 	*/
 	/*******************************/
 	public function getAllStudents(){
-
+		returnError(
+			"Cette partie n'est pas disponible pour les absences."
+		);
 	}
 	/*******************************/
 	/* getDepartmentsList()
@@ -39,7 +41,8 @@ class Scodoc{
 
 	*******************************/
 	public function getDepartmentsList(){
-
+		$json = json_decode(file_get_contents($file), true);
+		return $json;
 	}
 
 	/*******************************/
@@ -61,7 +64,9 @@ class Scodoc{
 
 	*******************************/
 	public function getStudentSemesters($nip){
-		
+		returnError(
+			"Cette partie n'est pas disponible pour les absences."
+		);
 	}
 
 	/*******************************/
@@ -80,7 +85,9 @@ class Scodoc{
 
 	*******************************/
 	public function getReportCards($semestre, $nip, $format = ''){
-
+		returnError(
+			"Cette partie n'est pas disponible pour les absences."
+		);
 	}
 
 	/*******************************/
@@ -133,7 +140,9 @@ class Scodoc{
 		
 	*******************************/
 	public function getStudentsListsDepartement($dep){
-
+		returnError(
+			"Cette partie n'est pas disponible pour les absences."
+		);
 	}
 
 	/*******************************/
@@ -147,7 +156,9 @@ class Scodoc{
 		"département" - exemple : "MMI"
 	*/
 	public function getStudentDepartment($nip){
-
+		returnError(
+			"Cette partie n'est pas disponible pour les absences."
+		);
 	}
 
 	/*******************************/
