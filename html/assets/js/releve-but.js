@@ -235,9 +235,9 @@ class releveBUT extends HTMLElement {
 				output += `<div>
 					<div class=enteteSemestre>${data.semestre.groupes[0]?.group_name}</div><div></div>
 					<div class=rang>Rang :</div><div class=rang>${dataGroupe.value} / ${dataGroupe.total}</div>
-					<div>Max. promo. :</div><div>${dataGroupe.max || "-"}</div>
-					<div>Moy. promo. :</div><div>${dataGroupe.moy || "-"}</div>
-					<div>Min. promo. :</div><div>${dataGroupe.min || "-"}</div>
+					<!--<div>Max. groupe :</div><div>${dataGroupe.max || "-"}</div>
+					<div>Moy. groupe :</div><div>${dataGroupe.moy || "-"}</div>
+					<div>Min. groupe :</div><div>${dataGroupe.min || "-"}</div>-->
 				</div>`;
 				return output;
 			})()}
