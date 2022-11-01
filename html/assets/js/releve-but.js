@@ -226,6 +226,21 @@ class releveBUT extends HTMLElement {
 				<div>Moy. promo. :</div><div>${data.semestre.notes.moy}</div>
 				<div>Min. promo. :</div><div>${data.semestre.notes.min}</div>
 			</div>
+			${(()=>{
+				if(Object.keys(data.semestre.rang.groupes).length == 0){
+					return "";
+				}
+				let output = "";
+				let [idGroupe, dataGroupe] = Object.entries(data.semestre.rang.groupes)[0];
+				output += `<div>
+					<div class=enteteSemestre>${data.semestre.groupes[0]?.group_name}</div><div></div>
+					<div class=rang>Rang :</div><div class=rang>${dataGroupe.value} / ${dataGroupe.total}</div>
+					<div>Max. promo. :</div><div>${dataGroupe.max || "-"}</div>
+					<div>Moy. promo. :</div><div>${dataGroupe.moy || "-"}</div>
+					<div>Min. promo. :</div><div>${dataGroupe.min || "-"}</div>
+				</div>`;
+				return output;
+			})()}
 			<div class=absencesRecap>
 				<div class=enteteSemestre>Absences</div><div class=enteteSemestre>1/2 jour.</div>
 				<div class=abs>Non justifiées</div>
