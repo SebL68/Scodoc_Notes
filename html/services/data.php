@@ -194,7 +194,7 @@
 				// Uniquement les personnels IUT peuvent demander le relevé d'une autre personne.
 				if($user->getStatut() < PERSONNEL && isset($_GET['etudiant'])){ returnError(); }
 				// Si c'est un personnel, on transmet l'étudiant par get, sinon on prend l'identifiant de la session.
-				sanitize($_GET['etudiant']);
+				sanitize($_GET['etudiant'] ?? '');
 				$Scodoc = new Scodoc();
 				$nip = $_GET['etudiant'] ?? $user->getId();
 				$output = $Scodoc->getStudentSemesters($nip);
@@ -204,7 +204,7 @@
 				// Uniquement les personnels IUT peuvent demander le relevé d'une autre personne.
 				if($user->getStatut() < PERSONNEL && isset($_GET['etudiant'])){ returnError(); } 
 				// Si c'est un personnel, on transmet l'étudiant par get, sinon on prend l'identifiant de la session.
-				sanitize($_GET['etudiant']);
+				sanitize($_GET['etudiant'] ?? '');
 				sanitize($_GET['semestre']);
 				$Scodoc = new Scodoc();
 				$nip = $_GET['etudiant'] ?? $user->getId();
