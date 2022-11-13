@@ -227,7 +227,8 @@ class releveBUT extends HTMLElement {
 				<div>Min. promo. :</div><div>${data.semestre.notes.min}</div>
 			</div>
 			${(()=>{
-				if(Object.keys(data.semestre.rang.groupes).length == 0){
+				((!data.semestre.rang.groupes) ||
+					(Object.keys(data.semestre.rang.groupes).length == 0)){
 					return "";
 				}
 				let output = "";
