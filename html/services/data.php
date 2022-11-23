@@ -278,6 +278,13 @@
 				sanitize($_GET['fin']);
 				sanitize($_GET['statut']);
 
+				if($_GET['etudiant'] == null){
+					returnError('Un problème est survenu : étudiant non défini.');
+				}
+				if($_GET['debut'] == 0){
+					returnError('Un problème est survenu : créneau à 0 - pourriez-vous envoyer un mail à sebastien.lehmann@uha.fr pour expliquer comment cette erreur s\'est produite ?');
+				}
+
 				$output = Absences::setAbsence(
 					$user->getId(),
 					$_GET['semestre'],
