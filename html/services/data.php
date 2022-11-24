@@ -232,26 +232,21 @@
 			case 'dataPremièreConnexion':
 				$Scodoc = new Scodoc();
 				if($user->getStatut() == ETUDIANT){
-					if($user->getStatut() == 'Compte_Demo.test@uha.fr'){
-						include 'data_demo.php';
-					} else {
-						$nip = $user->getId();
-						$dep = $Scodoc->getStudentDepartment($nip);
-						$semestres = $Scodoc->getStudentSemesters($nip);
-						$output = [
-							'auth' => [
-								'session' => $user->getId(),
-								'name' => $user->getName(),
-								'statut' => $user->getStatut()
-							],
-							'semestres' => $semestres,
-							'relevé' => $Scodoc->getReportCards(end($semestres)['formsemestre_id'], $nip),
-							'absences' => Absences::getAbsence(
-								end($semestres)['formsemestre_id'],
-								$user->getId()
-							) ?? []
-						];
-					}
+					$nip = $user->getId();
+					$semestres = $Scodoc->getStudentSemesters($nip);
+					$output = [
+						'auth' => [
+							'session' => $user->getId(),
+							'name' => $user->getName(),
+							'statut' => $user->getStatut()
+						],
+						'semestres' => $semestres,
+						'relevé' => $Scodoc->getReportCards(end($semestres)['formsemestre_id'], $nip),
+						'absences' => Absences::getAbsence(
+							end($semestres)['formsemestre_id'],
+							$user->getId()
+						) ?? []
+					];
 				}else if($user->getStatut() >= PERSONNEL){
 					$output = [
 						'auth' => [
