@@ -236,7 +236,7 @@
 					$semestres = $Scodoc->getStudentSemesters($nip);
 					$output = [
 						'auth' => [
-							'session' => $user->getId(),
+							'session' => $nip,
 							'name' => $user->getName(),
 							'statut' => $user->getStatut()
 						],
@@ -244,7 +244,7 @@
 						'relevé' => $Scodoc->getReportCards(end($semestres)['formsemestre_id'], $nip),
 						'absences' => Absences::getAbsence(
 							end($semestres)['formsemestre_id'],
-							$user->getId()
+							$nip
 						) ?? []
 					];
 				}else if($user->getStatut() >= PERSONNEL){
