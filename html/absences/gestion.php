@@ -591,6 +591,11 @@
                     date.setDate(date.getDate() + i);
                     let absencesJour = datesAbsences[ISODate(date)];
 
+					if(absencesJour && !Array.isArray(absencesJour)){
+						console.log(`Problème - pas un tableau : ${etudiant} - ${ISODate(date)}`);
+						continue;
+					}
+
 					absencesJour?.forEach(absence=>{
 						let heureDebut = <?php echo $Config->absence_heureDebut; ?>;
 						let heureFin = <?php echo $Config->absence_heureFin; ?>;
