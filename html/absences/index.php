@@ -996,7 +996,8 @@
 					creneau.debut,
 					creneau.fin,
 					this.dataset.command,
-					"Vous-même"
+					"Vous-même",
+					matiereComplet
 				)
 			}
 			
@@ -1030,18 +1031,19 @@
 							absenceJour.debut,
 							absenceJour.fin,
 							absenceJour.statut,
-							absenceJour.enseignant
+							absenceJour.enseignant,
+							absenceJour.matiereComplet
 						)
 					}
                 })
             })
         }
 
-		function addHint(target, debut, fin, statut, enseignant){
+		function addHint(target, debut, fin, statut, enseignant, matiere){
 			let posiDebut = (debut - moduleDate.heureDebut) / (moduleDate.heureFin - moduleDate.heureDebut) * 100;
 			let tailleDuree = (fin - debut) / (moduleDate.heureFin - moduleDate.heureDebut) * 100;
 					
-			target.innerHTML += `<div style="left:${posiDebut}%;width:${tailleDuree}%" data-statut="${statut}" title="${enseignant}"></div>`;
+			target.innerHTML += `<div style="left:${posiDebut}%;width:${tailleDuree}%" data-statut="${statut}" title="${enseignant} - ${matiere}"></div>`;
 		}
 
         function message(msg){
