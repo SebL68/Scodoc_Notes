@@ -592,6 +592,7 @@
                     let absencesJour = datesAbsences[ISODate(date)];
 
 					if(absencesJour && !Array.isArray(absencesJour)){
+						message("Une erreur s'est produite avec les données, veuillez en informer le responsable passerelle.")
 						console.log(`Problème - pas un tableau : ${etudiant} - ${ISODate(date)}`);
 						continue;
 					}
