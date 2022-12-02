@@ -654,9 +654,9 @@
 				return;
             }
 
-            dataEtudiants.absences[obj.parentElement.parentElement.children[0].dataset.nip][date].map(e=>{
+            dataEtudiants.absences[obj.parentElement.parentElement.children[0].dataset.nip][date].forEach(function(e, index, array){
 				if(e.debut == obj.dataset.debut){
-					return (obj.dataset.justifie == "true") ? true : false;
+					array[index].justifie = (obj.dataset.justifie == "true") ? true : false;
 				}
 			})
         }
