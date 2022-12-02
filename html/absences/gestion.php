@@ -43,7 +43,7 @@
             position: fixed;
             bottom: 100%;
             left: 50%;
-            z-index: 10;
+            z-index: 1000;
             padding: 20px;
             border-radius: 0 0 10px 10px;
             background: #90c;
