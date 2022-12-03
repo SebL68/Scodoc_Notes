@@ -25,6 +25,7 @@ Annuaire::$STAF_PATH = [
 ];
 
 class Annuaire{
+	static $SUPER_ADMIN_PATH;
 	static $STUDENTS_PATH;
 	static $USERS_PATH;
 	static $STAF_PATH;
