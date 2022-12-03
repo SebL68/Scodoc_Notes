@@ -24,10 +24,10 @@
 	$exp = time() + 7 * 3600 * 24 ; // today + 7 days
     $root_url = (isset($_SERVER["https"]) ? "https://" : "http://" ). $_SERVER["HTTP_HOST"];
 	$payload = [
-		'id' => 'lorenzo.jacq@uha.fr', // nip ou autre si la personne n'a pas de nip
-		'idCAS' => 'lorenzo.jacq@uha.fr',
-		'name' => 'Lorenzo',
-		'statut' => 'etudiant', // 'etudiant' | 'personnel' | 'administrateur' | 'superadministrateur' | INCONNU
+		'id' => 'sebastien.lehmann@uha.fr', // nip, ou idCAS, si la personne n'a pas de nip
+		'idCAS' => 'sebastien.lehmann@uha.fr',
+		'name' => 'Seb',
+		'statut' => 'superadministrateur', // 'etudiant' | 'personnel' | 'administrateur' | 'superadministrateur' | INCONNU
 		'exp' => $exp // (optionnel) timestamp d'expiration du token
 	];
 	echo $root_url."?token=".JWT::encode($payload, $Config->JWT_key);
