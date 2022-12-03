@@ -1,2 +1,2 @@
-e212345:steve.jobs@uha.fr
-e212346:bill.gates@uha.fr
+nip1:idCAS1
+nip2:idCAS1

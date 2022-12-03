@@ -2,25 +2,25 @@
 	"SGM": {
 		"administrateurs": [
 			{
-				"id": "admin1@uha.fr",
+				"id": "idCAS1",
 				"name": "nom prenom"
 			},
 			{
-				"id": "admin2@uha.fr",
+				"id": "idCAS2",
 				"name": "nom prenom"
 			}
 		],
 		"vacataires": [
 			{
-				"id": "vac1.sgm@uha.fr",
+				"id": "idCAS3",
 				"name": "Sgm Vac1"
 			},
 			{
-				"id": "vac2.sgm@uha.fr",
+				"id": "idCAS4",
 				"name": "Sgm Vac2"
 			},
 			{
-				"id": "vac3.sgm@uha.fr",
+				"id": "idCAS5",
 				"name": "Sgm Vac3"
 			}
 		]
@@ -28,25 +28,25 @@
 	"GEA": {
 		"administrateurs": [
 			{
-				"id": "admin1@uha.fr",
+				"id": "idCAS6",
 				"name": "nom prenom"
 			},
 			{
-				"id": "admin2@uha.fr",
+				"id": "idCAS7",
 				"name": "nom prenom"
 			}
 		],
 		"vacataires": [
 			{
-				"id": "vac1.gea@uha.fr",
+				"id": "idCAS8",
 				"name": "gea Vac1"
 			},
 			{
-				"id": "vac2.gea@uha.fr",
+				"id": "idCAS9",
 				"name": "gea Vac2"
 			},
 			{
-				"id": "vac3.gea@uha.fr",
+				"id": "idCAS10",
 				"name": "gea Vac3"
 			}
 		]
