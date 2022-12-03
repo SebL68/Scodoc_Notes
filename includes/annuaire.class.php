@@ -16,6 +16,7 @@
 $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 include_once "$path/includes/default_config.php";
 
+Annuaire::$SUPER_ADMIN_PATH = "$path/data/annuaires/super_admin.txt";
 Annuaire::$STUDENTS_PATH = "$path/data/annuaires/liste_etu.txt";
 Annuaire::$USERS_PATH = "$path/data/annuaires/utilisateurs.json";
 Annuaire::$STAF_PATH = [
@@ -125,6 +126,15 @@ class Annuaire{
 
 		On peut donc forcer un statut en plaçant la personne comme admin ou vacataire, sinon par défaut c'est étudiant et enfin personnel.
 		*/
+			
+			/* Test super administrateur */
+			if(file_exists(self::$SUPER_ADMIN_PATH)){
+				$pattern = '/\b'. preg_quote($user) .'\b/i';
+				if(preg_grep($pattern, file(self::$SUPER_ADMIN_PATH))){
+					return SUPERADMINISTRATEUR;
+				}
+			}
+
 			/* Test administrateur */
 			foreach(json_decode(file_get_contents(self::$USERS_PATH)) as $departement => $dep){
 				foreach($dep->administrateurs as $identifiant){
