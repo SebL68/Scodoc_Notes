@@ -48,7 +48,7 @@
 								$found = true;
 
 								if($statut == 'unset'){
-									unset($json[$date][$i]);
+									array_splice($json[$date], $i, 1);
 									if(count($json[$date]) == 0){
 										unset($json[$date]);
 									}
