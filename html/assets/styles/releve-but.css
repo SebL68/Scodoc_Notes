@@ -212,6 +212,18 @@ section>div:nth-child(1){
 	color: #000 !important;
 }
 
+/* UE Capitalisée */
+.synthese .ue.capitalisee, 
+.ue.capitalisee>h3{
+	background: #bbb;
+	color: #000;
+}
+.synthese .ue.capitalisee>h3::before{
+	content: "Capitalisée : ";
+}
+.synthese .ue.capitalisee .ue_rang{
+	display: none;
+}
 /***************/
 /* Evaluations */
 /***************/
@@ -225,6 +237,7 @@ section>div:nth-child(1){
     padding: 4px 32px;
     border-radius: 4px;
     display: flex;
+	align-items: center;
     gap: 16px;
     margin: 4px 0 2px 0;
     overflow-x: auto;
@@ -250,8 +263,6 @@ section>div:nth-child(1){
     }
 }
 h3{
-    display: flex;
-    align-items: center;
     margin: 0 auto 0 0;
     position: sticky;
     left: -32px;

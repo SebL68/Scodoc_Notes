@@ -226,9 +226,9 @@ class releveBUT extends HTMLElement {
 				<div>Moy. promo. :</div><div>${data.semestre.notes.moy}</div>
 				<div>Min. promo. :</div><div>${data.semestre.notes.min}</div>
 			</div>
-			${(()=>{
-				if((!data.semestre.rang.groupes) ||
-					(Object.keys(data.semestre.rang.groupes).length == 0)){
+			${(() => {
+				if ((!data.semestre.rang.groupes) ||
+					(Object.keys(data.semestre.rang.groupes).length == 0)) {
 					return "";
 				}
 				let output = "";
@@ -248,13 +248,13 @@ class releveBUT extends HTMLElement {
 				<div>${data.semestre.absences?.injustifie ?? "-"}</div>
 				<div class=abs>Total</div><div>${data.semestre.absences?.total ?? "-"}</div>
 			</div>`;
-		if(data.semestre.decision_rcue?.length){
+		if (data.semestre.decision_rcue?.length) {
 			output += `
 			<div>
 				<div class=enteteSemestre>RCUE</div><div></div>
-				${(()=>{
+				${(() => {
 					let output = "";
-					data.semestre.decision_rcue.forEach(competence=>{
+					data.semestre.decision_rcue.forEach(competence => {
 						output += `<div class=competence>${competence.niveau.competence.titre}</div><div>${competence.code}</div>`;
 					})
 					return output;
@@ -262,13 +262,13 @@ class releveBUT extends HTMLElement {
 				</div>
 			</div>`
 		}
-		if(data.semestre.decision_ue?.length){
+		if (data.semestre.decision_ue?.length) {
 			output += `
 			<div>
 				<div class=enteteSemestre>UE</div><div></div>
-				${(()=>{
+				${(() => {
 					let output = "";
-					data.semestre.decision_ue.forEach(ue=>{
+					data.semestre.decision_ue.forEach(ue => {
 						output += `<div class=competence>${ue.acronyme}</div><div>${ue.code}</div>`;
 					})
 					return output;
@@ -290,10 +290,10 @@ class releveBUT extends HTMLElement {
 		}*/
 		this.shadow.querySelector(".infoSemestre").innerHTML = output;
 
-		if(data.semestre.decision_annee?.code){
+		if (data.semestre.decision_annee?.code) {
 			this.shadow.querySelector(".decision_annee").innerHTML = "Décision année : " + data.semestre.decision_annee.code + " - " + correspondanceCodes[data.semestre.decision_annee.code];
 		}
-		
+
 		this.shadow.querySelector(".decision").innerHTML = data.semestre.situation || "";
 		/*if (data.semestre.decision?.code) {
 			this.shadow.querySelector(".decision").innerHTML = "Décision jury: " + (data.semestre.decision?.code || "");
@@ -306,7 +306,16 @@ class releveBUT extends HTMLElement {
 	/*******************************/
 	showSynthese(data) {
 		let output = ``;
-		Object.entries(data.ues).forEach(([ue, dataUE]) => {
+		/* Fusion et tri des UE et UE capitalisées */
+		let fusionUE = [
+			...Object.entries(data.ues),
+			...Object.entries(data.ues_capitalisees)
+		].sort((a, b) => {
+			return a[1].numero - b[1].numero
+		});
+
+		/* Affichage */
+		fusionUE.forEach(([ue, dataUE]) => {
 			if (dataUE.type == 1) {		// UE Sport / Bonus
 				output += `
 					<div>
@@ -320,17 +329,22 @@ class releveBUT extends HTMLElement {
 			} else {
 				output += `
 					<div>
-						<div class=ue>
+						<div class="ue ${dataUE.date_capitalisation?"capitalisee":""}">
 							<h3>
 								${ue}${(dataUE.titre) ? " - " + dataUE.titre : ""}
 							</h3>
 							<div>
-								<div class=moyenne>Moyenne&nbsp;:&nbsp;${dataUE.moyenne?.value || "-"}</div>
+								<div class=moyenne>Moyenne&nbsp;:&nbsp;${dataUE.moyenne?.value || dataUE.moyenne || "-"}</div>
 								<div class=ue_rang>Rang&nbsp;:&nbsp;${dataUE.moyenne?.rang}&nbsp;/&nbsp;${dataUE.moyenne?.total}</div>
-								<div class=info>
-									Bonus&nbsp;:&nbsp;${dataUE.bonus || 0}&nbsp;- 
-									Malus&nbsp;:&nbsp;${dataUE.malus || 0}
-									<span class=ects>&nbsp;-
+								<div class=info>`;
+				if(!dataUE.date_capitalisation){		
+					output += `		Bonus&nbsp;:&nbsp;${dataUE.bonus || 0}&nbsp;- 
+									Malus&nbsp;:&nbsp;${dataUE.malus || 0}`;
+				} else {
+					output += `		le ${this.ISOToDate(dataUE.date_capitalisation.split("T")[0])} <a href="${dataUE.bul_orig_url}">dans ce semestre</a>`;
+				}
+
+				output += `			<span class=ects>&nbsp;-
 										ECTS&nbsp;:&nbsp;${dataUE.ECTS?.acquis ?? "-"}&nbsp;/&nbsp;${dataUE.ECTS?.total ?? "-"}
 									</span>
 								</div>
@@ -339,12 +353,15 @@ class releveBUT extends HTMLElement {
 					<div>Abs&nbsp;N.J.</div><div>${dataUE.absences?.injustifie || 0}</div>
 					<div>Total</div><div>${dataUE.absences?.total || 0}</div>
 				</div>*/
-				output += `
-						</div>
-						${this.synthese(data, dataUE.ressources)}
-						${this.synthese(data, dataUE.saes)}
-					</div>
-				`;
+				output += "</div>";
+
+				if(!dataUE.date_capitalisation){
+					output += 
+						this.synthese(data, dataUE.ressources) +
+						this.synthese(data, dataUE.saes);
+				}
+						
+				output += "</div>";
 			}
 		});
 		this.shadow.querySelector(".synthese").innerHTML = output;
