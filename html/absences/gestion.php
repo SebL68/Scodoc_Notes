@@ -96,9 +96,6 @@
 /* Listes étudiants */
 /*******************************/
 		.contenu>button{
-			position: absolute;
-			top: -9px;
-			right: 0;
 			border: 1px solid #CCC;
 			border-radius: 4px;
 			padding: 8px 16px;
@@ -135,7 +132,7 @@
                 flex-direction: column-reverse;
             }
             .groupes{
-                margin-top: 32px;
+                margin-top: 8px;
                 flex-wrap: wrap;
             }
 
@@ -443,7 +440,10 @@
         }
 
         function createSemester(liste){
-			var output = (statutSession >= ADMINISTRATEUR)?`<button onclick="createSemesterReport()">Rapport d'absences</button>`:"";
+			var output = (statutSession >= ADMINISTRATEUR)?`
+				<button onclick="createSemesterReport({boursiers:false})">Rapport d'absences</button>
+				<button onclick="createSemesterReport({boursiers:true})">Rapport d'absences boursiers</button>
+			`:"";
 
             var groupes = "";
             if(liste.groupes.length > 1){
@@ -857,7 +857,7 @@
             });
         }
 
-		function createSemesterReport(){
+		function createSemesterReport(options){
             let sem = document.querySelector("#semestre");
             let semestreTxt = sem.options[sem.selectedIndex].text;
 
@@ -899,6 +899,9 @@
 				let totaux = {};
 
 				dataEtudiants.etudiants.forEach(etudiant=>{
+					if(	options.boursiers == true && etudiant.boursier == false	){
+						return;
+					}
 					sheet.cell("A"+i).value([[
 						etudiant.nom,
 						etudiant.prenom,

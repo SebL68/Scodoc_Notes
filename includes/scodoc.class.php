@@ -325,7 +325,8 @@ class Scodoc{
 				'groupe' => $groupe,
 				'nip' => $value->code_nip,
 				'idcas' => Annuaire::getStudentIdCASFromNumber($value->code_nip),
-				'date_naissance' => $value->date_naissance
+				'date_naissance' => $value->date_naissance,
+				'boursier' => $value->boursier
 				// 'num_ine' => $value->code_ine
 
 			];
