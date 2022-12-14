@@ -90,11 +90,11 @@ class Scodoc{
 	*******************************/
 	public function getDepartmentsList(){
 		$data = json_decode($this->Ask_Scodoc('departements'));
-	
+
 		if($data != ''){
 			$output = [];
 			forEach($data as $value){
-				$output[] = $value->acronym;
+				$output[] = $value->dept_name;
 			}
 			
 			return $output;
