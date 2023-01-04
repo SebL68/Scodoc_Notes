@@ -94,7 +94,10 @@ class Scodoc{
 		if($data != ''){
 			$output = [];
 			forEach($data as $value){
-				$output[] = $value->dept_name;
+				$output[] = [
+					'code' => $value->acronym,
+					'nom' => $value->dept_name
+				];
 			}
 			
 			return $output;

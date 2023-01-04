@@ -182,7 +182,7 @@
         $Scodoc = new Scodoc();
         $listDepartement = $Scodoc->getDepartmentsList();
         foreach ($listDepartement as $departement) {
-          echo "<option value=$departement>$departement</option>";
+			echo '<option value=' . $departement['code'] . '>' . $departement['nom'] . '</option>';
         }
         ?>
       </select>
