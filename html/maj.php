@@ -50,6 +50,24 @@
 	<h1>Historique des mises à jour</h1>
 
 	<main>
+		<h2>25/01/2023 - 5.0.7</h2>
+		<ul>
+			<li>Mise en place d'un fichier listant les super admin.</li>
+			<li>Relevé : ajout rang du parcours sur le relevé.</li>
+			<li>Relevé : ajout des UE capitalisées.</li>
+			<li>Relevé : correctif d'affichage démissionnaires - contribution Emmanuel Viennet - grand manitou.</li>
+			<li>Relevé : amélioration du style des relevés - contribution David ISMEURT - étudiant Mulhouse.</li>
+			<li>Relevé : correctif bug téléchargement relevé - contribution Léo Paillé - étudiant Bordeaux.</li>
+			<li>Absences : ajout d'informations au survol.</li>
+			<li>Absences : prise en compte des dates US pour les navigateurs configurés en anglais.</li>
+			<li>Absences : ajout d'un test de détection de bug.</li>
+			<li>Absences : correction bug non affichage des justifications.</li>
+			<li>Absences : correction bug suppression absence.</li>
+			<li>Absences : ajout d'un rapport d'absences des boursiers.</li>
+			<li>Utilisation des alias des départements.</li>
+			<li>Correction notice PHP $_GET['etudiant'].</li>
+			<li>Divers correctifs et améliorations.</li>
+		</ul>
 		<h2>28/10/2022 - 5.0.6</h2>
 		<ul>
 			<li>Ajout d'un bouton pour télécharger le relevé PDF à partir du relevé BUT - option modifiable dans config.php</li>
