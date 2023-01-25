@@ -253,8 +253,6 @@ section>div:nth-child(1){
     padding: 1em 2em;	
 }
 
-
-
 .module::before, .ue::before {
 	content:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='26px' height='26px' fill='white'><path d='M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z' /></svg>");
 	width: 26px;
@@ -298,12 +296,11 @@ h3{
     position: relative;
     display: flex;
     justify-content: space-between;
-    padding: 0.5em;
-    border-bottom: 1px solid #aaa;
+    padding: 4px 4px 4px 32px;
 }
 
-.eval:nth-child(2n), .syntheseModule:nth-child(2n){
-    background: #ededed;
+.eval:nth-child(2n+1), .syntheseModule:nth-child(2n+1){
+    background: #eee;
 }
 
 .eval>div, .syntheseModule>div{
