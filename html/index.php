@@ -241,7 +241,7 @@
 				} else {
 					document.querySelector("body").classList.add('etudiant');
 					feedSemesters(data.semestres);
-					showReportCards(data, data.semestres[0], data.auth.session);
+					showReportCards(data, data.semestres[0].formsemestre_id, data.auth.session);
 					feedAbsences(data.absences);
 				}
 			}
