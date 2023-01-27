@@ -165,6 +165,7 @@
 
 			case 'semestresDépartement':
 				$Scodoc = new Scodoc();
+				sanitize($_GET['dep']);
 				$output = $Scodoc->getDepartmentSemesters($_GET['dep']);
 				break;
 
@@ -468,7 +469,7 @@
 	function sanitize($data, $regex = '/\.\.|\\|\//'){
 		/* Nettoyage des entrées */
 		if(preg_match($regex, $data)){
-			returnError('Données envoyées au serveur non valide - try to hack ?!');
+			returnError('Données envoyées au serveur non valides - try to hack ?!');
 		}
 	}
 
