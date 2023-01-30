@@ -899,7 +899,7 @@
 				let totaux = {};
 
 				dataEtudiants.etudiants.forEach(etudiant=>{
-					if(	options.boursiers == true && etudiant.boursier == false	){
+					if( options.boursiers == true && etudiant.boursier != true ){
 						return;
 					}
 					sheet.cell("A"+i).value([[
