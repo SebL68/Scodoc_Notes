@@ -182,7 +182,7 @@ class Scodoc{
 		}
 
 		$output = json_decode($this->Ask_Scodoc("etudiant/nip/$nip/formsemestre/$semestre/bulletin"));
-		if(isset($output->rang) || $output->type == 'BUT'){	// Version BUT ou autres versions
+		if(isset($output->publie)){	// Détecte si c'est une réponse normale
 			if($output->publie === false){
 				$output->message = $Config->message_non_publication_releve;
 			}
