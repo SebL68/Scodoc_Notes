@@ -899,7 +899,7 @@
 				let totaux = {};
 
 				dataEtudiants.etudiants.forEach(etudiant=>{
-					if(	options.boursiers == true && etudiant.boursier == false	){
+					if( options.boursiers == true && etudiant.boursier != true ){
 						return;
 					}
 					sheet.cell("A"+i).value([[
@@ -924,7 +924,7 @@
 						justifie: 0,
 						retard: 0
 					}
-					Object.entries(dataEtudiants.absences[etudiant.nip]).forEach(([date, liste])=>{
+					Object.entries(dataEtudiants.absences[etudiant.nip] || {}).forEach(([date, liste])=>{
 						liste.forEach(data=>{
 							if(data.statut == "retard" && (data.justifie == "false" || data.justifie == false)){
 								totaux.retard++;
