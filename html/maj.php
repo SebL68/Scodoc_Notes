@@ -50,6 +50,15 @@
 	<h1>Historique des mises à jour</h1>
 
 	<main>
+		<h2>15/02/2023 - 5.0.8</h2>
+		<ul>
+			<li>Relevé PDF : format sans signature.</li>
+			<li>Relevé : correctif détéction relevé DUT / BUT.</li>
+			<li>Relevé : semestres triés par année / semestre.</li>
+			<li>Absences : correctif rapport sans absences.</li>
+			<li>Absences : correctif rapport boursiers.</li>
+			<li>Correctif de sécurité.</li>
+		</ul>
 		<h2>25/01/2023 - 5.0.7</h2>
 		<ul>
 			<li>Mise en place d'un fichier listant les super admin.</li>
