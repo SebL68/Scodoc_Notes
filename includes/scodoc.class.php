@@ -176,7 +176,7 @@ class Scodoc{
 		global $Config;
 
 		if($format == 'pdf'){
-			$output = $this->Ask_Scodoc("etudiant/nip/$nip/formsemestre/$semestre/bulletin/$format");
+			$output = $this->Ask_Scodoc("etudiant/nip/$nip/formsemestre/$semestre/bulletin/long/$format/nosig");
 			Analytics::add('relevéPDF');
 			return $output;
 		}
