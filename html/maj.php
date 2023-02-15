@@ -53,7 +53,7 @@
 		<h2>15/02/2023 - 5.0.8</h2>
 		<ul>
 			<li>Relevé PDF : format sans signature.</li>
-			<li>Relevé : correctif détéction relevé DUT / BUT.</li>
+			<li>Relevé : correctif détection relevé DUT / BUT.</li>
 			<li>Relevé : semestres triés par année / semestre.</li>
 			<li>Absences : correctif rapport sans absences.</li>
 			<li>Absences : correctif rapport boursiers.</li>
