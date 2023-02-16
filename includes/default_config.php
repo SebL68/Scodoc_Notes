@@ -16,7 +16,7 @@
 
 	$Config = new stdClass();
 
-		$Config->passerelle_version = '5:0:8';
+		$Config->passerelle_version = '5:0:9';
 
 /***********************/
 /* Options d'affichage */
@@ -71,6 +71,13 @@
 		/*$nipModifier = function($nip){
 			return Config::nipModifier($nip);
 		};*/
+
+	/* Il est également possible de récupérer le nip dans d'autres paramètres CAS, voir si c'est disponible dans /code_test/testCAS.php
+		Par défaut : false - prend l'id d'identification retourné par le CAS
+		Exemple de config : 'umCodeEtudiant'
+	*/
+
+		$Config->CAS_nip_key = Config::$CAS_nip_key ?? false;
 
 	/* La passerelle tente de récupérer le nom de l'utilisateur depuis le CAS (champs cn ou displayName), mais cette donnée n'est pas toujours disponible. Il est alors parfois possible de récupérer ce nom de l'utilisateur à afficher à partir de l'idCAS.
 

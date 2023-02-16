@@ -50,6 +50,10 @@
 	<h1>Historique des mises à jour</h1>
 
 	<main>
+		<h2>16/02/2023 - 5.0.9</h2>
+		<ul>
+			<li>Option : public static $CAS_nip_key = 'umCodeEtudiant'; /* Ceci est un exemple */ - Defaut : false - Permet de sélectionner le nip depuis un paramètre complémentaire du CAS, voir /code_test/testCAS.php</li>
+		</ul>
 		<h2>15/02/2023 - 5.0.8</h2>
 		<ul>
 			<li>Relevé PDF : format sans signature.</li>

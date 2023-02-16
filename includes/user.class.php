@@ -63,7 +63,11 @@
 				$this->statut = $this->defineStatut($this->idCAS);
 
 				if($this->statut < PERSONNEL){
-					$this->id = Annuaire::getStudentNumberFromIdCAS($this->idCAS);
+					if($Config->CAS_nip_key == false){
+						$this->id = Annuaire::getStudentNumberFromIdCAS($this->idCAS);
+					} else {
+						$this->id = $infoCAS[1][$Config->CAS_nip_key];
+					}
 				} else {
 					$this->id = $this->idCAS;
 				}
