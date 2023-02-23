@@ -10,7 +10,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Administration</title>
 	<style>
-		<?php include $_SERVER['DOCUMENT_ROOT']."/assets/header.css" ?>
+		<?php include $_SERVER['DOCUMENT_ROOT']."/assets/styles/global.css"?>
 
 		/*********************/
 		/* Affichage message */
@@ -49,6 +49,12 @@
 			Bonjour <span class=nom></span>.
 		</p>
 
+		<div class="contenu">
+			<h2>Page en cours de création</h2>
+			<a href="#" onClick="exeCmd('updateLists')">UpdateLists</a>
+			<a href="#" onClick="exeCmd('setUpdateLists')">setUpdateLists</a>
+		</div>
+
 		<div class=wait></div>
 
 	</main>
@@ -59,9 +65,6 @@
 	</div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx-populate/1.21.0/xlsx-populate.min.js"></script>
 	<script>
-		var utilisateur;        // Stockage de l'identifiant de l'utilisateur
-		var statut;             // Stockage du statut de l'utilisateur
-		var selectDep;          // Stockage du département sélectionné
 		checkStatut();
 		<?php
 			include "$path/includes/clientIO.php";
@@ -72,30 +75,25 @@
 		/***************************************************/
 		async function checkStatut() {
 			let data = await fetchData("donnéesAuthentification");
-			document.querySelector(".nom").innerText = data.name;
-			utilisateur = data.session;
+			
 			let auth = document.querySelector(".auth");
 			auth.style.opacity = "0";
 			auth.style.pointerEvents = "none";
-
-			if (statut >= SUPERADMINISTRATEUR) {    // Ajout des fonctionnalités pour SuperAdministrateur
-				document.querySelector("nav").innerHTML += `
-					<a class="nav" href="#" onClick="exeCmd('updateLists')">UpdateLists</a>
-					<a class="nav" href="#" onClick="exeCmd('setUpdateLists')">setUpdateLists</a>
-				`;
-			} else {
+			
+			if (config.statut < SUPERADMINISTRATEUR) {
 				document.querySelector(".contenu").innerHTML = "Ce contenu est uniquement accessible pour des super administrateurs. ";
+				return;
 			}
+
 		}
 
 		/***************************************************/
 		/* Exécution de commandes pour SuperAdministrateur */
 		/***************************************************/
 		async function exeCmd(commande) {
-			let result = await fetchData(commande);
-			console.log(result);
+			/*let result = await fetchData(commande);
+			console.log(result);*/
 		}
-
 
 		/**************************/
 		/* Affichage d'un message */

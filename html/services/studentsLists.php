@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documents</title>
     <style>
-        <?php include $_SERVER['DOCUMENT_ROOT']."/assets/header.css"?>
+        <?php include $_SERVER['DOCUMENT_ROOT']."/assets/styles/global.css"?>
         main{
             margin: 0 auto 20px auto;
         }
@@ -179,16 +179,11 @@
 /*********************************************/			
         async function checkStatut(){
             let data = await fetchData("donnéesAuthentification");
-            document.querySelector(".nom").innerText = data.name;
             let auth = document.querySelector(".auth");
             auth.style.opacity = "0";
             auth.style.pointerEvents = "none";
 
             if(data.statut >= PERSONNEL){
-                document.querySelector("body").classList.add('personnel');
-				if(data.statut >= ADMINISTRATEUR){
-					document.querySelector("#admin").style.display = "inherit";
-				}
                 let departement = localStorage.getItem("departement");
                 if(departement){
                     document.querySelector("#departement").value = departement;
@@ -198,7 +193,6 @@
                 document.querySelector(".contenu").innerHTML = "Ce contenu est uniquement accessible pour les personnels de l'IUT. ";
             }
         }
-
 
         async function selectDepartment(departement){
             document.querySelector("#departement").classList.remove("highlight");

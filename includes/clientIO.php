@@ -25,6 +25,7 @@
 /* Fonction de communication avec le serveur
 Gère la déconnexion et les messages d'erreur
 /*********************************************/
+let config;
 function fetchData(query){
 	document.querySelector(".wait").style.display = "block";
 	let token = (window.location.search.match(/token=([a-zA-Z0-9._-]+)/)?.[1] || ""); // Récupération d'un token GET pour le passer au service
@@ -51,6 +52,9 @@ function fetchData(query){
 			// Il y a une erreur pour la récupération des données - affichage d'un message explicatif.
 			displayError(data.erreur);
 		}else{
+			if(data.config) {
+				displayFromOptions(data.config);
+			}
 			return data;
 		}
 	})
@@ -66,4 +70,16 @@ function displayError(message){
 	auth.style.opacity = "1";
 	auth.style.pointerEvents = "initial";
 	auth.innerHTML = message;
+}
+
+function displayFromOptions(options){
+	config = options;
+	document.querySelector(".nom").innerText = config.name;
+
+	if(config.statut >= ETUDIANT) document.querySelector("body").classList.add('etudiant');
+	if(config.statut >= PERSONNEL) document.querySelector("body").classList.add('personnel');
+	if(config.statut >= ADMINISTRATEUR) document.querySelector("body").classList.add('admin');
+	if(config.statut >= SUPERADMINISTRATEUR) document.querySelector("body").classList.add('superadmin');
+
+	if(config.module_absences) document.querySelector("body").classList.add('moduleAbsences');
 }

@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Justif. absences</title>
     <style>
-        <?php include $_SERVER['DOCUMENT_ROOT']."/assets/header.css"?>
+        <?php include $_SERVER['DOCUMENT_ROOT']."/assets/styles/global.css"?>
         header{
             position: sticky;
             left:0;
@@ -353,17 +353,12 @@
         async function checkStatut(){
             let data = await fetchData("donnéesAuthentification");
             session = data.session;
-            document.querySelector(".nom").innerText = data.name;
             let auth = document.querySelector(".auth");
             auth.style.opacity = "0";
             auth.style.pointerEvents = "none";
             statutSession = data.statut;
 
             if(data.statut >= PERSONNEL){
-                document.querySelector("body").classList.add('personnel');
-				if(data.statut >= ADMINISTRATEUR){
-					document.querySelector("#admin").style.display = "inherit";
-				}
                 /* Gestion du storage remettre le même état au retour */
                 let departement = localStorage.getItem("departement");
                 if(departement){

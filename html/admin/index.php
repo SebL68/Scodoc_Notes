@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Administration</title>
   <style>
-    <?php include $_SERVER['DOCUMENT_ROOT']."/assets/header.css"?>
+    <?php include $_SERVER['DOCUMENT_ROOT']."/assets/styles/global.css"?>
     main{
       margin: 0 auto 20px auto;
       text-align: center;
@@ -215,23 +215,13 @@
     /***************************************************/
     async function checkStatut() {
       let data = await fetchData("donnéesAuthentification");
-      document.querySelector(".nom").innerText = data.name;
       utilisateur = data.session;
       let auth = document.querySelector(".auth");
       auth.style.opacity = "0";
       auth.style.pointerEvents = "none";
 
       if (data.statut >= ADMINISTRATEUR) {
-        document.querySelector("body").classList.add('personnel');
-        document.querySelector("#admin").style.display = "inherit";
         statut = data.statut;
-
-        if (statut >= SUPERADMINISTRATEUR) {    // Ajout des fonctionnalités pour SuperAdministrateur
-          document.querySelector("nav").innerHTML += `
-            <a class="nav" href="#" onClick="exeCmd('updateLists')">UpdateLists</a>
-            <a class="nav" href="#" onClick="exeCmd('setUpdateLists')">setUpdateLists</a>
-          `;
-        }
 
         /* Gestion du storage remettre le même état au retour */
         let departement = localStorage.getItem("departement");

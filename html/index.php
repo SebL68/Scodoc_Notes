@@ -13,7 +13,7 @@
 		<meta name="theme-color" content="#0084b0">
 		<link rel="apple-touch-icon" href="images/icons/192x192.png">
 		<style>
-			<?php include $_SERVER['DOCUMENT_ROOT']."/assets/header.css"?>
+			<?php include $_SERVER['DOCUMENT_ROOT']."/assets/styles/global.css"?>
 /**********************/
 /* Gestion de semestres */
 /**********************/
@@ -221,16 +221,11 @@
 				statut = data.auth.statut;
 
 				document.querySelector(".studentPic").src = "services/data.php?q=getStudentPic";
-				document.querySelector(".nom").innerText = data.auth.name;
 				let auth = document.querySelector(".auth");
 				auth.style.opacity = "0";
 				auth.style.pointerEvents = "none";
 
 				if(data.auth.statut >= PERSONNEL){
-					document.querySelector("body").classList.add('personnel');
-					if(data.auth.statut >= ADMINISTRATEUR){
-						document.querySelector("#admin").style.display = "inherit";
-					}
 					loadStudents(data.etudiants);
 					let etudiant = (window.location.search.match(/ask_student=([a-zA-Z0-9._@-]+)/)?.[1] || "");
 					if(etudiant){
@@ -239,7 +234,6 @@
 						loadSemesters(input);
 					}
 				} else {
-					document.querySelector("body").classList.add('etudiant');
 					feedSemesters(data.semestres);
 					showReportCards(data, data.semestres[0].formsemestre_id, data.auth.session);
 					feedAbsences(data.absences);
@@ -249,7 +243,7 @@
 /* Fonction pour les personnels 
 	Charge la liste d'étudiants pour en choisir un
 /*********************************************/
-			async function loadStudents(data){
+			function loadStudents(data){
 				let output = "";
 				data.forEach(function(e){
 					output += `<option value='${e[0]}'>${e[1]}</option>`;
@@ -320,13 +314,15 @@
 				if(data.relevé.publie == false){
 					document.querySelector(".releve").innerHTML = "<h2 style='background: #90c;'>" + data.relevé.message + "</h2>";
 				}else if(data.relevé.type == "BUT"){
-					document.querySelector(".releve").innerHTML = `
-						<?php if($Config->releve_PDF == true){ ?>
-							<form action="services/bulletin_PDF.php?sem_id=${semestre}&etudiant=${nip}" target="_blank" method="post">
-								<button type="submit">Télécharger le relevé au format PDF</button>
-							</form>
-						<?php } ?>
-						<releve-but></releve-but>`;
+					let output = "";
+					if(config.releve_PDF) {
+						output = `
+						<form action="services/bulletin_PDF.php?sem_id=${semestre}&etudiant=${nip}" target="_blank" method="post">
+							<button type="submit">Télécharger le relevé au format PDF</button>
+						</form>`;
+
+					}
+					document.querySelector(".releve").innerHTML = output + "<releve-but></releve-but>";
 
 					let releve = document.querySelector("releve-but");
 					releve.config = {

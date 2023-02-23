@@ -145,7 +145,8 @@
 				$output = [
 					'session' => $user->getId(),
 					'name' => $user->getName(),
-					'statut' => $user->getStatut()
+					'statut' => $user->getStatut(),
+					'config' => ($Config->getConfig)()
 				];
 				break;
 
@@ -236,6 +237,7 @@
 					$nip = $user->getId();
 					$semestres = $Scodoc->getStudentSemesters($nip);
 					$output = [
+						'config' => ($Config->getConfig)(),
 						'auth' => [
 							'session' => $nip,
 							'name' => $user->getName(),
@@ -250,6 +252,7 @@
 					];
 				}else if($user->getStatut() >= PERSONNEL){
 					$output = [
+						'config' => ($Config->getConfig)(),
 						'auth' => [
 							'session' => $user->getId(),
 							'name' => $user->getName(),
