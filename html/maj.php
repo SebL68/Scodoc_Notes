@@ -50,6 +50,11 @@
 	<h1>Historique des mises à jour</h1>
 
 	<main>
+		<h2>23/02/2023 - 5.0.10</h2>
+		<ul>
+			<li>Configuration dans le requête : permet de modifier des options comme le téléchargement des relevés PDF sans avoir à changer la version du site (problématique de cache agressif).</li>
+		</ul>
+
 		<h2>16/02/2023 - 5.0.9</h2>
 		<ul>
 			<li>Option : public static $CAS_nip_key = 'umCodeEtudiant'; /* Ceci est un exemple */ - Defaut : false - Permet de sélectionner le nip depuis un paramètre complémentaire du CAS, voir /code_test/testCAS.php</li>
