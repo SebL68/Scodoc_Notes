@@ -52,7 +52,8 @@
 	<main>
 		<h2>23/02/2023 - 5.0.10</h2>
 		<ul>
-			<li>Configuration dans le requête : permet de modifier des options comme le téléchargement des relevés PDF sans avoir à changer la version du site (problématique de cache agressif).</li>
+			<li>Configuration dans les requêtes : permet de modifier des options comme le téléchargement des relevés PDF sans avoir à changer la version du site (problématique de cache agressif).</li>
+			<li>Diverses améliorations dans le code.</li>
 		</ul>
 
 		<h2>16/02/2023 - 5.0.9</h2>
