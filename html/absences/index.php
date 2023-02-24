@@ -25,22 +25,6 @@
             opacity: initial;
             pointer-events: initial;
         }
-        .message{
-            position: fixed;
-            bottom: 100%;
-            left: 50%;
-            z-index: 1000;
-            padding: 20px;
-            border-radius: 0 0 10px 10px;
-            background: #90c;
-            color: #FFF;
-            font-size: 24px;
-            animation: message 3s;
-            transform: translate(-50%, 0);
-        }
-        @keyframes message{
-            20%, 80%{transform: translate(-50%, 100%)}
-        }
         .capitalize{
             text-transform: capitalize;
         }

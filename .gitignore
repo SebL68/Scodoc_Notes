@@ -8,3 +8,5 @@ data/annuaires/administrateurs.json
 data/annuaires/vacataires.json
 
 data/analytics/*
+
+config/config.json

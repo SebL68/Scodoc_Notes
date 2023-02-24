@@ -141,25 +141,7 @@
     .inline {
       display: inline;
     }
-    /*********************/
-    /* Affichage message */
-    /*********************/
-    .message {
-      position: fixed;
-      bottom: 100%;
-      left: 50%;
-      z-index: 101;
-      padding: 20px;
-      border-radius: 0 0 10px 10px;
-      background: #ec7068;
-      color: #FFF;
-      font-size: 24px;
-      animation: message 3s;
-      transform: translate(-50%, 0);
-    }
-    @keyframes message {
-      20%, 80% {transform: translate(-50%, 100%)}
-    }
+
   </style>
   <meta name=description content="Gestion des administrateurs de l'<?php echo $Config->nom_IUT; ?>">
 </head>
@@ -200,7 +182,6 @@
     <!-- Site en maintenance -->
     Authentification en cours ...
   </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx-populate/1.21.0/xlsx-populate.min.js"></script>
   <script>
     var utilisateur;        // Stockage de l'identifiant de l'utilisateur
     var statut;             // Stockage du statut de l'utilisateur

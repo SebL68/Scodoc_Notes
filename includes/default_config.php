@@ -14,6 +14,18 @@
 		);
 	}
 
+/***********************************/	
+/* Config modifiée par l'interface */
+/***********************************/
+	$file = $path.'/config/config.json';
+	$configJSON = [];
+
+	if(file_exists($file)){
+		$configJSON = json_decode(file_get_contents($file), true);
+	}
+
+/***********************************/
+
 	$Config = new stdClass();
 
 		$Config->passerelle_version = '5:0:10';
@@ -21,7 +33,7 @@
 /***********************/
 /* Options d'affichage */
 /***********************/
-		$Config->releve_PDF = Config::$releve_PDF ?? true; // Affichage de l'option pour que les étudiants puissent télécharger leur relevé en version PDF.
+		$Config->releve_PDF = $configJSON['releve_PDF'] ?? Config::$releve_PDF ?? true; // Affichage de l'option pour que les étudiants puissent télécharger leur relevé en version PDF.
 		$Config->nom_IUT = Config::$nom_IUT ?? 'IUT'; // Nom de l'IUT, par exemple : 'IUT de Mulhouse'.
 		$Config->message_non_publication_releve = Config::$message_non_publication_releve ?? 'Le responsable de votre formation a décidé de ne pas publier le relevé de notes de ce semestre.'; // Message si le relevé n'est pas publié.
 
@@ -38,13 +50,11 @@
 			Cet accès nécessite de maintenir à jour les listes d'utilisateurs dans les fichiers /data/annuaires - le but étant de différencier un étudiant d'un enseignant.
 			Ces listes peuvent être générées automatiquement avec LDAP - voir la suite de la configuration.
 			Il est également possible d'ajouter les utilisateurs en tant que "vacataire" dans le menu "Comptes" du site sans passer par LDAP.
-
-			Acutellement les comptes sont gérés par des adresses mail - à voir s'il est nécessaire de configurer l'accès par des nip données par le CAS - me contacter.
 		*/
 		// PAS IMPLEMENTÉ $Config->afficher_releves = Config::$afficher_releves ?? true;		// Permet d'utiliser la passerelle uniquement pour les absences en standalone
-		$Config->acces_enseignants = Config::$acces_enseignants ?? false;
-		$Config->afficher_absences = Config::$afficher_absences ?? false;	// En dessous du relevé de notes étudiants
-		$Config->module_absences = Config::$module_absences ?? false;		// nécessite l'acces_enseignants - ce module est différent de celui de Scodoc, il est géré entièrement par la passerelle.
+		$Config->acces_enseignants = $configJSON['acces_enseignants'] ?? Config::$acces_enseignants ?? false;
+		$Config->afficher_absences = $configJSON['afficher_absences'] ?? Config::$afficher_absences ?? false;	// En dessous du relevé de notes étudiants
+		$Config->module_absences = $configJSON['module_absences'] ?? Config::$module_absences ?? false;		// nécessite l'acces_enseignants - ce module est différent de celui de Scodoc, il est géré entièrement par la passerelle.
 
 /*********************/
 /* Analyse du trafic */
@@ -238,4 +248,42 @@ $Config->getConfig = function() {
 		'afficher_absences' => $Config->afficher_absences,
 		'module_absences' 	=> $Config->module_absences
 	];
+};
+
+$Config->getAllConfig = function() {
+	global $Config;
+	$proprietes = get_object_vars($Config);
+	return $proprietes;
+};
+
+$Config->setConfig = function($key, $value) {
+	global $path;
+	$accepted_input = [
+		'releve_PDF',
+		'acces_enseignants',
+		'module_absences',
+		'afficher_absences'
+	];
+	if(!in_array($key, $accepted_input)) {
+		returnError("Option non modifiable");
+	}
+
+	$file = $path.'/config/config.json';
+
+	$configJSON = [];
+
+	if(file_exists($file)){
+		$configJSON = json_decode(file_get_contents($file), true);
+	}
+
+	switch($value){
+		case 'true': $configJSON[$key] = true; break;
+		case 'false': $configJSON[$key] = false; break;
+		default: $configJSON[$key] = $value;
+	}
+
+	file_put_contents(
+		$file, 
+		json_encode($configJSON)
+	);
 };

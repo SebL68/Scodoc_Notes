@@ -400,6 +400,19 @@
 				$output = Scheduler::setUpdateLists();
 				break;
 
+			case 'getAllConfig':
+				if($user->getStatut() < SUPERADMINISTRATEUR ){ returnError(); }
+				$output = ($Config->getAllConfig)();
+				break;
+
+			case 'setConfig':
+				if($user->getStatut() < SUPERADMINISTRATEUR ){ returnError(); }
+				($Config->setConfig)($_GET['key'], $_GET['value']);
+				$output = [
+					'resultat' => 'ok'
+				];
+				break;
+
 		/************************/
 		/* Gestion des photos	*/
 		/************************/
