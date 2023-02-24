@@ -12,7 +12,7 @@
 	<style>
 		<?php include $_SERVER['DOCUMENT_ROOT']."/assets/styles/global.css"?>
 		summary {
-			margin: 20px 0 0 0;
+			margin: 20px 0 8px 0;
 			padding: 20px;
 			background: #0C9;
 			color: #FFF;
@@ -21,44 +21,62 @@
 			font-size: 1.5em;
 			font-weight: bold;
 		}
-		label:has(input[type=checkbox]) {
+		label {
 			background: #FFF;
 			border: 1px solid #aaa;
 			display: block;
 			align-items: flex-start;
 			gap: 8px;
-			padding: 4px 16px;
+			padding: 16px 16px 0 16px;
 			border-radius: 4px;
 			margin-bottom: 4px;
 			cursor: pointer;
 			position: relative;
 		}
-		label:has(input[type=checkbox]):hover {
+		label:has(input[type=checkbox]):hover, 
+		label:hover>input[type=text],
+		label:hover>input[type=number] {
 			border: 1px solid #c09;
 			outline: 1px solid #c09;
 		}
 		label>b{
 			flex: none;
 		}
-		.done::before {
+		input[type=text],
+		input[type=number] {
+			display: block;
+			margin: 8px 0;
+			padding: 4px 8px;
+			border-radius: 4px;
+			font-size: 16px;
+			border: 1px solid #424242;
+		}
+		label:has(.done)::before {
 			content: "✔️";
 			position: absolute;
 			top: 0;
-			left: 0;
 			right: 0;
-			bottom: 0;
+			padding: 4px 4px 6px;
 			border-radius: 4px;
 			background: rgba(0,0,0,0.6);
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			font-size: 32px;
+			font-size: 24px;
 		}
-		.problem::before {
+		label:has(.problem)::before {
 			content: "❌";
 		}
+		img{
+			display: block;
+			margin: 0 auto 8px auto;
+			border: 2px dashed;
+		}
+		h3{
+			color: #09c;
+		}
 	</style>
-	<meta name=description content="Gestion des administrateurs de l'<?php echo $Config->nom_IUT; ?>">
+	<meta name=description content="Gestion des administrateurs - <?php echo $Config->nom_IUT; ?>">
 </head>
 
 <body>
@@ -72,43 +90,21 @@
 		</p>
 
 		<div class="contenu">
-			<!--<details>
-				<summary>Configuration du CAS</summary>
-				<div></div>
-			</details>
-			<details>
-				<summary>Lien avec Scodoc</summary>
-				<div></div>
-			</details>
-			<details>
-				<summary>Configuration LDAP</summary>
-				<div>
-					<a href="#" onClick="exeCmd('updateLists')">UpdateLists</a>
-					<a href="#" onClick="exeCmd('setUpdateLists')">setUpdateLists</a>
-				</div>
-			</details>
+			<!--
 			<details>
 				<summary>Fonctionnalités de la passerelle</summary>
 				<div></div>
 			</details>
-			<details>
-				<summary>Configuration de l'onglet "Comptes"</summary>
-				<div></div>
-			</details>
-			<details>
-				<summary>Affichage</summary>
-				<div></div>
-			</details>
-			<details>
-				<summary>Absences</summary>
-				<div></div>
-			</details>
-			<details>
-				<summary>Autre</summary>
-				<div></div>
-			</details>-->
+			-->
+			<p><b>Ce menu n'est accessible qu'aux super-administrateurs et permet de changer les options de la passerelle.</b></p>
 
-			<p><b>Ce menu n'est accessible qu'aux super-administrateurs et permet de changer la configuration de la passerelle.</b></p>
+			<label>
+				<b>🖊️ Nom de l'établissement</b>
+				<input type="text" name="nom_IUT">
+				
+				<p>Utiliser dans les balises meta description. <br>Par exemple : IUT de Mulhouse</p>
+			</label>
+			
 			<label>
 				<input type="checkbox" name="releve_PDF">
 				<b>Relevé PDF</b>
@@ -127,19 +123,107 @@
 					</ul>
 				</p>
 				
-				<p>Nécessite de compléter les listes dans "Comptes" ou d'activer le LDAP.</p>
+				<p>💡 Nécessite de compléter les listes dans "Comptes" ou d'activer le LDAP.</p>
 			</label>
+			
 			<label>
-				<input type="checkbox" name="module_absences">
-				<b>Module absences</b>
-				<p>Activer le module de saisi des absences</p>
-				<p>Ce module est spécifique à la passerelle et n'est pas connecté avec Scodoc pour le moment.</p>
+				<input type="checkbox" name="analystics_interne">
+				<b>Sauvegarde des données de connexion</b>
+				<p>Système interne à la passerelle pour l'analyse du trafic compatible RGPD, les données seront visible dans ce <a href="/services/analytics.php">tableau de bord</a>. 
+				</p>
+				<p><b>⚠️ Exploitation des données et création des graphiques non implémentés pour le moment - avis aux amateurs.</b></p>
 			</label>
-			<label>
-				<input type="checkbox" name="afficher_absences">
-				<b>Afficher absences</b>
-				<p>Activer la zone de visualisation des absences sous le relevé de notes.</p>
-			</label>
+
+		<!-- -------- -->
+		<!-- Comptes -->
+		<!-- -------- -->
+			<details>
+				<summary>Onglet Comptes</summary>
+				<div>
+					<img src="/images/comptes.png" alt="Compte">
+
+					<h3>Zone Nom Prénom</h3>
+					<label>
+						<b>🖊️ Expression régulière de vérification du nom</b>
+						<input type="text" name="nameReg">
+						
+						<p>Permet de forcer une manière de nommer.<br>Par défaut on accepte tout : ^.+$</p>
+					</label>
+					<label>
+						<b>🖊️ Placeholder pour le nom</b>
+						<input type="text" name="namePlaceHolder">
+						
+						<p>Par exemple : "Nom Prénom de l'utilisateur"</p>
+					</label>
+					<label>
+						<b>🖊️ Bulle info d'aide pour le nom</b>
+						<input type="text" name="nameInfo">
+						
+						<p>Par exemple : "Indiquez le nom"</p>
+					</label>
+
+					<h3>Zone identifiant CAS</h3>
+					<label>
+						<b>🖊️ Expression régulière de vérification de l'identifiant CAS</b>
+						<input type="text" name="idReg">
+						
+						<p>Par défaut on accepte tout : ^.+$</p>
+					</label>
+					<label>
+						<b>🖊️ Placeholder pour l'identifiant</b>
+						<input type="text" name="idPlaceHolder">
+						
+						<p>Par exemple : "Identifiant CAS" ou "Adresse mail"</p>
+					</label>
+					<label>
+						<b>🖊️ Bulle info d'aide pour l'identifiant</b>
+						<input type="text" name="idInfo">
+						
+						<p>Par exemple : "Entrez l'identifiant CAS"</p>
+					</label>
+				</div>
+			</details>
+		<!-- -------- -->
+		<!-- Absences -->
+		<!-- -------- -->
+			<details>
+				<summary>Absences</summary>
+				<div>
+					<label>
+						<input type="checkbox" name="module_absences">
+						<b>Module absences</b>
+						<p>Activer le module de saisi des absences</p>
+						<p>Ce module est spécifique à la passerelle et n'est pas connecté avec Scodoc pour le moment.</p>
+						<p>💡 Nécessite le mode enseignant.</p>
+					</label>
+					<label>
+						<input type="checkbox" name="afficher_absences">
+						<b>Afficher absences</b>
+						<p>Activer la zone de visualisation des absences sous le relevé de notes.</p>
+					</label>
+
+					<label>
+						<b>🖊️ Heure de début des absences</b>
+						<input type="number" min=0 max=24 required name="absence_heureDebut">
+						<p>Pour une demi heure, utiliser 0.5, par exemple : 8h30 -> 8.5</p>
+					</label>
+					<label>
+						<b>🖊️ Heure de fin des absences</b>
+						<input type="number" min=0 max=24 required name="absence_heureFin">
+						<p>Pour une demi heure, utiliser 0.5, par exemple : 17h30 -> 8.5</p>
+					</label>
+					<label>
+						<b>🖊️ Pas d'une absence</b>
+						<input type="number" min=0 max=24 required name="absence_pas">
+						<p>Durée minimale pour déplacer un creneau, par exemple pour 30 minutes : 0.5.</p>
+					</label>
+					<label>
+						<b>🖊️ Durée par défaut d'une séance</b>
+						<input type="number" min=0 max=24 required name="absence_dureeSeance">
+					</label>
+				</div>
+			</details>
+
 		</div>
 
 		<div class=wait></div>
@@ -150,7 +234,6 @@
 		<!-- Site en maintenance -->
 		Authentification en cours ...
 	</div>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx-populate/1.21.0/xlsx-populate.min.js"></script>
 	<script>
 		checkStatut();
 		getConfig();
@@ -182,11 +265,22 @@
 				input.addEventListener("input", setConfig)
 			})
 
-			//console.log(data.fct_nameFromIdCAS);
+			document.querySelectorAll("[type=text], [type=number]").forEach(input=>{
+				input.value = data[input.name];
+				input.addEventListener("input", setConfig)
+			})
 		}
 
 		async function setConfig(){
-			let data = await fetchData(`setConfig&key=${this.name}&value=${this.checked}`);
+			let value;
+			if(this.type == "checkbox") {
+				value = this.checked;
+			} else {
+				value = this.value;
+			}
+
+			let data = await fetchData(`setConfig&key=${this.name}&value=${value}`);
+
 			if(data.resultat == "ok") {
 				this.classList.add("done");
 				setTimeout(() => {

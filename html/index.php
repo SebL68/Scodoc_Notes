@@ -137,7 +137,7 @@
 				margin: 10px;
 			}
 		</style>
-		<meta name=description content="Relevé de notes de l'<?php echo $Config->nom_IUT; ?>">
+		<meta name=description content="Relevé de notes - <?php echo $Config->nom_IUT; ?>">
 	</head>
 	<body class="<?php
 		if($Config->afficher_absences == false){

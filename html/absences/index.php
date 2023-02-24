@@ -379,7 +379,7 @@
             background: #0C9 !important;
         }*/
     </style>
-    <meta name=description content="Gestion des absences de l'<?php echo $Config->nom_IUT; ?>">
+    <meta name=description content="Gestion des absences - <?php echo $Config->nom_IUT; ?>">
 </head>
 <body>
     <?php 
@@ -562,10 +562,10 @@
 
 			moduleDate = new choixDate(
 				{
-					heureDebut: <?php echo $Config->absence_heureDebut; ?>,
-					heureFin: <?php echo $Config->absence_heureFin; ?>,
-					pas: <?php echo $Config->absence_pas; ?>,
-					dureeSeance: <?php echo $Config->absence_dureeSeance; ?>,
+					heureDebut: config.absence_heureDebut,
+					heureFin: config.absence_heureFin,
+					pas: config.absence_pas,
+					dureeSeance: config.absence_dureeSeance,
 					callback: setDate
 				}
 			);

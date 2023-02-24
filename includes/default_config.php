@@ -34,7 +34,7 @@
 /* Options d'affichage */
 /***********************/
 		$Config->releve_PDF = $configJSON['releve_PDF'] ?? Config::$releve_PDF ?? true; // Affichage de l'option pour que les étudiants puissent télécharger leur relevé en version PDF.
-		$Config->nom_IUT = Config::$nom_IUT ?? 'IUT'; // Nom de l'IUT, par exemple : 'IUT de Mulhouse'.
+		$Config->nom_IUT = $configJSON['nom_IUT'] ?? Config::$nom_IUT ?? 'IUT'; // Nom de l'IUT, par exemple : 'IUT de Mulhouse'.
 		$Config->message_non_publication_releve = Config::$message_non_publication_releve ?? 'Le responsable de votre formation a décidé de ne pas publier le relevé de notes de ce semestre.'; // Message si le relevé n'est pas publié.
 
 
@@ -65,7 +65,7 @@
 		Il peut dans une certains mesure remplacer un système de type Google Analytics ou Matomo.
 		Si vous souhaitez utiliser un autre système, vous pouvez compléter le fichier analytics.php 
 	*/
-		$Config->analystics_interne = Config::$analystics_interne ?? false;
+		$Config->analystics_interne = $configJSON['analystics_interne'] ?? Config::$analystics_interne ?? false;
 
 /*********************************/
 /* Données retournées par le CAS */
@@ -121,12 +121,12 @@
 /*********************************************/
 	/* Contribution de Denis Graef */
 
-		$Config->idReg = Config::$idReg ?? '^.+$';										// On accepte tous les ID CAS
-		$Config->idPlaceHolder = Config::$idPlaceHolder ?? 'Identifiant CAS';			// Place Holder pour saisie de l'ID CAS
-		$Config->idInfo = Config::$idInfo ?? 'Ajoutez l\x27identifiant CAS';			// Infobulle pour saisie de l'ID CAS (\x27 = unicode de l'apostrophe)
-		$Config->nameReg = Config::$nameReg ?? '^.+$';									// On accepte tous les Noms
-		$Config->namePlaceHolder = Config::$namePlaceHolder ?? 'Nom utilisateur';		// Place Holder pour saisie du Nom de l'utilisateur
-		$Config->nameInfo = Config::$nameInfo ?? 'Indiquez le nom';						// Infobulle pour saisie du Nom de l'utilisateur
+		$Config->idReg = $configJSON['idReg'] ?? Config::$idReg ?? '^.+$';										// On accepte tous les ID CAS
+		$Config->idPlaceHolder = $configJSON['idPlaceHolder'] ?? Config::$idPlaceHolder ?? 'Identifiant CAS';			// Place Holder pour saisie de l'ID CAS
+		$Config->idInfo = $configJSON['idInfo'] ?? Config::$idInfo ?? 'Ajoutez l\'identifiant CAS';			// Infobulle pour saisie de l'ID CAS
+		$Config->nameReg = $configJSON['nameReg'] ?? Config::$nameReg ?? '^.+$';									// On accepte tous les Noms
+		$Config->namePlaceHolder = $configJSON['namePlaceHolder'] ?? Config::$namePlaceHolder ?? 'Nom utilisateur';		// Place Holder pour saisie du Nom de l'utilisateur
+		$Config->nameInfo = $configJSON['nameInfo'] ?? Config::$nameInfo ?? 'Indiquez le nom';						// Infobulle pour saisie du Nom de l'utilisateur
 				
 /********************************/
 /* Clé pour les jetons JWT      */
@@ -211,10 +211,10 @@
 /**************************************************/
 /* Gestion des absences - si le module est activé */
 /**************************************************/
-		$Config->absence_heureDebut = Config::$absence_heureDebut ?? 8;
-		$Config->absence_heureFin = Config::$absence_heureFin ?? 20;
-		$Config->absence_pas = Config::$absence_pas ?? 0.5;
-		$Config->absence_dureeSeance = Config::$absence_dureeSeance ?? 2;
+		$Config->absence_heureDebut = $configJSON['absence_heureDebut'] ?? Config::$absence_heureDebut ?? 8;
+		$Config->absence_heureFin = $configJSON['absence_heureFin'] ?? Config::$absence_heureFin ?? 20;
+		$Config->absence_pas = $configJSON['absence_pas'] ?? Config::$absence_pas ?? 0.5;
+		$Config->absence_dureeSeance = $configJSON['absence_dureeSeance'] ?? Config::$absence_dureeSeance ?? 2;
 
 /***************************************/
 /* Déclaration des constantes globales */
@@ -234,6 +234,26 @@
 /*******************************/
 /* Methodes de config          */
 /*******************************/
+$accepted_input = [
+	'releve_PDF',
+	'acces_enseignants',
+	'module_absences',
+	'afficher_absences',
+	'analystics_interne',
+	'nom_IUT',
+
+	'idReg',
+	'idPlaceHolder',
+	'idInfo',
+	'nameReg',
+	'namePlaceHolder',
+	'nameInfo',
+
+	'absence_heureDebut',
+	'absence_heureFin',
+	'absence_pas',
+	'absence_dureeSeance'
+];
 
 $Config->getConfig = function() {
 	global $Config;
@@ -242,28 +262,41 @@ $Config->getConfig = function() {
 		'session' 			=> $user->getId(),
 		'name' 				=> $user->getName(),
 		'statut' 			=> $user->getStatut(),
+
 		'releve_PDF' 		=> $Config->releve_PDF,
 		'nom_IUT' 			=> $Config->nom_IUT,
-		//'acces_enseignants' => $Config->acces_enseignants,
+		'acces_enseignants' => $Config->acces_enseignants,
 		'afficher_absences' => $Config->afficher_absences,
-		'module_absences' 	=> $Config->module_absences
+		'module_absences' 	=> $Config->module_absences,
+
+		'idReg' 			=> $Config->idReg,
+		'idPlaceHolder' 	=> $Config->idPlaceHolder,
+		'idInfo' 			=> $Config->idInfo,
+		'nameReg' 			=> $Config->nameReg,
+		'namePlaceHolder' 	=> $Config->namePlaceHolder,
+		'nameInfo' 			=> $Config->nameInfo,
+
+		'absence_heureDebut'=> $Config->absence_heureDebut,
+		'absence_heureFin'	=> $Config->absence_heureFin,
+		'absence_pas'		=> $Config->absence_pas,
+		'absence_dureeSeance'=> $Config->absence_dureeSeance
 	];
 };
 
 $Config->getAllConfig = function() {
 	global $Config;
-	$proprietes = get_object_vars($Config);
-	return $proprietes;
+	global $accepted_input;
+	$output = [];
+	foreach ($accepted_input as $key) {
+		$output[$key] = ((array)$Config)[$key];
+	}
+	return $output;
 };
 
 $Config->setConfig = function($key, $value) {
 	global $path;
-	$accepted_input = [
-		'releve_PDF',
-		'acces_enseignants',
-		'module_absences',
-		'afficher_absences'
-	];
+	global $accepted_input;
+	
 	if(!in_array($key, $accepted_input)) {
 		returnError("Option non modifiable");
 	}
@@ -276,9 +309,11 @@ $Config->setConfig = function($key, $value) {
 		$configJSON = json_decode(file_get_contents($file), true);
 	}
 
-	switch($value){
-		case 'true': $configJSON[$key] = true; break;
-		case 'false': $configJSON[$key] = false; break;
+	switch(true){
+		case $value === 'true': $configJSON[$key] = true; break;
+		case $value === 'false': $configJSON[$key] = false; break;
+		case is_numeric($value): $configJSON[$key] = floatval($value); break;
+		case $value === '': unset($configJSON[$key]); break;
 		default: $configJSON[$key] = $value;
 	}
 

@@ -143,7 +143,7 @@
     }
 
   </style>
-  <meta name=description content="Gestion des administrateurs de l'<?php echo $Config->nom_IUT; ?>">
+  <meta name=description content="Gestion des administrateurs - <?php echo $Config->nom_IUT; ?>">
 </head>
 
 <body>
@@ -186,6 +186,7 @@
     var utilisateur;        // Stockage de l'identifiant de l'utilisateur
     var statut;             // Stockage du statut de l'utilisateur
     var selectDep;          // Stockage du département sélectionné
+
     checkStatut();
     <?php
     include "$path/includes/clientIO.php";
@@ -273,8 +274,8 @@
               <div class="confirm hide"></div>
               <div class="userInput hide">
                 <div>
-                  <span class="info" data-title="${NAMEINFO}"><input type="text" class="userName" placeholder="${NAMEPH}"></span><br>
-                  <span class="info" data-title="${IDINFO}"><input type="text" class="userId" placeholder="${IDPH}"></span>
+                  <span class="info" data-title="${config.nameInfo}"><input type="text" class="userName" placeholder="${config.namePlaceHolder}"></span><br>
+                  <span class="info" data-title="${config.idInfo}"><input type="text" class="userId" placeholder="${config.idPlaceHolder}"></span>
                 </div>
                 <span>
                   <svg onclick="processPerson(this, '${type}')" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Valider</title><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
@@ -315,8 +316,8 @@
                 </div>
                 <div class="userInput hide">
                   <div>
-                    <span class="info" data-title="${NAMEINFO}"><input type="text" class="userName" value="${nom}" placeholder="${NAMEPH}"></span><br>
-                    <span class="info" data-title="${IDINFO}"><input type="text" class="userId" value="${id}" placeholder="${IDPH}"></span>
+                    <span class="info" data-title="${config.nameInfo}"><input type="text" class="userName" value="${nom}" placeholder="${config.namePlaceHolder}"></span><br>
+                    <span class="info" data-title="${config.idInfo}"><input type="text" class="userId" value="${id}" placeholder="${config.idPlaceHolder}"></span>
                   </div>
                   <span>
                     <svg onclick="processPerson(this, '${type}')" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Valider</title><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
@@ -360,8 +361,8 @@
     /*****************************************/
     async function processPerson(obj, type) {
       // Initialisation des expressions régulières à partir des paramètres de configuration
-      let regId = new RegExp(IDREG);
-      let regNom = new RegExp(NAMEREG);
+      let regId = new RegExp(config.idReg);
+      let regNom = new RegExp(config.nameReg);
 
       let personne = obj.closest("div."+type);
       let oldId = personne.getAttribute("data-id");
@@ -371,12 +372,12 @@
       let liste = document.querySelectorAll("div."+type);
 
       if (!regId.test(newId)) {         // Si le nouveau ID n'est pas conforme
-        message(`L'identifiant "${newId}" ne correspond pas au format : ${IDPH}`);
+        message(`L'identifiant "${newId}" ne correspond pas au format : ${config.idPlaceHolder}`);
         return;
       }
 
       if (!regNom.test(userName)) {     // Si le nouveau Nom n'est pas conforme
-        message(`Le nom "${userName}" ne correspond pas au format : ${NAMEPH}`);
+        message(`Le nom "${userName}" ne correspond pas au format : ${config.namePlaceHolder}`);
         return;
       }
 
