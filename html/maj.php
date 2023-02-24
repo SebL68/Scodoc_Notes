@@ -50,6 +50,11 @@
 	<h1>Historique des mises à jour</h1>
 
 	<main>
+		<h2>24/02/2023 - 5.1.0</h2>
+		<ul>
+			<li>Menu de configuration en ligne pour les super administrateurs.</li>
+			<li>Diverses améliorations.</li>
+		</ul>
 		<h2>23/02/2023 - 5.0.10</h2>
 		<ul>
 			<li>Configuration dans les requêtes : permet de modifier des options comme le téléchargement des relevés PDF sans avoir à changer la version du site (problématique de cache agressif).</li>
