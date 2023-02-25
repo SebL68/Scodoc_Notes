@@ -271,11 +271,10 @@ $Config->getConfig = function() {
 	global $user;
 
 	$output = ($Config->getAllConfig)();
-	$output[] = [
-		'session' 			=> $user->getId(),
-		'name' 				=> $user->getName(),
-		'statut' 			=> $user->getStatut()
-	];
+	$output['session'] 	= $user->getId();
+	$output['name' ]	= $user->getName();
+	$output['statut' ]	= $user->getStatut();
+	
 	return $output;
 };
 
