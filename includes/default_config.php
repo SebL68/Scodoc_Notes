@@ -317,8 +317,11 @@ $Config->setConfig = function($key, $value) {
 		default: $configJSON[$key] = $value;
 	}
 
-	file_put_contents(
-		$file, 
-		json_encode($configJSON)
-	);
+	if(file_put_contents(
+			$file, 
+			json_encode($configJSON)
+		) === false
+	) {
+		returnError("Fichier non enregistré - problème de droits ? - le dossier config doit appartenir à www-data.");
+	}
 };

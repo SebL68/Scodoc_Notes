@@ -288,7 +288,6 @@
 				}, 600);
 			} else {
 				this.classList.add("done", "problem");
-				displayError("Une erreur est survenue - mais je ne sais pas quoi.");
 			}
 		}
 
