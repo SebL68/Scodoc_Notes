@@ -62,7 +62,7 @@ function displayError(message){
 	auth.addEventListener("click", ()=>{
 		auth.style.opacity = "0";
 		auth.style.pointerEvents = "none";
-	})
+	}, { once: true })
 }
 
 function displayFromOptions(options){
