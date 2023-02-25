@@ -98,45 +98,70 @@
 			-->
 			<p><b>Ce menu n'est accessible qu'aux super-administrateurs et permet de changer les options de la passerelle.</b></p>
 
-			<label>
-				<b>🖊️ Nom de l'établissement</b>
-				<input type="text" name="nom_IUT">
-				
-				<p>Utiliser dans les balises meta description. <br>Par exemple : IUT de Mulhouse</p>
-			</label>
-			
-			<label>
-				<input type="checkbox" name="releve_PDF">
-				<b>Relevé PDF</b>
-				<p>Permettre aux étudiants de télécharger un relevé de notes intermédiaire en PDF.</p>	
-				<p>Ca leur permet d'avoir un historique de leurs notes et également d'avoir à disposition un relevé intermédiaire pour les poursuites d'études.</p>
-			</label>
-			<label>
-				<input type="checkbox" name="acces_enseignants">
-				<b>Acces enseignant</b>
-				<p>
-					Permettre aux enseignants de :
-					<ul>
-						<li>voir les notes de n'importe quels étudiants,</li>
-						<li>obtenir des documents bien pratiques,</li>
-						<li>activer le mode absences.</li>
-					</ul>
-				</p>
-				
-				<p>💡 Nécessite de compléter les listes dans "Comptes" ou d'activer le LDAP.</p>
-			</label>
-			
-			<label>
-				<input type="checkbox" name="analystics_interne">
-				<b>Sauvegarde des données de connexion</b>
-				<p>Système interne à la passerelle pour l'analyse du trafic compatible RGPD, les données seront visible dans ce <a href="/services/analytics.php">tableau de bord</a>. 
-				</p>
-				<p><b>⚠️ Exploitation des données et création des graphiques non implémentés pour le moment - avis aux amateurs.</b></p>
-			</label>
+		<!-- ------- -->
+		<!-- Serveur -->
+		<!-- ------- -->
+			<details>
+				<summary>Serveur</summary>
+				<div>
+					<label>
+						<b>🖊️ Nom de l'établissement</b>
+						<input type="text" name="nom_IUT">
+						
+						<p>Utiliser dans les balises meta description. <br>Par exemple : IUT de Mulhouse</p>
+					</label>
 
-		<!-- -------- -->
+					<label>
+						<input type="checkbox" name="analystics_interne">
+						<b>Sauvegarde des données de connexion</b>
+						<p>Système interne à la passerelle pour l'analyse du trafic compatible RGPD, les données seront visible dans ce <a href="/services/analytics.php">tableau de bord</a>. 
+						</p>
+						<p><b>⚠️ Exploitation des données et création des graphiques non implémentés pour le moment - avis aux amateurs.</b></p>
+					</label>
+				</div>
+			</details>
+
+		<!-- --------------- -->
+		<!-- Relevé de notes -->
+		<!-- --------------- -->
+			<details>
+				<summary>Relevé de notes</summary>
+				<div>
+					<label>
+						<input type="checkbox" name="releve_PDF">
+						<b>Relevé PDF</b>
+						<p>Permettre aux étudiants de télécharger un relevé de notes intermédiaire en PDF.</p>	
+						<p>Ca leur permet d'avoir un historique de leurs notes et également d'avoir à disposition un relevé intermédiaire pour les poursuites d'études.</p>
+					</label>
+				</div>
+			</details>
+
+		<!-- ----------- -->
+		<!-- Enseignants -->
+		<!-- ----------- -->
+			<details>
+				<summary>Enseignants</summary>
+				<div>
+					<label>
+						<input type="checkbox" name="acces_enseignants">
+						<b>Acces enseignant</b>
+						<p>
+							Permettre aux enseignants de :
+							<ul>
+								<li>voir les notes de n'importe quels étudiants,</li>
+								<li>obtenir des documents bien pratiques,</li>
+								<li>activer le mode absences.</li>
+							</ul>
+						</p>
+						
+						<p>💡 Nécessite de compléter les listes dans "Comptes" ou d'activer le LDAP.</p>
+					</label>
+				</div>
+			</details>
+			
+		<!-- ------- -->
 		<!-- Comptes -->
-		<!-- -------- -->
+		<!-- ------- -->
 			<details>
 				<summary>Onglet Comptes</summary>
 				<div>
