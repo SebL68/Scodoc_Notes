@@ -59,6 +59,10 @@ function displayError(message){
 	auth.style.opacity = "1";
 	auth.style.pointerEvents = "initial";
 	auth.innerHTML = message;
+	auth.addEventListener("click", ()=>{
+		auth.style.opacity = "";
+		auth.style.pointerEvents = "";
+	})
 }
 
 function displayFromOptions(options){
