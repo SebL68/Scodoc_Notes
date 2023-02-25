@@ -60,8 +60,8 @@ function displayError(message){
 	auth.style.pointerEvents = "initial";
 	auth.innerHTML = message;
 	auth.addEventListener("click", ()=>{
-		auth.style.opacity = "";
-		auth.style.pointerEvents = "";
+		auth.style.opacity = "0";
+		auth.style.pointerEvents = "none";
 	})
 }
 
