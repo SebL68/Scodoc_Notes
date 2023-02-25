@@ -242,15 +242,15 @@
 					<label>
 						<b>🖊️ Heure de fin des absences</b>
 						<input type="number" min=0 max=24 required name="absence_heureFin">
-						<p>Pour une demi heure, utiliser 0.5, par exemple : 17h30 -> 8.5</p>
+						<p>Pour une demi heure, utiliser 0.5, par exemple : 17h30 -> 17.5</p>
 					</label>
 					<label>
-						<b>🖊️ Pas d'une absence</b>
+						<b>🖊️ Échelonnement des créneaux</b>
 						<input type="number" min=0 max=24 required name="absence_pas">
 						<p>Durée minimale pour déplacer un creneau, par exemple pour 30 minutes : 0.5.</p>
 					</label>
 					<label>
-						<b>🖊️ Durée par défaut d'une séance</b>
+						<b>🖊️ Durée par défaut d'un créneau</b>
 						<input type="number" min=0 max=24 required name="absence_dureeSeance">
 					</label>
 				</div>
