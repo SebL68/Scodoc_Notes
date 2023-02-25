@@ -68,10 +68,11 @@ L'identification de la personne se fait le CAS.
 Le CAS renvoie soit :
  - le numéro d'étudiant,
  - une variante du numéro d'étudiant qu'il est possible de transformer dans le fichier config,
- - un autre identifiant, comme l'adresse mail.
+ - un autre identifiant, comme l'adresse mail,
+ - il est aussi possible de récupérer le numéro s'il est dans un autre champs renvoyé par le CAS.
   
 C'est le numéro d'étudiant qui est nécessaire pour communiquer avec Scodoc, si votre CAS renvoie un autre identifiant, il faut mettre en place un système de correspondance.  
-Cette correspondance est faite dans les fichiers /data/annuaires/liste_*.php
+Cette correspondance est faite dans les fichiers /data/annuaires/liste_etu.txt
 
 Il est possible d'automatiser la génération de ces fichiers à partir du LDAP (voir ci-après).
 
@@ -83,6 +84,7 @@ Il est possible d'automatiser la génération de ces fichiers à partir du LDAP 
  - Il est recommandé d'utiliser Apache, mais ça fonctionne avec Nginx - il faudra juste un peu de config manuelle.
  - Les dépendances sont installées automatiquement.
  - Le serveur doit être reconnu et autorisé par le CAS.  
+ - Le serveur doit pouvoir communiquer avec Scodoc.  
   
 ## Installation automatique (recommandé)
   
@@ -110,7 +112,7 @@ cd /var/www
   
 [Option]  
 Par défaut, la mise à jour se fait dans `/var/www/`.  
-Le script accepte comme paramètre un chemin différent afin de permettre la mise à jour pour ceux qui ont configurer des Virtual Hosts.  
+Le script accepte comme paramètre un chemin différent afin de permettre la mise à jour pour ceux qui ont configuré des Virtual Hosts.  
 `./installOrUpdate.sh cheminVersLaPasserelle`  
   
 Voir "Diagnostic" et "Configuration" pour la suite.  
@@ -156,26 +158,55 @@ Il est à minima nécessaire de configurer :
   - cas_config.php,
   - config.php 
   
-L'utilisation du LDAP n'est pas obligatoire si le CAS renvoie le nip. Si le CAS renvoie l'adresse mail, il faut alors mettre en place le système qui permet de convertir les mails en nip. Dans /data/annuaires, il y a les fichiers pour cette conversion. Différentes fonctions permettent de remplir ces fichiers automatiquement à partir du LDAP (voir ci-après).  
+Il est recommandé d'avoir un super-administrateur en incluant son identifiant CAS dans le fichier /data/annuaires/super_admin.txt (enlevez le _DEMO).
+  
+### Configuration de l'authentification : CAS
+Complétez cas_config.php.  
+Pour vous aider à tester, vous pouvez utiliser le système de diagnostique.  
+Vous pouvez également utiliser le fichier /code_test/testCAS.php pour comprendre ce qui est renvoyé par le CAS.  
+  
+Il est nécessaire d'obtenir un numéro d'étudiant tel qu'il est dans Scodoc, plusieurs cas de figures :  
+ - l'identifiant au CAS est le numéro d'étudiant : il n'y a rien à faire,
+ - l'identifiant est un variant du numéro d'étudiant, il peut y avoir une lettre qui change ou autres, dans ce cas il est possible d'opérer une transfromation avec la fonction nipModifier() dans le fichier config,
+ - l'identifiant est disponible dans un autre attribut renvoyé par le CAS (voir /code_test/testCAS.php) : il est possible d'indiquer quelle clé utiliser dans le fichier config : public static $CAS_nip_key = 'cle';
+ - l'identifiant n'est pas accessible, il faut donc utiliser le LDAP pour avoir une correspondance entre l'idCAS et le nip.
+  
+L'utilisation du LDAP n'est pas obligatoire si le CAS renvoie le nip. Si par exemple le CAS renvoie l'adresse mail, il faut alors mettre en place le système qui permet de convertir les mails en nip. Dans /data/annuaires, il y a les fichiers pour cette conversion. Différentes fonctions permettent de remplir ces fichiers automatiquement à partir du LDAP (voir ci-après).  
   
 Pour tester la connexion avec Scodoc, il est possible de forcer un utilisateur (étudiant) dans /config/config.php => nipModifier().
   
 Il est possible de s'authentifier de manière forcée en utilisant les jetons JWT.  
 Ces jetons peuvent être créés dans le fichier /html/services/createJWT.php (à modifier).  
-Ces jetons sont notamment utiles au début pour bypasser le CAS pour des premiers tests, ils servent également à utiliser un statut de SUPERADMIN. Ce statut permet de mettre en route le crontab pour la mise à jour du LDAP depuis le navigateur.  
-La mise à jour forcée du LDAP (pour les tests) se fait en exécutant le fichier /includes/CmdUpdateLists.php avec le statut SUPERADMIN ou en CLI ou en le déplaçant dans /html.  
+Ces jetons sont notamment utiles au début pour bypasser le CAS pour des premiers tests.  
+
+### Option - configuration du LDAP
+Complétez les paramètres LDAP dans /config/config.php  
+La mise à jour forcée du LDAP (pour les tests) se fait en exécutant le fichier /includes/CmdUpdateLists.php en CLI.  
 La mise en route du crontab se fait avec le fichier /includes/CmdSetUpdateLists.php suivant le même principe.  
   
-Les étudiants peuvent modifier leur "avatar" sur la passerelle, il faut vérifier que l'utiliseur www-data puisse bien modifier les fichiers du répertoire /data/studentPic  
+## A noter
   
 Par défaut, ce site ne diffuse que les relevés de notes aux étudiants.  
 Il est possible d'activer d'autres options prévus pour les enseignants comme :
  - la possibilité de visualiser les relevés de n'importe quel étudiant,
  - récupérer des documents xls pratiques, automatiquement générés en fonction des listes Scodoc,
  - gérer les absences entièrement depuis la passerelle, avec des créneaux prédéfinis (sans utiliser Scodoc).  
+ 
+Les super-admin ont un onglet supplémentaire pour configurer la passerelle en ligne.  
+Ils peuvent également attribuer les rôles admin ou personnel à des idCAS.  
   
+Si le mode enseignant est activé, les idCAS reconnus comme "personnel" pourront avoir accès aux relevés de tous les étudiants et récupérer les listes au format xlsx.  
+Si le mode absences est activé, la passerelle permet de réaliser les absences par les personnels, un admin pourra justifier ces absences - a noter que le module absence n'est pas connecté à Scodoc pour le moment - ces absences sont automatiquement affichées aux étudiants.  
+  
+Il est également possible d'utiliser le LDAP pour remplir automatiquement les listes des personnels.  
+  
+_______________  
+  
+Les étudiants peuvent modifier leur "avatar" sur la passerelle, il faut vérifier que l'utiliseur www-data puisse bien modifier les fichiers du répertoire /data/studentPic  
+   
 # Comment connaître la version de la passerelle ?
-La version est notée dans le fichier /html/sw.js
+La version est notée dans le fichier /html/sw.js  
+Il est également possible de la voir en bas de la page d'accueil de la passerelle.
 
 # Procédures de mise à jour
 Les dossiers /config et /data sont des données locales qui permettent de faire fonctionner la passerelle dans votre environnement.  
