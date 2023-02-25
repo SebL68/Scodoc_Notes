@@ -51,6 +51,9 @@
 			font-size: 16px;
 			border: 1px solid #424242;
 		}
+		input[type=text] {
+			width: 100%;
+		}
 		label:has(.done)::before {
 			content: "✔️";
 			position: absolute;
@@ -132,6 +135,10 @@
 						<b>Relevé PDF</b>
 						<p>Permettre aux étudiants de télécharger un relevé de notes intermédiaire en PDF.</p>	
 						<p>Ca leur permet d'avoir un historique de leurs notes et également d'avoir à disposition un relevé intermédiaire pour les poursuites d'études.</p>
+					</label>
+					<label>
+						<b>🖊️ Message non publication relevé</b>
+						<input type="text" name="message_non_publication_releve">
 					</label>
 				</div>
 			</details>

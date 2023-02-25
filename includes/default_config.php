@@ -35,7 +35,7 @@
 /***********************/
 		$Config->releve_PDF = $configJSON['releve_PDF'] ?? Config::$releve_PDF ?? true; // Affichage de l'option pour que les étudiants puissent télécharger leur relevé en version PDF.
 		$Config->nom_IUT = $configJSON['nom_IUT'] ?? Config::$nom_IUT ?? 'IUT'; // Nom de l'IUT, par exemple : 'IUT de Mulhouse'.
-		$Config->message_non_publication_releve = Config::$message_non_publication_releve ?? 'Le responsable de votre formation a décidé de ne pas publier le relevé de notes de ce semestre.'; // Message si le relevé n'est pas publié.
+		$Config->message_non_publication_releve = $configJSON['message_non_publication_releve'] ?? Config::$message_non_publication_releve ?? 'Le responsable de votre formation a décidé de ne pas publier le relevé de notes de ce semestre.'; // Message si le relevé n'est pas publié.
 
 
 /**********************************/
@@ -235,6 +235,7 @@
 /* Methodes de config          */
 /*******************************/
 $accepted_input = [
+	'message_non_publication_releve',
 	'releve_PDF',
 	'acces_enseignants',
 	'module_absences',
@@ -255,34 +256,6 @@ $accepted_input = [
 	'absence_dureeSeance'
 ];
 
-$Config->getConfig = function() {
-	global $Config;
-	global $user;
-	return [
-		'session' 			=> $user->getId(),
-		'name' 				=> $user->getName(),
-		'statut' 			=> $user->getStatut(),
-
-		'releve_PDF' 		=> $Config->releve_PDF,
-		'nom_IUT' 			=> $Config->nom_IUT,
-		'acces_enseignants' => $Config->acces_enseignants,
-		'afficher_absences' => $Config->afficher_absences,
-		'module_absences' 	=> $Config->module_absences,
-
-		'idReg' 			=> $Config->idReg,
-		'idPlaceHolder' 	=> $Config->idPlaceHolder,
-		'idInfo' 			=> $Config->idInfo,
-		'nameReg' 			=> $Config->nameReg,
-		'namePlaceHolder' 	=> $Config->namePlaceHolder,
-		'nameInfo' 			=> $Config->nameInfo,
-
-		'absence_heureDebut'=> $Config->absence_heureDebut,
-		'absence_heureFin'	=> $Config->absence_heureFin,
-		'absence_pas'		=> $Config->absence_pas,
-		'absence_dureeSeance'=> $Config->absence_dureeSeance
-	];
-};
-
 $Config->getAllConfig = function() {
 	global $Config;
 	global $accepted_input;
@@ -290,6 +263,19 @@ $Config->getAllConfig = function() {
 	foreach ($accepted_input as $key) {
 		$output[$key] = ((array)$Config)[$key];
 	}
+	return $output;
+};
+
+$Config->getConfig = function() {
+	global $Config;
+	global $user;
+
+	$output = ($Config->getAllConfig)();
+	$output[] = [
+		'session' 			=> $user->getId(),
+		'name' 				=> $user->getName(),
+		'statut' 			=> $user->getStatut()
+	];
 	return $output;
 };
 
