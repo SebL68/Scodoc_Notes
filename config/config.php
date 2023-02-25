@@ -54,6 +54,7 @@
 		
 		Voir /includes/annuaire.class.php -> getStudentNumberFromMail()
 	*/
+		// public static $CAS_nip_key = 'cle'; // Si le nip se trouve dans une clé renvoyé par le CAS.
 
 		public static function nipModifier($nip){
 			//return '2'.substr($nip, 1); // Exemple pour remplacer la première lettre du nip par un 2
