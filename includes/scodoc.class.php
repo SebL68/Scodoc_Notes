@@ -57,7 +57,7 @@ class Scodoc{
 			$time = $time_end - $time_start;
 
 			// Enregistrement du temps dans un fichier
-			$data = [date('Y-m-d H:i:s'), $time];
+			$data = [date('Y-m-d H:i:s'), $url_query, $time];
 			$file = $path . '/data/analytics/temps_requetes.csv';
 			$fp = fopen($file, 'a');
 			fputcsv($fp, $data, ';');
