@@ -41,10 +41,30 @@ class Scodoc{
 	/************************/
 	private function Ask_Scodoc($url_query, $options = []){
 		global $Config;
+		global $path;
 		$data = http_build_query($options);
 
 		curl_setopt($this->ch, CURLOPT_URL, $Config->scodoc_url . "/api/$url_query?$data");
-		return curl_exec($this->ch);
+		
+		if($Config->analyse_temps_requetes){
+			$time_start = microtime(true);
+		}
+		
+		$response = curl_exec($this->ch);
+		
+		if($Config->analyse_temps_requetes){
+			$time_end = microtime(true);
+			$time = $time_end - $time_start;
+
+			// Enregistrement du temps dans un fichier
+			$data = [date('Y-m-d H:i:s'), $time];
+			$file = $path . '/data/analytics/temps_requetes.csv';
+			$fp = fopen($file, 'a');
+			fputcsv($fp, $data, ';');
+			fclose($fp);
+		}
+		
+		return $response;
 	}
 
 	/*******************************/
