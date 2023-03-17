@@ -123,7 +123,7 @@
 					</label>
 					
 					<label>
-						<input type="checkbox" name="analystics_interne">
+						<input type="checkbox" name="analyse_temps_requetes">
 						<b>Statistiques du temps de réponse de Scodoc.</b>
 						<p>Les données sont dans /data/analytics/temps_requetes.csv</a>.</p>
 					</label>
