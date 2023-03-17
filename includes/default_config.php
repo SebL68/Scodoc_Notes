@@ -242,6 +242,7 @@ $accepted_input = [
 	'module_absences',
 	'afficher_absences',
 	'analystics_interne',
+	'analyse_temps_requetes',
 	'nom_IUT',
 
 	'idReg',
