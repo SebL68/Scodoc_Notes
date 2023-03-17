@@ -66,6 +66,7 @@
 		Si vous souhaitez utiliser un autre système, vous pouvez compléter le fichier analytics.php 
 	*/
 		$Config->analystics_interne = $configJSON['analystics_interne'] ?? Config::$analystics_interne ?? false;
+		$Config->analyse_temps_requetes = $configJSON['analyse_temps_requetes'] ?? Config::$analyse_temps_requetes ?? false;	// Temps requêtes avec Scodoc - enregistré dans /data/analytics/temps.csv
 
 /*********************************/
 /* Données retournées par le CAS */
