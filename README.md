@@ -47,7 +47,7 @@ Les utilisateurs actuels sont :
  - IUT Cachan => accès étudiant
  - IUT Nord Franche-Comté => accès étudiant
  - IUT de Montreuil => A venir
- - IUT de Schiltigheim =W A venir
+ - IUT de Schiltigheim => A venir
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
   
