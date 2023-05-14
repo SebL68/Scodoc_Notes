@@ -49,7 +49,7 @@ Les utilisateurs actuels sont :
  - IUT de Montreuil => A venir
  - IUT de Schiltigheim => A venir
  - Ecole de chimie de Mulhouse (ENSCMu) => accès complet
- - IUT d'Evry => accès étudiant
+ - IUT d'Evry => accès étudiant + enseignant
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
   
