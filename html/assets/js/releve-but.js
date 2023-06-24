@@ -45,7 +45,7 @@ class releveBUT extends HTMLElement {
 		this.showSemestre(data);
 		this.showSynthese(data);
 		this.showEvaluations(data);
-
+		
 		this.showCustom(data);
 
 		this.setOptions(data.options);
@@ -407,7 +407,39 @@ class releveBUT extends HTMLElement {
 	showEvaluations(data) {
 		this.shadow.querySelector(".evaluations").innerHTML = this.module(data.ressources);
 		this.shadow.querySelector(".sae").innerHTML += this.module(data.saes);
+
+		const newEvals = this.shadow.querySelectorAll(".new-eval");
+		newEvals.forEach(el => {
+			el.addEventListener("mouseover", () => this.addSeenEvaluation(el));
+		});
 	}
+
+	getSeenEvaluations()
+	{		
+		const seenEvaluations = localStorage.getItem("seenEvaluations");
+		if(seenEvaluations !== null){
+			const seenEvaluationsParsed = JSON.parse(seenEvaluations);
+			if(Array.isArray(seenEvaluationsParsed)){
+				return seenEvaluationsParsed;
+			}
+		}
+		return [];
+	}
+
+	addSeenEvaluation(el)
+	{
+		const seenEvaluations = this.getSeenEvaluations();
+		seenEvaluations.push(el.dataset.id);
+		localStorage.setItem("seenEvaluations", JSON.stringify(seenEvaluations));
+		el.classList.remove("new-eval");
+	}
+
+	isNewEvaluation(evaluation)
+	{
+		const seenEvaluations = this.getSeenEvaluations();
+		return typeof seenEvaluations.find(e => parseInt(e) === evaluation.id) === "undefined";
+	}
+
 	module(module) {
 		let output = "";
 		Object.entries(module).forEach(([numero, content]) => {
@@ -438,8 +470,9 @@ class releveBUT extends HTMLElement {
 	evaluation(evaluations) {
 		let output = "";
 		evaluations.forEach((evaluation) => {
+			const isNewEvaluation = this.isNewEvaluation(evaluation);
 			output += `
-				<div class=eval>
+				<div class="eval ${isNewEvaluation ? "new-eval" : ""}" data-id="${evaluation.id}">
 					<div>${this.URL(evaluation.url, evaluation.description || "Évaluation")}</div>
 					<div>
 						${evaluation.note.value}

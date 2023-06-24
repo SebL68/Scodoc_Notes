@@ -299,6 +299,18 @@ h3{
     padding: 4px 4px 4px 32px;
 }
 
+.new-eval::before{
+    content: "";
+    background-color: var(--couleurIntense);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
 .eval:nth-child(2n+1), .syntheseModule:nth-child(2n+1){
     background: #eee;
 }
