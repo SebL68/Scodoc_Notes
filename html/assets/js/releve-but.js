@@ -410,7 +410,7 @@ class releveBUT extends HTMLElement {
 
 		const newEvals = this.shadow.querySelectorAll(".new-eval");
 		newEvals.forEach(el => {
-			el.addEventListener("mouseover", () => this.addSeenEvaluation(el));
+			el.addEventListener("click", () => this.addSeenEvaluation(el));
 		});
 	}
 
@@ -429,15 +429,32 @@ class releveBUT extends HTMLElement {
 	addSeenEvaluation(el)
 	{
 		const seenEvaluations = this.getSeenEvaluations();
-		seenEvaluations.push(el.dataset.id);
+		seenEvaluations.push({
+			id: el.dataset.id,
+			note: el.dataset.note
+		});
 		localStorage.setItem("seenEvaluations", JSON.stringify(seenEvaluations));
 		el.classList.remove("new-eval");
+	}
+
+	removeSeenEvaluation(index){
+		const seenEvaluations = this.getSeenEvaluations();
+		seenEvaluations.splice(index, 1);
+		localStorage.setItem("seenEvaluations", JSON.stringify(seenEvaluations));
 	}
 
 	isNewEvaluation(evaluation)
 	{
 		const seenEvaluations = this.getSeenEvaluations();
-		return typeof seenEvaluations.find(e => parseInt(e) === evaluation.id) === "undefined";
+		const index = seenEvaluations.findIndex(e => parseInt(e.id) === evaluation.id);
+		if(index === -1){
+			return true;
+		}
+		if(seenEvaluations[index].note !== evaluation.note.value){
+			this.removeSeenEvaluation(index);
+			return true;
+		}
+		return false;
 	}
 
 	module(module) {
@@ -472,7 +489,7 @@ class releveBUT extends HTMLElement {
 		evaluations.forEach((evaluation) => {
 			const isNewEvaluation = this.isNewEvaluation(evaluation);
 			output += `
-				<div class="eval ${isNewEvaluation ? "new-eval" : ""}" data-id="${evaluation.id}">
+				<div class="eval ${isNewEvaluation ? "new-eval" : ""}" data-id="${evaluation.id}" data-note="${evaluation.note.value}">
 					<div>${this.URL(evaluation.url, evaluation.description || "Évaluation")}</div>
 					<div>
 						${evaluation.note.value}
