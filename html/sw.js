@@ -1,4 +1,4 @@
-var version = 'v5.1.0:DI';
+var version = 'v5.1.0:DIv2';
 
 self.addEventListener("install", function (event) {
 	self.skipWaiting();
@@ -7,7 +7,9 @@ self.addEventListener("install", function (event) {
 			.then(function (cache) {
 				return cache.addAll([
 					'/',
-					'manifest.json'
+					'manifest.json',
+					'assets/js/releve-but.js',
+					'assets/js/releve-dut.js'
 				]);
 			})
 	);
