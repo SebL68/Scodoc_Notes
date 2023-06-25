@@ -45,7 +45,7 @@ class releveBUT extends HTMLElement {
 		this.showSemestre(data);
 		this.showSynthese(data);
 		this.showEvaluations(data);
-
+		
 		this.showCustom(data);
 
 		this.setOptions(data.options);
@@ -407,7 +407,56 @@ class releveBUT extends HTMLElement {
 	showEvaluations(data) {
 		this.shadow.querySelector(".evaluations").innerHTML = this.module(data.ressources);
 		this.shadow.querySelector(".sae").innerHTML += this.module(data.saes);
+
+		const newEvals = this.shadow.querySelectorAll(".new-eval");
+		newEvals.forEach(el => {
+			el.addEventListener("click", () => this.addSeenEvaluation(el));
+		});
 	}
+
+	getSeenEvaluations()
+	{		
+		const seenEvaluations = localStorage.getItem("seenEvaluations");
+		if(seenEvaluations !== null){
+			const seenEvaluationsParsed = JSON.parse(seenEvaluations);
+			if(Array.isArray(seenEvaluationsParsed)){
+				return seenEvaluationsParsed;
+			}
+		}
+		return [];
+	}
+
+	addSeenEvaluation(el)
+	{
+		const seenEvaluations = this.getSeenEvaluations();
+		seenEvaluations.push({
+			id: el.dataset.id,
+			note: el.dataset.note
+		});
+		localStorage.setItem("seenEvaluations", JSON.stringify(seenEvaluations));
+		el.classList.remove("new-eval");
+	}
+
+	removeSeenEvaluation(index){
+		const seenEvaluations = this.getSeenEvaluations();
+		seenEvaluations.splice(index, 1);
+		localStorage.setItem("seenEvaluations", JSON.stringify(seenEvaluations));
+	}
+
+	isNewEvaluation(evaluation)
+	{
+		const seenEvaluations = this.getSeenEvaluations();
+		const index = seenEvaluations.findIndex(e => parseInt(e.id) === evaluation.id);
+		if(index === -1){
+			return true;
+		}
+		if(seenEvaluations[index].note !== evaluation.note.value){
+			this.removeSeenEvaluation(index);
+			return true;
+		}
+		return false;
+	}
+
 	module(module) {
 		let output = "";
 		Object.entries(module).forEach(([numero, content]) => {
@@ -438,8 +487,9 @@ class releveBUT extends HTMLElement {
 	evaluation(evaluations) {
 		let output = "";
 		evaluations.forEach((evaluation) => {
+			const isNewEvaluation = this.isNewEvaluation(evaluation);
 			output += `
-				<div class=eval>
+				<div class="eval ${isNewEvaluation ? "new-eval" : ""}" data-id="${evaluation.id}" data-note="${evaluation.note.value}">
 					<div>${this.URL(evaluation.url, evaluation.description || "Évaluation")}</div>
 					<div>
 						${evaluation.note.value}
