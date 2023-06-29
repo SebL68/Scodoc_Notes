@@ -43,7 +43,7 @@ Les utilisateurs actuels sont :
  - IUT d'Amiens => accès étudiant
  - IUT de Caen (IFS) => A venir
  - IUT de Saint-Nazaire => accès étudiant + enseignant
- - IUT Montpellier => A venir
+ - IUT Montpellier-Sète => accès étudiant
  - IUT Cachan => accès étudiant
  - IUT Nord Franche-Comté => accès étudiant
  - IUT de Montreuil => accès étudiant
