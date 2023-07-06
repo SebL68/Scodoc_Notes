@@ -1,3 +1,93 @@
+:root {
+	/* Les thèmes présentent des couleurs (primaire, secondaire...) ainsi que des utilités de fond/texte (contenu = texte, fond = background)
+
+	Les utilités peuvent être utilisées en rapport avec les couleurs (ex: var(--primaire-contenu) = couleur du texte sur le fond de couleur primaire)
+	*/
+
+	color-scheme: light;
+
+	/* Thème par défaut (clair) */
+	--fond-clair: #fff;
+	--fond: #fafafa;
+	--fond-estompe: #f1f1f1;
+	--fond-inverse: #080808;
+
+	--contenu: #000000;
+	--contenu-inverse: #ffffff;
+
+	--gris: #424242;
+	--gris-estompe: #aaa;
+
+	--primaire: #09c;
+	--primaire-contenu: #fff;
+
+	--secondaire: #0c9;
+	--secondaire-contenu: #fff;
+
+	--accent: #c09;
+	--accent-contenu: #fff;
+
+	--box-shadow: 0 2px 2px #888;
+
+	--box-shadow-2: 0 2px 2px 2px #ddd;
+	--box-shadow-2-hover: 0 2px 2px 2px #bbb;
+
+	--releve-principale: #f0faff;
+	--releve-fond-titre-ue: #ceffeb;
+	--releve-fond-titre-res: #7daaff;
+	--releve-fond-titre-sae: #d3ffff;
+	--releve-secondaire: #fec;
+	--releve-surlignage: #e8ff8478;
+
+	#theme-sombre {
+		display: none;
+	}
+
+	&[data-theme="dark"] {
+		color-scheme: dark;
+	
+		/* Thème sombre */
+		--fond-clair: #000;
+		--fond: #080808;
+		--fond-inverse: #fafafa;
+	
+		--contenu: #ffffff;
+		--contenu-inverse: #000000;
+	
+		--gris: #e8e6e3;
+		--gris-estompe: #aaa;
+	
+		--primaire: #007aa3;
+		--primaire-contenu: #e8e6e3;
+	
+		--secondaire: #009868;
+		--secondaire-contenu: #e8e6e3;
+	
+		--accent: #a3007a;
+		--accent-contenu: #e8e6e3;
+	
+		--box-shadow: 0 2px 2px #5b6367;
+	
+		--box-shadow-2: 0 2px 2px 2px #222;
+		--box-shadow-2-hover: 0 2px 2px 2px #444;
+	
+		--releve-principale: #000a0f;
+		--releve-fond-titre-ue: #00331f;
+		--releve-fond-titre-res: #002d80;
+		--releve-fond-titre-sae: #002e2e;
+		--releve-secondaire: #332200;
+		--releve-surlignage: #e9ff8578;
+	
+		#theme-clair {
+			display: none;
+		}
+	
+		#theme-sombre {
+			display: block;
+		}
+	}
+}
+
 *{
 	box-sizing: border-box;
 }
@@ -7,23 +97,23 @@ html{
 body{
 	margin:0;
 	font-family:arial;
-	background: #FAFAFA;
+	background: var(--fond);
 }
 header{
 	position:sticky;
 	top:0;
 	padding:10px;
-	background:#09C;
+	background: var(--primaire);
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	gap: 16px;
-	color:#FFF;
-	box-shadow: 0 2px 2px #888;
+	color: var(--primaire-contenu);
+	box-shadow: var(--box-shadow);
 	z-index:100;
 }
 header a{
-	color: #FFF;
+	color: var(--primaire-contenu);
 	text-decoration: none;
 	padding: 10px 0 10px 0;
 }
@@ -43,8 +133,8 @@ nav{
 .personnel.moduleAbsences #gestion,
 .admin #admin,
 .superadmin #config{
-	background: #FFF;
-	color: #424242;
+	background: var(--fond-clair);
+	color: var(--gris);
 	padding: 8px 16px;
 	border-radius: 16px;
 	display: flex;
@@ -52,8 +142,8 @@ nav{
 }
 .personnel .nav:hover,
 .navActif{
-	background: #0c9 !important;
-	color: #FFF !important;
+	background: var(--secondaire) !important;
+	color: var(--secondaire-contenu) !important;
 }
 h1{
 	margin:0 auto 0 0;
@@ -76,7 +166,7 @@ h1{
 		top: 0;
 		left: 0;
 		bottom: 0;
-		background: #09C;
+		background: var(--primaire);
 		flex-direction: column;
 		padding: 16px 32px;
 		transform: translateX(-100%);
@@ -102,8 +192,8 @@ h1{
 h2{
 	margin: 20px 0 0 0;
 	padding: 20px;
-	background: #0C9;
-	color: #FFF;
+	background: var(--secondaire);
+	color: var(--secondaire-contenu);
 	border-radius: 10px;
 	cursor: pointer;
 }
@@ -123,7 +213,7 @@ main{
 	position: fixed;
 	width: 50px;
 	height: 10px;
-	background: #424242;
+	background: var(--gris);
 	top: 80px;
 	left: 50%;
 	margin-left: -25px;
@@ -139,7 +229,7 @@ main{
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background: #FAFAFA;
+	background: var(--fond);
 	font-size: 28px;
 	padding: 28px 10px 0 10px;
 	text-align: center;
