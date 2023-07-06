@@ -4,6 +4,8 @@
   Les utilités peuvent être utilisées en rapport avec les couleurs (ex: var(--primaire-contenu) = couleur du texte sur le fond de couleur primaire)
   */
 
+  color-scheme: light;
+
   /* Thème défaut (clair) */
   --fond-clair: #fff;
   --fond: #fafafa;
@@ -42,6 +44,8 @@
   }
 
   &[data-theme="dark"] {
+    color-scheme: dark;
+
     /* Thème sombre */
     --fond-clair: #000;
     --fond: #080808;
