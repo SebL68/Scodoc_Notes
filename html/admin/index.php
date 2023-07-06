@@ -27,25 +27,25 @@
         margin-top: 32px;
       }
       .contenu>div>div:nth-child(1){
-        background: #ddd;
+        background: var(--gris-estompe);
       }
     }
     /**********************/
     /*   Zones de choix   */
     /**********************/
     .zone{
-      background: #FFF;
+      background: var(--fond-clair);
       padding: 8px;
       margin-bottom: 8px;
       border-radius: 4px;
-      border: 1px solid #CCC;
+      border: 1px solid var(--gris-estompe);
     }
     select {
       font-size: 21px;
       padding: 10px;
       margin: 5px;
-      background: #09c;
-      color: #FFF;
+      background: var(--primaire);
+      color: var(--primaire-contenu);
       border: none;
       border-radius: 10px;
     }
@@ -67,9 +67,9 @@
     .administrateur, .enseignant {
       user-select: none;
       border-radius: 10px;
-      box-shadow: 0 2px 2px 2px #ddd;
+      box-shadow: var(--box-shadow-2);
       border: 1px solid transparent;
-      background: #FFF;
+      background: var(--fond-clair);
       padding: 10px 20px;
       margin: 10px;
       transition: 0.1s;
@@ -100,8 +100,8 @@
       white-space: nowrap;          /* on interdit le retour à la ligne */
 
       padding: 5px 5px;
-      background: #0C9;
-      color: #fff;
+      background: var(--secondaire);
+      color: var(---secondaire-contenu);
       border-radius: 5px;
     }
     [data-title]:hover:before {
@@ -111,7 +111,7 @@
       left: 50%;
       transform: translateX(-50%);  /* on centre horizontalement  */
       font-size: 20px;
-      color: #0C9;
+      color: var(--secondaire);
     }
     .ready {
       /*opacity: initial;*/
@@ -130,7 +130,7 @@
       margin-left: 10px;
     }
     .modif {
-      background: #0C9;
+      background: var(--secondaire);
     }
     .hide {
       display: none;
@@ -144,6 +144,9 @@
 
   </style>
   <meta name=description content="Gestion des administrateurs - <?php echo $Config->nom_IUT; ?>">
+  <script>
+		<?php include $_SERVER['DOCUMENT_ROOT'] . "/assets/js/theme.js" ?>
+	</script>
 </head>
 
 <body>
@@ -279,7 +282,7 @@
                 </div>
                 <span>
                   <svg onclick="processPerson(this, '${type}')" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Valider</title><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
-                  <svg onclick="cancel(this, '${type}')" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Annuler</title><path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38"/></svg>
+                  <svg onclick="cancel(this, '${type}')" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--contenu)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Annuler</title><path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38"/></svg>
                 </span>
               </div>
             </div>
@@ -311,7 +314,7 @@
                   <span>Suppression de : <b>${nom}</b></span>
                   <span>
                     <svg onclick="deletePerson(this, '${type}')" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Supprimer</title><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path><line x1="18" y1="9" x2="12" y2="15"></line><line x1="12" y1="9" x2="18" y2="15"></line></svg>
-                    <svg onclick="cancel(this, '${type}')" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Annuler</title><path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38"/></svg>
+                    <svg onclick="cancel(this, '${type}')" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--contenu)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Annuler</title><path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38"/></svg>
                   </span>
                 </div>
                 <div class="userInput hide">
@@ -321,7 +324,7 @@
                   </div>
                   <span>
                     <svg onclick="processPerson(this, '${type}')" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Valider</title><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
-                    <svg onclick="cancel(this, '${type}')" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Annuler</title><path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38"/></svg>
+                    <svg onclick="cancel(this, '${type}')" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--contenu)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Annuler</title><path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0 .57-8.38"/></svg>
                   </span>
                 </div>
               </div>

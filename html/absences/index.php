@@ -32,7 +32,7 @@
 /*   Zones de choix   */
 /**********************/
         .zone{
-            background: #FFF;
+            background: var(--fond-clair);
             padding: 8px;
             margin-bottom: 8px;
             border-radius: 4px;
@@ -42,13 +42,13 @@
 			font-size: 21px;
 			padding: 10px;
 			margin: 5px auto;
-			background: #09c;
-			color: #FFF;
+			background: var(--primaire);
+			color: var(--primaire-contenu);
 			border: none;
 			border-radius: 10px;
             max-width: 100%;
             display: table;
-            box-shadow: 0 2px 2px #888;
+            box-shadow: var(--box-shadow);
 		}
         .highlight{
             animation: pioupiou 0.4s infinite ease-in alternate;
@@ -83,8 +83,8 @@
             gap: 4px;
             padding: 10px;
             margin: 2px;
-            background: #09C;
-            color: #FFF;
+            background: var(--primaire);
+            color: var(--primaire-contenu);
             border-radius: 8px;
         }
         @media screen and (max-width: 700px){
@@ -130,7 +130,7 @@
 			cursor: pointer;
 			transition: 0.06s;
 			transition-timing-function: ease-in;
-			background: #FFF;
+			background: var(--fond-clair);
 			box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 			border-radius: 8px;
 		}
@@ -145,7 +145,7 @@
 			flex: 1;
 			position: relative;
 			touch-action: none;
-			background: #FFF;
+			background: var(--fond-clair);
 			box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 			border-radius: 8px;
 		}
@@ -156,7 +156,7 @@
 			bottom: 0;
 			left: 0;
 			background: rgba(0, 204, 153, 0.5);
-			border: 2px solid #0c9;
+			border: 2px solid var(--secondaire);
 			border-radius: 8px;
 			display: flex;
 			justify-content: center;
@@ -170,7 +170,7 @@
 			bottom: 13px;
 			right: -1px;
 			transform: translateX(50%);
-			background: #0c9;
+			background: var(--secondaire);
 			border-radius: 4px;
 			display: flex;
 			cursor: e-resize;
@@ -179,7 +179,7 @@
 		.timeZone>.slider>.sizer::before {
 			content: "";
 			display: inline-block;
-			background: #FFF;
+			background: var(--secondaire);
 			width: 2px;
 			margin: 6px;
 		}
@@ -195,7 +195,7 @@
 			position: relative;
 			width: 2px;
 			height: 16px;
-			background: #424242;
+			background: var(--gris);
 		}
 		.infoHeures>.small{
 			margin-top: 4px;
@@ -239,11 +239,11 @@
 			margin: 0 auto 16px auto;
 			padding: 16px 32px;
 			border-radius: 8px;
-			box-shadow: 0 2px 2px 2px #ddd;
+			box-shadow: var(--box-shadow-2)
 			cursor: pointer;
 		}
 		.validCreneau:hover{
-			box-shadow: 0 2px 2px 2px #bbb;
+			box-shadow: var(--box-shadow-2-hover);
 		}
 /*****************************/
 /* Liste étudiants */
@@ -270,8 +270,8 @@
 		}
 		.btn{
 			border-radius: 10px;
-            box-shadow: 0 2px 2px 2px #ddd;
-			background: #FFF;
+            box-shadow: var(--box-shadow-2);
+			background: var(--fond-clair);
 			cursor: pointer;
 			transition: 0.1s;
 			padding: 4px;
@@ -289,12 +289,12 @@
 		}
 		.miniature>img{
 			pointer-events:none;
-			background: #FFF;
+			background: var(--fond-clair);
 			width: 100%;
 			transition: 0.2s;
 			transform-origin: 0% 100%;
 			border-radius: 8px 0 0 8px;
-			box-shadow: 0 2px 2px 2px #ddd;
+			box-shadow: var(--box-shadow-2);
 		}
 		.miniature:hover>img{
 			transform: translate(38px, -52px) scale( calc(250/38) ) ;
@@ -316,8 +316,8 @@
 			left: 0;
 			right: 0;
 			height: 4px;
-			background: #fff;
-			outline: 1px solid #aaa;
+			background: var(--fond-clair);
+			outline: 1px solid var(--gris-estompe);
 		}
 		.hint>div{
 			position: absolute;
@@ -330,7 +330,7 @@
 			top: calc(100% + 3px);
 			height: 6px;
 			/*background: rgba(0, 204, 153, 0.5);*/
-			outline: 2px solid #0c9;
+			outline: 2px solid var(--secondaire);
 			border-radius: 2px;
 			transition: 0.2s;
 			pointer-events: none;
@@ -380,6 +380,9 @@
         }*/
     </style>
     <meta name=description content="Gestion des absences - <?php echo $Config->nom_IUT; ?>">
+	<script>
+		<?php include $_SERVER['DOCUMENT_ROOT'] . "/assets/js/theme.js" ?>
+	</script>
 </head>
 <body>
     <?php 
@@ -594,7 +597,7 @@
 				<!-- Module choix date / heure -->
 				<div class="date">
 					<div class="info">Vendredi 04/02/2022</div>
-					<svg class="jourMoins" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#424242"
+					<svg class="jourMoins" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="var(--gris)"
 						stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
 						<path d="M15 18l-6-6 6-6"></path>
 					</svg>
@@ -604,7 +607,7 @@
 							<div class="sliderInfo"></div>
 						</div>
 					</div>
-					<svg class="jourPlus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#424242"
+					<svg class="jourPlus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="var(--gris)"
 						stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
 						<path d="M9 18l6-6-6-6"></path>
 					</svg>
@@ -643,16 +646,16 @@
 
 						<div class=grpBtn>
 							<div class=btn data-command=present  title=Présent>
-								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--contenu)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
 							</div>
 							<div class=btn data-command=absent title=Absent>
-								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--contenu)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
 							</div>
 							<div class=btn data-command=retard title="En retard">
-								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--contenu)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
 							</div>
 							<div class=btn data-command=unset title=Annuler>
-								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--contenu)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
 							</div>
 						</div>
         

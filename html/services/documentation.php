@@ -9,17 +9,19 @@
 	<title>Document</title>
 	<link rel="stylesheet" href="prism/prism.css">
 	<style>
+		<?php include $_SERVER['DOCUMENT_ROOT']."/assets/styles/global.css"?>
+		
 		body{
 			font-family: arial;
 			margin: 0;
-			background: #F0F0F0;
+			background: var(--fond);
 		}
 		section{
 			margin: 10px auto 10px auto;
 			padding: 20px;
 			border-radius: 20px;
-			background: #FFF;
-			box-shadow: 0 0 6px #777;
+			background: var(--background);
+			box-shadow: var(--box-shadow);
 			max-width: 1000px;
 		}
 		h1{
@@ -27,16 +29,16 @@
 			top: 0;
 			padding: 10px;
 			margin: 0;
-			background: #09C;
+			background: var(--primaire);
 			color: #FFF;
-			box-shadow: 0 2px 2px #888;
+			box-shadow: var(--box-shadow);
 			z-index: 1;
 		}
 		h2{
 			margin:0;
 			padding: 20px;
-			background: #0C9;
-			color: #FFF;
+			background: var(--secondaire);
+			color: var(--secondaire-contenu);
 			border-radius: 10px;
 			cursor:pointer;
 		}
@@ -46,7 +48,7 @@
 		}
 		h3{
 			display: table;
-			background: #424242;
+			background: var(--gris);
 			padding: 5px;
 			padding-left: 60px;
 			color: #FFF;
@@ -58,6 +60,9 @@
 			cursor: pointer;
 		}
 	</style>
+	<script>
+		<?php include $_SERVER['DOCUMENT_ROOT'] . "/assets/js/theme.js" ?>
+	</script>
 </head>
 <body contenteditable=//true spellcheck=//true>
 	<h1>Documentation générale des API proposées sur "notes"</h1>

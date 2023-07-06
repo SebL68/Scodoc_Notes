@@ -4,11 +4,12 @@
     <meta charset="UTF-8" />
     <title>Fréquentation</title>
 	<style>
+		<?php include $_SERVER['DOCUMENT_ROOT']."/assets/styles/global.css"?>
 		.wait{
 			position: fixed;
 			width: 50px;
 			height: 10px;
-			background: #424242;
+			background: var(--gris);
 			top: 80px;
 			left: 50%;
 			margin-left: -25px;
@@ -18,6 +19,9 @@
 			100%{transform: translateY(-30px) rotate(360deg)}
 		}
 	</style>
+	<script>
+		<?php include $_SERVER['DOCUMENT_ROOT'] . "/assets/js/theme.js" ?>
+	</script>
 </head>
 <body>
     <div class="wait"></div>

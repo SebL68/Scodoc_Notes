@@ -6,20 +6,19 @@
     width: 60px;
     height: 6px;
     margin: auto;
-    background: #424242; /* la réponse à tout */
+    background: var(--gris); /* 42, la réponse à tout */
     animation: wait .4s infinite alternate;
 }
 @keyframes wait{
     100%{transform: translateY(40px) rotate(1turn);}
 }
 main{
-	--couleurPrincipale: rgb(240,250,255);
-    --couleurFondTitresUE: rgb(206,255,235);
-    --couleurFondTitresRes: rgb(125, 170, 255);
-    --couleurFondTitresSAE: rgb(211, 255, 255);
-    --couleurSecondaire: #fec;
-    --couleurIntense: #c09;
-    --couleurSurlignage: rgba(232, 255, 132, 0.47);
+	--couleurPrincipale: var(--releve-principale);
+    --couleurFondTitresUE: var(--releve-fond-titre-ue);
+    --couleurFondTitresRes: var(--releve-fond-titre-res);
+    --couleurFondTitresSAE: var(--releve-fond-titre-sae);
+    --couleurSecondaire: var(--releve-secondaire);
+    --couleurSurlignage: var(--releve-surlignage);
     max-width: 1000px;
     margin: auto;
     display: none;
@@ -31,9 +30,9 @@ h2{
     color: black;
 }
 section{
-    background: #FFF;
+    background: var(--fond-clair);
     border-radius: 16px;
-    border: 1px solid #AAA;
+    border: 1px solid var(--gris-estompe);
     padding: 16px 32px;
     margin: 8px 0;
 }
@@ -47,8 +46,8 @@ section>div:nth-child(1){
     display: flex;
     gap: 4px;
     align-items: center;
-    background: var(--couleurIntense);
-    color: #FFF;
+    background: var(--accent);
+    color: var(--accent-contenu);
     padding: 4px 8px;
     border-radius: 4px;
     box-shadow: 0 2px 2px rgba(0,0,0,0.26);
@@ -58,7 +57,7 @@ section>div:nth-child(1){
     transition: 0.2s;
 }
 .CTA_Liste:hover{
-    outline: 2px solid #424242;
+    outline: 2px solid var(--gris);
 }
 .listeOff svg{
     transform: rotate(180deg);
@@ -114,7 +113,7 @@ section>div:nth-child(1){
 /* Etudiant */
 /************/
 .info_etudiant{
-	color: #000;
+	color: var(--contenu);
 	text-decoration: none;
 }
 .etudiant{
@@ -146,7 +145,7 @@ section>div:nth-child(1){
     gap: 4px;
 }
 .infoSemestre>div{
-    border: 1px solid var(--couleurIntense);
+    border: 1px solid var(--accent);
     padding: 4px 8px;
     border-radius: 4px;
     display: grid;
@@ -171,7 +170,7 @@ section>div:nth-child(1){
 	margin: 5px 0;
 	font-weight: bold;
     font-size: 20px;
-	text-decoration: underline var(--couleurIntense);
+	text-decoration: underline var(--accent);
 }
 .enteteSemestre{
     color:  black;
@@ -209,14 +208,14 @@ section>div:nth-child(1){
 .ueBonus,
 .ueBonus h3{
 	background: var(--couleurFondTitresSAE) !important;
-	color: #000 !important;
+	color: var(--contenu) !important;
 }
 
 /* UE Capitalisée */
 .synthese .ue.capitalisee, 
 .ue.capitalisee>h3{
-	background: #bbb;
-	color: #000;
+	background: var(--gris-estompe);
+	color: var(--contenu);
 }
 .synthese .ue.capitalisee>h3::before{
 	content: "Capitalisée : ";
@@ -233,7 +232,7 @@ section>div:nth-child(1){
 }
 .module, .ue {
     background: var(--couleurSecondaire);
-    color: #000;
+    color: var(--secondaire-contenu);
     border-radius: 4px;
     display: flex;
 	align-items: center;
@@ -301,7 +300,7 @@ h3{
 
 .new-eval::before{
     content: "";
-    background-color: var(--couleurIntense);
+    background-color: var(--accent);
     width: 8px;
     height: 8px;
     border-radius: 50%;
@@ -312,7 +311,7 @@ h3{
 }
 
 .eval:nth-child(2n+1), .syntheseModule:nth-child(2n+1){
-    background: #eee;
+    background: var(--fond);
 }
 
 .eval>div, .syntheseModule>div{
@@ -331,9 +330,9 @@ h3{
     right: 0;
     padding: 8px;
     border-radius: 4px;
-    background: #FFF;
-    color: #000;
-    border: 1px solid var(--couleurIntense);
+    background: var(--fond-clair);
+    color: var(--contenu);
+    border: 1px solid var(--accent);
     opacity: 0;
     display: grid !important;
     grid-template-columns: auto auto;

@@ -6,19 +6,20 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Mises à jour</title>
 	<style>
+		<?php include $_SERVER['DOCUMENT_ROOT']."/assets/styles/global.css"?>
 		body{
 			margin:0;
 			font-family:arial;
-			background: #FAFAFA;
+			background: var(--fond-estompe);
 		}
 		h1{
 			position:sticky;
 			margin: 0;
 			top:0;
 			padding:10px;
-			background:#09C;
-			color:#FFF;
-			box-shadow: 0 2px 2px #888;
+			background: var(--primaire);
+			color: var(--primaire-contenu);
+			box-shadow: var(--box-shadow);
 		}
 
 		h2{
@@ -45,6 +46,9 @@
 			background: initial;
 		}
 	</style>
+	<script>
+		<?php include $_SERVER['DOCUMENT_ROOT'] . "/assets/js/theme.js" ?>
+	</script>
 </head>
 <body>
 	<h1>Historique des mises à jour</h1>
