@@ -1,119 +1,135 @@
-<?php 
-	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
-	require_once "$path/includes/default_config.php";
-	require_once "$path/includes/analytics.class.php";
-	Analytics::add('absences');
+<?php
+$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
+require_once "$path/includes/default_config.php";
+require_once "$path/includes/analytics.class.php";
+Analytics::add('absences');
 ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Absences</title>
-    <style>
-        <?php include $_SERVER['DOCUMENT_ROOT']."/assets/styles/global.css"?>
-        main{
-            margin: 0 auto 20px auto;
-            text-align: center;
-        }
-        .contenu, .etudiants{
-            opacity: 0.5;
-            pointer-events: none;
-            user-select: none;
-        }
-        .ready{
-            opacity: initial;
-            pointer-events: initial;
-        }
-        .capitalize{
-            text-transform: capitalize;
-        }
-/**********************/
-/*   Zones de choix   */
-/**********************/
-        .zone{
-            background: #FFF;
-            padding: 8px;
-            margin-bottom: 8px;
-            border-radius: 4px;
-            border: 1px solid #CCC;
-        }
-		select{
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Absences</title>
+	<style>
+		<?php include $_SERVER['DOCUMENT_ROOT'] . "/assets/styles/global.css" ?>
+		main {
+			margin: 0 auto 20px auto;
+			text-align: center;
+		}
+
+		.contenu,
+		.etudiants {
+			opacity: 0.5;
+			pointer-events: none;
+			user-select: none;
+		}
+
+		.ready {
+			opacity: initial;
+			pointer-events: initial;
+		}
+
+		.capitalize {
+			text-transform: capitalize;
+		}
+
+		/**********************/
+		/*   Zones de choix   */
+		/**********************/
+		.zone {
+			background: var(--fond-clair);
+			padding: 8px;
+			margin-bottom: 8px;
+			border-radius: 4px;
+			border: 1px solid #CCC;
+		}
+
+		select {
 			font-size: 21px;
 			padding: 10px;
 			margin: 5px auto;
-			background: #09c;
-			color: #FFF;
+			background: var(--primaire);
+			color: var(--primaire-contenu);
 			border: none;
 			border-radius: 10px;
-            max-width: 100%;
-            display: table;
-            box-shadow: 0 2px 2px #888;
+			max-width: 100%;
+			display: table;
+			box-shadow: var(--box-shadow);
 		}
-        .highlight{
-            animation: pioupiou 0.4s infinite ease-in alternate;
-        }
-        @keyframes pioupiou{
-            0%{
-                box-shadow: 0 0 4px 0px orange;
-            }
-            100%{
-                box-shadow: 0 0 4px 2px orange;
-            }
-        }
 
-/*******************************/
-/* Listes étudiants */
-/*******************************/
-        .flex{
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-        }
-        
-        .groupes{
-            margin-bottom: 10px;
+		.highlight {
+			animation: pioupiou 0.4s infinite ease-in alternate;
+		}
+
+		@keyframes pioupiou {
+			0% {
+				box-shadow: 0 0 4px 0px orange;
+			}
+
+			100% {
+				box-shadow: 0 0 4px 2px orange;
+			}
+		}
+
+		/*******************************/
+		/* Listes étudiants */
+		/*******************************/
+		.flex {
 			display: flex;
-            justify-content: center;
-        }
-        .groupe{
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            padding: 10px;
-            margin: 2px;
-            background: #09C;
-            color: #FFF;
-            border-radius: 8px;
-        }
-        @media screen and (max-width: 700px){
-            .flex{
-                flex-direction: column-reverse;
-                align-items: center;
-            }
-            .groupes{
-                margin-right: 20px;
-                justify-content: center;
-            }
-        }
-        .selected{
-            opacity: 0.5;
-        }
-        .hide{
-            display: none !important;
-        }
-        .etudiants{
-            counter-reset: cpt;
+			justify-content: center;
+			align-items: flex-start;
+		}
+
+		.groupes {
+			margin-bottom: 10px;
+			display: flex;
+			justify-content: center;
+		}
+
+		.groupe {
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			gap: 4px;
+			padding: 10px;
+			margin: 2px;
+			background: var(--primaire);
+			color: var(--primaire-contenu);
+			border-radius: 8px;
+		}
+
+		@media screen and (max-width: 700px) {
+			.flex {
+				flex-direction: column-reverse;
+				align-items: center;
+			}
+
+			.groupes {
+				margin-right: 20px;
+				justify-content: center;
+			}
+		}
+
+		.selected {
+			opacity: 0.5;
+		}
+
+		.hide {
+			display: none !important;
+		}
+
+		.etudiants {
+			counter-reset: cpt;
 			display: grid;
 			justify-content: center;
 			gap: 2px;
-        }
-       
-/*****************************/
-/* Module choix heure / date */
-/*****************************/
-		.date{
+		}
+
+		/*****************************/
+		/* Module choix heure / date */
+		/*****************************/
+		.date {
 			display: grid;
 			grid-template-columns: 60px 1fr 60px;
 			column-gap: 8px;
@@ -130,7 +146,7 @@
 			cursor: pointer;
 			transition: 0.06s;
 			transition-timing-function: ease-in;
-			background: #FFF;
+			background: var(--fond-clair);
 			box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 			border-radius: 8px;
 		}
@@ -145,7 +161,7 @@
 			flex: 1;
 			position: relative;
 			touch-action: none;
-			background: #FFF;
+			background: var(--fond-clair);
 			box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 			border-radius: 8px;
 		}
@@ -156,7 +172,7 @@
 			bottom: 0;
 			left: 0;
 			background: rgba(0, 204, 153, 0.5);
-			border: 2px solid #0c9;
+			border: 2px solid var(--secondaire);
 			border-radius: 8px;
 			display: flex;
 			justify-content: center;
@@ -170,7 +186,7 @@
 			bottom: 13px;
 			right: -1px;
 			transform: translateX(50%);
-			background: #0c9;
+			background: var(--secondaire);
 			border-radius: 4px;
 			display: flex;
 			cursor: e-resize;
@@ -179,7 +195,7 @@
 		.timeZone>.slider>.sizer::before {
 			content: "";
 			display: inline-block;
-			background: #FFF;
+			background: var(--fond-clair);
 			width: 2px;
 			margin: 6px;
 		}
@@ -195,9 +211,10 @@
 			position: relative;
 			width: 2px;
 			height: 16px;
-			background: #424242;
+			background: var(--gris);
 		}
-		.infoHeures>.small{
+
+		.infoHeures>.small {
 			margin-top: 4px;
 			height: 8px;
 		}
@@ -208,30 +225,37 @@
 			left: 1px;
 			transform: translateX(-50%);
 		}
+
 		/*@media screen and (max-width: 600px) {*/
-			.date{
-				gap: 8px;
-			}
-			.date>.info{
-				grid-column: span 1;
-				align-self: center;
-			}
-			.date>.jourMoins{
-				grid-row: 1;
-			}
-			.date>.jourPlus{
-				grid-row: 1;
-				grid-column: 3;
-			}
-			.date>.timeZone{
-				grid-column: span 3;
-			}
-			.date>.infoHeures{
-				margin: -16px 0 0 0;
-			}
+		.date {
+			gap: 8px;
+		}
+
+		.date>.info {
+			grid-column: span 1;
+			align-self: center;
+		}
+
+		.date>.jourMoins {
+			grid-row: 1;
+		}
+
+		.date>.jourPlus {
+			grid-row: 1;
+			grid-column: 3;
+		}
+
+		.date>.timeZone {
+			grid-column: span 3;
+		}
+
+		.date>.infoHeures {
+			margin: -16px 0 0 0;
+		}
+
 		/*}*/
 
-		.validCreneau{
+		.validCreneau {
 			font-size: 21px;
 			color: #fff;
 			background: #90c;
@@ -239,325 +263,354 @@
 			margin: 0 auto 16px auto;
 			padding: 16px 32px;
 			border-radius: 8px;
-			box-shadow: 0 2px 2px 2px #ddd;
+			box-shadow: var(--box-shadow-2);
 			cursor: pointer;
 		}
-		.validCreneau:hover{
-			box-shadow: 0 2px 2px 2px #bbb;
+
+		.validCreneau:hover {
+			box-shadow: var(--box-shadow-2-hover);
 		}
-/*****************************/
-/* Liste étudiants */
-/*****************************/
-        .btnAbsences{
-            position: relative;
-            text-align: left;
-            padding: 4px 4px 6px 20px;
+
+		/*****************************/
+		/* Liste étudiants */
+		/*****************************/
+		.btnAbsences {
+			position: relative;
+			text-align: left;
+			padding: 4px 4px 6px 20px;
 			margin: 0px 22px 0px 62px;
 			border-radius: 12px;
 
 			display: flex;
 			flex-wrap: wrap;
 			align-items: center;
-            gap:6px;
+			gap: 6px;
 			row-gap: 10px;
-        }
-		.btnAbsences:hover{
+		}
+
+		.btnAbsences:hover {
 			background: #ccc;
 		}
-		.grpBtn{
+
+		.grpBtn {
 			display: flex;
-			gap:4px;
+			gap: 4px;
 		}
-		.btn{
+
+		.btn {
 			border-radius: 10px;
-            box-shadow: 0 2px 2px 2px #ddd;
-			background: #FFF;
+			box-shadow: var(--box-shadow-2);
+			background: var(--fond-clair);
 			cursor: pointer;
 			transition: 0.1s;
 			padding: 4px;
 		}
-		.miniature{
+
+		.miniature {
 			position: absolute;
 			top: -2px;
-			left:-34px;
+			left: -34px;
 			width: 38px;
 			height: 48px;
-			
+
 		}
-		.miniature:hover{
+
+		.miniature:hover {
 			z-index: 1;
 		}
-		.miniature>img{
-			pointer-events:none;
-			background: #FFF;
+
+		.miniature>img {
+			pointer-events: none;
+			background: var(--fond-clair);
 			width: 100%;
 			transition: 0.2s;
 			transform-origin: 0% 100%;
 			border-radius: 8px 0 0 8px;
-			box-shadow: 0 2px 2px 2px #ddd;
+			box-shadow: var(--box-shadow-2);
 		}
-		.miniature:hover>img{
-			transform: translate(38px, -52px) scale( calc(250/38) ) ;
+
+		.miniature:hover>img {
+			transform: translate(38px, -52px) scale(calc(250/38));
 			border-radius: 2px;
 			box-shadow: none;
 		}
-        .btnAbsences>.nomEtudiants::before{
-            counter-increment: cpt;
-            content: counter(cpt) " - ";
-            display: inline-block;
-        }
-        .btnAbsences>.nomEtudiants{
-            flex: 1;
+
+		.btnAbsences>.nomEtudiants::before {
+			counter-increment: cpt;
+			content: counter(cpt) " - ";
+			display: inline-block;
+		}
+
+		.btnAbsences>.nomEtudiants {
+			flex: 1;
 			position: relative;
-        }
-		.hint{
+		}
+
+		.hint {
 			position: absolute;
 			top: calc(100% + 4px);
 			left: 0;
 			right: 0;
 			height: 4px;
-			background: #fff;
-			outline: 1px solid #aaa;
+			background: var(--fond-clair);
+			outline: 1px solid var(--gris-estompe);
 		}
-		.hint>div{
+
+		.hint>div {
 			position: absolute;
 			top: 0;
 			bottom: 0;
 			background: red;
 		}
-		.hintCreneau{
+
+		.hintCreneau {
 			position: absolute;
 			top: calc(100% + 3px);
 			height: 6px;
 			/*background: rgba(0, 204, 153, 0.5);*/
-			outline: 2px solid #0c9;
+			outline: 2px solid var(--secondaire);
 			border-radius: 2px;
 			transition: 0.2s;
 			pointer-events: none;
 		}
-		.btn{
+
+		.btn {
 			display: flex;
 		}
-		.btn:hover{
+
+		.btn:hover {
 			outline: 1px solid #90c;
 		}
-        .btn:active{
-            transform: translateY(2px);
-            box-shadow: 0 0 0 0 #777;
-            outline: 1px solid #777;
-            transition: 0s;
-			z-index: 1;
-        }
 
-		[data-command=present]{
-            background: rgba(0, 188, 212, 0.1);
-        }
-        [data-command=absent]{
-            background: rgba(236, 112, 104, 0.1);
-        }
-		[data-command=retard]{
-            background: rgba(243, 160, 39, 0.1);
-        }
-		[data-command=unset]{
-            background: #ddd;
-        }
+		.btn:active {
+			transform: translateY(2px);
+			box-shadow: 0 0 0 0 #777;
+			outline: 1px solid #777;
+			transition: 0s;
+			z-index: 1;
+		}
+
+		[data-command=present] {
+			background: rgba(0, 188, 212, 0.1);
+		}
+
+		[data-command=absent] {
+			background: rgba(236, 112, 104, 0.1);
+		}
+
+		[data-command=retard] {
+			background: rgba(243, 160, 39, 0.1);
+		}
+
+		[data-command=unset] {
+			background: #ddd;
+		}
+
 		/*************************/
 		[data-statut=present] [data-command=present],
-		.hint [data-statut=present]{
-            background: #00bcd4 !important;
-        }
-        [data-statut=absent] [data-command=absent],
-		.hint [data-statut=absent]{
-            background: #ec7068 !important;
-        }
+		.hint [data-statut=present] {
+			background: #00bcd4 !important;
+		}
+
+		[data-statut=absent] [data-command=absent],
+		.hint [data-statut=absent] {
+			background: #ec7068 !important;
+		}
+
 		[data-statut=retard] [data-command=retard],
-		.hint [data-statut=retard]{
-            background: #f3a027 !important;
-        }
-        /*[data-statut=excuse] [data-command=present],
+		.hint [data-statut=retard] {
+			background: #f3a027 !important;
+		}
+
+		/*[data-statut=excuse] [data-command=present],
 		.hint [data-statut=present]{
-            background: #0C9 !important;
-        }*/
-    </style>
-    <meta name=description content="Gestion des absences - <?php echo $Config->nom_IUT; ?>">
+			background: #0C9 !important;
+		}*/
+	</style>
+	<script>
+		<?php include $_SERVER['DOCUMENT_ROOT'] . "/assets/js/theme.js" ?>
+	</script>
+	<meta name=description content="Gestion des absences - <?php echo $Config->nom_IUT; ?>">
 </head>
+
 <body>
-    <?php 
-        $h1 = 'Absences';
-        include $_SERVER['DOCUMENT_ROOT']."/assets/header.php";
-    ?>
-    <main>
-        <p>
-            Bonjour <span class=nom></span>. 
-        </p>
+	<?php
+	$h1 = 'Absences';
+	include $_SERVER['DOCUMENT_ROOT'] . "/assets/header.php";
+	?>
+	<main>
+		<p>
+			Bonjour <span class=nom></span>.
+		</p>
 
-        <div class="zone">
-            <select id=departement class=highlight onchange="clearStorage(['semestre', 'matiere']);selectDepartment(this.value)">
-                <option value="" disabled selected hidden>Choisir un département</option>
-                <?php
-                    require_once "$path/includes/".$Config->service_data_class;		// Class service_data - typiquement Scodoc
-					$Scodoc = new Scodoc();
-					$listDepartement = $Scodoc->getDepartmentsList();
-                    foreach($listDepartement as $departement){
-                        echo '<option value=' . $departement['code'] . '>' . $departement['nom'] . '</option>';
-                    }
-                ?>
-            </select>
+		<div class="zone">
+			<select id=departement class=highlight
+				onchange="clearStorage(['semestre', 'matiere']);selectDepartment(this.value)">
+				<option value="" disabled selected hidden>Choisir un département</option>
+				<?php
+				require_once "$path/includes/" . $Config->service_data_class; // Class service_data - typiquement Scodoc
+				$Scodoc = new Scodoc();
+				$listDepartement = $Scodoc->getDepartmentsList();
+				foreach ($listDepartement as $departement) {
+					echo '<option value=' . $departement['code'] . '>' . $departement['nom'] . '</option>';
+				}
+				?>
+			</select>
 
-            <select id=semestre onchange="clearStorage(['matiere']);selectSemester(this.value)" disabled>
-                <option value="" disabled selected hidden>Choisir un semestre</option>
-            </select>
+			<select id=semestre onchange="clearStorage(['matiere']);selectSemester(this.value)" disabled>
+				<option value="" disabled selected hidden>Choisir un semestre</option>
+			</select>
 
-            <select id=matiere onchange="selectMatiere(this.value)" disabled>
-                <option value="" disabled selected hidden>Choisir une matière</option>
-            </select>
-        </div>
-   
+			<select id=matiere onchange="selectMatiere(this.value)" disabled>
+				<option value="" disabled selected hidden>Choisir une matière</option>
+			</select>
+		</div>
 
-        <div class=contenu></div>
-        <div class=wait></div>
-        
-    </main>
 
-    <div class=auth>
-        <!-- Site en maintenance -->
-        Authentification en cours ...
-    </div>
-    <script>
+		<div class=contenu></div>
+		<div class=wait></div>
+
+	</main>
+
+	<div class=auth>
+		<!-- Site en maintenance -->
+		Authentification en cours ...
+	</div>
+	<script>
 		<?php
-            include "$path/includes/clientIO.php";
-		?>  
-        document.querySelector("#absences").classList.add("navActif");
-/*********************************************/
-/* Vérifie l'identité de la personne et son statut
-/*********************************************/		
-        var session = "";
-        var statutSession = "";
-        async function checkStatut(){
-            let data = await fetchData("donnéesAuthentification");
-            session = data.session;
-            let auth = document.querySelector(".auth");
-            auth.style.opacity = "0";
-            auth.style.pointerEvents = "none";
-            statutSession = data.statut;
+		include "$path/includes/clientIO.php";
+		?>
+		document.querySelector("#absences").classList.add("navActif");
+		/*********************************************/
+		/* Vérifie l'identité de la personne et son statut
+		/*********************************************/
+		var session = "";
+		var statutSession = "";
+		async function checkStatut() {
+			let data = await fetchData("donnéesAuthentification");
+			session = data.session;
+			let auth = document.querySelector(".auth");
+			auth.style.opacity = "0";
+			auth.style.pointerEvents = "none";
+			statutSession = data.statut;
 
-            if(data.statut >= PERSONNEL){
-                /* Gestion du storage remettre le même état au retour */
-                let departement = localStorage.getItem("departement");
-                if(departement){
-                    document.querySelector("#departement").value = departement;
-                    selectDepartment(departement);
-                }
+			if (data.statut >= PERSONNEL) {
+				/* Gestion du storage remettre le même état au retour */
+				let departement = localStorage.getItem("departement");
+				if (departement) {
+					document.querySelector("#departement").value = departement;
+					selectDepartment(departement);
+				}
 
 			} else {
 				document.querySelector(".contenu").innerHTML = "Ce contenu est uniquement accessible pour des personnels de l'IUT. ";
 			}
-        }
-/*********************************************/
-/* Récupère et traite les listes d'étudiants du département */
-/*********************************************/		
-        var departement = "";
-        var semestre = "";
-        var matiere = "";
-        var UE = "";
-        var matiereComplet = "";
-        var dataEtudiants;
+		}
+		/*********************************************/
+		/* Récupère et traite les listes d'étudiants du département */
+		/*********************************************/
+		var departement = "";
+		var semestre = "";
+		var matiere = "";
+		var UE = "";
+		var matiereComplet = "";
+		var dataEtudiants;
 		var moduleDate;
 
-        async function selectDepartment(dep){
-            departement = dep;
-			let data = await fetchData("semestresDépartement&dep="+departement);
-			
+		async function selectDepartment(dep) {
+			departement = dep;
+			let data = await fetchData("semestresDépartement&dep=" + departement);
+
 			let select = document.querySelector("#semestre");
 			select.innerHTML = `<option value="" disabled selected hidden>Choisir un semestre</option>`;
-			data.forEach(function(semestre){
+			data.forEach(function (semestre) {
 				let option = document.createElement("option");
 				option.value = semestre.id;
 				option.innerText = `${semestre.titre_long} - semestre ${semestre.num}`;
 				select.appendChild(option);
-            });
-            document.querySelector("#departement").classList.remove("highlight");
-            document.querySelector(".contenu").classList.remove("ready");
-            select.disabled = false;
-            select.classList.add("highlight");
-            document.querySelector("#matiere").disabled = true;
+			});
+			document.querySelector("#departement").classList.remove("highlight");
+			document.querySelector(".contenu").classList.remove("ready");
+			select.disabled = false;
+			select.classList.add("highlight");
+			document.querySelector("#matiere").disabled = true;
 
-            /* Gestion du storage remettre le même état au retour */
-            localStorage.setItem('departement', departement);
+			/* Gestion du storage remettre le même état au retour */
+			localStorage.setItem('departement', departement);
 
-            let semestre = localStorage.getItem("semestre");
-            if(semestre){
-                document.querySelector("#semestre").value = semestre;
-				if(document.querySelector("#semestre").value){
+			let semestre = localStorage.getItem("semestre");
+			if (semestre) {
+				document.querySelector("#semestre").value = semestre;
+				if (document.querySelector("#semestre").value) {
 					selectSemester(semestre);
 				} else {
 					document.querySelector("#semestre").value = "";
 				}
-            }
+			}
 		}
-		
-		async function selectSemester(sem){
-            semestre = sem;
-            let data = await fetchData(`modules&semestre=${semestre}`);
+
+		async function selectSemester(sem) {
+			semestre = sem;
+			let data = await fetchData(`modules&semestre=${semestre}`);
 
 			let select = document.querySelector("#matiere");
 			select.innerHTML = `<option value="" disabled selected hidden>Choisir une matière</option>`;
-			data.modules.forEach(module=>{
+			data.modules.forEach(module => {
 				let option = document.createElement("option");
 				option.value = module.code;
 				option.innerText = module.code + " - " + module.titre;
 				select.appendChild(option);
-            });
-			data.saes?.forEach(module=>{
+			});
+			data.saes?.forEach(module => {
 				let option = document.createElement("option");
 				option.value = module.code;
 				option.innerText = module.code + " - " + module.titre;
 				select.appendChild(option);
-            });
-			
-            document.querySelector("#semestre").classList.remove("highlight");
-            select.disabled = false;
-            document.querySelector(".contenu").classList.remove("ready");
-            select.classList.add("highlight");
+			});
 
-            getStudentsListes();
-            /* Gestion du storage remettre le même état au retour */
-            localStorage.setItem('semestre', semestre);
+			document.querySelector("#semestre").classList.remove("highlight");
+			select.disabled = false;
+			document.querySelector(".contenu").classList.remove("ready");
+			select.classList.add("highlight");
 
-            let matiere = localStorage.getItem("matiere");
-            if(matiere){
-                document.querySelector("#matiere").value = matiere;
-				if(document.querySelector("#matiere").value){
+			getStudentsListes();
+			/* Gestion du storage remettre le même état au retour */
+			localStorage.setItem('semestre', semestre);
+
+			let matiere = localStorage.getItem("matiere");
+			if (matiere) {
+				document.querySelector("#matiere").value = matiere;
+				if (document.querySelector("#matiere").value) {
 					selectMatiere(matiere);
 				} else {
 					document.querySelector("#matiere").value = "";
 				}
-            }
+			}
 		}
-        
-        async function selectMatiere(mat){
-            matiere = mat;
-            let obj = document.querySelector('#matiere [value="'+matiere+'"]');
-            matiereComplet = obj.innerText;
-            UE = obj.parentElement.label;
+
+		async function selectMatiere(mat) {
+			matiere = mat;
+			let obj = document.querySelector('#matiere [value="' + matiere + '"]');
+			matiereComplet = obj.innerText;
+			UE = obj.parentElement.label;
 
 			document.querySelector(".contenu").classList.add("ready");
-            document.querySelector("#matiere").classList.remove("highlight");
-            /* Gestion du storage remettre le même état au retour */
-            localStorage.setItem('matiere', matiere);
-        }
+			document.querySelector("#matiere").classList.remove("highlight");
+			/* Gestion du storage remettre le même état au retour */
+			localStorage.setItem('matiere', matiere);
+		}
 
-        async function getStudentsListes(){
-            dataEtudiants = await fetchData(`listeEtudiantsSemestre&semestre=${semestre}&absences=true`);
-            document.querySelector(".contenu").innerHTML = createSemester(dataEtudiants);
+		async function getStudentsListes() {
+			dataEtudiants = await fetchData(`listeEtudiantsSemestre&semestre=${semestre}&absences=true`);
+			document.querySelector(".contenu").innerHTML = createSemester(dataEtudiants);
 
-			document.querySelector(".validCreneau").addEventListener("click", function(){
+			document.querySelector(".validCreneau").addEventListener("click", function () {
 				this.style.display = "none";
 				document.querySelector(".etudiants").classList.add("ready");
 			});
 
-			document.querySelectorAll(".btn").forEach(btn=>{ 
-				btn.addEventListener("click", setAbsence) 
+			document.querySelectorAll(".btn").forEach(btn => {
+				btn.addEventListener("click", setAbsence)
 			});
 
 			moduleDate = new choixDate(
@@ -571,30 +624,30 @@
 			);
 
 			moduleDate.doCallback();
-            //showAbsences();  
-        }
+			//showAbsences();  
+		}
 
-        function clearStorage(keys){
-            keys.forEach(function(key){
-                localStorage.removeItem(key);
-            });
-        }
+		function clearStorage(keys) {
+			keys.forEach(function (key) {
+				localStorage.removeItem(key);
+			});
+		}
 
-        function createSemester(liste){
+		function createSemester(liste) {
 			var output = "";
 
-            var groupes = "";
-            if(liste.groupes.length > 1){
-                liste.groupes.forEach(groupe=>{
-                    groupes += `<div class=groupe data-groupe="${groupe}" onclick="hideGroupe(this)">${groupe}</div>`;
-                })
-            }
-            output += `
+			var groupes = "";
+			if (liste.groupes.length > 1) {
+				liste.groupes.forEach(groupe => {
+					groupes += `<div class=groupe data-groupe="${groupe}" onclick="hideGroupe(this)">${groupe}</div>`;
+				})
+			}
+			output += `
 				<div class=groupes>${groupes}</div>
 				<!-- Module choix date / heure -->
 				<div class="date">
 					<div class="info">Vendredi 04/02/2022</div>
-					<svg class="jourMoins" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#424242"
+					<svg class="jourMoins" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="var(--gris)"
 						stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
 						<path d="M15 18l-6-6 6-6"></path>
 					</svg>
@@ -604,7 +657,7 @@
 							<div class="sliderInfo"></div>
 						</div>
 					</div>
-					<svg class="jourPlus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#424242"
+					<svg class="jourPlus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="var(--gris)"
 						stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
 						<path d="M9 18l6-6-6-6"></path>
 					</svg>
@@ -613,15 +666,15 @@
 				<div class="validCreneau">Valider le créneau</div>
 				<!-- / -->
 				<div class=etudiants>${createStudents(liste.etudiants)}</div>
-            `;
+			`;
 
-            return output;
-        }
+			return output;
+		}
 
-        function createStudents(etudiants){
+		function createStudents(etudiants) {
 			var output = "";
-           
-			etudiants.forEach(etudiant=>{
+
+			etudiants.forEach(etudiant => {
 				output += `
 					<div class="btnAbsences ${etudiant.groupe?.replace(/ |\./g, "") || "Groupe1"}"
 						data-nom="${etudiant.nom}" 
@@ -643,60 +696,60 @@
 
 						<div class=grpBtn>
 							<div class=btn data-command=present  title=Présent>
-								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--contenu)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
 							</div>
 							<div class=btn data-command=absent title=Absent>
-								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--contenu)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
 							</div>
 							<div class=btn data-command=retard title="En retard">
-								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--contenu)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
 							</div>
 							<div class=btn data-command=unset title=Annuler>
-								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--contenu)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
 							</div>
 						</div>
-        
-                    </div>
+		
+					</div>
 				`;
 			})
 			return output;
 		}
 
-		function hideGroupe(obj){
+		function hideGroupe(obj) {
 			let nbSelected = obj.parentElement.querySelectorAll(".selected").length;
 			let nbBtn = obj.parentElement.children.length;
-			
-			if(nbSelected == 0){
-				Array.from(obj.parentElement.children).forEach(e=>{
+
+			if (nbSelected == 0) {
+				Array.from(obj.parentElement.children).forEach(e => {
 					e.classList.toggle("selected");
 				})
 			}
 			obj.classList.toggle("selected");
 
 			nbSelected = obj.parentElement.querySelectorAll(".selected").length;
-			if(nbSelected == nbBtn){
-				Array.from(obj.parentElement.children).forEach(e=>{
+			if (nbSelected == nbBtn) {
+				Array.from(obj.parentElement.children).forEach(e => {
 					e.classList.toggle("selected");
 				})
 			}
-			
+
 			let groupesSelected = [];
-			obj.parentElement.querySelectorAll(":not(.selected)").forEach(e=>{
+			obj.parentElement.querySelectorAll(":not(.selected)").forEach(e => {
 				groupesSelected.push(e.dataset.groupe);
 			})
 
-			document.querySelectorAll(".btnAbsences").forEach(e=>{
-				if(groupesSelected.includes(e.dataset.groupe)){
+			document.querySelectorAll(".btnAbsences").forEach(e => {
+				if (groupesSelected.includes(e.dataset.groupe)) {
 					e.classList.remove("hide")
 				} else {
 					e.classList.add("hide")
-				}	
+				}
 			})
-        }
+		}
 
-/*****************************/
-/* Module choix date / heure */
-/*****************************/
+		/*****************************/
+		/* Module choix date / heure */
+		/*****************************/
 		class choixDate {
 			constructor(config) {
 				this.heureDebut = config.heureDebut || 8;
@@ -734,7 +787,7 @@
 				let output = "";
 
 				for (let i = this.heureDebut; i <= this.heureFin; i += this.pas) {
-					output += `<div class=${(i % 1 != 0) ? "small" :""}>
+					output += `<div class=${(i % 1 != 0) ? "small" : ""}>
 									<div>${(i % 1 == 0) ? i :/*Math.floor(i)+"<sup>½</sup>"*/""}</div>
 								</div>`;
 				}
@@ -773,8 +826,8 @@
 				}
 			}
 
-			doCallback(){
-				if(typeof(this.callback) === "function"){
+			doCallback() {
+				if (typeof (this.callback) === "function") {
 					this.callback(
 						{
 							date: this.date.toISOString().split("T")[0],
@@ -868,15 +921,15 @@
 				this.slider.style.width = size + "%";
 
 				let numSize = Math.round(parseInt(this.slider.style.width) / this.pasSize);
-				if(numSize == 0) numSize = 1;
+				if (numSize == 0) numSize = 1;
 				this.slider.children[1].innerText = floatToHour(numSize * this.pas);
 				event.preventDefault();
 			}
 
 			sizerStopGrab(event) {
 				let numSize = Math.round(parseInt(this.slider.style.width) / this.pasSize);
-				if(numSize == 0) numSize = 1;
-				this.slider.style.width =  `calc(${numSize * this.pasSize}% + 2px)`;
+				if (numSize == 0) numSize = 1;
+				this.slider.style.width = `calc(${numSize * this.pasSize}% + 2px)`;
 				this.slider.children[1].innerText = "";
 
 				this.dureeSeance = this.pas * numSize;
@@ -892,43 +945,43 @@
 
 		}
 
-/*************************************/
-/* Gestion des dates et des absences */
-/*************************************/
+		/*************************************/
+		/* Gestion des dates et des absences */
+		/*************************************/
 		let creneau;
-        function setDate(data){
+		function setDate(data) {
 			creneau = data;
 			document.querySelector(".validCreneau").innerText = `Valider le créneau ${floatToHour(creneau.debut)} - ${floatToHour(creneau.fin)}`;
 			showAbsences();
-        }
+		}
 
-        async function setAbsence(){
+		async function setAbsence() {
 			let etudiant = this.parentElement.parentElement;
 
-			if(	this.dataset.command == "unset" && 
+			if (this.dataset.command == "unset" &&
 				(
 					etudiant.dataset.statut == "unset" ||
 					etudiant.dataset.statut == "" ||
 					etudiant.dataset.statut == undefined
 				)
-			){
+			) {
 				return;
 			}
 
 			etudiant.dataset.statut = this.dataset.command;
 
-			let reponse = await fetchData("setAbsence" + 
-                "&semestre=" + semestre +
-                "&matiere=" + matiere +
-                "&matiereComplet=" + matiereComplet +
-                "&etudiant=" + etudiant.dataset.nip +
-                "&date=" + creneau.date +
-                "&debut=" + creneau.debut +
-                "&fin=" + creneau.fin +
-                "&statut=" + this.dataset.command
-            );
+			let reponse = await fetchData("setAbsence" +
+				"&semestre=" + semestre +
+				"&matiere=" + matiere +
+				"&matiereComplet=" + matiereComplet +
+				"&etudiant=" + etudiant.dataset.nip +
+				"&date=" + creneau.date +
+				"&debut=" + creneau.debut +
+				"&fin=" + creneau.fin +
+				"&statut=" + this.dataset.command
+			);
 
-			if(reponse.problem) {
+			if (reponse.problem) {
 				etudiant.dataset.statut = "";
 				message(reponse.problem);
 				return;
@@ -940,9 +993,9 @@
 			data = data[creneau.date] ??= [];
 
 			let found = false;
-			for(var i=0 ; i<data.length ; i++){
-				if(data[i].debut == creneau.debut && data[i].fin == creneau.fin){
-					if(this.dataset.command == "unset"){
+			for (var i = 0; i < data.length; i++) {
+				if (data[i].debut == creneau.debut && data[i].fin == creneau.fin) {
+					if (this.dataset.command == "unset") {
 						etudiant.querySelector(".hint").children[i].remove();
 						dataEtudiants.absences[etudiant.dataset.nip][creneau.date].splice(i, 1);
 					} else {
@@ -954,7 +1007,7 @@
 				}
 			}
 
-			if(!found){
+			if (!found) {
 				dataEtudiants.absences[etudiant.dataset.nip][creneau.date][i] = {
 					UE: UE,
 					debut: creneau.debut,
@@ -972,29 +1025,29 @@
 					matiereComplet
 				)
 			}
-			
-        }
 
-        function showAbsences(){
-            document.querySelectorAll(".btnAbsences[data-statut]").forEach(e=>e.dataset.statut = "");
-			document.querySelectorAll(".hint").forEach(e=>e.innerHTML = "");
+		}
+
+		function showAbsences() {
+			document.querySelectorAll(".btnAbsences[data-statut]").forEach(e => e.dataset.statut = "");
+			document.querySelectorAll(".hint").forEach(e => e.innerHTML = "");
 
 			let posiDebut = (moduleDate.debut - moduleDate.heureDebut) / (moduleDate.heureFin - moduleDate.heureDebut) * 100;
 			let tailleDuree = (moduleDate.fin - moduleDate.debut) / (moduleDate.heureFin - moduleDate.heureDebut) * 100;
 
-			document.querySelectorAll(".hintCreneau").forEach(e=>{
+			document.querySelectorAll(".hintCreneau").forEach(e => {
 				e.style.left = posiDebut + "%";
 				e.style.width = tailleDuree + "%";
 			});
 
-            Object.entries(dataEtudiants.absences).forEach(([etudiant, datesAbsences])=>{
-                datesAbsences[creneau.date]?.forEach( absenceJour=>{
-					
+			Object.entries(dataEtudiants.absences).forEach(([etudiant, datesAbsences]) => {
+				datesAbsences[creneau.date]?.forEach(absenceJour => {
+
 					let ligne = document.querySelector(`[data-nip="${etudiant}"]`);
 
-					if(ligne){
-						if(absenceJour.debut == creneau.debut 
-							&& absenceJour.fin == creneau.fin ) {
+					if (ligne) {
+						if (absenceJour.debut == creneau.debut
+							&& absenceJour.fin == creneau.fin) {
 							ligne.dataset.statut = absenceJour.statut;
 						}
 
@@ -1007,38 +1060,39 @@
 							absenceJour.matiereComplet
 						)
 					}
-                })
-            })
-        }
+				})
+			})
+		}
 
-		function addHint(target, debut, fin, statut, enseignant, matiere){
+		function addHint(target, debut, fin, statut, enseignant, matiere) {
 			let posiDebut = (debut - moduleDate.heureDebut) / (moduleDate.heureFin - moduleDate.heureDebut) * 100;
 			let tailleDuree = (fin - debut) / (moduleDate.heureFin - moduleDate.heureDebut) * 100;
-					
+
 			target.innerHTML += `<div style="left:${posiDebut}%;width:${tailleDuree}%" data-statut="${statut}" title="${enseignant} - ${matiere}"></div>`;
 		}
 
-        function message(msg){
-            var div = document.createElement("div");
-            div.className = "message";
-            div.innerHTML = msg;
-            document.querySelector("body").appendChild(div);
-            setTimeout(()=>{
-                div.remove();
-            }, 3000);
-        }
-
-		function floatToHour(heure){
-			return Math.floor(heure) + "h"+ ((heure%1*60 < 10)?"0"+heure%1*60 : heure%1*60)
+		function message(msg) {
+			var div = document.createElement("div");
+			div.className = "message";
+			div.innerHTML = msg;
+			document.querySelector("body").appendChild(div);
+			setTimeout(() => {
+				div.remove();
+			}, 3000);
 		}
 
-/***************************/
-/* C'est parti !
-/***************************/
-        checkStatut();
-    </script>
-    <?php 
-        include "$path/config/analytics.php";
-    ?>
+		function floatToHour(heure) {
+			return Math.floor(heure) + "h" + ((heure % 1 * 60 < 10) ? "0" + heure % 1 * 60 : heure % 1 * 60)
+		}
+
+		/***************************/
+		/* C'est parti !
+		/***************************/
+		checkStatut();
+	</script>
+	<?php
+	include "$path/config/analytics.php";
+	?>
 </body>
+
 </html>

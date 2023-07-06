@@ -1,50 +1,58 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Trombinoscope</title>
 	<style>
-		body{
+		body {
 			font-family: arial;
-			background: #fafafa;
+			background: var(--fond);
 			text-align: center;
 		}
-		.groupes{
+
+		.groupes {
 			display: flex;
 			justify-content: center;
 			gap: 4px;
 			margin-bottom: 8px;
 		}
-		.groupes>div{
+
+		.groupes>div {
 			padding: 4px 8px;
 			border-radius: 4px;
-			border: 1px solid #bbb;
+			border: 1px solid var(--gris);
 		}
-		.trombi>a{
-			border: 1px solid #bbb;
+
+		.trombi>a {
+			border: 1px solid var(--gris);
 			margin: 4px;
 			width: 240px;
 			display: inline-block;
 			vertical-align: top;
 			text-decoration: none;
-			color: #000;
+			color: var(--contenu);
 		}
-		.trombi>a>div{
+
+		.trombi>a>div {
 			padding: 4px;
 		}
-		img{
+
+		img {
 			width: 100%;
 		}
-		@media print{
-			.trombi>div{
+
+		@media print {
+			.trombi>div {
 				width: 110px;
 				font-size: 12px;
 			}
 		}
 	</style>
 </head>
+
 <body>
 	<h1></h1>
 	<main>
@@ -57,13 +65,13 @@
 		document.querySelector("h1").innerText = data.titre;
 
 		let output = "";
-		data.groupes.forEach(groupe=>{
+		data.groupes.forEach(groupe => {
 			output += `<div>${groupe}</div>`;
 		})
 		document.querySelector(".groupes").innerHTML = output;
 
 		output = "";
-		data.etudiants.forEach(etudiant=>{
+		data.etudiants.forEach(etudiant => {
 			output += `<a href="../?ask_student=${etudiant.nip}">
 				<img src="data.php?q=getStudentPic&nip=${etudiant.nip}">
 				<div>${etudiant.prenom}<br><b>${etudiant.nom}</b><br>${etudiant.groupe}</div>
@@ -75,4 +83,5 @@
 
 	</script>
 </body>
+
 </html>

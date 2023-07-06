@@ -1,76 +1,77 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-	<style>
-		body{
-			display: inline-grid;
-			grid-template-columns: 1fr 1fr 1fr 1fr;
-			gap: 4px;
-			font-family: arial;
-			margin: 50px;
-		}
-		div{
-			background: #09c;
-			padding: 4px 8px;
-			color: #fff;
-		}
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        display: inline-grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 4px;
+        font-family: arial;
+        margin: 50px;
+      }
+      div {
+        background: var(--primaire);
+        padding: 4px 8px;
+        color: #fff;
+      }
 
-/***********************************/
-/* C'est ici que c'est intéressant */
-/***********************************/
-		[titleCustom]{
-			position: relative;
-			cursor: pointer;
-		}
-		[titleCustom]::before{
-			content: attr(titleCustom);
-			position: absolute;
-			bottom: 100%;
-			left: 50%;
-			transform: translate(-50%, -4px);
-			background: #424242; /* La réponse à tout */
-			opacity: 0;
-			pointer-events: none;
-			transition: 0.1s;
-			border-radius: 2px;
-			padding: 2px 4px;
-		}
-		[titleCustom]::after{
-			content: "";
-			border: 4px solid transparent;
-			border-top-color: #424242;
-			transition: 0.1s;
-			opacity: 0;
-			pointer-events: none;
-			position: absolute;
-			bottom: 100%;
-			left: 50%;
-			transform: translate(-4px, 4px);
-		}
-		[titleCustom]:hover::before, [titleCustom]:hover::after{
-			opacity: 1;
-		}
-/***********************************/
-/* Fin                             */
-/***********************************/
-	</style>
-</head>
-<body>
-	<div title="Coucou">Bla bla bla</div>
-	<div title="Coucou">Bla bla bla</div>
-	<div title="Coucou">Bla bla bla</div>
-	<div title="Coucou">Bla bla bla</div>
-	<div title="Coucou">Bla bla bla</div>
+      /***********************************/
+      /* C'est ici que c'est intéressant */
+      /***********************************/
+      [titleCustom] {
+        position: relative;
+        cursor: pointer;
+      }
+      [titleCustom]::before {
+        content: attr(titleCustom);
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translate(-50%, -4px);
+        background: #424242; /* La réponse à tout */
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.1s;
+        border-radius: 2px;
+        padding: 2px 4px;
+      }
+      [titleCustom]::after {
+        content: "";
+        border: 4px solid transparent;
+        border-top-color: #424242;
+        transition: 0.1s;
+        opacity: 0;
+        pointer-events: none;
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translate(-4px, 4px);
+      }
+      [titleCustom]:hover::before,
+      [titleCustom]:hover::after {
+        opacity: 1;
+      }
+      /***********************************/
+      /* Fin                             */
+      /***********************************/
+    </style>
+  </head>
+  <body>
+    <div title="Coucou">Bla bla bla</div>
+    <div title="Coucou">Bla bla bla</div>
+    <div title="Coucou">Bla bla bla</div>
+    <div title="Coucou">Bla bla bla</div>
+    <div title="Coucou">Bla bla bla</div>
 
-	<script>
-		document.querySelectorAll("[title]").forEach(e=>{
-			e.setAttribute("titleCustom", e.title);
-			e.removeAttribute("title");
-		})
-	</script>
-</body>
+    <script>
+      document.querySelectorAll("[title]").forEach((e) => {
+        e.setAttribute("titleCustom", e.title);
+        e.removeAttribute("title");
+      });
+    </script>
+  </body>
 </html>

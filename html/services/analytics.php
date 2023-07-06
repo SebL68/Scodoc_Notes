@@ -1,36 +1,41 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-    <meta charset="UTF-8" />
-    <title>Fréquentation</title>
+	<meta charset="UTF-8" />
+	<title>Fréquentation</title>
 	<style>
-		.wait{
+		.wait {
 			position: fixed;
 			width: 50px;
 			height: 10px;
-			background: #424242;
+			background: var(--gris);
 			top: 80px;
 			left: 50%;
 			margin-left: -25px;
 			animation: wait 0.6s ease-out alternate infinite;
 		}
-		@keyframes wait{
-			100%{transform: translateY(-30px) rotate(360deg)}
+
+		@keyframes wait {
+			100% {
+				transform: translateY(-30px) rotate(360deg)
+			}
 		}
 	</style>
 </head>
+
 <body>
-    <div class="wait"></div>
+	<div class="wait"></div>
 	<canvas id="myChart" width="400" height="400"></canvas>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script>
 
 		<?php
-			$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
-			include "$path/includes/clientIO.php";
+		$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
+		include "$path/includes/clientIO.php";
 		?>
 
-		async function getData(){
+		async function getData() {
 			let data = await fetchData("getAnalyticsData");
 
 			const ctx = document.getElementById('myChart').getContext('2d');
@@ -52,21 +57,18 @@
 						}]
 					}]
 				},
-				
+
 			});
 		}
 
 		getData();
 
-		function accumulator(data, duration){
-			
+		function accumulator(data, duration) {
+
 		}
-		
+
 	</script>
 
 </body>
+
 </html>
-
-
-
-
