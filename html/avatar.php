@@ -8,7 +8,7 @@
 	<style>
 		body{
 			font-family: arial;
-			background: #F0F0F0;
+			background: var(--fond);
 		}
 		.grab *{
 			cursor: grabbing !important;
