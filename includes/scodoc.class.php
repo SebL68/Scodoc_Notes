@@ -333,7 +333,6 @@ class Scodoc{
 
 	*******************************/
 	public function getStudentsInSemester($sem){
-		$sem = 446;
 		$json = json_decode(
 			$this->Ask_Scodoc("formsemestre/$sem/etudiants/long/query", ['etat' => "I"])
 		);
