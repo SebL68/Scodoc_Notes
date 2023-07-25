@@ -19,13 +19,12 @@
 			100%{transform: translateY(-30px) rotate(360deg)}
 		}
 	</style>
-	<script>
-		<?php include $_SERVER['DOCUMENT_ROOT'] . "/assets/js/theme.js" ?>
-	</script>
 </head>
 <body>
     <div class="wait"></div>
 	<canvas id="myChart" width="400" height="400"></canvas>
+
+	<script src="../assets/js/theme.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script>
 

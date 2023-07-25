@@ -46,9 +46,6 @@
 			background: initial;
 		}
 	</style>
-	<script>
-		<?php include $_SERVER['DOCUMENT_ROOT'] . "/assets/js/theme.js" ?>
-	</script>
 </head>
 <body>
 	<h1>Historique des mises à jour</h1>
@@ -453,6 +450,7 @@ chmod 744 installOrUpdate.sh
 			</ul>
 		</p>
 	</main>
+	<script src="assets/js/theme.js"></script>
 	<?php 
 		$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 		include "$path/config/analytics.php";

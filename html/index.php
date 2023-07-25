@@ -138,9 +138,6 @@
 			}
 		</style>
 		<meta name=description content="Relevé de notes - <?php echo $Config->nom_IUT; ?>">
-		<script>
-			<?php include $_SERVER['DOCUMENT_ROOT'] . "/assets/js/theme.js" ?>
-		</script>
 	</head>
 	<body class="<?php
 		if($Config->afficher_absences == false){
@@ -195,6 +192,7 @@
 			Authentification en cours ...
 		</div>
 
+		<script src="assets/js/theme.js"></script>
 		<script src="assets/js/releve-dut.js"></script>
 		<script src="assets/js/releve-but.js"></script>
 		<script>

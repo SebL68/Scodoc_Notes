@@ -6,11 +6,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Trombinoscope</title>
 	<style>
-        <?php include $_SERVER['DOCUMENT_ROOT']."/assets/styles/global.css"?>
 
 		body{
 			font-family: arial;
-			background: var(--fond);
+			background: #fafafa;
 			text-align: center;
 		}
 		.groupes{
@@ -22,16 +21,16 @@
 		.groupes>div{
 			padding: 4px 8px;
 			border-radius: 4px;
-			border: 1px solid var(--gris-estompe);
+			border: 1px solid #bbb;
 		}
 		.trombi>a{
-			border: 1px solid var(--gris-estompe);
+			border: 1px solid #bbb;
 			margin: 4px;
 			width: 240px;
 			display: inline-block;
 			vertical-align: top;
 			text-decoration: none;
-			color: var(--contenu);
+			color: #000;
 		}
 		.trombi>a>div{
 			padding: 4px;
@@ -46,9 +45,6 @@
 			}
 		}
 	</style>
-	<script>
-		<?php include $_SERVER['DOCUMENT_ROOT'] . "/assets/js/theme.js" ?>
-	</script>
 </head>
 <body>
 	<h1></h1>

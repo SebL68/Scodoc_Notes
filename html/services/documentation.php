@@ -60,9 +60,6 @@
 			cursor: pointer;
 		}
 	</style>
-	<script>
-		<?php include $_SERVER['DOCUMENT_ROOT'] . "/assets/js/theme.js" ?>
-	</script>
 </head>
 <body contenteditable=//true spellcheck=//true>
 	<h1>Documentation générale des API proposées sur "notes"</h1>
@@ -359,6 +356,7 @@ function fetchData(query){
 		</div>
 	</section>
 	-->
+	<script src="../assets/js/theme.js"></script>
 	<script>
 		document.querySelectorAll("h2").forEach(
 			e=>e.addEventListener(

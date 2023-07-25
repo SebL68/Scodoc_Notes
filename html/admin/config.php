@@ -80,9 +80,6 @@
 		}
 	</style>
 	<meta name=description content="Gestion des administrateurs - <?php echo $Config->nom_IUT; ?>">
-	<script>
-		<?php include $_SERVER['DOCUMENT_ROOT'] . "/assets/js/theme.js" ?>
-	</script>
 </head>
 
 <body>
@@ -275,6 +272,8 @@
 		<!-- Site en maintenance -->
 		Authentification en cours ...
 	</div>
+	
+	<script src="../assets/js/theme.js"></script>
 	<script>
 		checkStatut();
 		getConfig();

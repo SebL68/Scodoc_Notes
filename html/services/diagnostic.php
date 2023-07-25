@@ -6,17 +6,15 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Diagnostic</title>
 	<style>
-		<?php include $_SERVER['DOCUMENT_ROOT']."/assets/styles/global.css"?>
-
 		body{
-			background: var(--fond-inverse);
-			color: var(--contenu-inverse);
+			background: #111;
+			color: #FFF;
 			font-family: arial;
 			margin: 0;
 		}
 		h1{margin-left: 64px;}
 		h2{
-			background: var(--primaire);
+			background: #09c;
 			padding: 8px 64px;
 		}
 		body>div{
@@ -52,9 +50,6 @@
 			margin-bottom: 16px;
 		}
 	</style>
-	<script>
-		<?php include $_SERVER['DOCUMENT_ROOT'] . "/assets/js/theme.js" ?>
-	</script>
 </head>
 <body>
 	<h1>Diagnostique de la passerelle</h1>

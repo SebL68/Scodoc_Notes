@@ -4,23 +4,6 @@
 	<nav>
 		<svg onclick="this.parentElement.parentElement.classList.toggle('ouvert')" xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="var(--primaire-contenu)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
 
-		<button>
-			<svg width="42" height="42" stroke-width="2" viewBox="0 0 24 24" onclick="toggleTheme()" fill="none"
-				id="theme-clair" xmlns="http://www.w3.org/2000/svg" stroke="var(--primaire-contenu)" stroke-width="2"
-				stroke-linecap="round" stroke-linejoin="round">
-				<path
-					d="M12 18a6 6 0 100-12 6 6 0 000 12zM22 12h1M12 2V1M12 23v-1M20 20l-1-1M20 4l-1 1M4 20l1-1M4 4l1 1M1 12h1">
-				</path>
-			</svg>
-			<svg width="42" height="42" stroke-width="2" viewBox="0 0 24 24" onclick="toggleTheme()" fill="none"
-				id="theme-sombre" xmlns="http://www.w3.org/2000/svg" stroke="var(--primaire-contenu)" stroke-width="2"
-				stroke-linecap="round" stroke-linejoin="round">
-				<path
-					d="M3 11.507a9.493 9.493 0 0018 4.219c-8.507 0-12.726-4.22-12.726-12.726A9.494 9.494 0 003 11.507z">
-				</path>
-			</svg>
-		</button>
-
 		<a class="nav" id="notes" href="/">Notes</a>
 		<a class="nav" id="documents" href="/services/studentsLists.php">Documents</a>
 
@@ -32,4 +15,13 @@
 
 		<a href=/logout.php>Déconnexion</a>
 	</nav>
+
+	<div class="theme" onclick="toggleTheme()">
+		<div class=cercle></div>
+		<div class=logo>
+			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+			
+			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>
+		</div>
+	</div>
 </header>

@@ -27,7 +27,6 @@ main{
 .ready main{display: block;}
 h2{
     margin: 0;
-    color: black;
 }
 section{
     background: var(--fond-clair);
@@ -173,7 +172,6 @@ section>div:nth-child(1){
 	text-decoration: underline var(--accent);
 }
 .enteteSemestre{
-    color:  black;
     font-weight: bold;
     font-size: 20px;
     margin-bottom: 4px;

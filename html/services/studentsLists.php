@@ -131,9 +131,6 @@
         }
     </style>
     <meta name=description content="Interface documents - <?php echo $Config->nom_IUT; ?>">
-    <script>
-		<?php include $_SERVER['DOCUMENT_ROOT'] . "/assets/js/theme.js" ?>
-	</script>
 </head>
 <body>		
     <?php 
@@ -170,6 +167,7 @@
         <!-- Site en maintenance -->
         Authentification en cours ...
     </div>
+	<script src="../assets/js/theme.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx-populate/1.21.0/xlsx-populate.min.js"></script>
     <script>
         checkStatut();

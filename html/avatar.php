@@ -134,9 +134,6 @@
 		}
 		
 	</style>
-	<script>
-		<?php include $_SERVER['DOCUMENT_ROOT'] . "/assets/js/theme.js" ?>
-	</script>
 </head>
 <body>
 	<div class="imageManager">
@@ -174,7 +171,7 @@
 		</div>
 		
 	</div>
-
+	<script src="assets/js/theme.js"></script>
 	<script>
 		document.querySelector(".dropZone").addEventListener("drop", dropFile);
 		document.querySelector(".dropZone input").addEventListener("change", dropFile);

@@ -330,7 +330,7 @@ class Scodoc{
 				etc.
 			]
 		}
- 
+
 	*******************************/
 	public function getStudentsInSemester($sem){
 		$json = json_decode(

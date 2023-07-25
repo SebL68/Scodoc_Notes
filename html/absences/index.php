@@ -146,7 +146,7 @@
 			position: relative;
 			touch-action: none;
 			background: var(--fond-clair);
-			box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+			box-shadow: var(--box-shadow);
 			border-radius: 8px;
 		}
 
@@ -380,9 +380,6 @@
         }*/
     </style>
     <meta name=description content="Gestion des absences - <?php echo $Config->nom_IUT; ?>">
-	<script>
-		<?php include $_SERVER['DOCUMENT_ROOT'] . "/assets/js/theme.js" ?>
-	</script>
 </head>
 <body>
     <?php 
@@ -426,6 +423,8 @@
         <!-- Site en maintenance -->
         Authentification en cours ...
     </div>
+	
+	<script src="../assets/js/theme.js"></script>
     <script>
 		<?php
             include "$path/includes/clientIO.php";
