@@ -333,6 +333,7 @@ class Scodoc{
 
 	*******************************/
 	public function getStudentsInSemester($sem){
+		$sem = 446;
 		$json = json_decode(
 			$this->Ask_Scodoc("formsemestre/$sem/etudiants/long/query", ['etat' => "I"])
 		);
@@ -340,20 +341,18 @@ class Scodoc{
 		$groupes = [];
 		$output_json = [];
 		foreach($json as $value){
-			if(end($value->groups)){
-				$groupe = end($value->groups)->group_name;
-			} else {
-				$groupe = 'Groupe 1';
-			}
-			
-			if(!in_array($groupe, $groupes)){
-				$groupes[] = $groupe;
+			$studentGroups = [];
+			foreach($value->groups as $group){
+				$partition = $group->partition_name;
+				$studentGroups[] = $group->group_name;
+				$groupe = $group->group_name;
+				$groupes[$partition][] = $groupe;
 			}
 
 			$output_json[] = [
 				'nom' => $value->nom,
 				'prenom' => $value->prenom,
-				'groupe' => $groupe,
+				'groupes' => $studentGroups,
 				'nip' => $value->code_nip,
 				'idcas' => Annuaire::getStudentIdCASFromNumber($value->code_nip),
 				'date_naissance' => $value->date_naissance,
@@ -362,7 +361,11 @@ class Scodoc{
 
 			];
 		}
-		sort($groupes);
+		foreach($groupes as &$partition){
+			$partition = array_unique($partition);
+			sort($partition);
+		}
+		
 		return [
 			'groupes' => $groupes, 
 			'etudiants' => $output_json

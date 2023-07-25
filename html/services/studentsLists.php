@@ -219,17 +219,29 @@
 			var output = "";
 
 			data.forEach(semestre=>{
-                var groupes = "";
+                /*var groupes = "";
                 if(semestre.groupes.length > 1){
                     semestre.groupes.forEach(groupe=>{
                         groupes += `<div class=groupe data-groupe="${groupe}" onclick="hideGroupe(this)">${groupe}</div>`;
                     })
-                }
+                }*/
+
+				var groupesOutput = "";
+				let arrGroupes = Object.entries(semestre.groupes);
+				if(arrGroupes[0].length > 1){
+					arrGroupes.forEach(([partition, groupes])=>{
+						groupesOutput += `
+						<div class=partition>
+							<b>${partition}</b>
+							${createGroupes(groupes)}
+						</div>`;
+					})
+				}
 				output += `
                     <h2 onclick="hideSemester(this)">${semestre.titre}</h2>
                     <div class="flex hide">
                         <div>
-                            <div class="groupes">${groupes}</div>
+                            <div class="groupes">${groupesOutput}</div>
                             <div class="etudiants">${createStudents(semestre.etudiants)}</div>
                         </div>
 						<div>
@@ -260,15 +272,24 @@
             return output;
         }
 
+		function createGroupes(groupesArray){
+			let groupes = "";
+			groupesArray.forEach(groupe=>{
+				groupes += `<div class=groupe data-groupe="${groupe}" onclick="hideGroupe(this)">${groupe}</div>`;
+			})
+			return groupes;
+		}
+
         function createStudents(etudiant){
 			var output = "";
            
 			etudiant.forEach(etudiant=>{
+				let groupes = etudiant.groupes.join(" / ") || "Groupe1";
 				output += `
 					<a href="/?ask_student=${etudiant.nip}"
                         data-nom="${etudiant.nom}" 
                         data-prenom="${etudiant.prenom}" 
-                        data-groupe="${etudiant.groupe}"
+                        data-groupe="${groupes}"
                         data-num="${etudiant.nip}"
                         data-idcas="${etudiant.idcas}"
 						data-datenaissance="${etudiant.date_naissance?.split("-").reverse().join("/") || "Non défini"}"><table><td>${etudiant.nom}</td> <td>${etudiant.prenom}</td></table>
@@ -281,7 +302,7 @@
         function hideSemester(obj){
             obj.nextElementSibling.classList.toggle("hide");
         }
-		function hideGroupe(obj){
+		/*function hideGroupe(obj){
 			let nbSelected = obj.parentElement.querySelectorAll(".selected").length;
 			let nbBtn = obj.parentElement.children.length;
 			
@@ -311,7 +332,40 @@
 					e.classList.add("hide")
 				}	
 			})
+        }*/
+
+		function hideGroupe(obj){
+			let nbSelected = obj.parentElement.parentElement.querySelectorAll(".selected").length;
+			let nbBtn = obj.parentElement.parentElement.querySelectorAll(".groupe").length;
+			
+			if(nbSelected == 0){
+				Array.from(obj.parentElement.parentElement.querySelectorAll(".groupe")).forEach(e=>{
+					e.classList.toggle("selected");
+				})
+			}
+			obj.classList.toggle("selected");
+
+			nbSelected = obj.parentElement.parentElement.querySelectorAll(".selected").length;
+			if(nbSelected == nbBtn){
+				Array.from(obj.parentElement.parentElement.querySelectorAll(".groupe")).forEach(e=>{
+					e.classList.toggle("selected");
+				})
+			}
+			
+			let groupesSelected = [];
+			obj.parentElement.parentElement.querySelectorAll(".groupe:not(.selected)").forEach(e=>{
+				groupesSelected.push(e.dataset.groupe);
+			})
+
+			Array.from(obj.parentElement.parentElement.nextElementSibling.children).forEach(e=>{
+				if(groupesSelected.some(valeur => e.dataset.groupe.includes(valeur))){
+					e.classList.remove("hide")
+				} else {
+					e.classList.add("hide")
+				}	
+			})
         }
+
         function concat(obj){
             if(obj.classList.toggle("selected")){
                 document.querySelectorAll(".etudiants>a").forEach(function(e){

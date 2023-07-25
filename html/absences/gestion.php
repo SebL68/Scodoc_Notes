@@ -425,16 +425,27 @@
 				<button onclick="createSemesterReport({boursiers:true})">Rapport d'absences boursiers</button>
 			`:"";
 
-            var groupes = "";
+           /* var groupes = "";
             if(liste.groupes.length > 1){
                 liste.groupes.forEach(groupe=>{
                     groupes += `<div class=groupe data-groupe="${groupe}" onclick="hideGroupe(this)">${groupe}</div>`;
+                })
+            }*/
+			var groupesOutput = "";
+			let arrGroupes = Object.entries(liste.groupes);
+            if(arrGroupes[0].length > 1){
+                arrGroupes.forEach(([partition, groupes])=>{
+					groupesOutput += `
+					<div class=partition>
+						<b>${partition}</b>
+						${createGroupes(groupes)}
+					</div>`;
                 })
             }
             output += `
 				<div class=flex>
 					<div>
-						<div class=groupes>${groupes}</div>
+						<div class=groupes>${groupesOutput}</div>
 						<div class=date>
 
 							<svg onclick=changeDate(-1) xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
@@ -451,6 +462,14 @@
 
             return output;
         }
+
+		function createGroupes(groupesArray){
+			let groupes = "";
+			groupesArray.forEach(groupe=>{
+				groupes += `<div class=groupe data-groupe="${groupe}" onclick="hideGroupe(this)">${groupe}</div>`;
+			})
+			return groupes;
+		}
 
         function createStudents(etudiants){
 			let output = `
@@ -474,14 +493,15 @@
 			`;
 
 			etudiants.forEach(etudiant=>{
+				let groupes = etudiant.groupes.join(" / ") || "Groupe1";
 				output += `
 					<div>
-						<div class="btnAbsences ${etudiant.groupe?.replace(/ |\./g, "")}" 
+						<div class="btnAbsences" 
 							data-nom="${etudiant.nom}" 
 							data-prenom="${etudiant.prenom}" 
-							data-groupe="${etudiant.groupe}"
+							data-groupe="${groupes}"
 							data-nip="${etudiant.nip}"
-                            title="${etudiant.groupe} - Télécharger le rapport d'absence de l'étudiant"
+                            title="${groupes} - Télécharger le rapport d'absence de l'étudiant"
                             onclick="createStudentReport(this)">
 								<img src="../services/data.php?q=getStudentPic&nip=${etudiant.nip}" alt="etudiant" width="250" height="350">
 								<div>
@@ -504,7 +524,7 @@
 			document.querySelector(".semaine").children[obj.dataset.day].classList.remove("showDay");
 		}
 
-		function hideGroupe(obj, num){
+		/*function hideGroupe(obj){
 			let nbSelected = obj.parentElement.querySelectorAll(".selected").length;
 			let nbBtn = obj.parentElement.children.length;
 			
@@ -530,6 +550,38 @@
 
 			document.querySelectorAll(".btnAbsences").forEach(e=>{
 				if(groupesSelected.includes(e.dataset.groupe)){
+					e.parentElement.classList.remove("hide")
+				} else {
+					e.parentElement.classList.add("hide")
+				}	
+			})
+        }*/
+
+		function hideGroupe(obj){
+			let nbSelected = obj.parentElement.parentElement.querySelectorAll(".selected").length;
+			let nbBtn = obj.parentElement.parentElement.querySelectorAll(".groupe").length;
+			
+			if(nbSelected == 0){
+				Array.from(obj.parentElement.parentElement.querySelectorAll(".groupe")).forEach(e=>{
+					e.classList.toggle("selected");
+				})
+			}
+			obj.classList.toggle("selected");
+
+			nbSelected = obj.parentElement.parentElement.querySelectorAll(".selected").length;
+			if(nbSelected == nbBtn){
+				Array.from(obj.parentElement.parentElement.querySelectorAll(".groupe")).forEach(e=>{
+					e.classList.toggle("selected");
+				})
+			}
+			
+			let groupesSelected = [];
+			obj.parentElement.parentElement.querySelectorAll(".groupe:not(.selected)").forEach(e=>{
+				groupesSelected.push(e.dataset.groupe);
+			})
+
+			document.querySelectorAll(".btnAbsences").forEach(e=>{
+				if(groupesSelected.some(valeur => e.dataset.groupe.includes(valeur))){
 					e.parentElement.classList.remove("hide")
 				} else {
 					e.parentElement.classList.add("hide")

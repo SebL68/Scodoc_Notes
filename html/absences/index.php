@@ -583,14 +583,19 @@
         function createSemester(liste){
 			var output = "";
 
-            var groupes = "";
-            if(liste.groupes.length > 1){
-                liste.groupes.forEach(groupe=>{
-                    groupes += `<div class=groupe data-groupe="${groupe}" onclick="hideGroupe(this)">${groupe}</div>`;
+            var groupesOutput = "";
+			let arrGroupes = Object.entries(liste.groupes);
+            if(arrGroupes[0].length > 1){
+                arrGroupes.forEach(([partition, groupes])=>{
+					groupesOutput += `
+					<div class=partition>
+						<b>${partition}</b>
+						${createGroupes(groupes)}
+					</div>`;
                 })
             }
             output += `
-				<div class=groupes>${groupes}</div>
+				<div class=groupes>${groupesOutput}</div>
 				<!-- Module choix date / heure -->
 				<div class="date">
 					<div class="info">Vendredi 04/02/2022</div>
@@ -618,17 +623,26 @@
             return output;
         }
 
+		function createGroupes(groupesArray){
+			let groupes = "";
+			groupesArray.forEach(groupe=>{
+				groupes += `<div class=groupe data-groupe="${groupe}" onclick="hideGroupe(this)">${groupe}</div>`;
+			})
+			return groupes;
+		}
+
         function createStudents(etudiants){
 			var output = "";
            
 			etudiants.forEach(etudiant=>{
+				let groupes = etudiant.groupes.join(" / ") || "Groupe1";
 				output += `
-					<div class="btnAbsences ${etudiant.groupe?.replace(/ |\./g, "") || "Groupe1"}"
+					<div class="btnAbsences"
 						data-nom="${etudiant.nom}" 
 						data-prenom="${etudiant.prenom}" 
-						data-groupe="${etudiant.groupe}"
+						data-groupe="${groupes}"
 						data-nip="${etudiant.nip}"
-						title="${etudiant.groupe}">
+						title="${groupes}">
 
 						<div class="miniature" onclick="event.stopPropagation()">
 							<img src="../services/data.php?q=getStudentPic&nip=${etudiant.nip}">
@@ -663,30 +677,30 @@
 		}
 
 		function hideGroupe(obj){
-			let nbSelected = obj.parentElement.querySelectorAll(".selected").length;
-			let nbBtn = obj.parentElement.children.length;
+			let nbSelected = obj.parentElement.parentElement.querySelectorAll(".selected").length;
+			let nbBtn = obj.parentElement.parentElement.querySelectorAll(".groupe").length;
 			
 			if(nbSelected == 0){
-				Array.from(obj.parentElement.children).forEach(e=>{
+				Array.from(obj.parentElement.parentElement.querySelectorAll(".groupe")).forEach(e=>{
 					e.classList.toggle("selected");
 				})
 			}
 			obj.classList.toggle("selected");
 
-			nbSelected = obj.parentElement.querySelectorAll(".selected").length;
+			nbSelected = obj.parentElement.parentElement.querySelectorAll(".selected").length;
 			if(nbSelected == nbBtn){
-				Array.from(obj.parentElement.children).forEach(e=>{
+				Array.from(obj.parentElement.parentElement.querySelectorAll(".groupe")).forEach(e=>{
 					e.classList.toggle("selected");
 				})
 			}
 			
 			let groupesSelected = [];
-			obj.parentElement.querySelectorAll(":not(.selected)").forEach(e=>{
+			obj.parentElement.parentElement.querySelectorAll(".groupe:not(.selected)").forEach(e=>{
 				groupesSelected.push(e.dataset.groupe);
 			})
 
 			document.querySelectorAll(".btnAbsences").forEach(e=>{
-				if(groupesSelected.includes(e.dataset.groupe)){
+				if(groupesSelected.some(valeur => e.dataset.groupe.includes(valeur))){
 					e.classList.remove("hide")
 				} else {
 					e.classList.add("hide")
