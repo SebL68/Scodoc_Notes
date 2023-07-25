@@ -1,27 +1,27 @@
 main{
-	--couleurPrincipale: #09c;
-    --couleurFondTitresUE: #09c;
-    --couleurFondTitresRes: rgb(125, 170, 255);
-    --couleurFondTitresSAE: #ffc828;
-    --couleurSecondaire: #00be82;
-    --couleurIntense: #c09;
-    --couleurSurlignage: #c09;
+	--couleurPrincipale: var(--primaire);
+    --couleurFondTitresUE: var(--primaire);
+    --couleurFondTitresRes: var(--releve-fond-titre-res);
+    --couleurFondTitresSAE: var(--releve-fond-titre-sae);
+    --couleurSecondaire: var(--secondaire);
+    --couleurIntense: var(--accent);
+    --couleurSurlignage: var(--accent);
 }
 .info_etudiant, .ue, .module{
-	color: #FFF;
+	color: var(--contenu-inverse);
 }
 .module>div{
 	display: none;
 }
 .sae .module{
-	color: #1e1e1e;
+	color: var(--fond-inverse);
 }
 .sae .module::before {
     /* Passer le glyphe SVG du blanc au noir en utilisant le filtre inverser */
     filter: invert(1);
 }
 .eval:hover, .syntheseModule:hover{
-    color: #FFF;
+    color: var(--contenu-inverse);
 }
 .dateInscription{
 	display: none;

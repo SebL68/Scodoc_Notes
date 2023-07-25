@@ -19,23 +19,23 @@
 /*   Zones de choix   */
 /**********************/
         .zone{
-            background: #FFF;
+            background: var(--fond-clair);
             padding: 8px;
             margin-bottom: 8px;
             border-radius: 4px;
-            border: 1px solid #CCC;
+            border: 1px solid var(--gris-estompe);
         }
 		select{
 			font-size: 21px;
 			padding: 10px;
 			margin: 5px auto;
-			background: #09c;
-			color: #FFF;
+			background: var(--primaire);
+			color: var(--primaire-contenu);
 			border: none;
 			border-radius: 10px;
             max-width: 100%;
             display: table;
-            box-shadow: 0 2px 2px #888;
+            box-shadow: var(--box-shadow);
 		}
         .highlight{
             animation: pioupiou 0.4s infinite ease-in alternate;
@@ -73,8 +73,8 @@
             gap: 4px;
             padding: 10px;
             margin: 2px;
-            background: #09C;
-            color: #FFF;
+            background: var(--primaire);
+            color: var(--primaire-contenu);
             border-radius: 8px;
         }
         .petit{
@@ -105,11 +105,11 @@
         }
 		.etudiants>a{
 			text-decoration: none;
-			color: #000;
+			color: var(--contenu);
 			display: block;
 		}
 		.etudiants>a:nth-child(odd){
-			background: #eee;
+			background: var(--fond);
 		}
         .etudiants>a:before{
             counter-increment: cpt;
@@ -167,6 +167,7 @@
         <!-- Site en maintenance -->
         Authentification en cours ...
     </div>
+	<script src="../assets/js/theme.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx-populate/1.21.0/xlsx-populate.min.js"></script>
     <script>
         checkStatut();
@@ -246,23 +247,23 @@
                         </div>
 						<div>
 							<div class=groupe onclick="processTrombi(this)">
-							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"><path pathLenght="100" d="M18 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8c0-1.1.9-2 2-2h5M15 3h6v6M10 14L20.2 3.8"/></svg>
+							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--contenu-inverse)" stroke-width="1.5" stroke-linecap="round"><path pathLenght="100" d="M18 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8c0-1.1.9-2 2-2h5M15 3h6v6M10 14L20.2 3.8"/></svg>
 								Trombinoscope
 							</div>
 							<div class=groupe onclick="processSigning(this)">
-								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"><path pathLenght="100" d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M17 9l-5 5-5-5M12 12.8V2.5"/></svg>
+								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--contenu-inverse)" stroke-width="1.5" stroke-linecap="round"><path pathLenght="100" d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M17 9l-5 5-5-5M12 12.8V2.5"/></svg>
 								Feuille d'émargement
 							</div>
 							<div class=groupe onclick="processGroups(this)">
-								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"><path pathLenght="100" d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M17 9l-5 5-5-5M12 12.8V2.5"/></svg>
+								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--contenu-inverse)" stroke-width="1.5" stroke-linecap="round"><path pathLenght="100" d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M17 9l-5 5-5-5M12 12.8V2.5"/></svg>
 								Groupes étudiants
 							</div>
                             <div class=groupe onclick="processNotes(this)">
-								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"><path pathLenght="100" d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M17 9l-5 5-5-5M12 12.8V2.5"/></svg>
+								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--contenu-inverse)" stroke-width="1.5" stroke-linecap="round"><path pathLenght="100" d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M17 9l-5 5-5-5M12 12.8V2.5"/></svg>
 								Retours notes
 							</div>
                             <div class=groupe onclick="processStudentsData(this)">
-								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"><path pathLenght="100" d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M17 9l-5 5-5-5M12 12.8V2.5"/></svg>
+								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--contenu-inverse)" stroke-width="1.5" stroke-linecap="round"><path pathLenght="100" d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M17 9l-5 5-5-5M12 12.8V2.5"/></svg>
 								Données étudiants
 							</div>
 						</div>

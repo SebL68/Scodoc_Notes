@@ -47,7 +47,7 @@
 /*   Zones de choix   */
 /**********************/
         .zone{
-            background: #FFF;
+            background: var(--fond-clair);
             padding: 8px;
             margin-bottom: 8px;
             border-radius: 4px;
@@ -57,13 +57,13 @@
 			font-size: 21px;
 			padding: 10px;
 			margin: 5px auto;
-			background: #09c;
-			color: #FFF;
+			background: var(--primaire);
+			color: var(--primaire-contenu);
 			border: none;
 			border-radius: 10px;
             max-width: 100%;
             display: table;
-            box-shadow: 0 2px 2px #888;
+            box-shadow: var(--box-shadow);
 		}
         .highlight{
             animation: pioupiou 0.4s infinite ease-in alternate;
@@ -84,12 +84,12 @@
 			border: 1px solid #CCC;
 			border-radius: 4px;
 			padding: 8px 16px;
-			background: #FFF;
+			background: var(--fond-clair);
 			cursor: pointer;
 		}
 		.contenu>button:hover{
-			background: #0C9;
-			color: #FFF;
+			background: var(--secondaire);
+			color: var(--secondaire-contenu);
 		}
         .flex{
             display: flex;
@@ -108,8 +108,8 @@
             gap: 4px;
             padding: 10px;
             margin: 2px;
-            background: #09C;
-            color: #FFF;
+            background: var(--primaire);
+            color: var(--primaire-contenu);
             border-radius: 8px;
         }
         @media screen and (max-width: 1120px){
@@ -140,8 +140,8 @@
             justify-content: space-between;
             align-items: center;
             font-size: 20px;
-            background: #0C9;
-            color: #FFF;
+            background: var(--secondaire);
+            color: var(----secondaire-contenu);
             border-radius: 10px;
             border: none;
         }
@@ -167,17 +167,17 @@
 		.etudiants>.semaine>div{
 			cursor: initial !important;
 			transition-delay: .035s;
-			border-color: #09c;
+			border-color: var(--primaire);
             width: initial;
 		}
 		.semaine>div:nth-child(1){
 			grid-column: 2;
 		}
 		.etudiants>div:hover:not(.semaine)>div:nth-child(1), .showDay{
-			background: #c09 !important;
-			color: #FFF;
+			background: var(--accent) !important;
+			color: var(--accent-contenu);
 			transition-delay: 0s !important;
-			border-color: #c09 !important;
+			border-color: var(--accent) !important;
 		}
 		.etudiants>div{
 			display: grid;
@@ -186,8 +186,8 @@
 		}
 		.etudiants>div>div{
 			border-radius: 10px;
-            border: 1px solid #eee;
-            background: #FFF; 
+            border: 1px solid var(--gris-estompe);
+            background: var(--fond-clair); 
             cursor: pointer;
 		}
 		.etudiants>div>.dayStudent{
@@ -196,28 +196,28 @@
 			cursor: initial;
 		}
 		.etudiants>div>.dayStudent:hover{
-			border: 1px solid #777;
+			border: 1px solid var(--gris-estompe);
 		}
 		.etudiants>div>.dayStudent>div{
 			position: absolute;
 			top: 0;
 			bottom: 0;
 			border-radius: 10px;
-			border: 1px solid #FFF;
+			border: 1px solid var(--fond-clair);
 		}
 
 		.etudiants>div>.dayStudent>div:not([data-statut=present]){
 			cursor: pointer;
 		}
 		.etudiants>div>.dayStudent>div:not([data-statut=present]):hover{
-			border: 2px solid #0C9;
+			border: 2px solid var(--secondaire);
 		}
 
         .etudiants .btnAbsences{
             position: relative;
             text-align: left;
             padding: 10px 20px;
-			border-color: #09c;
+			border-color: var(--primaire);
             width: initial;
             justify-self: initial;
         }
@@ -240,9 +240,9 @@
 			bottom: 100%;
 			right: 0;
 			pointer-events:none;
-			background: #FFF;
+			background: var(--fond-clair);
 			border-radius: 16px;
-			border: 1px solid #c09;
+			border: 1px solid var(--accent);
 			display: none;
 		}
 		.btnAbsences:hover{
@@ -281,7 +281,7 @@
             background: #f3a027;
         }
 		[data-justifie=true]{
-            background: #0C9;
+            background: var(----secondaire);
         }
     </style>
     <meta name=description content="Gestion des absences - <?php echo $Config->nom_IUT; ?>">
@@ -323,6 +323,8 @@
         <!-- Site en maintenance -->
         Authentification en cours ...
     </div>
+
+	<script src="../assets/js/theme.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx-populate/1.21.0/xlsx-populate.min.js"></script>
     <script>
 		<?php

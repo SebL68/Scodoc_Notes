@@ -6,9 +6,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Photo de profil</title>
 	<style>
+		<?php include $_SERVER['DOCUMENT_ROOT']."/assets/styles/global.css"?>
+
 		body{
 			font-family: arial;
-			background: #F0F0F0;
+			background: var(--fond-estompe);
 		}
 		.grab *{
 			cursor: grabbing !important;
@@ -18,9 +20,9 @@
 			text-align: center;
 		}
 		.dropZone{
-			background: #FFF;
+			background: var(--fond);
 			border-radius: 32px;
-			border: 8px dashed #09C;
+			border: 8px dashed var(--primaire);
 			min-height: 50vh;
 			display: flex;
 			flex-direction: column;
@@ -37,8 +39,8 @@
 		.imageManager label{
 			display: inline-block;
 			cursor: pointer;
-			background: #09c;
-			color: #FFF;
+			background: var(--primaire);
+			color: var(--primaire-contenu);
 			padding: 4px 16px;
 			margin: 8px;
 			border-radius: 8px;
@@ -96,8 +98,8 @@
 			display: block;
 			width: 350px;
 			cursor: pointer;
-			background: #0c9;
-			color: #FFF;
+			background: var(--secondaire);
+			color: var(--secondaire-contenu);
 			padding: 4px 16px;
 			margin: 8px auto;
 			border-radius: 8px;
@@ -105,14 +107,15 @@
 			font-size: 32px;
 		}
 		.imageModifyer>button:nth-child(3){
-			background: #c09;
+			background: var(--accent);
+			color: var(--accent-contenu);
 		}
 		.imageModifyer>div{
 			position: absolute;
 			left: calc(50% + 140px);
 			top: 8px;
-			color: #aaa;
-			background: #fff;
+			color: var(--gris-estompe);
+			background: var(--fond-clair);
 			border: 1px solid #bbb;
 			width: 26px;
 			height: 26px;
@@ -121,7 +124,7 @@
 			cursor: pointer;
 		}
 		.imageModifyer>div:hover{
-			color: #424242;
+			color: var(--gris);
 		}
 		.imageModifyer>.moins{
 			top: 38px;
@@ -134,7 +137,7 @@
 </head>
 <body>
 	<div class="imageManager">
-		<a href="/"><svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="2" stroke-linecap="round"><path d="M20 9v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9"/><path d="M9 22V12h6v10M2 10.6L12 2l10 8.6"/></svg></a>
+		<a href="/"><svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="var(--contenu)" stroke-width="2" stroke-linecap="round"><path d="M20 9v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9"/><path d="M9 22V12h6v10M2 10.6L12 2l10 8.6"/></svg></a>
 		<h1>Photo de profil</h1>
 		<form class=dropZone>
 			<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 24 24" fill="none" stroke="#0099cc" stroke-width="2" stroke-linecap="round"><path pathlength="100" d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
@@ -168,7 +171,7 @@
 		</div>
 		
 	</div>
-
+	<script src="assets/js/theme.js"></script>
 	<script>
 		document.querySelector(".dropZone").addEventListener("drop", dropFile);
 		document.querySelector(".dropZone input").addEventListener("change", dropFile);

@@ -35,27 +35,27 @@
 				display: none;
 			}
 			.semestres>label>div{
-				background: #FFF;
+				background: var(--fond-clair);
 				padding: 8px 16px;
 				margin: 8px;
 				font-size: 18px;
 				text-align: right;
 				border-radius: 8px;
-				box-shadow: 0 2px 2px rgb(0 0 0 / 26%);
+				box-shadow: var(--box-shadow);
 			}
 			.semestres>label>div:hover{
-				outline: 2px solid #424242;
+				outline: 2px solid var(--gris);
 			}
 			.semestres>label>div>div:nth-child(2){
 				font-weight: bold;
-				color: #09c;
+				color: var(--primaire);
 			}
 			.semestres input:checked+div{
-				background: #0C9;
-				color: #FFF;
+				background: var(--secondaire);
+				color: var(--secondaire-contenu);
 			}
 			.semestres input:checked+div>div:nth-child(2){
-				color: #FFF;
+				color: var(--secondaire-contenu);
 			}
 
 			form{
@@ -63,9 +63,9 @@
 			}
 			form>button{
 				border: none;
-				background: #09c;
+				background: var(--primaire);
 				padding: 8px 32px;
-				color: #FFF;
+				color: var(--primaire-contenu);
 				border-radius: 8px;
 				cursor: pointer;
 			}
@@ -73,7 +73,7 @@
 /* Zone absences */
 /**********************/
 			h2{
-				background: #09C;
+				background: var(--primaire);
 			}
 			.absences>div{
 				display: grid;
@@ -83,21 +83,21 @@
 				overflow: auto;
 			}
 			.absences>div>div{
-				background: #FFF;
-				box-shadow: 0 2px 2px #888;
+				background: var(--fond-clair);
+				box-shadow: var(--box-shadow);
 				padding: 4px 8px;
 				border-radius: 4px;
 			}
 			.absences>div>.entete{
-				background:#0c9;
-				color: #FFF;
+				background:var(--secondaire);
+				color: var(--secondaire-contenu);
 			}
 			.absences>div>.enseignant{
 				text-transform: capitalize;
 			}
 			.absences>div>.absent{background: #ec7068; color: #FFF;}
 			.absences>div>.retard{background: #f3a027; color: #FFF;}
-			.absences>div>.justifie{background: #0c9 !important}
+			.absences>div>.justifie{background: var(--secondaire) !important; color: var(--secondaire-contenu);}
 
 			.absences>.toutesAbsences>.absent:before{content:"Absent"}
 			.absences>.toutesAbsences>.retard:before{content:"Retard"}
@@ -108,7 +108,7 @@
 				margin-top: 16px;
 			}
 			.totauxAbsences>div:nth-child(1){
-				background: #09c;
+				background: var(--primaire);
 			}
 
 			.hideAbsences .absences{
@@ -192,6 +192,7 @@
 			Authentification en cours ...
 		</div>
 
+		<script src="assets/js/theme.js"></script>
 		<script src="assets/js/releve-dut.js"></script>
 		<script src="assets/js/releve-but.js"></script>
 		<script>
