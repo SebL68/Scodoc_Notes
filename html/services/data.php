@@ -285,7 +285,7 @@
 				}
 
 				$output = Absences::setAbsence(
-					$user->getId(),
+					$user->getName(),
 					$_GET['semestre'],
 					$_GET['matiere'],
 					$_GET['matiereComplet'],
