@@ -109,7 +109,7 @@ class releveBUT extends HTMLElement {
 					<em>La moyenne des ressources dans une UE dépend des poids donnés aux évaluations.</em>
 				</div>
 				<div class=CTA_Liste>
-					Liste <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					Liste <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--contenu-inverse)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 						<path d="M18 15l-6-6-6 6" />
 					</svg>
 				</div>
@@ -124,7 +124,7 @@ class releveBUT extends HTMLElement {
 			<div>
 				<h2>Ressources</h2>
 				<div class=CTA_Liste>
-					Liste <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					Liste <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--contenu-inverse)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 						<path d="M18 15l-6-6-6 6" />
 					</svg>
 				</div>
@@ -136,7 +136,7 @@ class releveBUT extends HTMLElement {
 			<div>
 				<h2>SAÉ</h2>
 				<div class=CTA_Liste>
-					Liste <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					Liste <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--contenu-inverse)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 						<path d="M18 15l-6-6-6 6" />
 					</svg>
 				</div>

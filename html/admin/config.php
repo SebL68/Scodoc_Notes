@@ -14,16 +14,16 @@
 		summary {
 			margin: 20px 0 8px 0;
 			padding: 20px;
-			background: #0C9;
-			color: #FFF;
+			background: var(--secondaire);
+			color: var(--secondaire-contenu);
 			border-radius: 10px;
 			cursor: pointer;
 			font-size: 1.5em;
 			font-weight: bold;
 		}
 		label {
-			background: #FFF;
-			border: 1px solid #aaa;
+			background: var(--fond-clair);
+			border: 1px solid var(--gris-estompe);
 			display: block;
 			align-items: flex-start;
 			gap: 8px;
@@ -36,8 +36,8 @@
 		label:has(input[type=checkbox]):hover, 
 		label:hover>input[type=text],
 		label:hover>input[type=number] {
-			border: 1px solid #c09;
-			outline: 1px solid #c09;
+			border: 1px solid var(--accent);
+			outline: 1px solid var(--accent);
 		}
 		label>b{
 			flex: none;
@@ -49,7 +49,7 @@
 			padding: 4px 8px;
 			border-radius: 4px;
 			font-size: 16px;
-			border: 1px solid #424242;
+			border: 1px solid var(--gris);
 		}
 		input[type=text] {
 			width: 100%;
@@ -76,7 +76,7 @@
 			border: 2px dashed;
 		}
 		h3{
-			color: #09c;
+			color: var(--primaire);
 		}
 	</style>
 	<meta name=description content="Gestion des administrateurs - <?php echo $Config->nom_IUT; ?>">
@@ -272,6 +272,8 @@
 		<!-- Site en maintenance -->
 		Authentification en cours ...
 	</div>
+	
+	<script src="../assets/js/theme.js"></script>
 	<script>
 		checkStatut();
 		getConfig();

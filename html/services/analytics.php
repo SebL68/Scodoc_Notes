@@ -4,11 +4,12 @@
     <meta charset="UTF-8" />
     <title>Fréquentation</title>
 	<style>
+		<?php include $_SERVER['DOCUMENT_ROOT']."/assets/styles/global.css"?>
 		.wait{
 			position: fixed;
 			width: 50px;
 			height: 10px;
-			background: #424242;
+			background: var(--gris);
 			top: 80px;
 			left: 50%;
 			margin-left: -25px;
@@ -22,6 +23,8 @@
 <body>
     <div class="wait"></div>
 	<canvas id="myChart" width="400" height="400"></canvas>
+
+	<script src="../assets/js/theme.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script>
 

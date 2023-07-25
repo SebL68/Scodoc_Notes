@@ -2,15 +2,15 @@
 /* Etudiant */
 /************/
 .info_etudiant{
-	color: #000;
+	color: var(--contenu);
 	text-decoration: none;
 }
 .etudiant{
-	background: #0C9;
+	background: var(--secondaire);
     display: flex;
     align-items: center;
     gap: 16px;
-    color: #FFF;
+    color: var(--secondaire-contenu);
 	padding: 4px;
 	border-radius: 8px;
 	margin: 16px 10px 0 10px;
@@ -33,8 +33,8 @@ img{
 	padding: 10px;
 	display: table;
 	box-shadow: 0 0 4px #000;
-	background: #FFF;
-	color: #000;
+	background: var(--fond-clair);
+	color: var(--contenu);
 	text-decoration: none;
 	cursor: pointer;
 }
@@ -51,11 +51,11 @@ img{
 	border-radius: 10px;
 	padding: 10px 20px;
 	margin: 10px;
-	box-shadow: 0 3px 6px #999;
+	box-shadow: var(--box-shadow);
 }
 .ue{
-	background: #09C;
-	color: #FFF;
+	background: var(--primaire);
+	color: var(--primaire-contenu);
 	display: flex;
 	justify-content: space-between;
 	gap: 10px;
@@ -73,7 +73,7 @@ img{
 	text-align: right;
 }
 .module{
-	background: #FFF;
+	background: var(--fond-clair);
 	margin-left: 30px;
 }
 .module>div, .eval{
@@ -99,23 +99,23 @@ img{
 }
 .eval{
 	padding: 5px;
-	background: #87efd5;
+	background: var(--releve-fond-titre-ue);
 	margin-top: 2px;
 	border-radius: 5px;
 }
 .eval:nth-child(odd){
-	background: #a4d3e2;
+	background: var(--releve-principale);
 }
 .eval>div:nth-child(2){
 	flex-shrink:0;
 }
 
 .checked, [data-note=undefined], [data-note=NP]{
-	background: #D0D0D0;
+	background: var(--fond);
 	
 }
 .checked:nth-child(odd), [data-note=undefined]:nth-child(odd), [data-note=NP]:nth-child(odd){
-	background: #F0F0F0;
+	background: var(--fond);
 }
 .hide{
 	display: none;
@@ -126,6 +126,6 @@ main:not(.ShowEmpty) [data-note=EXC]{
 	display: none !important;
 }
 .ShowEmpty .button{
-	background: #0C9;
-	color: #FFF;
+	background: var(--secondaire);
+	color: var(--secondaire-contenu);
 }
