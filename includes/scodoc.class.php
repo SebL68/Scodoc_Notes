@@ -11,23 +11,54 @@ class Scodoc{
 	/***********************************************************/
 	public function __construct(){
 		global $Config;
+		global $path;
+
+		$this->tokenPath = "$path/includes/token.txt";
 		$this->ch = curl_init();
 		//$Config->scodoc_url = 'http://192.168.43.67:5000/ScoDoc';
-		/* Configuration pour récupérer le token */ 
+
 		$options = array(
 			CURLOPT_FORBID_REUSE => true,
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_SSL_VERIFYPEER => false,
 			CURLOPT_SSL_VERIFYHOST => false,
-			CURLOPT_POST => true,
-			CURLOPT_URL => $Config->scodoc_url.'/api/tokens',
-			CURLOPT_USERPWD => $Config->scodoc_login . ':' . $Config->scodoc_psw,
 			CURLOPT_REFERER => $_SERVER['SERVER_NAME'] . '/?passerelle=' . $Config->passerelle_version
 		);
 		curl_setopt_array($this->ch, $options);
+
+		if(!file_exists($this->tokenPath)) {
+			$this->getScodocToken();
+		} else {
+			$tokenFile = fopen($this->tokenPath, "r");
+			$token = fread($tokenFile, 1000);
+			fclose($tokenFile);
+			$headers = array(
+				"Authorization: Bearer $token"
+			);
+			curl_setopt($this->ch, CURLOPT_HTTPHEADER, $headers);
+			curl_setopt($this->ch, CURLOPT_USERPWD, NULL);
+			curl_setopt($this->ch, CURLOPT_POST, false);
+		}
+	}
+
+	private function getScodocToken() {
+		global $Config;
+
+		$options = array(
+			CURLOPT_POST => true,
+			CURLOPT_URL => $Config->scodoc_url.'/api/tokens',
+			CURLOPT_USERPWD => $Config->scodoc_login . ':' . $Config->scodoc_psw,
+		);
+		$headers = array();
+		curl_setopt($this->ch, CURLOPT_HTTPHEADER, $headers);
+		curl_setopt_array($this->ch, $options);
+
 		$token = json_decode(curl_exec($this->ch), false)->token;
 
-		/* Token récupéré, changement de la configuration pour les autres requêtes */
+		$tokenFile = fopen($this->tokenPath, "w");
+		fwrite($tokenFile, $token);
+		fclose($tokenFile);
+
 		$headers = array(
 			"Authorization: Bearer $token"
 		);
@@ -51,7 +82,13 @@ class Scodoc{
 		}
 		
 		$response = curl_exec($this->ch);
-		
+
+		if(@json_decode($response)->message == 'Non autorise (logic)') {
+			$this->getScodocToken();
+			curl_setopt($this->ch, CURLOPT_URL, $Config->scodoc_url . "/api/$url_query?$data");
+			$response = curl_exec($this->ch);
+		}
+
 		if($Config->analyse_temps_requetes){
 			$time_end = microtime(true);
 			$time = $time_end - $time_start;

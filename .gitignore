@@ -10,3 +10,5 @@ data/annuaires/vacataires.json
 data/analytics/*
 
 config/config.json
+
+includes/token.txt
