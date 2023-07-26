@@ -234,15 +234,15 @@ h1 {
 		transform-box: fill-box;
 	}
 
-	.ouvert svg line:nth-child(1) {
+	.ouvert nav svg line:nth-child(1) {
 		transform: translate(0, -3.5px) rotate(45deg);
 	}
 
-	.ouvert svg line:nth-child(2) {
+	.ouvert nav svg line:nth-child(2) {
 		opacity: 0;
 	}
 
-	.ouvert svg line:nth-child(3) {
+	.ouvert nav svg line:nth-child(3) {
 		transform: translate(0, 3.5px) rotate(-45deg);
 	}
 }
