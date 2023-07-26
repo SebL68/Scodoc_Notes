@@ -220,13 +220,6 @@
 			var output = "";
 
 			data.forEach(semestre=>{
-                /*var groupes = "";
-                if(semestre.groupes.length > 1){
-                    semestre.groupes.forEach(groupe=>{
-                        groupes += `<div class=groupe data-groupe="${groupe}" onclick="hideGroupe(this)">${groupe}</div>`;
-                    })
-                }*/
-
 				var groupesOutput = "";
 				let arrGroupes = Object.entries(semestre.groupes);
 				if(arrGroupes[0].length > 1){
@@ -303,37 +296,6 @@
         function hideSemester(obj){
             obj.nextElementSibling.classList.toggle("hide");
         }
-		/*function hideGroupe(obj){
-			let nbSelected = obj.parentElement.querySelectorAll(".selected").length;
-			let nbBtn = obj.parentElement.children.length;
-			
-			if(nbSelected == 0){
-				Array.from(obj.parentElement.children).forEach(e=>{
-					e.classList.toggle("selected");
-				})
-			}
-			obj.classList.toggle("selected");
-
-			nbSelected = obj.parentElement.querySelectorAll(".selected").length;
-			if(nbSelected == nbBtn){
-				Array.from(obj.parentElement.children).forEach(e=>{
-					e.classList.toggle("selected");
-				})
-			}
-			
-			let groupesSelected = [];
-			obj.parentElement.querySelectorAll(":not(.selected)").forEach(e=>{
-				groupesSelected.push(e.dataset.groupe);
-			})
-
-			Array.from(obj.parentElement.nextElementSibling.children).forEach(e=>{
-				if(groupesSelected.includes(e.dataset.groupe)){
-					e.classList.remove("hide")
-				} else {
-					e.classList.add("hide")
-				}	
-			})
-        }*/
 
 		function hideGroupe(obj){
 			let nbSelected = obj.parentElement.parentElement.querySelectorAll(".selected").length;

@@ -56,6 +56,8 @@
 		$Config->afficher_absences = $configJSON['afficher_absences'] ?? Config::$afficher_absences ?? false;	// En dessous du relevé de notes étudiants
 		$Config->module_absences = $configJSON['module_absences'] ?? Config::$module_absences ?? false;		// nécessite l'acces_enseignants - ce module est différent de celui de Scodoc, il est géré entièrement par la passerelle.
 
+		$Config->cloisonner_enseignants = $configJSON['cloisonner_enseignants'] ?? Config::$cloisonner_enseignants ?? false; // Permettre a un enseignant d'avoir accès à tous les départements ou que ceux dans lesquels il intervient (onglet Comptes).
+
 /*********************/
 /* Analyse du trafic */
 /*********************/
@@ -239,6 +241,7 @@ $accepted_input = [
 	'message_non_publication_releve',
 	'releve_PDF',
 	'acces_enseignants',
+	'cloisonner_enseignants',
 	'module_absences',
 	'afficher_absences',
 	'analystics_interne',

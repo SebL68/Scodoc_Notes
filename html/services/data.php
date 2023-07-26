@@ -10,8 +10,8 @@
 	header('Content-type:application/json');
 
 /* Debug */
-	/*error_reporting(E_ALL);
-	ini_set('display_errors', '1');*/
+	error_reporting(E_ALL);
+	ini_set('display_errors', '1');
 
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 
@@ -146,6 +146,7 @@
 					'session' => $user->getId(),
 					'name' => $user->getName(),
 					'statut' => $user->getStatut(),
+					'departments' => $user->getDepartements(),
 					'config' => ($Config->getConfig)()
 				];
 				break;
@@ -167,6 +168,7 @@
 			case 'semestresDépartement':
 				$Scodoc = new Scodoc();
 				sanitize($_GET['dep']);
+				checkDepartment($_GET['dep'], $user->getDepartements(), $user->getStatut());
 				$output = $Scodoc->getDepartmentSemesters($_GET['dep']);
 				break;
 
@@ -188,6 +190,7 @@
 				// Uniquement pour les personnels IUT.
 				if($user->getStatut() < PERSONNEL){ returnError(); }
 				sanitize($_GET['dep']);
+				checkDepartment($_GET['dep'], $user->getDepartements(), $user->getStatut());
 				$Scodoc = new Scodoc();
 				$output = $Scodoc->getStudentsListsDepartement($_GET['dep']);
 				break;
@@ -209,6 +212,13 @@
 				sanitize($_GET['etudiant'] ?? '');
 				sanitize($_GET['semestre']);
 				$Scodoc = new Scodoc();
+
+				if($Config->cloisonner_enseignants && $user->getStatut() > ETUDIANT){
+					$dep = $Scodoc->getStudentDepartment($_GET['etudiant']);
+					checkDepartment($dep, $user->getDepartements(), $user->getStatut());
+				}
+					
+
 				$nip = $_GET['etudiant'] ?? $user->getId();
 				$output = [
 					'relevé' => $Scodoc->getReportCards($_GET['semestre'], $nip),
@@ -479,6 +489,16 @@
 			echo json_encode($output/*, JSON_PRETTY_PRINT*/);
 		}else{
 			returnError('Mauvaise requête.');
+		}
+	}
+
+	function checkDepartment($depQuery, $depUser, $statut) {
+		global $Config;
+		if($statut >= 40) {
+			return true;
+		}
+		if($Config->cloisonner_enseignants && !in_array($depQuery, $depUser)){
+			returnError('Vous ne faites pas parti des utilisateurs de ce département.');
 		}
 	}
 

@@ -177,6 +177,36 @@ class Annuaire{
 	}
 
 	/****************************************************/
+	/* getPersonnelDepartements() 
+		Recherche les départements dans lesquels le personnel est affecté
+
+		Entrée :
+			$user: [string] - 'jean.dupont@uha.fr' // adresse mail de l'utilisateur 
+		
+		Sortie :
+			[array] - ["dep1", "dep2", "dep3"] // liste des départements
+	*/
+	/****************************************************/
+	public static function getPersonnelDepartements($user){
+		$output = [];
+		if(file_exists(self::$USERS_PATH)){
+			foreach(json_decode(file_get_contents(self::$USERS_PATH)) as $departement => $dep){
+				foreach($dep->administrateurs as $identifiant){
+					if($user == $identifiant->id){
+						$output[] = $departement;
+					}
+				}
+				foreach($dep->vacataires as $identifiant){
+					if($user == $identifiant->id){
+						$output[] = $departement;
+					}
+				}
+			}
+		}
+		return $output;
+	}
+
+	/****************************************************/
 	/* checkFile() 
 		Vérifie l'existance du fichier liste passé en paramètre
 		Entrée :

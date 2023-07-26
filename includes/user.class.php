@@ -100,6 +100,11 @@
 			return $this->statut;
 		}
 
+		public function getDepartements(){
+			return Annuaire::getPersonnelDepartements($this->id);
+			//if(!($Config->cloisonner_enseignants && in_array($value->acronym, $teacherDepartments))){
+		}
+
 	/******************************/
 	/* Authentification par jeton */
 	/******************************/

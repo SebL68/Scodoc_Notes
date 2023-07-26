@@ -169,6 +169,14 @@
 						
 						<p>💡 Nécessite de compléter les listes dans "Comptes" ou d'activer le LDAP.</p>
 					</label>
+
+					<label>
+						<input type="checkbox" name="cloisonner_enseignants">
+						<b>Cloisonner les enseignants</b>
+						<p>
+							Chaque enseignant n'a accès qu'aux département dans lesquels il intervient (voir onglet Comptes).
+						</p>
+					</label>
 				</div>
 			</details>
 			

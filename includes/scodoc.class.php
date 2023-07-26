@@ -364,6 +364,10 @@ class Scodoc{
 			$partition = array_unique($partition);
 			sort($partition);
 		}
+
+		if(count($groupes) == 0) {
+			$groupes = ['TP' => ['Groupe 1']];
+		}
 		
 		return [
 			'groupes' => $groupes, 
