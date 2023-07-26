@@ -126,7 +126,7 @@
     .compte span, .confirm b {
       text-transform: capitalize;
     }
-    svg {
+    main svg {
       margin-left: 10px;
     }
     .modif {
