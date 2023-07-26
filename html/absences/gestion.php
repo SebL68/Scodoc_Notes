@@ -875,7 +875,8 @@
                 sheet.cell("A1").value("Rapport d'absences").style("fontSize", 18);
                 sheet.cell("A2").value(`${semestreTxt}`).style("fontSize", 24);
                 sheet.cell("A3").value(now);
-                
+
+                /***********/
 				sheet.cell("G4").value("Détail nombre d'heures d'absences");
 				sheet.range("G4:J4").style({
 					bold: true,
@@ -883,7 +884,7 @@
 					fontColor: "FFFFFF"
 				});
 				sheet.cell("A5")
-					.value([["Nom", "Prenom", "Numéro", "H absen.", "Nb retar.", "H justif.", "Septemb.", "Octobre", "Novemb.", "Décemb.", "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout"]])
+					.value([["Nom", "Prenom", "Numéro", "H absen.", "Nb retar.", "H justif.", "Septemb.", "Octobre", "Novemb.", "Décemb.", "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septemb.", "Octobre", "Novemb.", "Décemb.", "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout"]])
 					.style({
 						bold: true,
 						fill: "0099CC",
@@ -891,13 +892,22 @@
 					});
 				sheet.range("G5:R5").style({fill: "00CC99"});
 
-				//sheet.cell("C6").formula("=A6+B6");
+				/***********/
+
+				sheet.cell("S4").value("Nombre de jours avec au moins une absence");
+				sheet.range("S4:W4").style({
+					bold: true,
+					fill: "0099CC",
+					fontColor: "FFFFFF"
+				});
+
+				sheet.range("S5:AD5").style({fill: "0099CC"});
+
+				/***********/
 				
 				var i = 6;
 
 				var colonne = 'D';
-
-				let totaux = {};
 
 				dataEtudiants.etudiants.forEach(etudiant=>{
 					if( options.boursiers == true && etudiant.boursier != true ){
@@ -925,6 +935,21 @@
 						justifie: 0,
 						retard: 0
 					}
+					let totauxJour = {
+						"01": [],
+						"02": [],
+						"03": [],
+						"04": [],
+						"05": [],
+						"06": [],
+						"07": [],
+						"08": [],
+						"09": [],
+						"10": [],
+						"11": [],
+						"12": []
+					};
+
 					Object.entries(dataEtudiants.absences[etudiant.nip] || {}).forEach(([date, liste])=>{
 						liste.forEach(data=>{
 							if(data.statut == "retard" && (data.justifie == "false" || data.justifie == false)){
@@ -935,6 +960,8 @@
 								let mois = date.split("-")[1];
 								totaux[mois] += data.fin - data.debut;
 								totaux.absent += data.fin - data.debut;
+
+								totauxJour[mois].push(date);
 							}
 						})
 					})
@@ -954,7 +981,19 @@
 						totaux["05"],
 						totaux["06"],
 						totaux["07"],
-						totaux["08"]
+						totaux["08"],
+						[... new Set(totauxJour["09"])].length,
+						[... new Set(totauxJour["10"])].length,
+						[... new Set(totauxJour["11"])].length,
+						[... new Set(totauxJour["12"])].length,
+						[... new Set(totauxJour["01"])].length,
+						[... new Set(totauxJour["02"])].length,
+						[... new Set(totauxJour["03"])].length,
+						[... new Set(totauxJour["04"])].length,
+						[... new Set(totauxJour["05"])].length,
+						[... new Set(totauxJour["06"])].length,
+						[... new Set(totauxJour["07"])].length,
+						[... new Set(totauxJour["08"])].length
 					]])
 
 					sheet.cell("D"+i).style({
