@@ -141,7 +141,7 @@
             align-items: center;
             font-size: 20px;
             background: var(--secondaire);
-            color: var(----secondaire-contenu);
+            color: var(--secondaire-contenu);
             border-radius: 10px;
             border: none;
         }
@@ -281,7 +281,7 @@
             background: #f3a027;
         }
 		[data-justifie=true]{
-            background: var(----secondaire);
+            background: var(--secondaire);
         }
     </style>
     <meta name=description content="Gestion des absences - <?php echo $Config->nom_IUT; ?>">
