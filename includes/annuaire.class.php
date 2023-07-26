@@ -108,16 +108,10 @@ class Annuaire{
 	*/
 	/****************************************************/
 	public static function statut($user, $justAsk = false){
+		global $Config;
 		if($justAsk || !isset($_SESSION['statut']) || $_SESSION['statut'] == ''){
 			if($user == ""){
 				return INCONNU;
-			}
-			
-			/* Vérification de l'existence des fichiers de listes */
-			self::checkFile(self::$STUDENTS_PATH);
-			self::checkFile(self::$USERS_PATH);
-			foreach(self::$STAF_PATH as $stafPath){
-				self::checkFile($stafPath);
 			}
 
 		/* 
@@ -136,60 +130,49 @@ class Annuaire{
 				}
 			}
 
+			if($Config->acces_enseignants != true){
+				return ETUDIANT;
+			}
+
 			/* Test administrateur */
-			foreach(json_decode(file_get_contents(self::$USERS_PATH)) as $departement => $dep){
-				foreach($dep->administrateurs as $identifiant){
-					if($user == $identifiant->id){
-						return ADMINISTRATEUR;
+			if(file_exists(self::$USERS_PATH)){
+				foreach(json_decode(file_get_contents(self::$USERS_PATH)) as $departement => $dep){
+					foreach($dep->administrateurs as $identifiant){
+						if($user == $identifiant->id){
+							return ADMINISTRATEUR;
+						}
+					}
+				}
+			
+			/* Test vacataire */
+				foreach(json_decode(file_get_contents(self::$USERS_PATH)) as $departement => $dep){
+					foreach($dep->vacataires as $identifiant){
+						if($user == $identifiant->id){
+							return PERSONNEL;
+						}
 					}
 				}
 			}
 			
-			/* Test vacataire */
-			foreach(json_decode(file_get_contents(self::$USERS_PATH)) as $departement => $dep){
-				foreach($dep->vacataires as $identifiant){
-					if($user == $identifiant->id){
-						return PERSONNEL;
-					}
-				}
-			}
-
 			/* Test étudiant */
-			$pattern = '/:'. preg_quote($user) .'\b/i';
-			if(preg_grep($pattern, file(self::$STUDENTS_PATH))){
-				return ETUDIANT;
+			if(file_exists(self::$STUDENTS_PATH)){
+				$pattern = '/:'. preg_quote($user) .'\b/i';
+				if(preg_grep($pattern, file(self::$STUDENTS_PATH))){
+					return ETUDIANT;
+				}
 			}
 
 			/* Test personnel */
 			$pattern = '/\b'. preg_quote($user) .'\b/i';
 			foreach(self::$STAF_PATH as $stafPath){
-				if(preg_grep($pattern, file($stafPath))){
-					return PERSONNEL;
+				if(file_exists($stafPath)){
+					if(preg_grep($pattern, file($stafPath))){
+						return PERSONNEL;
+					}
 				}
 			}
 
 			return ETUDIANT;
 		}
-	}
-
-	private static function setCurrentStatut(){
-
-	}
-
-	/****************************************************/
-	/* checkFile() 
-		Vérifie l'existance du fichier liste passé en paramètre
-
-		Entrée :
-			$file : [string] - Nom du fichier 
-		
-		Sortie :
-			Le cas échéant : Affiche un message d'erreur et interrompt le script
-	*/
-	/****************************************************/
-	private static function checkFile($file)
-	{
-		if(!file_exists($file))
-			returnError("Fichier inexistant : <b>$file</b><br>Veuillez mettre les listes des utilisateurs à jour.");
 	}
 }

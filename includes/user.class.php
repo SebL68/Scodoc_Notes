@@ -60,7 +60,7 @@
 					$infoCAS[1]['cn'] ?? 
 					$infoCAS[1]['displayName'] ?? 
 					'Mme, M.';
-				$this->statut = $this->defineStatut($this->idCAS);
+				$this->statut = Annuaire::statut($this->idCAS);
 
 				if($this->statut < PERSONNEL){
 					if($Config->CAS_nip_key == false){
@@ -130,18 +130,6 @@
 				case 'superadministrateur':
 					$this->statut = SUPERADMINISTRATEUR;
 					break;
-			}
-		}
-
-	/***********************************************/
-	/* Définition du statut à partir de l'annuaire */
-	/***********************************************/
-		private function defineStatut($id){
-			global $Config;
-			if($Config->acces_enseignants == true){
-				return Annuaire::statut($id);
-			} else {
-				return ETUDIANT;
 			}
 		}
 	};
