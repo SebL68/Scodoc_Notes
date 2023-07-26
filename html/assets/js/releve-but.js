@@ -338,8 +338,13 @@ class releveBUT extends HTMLElement {
 								<div class=ue_rang>Rang&nbsp;:&nbsp;${dataUE.moyenne?.rang}&nbsp;/&nbsp;${dataUE.moyenne?.total}</div>
 								<div class=info>`;
 				if(!dataUE.date_capitalisation){		
-					output += `		Bonus&nbsp;:&nbsp;${dataUE.bonus || 0}&nbsp;- 
-									Malus&nbsp;:&nbsp;${dataUE.malus || 0}`;
+					output += `		Bonus&nbsp;:&nbsp;${dataUE.bonus || 0}&nbsp;- `;
+					if(dataUE.malus >= 0) {
+						output += `Malus&nbsp;:&nbsp;${dataUE.malus || 0}`;
+					} else {
+						output += `Bonus&nbsp;complémentaire&nbsp;:&nbsp;${-dataUE.malus || 0}`;
+					}
+									
 				} else {
 					output += `		le ${this.ISOToDate(dataUE.date_capitalisation.split("T")[0])} <a href="${dataUE.bul_orig_url}">dans ce semestre</a>`;
 				}
