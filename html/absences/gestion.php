@@ -526,39 +526,6 @@
 			document.querySelector(".semaine").children[obj.dataset.day].classList.remove("showDay");
 		}
 
-		/*function hideGroupe(obj){
-			let nbSelected = obj.parentElement.querySelectorAll(".selected").length;
-			let nbBtn = obj.parentElement.children.length;
-			
-			if(nbSelected == 0){
-				Array.from(obj.parentElement.children).forEach(e=>{
-					e.classList.toggle("selected");
-				})
-			}
-			obj.classList.toggle("selected");
-
-			nbSelected = obj.parentElement.querySelectorAll(".selected").length;
-			if(nbSelected == nbBtn){
-				Array.from(obj.parentElement.children).forEach(e=>{
-					e.classList.toggle("selected");
-				})
-			}
-
-			
-			let groupesSelected = [];
-			obj.parentElement.querySelectorAll(":not(.selected)").forEach(e=>{
-				groupesSelected.push(e.dataset.groupe);
-			})
-
-			document.querySelectorAll(".btnAbsences").forEach(e=>{
-				if(groupesSelected.includes(e.dataset.groupe)){
-					e.parentElement.classList.remove("hide")
-				} else {
-					e.parentElement.classList.add("hide")
-				}	
-			})
-        }*/
-
 		function hideGroupe(obj){
 			let nbSelected = obj.parentElement.parentElement.querySelectorAll(".selected").length;
 			let nbBtn = obj.parentElement.parentElement.querySelectorAll(".groupe").length;
