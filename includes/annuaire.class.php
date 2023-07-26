@@ -175,4 +175,20 @@ class Annuaire{
 			return ETUDIANT;
 		}
 	}
+
+	/****************************************************/
+	/* checkFile() 
+		Vérifie l'existance du fichier liste passé en paramètre
+		Entrée :
+			$file : [string] - Nom du fichier 
+		
+		Sortie :
+			Le cas échéant : Affiche un message d'erreur et interrompt le script
+	*/
+	/****************************************************/
+	private static function checkFile($file)
+	{
+		if(!file_exists($file))
+			returnError("Fichier inexistant : <b>$file</b><br>Veuillez mettre les listes des utilisateurs à jour.");
+	}
 }
