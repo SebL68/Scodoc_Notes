@@ -23,7 +23,7 @@
 	--primaire: #09c;
 	--primaire-contenu: #fff;
 
-	--secondaire: #0c9;
+	--secondaire: #00be82;;
 	--secondaire-contenu: #fff;
 
 	--accent: #c09;
@@ -37,7 +37,7 @@
 	--releve-principale: #f0faff;
 	--releve-fond-titre-ue: #ceffeb;
 	--releve-fond-titre-res: #7daaff;
-	--releve-fond-titre-sae: #d3ffff;
+	--releve-fond-titre-sae: #ffc828;
 	--releve-secondaire: #fec;
 	--releve-surlignage: #e8ff8478;
 }
