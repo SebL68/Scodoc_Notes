@@ -117,7 +117,7 @@ header a {
 	padding: 10px 0 10px 0;
 }
 
-header svg {
+header>nav>svg {
 	display: none;
 }
 
@@ -147,10 +147,6 @@ nav {
 	display: flex;
 	justify-content: space-between;
 	padding: 3px;
-}
-
-.theme svg {
-	display: block;
 }
 
 .theme>.cercle {
@@ -200,7 +196,7 @@ h1 {
 		transition: 0.2s;
 	}
 
-	header svg {
+	header>nav>svg {
 		display: block;
 		cursor: pointer;
 		position: absolute;
