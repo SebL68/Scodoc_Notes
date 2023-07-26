@@ -28,7 +28,7 @@
 
 	$Config = new stdClass();
 
-		$Config->passerelle_version = '5:2:0';
+		$Config->passerelle_version = '6:-1:0';
 
 /***********************/
 /* Options d'affichage */
