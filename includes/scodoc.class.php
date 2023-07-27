@@ -37,7 +37,6 @@ class Scodoc{
 			);
 			curl_setopt($this->ch, CURLOPT_HTTPHEADER, $headers);
 			curl_setopt($this->ch, CURLOPT_USERPWD, NULL);
-			curl_setopt($this->ch, CURLOPT_POST, false);
 		}
 	}
 
@@ -52,6 +51,7 @@ class Scodoc{
 		$headers = array();
 		curl_setopt($this->ch, CURLOPT_HTTPHEADER, $headers);
 		curl_setopt_array($this->ch, $options);
+		curl_setopt($this->ch, CURLOPT_POSTFIELDS, NULL);
 
 		$token = json_decode(curl_exec($this->ch), false)->token;
 
@@ -64,31 +64,43 @@ class Scodoc{
 		);
 		curl_setopt($this->ch, CURLOPT_HTTPHEADER, $headers);
 		curl_setopt($this->ch, CURLOPT_USERPWD, NULL);
-		curl_setopt($this->ch, CURLOPT_POST, false);
 	}
 
 	/************************/
 	/* Accès à l'API Scodoc */
 	/************************/
-	private function Ask_Scodoc($url_query, $options = []){
+	private function Ask_Scodoc($url_query, $options = [], $POSTData = null){
 		global $Config;
 		global $path;
 		$data = http_build_query($options);
-
-		curl_setopt($this->ch, CURLOPT_URL, $Config->scodoc_url . "/api/$url_query?$data");
-		
+	
+	/* Speed test début */
 		if($Config->analyse_temps_requetes){
 			$time_start = microtime(true);
 		}
-		
+	/********************/
+
+		curl_setopt($this->ch, CURLOPT_URL, $Config->scodoc_url . "/api/$url_query?$data");
+		curl_setopt($this->ch, CURLOPT_POSTFIELDS, $POSTData);
+		if($POSTData == null) {
+			curl_setopt($this->ch, CURLOPT_POST, false);
+		}
+
 		$response = curl_exec($this->ch);
 
 		if(@json_decode($response)->message == 'Non autorise (logic)') {
 			$this->getScodocToken();
+
 			curl_setopt($this->ch, CURLOPT_URL, $Config->scodoc_url . "/api/$url_query?$data");
+			curl_setopt($this->ch, CURLOPT_POSTFIELDS, $POSTData);
+			if($POSTData == null) {
+				curl_setopt($this->ch, CURLOPT_POST, false);
+			}
+
 			$response = curl_exec($this->ch);
 		}
 
+	/* Speed test fin */
 		if($Config->analyse_temps_requetes){
 			$time_end = microtime(true);
 			$time = $time_end - $time_start;
@@ -100,7 +112,8 @@ class Scodoc{
 			fputcsv($fp, $data, ';');
 			fclose($fp);
 		}
-		
+	/******************/
+
 		return $response;
 	}
 

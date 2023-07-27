@@ -16,7 +16,6 @@
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 
 	require_once "$path/includes/default_config.php";
-	require_once "$path/includes/absences.class.php";
 	require_once "$path/includes/admin.class.php";
 	require_once "$path/includes/user.class.php";
 	require_once "$path/includes/annuaire.class.php";
@@ -24,6 +23,12 @@
 	require_once "$path/includes/".$Config->scheduler_class;		// Class Scheduler
 	require_once "$path/includes/".$Config->service_data_class;		// Class service_data - typiquement Scodoc
 	require_once "$path/includes/analytics.class.php";
+
+	if($Config->data_absences_scodoc) {
+		require_once "$path/includes/absences.scodoc.class.php";
+	} else {
+		require_once "$path/includes/absences.class.php";
+	}
 
 	$user = new User();
 

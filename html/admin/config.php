@@ -237,15 +237,33 @@
 				<div>
 					<label>
 						<input type="checkbox" name="module_absences">
-						<b>Module absences</b>
-						<p>Activer le module de saisi des absences</p>
-						<p>Ce module est spécifique à la passerelle et n'est pas connecté avec Scodoc pour le moment.</p>
+						<b>Saisi des absences</b>
+						<p>Activer le module de saisi des absences depuis la passerelle.</p>
 						<p>💡 Nécessite le mode enseignant.</p>
 					</label>
 					<label>
 						<input type="checkbox" name="afficher_absences">
-						<b>Afficher absences</b>
+						<b>Affichage des absences aux étudiants</b>
 						<p>Activer la zone de visualisation des absences sous le relevé de notes.</p>
+					</label>
+					<label>
+						<input type="checkbox" name="data_absences_scodoc">
+						<b>Sauvegarde des données absences dans Scodoc</b>
+						<p>Par défaut, les absences sont stockées sur la passerelle.</p>
+						<p>L'utilisation de cette option nécessite d'avoir au moins la version 9.6 de Scodoc.</p>
+						<p>Si les données sont stockées dans Scodoc et que la saisi est activée depuis la passerelle, il faut ajouter la permission ScoAbsChange au rôle LecteurAPI sur le serveur Scodoc :
+<pre>
+<code>
+	# En tant qu'utilisateur "scodoc" :
+	cd /opt/scodoc
+	source venv/bin/activate
+	flask edit-role LecteurAPI -a ScoAbsChange
+
+	# Si vous souhaitez retirer cette permission
+	flask edit-role LecteurAPI -r ScoAbsChange
+</code>
+</pre>
+						</p>
 					</label>
 
 					<label>

@@ -109,7 +109,7 @@
 	*
 	*	Retour : 
 	*		[assoc. array] absences d'un étudiant
-	*		[array][assic. array] liste des absences d'un étudiant
+	*		[array][assoc. array] liste des absences d'un étudiant
 	*
 	************************************/
 		public static function getAbsence($semestre, $etudiant = ''){

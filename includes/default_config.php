@@ -53,8 +53,10 @@
 		*/
 		// PAS IMPLEMENTÉ $Config->afficher_releves = Config::$afficher_releves ?? true;		// Permet d'utiliser la passerelle uniquement pour les absences en standalone
 		$Config->acces_enseignants = $configJSON['acces_enseignants'] ?? Config::$acces_enseignants ?? false;
+		
 		$Config->afficher_absences = $configJSON['afficher_absences'] ?? Config::$afficher_absences ?? false;	// En dessous du relevé de notes étudiants
 		$Config->module_absences = $configJSON['module_absences'] ?? Config::$module_absences ?? false;		// nécessite l'acces_enseignants - ce module est différent de celui de Scodoc, il est géré entièrement par la passerelle.
+		$Config->data_absences_scodoc = $configJSON['data_absences_scodoc'] ?? Config::$data_absences_scodoc ?? false;	// Choisir si les absences sont stockées sur la passerelle ou dans Scodoc.
 
 		$Config->cloisonner_enseignants = $configJSON['cloisonner_enseignants'] ?? Config::$cloisonner_enseignants ?? false; // Permettre a un enseignant d'avoir accès à tous les départements ou que ceux dans lesquels il intervient (onglet Comptes).
 
@@ -242,8 +244,6 @@ $accepted_input = [
 	'releve_PDF',
 	'acces_enseignants',
 	'cloisonner_enseignants',
-	'module_absences',
-	'afficher_absences',
 	'analystics_interne',
 	'analyse_temps_requetes',
 	'nom_IUT',
@@ -255,6 +255,9 @@ $accepted_input = [
 	'namePlaceHolder',
 	'nameInfo',
 
+	'module_absences',
+	'afficher_absences',
+	'data_absences_scodoc',
 	'absence_heureDebut',
 	'absence_heureFin',
 	'absence_pas',
