@@ -15,7 +15,7 @@ class Scodoc{
 
 		$this->tokenPath = "$path/includes/token.txt";
 		$this->ch = curl_init();
-		//$Config->scodoc_url = 'http://192.168.43.67:5000/ScoDoc';
+		$Config->scodoc_url = 'http://192.168.43.67:5000/ScoDoc';
 
 		$options = array(
 			CURLOPT_FORBID_REUSE => true,
@@ -64,6 +64,7 @@ class Scodoc{
 		);
 		curl_setopt($this->ch, CURLOPT_HTTPHEADER, $headers);
 		curl_setopt($this->ch, CURLOPT_USERPWD, NULL);
+		curl_setopt($this->ch, CURLOPT_POST, false);
 	}
 
 	/************************/
@@ -81,9 +82,8 @@ class Scodoc{
 	/********************/
 
 		curl_setopt($this->ch, CURLOPT_URL, $Config->scodoc_url . "/api/$url_query?$data");
-		curl_setopt($this->ch, CURLOPT_POSTFIELDS, $POSTData);
-		if($POSTData == null) {
-			curl_setopt($this->ch, CURLOPT_POST, false);
+		if($POSTData != null) {
+			curl_setopt($this->ch, CURLOPT_POSTFIELDS, $POSTData);
 		}
 
 		$response = curl_exec($this->ch);
@@ -92,9 +92,8 @@ class Scodoc{
 			$this->getScodocToken();
 
 			curl_setopt($this->ch, CURLOPT_URL, $Config->scodoc_url . "/api/$url_query?$data");
-			curl_setopt($this->ch, CURLOPT_POSTFIELDS, $POSTData);
-			if($POSTData == null) {
-				curl_setopt($this->ch, CURLOPT_POST, false);
+			if($POSTData != null) {
+				curl_setopt($this->ch, CURLOPT_POSTFIELDS, $POSTData);
 			}
 
 			$response = curl_exec($this->ch);
