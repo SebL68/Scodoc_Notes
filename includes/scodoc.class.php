@@ -481,4 +481,19 @@ class Scodoc{
 		return $output;
 	}
 
+/***********************/
+/* API absences Scodoc */
+/***********************/
+
+	/*******************************/
+	/* getAbsence()
+	Liste les modules d'un département + semestre
+	*******************************/
+	public function getStudentAbsences($sem, $nip){
+		return json_decode(
+			$this->Ask_Scodoc(
+				"assiduites/nip/$nip", 
+				['formsemestre_id' => $sem])
+		);
+	}
 }

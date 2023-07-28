@@ -21,7 +21,7 @@
 			curl_setopt($this->ch, CURLOPT_VERBOSE, 1);
 			curl_setopt($this->ch, CURLOPT_STDERR, $fp);*/
 
-			//$Config->scodoc_url = 'http://192.168.43.67:5000/ScoDoc';
+			$Config->scodoc_url = 'http://192.168.43.67:5000/ScoDoc';
 			/* Configuration pour récupérer le token */ 
 			$options = array(
 				//CURLOPT_HTTPHEADER => array('Expect:'),
@@ -80,7 +80,8 @@
 
 
 	/*Test API nouvelles absences - Scodoc 9.6+ */
-	//echo $Scodoc->Ask_Scodoc('assiduites/5167/count');
+	//echo $Scodoc->Ask_Scodoc('assiduites/nip/22203129');
+	//echo $Scodoc->Ask_Scodoc('assiduites/etudid/5167/count');
 	//echo $Scodoc->Ask_Scodoc('assiduite/5167/create');	// Données en POST
 
 ?>

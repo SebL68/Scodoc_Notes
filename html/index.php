@@ -389,7 +389,7 @@
 							output = `
 								<div>${date.split("-").reverse().join("/")}</div> 
 								<div>${floatToHour(absence.debut)} - ${floatToHour(absence.fin)}</div>
-								<div>${absence.matiereComplet}</div>
+								<div>${absence.matiereComplet || "-"}</div>
 								<div class=enseignant>${absence.enseignant.split('@')[0].split(".").join(" ")}</div>
 								<div class="${(absence.justifie === true || absence.justifie === "true" ) ? "justifie" : absence.statut}"></div>
 							` + output;
@@ -427,7 +427,7 @@
 			}
 
 			function floatToHour(heure){
-				return Math.floor(heure) + "h"+ ((heure%1*60 < 10)?"0"+heure%1*60 : heure%1*60)
+				return Math.floor(heure) + "h"+ ((heure%1*60 < 10)?"0"+Math.round(heure%1*60) : Math.round(heure%1*60))
 			}
 		</script>
 	

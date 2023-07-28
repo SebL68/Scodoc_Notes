@@ -264,6 +264,7 @@
 </code>
 </pre>
 						</p>
+						<p>⚠️⚠️⚠️ Attention : la passerelle ne gère pas les absences ajoutées directement dans Scodoc qui durent plusieurs jours.</p>
 					</label>
 
 					<label>

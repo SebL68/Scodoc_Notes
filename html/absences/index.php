@@ -1045,7 +1045,7 @@
         }
 
 		function floatToHour(heure){
-			return Math.floor(heure) + "h"+ ((heure%1*60 < 10)?"0"+heure%1*60 : heure%1*60)
+			return Math.floor(heure) + "h"+ ((heure%1*60 < 10)?"0"+Math.round(heure%1*60) : Math.round(heure%1*60))
 		}
 
 /***************************/
