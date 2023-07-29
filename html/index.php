@@ -369,6 +369,7 @@
 					retard: 0
 				};
 				let output = "";
+				let multiJours = false;
 
 				if(Object.entries(data.absences).length){
 					Object.entries(data.absences).forEach(([date, listeAbsences])=>{
@@ -386,8 +387,16 @@
 								}
 								
 							}
+							if(date != absence.dateFin){
+								var outputDate = date.split("-").reverse().join("/") 
+												+ " - " 
+												+ absence.dateFin.split("-").reverse().join("/");
+								multiJours = true;
+							} else {
+								var outputDate = date.split("-").reverse().join("/");
+							}
 							output = `
-								<div>${date.split("-").reverse().join("/")}</div> 
+								<div>${outputDate}</div> 
 								<div>${floatToHour(absence.debut)} - ${floatToHour(absence.fin)}</div>
 								<div>${getMatiere(data, absence.matiereComplet)}</div>
 								<div class=enseignant>${absence.enseignant.split('@')[0].split(".").join(" ")}</div>
@@ -414,16 +423,20 @@
 				` + output;
 
 				/* Totaux */
+				if(multiJour) {
+					document.querySelector(".absences>.totauxAbsences").style.display = "none";
+				} else {
+					document.querySelector(".absences>.totauxAbsences").innerHTML = `
+						<div class="entete justifie">Nombre justifiées</div>
+						<div class="entete absent">Nombre injustifiées</div>
+						<div class="entete retard">Nombre retards</div>
 
-				document.querySelector(".absences>.totauxAbsences").innerHTML = `
-					<div class="entete justifie">Nombre justifiées</div>
-					<div class="entete absent">Nombre injustifiées</div>
-					<div class="entete retard">Nombre retards</div>
-
-					<div>${floatToHour(totaux.justifie)}</div>
-					<div>${floatToHour(totaux.absent)}</div>
-					<div>${totaux.retard}</div>
-				`;
+						<div>${floatToHour(totaux.justifie)}</div>
+						<div>${floatToHour(totaux.absent)}</div>
+						<div>${totaux.retard}</div>
+					`;
+				}
+				
 			}
 
 			function getMatiere(data, txt) {
@@ -431,7 +444,6 @@
 					let matiere = Object.entries(data.relevé.ressources).find(e => {
 						return e[1].id == txt;
 					});
-					console.log(matiere);
 					return matiere[0] + ' - ' + matiere[1].titre;
 				} else {
 					return txt || "-";

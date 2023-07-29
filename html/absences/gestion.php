@@ -618,6 +618,10 @@
 									title="${floatToHour(absence.debut)} - ${floatToHour(absence.fin)} - ${absence.enseignant}"
 									onclick="${(absence.statut != "present") ? "justify(this)":""}">
 								</div>`;
+
+							if(absencesJour != absence.dateFin) {
+								message("Attention, une absence sur plusieurs jours a été intégrée dans Scodoc, la passerelle ne le gère pas.");
+							}
 						}
 					})
 				}
