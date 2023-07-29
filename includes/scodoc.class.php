@@ -486,8 +486,8 @@ class Scodoc{
 /***********************/
 
 	/*******************************/
-	/* getAbsence()
-	Liste les modules d'un département + semestre
+	/* getStudentAbsences()
+	Liste les absences d'un étudiant durant un semestre
 	*******************************/
 	public function getStudentAbsences($sem, $nip){
 		return json_decode(
@@ -495,5 +495,13 @@ class Scodoc{
 				"assiduites/nip/$nip", 
 				['formsemestre_id' => $sem])
 		);
+	}
+
+	/*******************************/
+	/* getSemesterAbsences()
+	Liste les absences de tous les étudiants d'un semestre
+	*******************************/
+	public function getSemesterAbsences($sem){
+		return json_decode( $this->Ask_Scodoc("assiduites/formsemestre/$sem") );
 	}
 }

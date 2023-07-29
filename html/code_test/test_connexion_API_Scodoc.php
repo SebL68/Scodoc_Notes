@@ -55,8 +55,9 @@
 			curl_setopt($this->ch, CURLOPT_URL, $Config->scodoc_url . "/api/$url_query?$data");
 
 			// Pour tester d'envoyer des données en POST :
-			/*$payload = '[{"date_debut": "2022-11-27T08:00","date_fin": "2022-11-27T10:00","etat": "absent"}]';
+			/*$payload = '[{"date_debut": "2022-11-11T08:00","date_fin": "2022-11-11T10:00","etat": "absent"}]';
 			curl_setopt( $this->ch, CURLOPT_POSTFIELDS, $payload );*/
+			//////////////////////////////////////////////
 			return curl_exec($this->ch);
 		}
 	}
@@ -82,6 +83,7 @@
 	/*Test API nouvelles absences - Scodoc 9.6+ */
 	//echo $Scodoc->Ask_Scodoc('assiduites/nip/22203129');
 	//echo $Scodoc->Ask_Scodoc('assiduites/etudid/5167/count');
+	//echo $Scodoc->Ask_Scodoc('assiduites/formsemestre/477');
 	//echo $Scodoc->Ask_Scodoc('assiduite/5167/create');	// Données en POST
 
 ?>

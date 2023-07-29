@@ -62,17 +62,23 @@
 			$Scodoc = new Scodoc();
 			if($etudiant == '') {
 				// On récupère les absences de tous les étudiants du semestre
-				return $Scodoc->getSemesterAbsences($semestre);
+				$data = $Scodoc->getSemesterAbsences($semestre);
+				return Absences::scoAbsDataToPasserelle($data, true);
 			} else {
 				// Sinon les absences d'un étudiant lors de ce semestre
 				$data = $Scodoc->getStudentAbsences($semestre, $etudiant);
-				$output = [];
+				return Absences::scoAbsDataToPasserelle($data, false);
+			}
+		}
+
+		private static function scoAbsDataToPasserelle($data, $groupNip) {
+			$output = [];
 				for($i=0 ; $i<count($data) ; $i++){
 
 					$timestampDebut = strtotime(explode('+', $data[$i]->date_debut)[0]);
 					$timestampFin = strtotime(explode('+', $data[$i]->date_fin)[0]);
 
-					$output[date('Y-m-d', $timestampDebut)][] = [
+					$temp = [
 						'id' => $data[$i]->assiduite_id,
 						'debut' => Absences::hoursToFloat(date('G:i', $timestampDebut)),
 						'fin' => Absences::hoursToFloat(date('G:i', $timestampFin)),
@@ -82,10 +88,13 @@
 						'matiereComplet' => $data[$i]->moduleimpl_id // Faudrait en plus le texte du module
 					];
 
+					if($groupNip) {
+						$output[$data[$i]->code_nip][date('Y-m-d', $timestampDebut)][] = $temp;
+					} else {
+						$output[date('Y-m-d', $timestampDebut)][] = $temp;
+					}
 				}
-				return $output;
-			}
-			
+			return $output;
 		}
 
 		private static function hoursToFloat($val){
