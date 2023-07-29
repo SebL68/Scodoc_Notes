@@ -362,6 +362,7 @@
 /*********************************************/		
         var departement = "";
         var semestre = "";
+		var modules;
         var dataEtudiants;
         var depAdmins = [];
 
@@ -406,6 +407,8 @@
             getStudentsListes();
             /* Gestion du storage remettre le même état au retour */
             localStorage.setItem('semestre', semestre);
+
+			modules = await fetchData(`modules&semestre=${semestre}`);
 		}
 
         async function getStudentsListes(){
@@ -427,12 +430,6 @@
 				<button onclick="createSemesterReport({boursiers:true})">Rapport d'absences boursiers</button>
 			`:"";
 
-           /* var groupes = "";
-            if(liste.groupes.length > 1){
-                liste.groupes.forEach(groupe=>{
-                    groupes += `<div class=groupe data-groupe="${groupe}" onclick="hideGroupe(this)">${groupe}</div>`;
-                })
-            }*/
 			var groupesOutput = "";
 			let arrGroupes = Object.entries(liste.groupes);
             if(arrGroupes[0].length > 1){
@@ -759,7 +756,7 @@
 							sheet.cell("A"+i).value(date.split("-").reverse().join("/"));
 							sheet.cell("B"+i).value(floatToHour(data.debut) + " - " + floatToHour(data.fin));
 							sheet.cell("C"+i).value(mailToTxt(data.enseignant));
-							sheet.cell("D"+i).value(data.matiereComplet);
+							sheet.cell("D"+i).value(getMatiere(data.matiereComplet));
 
 							total += data.fin - data.debut;
 							i++;
@@ -801,7 +798,7 @@
 							sheet.cell("A"+i).value(date.split("-").reverse().join("/"));
 							sheet.cell("B"+i).value(floatToHour(data.debut) + " - " + floatToHour(data.fin));
 							sheet.cell("C"+i).value(mailToTxt(data.enseignant));
-							sheet.cell("D"+i).value(data.matiereComplet);
+							sheet.cell("D"+i).value(getMatiere(data.matiereComplet));
 
 							total++;
 							i++;
@@ -843,7 +840,7 @@
 							sheet.cell("A"+i).value(date.split("-").reverse().join("/"));
 							sheet.cell("B"+i).value(floatToHour(data.debut) + " - " + floatToHour(data.fin));
 							sheet.cell("C"+i).value(mailToTxt(data.enseignant));
-							sheet.cell("D"+i).value(data.matiereComplet);
+							sheet.cell("D"+i).value(getMatiere(data.matiereComplet));
 
 							total += data.fin - data.debut;
 							i++;
@@ -1030,6 +1027,17 @@
 		function mailToTxt(mail){
 			let tab = mail.split("@")[0].split(".");
 			return tab[0].charAt(0).toUpperCase() + tab[0].slice(1) + " " + tab[1].toUpperCase();
+		}
+
+		function getMatiere(txt) {
+			if(Number.isInteger(txt)) {
+				let matiere = [...modules.modules, ...modules.saes].find(e => {
+					return e.id == txt;
+				});
+				return matiere.code + ' - ' + matiere.titre;
+			} else {
+				return txt || "-";
+			}
 		}
 
 /***************************/
