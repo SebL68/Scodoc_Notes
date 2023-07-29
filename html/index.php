@@ -308,7 +308,7 @@
 				let data = await fetchData("relevéEtudiant&semestre=" + semestre + ((nip && statut >= PERSONNEL) ? ("&etudiant=" + nip) : ""));
 
 				showReportCards(data, semestre);
-				feedAbsences(data.absences);
+				feedAbsences(data);
 			}	
 
 			function showReportCards(data, semestre){
@@ -370,8 +370,8 @@
 				};
 				let output = "";
 
-				if(Object.entries(data).length){
-					Object.entries(data).forEach(([date, listeAbsences])=>{
+				if(Object.entries(data.absences).length){
+					Object.entries(data.absences).forEach(([date, listeAbsences])=>{
 						listeAbsences.forEach(absence=>{
 							if(absence.statut == "present"){
 								return;
@@ -389,7 +389,7 @@
 							output = `
 								<div>${date.split("-").reverse().join("/")}</div> 
 								<div>${floatToHour(absence.debut)} - ${floatToHour(absence.fin)}</div>
-								<div>${absence.matiereComplet || "-"}</div>
+								<div>${getMatiere(data, absence.matiereComplet)}</div>
 								<div class=enseignant>${absence.enseignant.split('@')[0].split(".").join(" ")}</div>
 								<div class="${(absence.justifie === true || absence.justifie === "true" ) ? "justifie" : absence.statut}"></div>
 							` + output;
@@ -424,6 +424,18 @@
 					<div>${floatToHour(totaux.absent)}</div>
 					<div>${totaux.retard}</div>
 				`;
+			}
+
+			function getMatiere(data, txt) {
+				if(Number.isInteger(txt)) {
+					let matiere = Object.entries(data.relevé.ressources).find(e => {
+						return e[1].id == txt;
+					});
+					console.log(matiere);
+					return matiere[0] + ' - ' + matiere[1].titre;
+				} else {
+					return txt || "-";
+				}
 			}
 
 			function floatToHour(heure){
