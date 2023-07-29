@@ -508,6 +508,7 @@
 				let option = document.createElement("option");
 				option.value = module.code;
 				option.innerText = module.code + " - " + module.titre;
+				option.dataset.id = module.id;
 				select.appendChild(option);
             });
 			data.saes?.forEach(module=>{
@@ -1030,8 +1031,12 @@
 		function addHint(target, debut, fin, statut, enseignant, matiere){
 			let posiDebut = (debut - moduleDate.heureDebut) / (moduleDate.heureFin - moduleDate.heureDebut) * 100;
 			let tailleDuree = (fin - debut) / (moduleDate.heureFin - moduleDate.heureDebut) * 100;
+
+			if(Number.isInteger(matiere)) {
+				matiere = document.querySelector(`[data-id="${matiere}"]`).innerText;
+			}
 					
-			target.innerHTML += `<div style="left:${posiDebut}%;width:${tailleDuree}%" data-statut="${statut}" title="${enseignant} - ${matiere}"></div>`;
+			target.innerHTML += `<div style="left:${posiDebut}%;width:${tailleDuree}%" data-statut="${statut}" title="${enseignant} - ${matiere || "Sans matière"}"></div>`;
 		}
 
         function message(msg){

@@ -475,7 +475,8 @@ class Scodoc{
 		foreach($data as $value){
 			$output[] = [
 				'titre' => $value->module->titre,
-				'code' => $value->module->code
+				'code' => $value->module->code,
+				'id' => $value->id
 			];
 		}
 		return $output;
