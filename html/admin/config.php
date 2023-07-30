@@ -264,7 +264,8 @@
 </code>
 </pre>
 						</p>
-						<p>⚠️⚠️⚠️ Attention : la passerelle ne gère pas les absences ajoutées directement dans Scodoc qui durent plusieurs jours.</p>
+						<p>⚠️⚠️⚠️ Attention : même si l'affichage aux étudiants fonctionne, la passerelle ne gère pas la saisi, la justification et les statistiques des absences ajoutées directement dans Scodoc qui durent plusieurs jours.</p>
+						<p>La raison est que les statistiques de la passerelle peuvent servir à générer des malus, il faut donc "certifier" chaque séance où l'étudiant est absent et ne pas saisir sur une plage indifféremment des séances présentes ou non.</p>
 					</label>
 
 					<label>
@@ -376,7 +377,7 @@
 			document.querySelector("body").appendChild(div);
 			setTimeout(() => {
 				div.remove();
-			}, 3000);
+			}, 6000);
 		}
 	</script>
 	<?php

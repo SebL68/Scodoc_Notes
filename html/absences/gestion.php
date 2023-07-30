@@ -678,7 +678,7 @@
             document.querySelector("body").appendChild(div);
             setTimeout(()=>{
                 div.remove();
-            }, 3000);
+            }, 6000);
         }
 		function floatToHour(heure){
 			return Math.floor(heure) + "h"+ ((heure%1*60 < 10)?"0"+Math.round(heure%1*60) : Math.round(heure%1*60))

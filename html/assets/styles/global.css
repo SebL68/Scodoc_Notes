@@ -314,14 +314,14 @@ main {
 	background: #ec7068;
 	color: #FFF;
 	font-size: 24px;
-	animation: message 3s;
+	animation: message 6s;
 	transform: translate(-50%, 0);
 }
 
 @keyframes message {
 
-	20%,
-	80% {
+	10%,
+	90% {
 		transform: translate(-50%, 100%)
 	}
 }

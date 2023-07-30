@@ -1050,7 +1050,7 @@
             document.querySelector("body").appendChild(div);
             setTimeout(()=>{
                 div.remove();
-            }, 3000);
+            }, 6000);
         }
 
 		function floatToHour(heure){
