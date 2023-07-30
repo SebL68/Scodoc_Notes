@@ -435,6 +435,10 @@
 				<button onclick="createSemesterReport({boursiers:true})">Rapport d'absences boursiers</button>
 			`:"";
 
+			if(config.data_absences_scodoc) {
+				output += "<p>Il est recommandé de n'utiliser que les justifications de Scodoc ou que les justifications de la passerelle, mais pas de les mixer.<br><a target=_blank href=../services/messages.php#absencesMultiJours>Plus d'informations</a></p>";
+			}
+
 			var groupesOutput = "";
 			let arrGroupes = Object.entries(liste.groupes);
             if(arrGroupes[0].length > 1){
