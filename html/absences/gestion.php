@@ -617,7 +617,7 @@
 								</div>`;
 
 							if(absencesJour != absence.dateFin) {
-								message("Attention, une absence sur plusieurs jours a été intégrée dans Scodoc, la passerelle ne le gère pas.");
+								message("Attention, une absence sur plusieurs jours a été intégrée dans Scodoc, la passerelle ne le gère pas. <a target=_blank href=../services/messages.php#absencesMultiJours>Plus d'informations</a>");
 							}
 						}
 					})
