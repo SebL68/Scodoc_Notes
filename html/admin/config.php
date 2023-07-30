@@ -265,7 +265,7 @@
 </pre>
 						</p>
 						<p>⚠️⚠️⚠️ Attention : même si l'affichage aux étudiants fonctionne, la passerelle ne gère pas la saisi, la justification et les statistiques des absences ajoutées directement dans Scodoc qui durent plusieurs jours.</p>
-						<p>La raison est que les statistiques de la passerelle peuvent servir à générer des malus, il faut donc "certifier" chaque séance où l'étudiant est absent et ne pas saisir sur une plage indifféremment des séances présentes ou non.</p>
+						<p><a target=_blank href=../services/messages.php#absencesMultiJours>Plus d'informations</a></p>
 					</label>
 
 					<label>
