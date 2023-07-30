@@ -2,7 +2,6 @@ Pour suivre les évolutions, l'idéal est d'aller voir sur le Discord (voir ci-d
 
 Travaux en cours :
  - affichage de l'analyse du trafic sur la passerelle respectant le RGPD
- - afficher les absences depuis Scodoc -> en attente du nouveau module Scodoc
  - lien pour les photos entre Scodoc et la passerelle  
   
 Les utilisateurs actuels sont :
