@@ -328,13 +328,17 @@
 				sanitize($_GET['etudiant']);
 				sanitize($_GET['date']);
 				sanitize($_GET['debut']);
+				sanitize($_GET['fin']);
 				sanitize($_GET['justifie']);
+				sanitize($_GET['id']);
 				$output = Absences::setJustifie(
 					$_GET['semestre'],
 					$_GET['etudiant'],
 					$_GET['date'],
 					$_GET['debut'],
-					$_GET['justifie']
+					$_GET['fin'],
+					$_GET['justifie'],
+					$_GET['id']
 				);
 				break;
 

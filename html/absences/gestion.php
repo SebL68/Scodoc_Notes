@@ -283,6 +283,11 @@
 		[data-justifie=true]{
             background: var(--secondaire);
         }
+
+		.waitResponse{
+			pointer-events: none;
+			filter: brightness(50%);
+		}
     </style>
     <meta name=description content="Gestion des absences - <?php echo $Config->nom_IUT; ?>">
 </head>
@@ -612,6 +617,7 @@
 									data-justifie="${absence.justifie}" 
 									data-debut="${absence.debut}"
 									data-fin="${absence.fin}"
+									data-id="${absence.id || ""}"
 									title="${floatToHour(absence.debut)} - ${floatToHour(absence.fin)} - ${absence.enseignant}"
 									onclick="${(absence.statut != "present") ? "justify(this)":""}">
 								</div>`;
@@ -643,18 +649,25 @@
             date.setDate(dateLundi.getDate() + parseInt(obj.parentElement.dataset.day));
             date = ISODate(date);
            
+			obj.classList.add("waitResponse");
             let response = await fetchData("setJustifie" + 
                 "&semestre=" + semestre +
                 "&etudiant=" + obj.parentElement.parentElement.children[0].dataset.nip +
                 "&date=" + date +
                 "&debut=" + obj.dataset.debut +
-                "&justifie=" + obj.dataset.justifie
+                "&fin=" + obj.dataset.fin +
+                "&justifie=" + obj.dataset.justifie +
+                "&id=" + obj.dataset.id
             );
 
             if(response.result != "OK"){
                 displayError("Il y a un problème - l'absence n'a pas été enregistrée.");
 				return;
             }
+
+			obj.dataset.id = response.id || "";
+
+			obj.classList.remove("waitResponse");
 
             dataEtudiants.absences[obj.parentElement.parentElement.children[0].dataset.nip][date].forEach(function(e, index, array){
 				if(e.debut == obj.dataset.debut){

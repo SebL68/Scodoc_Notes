@@ -505,4 +505,34 @@ class Scodoc{
 	public function getSemesterAbsences($sem){
 		return json_decode( $this->Ask_Scodoc("assiduites/formsemestre/$sem") );
 	}
+
+	/*******************************/
+	/* setJustif()
+	Ajout d'une justification d'absence
+	*******************************/
+	public function setJustif($nip, $debut, $fin){
+		return json_decode( 
+			$this->Ask_Scodoc(
+				"justificatif/nip/$nip/create", 
+				[], 
+				json_encode(
+					[
+						[
+							'etat' => 'valide',
+							'date_debut' => $debut,
+							'date_fin' => $fin
+						]
+					]
+				)
+			) 
+		);
+	}
+
+	/*******************************/
+	/* ()
+	
+	*******************************/
+	public function unsetJustif($sem){
+		return json_decode( $this->Ask_Scodoc("justificatif/formsemestre/$sem") );
+	}
 }

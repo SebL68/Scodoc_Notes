@@ -103,13 +103,42 @@
 			return $parts[0] + $parts[1]/60;
 		}
 
+		private static function floatToHours($time){
+			return sprintf('%02d:%02d', (int) $time, fmod($time, 1) * 60);
+		}
+
+		private static function ISODate($date, $time){
+			return $date . 'T' . Absences::floatToHours($time) . ':00';
+		}
+
+
 	/************************************
 	* setJustify
 	*	Justification a true ou false
 	*
 	************************************/
-		public static function setJustifie($semestre, $etudiant, $date, $debut, $justifie){
+		public static function setJustifie($semestre, $etudiant, $date, $debut, $fin, $justifie, $id){
+			$Scodoc = new Scodoc();
+			$ISODebut = Absences::ISODate($date, $debut);
+			$ISOFin = Absences::ISODate($date, $fin);
 
-			return ['result' => 'OK'];
+			if($justifie === 'true') {
+				$response = $Scodoc->setJustif($etudiant, $ISODebut, $ISOFin);
+				if(isset($response->success[0]->message->justif_id)) {
+					return [
+						'result' => 'OK',
+						'id' => $response->success[0]->message->justif_id
+					];
+				} else {
+					return [
+						'result' => 'NOK'
+					];
+				}
+				
+			} else {
+////////////////////////
+////////////////////////
+////////////////////////
+			}
 		}
 	}

@@ -144,7 +144,7 @@
 	*	Justification a true ou false
 	*
 	************************************/
-		public static function setJustifie($semestre, $etudiant, $date, $debut, $justifie){
+		public static function setJustifie($semestre, $etudiant, $date, $debut, $fin, $justifie, $id){
 			global $path;
 			$dir = "$path/data/absences/$semestre/";
 			$file = $dir.$etudiant.'.json';
