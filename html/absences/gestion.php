@@ -636,8 +636,21 @@
 				return message("Seul un administrateur peut justifier une absence");
 			}
             if(depAdmins.indexOf(session) == -1 && statutSession < SUPERADMINISTRATEUR){
-              //  return message("Vous ne pouvez pas modifier une absence d'un autre département");
+                return message("Vous ne pouvez pas modifier une absence d'un autre département");
             }
+
+			if(obj.dataset.id.search(',') != -1) {
+				return message("Plusieurs justificatifs Scodoc couvrent cette absence, la passerelle ne le gère pas, utilisez Scodoc pour réaliser les modifications.");
+			}
+
+			if(obj.dataset.id) {
+				let regex = new RegExp(`"id":\\[${obj.dataset.id}\\]`, "g")
+				if(JSON.stringify(dataEtudiants.absences).match(regex).length > 1) {
+					return message("La justification Scodoc couvre plusieurs absences, la passerelle ne le gère pas, utilisez Scodoc pour réaliser les modifications.");
+				}
+			}
+
+			/********************/
 
             if(obj.dataset.justifie == "false"){
 				obj.setAttribute("data-justifie", "true")

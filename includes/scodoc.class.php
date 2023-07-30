@@ -503,7 +503,7 @@ class Scodoc{
 	Liste les absences de tous les étudiants d'un semestre
 	*******************************/
 	public function getSemesterAbsences($sem){
-		return json_decode( $this->Ask_Scodoc("assiduites/formsemestre/$sem") );
+		return json_decode( $this->Ask_Scodoc("assiduites/formsemestre/$sem", ['with_justifs' => true]) );
 	}
 
 	/*******************************/
@@ -529,10 +529,10 @@ class Scodoc{
 	}
 
 	/*******************************/
-	/* ()
-	
+	/* unsetJustif()
+	Supprime un jusitifcatif
 	*******************************/
-	public function unsetJustif($sem){
-		return json_decode( $this->Ask_Scodoc("justificatif/formsemestre/$sem") );
+	public function unsetJustif($id){
+		return json_decode( $this->Ask_Scodoc('justificatif/delete', [], $id) );
 	}
 }

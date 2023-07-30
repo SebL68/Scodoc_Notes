@@ -78,8 +78,13 @@
 					$timestampDebut = strtotime(explode('+', $data[$i]->date_debut)[0]);
 					$timestampFin = strtotime(explode('+', $data[$i]->date_fin)[0]);
 
+					$id = [];
+					for($j=0 ; $j<count($data[$i]->justificatifs) ; $j++) {
+						$id[] = $data[$i]->justificatifs[$j]->justif_id;
+					}
+
 					$temp = [
-						'id' => $data[$i]->assiduite_id,
+						'id' => $id,
 						'debut' => Absences::hoursToFloat(date('G:i', $timestampDebut)),
 						'fin' => Absences::hoursToFloat(date('G:i', $timestampFin)),
 						'statut' => strtolower($data[$i]->etat),
@@ -119,26 +124,26 @@
 	************************************/
 		public static function setJustifie($semestre, $etudiant, $date, $debut, $fin, $justifie, $id){
 			$Scodoc = new Scodoc();
-			$ISODebut = Absences::ISODate($date, $debut);
-			$ISOFin = Absences::ISODate($date, $fin);
-
+			
 			if($justifie === 'true') {
+
+				$ISODebut = Absences::ISODate($date, $debut);
+				$ISOFin = Absences::ISODate($date, $fin);
+
 				$response = $Scodoc->setJustif($etudiant, $ISODebut, $ISOFin);
+
 				if(isset($response->success[0]->message->justif_id)) {
 					return [
 						'result' => 'OK',
 						'id' => $response->success[0]->message->justif_id
 					];
-				} else {
-					return [
-						'result' => 'NOK'
-					];
-				}
-				
+				} 
 			} else {
-////////////////////////
-////////////////////////
-////////////////////////
+				$response = $Scodoc->unsetJustif("[$id]");
+				if(isset($response->success[0]->message) && count($response->errors) == 0) {
+					return ['result' => 'OK'];
+				} 
 			}
+			return ['result' => 'NOK'];
 		}
 	}
