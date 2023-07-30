@@ -617,12 +617,12 @@
 									data-justifie="${absence.justifie}" 
 									data-debut="${absence.debut}"
 									data-fin="${absence.fin}"
-									data-id="${absence.id || ""}"
+									data-id="${absence.idJustif || ""}"
 									title="${floatToHour(absence.debut)} - ${floatToHour(absence.fin)} - ${absence.enseignant}"
 									onclick="${(absence.statut != "present") ? "justify(this)":""}">
 								</div>`;
 
-							if(absencesJour != absence.dateFin) {
+							if(config.data_absences_scodoc && absencesJour != absence.dateFin) {
 								message("Attention, une absence sur plusieurs jours a été intégrée dans Scodoc, la passerelle ne le gère pas. <a target=_blank href=../services/messages.php#absencesMultiJours>Plus d'informations</a>");
 							}
 						}
@@ -639,12 +639,12 @@
                 return message("Vous ne pouvez pas modifier une absence d'un autre département");
             }
 
-			if(obj.dataset.id.search(',') != -1) {
+			if(config.data_absences_scodoc && obj.dataset.id.search(',') != -1) {
 				return message("Plusieurs justificatifs Scodoc couvrent cette absence, la passerelle ne le gère pas, utilisez Scodoc pour réaliser les modifications.");
 			}
 
-			if(obj.dataset.id) {
-				let regex = new RegExp(`"id":\\[${obj.dataset.id}\\]`, "g")
+			if(config.data_absences_scodoc && obj.dataset.id) {
+				let regex = new RegExp(`"idJustif":\\[${obj.dataset.id}\\]`, "g")
 				if(JSON.stringify(dataEtudiants.absences).match(regex).length > 1) {
 					return message("La justification Scodoc couvre plusieurs absences, la passerelle ne le gère pas, utilisez Scodoc pour réaliser les modifications.");
 				}

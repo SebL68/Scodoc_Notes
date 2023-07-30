@@ -78,13 +78,14 @@
 					$timestampDebut = strtotime(explode('+', $data[$i]->date_debut)[0]);
 					$timestampFin = strtotime(explode('+', $data[$i]->date_fin)[0]);
 
-					$id = [];
+					$idJustif = [];
 					for($j=0 ; $j<count($data[$i]->justificatifs) ; $j++) {
-						$id[] = $data[$i]->justificatifs[$j]->justif_id;
+						$idJustif[] = $data[$i]->justificatifs[$j]->justif_id;
 					}
 
 					$temp = [
-						'id' => $id,
+						'idAbs' => $data[$i]->assiduite_id,
+						'idJustif' => $idJustif,
 						'debut' => Absences::hoursToFloat(date('G:i', $timestampDebut)),
 						'fin' => Absences::hoursToFloat(date('G:i', $timestampFin)),
 						'statut' => strtolower($data[$i]->etat),

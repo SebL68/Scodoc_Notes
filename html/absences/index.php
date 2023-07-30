@@ -1024,7 +1024,7 @@
 							absenceJour.matiereComplet
 						)
 
-						if(creneau.date != absenceJour.dateFin) {
+						if(config.data_absences_scodoc && creneau.date != absenceJour.dateFin) {
 							message("Attention, une absence sur plusieurs jours a été intégrée dans Scodoc, la passerelle ne le gère pas. <a target=_blank href=../services/messages.php#absencesMultiJours>Plus d'informations</a>");
 						}
 					}
