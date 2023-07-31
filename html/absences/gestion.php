@@ -689,6 +689,7 @@
             dataEtudiants.absences[obj.parentElement.parentElement.children[0].dataset.nip][date].forEach(function(e, index, array){
 				if(e.debut == obj.dataset.debut){
 					array[index].justifie = (obj.dataset.justifie == "true") ? true : false;
+					array[index].idJustif = [response.id] || "";
 				}
 			})
         }
