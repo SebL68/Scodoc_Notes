@@ -436,7 +436,7 @@
 			`:"";
 
 			if(config.data_absences_scodoc) {
-				output += "<p>Il est recommandé de n'utiliser que les justifications de Scodoc ou que les justifications de la passerelle, mais pas de les mixer.<br><a target=_blank href=../services/messages.php#absencesMultiJours>Plus d'informations</a></p>";
+				output += "<p>Attention, Scodoc et la passerelle ne gèrent pas les justifications de la même manière :<br><a target=_blank href=../services/messages.php#absencesMultiJours>Plus d'informations</a></p>";
 			}
 
 			var groupesOutput = "";
