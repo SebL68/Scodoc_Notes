@@ -260,9 +260,16 @@
 			align-items: center;
             gap:6px;
 			row-gap: 10px;
+			background: #FFF;
         }
 		.btnAbsences:hover{
 			background: #ccc;
+		}
+		.btnAbsences.all{
+			font-weight: bold;
+			justify-content: space-between;
+			margin-bottom: 16px;
+			border: 1px solid #CCC;
 		}
 		.grpBtn{
 			display: flex;
@@ -559,8 +566,12 @@
 				document.querySelector(".etudiants").classList.add("ready");
 			});
 
-			document.querySelectorAll(".btn").forEach(btn=>{ 
+			document.querySelectorAll(".btnAbsences[data-nip] .btn").forEach(btn=>{ 
 				btn.addEventListener("click", setAbsence) 
+			});
+
+			document.querySelectorAll(".btnAbsences.all .btn").forEach(btn=>{ 
+				btn.addEventListener("click", setAllAbsence) 
 			});
 
 			moduleDate = new choixDate(
@@ -620,7 +631,27 @@
 				</div>
 				<div class="validCreneau">Valider le créneau</div>
 				<!-- / -->
-				<div class=etudiants>${createStudents(liste.etudiants)}</div>
+				
+				<div class=etudiants>
+					<div class="btnAbsences all">
+						Tous les étudiants
+						<div class=grpBtn>
+							<div class=btn data-command=present  title=Présent>
+								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--contenu)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+							</div>
+							<div class=btn data-command=absent title=Absent>
+								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--contenu)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+							</div>
+							<div class=btn data-command=retard title="En retard">
+								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--contenu)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+							</div>
+							<div class=btn data-command=unset title=Annuler>
+								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--contenu)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+							</div>
+						</div>
+					</div>
+					${createStudents(liste.etudiants)}
+				</div>
             `;
 
             return output;
@@ -702,7 +733,7 @@
 				groupesSelected.push(e.dataset.groupe);
 			})
 
-			document.querySelectorAll(".btnAbsences").forEach(e=>{
+			document.querySelectorAll(".btnAbsences[data-nom]").forEach(e=>{
 				if(groupesSelected.some(valeur => e.dataset.groupe.includes(valeur))){
 					e.classList.remove("hide")
 				} else {
@@ -1082,6 +1113,14 @@
 			}
 					
 			target.innerHTML += `<div style="left:${posiDebut}%;width:${tailleDuree}%" data-statut="${statut}" title="${enseignant} - ${matiere || "Sans matière"}"></div>`;
+		}
+
+		function setAllAbsence() {
+			let elements = document.querySelectorAll(`.btnAbsences[data-nom]:not(.hide) .btn[data-command="${this.dataset.command}"]`);
+			
+			elements.forEach(e => {
+				e.click();
+			})
 		}
 
         function message(msg){
