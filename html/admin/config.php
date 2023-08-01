@@ -41,6 +41,8 @@
 		}
 		label>b{
 			flex: none;
+			margin-bottom: 16px;
+			display: inline-block;
 		}
 		input[type=text],
 		input[type=number] {
@@ -176,6 +178,19 @@
 						<p>
 							Chaque enseignant n'a accès qu'aux département dans lesquels il intervient (voir onglet Comptes).
 						</p>
+					</label>
+
+					<label>
+						<input type="checkbox" name="doc_afficher_nip">
+						<b>"Onglet Documents -> Données étudiants" : afficher le numéro d'étudiant</b>
+					</label>
+					<label>
+						<input type="checkbox" name="doc_afficher_id">
+						<b>"Onglet Documents -> Données étudiants" : afficher l'identifiant étudiant</b>
+					</label>
+					<label>
+						<input type="checkbox" name="doc_afficher_date_naissance">
+						<b>"Onglet Documents -> Données étudiants" : afficher la date de naissance</b>
 					</label>
 				</div>
 			</details>

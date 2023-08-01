@@ -59,6 +59,10 @@
 		$Config->data_absences_scodoc = $configJSON['data_absences_scodoc'] ?? Config::$data_absences_scodoc ?? false;	// Choisir si les absences sont stockées sur la passerelle ou dans Scodoc.
 
 		$Config->cloisonner_enseignants = $configJSON['cloisonner_enseignants'] ?? Config::$cloisonner_enseignants ?? false; // Permettre a un enseignant d'avoir accès à tous les départements ou que ceux dans lesquels il intervient (onglet Comptes).
+		
+		$Config->doc_afficher_nip = $configJSON['doc_afficher_nip'] ?? Config::$doc_afficher_nip ?? true; // Permet d'avoir la data num étudiant dans Documents -> Données étudiants
+		$Config->doc_afficher_id = $configJSON['doc_afficher_id'] ?? Config::$doc_afficher_id ?? true; // Permet d'avoir la data identifiant dans Documents -> Données étudiants
+		$Config->doc_afficher_date_naissance = $configJSON['doc_afficher_date_naissance'] ?? Config::$doc_afficher_date_naissance ?? true; // Permet d'avoir la data date de naissance dans Documents -> Données étudiants
 
 /*********************/
 /* Analyse du trafic */
@@ -247,6 +251,10 @@ $accepted_input = [
 	'analystics_interne',
 	'analyse_temps_requetes',
 	'nom_IUT',
+
+	'doc_afficher_nip',
+	'doc_afficher_id',
+	'doc_afficher_date_naissance',
 
 	'idReg',
 	'idPlaceHolder',

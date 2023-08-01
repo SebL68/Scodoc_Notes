@@ -15,7 +15,7 @@ class Scodoc{
 
 		$this->tokenPath = "$path/includes/token.txt";
 		$this->ch = curl_init();
-		//$Config->scodoc_url = 'http://192.168.43.67:5000/ScoDoc';
+		$Config->scodoc_url = 'http://192.168.43.67:5000/ScoDoc';
 
 		$options = array(
 			CURLOPT_FORBID_REUSE => true,
@@ -382,6 +382,7 @@ class Scodoc{
 
 	*******************************/
 	public function getStudentsInSemester($sem){
+		global $Config;
 		$json = json_decode(
 			$this->Ask_Scodoc("formsemestre/$sem/etudiants/long/query", ['etat' => "I"])
 		);
@@ -397,17 +398,21 @@ class Scodoc{
 				$groupes[$partition][] = $groupe;
 			}
 
-			$output_json[] = [
+			$data = [
 				'nom' => $value->nom,
 				'prenom' => $value->prenom,
 				'groupes' => $studentGroups,
 				'nip' => $value->code_nip,
-				'idcas' => Annuaire::getStudentIdCASFromNumber($value->code_nip),
-				'date_naissance' => $value->date_naissance,
+				'idcas' => '',
+				'date_naissance' => '',
 				'boursier' => $value->boursier
 				// 'num_ine' => $value->code_ine
-
 			];
+
+			if($Config->doc_afficher_id){ $data['idcas'] = Annuaire::getStudentIdCASFromNumber($value->code_nip); }
+			if($Config->doc_afficher_date_naissance){ $data['date_naissance'] = $value->date_naissance; }
+
+			$output_json[] = $data;
 		}
 		foreach($groupes as &$partition){
 			$partition = array_unique($partition);

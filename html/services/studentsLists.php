@@ -510,9 +510,10 @@
                 sheet.cell("B5").value("Nom").style("bold", true);
                 sheet.cell("C5").value("Prénom").style("bold", true);
                 sheet.cell("D5").value("Groupe").style("bold", true);
-                sheet.cell("E5").value("Num étudiant").style("bold", true);
-                sheet.cell("F5").value("Identifiant").style("bold", true);
-                sheet.cell("G5").value("Date de naissance").style("bold", true);
+
+				if(config.doc_afficher_nip) sheet.cell("E5").value("Num étudiant").style("bold", true);
+                if(config.doc_afficher_id) sheet.cell("F5").value("Identifiant").style("bold", true);
+                if(config.doc_afficher_date_naissance) sheet.cell("G5").value("Date de naissance").style("bold", true);
 
                 var i = 6;
                 h2.nextElementSibling.querySelectorAll(".etudiants>a:not(.hide)").forEach(etudiant=>{
@@ -520,9 +521,9 @@
                     sheet.cell("B"+i).value(etudiant.dataset.nom);
                     sheet.cell("C"+i).value(etudiant.dataset.prenom);
                     sheet.cell("D"+i).value(etudiant.dataset.groupe);
-                    sheet.cell("E"+i).value(etudiant.dataset.num);
-                    sheet.cell("F"+i).value(etudiant.dataset.idcas);
-                    sheet.cell("G"+i).value(etudiant.dataset.datenaissance);
+					if(config.doc_afficher_nip) sheet.cell("E"+i).value(etudiant.dataset.num);
+                    if(config.doc_afficher_id)sheet.cell("F"+i).value(etudiant.dataset.idcas);
+					if(config.doc_afficher_date_naissance) sheet.cell("G"+i).value(etudiant.dataset.datenaissance);
                     i++;
                 });
 
