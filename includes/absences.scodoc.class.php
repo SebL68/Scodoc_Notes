@@ -36,11 +36,7 @@
 
 				case 'modif':
 					$data = [
-						'etat' => $statut/*,
-						'moduleimpl_id' => intval($idMatiere),
-						'desc' => [
-							'enseignant' => $enseignant
-						]*/
+						'etat' => $statut
 					];
 					$response = $Scodoc->modifAbsence($id, json_encode($data));
 					if(isset($response->OK) && $response->OK == true) {
