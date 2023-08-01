@@ -260,7 +260,7 @@
 			align-items: center;
             gap:6px;
 			row-gap: 10px;
-			background: #FFF;
+			background: var(--fond-clair);
         }
 		.btnAbsences:not(.all):hover{
 			background: #ccc;
@@ -284,7 +284,7 @@
 		}
 		.progress::before{
 			content:"";
-			background: rgba(0, 204, 153, 0.5);
+			background: var(--secondaire);
 			position: absolute;
 			left: 0;
 			width: calc(100% * var(--nombre) / var(--reference));
