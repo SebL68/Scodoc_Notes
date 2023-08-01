@@ -51,6 +51,40 @@
 	<h1>Historique des mises à jour</h1>
 
 	<main>
+		<h2>02/08/2023 - 6.0.0</h2>
+		<ul>
+			<b>Relevé BUT</b>
+			<li>Ajout d'un marqueur pour voir rapidement les nouvelles évaluations - contribution de David Ismeurt, étudiant MMI Mulhouse.</li>
+			<li>Amélioration de l'affichage des malus négatif - contribution de Jean-Marie Place, enseignant-chercheur université de Lille</li>
+
+			<br>
+			<b>Absences</b>
+			<li>Option de sauvegarde des données absences dans Scodoc. Nécessite Scodoc 9.6+. En lien avec les options d'affichage des absences aux étudiants et de saisi des absences depuis la passerelle. Il est recommandé de ne pas mixer la justification des absences entre Scodoc et la passerelle. <a target="_blank" href="services/messages.php#absencesMultiJours">Plus d'informations</a></li>
+			<li>Saisi des absences par lots.</li>
+			<li>Rapport d'absences : ajout d'un accumulateur du nombre de jours absents.</li>
+
+			<br>
+			<b>Ajouts</b>
+			<li>Ajout d'une option pour cloisonner les enseignants : seul un enseignant qui est dans l'onglet "Comptes" aura accès au département dans lequel il est affecté.</li>
+			<li>Mode jour/nuit sur l'ensemble de la passerelle - contribution de Jordan Abeddou, étudiant MMI Mulhouse.</li>
+			<li>Filtrage multi-partitions des groupes.</li>
+			<li>Configuration des données récupérées dans l'onglet "Documents" -> Données étudiants.</li>
+
+			<br>
+			<b>Améliorations</b>
+			<li>Sauvegarde du jeton Scodoc : amélioration des performances.</li>
+
+			<br>
+			<b>Corrections</b>
+			<li>Vérification du statut super administrateur même si le mode enseignant n'est pas activé.</li>
+			
+			<br>
+			<b>Under the hood</b>
+			<li>Amélioration du fonctionnement de menu principal.</li>
+			<li>Suppression de la vérification des fichiers annuaires - bascule en mode enseignant simplifié.</li>
+			<br>
+			<li>Divers autres correctifs et améliorations.</li>
+		</ul>
 		<h2>24/02/2023 - 5.1.0</h2>
 		<ul>
 			<li>Menu de configuration en ligne pour les super administrateurs.</li>
@@ -378,7 +412,7 @@ chmod 744 installOrUpdate.sh
 
 		<h2>04/01/2021 - V3.0.1</h2>
 		<ul>
-			<li class=txt-barre>Création d'un <a target=_blank href="https://notes.iutmulhouse.uha.fr/?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uIjoiQ29tcHRlX0RlbW8udGVzdEB1aGEuZnIiLCJzdGF0dXQiOiJldHVkaWFudCJ9.kHuiNx8X2mWUjv1LAHVOdcLGCu2yQS_i6fxqZZICuEA" >compte démo</a></li>
+			<li class=txt-barre>Création d'un <a target=_blank href="https://notes.iutmulhouse.uha.fr/?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uIjoiQ29tcHRlX0RlbW8udGVzdEB1aGEuZnIiLCJzdGF0dXQiOiJldHVkaWFudCJ9.kHuiNx8X2mWUjv1LAHVOdcLGCu2yQS_i6fxqZZICuEA" >compte démo - n'est plus fonctionnel</a></li>
 			<li>Mise en ligne du code source sur <a target=_blank href="https://github.com/SebL68/Scodoc_Notes">GitHub</a></li>
 		</ul>
 		<h2>01/01/2020 - V3.0.0</h2>
