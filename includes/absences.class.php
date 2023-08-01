@@ -5,7 +5,7 @@
 		*	Créé ou modifie le fichier d'absence d'un étudiant
 		*
 		************************************/
-		public static function setAbsence($enseignant, $semestre, $matiere, $matiereComplet, $etudiant, $date, $debut, $fin, $statut){
+		public static function setAbsence($enseignant, $semestre, $matiere, $matiereComplet, $etudiant, $date, $debut, $fin, $statut, $order, $id, $idMatiere){
 			global $path;
 
 			$debut = floatval($debut);

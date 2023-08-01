@@ -55,11 +55,15 @@
 			curl_setopt($this->ch, CURLOPT_URL, $Config->scodoc_url . "/api/$url_query?$data");
 
 			// Pour tester d'envoyer des données en POST :
-			//$payload = '[{"date_debut": "2022-11-11T08:00","date_fin": "2022-11-11T10:00","etat": "absent"}]';
+			//$payload = '[{"date_debut": "2023-11-11T08:00","date_fin": "2022-11-11T10:00","etat": "absent"}]';
 			//$payload = '[{"etat":"VALIDE","date_debut":"2023-08-01T08:00","date_fin":"2023-08-01T18:00"}]';
-			//$payload = '[8714,8722]';
-			//curl_setopt( $this->ch, CURLOPT_POSTFIELDS, $payload );
-			//////////////////////////////////////////////
+			//$payload = '[8714,8722]';	
+			//////////////////////////////////////////////	
+			
+			if(isset($payload)) {
+				curl_setopt( $this->ch, CURLOPT_POSTFIELDS, $payload );
+			}
+
 			$data = curl_exec($this->ch);
 			//print_r(curl_getinfo($this->ch));
 			return $data;
@@ -91,10 +95,8 @@
 	//echo $Scodoc->Ask_Scodoc('assiduites/nip/22203129');
 	//echo $Scodoc->Ask_Scodoc('assiduites/etudid/5167/count');
 	//echo $Scodoc->Ask_Scodoc('assiduites/formsemestre/477');
-	//echo $Scodoc->Ask_Scodoc('assiduite/5167/create');	// Données en POST
+	//echo $Scodoc->Ask_Scodoc('assiduite/nip/22203129/create');	// Données en POST
 
 	//echo $Scodoc->Ask_Scodoc('justificatif/nip/22203129/create');	// Données en POST
 	//echo $Scodoc->Ask_Scodoc('justificatif/etudid/5167/create');	// Données en POST
 	//echo $Scodoc->Ask_Scodoc('justificatif/delete');	// Données en POST
-
-?>

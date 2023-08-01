@@ -423,7 +423,7 @@
 				` + output;
 
 				/* Totaux */
-				if(multiJour) {
+				if(multiJours) {
 					document.querySelector(".absences>.totauxAbsences").style.display = "none";
 				} else {
 					document.querySelector(".absences>.totauxAbsences").innerHTML = `

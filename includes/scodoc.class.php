@@ -15,7 +15,7 @@ class Scodoc{
 
 		$this->tokenPath = "$path/includes/token.txt";
 		$this->ch = curl_init();
-		//$Config->scodoc_url = 'http://192.168.43.67:5000/ScoDoc';
+		$Config->scodoc_url = 'http://192.168.43.67:5000/ScoDoc';
 
 		$options = array(
 			CURLOPT_FORBID_REUSE => true,
@@ -485,6 +485,30 @@ class Scodoc{
 /***********************/
 /* API absences Scodoc */
 /***********************/
+
+	/*******************************/
+	/* createAbsence()
+	Créé une nouvelle absence
+	*******************************/
+	public function createAbsence($nip, $data){
+		return json_decode( $this->Ask_Scodoc("assiduite/nip/$nip/create", [], $data) );
+	}
+
+	/*******************************/
+	/* modifAbsence()
+	Modifie une absence
+	*******************************/
+	public function modifAbsence($id, $data){
+		return json_decode( $this->Ask_Scodoc("assiduite/$id/edit", [], $data) );
+	}
+
+	/*******************************/
+	/* deleteAbsence()
+	Supprime une absence
+	*******************************/
+	public function deleteAbsence($data){
+		return json_decode( $this->Ask_Scodoc("assiduite/delete", [], $data) );
+	}
 
 	/*******************************/
 	/* getStudentAbsences()

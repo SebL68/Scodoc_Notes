@@ -282,7 +282,7 @@
 			case 'setAbsence':
 				if($user->getStatut() < PERSONNEL ){ returnError(); }
 				if($user->getStatut() < ADMINISTRATEUR && $_GET['statut'] == 'justifie' ){ returnError(); }
-				
+
 				sanitize($_GET['semestre']);
 				//sanitize($_GET['matiere']);
 				//sanitize($_GET['matiereComplet']);
@@ -291,6 +291,9 @@
 				sanitize($_GET['debut']);
 				sanitize($_GET['fin']);
 				sanitize($_GET['statut']);
+				sanitize($_GET['order']);
+				sanitize($_GET['id']);
+				sanitize($_GET['idMatiere']);
 
 				if($_GET['etudiant'] == null){
 					returnError('Un problème est survenu : étudiant non défini.');
@@ -308,7 +311,10 @@
 					$_GET['date'],
 					$_GET['debut'],
 					$_GET['fin'],
-					$_GET['statut']
+					$_GET['statut'],
+					$_GET['order'],
+					$_GET['id'],
+					$_GET['idMatiere']
 				);
 				break;
 

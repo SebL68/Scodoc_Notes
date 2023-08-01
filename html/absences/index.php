@@ -922,6 +922,7 @@
         async function setAbsence(){
 			let etudiant = this.parentElement.parentElement;
 
+			/* Verifications */
 			if(	this.dataset.command == "unset" && 
 				(
 					etudiant.dataset.statut == "unset" ||
@@ -932,8 +933,42 @@
 				return;
 			}
 
+			if(etudiant.dataset.statut == this.dataset.command) {
+				return;
+			}
+
+			/* Préparation */
+			let id = "";
+			let order;
+			let absencesJour = dataEtudiants.absences[etudiant.dataset.nip]?.[creneau.date];
+			for(let i=0 ; i<absencesJour?.length || 0 ; i++) {
+				if(absencesJour[i].debut == creneau.debut 
+					&& absencesJour[i].fin == creneau.fin) {
+					id = absencesJour[i].idAbs;
+					break;
+				} else if(absencesJour[i].debut >= creneau.fin
+					|| absencesJour[i].fin <= creneau.debut) {
+					continue;
+				} else {
+					message("Le creneau est à cheval sur une absence.");
+					return;
+				}
+            }
+
+			if(this.dataset.command == "unset") {
+				order = "suppr";
+			} else if(etudiant.dataset.statut == "absent" ||
+				etudiant.dataset.statut == "retard" ||
+				etudiant.dataset.statut == "present"
+			) {
+				order = "modif";
+			} else {
+				order = "ajout"
+			}
+
 			etudiant.dataset.statut = this.dataset.command;
 
+			/* Envoi */
 			let reponse = await fetchData("setAbsence" + 
                 "&semestre=" + semestre +
                 "&matiere=" + matiere +
@@ -942,7 +977,10 @@
                 "&date=" + creneau.date +
                 "&debut=" + creneau.debut +
                 "&fin=" + creneau.fin +
-                "&statut=" + this.dataset.command
+                "&statut=" + this.dataset.command + 
+                "&order=" + order +
+                "&id=" + id +
+                "&idMatiere=" + document.querySelector(`#matiere>[value=${matiere}`).dataset.id
             );
 
 			if(reponse.problem) {
@@ -951,7 +989,7 @@
 				return;
 			}
 
-			////////////// 
+			/* Modif locale */
 
 			let data = dataEtudiants.absences[etudiant.dataset.nip] ??= {};
 			data = data[creneau.date] ??= [];
@@ -971,6 +1009,7 @@
 				}
 			}
 
+			/* Affichage */
 			if(!found){
 				dataEtudiants.absences[etudiant.dataset.nip][creneau.date][i] = {
 					UE: UE,
@@ -978,7 +1017,9 @@
 					fin: creneau.fin,
 					matiere: matiere,
 					matiereComplet: matiereComplet,
-					statut: this.dataset.command
+					statut: this.dataset.command,
+					dateFin: creneau.date,
+					idAbs: reponse.id
 				}
 				addHint(
 					etudiant.querySelector(".hint"),

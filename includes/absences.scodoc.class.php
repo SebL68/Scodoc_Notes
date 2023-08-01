@@ -5,14 +5,62 @@
 		*	Créé ou modifie le fichier d'absence d'un étudiant
 		*
 		************************************/
-		public static function setAbsence($enseignant, $semestre, $matiere, $matiereComplet, $etudiant, $date, $debut, $fin, $statut){
+		public static function setAbsence($enseignant, $semestre, $matiere, $matiereComplet, $etudiant, $date, $debut, $fin, $statut, $order, $id, $idMatiere){
 
-			$debut = floatval($debut);
-			$fin = floatval($fin);
+			$Scodoc = new Scodoc();
+
+			switch($order){
+				case 'ajout':
+					$ISODebut = Absences::ISODate($date, floatval($debut));
+					$ISOFin = Absences::ISODate($date, floatval($fin));
+					
+					$data = [
+						[
+							'date_debut' => $ISODebut,
+							'date_fin' => $ISOFin,
+							'etat' => $statut,
+							'moduleimpl_id' => intval($idMatiere)/*,
+							'desc' => [
+								'enseignant' => $enseignant
+							]*/
+						]
+					];
+					$response = $Scodoc->createAbsence($etudiant, json_encode($data));
+					if(isset($response->success[0]->message->assiduite_id)) {
+						return [
+							'result' => 'OK',
+							'id' => $response->success[0]->message->assiduite_id
+						];
+					}
+				break;
+
+				case 'modif':
+					$data = [
+						'etat' => $statut/*,
+						'moduleimpl_id' => intval($idMatiere),
+						'desc' => [
+							'enseignant' => $enseignant
+						]*/
+					];
+					$response = $Scodoc->modifAbsence($id, json_encode($data));
+					if(isset($response->OK) && $response->OK == true) {
+						return [
+							'result' => 'OK'
+						];
+					}
+				break;
+
+				case 'suppr':
+					$response = $Scodoc->deleteAbsence("[$id]");
+					if(isset($response->success[0]->message)) {
+						return [
+							'result' => 'OK'
+						];
+					}
+				break;
+			}
 			
-
-
-			return ['result' => 'OK'];
+			
 		}
 	
 	/************************************
