@@ -262,7 +262,7 @@
 			row-gap: 10px;
 			background: #FFF;
         }
-		.btnAbsences:hover{
+		.btnAbsences:not(.all):hover{
 			background: #ccc;
 		}
 		.btnAbsences.all{
@@ -270,6 +270,27 @@
 			justify-content: space-between;
 			margin-bottom: 16px;
 			border: 1px solid #CCC;
+			border-radius: 12px 12px 0 0;
+		}
+		.progress{
+			position: absolute;
+			top: 100%;
+			left: 0;
+			right: 0;
+			height: 4px;
+			border-radius: 2px;
+			overflow: hidden;
+			background: #ccc;
+		}
+		.progress::before{
+			content:"";
+			background: rgba(0, 204, 153, 0.5);
+			position: absolute;
+			left: 0;
+			width: calc(100% * var(--nombre) / var(--reference));
+			top: 0;
+			bottom: 0;
+			transition: 0.1s;
 		}
 		.grpBtn{
 			display: flex;
@@ -649,6 +670,7 @@
 								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--contenu)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
 							</div>
 						</div>
+						<div class=progress></div>
 					</div>
 					${createStudents(liste.etudiants)}
 				</div>
@@ -968,6 +990,9 @@
 				return;
 			}
 
+			let e = document.querySelector(".btnAbsences");
+			e.style.setProperty('--reference', ++reference);
+
 			/* Préparation */
 			let id = "";
 			let order;
@@ -1019,6 +1044,8 @@
 				message(reponse.problem);
 				return;
 			}
+
+			e.style.setProperty('--nombre', ++nombre);
 
 			/* Modif locale */
 
@@ -1115,10 +1142,14 @@
 			target.innerHTML += `<div style="left:${posiDebut}%;width:${tailleDuree}%" data-statut="${statut}" title="${enseignant} - ${matiere || "Sans matière"}"></div>`;
 		}
 
+		let reference = 0;
+		let nombre = 0;
+
 		function setAllAbsence() {
-			let elements = document.querySelectorAll(`.btnAbsences[data-nom]:not(.hide) .btn[data-command="${this.dataset.command}"]`);
-			
-			elements.forEach(e => {
+			reference = 0;
+			nombre = 0;
+
+			document.querySelectorAll(`.btnAbsences[data-nom]:not(.hide) .btn[data-command="${this.dataset.command}"]`).forEach(e => {
 				e.click();
 			})
 		}
