@@ -56,8 +56,8 @@
 	<h1>Analyse du trafic de la passerelle</h1>
 
 	<section>
-		<h2>Nombre de sessions</h2>
-		<p>Durant la dernière année, <span id="nbSessions"></span> ont été ouvertes sur la passerelle.</p>
+		<h2>Demandes de relevés</h2>
+		<p>Durant la dernière année, <span id="nbRelevé"></span> ont été ouverts sur la passerelle.</p>
 		<div class=mobile>
 			<div>
 				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12" y2="18"></line></svg>
@@ -69,7 +69,7 @@
 			</div>
 		</div>
 		<div class="canvas">
-			<canvas id="chartSessions"></canvas>
+			<canvas id="chartRelevé"></canvas>
 		</div>
 		
 	</section>
@@ -125,16 +125,16 @@
 			let results = accumulator(data);
 
 			/* Affichage */
-			document.querySelector("#nbSessions").innerText = results.newSession + " sessions";
+			document.querySelector("#nbRelevé").innerText = results.relevé.toLocaleString() + " relevés";
 			document.querySelector("#mobile").innerText = Math.round(results.mobile / results.newSession * 100) + "%";
 			document.querySelector("#ordi").innerText = Math.round(100 - results.mobile / results.newSession * 100) + "%";
 
-			document.querySelector("#nbAbsences").innerText = results.absences + " fois";
-			document.querySelector("#nbGestionAbsences").innerText = results.gestionAbsences + " fois";
-			document.querySelector("#nbDocuments").innerText = results.documents + " fois";
-			document.querySelector("#nbRelevéPDF").innerText = results.relevéPDF + " fois";
+			document.querySelector("#nbAbsences").innerText = results.absences.toLocaleString() + " fois";
+			document.querySelector("#nbGestionAbsences").innerText = results.gestionAbsences.toLocaleString() + " fois";
+			document.querySelector("#nbDocuments").innerText = results.documents.toLocaleString() + " fois";
+			document.querySelector("#nbRelevéPDF").innerText = results.relevéPDF.toLocaleString() + " fois";
 
-			chart("#chartSessions", results.newSessionJour);
+			chart("#chartRelevé", results.relevéJour);
 			chart("#chartAbsences", results.absencesJour);
 			chart("#chartGestionAbsences", results.gestionAbsencesJour);
 			chart("#chartDocuments", results.documentsJour);
