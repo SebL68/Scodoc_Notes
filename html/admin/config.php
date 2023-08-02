@@ -123,7 +123,7 @@
 						<input type="checkbox" name="analystics_interne">
 						<b>Sauvegarde des données de connexion</b>
 						<p>
-							Système interne à la passerelle pour l'analyse du trafic compatible RGPD, les données seront visible dans ce <a href="/services/analytics.php">tableau de bord</a>. 
+							Système interne à la passerelle pour l'analyse du trafic compatible RGPD, les données sont visibles dans ce <a href="/services/analytics.php">tableau de bord</a>. 
 						</p>
 					</label>
 					
