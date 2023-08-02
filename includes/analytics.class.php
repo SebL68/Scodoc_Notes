@@ -41,10 +41,30 @@ class Analytics{
 		file_put_contents($file, $output, FILE_APPEND | LOCK_EX);
 	}
 
-	public static function getData(/*$start, $end*/){
+	public static function getData($start, $end){
 		global $path;
 		$dir = $path . '/data/analytics/';
-		$file = $dir . date('Y-m-d') . '.txt';
-		return json_decode('{"'. date('Y-m-d') . '":[' . file_get_contents($file) . ']}');
+
+		$start_date = date_create($start);
+		$end_date   = date_create($end);
+		$end_date->modify('+1 day');
+
+		$interval = DateInterval::createFromDateString('1 day');
+		$daterange = new DatePeriod($start_date, $interval ,$end_date);
+
+		$output = [];
+
+		foreach($daterange as $date) {
+			$dateStr = $date->format('Y-m-d');
+			$file = $dir . $dateStr . '.txt';
+			
+			if(file_exists($file)) {
+				$output[$dateStr] = json_decode('[' . file_get_contents($file) . ']');
+			} else {
+				$output[$dateStr] = [];
+			}
+		}
+
+		return $output;
 	}
 }

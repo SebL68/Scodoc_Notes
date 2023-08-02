@@ -10,8 +10,8 @@
 	header('Content-type:application/json');
 
 /* Debug */
-	/*error_reporting(E_ALL);
-	ini_set('display_errors', '1');*/
+	error_reporting(E_ALL);
+	ini_set('display_errors', '1');
 
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 
@@ -491,7 +491,13 @@
 		/* Analytics interne	*/
 		/************************/
 			case 'getAnalyticsData':
-				$output = Analytics::getData();
+				if(isset($_GET['date_from'])) {	sanitize($_GET['date_from']); }
+				if(isset($_GET['date_to'])) {sanitize($_GET['date_to']); }
+
+				$output = Analytics::getData(
+					$_GET['date_from'] ?? date('Y-m-d'), 
+					$_GET['date_to'] ?? date('Y-m-d')
+				);
 				break;
 		}	
 		

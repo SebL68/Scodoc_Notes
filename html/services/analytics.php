@@ -34,7 +34,7 @@
 		?>
 
 		async function getData(){
-			let data = await fetchData("getAnalyticsData");
+			let data = await fetchData("getAnalyticsData&date_from=2023-07-01&date_to=2023-08-01");
 
 			const ctx = document.getElementById('myChart').getContext('2d');
 			const myChart = new Chart(ctx, {
