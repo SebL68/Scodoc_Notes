@@ -52,19 +52,20 @@ class Analytics{
 		$interval = DateInterval::createFromDateString('1 day');
 		$daterange = new DatePeriod($start_date, $interval ,$end_date);
 
-		$output = [];
+		$output = '{';
 
 		foreach($daterange as $date) {
 			$dateStr = $date->format('Y-m-d');
 			$file = $dir . $dateStr . '.txt';
-			
+
 			if(file_exists($file)) {
-				$output[$dateStr] = json_decode('[' . file_get_contents($file) . ']');
+				$output .= '"' . $dateStr . '":[' . file_get_contents($file) . '],';
 			} else {
-				$output[$dateStr] = [];
+				$output .= '"' . $dateStr . '":[],';
 			}
 		}
 
-		return $output;
+		$output = trim($output, ',') . '}';
+		echo $output; die();
 	}
 }
