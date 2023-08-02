@@ -21,6 +21,8 @@
 
 		body{
 			padding: 32px 64px;
+			max-width: 1200px;
+			margin: auto;
 		}
 		h2 {
 			padding: 8px 16px;
@@ -44,7 +46,7 @@
 			padding: 8px 16px;
 		}
 		.canvas {
-			height: 260px
+			height: 220px
 		}
 	</style>
 </head>
@@ -196,7 +198,8 @@
 				data: {
 					datasets: [{
 						data: compiledData,
-						fill: true
+						fill: true,
+						borderWidth: 1
 					}]
 				},
 				options: {

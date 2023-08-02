@@ -196,11 +196,14 @@ class Annuaire{
 						$output[] = $departement;
 					}
 				}
-				foreach($dep->vacataires as $identifiant){
-					if($user == $identifiant->id){
-						$output[] = $departement;
+				if($dep->vacataires) {
+					foreach($dep->vacataires as $identifiant){
+						if($user == $identifiant->id){
+							$output[] = $departement;
+						}
 					}
 				}
+				
 			}
 		}
 		return $output;
