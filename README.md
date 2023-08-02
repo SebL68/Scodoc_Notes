@@ -62,20 +62,9 @@ Il est possible de configurer un accès "enseignant". Cet accès permet aux util
  - récupérer la liste des groupes, des fiches d'émargement, de quoi renvoyer les notes, etc. : ces fichiers sont synchronisés avec Scodoc.
   
 Cet accès est notamment utile pour les vacataires qui n'ont pas accès à Scodoc, ils peuvent alors récupérer des fichiers à jour dès qu'ils en ont besoin.  
-  
-# Principe de la passerelle
-L'identification de la personne se fait le CAS.  
-Le CAS renvoie soit :
- - le numéro d'étudiant,
- - une variante du numéro d'étudiant qu'il est possible de transformer dans le fichier config,
- - un autre identifiant, comme l'adresse mail,
- - il est aussi possible de récupérer le numéro s'il est dans un autre champs renvoyé par le CAS.
-  
-C'est le numéro d'étudiant qui est nécessaire pour communiquer avec Scodoc, si votre CAS renvoie un autre identifiant, il faut mettre en place un système de correspondance.  
-Cette correspondance est faite dans les fichiers /data/annuaires/liste_etu.txt
 
-Il est possible d'automatiser la génération de ces fichiers à partir du LDAP (voir ci-après).
-
+Enfin, la passerelle permet de saisir et justifier les absences de manière autonome ou en stockant les données dans Scodoc.  
+  
 # Guide d'installation
 ## Système requis  
   
@@ -92,8 +81,12 @@ Le script : `/installOrUpdate.sh`  permet d'installer et de mettre à jour la pa
 Ce script est compatible Ubuntu et Debian, il permet lors d'une première installation d'installer tout le nécessaire sur le serveur, il reste alors à configurer les fichiers `/config/*`  
   
 Lorsque le serveur est déjà opérationnel, il permet de faire une mise à jour de /html, /includes et /lib.
-Pour des raisons de sécurité, le fichier installOrUpdate.sh ne se met pas automatiquement à jour.
-
+Pour des raisons de sécurité, le fichier installOrUpdate.sh ne se met pas automatiquement à jour.  
+  
+Le virtual host doit mener vers le dossier `/var/www/html`. Les fichiers à sécuriser sont installés dans `/var/www`, les fichiers publics sont dans `/var/www/html`.  
+Pour des raisons de sécurité, si le virtual host est mal configuré, la passerelle ne fonctionnera pas.  
+Il est possible de configurer un virtual host vers un autre dossier en respectant le principe : `path` fichiers non accessibles, `path/html` fichiers publics.  
+  
 Télécharger et ajouter le fichier `installOrUpdate.sh` dans le répertoire `/var/www` en tant que ROOT :  
 ```
 cd /var/www
@@ -117,26 +110,18 @@ Le script accepte comme paramètre un chemin différent afin de permettre la mis
   
 Voir "Diagnostic" et "Configuration" pour la suite.  
   
-## Installation manuelle
+# Principe de la passerelle
+L'identification de la personne se fait le CAS.  
+Le CAS renvoie soit :
+ - le numéro d'étudiant,
+ - une variante du numéro d'étudiant qu'il est possible de transformer dans le fichier config,
+ - un autre identifiant, comme l'adresse mail,
+ - il est aussi possible de récupérer le numéro s'il est dans un autre champs renvoyé par le CAS.
   
-Il est recommandé de vous inspirer du contenu du fichier installOrUpdate.sh.  
-  
-Récupérez l'ensemble des fichiers et ajoutez les sur votre serveur dans le dossier www.  
-Vous pouvez utiliser du SFTP, git ou en ligne de commande avec  
-```wget https://github.com/SebL68/Scodoc_Notes/archive/refs/heads/main.zip```  
-  
-Le dossier "html" doit être la racine du site.  
-Les autres dossiers doivent être dans le dossier parent, ils seront inaccessibles depuis le net.  
-Ceci a été fait pour des raisons de sécurité : ces dossiers ne doivent pas être accessibles en dehors du serveur car ils contiennent des données et fonctions sensibles (mot de passe, certificats, etc.). Le seul dossier accessible doit être "html".  
-Si votre serveur n'a pas le vhost configuré par défaut sur /var/www/html, vous pouvez le modifier :  
-Fichier httpd-vhosts.conf d'Apache:
-```
-DocumentRoot "${INSTALL_DIR}/www/html/"
-<Directory "${INSTALL_DIR}/www/html/">
-```
-Faites en sorte que le dossier data apparatienne à l'utilisateur www-data, car le serveur doit pouvoir y modifier les données.  
-```chown -R www-data /var/www/data```  
-  
+C'est le numéro d'étudiant qui est nécessaire pour communiquer avec Scodoc, s'il n'est pas possible de récupérer le numéro d'étuidant ou une variante dans un des champs du CAS, il faut mettre en place un système de correspondance.  
+Cette correspondance est faite dans les fichiers /data/annuaires/liste_etu.txt
+
+Il est possible d'automatiser la génération de ces fichiers à partir du LDAP (voir ci-après).  
   
 ## Diagnostic
 Pour vous aider dans la configuration de votre serveur, un système de diagnostic a été mis en place : /html/sercices/diagnostic.php?-no-sw  
@@ -230,12 +215,4 @@ Pour des développements locaux et des commits, il est nécessaire de ne pas pre
   
   
 # Considérations de sécurité
-La passerelle a fait l'objet d'une attention particulière aux problèmes de sécurité et plusieurs personnes ont audité le code, voici des réponses aux questions qu'on pourrait se poser :  
- - Il n'y a pas de failles connues.  
-
-Parmi les échanges, il a été évoqué :  
- - L'utilisation de chmod / chown dans le code PHP, c'était des restes des développements du début : c'était pratique de pouvoir interagir avec les fichiers sur le serveur depuis plusieurs utilisateurs - les chmod et chown ont été nettoyés.  
- - L'utilisation d'une commande exec qui est normalement verrouillé en production pour une interface web - dans le cas de la passerelle, elle ne sert qu'à lancer le crontab lors de la configuration du début, par la suite, elle peut être désactivé, de plus, il n'y a aucun input utilisateur qui puisse être entré dans le exec, donc aucun problème de sécurité et on peut le désactiver par la suite.  
- - La fragilité des jetons JWT côté client : ce mode de fonctionnement se fait à la marge, notamment pour tes tests, par défaut ces jetons sont désactivés et enfin, si on les utilise, la durée d'expiration des jetons est courte - c'est donc acceptable.  
- - Il a évoqué le problème de l'accès aux fichiers comme les listes si jamais le serveur est mal configuré - si jamais le serveur est mal configuré, la passerelle ne peut pas démarrer, ce n'est donc pas un problème (mais c'était pas évident de savoir qu'elle ne peut pas démarrer en cas de mauvais config).  
- - Il a également dit que ce serait mieux de faire un requêtage direct du LDAP plutôt que d'en faire une copie périodique - je suis d'accord, ce fonctionnement est avant tout historique car au début je n'avais pas accès au LDAP. Par la suite, je proposerai une solution pour ne plus passer par ces fichiers, mais je conserverai ce fonctionnement pour les personnes qui en auraient besoin (si l'accès au LDAP n'est pas possible notamment).  
+La passerelle a fait l'objet d'une attention particulière aux problèmes de sécurité et plusieurs personnes ont audité le code : il n'y a aucune faille connue.  
