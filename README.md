@@ -1,9 +1,5 @@
 Pour suivre les évolutions, l'idéal est d'aller voir sur le Discord (voir ci-dessous), sinon il y a ce lien qui est mis à jour moins souvent : https://notes.iutmulhouse.uha.fr/maj.php
 
-Travaux en cours :
- - affichage de l'analyse du trafic sur la passerelle respectant le RGPD
- - lien pour les photos entre Scodoc et la passerelle  
-  
 Les utilisateurs actuels sont :
  - IUT de Mulhouse => accès complet
  - IUT de Ville d'Avray => accès étudiant
