@@ -187,7 +187,7 @@
 
 			Object.entries(data).forEach(([date, nb]) => {
 				compiledData.push({
-					x: date,
+					x: date.split("-").reverse().join("/"),
 					y: nb
 				})
 			})

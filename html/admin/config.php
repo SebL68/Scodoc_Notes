@@ -11,7 +11,7 @@
 	<title>Administration</title>
 	<style>
 		<?php include $_SERVER['DOCUMENT_ROOT']."/assets/styles/global.css"?>
-		p{
+		label p{
 			margin-top: 0;
 		}
 		summary {
