@@ -11,6 +11,9 @@
 	<title>Administration</title>
 	<style>
 		<?php include $_SERVER['DOCUMENT_ROOT']."/assets/styles/global.css"?>
+		p{
+			margin-top: 0;
+		}
 		summary {
 			margin: 20px 0 8px 0;
 			padding: 20px;
@@ -279,7 +282,7 @@
 </code>
 </pre>
 						</p>
-						<p>⚠️⚠️⚠️ Attention : même si l'affichage aux étudiants fonctionne, la passerelle ne gère pas la saisi, la justification et les statistiques des absences ajoutées directement dans Scodoc qui durent plusieurs jours.</p>
+						<p>⚠️⚠️⚠️ Attention : même si l'affichage aux étudiants fonctionne, la passerelle ne gère pas les saisis, les justifications et les statistiques des absences ajoutées directement dans Scodoc qui durent plusieurs jours.</p>
 						<p><a target=_blank href=../services/messages.php#absencesMultiJours>Plus d'informations</a></p>
 					</label>
 
