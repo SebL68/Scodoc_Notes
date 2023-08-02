@@ -68,6 +68,7 @@
 			<li>Ajout d'une option pour cloisonner les enseignants : seul un enseignant qui est dans l'onglet "Comptes" aura accès au département dans lequel il est affecté.</li>
 			<li>Mode jour/nuit sur l'ensemble de la passerelle - contribution de Jordan Abeddou, étudiant MMI Mulhouse.</li>
 			<li>Filtrage multi-partitions des groupes.</li>
+			<li>Si l'option est activée, les données de trafic sont sauvegardées. Désormais, il est possible de les visualiser <a href="services/analytics.php" target=_blanc>sur cette page</a>. Cette collecte de données est en conformité avec le RGPD.</li>
 			<li>Configuration des données récupérées dans l'onglet "Documents" -> Données étudiants.</li>
 
 			<br>
