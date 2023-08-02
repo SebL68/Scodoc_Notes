@@ -124,7 +124,6 @@
 						<b>Sauvegarde des données de connexion</b>
 						<p>Système interne à la passerelle pour l'analyse du trafic compatible RGPD, les données seront visible dans ce <a href="/services/analytics.php">tableau de bord</a>. 
 						</p>
-						<p><b>⚠️ Exploitation des données et création des graphiques non implémentés pour le moment - avis aux amateurs.</b></p>
 					</label>
 					
 					<label>
