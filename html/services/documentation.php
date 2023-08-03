@@ -62,7 +62,7 @@
 	</style>
 </head>
 <body contenteditable=//true spellcheck=//true>
-	<h1>Documentation générale des API proposées sur "notes"</h1>
+	<h1>CETTE DOCUMENTATION N'EST PLUS à JOUR ! <br> Documentation générale des API proposées sur "notes"</h1>
 <!----------------------------------------->
 <!-- Introduction -->
 <!----------------------------------------->
