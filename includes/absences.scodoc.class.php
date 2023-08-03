@@ -19,10 +19,10 @@
 							'date_debut' => $ISODebut,
 							'date_fin' => $ISOFin,
 							'etat' => $statut,
-							'moduleimpl_id' => intval($idMatiere)/*,
-							'desc' => [
-								'enseignant' => $enseignant
-							]*/
+							'moduleimpl_id' => intval($idMatiere),
+							'desc' => "{
+								\"enseignant\": \"$enseignant\"
+							}"
 						]
 					];
 					$response = $Scodoc->createAbsence($etudiant, json_encode($data));
@@ -134,7 +134,7 @@
 						'fin' => Absences::hoursToFloat(date('G:i', $timestampFin)),
 						'statut' => strtolower($data[$i]->etat),
 						'justifie' => $data[$i]->est_just,
-						'enseignant' => $data[$i]->user_id,			// Accepte n'importe quel nom, même s'il n'existe pas ?
+						'enseignant' => json_decode($data[$i]->desc)->enseignant ?? $data[$i]->user_id,
 						'matiereComplet' => $data[$i]->moduleimpl_id,
 						'dateFin' => date('Y-m-d', $timestampFin)
 					];

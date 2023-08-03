@@ -1077,7 +1077,8 @@
 					matiereComplet: matiereComplet,
 					statut: this.dataset.command,
 					dateFin: creneau.date,
-					idAbs: reponse.id
+					idAbs: reponse.id,
+					enseignant: "Vous-même"
 				}
 				addHint(
 					etudiant.querySelector(".hint"),
