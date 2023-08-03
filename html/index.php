@@ -387,7 +387,7 @@
 								}
 								
 							}
-							if(date != absence.dateFin){
+							if(absence.dateFin && date != absence.dateFin){
 								var outputDate = date.split("-").reverse().join("/") 
 												+ " - " 
 												+ absence.dateFin.split("-").reverse().join("/");
