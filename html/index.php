@@ -192,16 +192,18 @@
 			Authentification en cours ...
 		</div>
 
+		<script>
+			/**************************/
+			/* Service Worker pour le message "Installer l'application" et pour le fonctionnement hors ligne PWA
+			/**************************/		
+			if('serviceWorker' in navigator){
+				navigator.serviceWorker.register('sw.js');
+			}
+		</script>
 		<script src="assets/js/theme.js"></script>
 		<script src="assets/js/releve-dut.js"></script>
 		<script src="assets/js/releve-but.js"></script>
 		<script>
-/**************************/
-/* Service Worker pour le message "Installer l'application" et pour le fonctionnement hors ligne PWA
-/**************************/		
-			if('serviceWorker' in navigator){
-				navigator.serviceWorker.register('sw.js');
-			}
 /**************************/
 /* Début
 /**************************/

@@ -452,6 +452,14 @@
         Authentification en cours ...
     </div>
 	
+	<script>
+		/**************************/
+		/* Service Worker pour le message "Installer l'application" et pour le fonctionnement hors ligne PWA
+		/**************************/		
+		if('serviceWorker' in navigator){
+			navigator.serviceWorker.register('../sw.js');
+		}
+	</script>
 	<script src="../assets/js/theme.js"></script>
     <script>
 		<?php
