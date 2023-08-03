@@ -1044,7 +1044,7 @@
                 "&statut=" + this.dataset.command + 
                 "&order=" + order +
                 "&id=" + id +
-                "&idMatiere=" + document.querySelector(`#matiere>[value=${matiere}`).dataset.id
+                "&idMatiere=" + document.querySelector(`#matiere>[value="${matiere}"]`).dataset.id
             );
 
 			if(reponse.problem) {
