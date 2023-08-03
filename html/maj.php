@@ -78,11 +78,12 @@
 			<br>
 			<b>Corrections</b>
 			<li>Vérification du statut super administrateur même si le mode enseignant n'est pas activé.</li>
+			<li>Correction du bug qui ne permettait plus de séparer les noms et prénoms lorsqu'on faisait copier/coller des listes étudiants de la page "Documents" vers un tableur.</li>
 			
 			<br>
 			<b>Under the hood</b>
 			<li>Amélioration du fonctionnement de menu principal.</li>
-			<li>Suppression de la vérification des fichiers annuaires - bascule en mode enseignant simplifié.</li>
+			<li>Suppression de la vérification des fichiers annuaires : bascule en mode enseignant simplifié.</li>
 			<br>
 			<li>Divers autres correctifs et améliorations.</li>
 		</ul>
