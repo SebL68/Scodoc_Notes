@@ -79,6 +79,7 @@
         }
         .petit{
             flex-direction: column;
+			transition: 0.2s;
         }
         .petit>div{
             font-size: 8px;
@@ -106,12 +107,14 @@
 		.etudiants>a{
 			text-decoration: none;
 			color: var(--contenu);
-			display: block;
+			display: flex;
+			padding: 2px 4px;
 		}
-		.etudiants>a:nth-child(odd){
-			background: var(--fond);
+		.etudiants>*:nth-child(odd){
+			background: #e0e0e0;
 		}
-        .etudiants>a:before{
+        .etudiants>a:before, 
+		.etudiants>table[data-nom]:before{
             counter-increment: cpt;
             content: counter(cpt) " - " attr(data-groupe);
 			display: inline-block;
@@ -122,6 +125,18 @@
             overflow: hidden;
             margin-right: 10px;
         }
+		body:not(.switchTable) .etudiants>table[data-nom]{
+			display: none;
+		}
+		.etudiants>table{
+			display: block;
+		}
+		body.switchTable .etudiants>a{
+			display: none;
+		}
+		body:not(.switchTable) .petit{
+			filter: brightness(50%);
+		}
 		.load path{
 			animation: chargement 0.4s infinite linear;
 		}
@@ -141,7 +156,7 @@
         <p>
             Bonjour <span class=nom></span>.
         </p>
-        <div class="groupe petit" style=margin-top:6px onclick=concat(this)>
+        <div class="groupe petit" style=margin-top:6px onclick=concat()>
             Séparer nom / prénom
             <div>Pour copier-coller directement de la liste</div>
         </div>
@@ -294,8 +309,16 @@
                         data-groupe="${groupes}"
                         data-num="${etudiant.nip}"
                         data-idcas="${etudiant.idcas}"
-						data-datenaissance="${etudiant.date_naissance?.split("-").reverse().join("/") || "Non défini"}"><table><td>${etudiant.nom}</td> <td>${etudiant.prenom}</td></table>
-                    </a>
+						data-datenaissance="${etudiant.date_naissance?.split("-").reverse().join("/") || "Non défini"}">${etudiant.nom} ${etudiant.prenom}
+                    </a><table></table>
+					<table
+                        data-nom="${etudiant.nom}" 
+                        data-prenom="${etudiant.prenom}" 
+                        data-groupe="${groupes}"
+                        data-num="${etudiant.nip}"
+                        data-idcas="${etudiant.idcas}"
+						data-datenaissance="${etudiant.date_naissance?.split("-").reverse().join("/") || "Non défini"}"><td>${etudiant.nom}</td> <td>${etudiant.prenom}</td>
+					</table>
 				`;
 			})
 			return output;
@@ -328,7 +351,7 @@
 				groupesSelected.push(e.dataset.groupe);
 			})
 
-			Array.from(obj.parentElement.parentElement.nextElementSibling.children).forEach(e=>{
+			Array.from(obj.parentElement.parentElement.nextElementSibling.querySelectorAll("[data-groupe]")).forEach(e=>{
 				if(groupesSelected.some(valeur => e.dataset.groupe.includes(valeur))){
 					e.classList.remove("hide")
 				} else {
@@ -337,16 +360,8 @@
 			})
         }
 
-        function concat(obj){
-            if(obj.classList.toggle("selected")){
-                document.querySelectorAll(".etudiants>a").forEach(function(e){
-                    e.innerHTML = `${e.dataset.nom} ${e.dataset.prenom}`;
-                })
-            }else{
-                document.querySelectorAll(".etudiants>a").forEach(function(e){
-                    e.innerHTML = `<table><td>${e.dataset.nom}</td> <td>${e.dataset.prenom}</td></table>`;
-                })
-            }
+        function concat(){
+			document.body.classList.toggle("switchTable");
         }
         
 /*********************************************/
