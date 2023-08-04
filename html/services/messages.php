@@ -30,7 +30,7 @@
 	<details id=absencesMultiJours>
 		<summary>Gestion des absences et des justifications entre la passerelle et Scodoc</summary>
 
-		<p>Même si l'affichage aux étudiants fonctionne, la passerelle ne gère pas la saisi, la justification et les statistiques des absences sur plusieurs jours et de la même manière que Scodoc.</p>
+		<p>Même si l'affichage aux étudiants fonctionne, la passerelle ne gère pas la saisie, la justification et les statistiques des absences sur plusieurs jours et de la même manière que Scodoc.</p>
 
 		<p>Scodoc gère les absences d'un côté et les justificatifs d'un autre, avec des périodes qui peuvent être différentes les unes des autres. Par exemple un justificatif peut durer une semaine et justifie toutes les absences qui sont dans la période.</p>
 
@@ -38,7 +38,7 @@
 
 		<p>Dans certains cas, il est possible qu'enlever une justification sur une absence depuis la passerelle impacte d'autres absences non souhaitées. La passerelle détecte ces cas et invite alors à utiliser Scodoc.</p>
 
-		<p>Attention aux statisques : la passerelle est prévue pour comptabiliser et "certifier" chaque heure d'absence. Ces statistiques peuvent servir à générer par exemple des malus. Pour ces raisons, la passerelle n'accepte pas d'absences sur plusieurs jours.</p>
+		<p>Attention aux statistiques : la passerelle est prévue pour comptabiliser et "certifier" chaque heure d'absence. Ces statistiques peuvent servir à générer par exemple des malus. Pour ces raisons, la passerelle n'accepte pas d'absences sur plusieurs jours.</p>
 
 	</details>
 
