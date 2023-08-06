@@ -71,7 +71,7 @@
 			<li>Onglet config : ajout de liens vers les outils de la passerelle</li>
 			<li>Onglet config : si l'option est activée, les données de trafic sont sauvegardées. Désormais, il est possible de les visualiser <a href="services/analytics.php">sur cette page</a>. Cette collecte de données est en conformité avec le RGPD.</li>
 			<li>Onglet config : configuration des données récupérées dans l'onglet "Documents" -> Données étudiants.</li>
-			<li>Outil de suppression des photos étudiants qui ne sont plus inscrits dans Scodoc depuis plus d'un an - à activer à la main dans <a href="services/nettoyagePhoto.php">cette page</a>.</li>
+			<li>Outil de suppression des photos étudiants qui ne sont plus inscrits dans Scodoc depuis plus d'un an - à activer à la main dans <a href="services/nettoyagePhotos.php">cette page</a>.</li>
 
 			<br>
 			<b>Améliorations</b>

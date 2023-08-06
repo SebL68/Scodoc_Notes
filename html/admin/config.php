@@ -136,7 +136,7 @@
 					<p> Nécessite la configuration d'une clé JWT dans /config/config.php - Nécessite de modifier le fichier html/services/createJWT.php "à la main".</p>
 				</div>
 				<div>
-					<a href="/services/nettoyagePhoto.php">Nettoyage photos</a>
+					<a href="/services/nettoyagePhotos.php">Nettoyage photos</a>
 					<p>Supprime automatiquement les photos étudiants de la passerelle pour les étudiants qui n'ont pas été inscrits dans Scodoc depuis plus d'un an.</p>
 				</div>
 			</details>
