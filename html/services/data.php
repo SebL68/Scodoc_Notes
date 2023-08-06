@@ -516,7 +516,7 @@
 
 					$year = intval(explode('/', end($Scodoc->getStudentSemesters($nip))['annee_scolaire'])[0]);
 					
-					if($actualYear - $year > 2) {
+					if($actualYear - $year >= 2) {
 						$statut = 'supprime';
 						unlink("$path/data/studentsPic/" . $image);
 					} else {
