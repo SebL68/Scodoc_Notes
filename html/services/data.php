@@ -3,7 +3,9 @@
 /* Gère la communication des données entre le client (typiquement le navigateur) et le serveur */
 /***********************************************************************************************/
 
-	ob_start("ob_gzhandler");
+	if(isset($_GET['q']) && $_GET['q'] != 'cleanStudentPic'){ // Pour autoriser du stream de data
+		ob_start("ob_gzhandler");
+	}
 	header('Access-Control-Allow-Origin: *');
 	header('Access-Control-Allow-Credentials: true');
 	header('Access-Control-Allow-Headers: Authorization');
@@ -485,6 +487,52 @@
 				$output = [
 					'result' => "OK"
 				];
+				break;
+
+			case 'getAllStudentsPic':
+				if($user->getStatut() < SUPERADMINISTRATEUR ){ returnError(); }
+				$dir = "$path/data/studentsPic/";
+				$output = array_slice(scandir($dir), 3);
+				break;
+
+			case 'cleanStudentPic':
+				if($user->getStatut() < SUPERADMINISTRATEUR ){ returnError(); }
+
+				set_time_limit(1800);
+				@apache_setenv('no-gzip', 1);
+				@ini_set('zlib.output_compression', 0);
+				@ini_set('implicit_flush', 1);
+				for ($i = 0; $i < ob_get_level(); $i++) { ob_end_flush(); }
+				ob_implicit_flush(1);
+				
+				$dir = "$path/data/studentsPic/";
+				$images = array_slice(scandir($dir), 3);
+
+				$Scodoc = new Scodoc();
+				$actualYear = intval(date('Y', time()));
+
+				foreach ($images as $image) {
+					$nip = explode('.jpg', $image)[0];
+
+					$year = intval(explode('/', end($Scodoc->getStudentSemesters($nip))['annee_scolaire'])[0]);
+					
+					if($actualYear - $year > 2) {
+						$statut = 'supprime';
+						unlink("$path/data/studentsPic/" . $image);
+					} else {
+						$statut = 'conserve';
+					}
+
+					$output = [
+						'nip' => $nip,
+						'statut' => $statut,
+						'derniereAnnee' => $year
+					];
+					echo json_encode($output);
+
+					flush();
+				}
+				die();
 				break;
 
 		/************************/

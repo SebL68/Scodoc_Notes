@@ -83,6 +83,21 @@
 		h3{
 			color: var(--primaire);
 		}
+		.outils>div{
+			background: #fff;
+			padding: 16px;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			margin-bottom: 4px;
+		}
+		.contenu a {
+			display: block;
+		}
+		.contenu a:before{
+			content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%230b0b0b' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13.8 12H3'/%3E%3C/svg%3E");;
+			width: 16px;
+			margin-right: 4px;
+		}
 	</style>
 	<meta name=description content="Gestion des administrateurs - <?php echo $Config->nom_IUT; ?>">
 </head>
@@ -105,6 +120,26 @@
 			</details>
 			-->
 			<p><b>Ce menu n'est accessible qu'aux super-administrateurs et permet de changer les options de la passerelle.</b></p>
+		
+		<!-- ------- -->
+		<!-- Outils  -->
+		<!-- ------- -->
+			<details class=outils>
+				<summary>Outils</summary>
+				<div><a href="/services/diagnostic.php">Diagnostic de la passerelle</a></div>
+				<div>
+					<a href="/services/analytics.php">Analyse du trafic</a>
+					<p>Si l'option est activée dans la section "Serveur".</p>
+				</div>
+				<div>
+					<a href="/services/createJWT.php">Création de jetons JWT d'accès</a>
+					<p> Nécessite la configuration d'une clé JWT dans /config/config.php - Nécessite de modifier le fichier html/services/createJWT.php "à la main".</p>
+				</div>
+				<div>
+					<a href="/services/nettoyagePhoto.php">Nettoyage photos</a>
+					<p>Supprime automatiquement les photos étudiants de la passerelle pour les étudiants qui n'ont pas été inscrits dans Scodoc depuis plus d'un an.</p>
+				</div>
+			</details>
 
 		<!-- ------- -->
 		<!-- Serveur -->

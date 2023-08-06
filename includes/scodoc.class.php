@@ -200,13 +200,12 @@ class Scodoc{
 
 		if($data != ''){
 			$output = [];
-
-			function ordre($a, $b){
+			
+			uasort($data, function ($a, $b){
 				$a = $a->annee_scolaire . $a->semestre_id;
 				$b = $b->annee_scolaire . $b->semestre_id;
 				return ($a<$b)?-1:1;
-			}
-			uasort($data, 'ordre');
+			});
 
 			forEach($data as $value){
 
