@@ -149,7 +149,7 @@
 				</label>
 			</div>
 			<div class="consignes">
-				La photo servira uniquement pour les trombinoscopes et les absences. Vous pouvez la modifier à tout moment. La photo est conservée au maximum 1 an après la fin du cursus universitaire.<br><br>
+				La photo servira uniquement pour les trombinoscopes et les absences. Vous pouvez la modifier à tout moment. La photo est conservée 1 an après la fin du cursus universitaire.<br><br>
 				Cette photo est utilisée à des fins sérieuses, elle doit vous représenter et permettre de vous reconnaître comme vous êtes au quotidien, évitez :
 				<ul>
 					<li>les filtres,</li>
