@@ -123,7 +123,7 @@
 
 		async function go() {
 			document.body.classList.add('processing');
-			const response = await fetch("/services/data.php?q=cleanStudentPic")
+			const response = await fetch("/services/data.php?q=cleanStudentsPic")
 			const reader = response.body.getReader();
 			while (true) {
 				const { done, value } = await reader.read();

@@ -495,7 +495,7 @@
 				$output = array_slice(scandir($dir), 3);
 				break;
 
-			case 'cleanStudentPic':
+			case 'cleanStudentsPic':
 				if($user->getStatut() < SUPERADMINISTRATEUR ){ returnError(); }
 
 				set_time_limit(1800);
