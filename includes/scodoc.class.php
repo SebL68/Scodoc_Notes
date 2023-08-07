@@ -15,7 +15,7 @@ class Scodoc{
 
 		$this->tokenPath = "$path/includes/token.txt";
 		$this->ch = curl_init();
-		//$Config->scodoc_url = 'http://192.168.43.67:5000/ScoDoc';
+		$Config->scodoc_url = 'http://192.168.43.67:5000/ScoDoc';
 
 		$options = array(
 			CURLOPT_FORBID_REUSE => true,
@@ -562,5 +562,13 @@ class Scodoc{
 	*******************************/
 	public function unsetJustif($id){
 		return json_decode( $this->Ask_Scodoc('justificatif/delete', [], $id) );
+	}
+
+	/*******************************/
+	/* getJustifs()
+	Récupère les justificatifs d'un étudiant
+	*******************************/
+	public function getJustifs($nip){
+		return json_decode( $this->Ask_Scodoc("justificatifs/nip/$nip/query") );
 	}
 }

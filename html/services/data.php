@@ -350,6 +350,11 @@
 				);
 				break;
 
+			case 'getJustifs':
+				if($user->getStatut() != ETUDIANT ){ returnError(); }
+				$output = Absences::getJustifs($user->getId());
+				break;
+
 		/*************************/
 			case 'listeVacataires':
 				if($user->getStatut() < ADMINISTRATEUR ){ returnError(); }

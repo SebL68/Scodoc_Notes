@@ -169,4 +169,13 @@
 
 			return ['result' => 'OK'];
 		}
+
+	/************************************
+	* getJustify
+	*	Uniquement avec Scodoc
+	*
+	************************************/
+		public static function getJustifs($nip){
+			return ['result' => 'NOK'];
+		}
 	}

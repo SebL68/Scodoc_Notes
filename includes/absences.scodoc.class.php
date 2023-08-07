@@ -191,4 +191,14 @@
 			}
 			return ['result' => 'NOK'];
 		}
+
+	/************************************
+	* getJustify
+	*	Renvoie les justificatifs de Scodoc
+	*
+	************************************/
+		public static function getJustifs($nip){
+			$Scodoc = new Scodoc();
+			return $Scodoc->getJustifs($nip);
+		}
 	}
