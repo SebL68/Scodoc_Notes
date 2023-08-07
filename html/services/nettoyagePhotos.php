@@ -123,7 +123,16 @@
 
 		async function go() {
 			document.body.classList.add('processing');
-			const response = await fetch("/services/data.php?q=cleanStudentsPic")
+			const response = await fetch("/services/data.php?q=cleanStudentsPic");
+
+			/* Meilleure methode non supportée pour le moment :
+				https://caniuse.com/mdn-api_readablestream_--asynciterator
+				https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Using_readable_streams
+			*/
+			/*for await (const chunk of response.body) {
+				console.log(chunk);
+			}*/
+
 			const reader = response.body.getReader();
 			while (true) {
 				const { done, value } = await reader.read();
