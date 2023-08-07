@@ -538,22 +538,42 @@ class Scodoc{
 	/* setJustif()
 	Ajout d'une justification d'absence
 	*******************************/
-	public function setJustif($nip, $debut, $fin){
-		return json_decode( 
+	public function setJustif($nip, $debut, $fin, $file = null){
+		$data = [
+			[
+				'etat' => ($file) ? 'attente' : 'valide',
+				'date_debut' => $debut,
+				'date_fin' => $fin
+			]
+		];
+		
+		$r = json_decode( 
 			$this->Ask_Scodoc(
 				"justificatif/nip/$nip/create", 
 				[], 
-				json_encode(
-					[
-						[
-							'etat' => 'valide',
-							'date_debut' => $debut,
-							'date_fin' => $fin
-						]
-					]
-				)
+				json_encode($data)
 			) 
 		);
+		$justif_id = $r->success[0]->message->justif_id;
+
+		if($file) {
+			$parameters = array(
+				'files' => new CURLFile($file['tmp_name'], $file['type'], $file['name'])
+			);
+			$r = $this->Ask_Scodoc(
+				"justificatif/$justif_id/import", 
+				[], 
+				$parameters
+			);
+			if(json_decode($r)->filename) {
+				return [
+					'result' => "OK"
+				];
+			}
+		} else {
+			return $idJustif;
+		}
+
 	}
 
 	/*******************************/

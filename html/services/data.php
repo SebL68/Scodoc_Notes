@@ -359,12 +359,15 @@
 				if($user->getStatut() != ETUDIANT ){ returnError(); }
 				sanitize($_POST['date_debut']);
 				sanitize($_POST['date_fin']);
-				$output = [
-					"debut" => $_POST['date_debut'],
-					"fin" => $_POST['date_fin'],
-					"file" => $_FILES['file']['name'],
-					"result" => "Grouvy baby !"
-				];
+
+				$Scodoc = new Scodoc();
+
+				$output = $Scodoc->setJustif(
+					$user->getId(),
+					$_POST['date_debut'],
+					$_POST['date_fin'],
+					$_FILES['file']
+				);
 				break;
 
 		/*************************/

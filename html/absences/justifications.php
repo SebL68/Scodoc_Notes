@@ -196,7 +196,7 @@
 				<div class=firstLine>Fin</div>
 				<div class=firstLine>Statut</div>`;
 			
-			data.forEach(justification => {
+			data.reverse().forEach(justification => {
 				output += newJustifLine(justification);
 			})
 
@@ -272,13 +272,23 @@
 			}
 
 			const form = new FormData(this);
-			//formData.append("avatar", fileField.files[0]);
+			document.querySelector(".wait").style.display = "block";
 			fetch("../services/data.php?q=sendJustif", {
 				method: "POST",
 				body: form
 			}).then(r => r.json())
 			.then(JSON => {
-				console.log(JSON);
+				if(JSON.result == "OK") {
+					let date = new Date();
+					let justif = {
+						entry_date: date.toISOString(),
+						date_debut: date_debut,
+						date_fin: date_fin,
+						etat: "ATTENTE"
+					};
+					document.querySelector(".firstLine:nth-child(4)").insertAdjacentHTML("afterend" ,newJustifLine(justif));
+				}
+				document.querySelector(".wait").style.display = "none";
 			});
 		}
 
