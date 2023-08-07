@@ -18,6 +18,7 @@
 			padding: 1px;
 			background: #CCC;
 			gap: 1px;
+			color: #000;
 		}
 		.listeJustif>.firstLine {
 			background: #09C;

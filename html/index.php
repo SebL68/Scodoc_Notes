@@ -114,6 +114,14 @@
 			.hideAbsences .absences{
 				display: none;
 			}
+			.depotJustif {
+				display: inline-block;
+				padding: 8px 16px;
+				border-radius: 8px;
+				background: #c09;
+				text-decoration: none;
+				color: #FFF;
+			}
 
 /**********************/
 /* Mode personnels    */
@@ -177,7 +185,7 @@
 				Les causes de l’absence doivent être notifiées par écrit à l'aide d'un justificatif dans les 48 heures à compter du début de l’absence au secrétariat du département. Voir règlement intérieur pour les motifs légitimes d'absence.
 				</i></p>
 				<a class=depotJustif href="absences/justifications.php">
-					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13.8 12H3"/></svg>
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13.8 12H3"/></svg>
 					Dépôt d'un justificatif d'absences
 				</a>
 				<div class=toutesAbsences></div>
