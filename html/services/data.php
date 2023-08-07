@@ -355,6 +355,18 @@
 				$output = Absences::getJustifs($user->getId());
 				break;
 
+			case 'sendJustif':
+				if($user->getStatut() != ETUDIANT ){ returnError(); }
+				sanitize($_POST['date_debut']);
+				sanitize($_POST['date_fin']);
+				$output = [
+					"debut" => $_POST['date_debut'],
+					"fin" => $_POST['date_fin'],
+					"file" => $_FILES['file']['name'],
+					"result" => "Grouvy baby !"
+				];
+				break;
+
 		/*************************/
 			case 'listeVacataires':
 				if($user->getStatut() < ADMINISTRATEUR ){ returnError(); }

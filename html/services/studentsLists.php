@@ -407,7 +407,6 @@
 				etudiants: etudiants
 			}
 
-			console.log(output);
 			localStorage.setItem("trombi", JSON.stringify(output));
 			window.open("trombi.php");
 		}
