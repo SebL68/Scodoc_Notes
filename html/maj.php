@@ -60,6 +60,7 @@
 			<br>
 			<b>Absences</b>
 			<li>Option de sauvegarde des données absences dans Scodoc. Nécessite Scodoc 9.6+. En lien avec les options d'affichage des absences aux étudiants et de saisi des absences depuis la passerelle. <a href="services/messages.php#absencesMultiJours">Plus d'informations sur le fonctionnement</a></li>
+			<li>Si la sauvegarde dans Scodoc est opérationnelle, option pour activer l'ajout de justificatifs d'absences par l'étudiant.</li>
 			<li>Saisi des absences par lots.</li>
 			<li>Rapport d'absences : ajout d'un accumulateur du nombre de jours absents.</li>
 
