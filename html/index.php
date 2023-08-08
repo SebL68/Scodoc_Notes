@@ -387,6 +387,8 @@
 
 				if(!config.autoriser_justificatifs) {
 					document.querySelector(".depotJustif").style.display = "none";
+				} else {
+					document.querySelector(".depotJustif").href += "?nip=" + nip;
 				}
 
 				if(Object.entries(data.absences).length){

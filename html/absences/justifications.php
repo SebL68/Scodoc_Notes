@@ -63,10 +63,14 @@
 			box-shadow: 0 2px 2px #aaa;
 			transition: 0.2s;
 		}
-		.newJustif>input[type=submit]:hover {
+		.newJustif>input[type=submit]:disabled {
+			cursor: initial;
+			opacity: 0.4;
+		}
+		.newJustif>input[type=submit]:not(:disabled):hover {
 			box-shadow: 0 2px 2px 1px #444;
 		}
-		.newJustif>input[type=submit]:active {
+		.newJustif>input[type=submit]:not(:disabled):active {
 			box-shadow: 0 0px 0px 0px #444;
 			transform: translateY(2px)
 		}
@@ -184,12 +188,16 @@
             if(data.statut == ETUDIANT){
 				getJustifs();
 			} else {
-				displayError("Cette page est réservée aux étudiants pour justifier leurs absences.");
+				//displayError("Cette page est réservée aux étudiants pour justifier leurs absences.");
+				let params = new URLSearchParams(window.location.search);
+				getJustifs(params.get("nip"));
+				document.querySelector(".newJustif>input[type=submit]").disabled = true;
+				document.querySelector(".newJustif>input[type=submit]").value = "Envoi reservé aux étudiants";
 			}
         }
 
-		async function getJustifs() {
-			let data = await fetchData("getJustifs");
+		async function getJustifs($nip = "") {
+			let data = await fetchData("getJustifs&nip="+$nip);
 			let output = `
 				<div class=firstLine>Saisi le</div>
 				<div class=firstLine>Début</div>

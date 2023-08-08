@@ -351,8 +351,12 @@
 				break;
 
 			case 'getJustifs':
-				if($user->getStatut() != ETUDIANT ){ returnError(); }
-				$output = Absences::getJustifs($user->getId());
+				if($user->getStatut() >= PERSONNEL ){ 
+					$id = $_GET['nip'];
+				} else {
+					$id = $user->getId();
+				}
+				$output = Absences::getJustifs($id);
 				break;
 
 			case 'sendJustif':
