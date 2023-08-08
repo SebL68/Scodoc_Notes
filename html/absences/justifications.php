@@ -1,8 +1,5 @@
 <?php 
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
-	require_once "$path/includes/default_config.php";
-	require_once "$path/includes/analytics.class.php";
-	Analytics::add('absences');
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -79,7 +76,7 @@
 		/*********/
 		.listeJustif {
 			display: grid;
-			grid-template-columns: 1fr 1fr 1fr 1fr;
+			grid-template-columns: repeat(5, auto);
 			padding: 1px;
 			background: #CCC;
 			gap: 1px;
@@ -113,7 +110,7 @@
 </head>
 <body>
     <?php 
-        $h1 = 'Absences';
+        $h1 = 'Justificatifs';
         include $_SERVER['DOCUMENT_ROOT']."/assets/header.php";
     ?>
     <main>
@@ -121,7 +118,7 @@
             Bonjour <span class=nom></span>. 
         </p>
 		<p>
-			Cette interface permet de visualiser et d'ajouter des justificatifs d'absences. Après un ajout, il faut que le justificatif soit validé par la personne référente du département.
+			Cette interface permet de visualiser et d'ajouter des justificatifs d'absences. Après un ajout, il faut que le justificatif soit validé par une personne référente du département.
 		</p>
 		<p>
 			Les justificatifs doivent être valides et déposés dans les délais, selon les règles de l'IUT. 
@@ -194,7 +191,8 @@
 				<div class=firstLine>Saisi le</div>
 				<div class=firstLine>Début</div>
 				<div class=firstLine>Fin</div>
-				<div class=firstLine>Statut</div>`;
+				<div class=firstLine>Statut</div>
+				<div class=firstLine>Raison</div>`;
 			
 			data.reverse().forEach(justification => {
 				output += newJustifLine(justification);
@@ -208,7 +206,8 @@
 				<div>${ISODateToDisplay(justif.entry_date)}</div>
 				<div>${ISODateToDisplay(justif.date_debut)}</div>
 				<div>${ISODateToDisplay(justif.date_fin)}</div>
-				<div data-statut="${justif.etat}"></div>`;
+				<div data-statut="${justif.etat}"></div>
+				<div>${justif.raison}</div>`;
 		}
 
 		function ISODateToDisplay(date) {
@@ -284,7 +283,8 @@
 						entry_date: date.toISOString(),
 						date_debut: date_debut,
 						date_fin: date_fin,
-						etat: "ATTENTE"
+						etat: "ATTENTE",
+						raison: ""
 					};
 					document.querySelector(".firstLine:nth-child(4)").insertAdjacentHTML("afterend" ,newJustifLine(justif));
 				}
