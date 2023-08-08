@@ -325,7 +325,12 @@
 						<b>Dépôt de justificatifs</b>
 						<p>Choisir si les étudiants peuvent déposer des justificatifs d'absences qui seront importés dans Scodoc.</p>
 						<p>💡 Nécessite l'activation de l'affichage des absences et de la sauvegarde des données dans Scodoc.</p>
+					</label>
 
+					<label>
+						<b>🖊️ Message à ajouter dans la page justificatifs</b>
+						<input type="text" name="message_justificatifs">
+						<p>A destination des étudiants pour leur donner des indications supplémentaires.</p>
 					</label>
 
 					<label>

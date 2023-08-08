@@ -123,6 +123,7 @@
 		<p>
 			Les justificatifs doivent être valides et déposés dans les délais, selon les règles de l'IUT. 
 		</p>
+		<p class="messageJustif"></p>
    
 		<form class="newJustif">
 			<b>Saisi d'un nouveau justificatif</b>
@@ -177,6 +178,8 @@
 				displayError("Le dépot des justificatifs n'est pas autorisé.");
 				return;
 			}
+
+			document.querySelector(".messageJustif").innerHTML = config.message_justificatifs;
 
             if(data.statut == ETUDIANT){
 				getJustifs();
