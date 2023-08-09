@@ -20,9 +20,9 @@
 							'date_fin' => $ISOFin,
 							'etat' => $statut,
 							'moduleimpl_id' => intval($idMatiere),
-							'desc' => "{
-								\"enseignant\": \"$enseignant\"
-							}"
+							'external_data' => [
+								'enseignant' => $enseignant
+							]
 						]
 					];
 					$response = $Scodoc->createAbsence($etudiant, json_encode($data));
@@ -82,7 +82,8 @@
 				"desc": null,
 				"entry_date": "2023-07-27T15:02:57+0200",
 				"user_id": "N. Acces",
-				"est_just": false
+				"est_just": false,
+				"external_data": {du JSON}
 			},etc.
 		]
 
@@ -126,7 +127,6 @@
 					for($j=0 ; $j<count($data[$i]->justificatifs) ; $j++) {
 						$idJustif[] = $data[$i]->justificatifs[$j]->justif_id;
 					}
-
 					$temp = [
 						'idAbs' => $data[$i]->assiduite_id,
 						'idJustif' => $idJustif,
@@ -134,7 +134,7 @@
 						'fin' => Absences::hoursToFloat(date('G:i', $timestampFin)),
 						'statut' => strtolower($data[$i]->etat),
 						'justifie' => $data[$i]->est_just,
-						'enseignant' => json_decode($data[$i]->desc)->enseignant ?? $data[$i]->user_id,
+						'enseignant' => $data[$i]->external_data->enseignant ?? $data[$i]->user_id,
 						'matiereComplet' => $data[$i]->moduleimpl_id,
 						'dateFin' => date('Y-m-d', $timestampFin)
 					];
