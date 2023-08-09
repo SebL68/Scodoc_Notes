@@ -297,7 +297,7 @@
 						etat: "ATTENTE",
 						raison: ""
 					};
-					document.querySelector(".firstLine:nth-child(4)").insertAdjacentHTML("afterend" ,newJustifLine(justif));
+					document.querySelector(".firstLine:nth-child(5)").insertAdjacentHTML("afterend" ,newJustifLine(justif));
 				}
 				document.querySelector(".wait").style.display = "none";
 			});
