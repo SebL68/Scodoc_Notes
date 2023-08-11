@@ -64,11 +64,11 @@
         .groupes{
             margin-left: 20px;
             margin-bottom: 10px;
-			display: flex;
         }
-        .groupe{
+		.groupe{
             cursor: pointer;
             display: flex;
+			flex-wrap: wrap;
             align-items: center;
             gap: 4px;
             padding: 10px;
@@ -77,6 +77,29 @@
             color: var(--primaire-contenu);
             border-radius: 8px;
         }
+		.partition {
+			display: flex;
+			align-items: center;
+		}
+		.partition>b{
+			margin-right: 16px;
+			text-align: right;
+		}
+		.partition>div{
+			display: flex;
+			flex-wrap: wrap;
+		}
+		@supports (grid-template-columns: subgrid) {
+			.groupes {
+				display: grid;
+				grid-template-columns: auto 1fr;
+			}
+			.partition {
+				display: grid;
+				grid-template-columns: subgrid;
+				grid-column: 1 / -1;
+			}
+		}
         .petit{
             flex-direction: column;
 			transition: 0.2s;
@@ -88,10 +111,6 @@
             .flex{
                 flex-direction: column-reverse;
                 align-items: center;
-            }
-            .groupes{
-                margin-right: 20px;
-                justify-content: center;
             }
         }
         .selected{
@@ -250,7 +269,9 @@
 						groupesOutput += `
 						<div class=partition>
 							<b>${partition}</b>
-							${createGroupes(groupes)}
+							<div>
+								${createGroupes(groupes)}
+							</div>
 						</div>`;
 					})
 				}

@@ -65,20 +65,15 @@
 /*******************************/
 /* Listes étudiants */
 /*******************************/
-        .flex{
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-        }
-        
-        .groupes{
-            margin-bottom: 10px;
-			display: flex;
-            justify-content: center;
+		.groupes{
+			width: fit-content;
+			margin: auto;
+			margin-bottom: 10px;
         }
         .groupe{
             cursor: pointer;
             display: flex;
+			flex-wrap: wrap;
             align-items: center;
             gap: 4px;
             padding: 10px;
@@ -87,16 +82,33 @@
             color: var(--primaire-contenu);
             border-radius: 8px;
         }
-        @media screen and (max-width: 700px){
-            .flex{
-                flex-direction: column-reverse;
-                align-items: center;
-            }
-            .groupes{
-                margin-right: 20px;
-                justify-content: center;
-            }
-        }
+		.partition {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: auto;
+		}
+
+		@supports (grid-template-columns: subgrid) {
+			.groupes {
+				display: grid;
+				grid-template-columns: auto auto;
+			}
+			.partition {
+				display: grid;
+				grid-template-columns: subgrid;
+				grid-column: 1 / -1;
+			}
+		}
+
+		.partition>b{
+			margin-right: 16px;
+			text-align: right;
+		}
+		.partition>div{
+			display: flex;
+			flex-wrap: wrap;
+		}
         .selected{
             opacity: 0.5;
         }
@@ -633,7 +645,9 @@
 					groupesOutput += `
 					<div class=partition>
 						<b>${partition}</b>
-						${createGroupes(groupes)}
+						<div>
+							${createGroupes(groupes)}
+						</div>
 					</div>`;
                 })
             }

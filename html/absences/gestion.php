@@ -97,13 +97,14 @@
             align-items: flex-start;
         }
         .groupes{
-            margin-bottom: 10px;
-			display: flex;
-            justify-content: center;
+			width: fit-content;
+			margin: auto;
+			margin-bottom: 10px;
         }
         .groupe{
             cursor: pointer;
             display: flex;
+			flex-wrap: wrap;
             align-items: center;
             gap: 4px;
             padding: 10px;
@@ -112,15 +113,43 @@
             color: var(--primaire-contenu);
             border-radius: 8px;
         }
+		.partition {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: auto;
+		}
+
+		@supports (grid-template-columns: subgrid) {
+			.groupes {
+				display: grid;
+				grid-template-columns: auto auto;
+			}
+			.partition {
+				display: grid;
+				grid-template-columns: subgrid;
+				grid-column: 1 / -1;
+			}
+		}
+
+		.partition>b{
+			margin-right: 16px;
+			text-align: right;
+		}
+		.partition>div{
+			display: flex;
+			flex-wrap: wrap;
+		}
+
         @media screen and (max-width: 1120px){
             .flex{
                 flex-direction: column-reverse;
             }
             .groupes{
-                margin-top: 8px;
-                flex-wrap: wrap;
+				width: calc(100vw - 28px);
+				margin: 0;
+				margin-bottom: 10px;
             }
-
         }
         .selected{
             opacity: 0.5;
@@ -257,7 +286,7 @@
                 position: sticky;
                 left: 0;
             }
-            .date, .groupes{
+            .date{
                 position: sticky;
                 left: 10px;
                 width: calc(100vw - 28px);
@@ -454,7 +483,9 @@
 					groupesOutput += `
 					<div class=partition>
 						<b>${partition}</b>
-						${createGroupes(groupes)}
+						<div>
+							${createGroupes(groupes)}
+						</div>
 					</div>`;
                 })
             }
