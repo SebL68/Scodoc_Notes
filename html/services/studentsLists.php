@@ -62,8 +62,7 @@
             border-collapse: collapse;
         }
         .groupes{
-            margin-left: 20px;
-            margin-bottom: 10px;
+			margin: 0px 4px 4px 20px;
         }
 		.groupe{
             cursor: pointer;
