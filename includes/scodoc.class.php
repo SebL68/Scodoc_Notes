@@ -486,6 +486,26 @@ class Scodoc{
 		return $output;
 	}
 
+	/*******************************/
+	/* ()
+	Récupère la photo de l'étudiant dans Scodoc
+
+	Entrées : 
+		$nip : [int] nip de l'étudiant
+
+	Sortie :
+		une photo
+
+
+	*******************************/
+	public function getStudentPic($nip){
+		$photo = $this->Ask_Scodoc("etudiant/nip/$nip/photo");
+		if(substr($photo, 0, 1) == '<') {
+			$photo = "";
+		}
+		return $photo;
+	}
+
 /***********************/
 /* API absences Scodoc */
 /***********************/

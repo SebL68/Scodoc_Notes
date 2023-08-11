@@ -483,23 +483,33 @@
 			case 'getStudentPic':
 				if ($user->getStatut() > ETUDIANT && isset($_GET['nip'])) {
 					sanitize($_GET['nip']);
-					$url = "$path/data/studentsPic/" . $_GET['nip'] . ".jpg";
+					$id = $_GET['nip'];
 				} else {
-					$url = "$path/data/studentsPic/" . $user->getId() . '.jpg';
+					$id = $user->getId();
 				}
 
+				$url = "$path/data/studentsPic/$id.jpg";
 				if(!file_exists($url)){ // Image par défaut si elle n'existe pas
-					if(method_exists('Config', 'customPic') == true){
-						sanitize($_GET['nip']);
-                        Config::customPic($_GET['nip']);
+					if(method_exists('Config', 'customPic') == true){	// Methode custom de récupération d'image
+                        Config::customPic($id);
                         return;
                     } else {
-						header('Content-type:image/svg+xml');
-						echo '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" style="background: #fafafa" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>';
-						return;	
+						$Scodoc = new Scodoc();
+						$scoImg = $Scodoc->getStudentPic($id);
+
+						if($scoImg == "" || $scoImg == file_get_contents("$path/html/images/default-scodoc-img.jpeg")) { // Image par défaut de Scodoc ?
+							// Affichage de la l'image par défaut de la passerelle
+							header('Content-type:image/svg+xml');
+							echo '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#0b0b0b" style="background: #fafafa" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>';
+							return;	
+						} else {	// Enregistrement et affichage de l'image de Scodoc
+							file_put_contents("$path/data/studentsPic/$id.jpg", $scoImg);
+							header('Content-type:image/jpeg');
+							echo $scoImg;
+							return;
+						}
 					}
-					
-				} else {
+				} else {	// Image déjà stockée
 					header('Content-type:image/jpeg');
 					echo file_get_contents($url);
 					return;

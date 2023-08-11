@@ -68,6 +68,7 @@
 			<b>Ajouts</b>
 			<li>Mode jour/nuit sur l'ensemble de la passerelle - contribution de Jordan Abeddou, étudiant MMI Mulhouse.</li>
 			<li>Filtrage multi-partitions des groupes.</li>
+			<li>Récupération et stockage des photos issues de Scodoc. L'étudiant à toujours la possiblité de mettre une photo personnelle qui sera stockée uniquement sur la passerelle. S'il la supprime, c'est de nouveau la photo de Scodoc qui sera utilisée.</li>
 			<li>Onglet config : ajout d'une option pour cloisonner les enseignants : seul un enseignant qui est dans l'onglet "Comptes" aura accès au département dans lequel il est affecté.</li>
 			<li>Onglet config : ajout de liens vers les outils de la passerelle</li>
 			<li>Onglet config : si l'option est activée, les données de trafic sont sauvegardées. Désormais, il est possible de les visualiser <a href="services/analytics.php">sur cette page</a>. Cette collecte de données est en conformité avec le RGPD.</li>
