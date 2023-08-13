@@ -357,8 +357,6 @@
 
 		</div>
 
-		<div class=wait></div>
-
 	</main>
 
 	<div class=auth>

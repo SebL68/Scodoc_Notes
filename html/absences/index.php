@@ -455,7 +455,6 @@
    
 
         <div class=contenu></div>
-        <div class=wait></div>
         
     </main>
 

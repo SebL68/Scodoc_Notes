@@ -143,7 +143,6 @@
 		</form>
 
         <div class=listeJustif></div>
-        <div class=wait></div>
         
     </main>
 

@@ -174,7 +174,6 @@
       <div id="administrateurs"></div>
       <div id="enseignants"></div>
     </div>
-    <div class=wait></div>
 
   </main>
 

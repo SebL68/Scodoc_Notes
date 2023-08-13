@@ -175,7 +175,6 @@
 			</div>
 			<div class=semestres></div>
 			<hr>
-			<div class=wait></div>
 			<div class=releve></div>
 			<hr>
 

@@ -66,7 +66,6 @@ class releveBUT extends HTMLElement {
 	template() {
 		return `
 <div>	
-	<div class="wait"></div>
 	<main class="releve">
 		<!--------------------------->
 		<!-- Info. étudiant        -->

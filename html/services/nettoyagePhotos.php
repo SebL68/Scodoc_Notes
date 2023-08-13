@@ -82,7 +82,6 @@
 				<div class="probleme"></div>
 			</div>
 		</div>
-		<div class="wait"></div>
 	</main>
 
 	<div class=auth>

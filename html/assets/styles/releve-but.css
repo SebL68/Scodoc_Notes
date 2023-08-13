@@ -2,16 +2,6 @@
 /*******************/
 /* Styles généraux */
 /*******************/
-.wait{
-    width: 60px;
-    height: 6px;
-    margin: auto;
-    background: var(--gris); /* 42, la réponse à tout */
-    animation: wait .4s infinite alternate;
-}
-@keyframes wait{
-    100%{transform: translateY(40px) rotate(1turn);}
-}
 main{
 	--couleurPrincipale: var(--releve-principale);
     --couleurFondTitresUE: var(--releve-fond-titre-ue);

@@ -5,20 +5,6 @@
     <title>Fréquentation</title>
 	<style>
 		<?php include $_SERVER['DOCUMENT_ROOT']."/assets/styles/global.css"?>
-		.wait{
-			position: fixed;
-			width: 50px;
-			height: 10px;
-			background: var(--gris);
-			top: 80px;
-			left: 50%;
-			margin-left: -25px;
-			animation: wait 0.6s ease-out alternate infinite;
-		}
-		@keyframes wait{
-			100%{transform: translateY(-30px) rotate(360deg)}
-		}
-
 		body{
 			padding: 32px 64px;
 			max-width: 1200px;
