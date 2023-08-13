@@ -290,16 +290,16 @@ main {
 	background: var(--primaire);
 }
 .dot{
-	background: var(--primaire);
 	width: 16px;
 	height: 16px;
 	border-radius: 100%;
 	animation: wait 0.6s infinite alternate ease-in;
 }
-.dot:nth-child(2) { animation-delay: 0.1s; background: var(--secondaire)}
-.dot:nth-child(3) { animation-delay: 0.2s; background: var(--accent)}
-.dot:nth-child(4) { animation-delay: 0.3s; background: var(--gris)}
-.dot:nth-child(5) { animation-delay: 0.4s; background: var(--releve-fond-titre-sae)}
+.dot:nth-child(1) { animation-delay: -0.3s; background: var(--primaire)}
+.dot:nth-child(2) { animation-delay: -0.2s; background: var(--secondaire)}
+.dot:nth-child(3) { animation-delay: -0.1s; background: var(--accent)}
+.dot:nth-child(4) { animation-delay: 0s; background: var(--gris)}
+.dot:nth-child(5) { animation-delay: 0.1s; background: var(--releve-fond-titre-sae)}
 
 @keyframes wait {
 	60% {
