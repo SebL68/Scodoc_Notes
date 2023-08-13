@@ -79,6 +79,7 @@
 			<b>Améliorations</b>
 			<li>Sauvegarde du jeton Scodoc : amélioration des performances.</li>
 			<li>Mise à jour du service worker à partir de toutes les pages : moins de problèmes de cache.</li>
+			<li>Nouveau style de l'animation de chargement.</li>
 
 			<br>
 			<b>Corrections</b>

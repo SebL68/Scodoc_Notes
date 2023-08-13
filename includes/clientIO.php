@@ -16,7 +16,7 @@ Gère la déconnexion et les messages d'erreur
 /*********************************************/
 let config;
 function fetchData(query){
-	document.querySelector(".wait").style.display = "block";
+	document.querySelector(".wait").style.display = "flex";
 	let token = (window.location.search.match(/token=([a-zA-Z0-9._-]+)/)?.[1] || ""); // Récupération d'un token GET pour le passer au service
 
 	return fetch(

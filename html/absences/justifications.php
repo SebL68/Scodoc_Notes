@@ -281,7 +281,7 @@
 			}
 
 			const form = new FormData(this);
-			document.querySelector(".wait").style.display = "block";
+			document.querySelector(".wait").style.display = "flex";
 			fetch("../services/data.php?q=sendJustif", {
 				method: "POST",
 				body: form
