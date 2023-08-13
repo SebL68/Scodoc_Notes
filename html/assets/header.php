@@ -27,4 +27,19 @@
 
 	
 </header>
-<div class="wait"></div>
+<div class="wait">
+	<div class="dot"></div>
+	<div class="dot"></div>
+	<div class="dot"></div>
+	<div class="dot"></div>
+	<div class="dot"></div>
+	<div class="land"></div>
+</div>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" style=height:0>
+	<defs>
+		<filter id="blob">
+			<feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="7" ></feGaussianBlur>
+			<feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0	0 1 0 0 0	0 0 1 0 0	0 0 0 18 -7" result="blob" ></feColorMatrix>
+		</filter>
+	</defs>
+</svg>

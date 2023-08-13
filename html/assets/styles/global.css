@@ -270,19 +270,43 @@ main {
 }
 
 .wait {
-	position: fixed;
-	width: 50px;
-	height: 10px;
-	background: var(--gris);
-	top: 80px;
-	left: 50%;
-	margin-left: -25px;
-	animation: wait 0.6s ease-out alternate infinite;
+	position: absolute;
+	left: 0;
+	right: 0;
+	height: 60px;
+	display: flex;
+	justify-content: center;
+	gap: 8px;
+	transform: translateY(-16px);
+
+	filter: url("#blob");
 }
+.land{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 16px;
+	background: var(--primaire);
+}
+.dot{
+	background: var(--primaire);
+	width: 16px;
+	height: 16px;
+	border-radius: 100%;
+	animation: wait 0.6s infinite alternate ease-in;
+}
+.dot:nth-child(2) { animation-delay: 0.1s; background: var(--secondaire)}
+.dot:nth-child(3) { animation-delay: 0.2s; background: var(--accent)}
+.dot:nth-child(4) { animation-delay: 0.3s; background: var(--gris)}
+.dot:nth-child(5) { animation-delay: 0.4s; background: var(--releve-fond-titre-sae)}
 
 @keyframes wait {
+	60% {
+		transform: translateY(0);
+	}
 	100% {
-		transform: translateY(-30px) rotate(360deg)
+		transform: translateY(42px);
 	}
 }
 
