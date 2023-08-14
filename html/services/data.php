@@ -225,7 +225,6 @@
 					checkDepartment($dep, $user->getDepartements(), $user->getStatut());
 				}
 					
-
 				$nip = $_GET['etudiant'] ?? $user->getId();
 				$output = [
 					'relevé' => $Scodoc->getReportCards($_GET['semestre'], $nip),
@@ -576,6 +575,45 @@
 				}
 				die();
 				break;
+
+		/*****************************************/
+		/* Message à afficher sur la page relevé */
+		/*****************************************/
+			case 'setReportPageMessage':
+				if($user->getStatut() < ADMINISTRATEUR ){ returnError(); }
+				sanitize($_GET['dep']);
+				checkDepartment($_GET['dep'], $user->getDepartements(), $user->getStatut());
+				$dep = $_GET['dep'];
+
+				$link = "$path/data/messages";
+				if(!is_dir($link)) { mkdir($link); }
+				$link .= "/$dep.txt";
+
+				$dataLength = file_put_contents($link, $_GET['text']);
+
+				if($dataLength === false) {
+					$output = [
+						'reponse' => 'NOK'
+					];
+				} else {
+					$output = [
+						'reponse' => 'OK'
+					];
+				}
+				
+				break;
+
+			case 'getReportPageMessage':
+				sanitize($_GET['dep']);
+				$dep = $_GET['dep'];
+				$link = "$path/data/messages/$dep.txt";
+				$message = file_get_contents($link);
+				$output = [
+					'message' => $message
+				];
+
+				break;
+			
 
 		/************************/
 		/* Analytics interne	*/

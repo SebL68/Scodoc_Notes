@@ -66,6 +66,7 @@
 
 			<br>
 			<b>Ajouts</b>
+			<li>Possibilité pour un admin d'un département d'afficher aux étudiants un message sur la page relevé de notes. Modification du message depuis l'onglet "Comptes".</li>
 			<li>Mode jour/nuit sur l'ensemble de la passerelle - contribution de Jordan Abeddou, étudiant MMI Mulhouse.</li>
 			<li>Filtrage multi-partitions des groupes.</li>
 			<li>Récupération et stockage des photos issues de Scodoc. L'étudiant à toujours la possiblité de mettre une photo personnelle qui sera stockée uniquement sur la passerelle. S'il la supprime, c'est de nouveau la photo de Scodoc qui sera utilisée.</li>

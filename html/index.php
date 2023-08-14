@@ -69,6 +69,13 @@
 				border-radius: 8px;
 				cursor: pointer;
 			}
+
+			.depMessage{
+				display: none;
+				background: #FFF;
+				border: 1px solid #CCC;
+				padding: 8px 32px;
+			}
 /**********************/
 /* Zone absences */
 /**********************/
@@ -174,6 +181,10 @@
 				<datalist id=etudiants></datalist>
 			</div>
 			<div class=semestres></div>
+			<div class="depMessage">
+				<b>Message de votre département</b>
+				<div></div>
+			</div>
 			<hr>
 			<div class=releve></div>
 			<hr>
@@ -324,7 +335,7 @@
 				feedAbsences(data);
 			}	
 
-			function showReportCards(data, semestre){
+			async function showReportCards(data, semestre){
 				if(data.relevé.publie == false){
 					document.querySelector(".releve").innerHTML = "<h2 style='background: #90c;'>" + data.relevé.message + "</h2>";
 				}else if(data.relevé.type == "BUT"){
@@ -369,6 +380,15 @@
 					<?php if($Config->releve_PDF == false){ ?>
 						document.querySelector("releve-dut").hidePDF = false;
 					<?php } ?>
+				}
+
+				// Récupération et affichage du message département
+				let dep = data.relevé.etudiant.dept_acronym;
+				let message = await fetchData("getReportPageMessage&dep=" + dep);
+				if(message.message) {
+					let zoneMessage = document.querySelector(".depMessage");
+					zoneMessage.style.display = "block";
+					zoneMessage.querySelector("div").innerHTML = message.message;
 				}
 			}
 
