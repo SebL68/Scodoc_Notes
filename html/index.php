@@ -74,7 +74,26 @@
 				display: none;
 				background: #FFF;
 				border: 1px solid #CCC;
+				margin: 16px 0;
 				padding: 8px 32px;
+				position: relative;
+			}
+			.depMessage::before{
+				content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' fill='%23FFFFFF' stroke='%230099cc' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z'%3E%3C/path%3E%3Cpolyline points='22,6 12,13 2,6'%3E%3C/polyline%3E%3C/svg%3E");
+				position: absolute;
+				top: -8px;
+				left: -16px;
+				transform: rotate(30deg);
+				animation: lettre 2s infinite;
+			}
+			@keyframes lettre {
+				5%, 15% { transform: rotate(0deg); }
+				10%, 20% { transform: rotate(60deg); }
+				25% { transform: rotate(30deg); }
+
+			}
+			.releve{
+				margin-bottom: 22px;
 			}
 /**********************/
 /* Zone absences */
@@ -180,10 +199,9 @@
 				<b>Message de votre département</b>
 				<div></div>
 			</div>
-			<hr>
+
 			<div class=releve></div>
 			<hr>
-
 			<div class="absences">
 				<h2>Rapport d'absences</h2>
 				<p><i>
