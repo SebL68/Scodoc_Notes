@@ -51,7 +51,7 @@
 	<h1>Historique des mises à jour</h1>
 
 	<main>
-		<h2>02/08/2023 - 6.0.0</h2>
+		<h2>01/09/2023 - 6.0.0</h2>
 		<ul>
 			<b>Relevé BUT</b>
 			<li>Ajout d'un marqueur pour voir rapidement les nouvelles évaluations - contribution de David Ismeurt, étudiant MMI Mulhouse.</li>
