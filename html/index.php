@@ -82,6 +82,9 @@
 			h2{
 				background: var(--primaire);
 			}
+			.absences{
+				display: none;
+			}
 			.absences>div{
 				display: grid;
 				grid-template-columns: repeat(5, auto);
@@ -117,10 +120,6 @@
 			.totauxAbsences>div:nth-child(1){
 				background: var(--primaire);
 			}
-
-			.hideAbsences .absences{
-				display: none;
-			}
 			.depotJustif {
 				display: inline-block;
 				padding: 8px 16px;
@@ -154,11 +153,7 @@
 		</style>
 		<meta name=description content="Relevé de notes - <?php echo $Config->nom_IUT; ?>">
 	</head>
-	<body class="<?php
-		if($Config->afficher_absences == false){
-			echo 'hideAbsences';
-		}
-	?>">
+	<body>
 		<?php 
 			$h1 = 'Relevé de notes';
 			include $_SERVER['DOCUMENT_ROOT']."/assets/header.php";
@@ -403,6 +398,10 @@
 				};
 				let output = "";
 				let multiJours = false;
+
+				if(!config.afficher_absences) { return; } 
+
+				document.querySelector(".absences").style.display = "block";
 
 				if(!config.autoriser_justificatifs) {
 					document.querySelector(".depotJustif").style.display = "none";
