@@ -23,7 +23,7 @@
 		}
 
 		h2{
-			background: #9C0;
+			background: var(--secondaire);
 			display: table;
 			padding: 10px;
 			color: #FFF;

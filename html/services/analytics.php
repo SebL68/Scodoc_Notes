@@ -34,10 +34,20 @@
 		.canvas {
 			height: 220px
 		}
+		.wait {
+			top: 0;
+		}
 	</style>
 </head>
 <body>
-    <div class="wait"></div>
+	<div class="wait">
+		<div class="dot"></div>
+		<div class="dot"></div>
+		<div class="dot"></div>
+		<div class="dot"></div>
+		<div class="dot"></div>
+		<div class="land"></div>
+	</div>
 
 	<h1>Analyse du trafic de la passerelle</h1>
 
