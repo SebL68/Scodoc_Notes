@@ -370,7 +370,7 @@
 				groupesSelected.push(e.dataset.groupe);
 			})
 
-			Array.from(obj.parentElement.parentElement.nextElementSibling.querySelectorAll("[data-groupe]")).forEach(e=>{
+			Array.from(obj.parentElement.parentElement.parentElement.nextElementSibling.querySelectorAll("[data-groupe]")).forEach(e=>{
 				if(groupesSelected.some(valeur => e.dataset.groupe.includes(valeur))){
 					e.classList.remove("hide")
 				} else {
