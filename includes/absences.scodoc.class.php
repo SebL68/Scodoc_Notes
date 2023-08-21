@@ -118,7 +118,7 @@
 
 		private static function scoAbsDataToPasserelle($data, $groupNip) {
 			$output = [];
-			for($i=0 ; $i<count($data ?? []) ; $i++){
+			for($i=0 ; $i<count($data) ; $i++){
 
 				$timestampDebut = strtotime(explode('+', $data[$i]->date_debut)[0]);
 				$timestampFin = strtotime(explode('+', $data[$i]->date_fin)[0]);

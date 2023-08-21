@@ -544,7 +544,7 @@ class Scodoc{
 			$this->Ask_Scodoc(
 				"assiduites/nip/$nip", 
 				['formsemestre_id' => $sem])
-		);
+		) ?? [];
 	}
 
 	/*******************************/
