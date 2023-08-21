@@ -24,7 +24,7 @@
 			$client_service_name = "https://$_SERVER[HTTP_HOST]";
 
 			// Initialize phpCAS
-			phpCAS::client(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context);
+			phpCAS::client(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context, $client_service_name);
 			if($cas_server_ca_cert_path != '') {
 				phpCAS::setCasServerCACert($cas_server_ca_cert_path);
 			} else {
@@ -62,7 +62,7 @@
 			$client_service_name = "https://$_SERVER[HTTP_HOST]";
 
 			// Initialize phpCAS
-			phpCAS::client(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context);
+			phpCAS::client(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context, $client_service_name);
 				
 			if($cas_server_ca_cert_path != '') {
 				phpCAS::setCasServerCACert($cas_server_ca_cert_path);
@@ -98,7 +98,7 @@
 			require_once $path . '/config/cas_config.php';
 			$client_service_name = "https://$_SERVER[HTTP_HOST]";
 
-			phpCAS::client(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context);
+			phpCAS::client(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context, $client_service_name);
 			phpCAS::logoutWithRedirectService('');
 		}
 	}
