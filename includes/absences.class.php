@@ -39,7 +39,7 @@
 				} else { // Date présente
 					
 					$found = false;
-					for($i=0 ; $i<count($json[$date]) ; $i++){	// Pour chaque absence de la date
+					for($i=0 ; $i<count($json[$date] ?? []) ; $i++){	// Pour chaque absence de la date
 
 						if ( $json[$date][$i]['debut'] == $debut // Même créneau
 							&& $json[$date][$i]['fin'] == $fin ) {
@@ -49,7 +49,7 @@
 
 								if($statut == 'unset'){
 									array_splice($json[$date], $i, 1);
-									if(count($json[$date]) == 0){
+									if(count($json[$date] ?? []) == 0){
 										unset($json[$date]);
 									}
 								} else {
@@ -80,7 +80,7 @@
 			}
 
 			
-			if(count($json) == 0){
+			if(count($json ?? []) == 0){
 				unlink($file);
 			}else{
 				file_put_contents(
@@ -155,7 +155,7 @@
 
 			$dates = $data[$date];
 
-			for($i=0 ; $i<count($dates) ; $i++){
+			for($i=0 ; $i<count($dates ?? []) ; $i++){
 				if($dates[$i]['debut'] == $debut){
 					$data[$date][$i]['justifie'] = $justifie === 'true';
 					break;

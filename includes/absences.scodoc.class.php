@@ -124,7 +124,7 @@
 				$timestampFin = strtotime(explode('+', $data[$i]->date_fin)[0]);
 
 				$idJustif = [];
-				for($j=0 ; $j<count($data[$i]->justificatifs) ; $j++) {
+				for($j=0 ; $j<count($data[$i]->justificatifs ?? []) ; $j++) {
 					$idJustif[] = $data[$i]->justificatifs[$j]->justif_id;
 				}
 				$temp = [
@@ -185,7 +185,7 @@
 				} 
 			} else {
 				$response = $Scodoc->unsetJustif("[$id]");
-				if(isset($response->success[0]->message) && count($response->errors) == 0) {
+				if(isset($response->success[0]->message) && count($response->errors ?? []) == 0) {
 					return ['result' => 'OK'];
 				} 
 			}

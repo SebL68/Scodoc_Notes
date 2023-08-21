@@ -419,7 +419,7 @@ class Scodoc{
 			sort($partition);
 		}
 
-		if(count($groupes) == 0) {
+		if(count($groupes ?? []) == 0) {
 			$groupes = ['TP' => ['Groupe 1']];
 		}
 		
@@ -463,12 +463,12 @@ class Scodoc{
 
 		$output_json = [];
 
-		if(count($json->ressources) > 0){
+		if(count($json->ressources ?? []) > 0){
 			$output_json["modules"] = $this->getModulesData($json->ressources);
 		} else {
 			$output_json["modules"] = $this->getModulesData($json->modules);
 		}
-		if(count($json->saes) > 0){
+		if(count($json->saes ?? []) > 0){
 			$output_json["saes"] = $this->getModulesData($json->saes);
 		}
 
