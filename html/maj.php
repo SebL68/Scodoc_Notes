@@ -90,6 +90,8 @@
 			
 			<br>
 			<b>Under the hood</b>
+			<li>Passage de phpCAS 1.4.0 à 1.6.1</li>
+			<li>Correctif de compatibilité PHP 8.2</li>
 			<li>Amélioration du fonctionnement de menu principal.</li>
 			<li>Suppression de la vérification des fichiers annuaires : bascule en mode enseignant simplifié.</li>
 			<br>
