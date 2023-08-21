@@ -5,6 +5,7 @@ include_once "$path/includes/default_config.php";
 
 class Scodoc{
 	private $ch; // Connexion CURL
+	private $tokenPath;
 
 	/***********************************************************/
 	/* Initialisation de la connexion et récupération du token */
