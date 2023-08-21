@@ -118,33 +118,33 @@
 
 		private static function scoAbsDataToPasserelle($data, $groupNip) {
 			$output = [];
-				for($i=0 ; $i<count($data) ; $i++){
+			for($i=0 ; $i<count($data ?? []) ; $i++){
 
-					$timestampDebut = strtotime(explode('+', $data[$i]->date_debut)[0]);
-					$timestampFin = strtotime(explode('+', $data[$i]->date_fin)[0]);
+				$timestampDebut = strtotime(explode('+', $data[$i]->date_debut)[0]);
+				$timestampFin = strtotime(explode('+', $data[$i]->date_fin)[0]);
 
-					$idJustif = [];
-					for($j=0 ; $j<count($data[$i]->justificatifs) ; $j++) {
-						$idJustif[] = $data[$i]->justificatifs[$j]->justif_id;
-					}
-					$temp = [
-						'idAbs' => $data[$i]->assiduite_id,
-						'idJustif' => $idJustif,
-						'debut' => Absences::hoursToFloat(date('G:i', $timestampDebut)),
-						'fin' => Absences::hoursToFloat(date('G:i', $timestampFin)),
-						'statut' => strtolower($data[$i]->etat),
-						'justifie' => $data[$i]->est_just,
-						'enseignant' => $data[$i]->external_data->enseignant ?? $data[$i]->user_id,
-						'matiereComplet' => $data[$i]->moduleimpl_id,
-						'dateFin' => date('Y-m-d', $timestampFin)
-					];
-
-					if($groupNip) {
-						$output[$data[$i]->code_nip][date('Y-m-d', $timestampDebut)][] = $temp;
-					} else {
-						$output[date('Y-m-d', $timestampDebut)][] = $temp;
-					}
+				$idJustif = [];
+				for($j=0 ; $j<count($data[$i]->justificatifs) ; $j++) {
+					$idJustif[] = $data[$i]->justificatifs[$j]->justif_id;
 				}
+				$temp = [
+					'idAbs' => $data[$i]->assiduite_id,
+					'idJustif' => $idJustif,
+					'debut' => Absences::hoursToFloat(date('G:i', $timestampDebut)),
+					'fin' => Absences::hoursToFloat(date('G:i', $timestampFin)),
+					'statut' => strtolower($data[$i]->etat),
+					'justifie' => $data[$i]->est_just,
+					'enseignant' => $data[$i]->external_data->enseignant ?? $data[$i]->user_id,
+					'matiereComplet' => $data[$i]->moduleimpl_id,
+					'dateFin' => date('Y-m-d', $timestampFin)
+				];
+
+				if($groupNip) {
+					$output[$data[$i]->code_nip][date('Y-m-d', $timestampDebut)][] = $temp;
+				} else {
+					$output[date('Y-m-d', $timestampDebut)][] = $temp;
+				}
+			}
 			return $output;
 		}
 
