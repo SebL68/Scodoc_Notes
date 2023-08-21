@@ -542,7 +542,7 @@ class Scodoc{
 	public function getStudentAbsences($sem, $nip){
 		return json_decode(
 			$this->Ask_Scodoc(
-				"assiduites/nip/$nip", 
+				"assiduites/nip/$nip/query", 
 				['formsemestre_id' => $sem])
 		) ?? [];
 	}
