@@ -21,6 +21,7 @@
 
 			require_once $path . '/lib/CAS/CAS.php';
 			require_once $path . '/config/cas_config.php';
+			$client_service_name = "https://$_SERVER[HTTP_HOST]";
 
 			// Initialize phpCAS
 			phpCAS::client(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context);
@@ -58,6 +59,7 @@
 
 			require_once $path . '/lib/CAS/CAS.php';
 			require_once $path . '/config/cas_config.php';
+			$client_service_name = "https://$_SERVER[HTTP_HOST]";
 
 			// Initialize phpCAS
 			phpCAS::client(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context);
@@ -94,6 +96,7 @@
 			$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 			require_once $path . '/lib/CAS/CAS.php';
 			require_once $path . '/config/cas_config.php';
+			$client_service_name = "https://$_SERVER[HTTP_HOST]";
 
 			phpCAS::client(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context);
 			phpCAS::logoutWithRedirectService('');
