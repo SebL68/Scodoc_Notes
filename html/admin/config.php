@@ -297,7 +297,7 @@
 					<label>
 						<input type="checkbox" name="afficher_absences">
 						<b>Affichage des absences aux étudiants</b>
-						<p>Activer la zone de visualisation des absences sous le relevé de notes.</p>
+						<p>Activer la zone de visualisation des absences sous le relevé de notes. Les données affichées proviennent de la passerelle ou de Scodoc en fonction de l'option suivante.</p>
 					</label>
 					<label>
 						<input type="checkbox" name="data_absences_scodoc">
@@ -325,6 +325,12 @@
 						<b>Dépôt de justificatifs</b>
 						<p>Choisir si les étudiants peuvent déposer des justificatifs d'absences qui seront importés dans Scodoc.</p>
 						<p>💡 Nécessite l'activation de l'affichage des absences et de la sauvegarde des données dans Scodoc.</p>
+					</label>
+
+					<label>
+						<b>🖊️ Message au début du rapport d'absences, après le relevé de notes</b>
+						<input type="text" name="message_rapport_absences">
+						<p>A destination des étudiants pour leur donner des indications supplémentaires.</p>
 					</label>
 
 					<label>

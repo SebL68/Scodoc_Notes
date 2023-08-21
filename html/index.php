@@ -204,7 +204,7 @@
 			<hr>
 			<div class="absences">
 				<h2>Rapport d'absences</h2>
-				<p><i>
+				<p><i class=message_rapport_absences>
 				Les causes de l’absence doivent être notifiées par écrit à l'aide d'un justificatif dans les 48 heures à compter du début de l’absence au secrétariat du département. Voir règlement intérieur pour les motifs légitimes d'absence.
 				</i></p>
 				<a class=depotJustif href="absences/justifications.php">
@@ -419,6 +419,7 @@
 
 				if(!config.afficher_absences) { return; } 
 
+				document.querySelector(".message_rapport_absences").innerHTML = config.message_rapport_absences;
 				document.querySelector(".absences").style.display = "block";
 
 				if(!config.autoriser_justificatifs) {

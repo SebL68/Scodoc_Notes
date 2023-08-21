@@ -58,6 +58,7 @@
 		$Config->module_absences = $configJSON['module_absences'] ?? Config::$module_absences ?? false;		// nécessite l'acces_enseignants - ce module est différent de celui de Scodoc, il est géré entièrement par la passerelle.
 		$Config->data_absences_scodoc = $configJSON['data_absences_scodoc'] ?? Config::$data_absences_scodoc ?? false;	// Choisir si les absences sont stockées sur la passerelle ou dans Scodoc.
 		$Config->autoriser_justificatifs = $configJSON['autoriser_justificatifs'] ?? Config::$autoriser_justificatifs ?? false;	// Choisir si les étudiants peuvent déposer des justificatifs d'absences qui seront importés dans Scodoc.
+		$Config->message_rapport_absences = $configJSON['message_rapport_absences'] ?? Config::$message_rapport_absences ?? "Les causes de l’absence doivent être notifiées par écrit à l'aide d'un justificatif dans les 48 heures à compter du début de l’absence au secrétariat du département. Voir règlement intérieur pour les motifs légitimes d'absence.";	//Message au début du rapport d'absences, après le relevé de notes.
 		$Config->message_justificatifs = $configJSON['message_justificatifs'] ?? Config::$message_justificatifs ?? "";	// Message à ajouter dans la page justificatifs.
 
 		$Config->cloisonner_enseignants = $configJSON['cloisonner_enseignants'] ?? Config::$cloisonner_enseignants ?? false; // Permettre a un enseignant d'avoir accès à tous les départements ou que ceux dans lesquels il intervient (onglet Comptes).
@@ -269,6 +270,7 @@ $accepted_input = [
 	'afficher_absences',
 	'data_absences_scodoc',
 	'autoriser_justificatifs',
+	'message_rapport_absences',
 	'message_justificatifs',
 	'absence_heureDebut',
 	'absence_heureFin',

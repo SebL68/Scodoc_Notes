@@ -64,6 +64,7 @@
 			<li>Si la sauvegarde dans Scodoc est opérationnelle, option pour activer l'ajout de justificatifs d'absences par l'étudiant.</li>
 			<li>Saisi des absences par lots.</li>
 			<li>Rapport d'absences : ajout d'un accumulateur du nombre de jours absents.</li>
+			<li>Personalisation des messages au début de rapport d'absences et dans la page de dépôt des justificatifs.</li>
 
 			<br>
 			<b>Ajouts</b>
