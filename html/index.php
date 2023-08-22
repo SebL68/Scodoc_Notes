@@ -244,6 +244,7 @@
 /**************************/
 			let nip = "";
 			let statut = "";
+			let studentDep = "";
 			checkStatut();
 			document.querySelector("#notes")?.classList.add("navActif");
 			<?php
@@ -396,7 +397,7 @@
 				}
 
 				// Récupération et affichage du message département
-				let dep = data.relevé.etudiant.dept_acronym;
+				dep = data.relevé.etudiant.dept_acronym;
 				let message = await fetchData("getReportPageMessage&dep=" + dep);
 				if(message.message) {
 					let zoneMessage = document.querySelector(".depMessage");
@@ -422,10 +423,10 @@
 				document.querySelector(".message_rapport_absences").innerHTML = config.message_rapport_absences;
 				document.querySelector(".absences").style.display = "block";
 
-				if(!config.autoriser_justificatifs) {
-					document.querySelector(".depotJustif").style.display = "none";
-				} else {
+				if(config.autoriser_justificatifs && config.liste_dep_ok_jusiticatifs.split(",").includes(dep)) {
 					document.querySelector(".depotJustif").href += "?nip=" + nip;
+				} else {
+					document.querySelector(".depotJustif").style.display = "none";
 				}
 
 				if(Object.entries(data.absences).length){

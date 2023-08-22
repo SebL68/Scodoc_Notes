@@ -607,7 +607,12 @@
 				sanitize($_GET['dep']);
 				$dep = $_GET['dep'];
 				$link = "$path/data/messages/$dep.txt";
-				$message = file_get_contents($link) ?: '';
+				if(file_exists($link)) {
+					$message = file_get_contents($link) ?: '';
+				} else {
+					$message = '';
+				}
+				
 				$output = [
 					'message' => $message
 				];

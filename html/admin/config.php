@@ -326,6 +326,12 @@
 						<p>Choisir si les étudiants peuvent déposer des justificatifs d'absences qui seront importés dans Scodoc.</p>
 						<p>💡 Nécessite l'activation de l'affichage des absences et de la sauvegarde des données dans Scodoc.</p>
 					</label>
+					<label>
+						<b>🖊️ Liste des départements autorisant le dépot de jusitificatifs</b>
+						<input type="text" name="liste_dep_ok_jusiticatifs">
+						<p>Sous la forme : MMI,GEII,GLT,GEA</p>
+						<p>⚠️ Attention : l'acronyme du département doit être celui des débuts dans Scodoc. Par exemple, si le département GLT a été renommé en MLT. Il faut alors utiliser GLT.</p>
+					</label>
 
 					<label>
 						<b>🖊️ Message au début du rapport d'absences, après le relevé de notes</b>
