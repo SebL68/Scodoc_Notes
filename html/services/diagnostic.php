@@ -60,10 +60,10 @@
 	/******************/
 	/* Version de PHP */
 	/******************/
-		if (version_compare(PHP_VERSION, '7.1.0') >= 0) {
+		if (version_compare(PHP_VERSION, '7.3.0') >= 0) {
 			echo '<div><span>✔️</span> La version de PHP est compatible avec la passerelle.</div>';
 		} else {
-			echo '<div><span>❌</span> Veuillez mettre à jour votre version de PHP, le minimum requis est 7.1.0</div>';
+			echo '<div><span>❌</span> Veuillez mettre à jour votre version de PHP, le minimum requis est 7.3.0</div>';
 		}
 
 	/******************/
