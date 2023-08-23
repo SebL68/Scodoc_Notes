@@ -34,6 +34,7 @@
 /* Options d'affichage */
 /***********************/
 		$Config->releve_PDF = $configJSON['releve_PDF'] ?? Config::$releve_PDF ?? true; // Affichage de l'option pour que les étudiants puissent télécharger leur relevé en version PDF.
+		$Config->etudiant_modif_photo = $configJSON['etudiant_modif_photo'] ?? Config::$etudiant_modif_photo ?? true; // Autoriser les étudiants à modifier leur photo.
 		$Config->nom_IUT = $configJSON['nom_IUT'] ?? Config::$nom_IUT ?? 'IUT'; // Nom de l'IUT, par exemple : 'IUT de Mulhouse'.
 		$Config->message_non_publication_releve = $configJSON['message_non_publication_releve'] ?? Config::$message_non_publication_releve ?? 'Le responsable de votre formation a décidé de ne pas publier le relevé de notes de ce semestre.'; // Message si le relevé n'est pas publié.
 
@@ -250,6 +251,7 @@
 $accepted_input = [
 	'message_non_publication_releve',
 	'releve_PDF',
+	'etudiant_modif_photo',
 	'acces_enseignants',
 	'cloisonner_enseignants',
 	'analystics_interne',

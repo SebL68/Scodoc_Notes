@@ -468,6 +468,12 @@
 		/************************/
 			case 'setStudentPic':
 				if($user->getStatut() < ETUDIANT){ returnError(); }
+				if(!$Config->etudiant_modif_photo) { 
+					$output = [
+						'result' => "Not ok"
+					];
+					break;
+				}
 				if(!move_uploaded_file($_FILES['image']['tmp_name'], "$path/data/studentsPic/".$user->getId().'.jpg')){
 					$output = [
 						'result' => "Not ok"

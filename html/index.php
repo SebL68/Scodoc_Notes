@@ -277,6 +277,9 @@
 					showReportCards(data, data.semestres[0].formsemestre_id, data.auth.session);
 					feedAbsences(data);
 				}
+				if(!config.etudiant_modif_photo) {
+					document.querySelector("main>a").href = "#";
+				}
 			}
 /*********************************************/
 /* Fonction pour les personnels 

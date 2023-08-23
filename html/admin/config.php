@@ -186,6 +186,11 @@
 						<b>🖊️ Message non publication relevé</b>
 						<input type="text" name="message_non_publication_releve">
 					</label>
+					<label>
+						<input type="checkbox" name="etudiant_modif_photo">
+						<b>Autoriser les étudiants à modifier leur photo</b>
+						<p>Cette modification ne se fait que sur la passerelle et n'est pas liée avec la photo Scodoc.</p>	
+					</label>
 				</div>
 			</details>
 
