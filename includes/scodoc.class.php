@@ -164,10 +164,12 @@ class Scodoc{
 		if($data != ''){
 			$output = [];
 			forEach($data as $value){
-				$output[] = [
-					'code' => $value->acronym,
-					'nom' => $value->dept_name
-				];
+				if($value->visible) {
+					$output[] = [
+						'code' => $value->acronym,
+						'nom' => $value->dept_name
+					];
+				}
 			}
 			
 			return $output;
