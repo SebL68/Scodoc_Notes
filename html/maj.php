@@ -62,6 +62,7 @@
 			<b>Absences</b>
 			<li>Option de sauvegarde des données absences dans Scodoc. Nécessite Scodoc 9.6+. En lien avec les options d'affichage des absences aux étudiants et de saisi des absences depuis la passerelle. <a href="services/messages.php#absencesMultiJours">Plus d'informations sur le fonctionnement</a></li>
 			<li>Si la sauvegarde dans Scodoc est opérationnelle, option pour activer l'ajout de justificatifs d'absences par l'étudiant.</li>
+			<li>Option pour choisir les départements qui autorisent le dépôt de justificatifs.</li>
 			<li>Saisi des absences par lots.</li>
 			<li>Rapport d'absences : ajout d'un accumulateur du nombre de jours absents.</li>
 			<li>Personalisation des messages au début de rapport d'absences et dans la page de dépôt des justificatifs.</li>
@@ -76,6 +77,7 @@
 			<li>Onglet config : ajout de liens vers les outils de la passerelle</li>
 			<li>Onglet config : si l'option est activée, les données de trafic sont sauvegardées. Désormais, il est possible de les visualiser <a href="services/analytics.php">sur cette page</a>. Cette collecte de données est en conformité avec le RGPD.</li>
 			<li>Onglet config : configuration des données récupérées dans l'onglet "Documents" -> Données étudiants.</li>
+			<li>Onglet config : option pour autoriser les étudiants à modifier leur photo (uniquement sur la passerelle, pas dans Scodoc).</li>
 			<li>Outil de suppression des photos étudiants qui ne sont plus inscrits dans Scodoc depuis plus d'un an - à activer à la main dans <a href="services/nettoyagePhotos.php">cette page</a>.</li>
 
 			<br>
