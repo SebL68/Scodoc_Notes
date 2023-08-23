@@ -202,7 +202,7 @@
 				<div>
 					<label>
 						<input type="checkbox" name="acces_enseignants">
-						<b>Acces enseignant</b>
+						<b>Accès enseignant</b>
 						<p>
 							Permettre aux enseignants de :
 							<ul>
