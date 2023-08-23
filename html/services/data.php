@@ -560,8 +560,12 @@
 
 				foreach ($images as $image) {
 					$nip = explode('.jpg', $image)[0];
+					$semestres = $Scodoc->getStudentSemesters($nip);
+					$dernierSem = end($semestres);
+					$anneeScolaire = $dernierSem['annee_scolaire'];
+					$annee = explode('/', $anneeScolaire)[0];
 
-					$year = intval(explode('/', end($Scodoc->getStudentSemesters($nip))['annee_scolaire'])[0]);
+					$year = intval($annee);
 					
 					if($actualYear - $year >= 2) {
 						$statut = 'supprime';
