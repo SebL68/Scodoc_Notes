@@ -580,7 +580,7 @@
 						'derniereAnnee' => $year
 					];
 					echo json_encode($output);
-
+					ob_flush();
 					flush();
 				}
 				die();
