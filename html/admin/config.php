@@ -219,7 +219,7 @@
 						<input type="checkbox" name="cloisonner_enseignants">
 						<b>Cloisonner les enseignants</b>
 						<p>
-							Chaque enseignant n'a accès qu'aux département dans lesquels il intervient (voir onglet Comptes).
+							Chaque enseignant n'a accès qu'aux départements dans lesquels il intervient (voir onglet Comptes).
 						</p>
 					</label>
 
