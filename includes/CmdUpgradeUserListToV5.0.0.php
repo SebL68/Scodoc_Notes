@@ -75,4 +75,3 @@
   );
 
   echo 'Fin de la conversion du fichier "utilisateurs.json" : pas d\'erreur !'.NL.'(=> Sauvegarde du fichier original dans "utilisateurs_bak.json".)';
-?>

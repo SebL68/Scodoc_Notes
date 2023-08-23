@@ -12,4 +12,3 @@ include_once "$path/includes/default_config.php";
 include_once "$path/includes/".$Config->scheduler_class;	// Class Scheduler
 
 Scheduler::setUpdateLists();
-?>
