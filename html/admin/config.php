@@ -295,8 +295,8 @@
 				<div>
 					<label>
 						<input type="checkbox" name="module_absences">
-						<b>Saisi des absences</b>
-						<p>Activer le module de saisi des absences depuis la passerelle.</p>
+						<b>Saisie des absences</b>
+						<p>Activer le module de saisie des absences depuis la passerelle.</p>
 						<p>💡 Nécessite le mode enseignant.</p>
 					</label>
 					<label>
@@ -309,7 +309,7 @@
 						<b>Sauvegarde des données absences dans Scodoc</b>
 						<p>Par défaut, les absences sont stockées sur la passerelle.</p>
 						<p>L'utilisation de cette option nécessite d'avoir au moins la version 9.6 de Scodoc.</p>
-						<p>Si les données sont stockées dans Scodoc et que la saisi est activée depuis la passerelle, il faut ajouter la permission ScoAbsChange au rôle LecteurAPI sur le serveur Scodoc :
+						<p>Si les données sont stockées dans Scodoc et que la saisie est activée depuis la passerelle, il faut ajouter la permission ScoAbsChange au rôle LecteurAPI sur le serveur Scodoc :
 <pre>
 <code>
 	# En tant qu'utilisateur "scodoc" :
@@ -322,7 +322,7 @@
 </code>
 </pre>
 						</p>
-						<p>⚠️⚠️⚠️ Attention : même si l'affichage aux étudiants fonctionne, la passerelle ne gère pas les saisis, les justifications et les statistiques des absences ajoutées directement dans Scodoc qui durent plusieurs jours.</p>
+						<p>⚠️⚠️⚠️ Attention : même si l'affichage aux étudiants fonctionne, la passerelle ne gère pas les saisies, les justifications et les statistiques des absences ajoutées directement dans Scodoc qui durent plusieurs jours.</p>
 						<p><a target=_blank href=../services/messages.php#absencesMultiJours>Plus d'informations</a></p>
 					</label>
 					<label>
@@ -332,7 +332,7 @@
 						<p>💡 Nécessite l'activation de l'affichage des absences et de la sauvegarde des données dans Scodoc.</p>
 					</label>
 					<label>
-						<b>🖊️ Liste des départements autorisant le dépot de jusitificatifs</b>
+						<b>🖊️ Liste des départements autorisant le dépot de justificatifs</b>
 						<input type="text" name="liste_dep_ok_jusiticatifs">
 						<p>Sous la forme : MMI,GEII,GLT,GEA</p>
 						<p>⚠️ Attention : l'acronyme du département doit être celui des débuts dans Scodoc. Par exemple, si le département GLT a été renommé en MLT. Il faut alors utiliser GLT.</p>
