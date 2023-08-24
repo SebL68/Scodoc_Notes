@@ -21,7 +21,8 @@ Authentification en cours ...
 	phpCAS::setLogger();
 	phpCAS::setVerbose(true);
 	
-	phpCAS::client(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context);
+	$client_service_name = "https://$_SERVER[HTTP_HOST]";
+	phpCAS::client(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context, $client_service_name);
 	phpCAS::setNoCasServerValidation();
 
 	/* Authentification */
