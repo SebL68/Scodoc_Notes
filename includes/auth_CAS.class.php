@@ -71,7 +71,7 @@
 			}
 			phpCAS::forceAuthentication(); 
 
-			$serverName = '://' . strtok($_SERVER['HTTP_HOST'], ':') .'/';
+			$serverName = '://' . strtok($_SERVER['HTTP_HOST'], ':');
 			if( substr_compare( ltrim($_GET['href'], 'https'), $serverName, 0, strlen($serverName)) === 0 ) {	// Vérifier qu'on redifige vers le même domaine
 				header('Location: '. $_GET['href']);
 			} else {
