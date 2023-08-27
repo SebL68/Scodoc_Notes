@@ -38,7 +38,8 @@
 		}
 		label:has(input[type=checkbox]):hover, 
 		label:hover>input[type=text],
-		label:hover>input[type=number] {
+		label:hover>input[type=number],
+		label:hover>select {
 			border: 1px solid var(--accent);
 			outline: 1px solid var(--accent);
 		}
@@ -58,6 +59,10 @@
 		}
 		input[type=text] {
 			width: 100%;
+		}
+		select {
+			display: block;
+			margin: -12px 0 8px;
 		}
 		label:has(.done)::before {
 			content: "✔️";
@@ -326,6 +331,14 @@
 						<p><a target=_blank href=../services/messages.php#absencesMultiJours>Plus d'informations</a></p>
 					</label>
 					<label>
+						<b>Métrique des absences</b><br>
+						<select name="metrique_absences">
+							<option value="heures">La passerelle calcule les heures</option>
+							<option value="demiJ">Récupération des demi-journées sur Scodoc</option>
+						</select>
+						<p>Permet de choisir le type de métrique pour l'affichage des totaux absences aux étudiants.</p>
+					</label>
+					<label>
 						<input type="checkbox" name="autoriser_justificatifs">
 						<b>Dépôt de justificatifs</b>
 						<p>Choisir si les étudiants peuvent déposer des justificatifs d'absences qui seront importés dans Scodoc.</p>
@@ -413,7 +426,7 @@
 				input.addEventListener("input", setConfig)
 			})
 
-			document.querySelectorAll("[type=text], [type=number]").forEach(input=>{
+			document.querySelectorAll("[type=text], [type=number], select").forEach(input=>{
 				input.value = data[input.name];
 				input.addEventListener("input", setConfig)
 			})
