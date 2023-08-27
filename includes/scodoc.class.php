@@ -16,7 +16,7 @@ class Scodoc{
 
 		$this->tokenPath = "$path/includes/token.txt";
 		$this->ch = curl_init();
-		$Config->scodoc_url = 'http://192.168.43.67:5000/ScoDoc';
+		//$Config->scodoc_url = 'http://192.168.43.67:5000/ScoDoc';
 
 		$options = array(
 			CURLOPT_FORBID_REUSE => true,
@@ -81,7 +81,7 @@ class Scodoc{
 			$time_start = microtime(true);
 		}
 	/********************/
-
+	//echo $Config->scodoc_url . "/api/$url_query?$data\r\n";
 		curl_setopt($this->ch, CURLOPT_URL, $Config->scodoc_url . "/api/$url_query?$data");
 		if($POSTData != null) {
 			curl_setopt($this->ch, CURLOPT_POSTFIELDS, $POSTData);
@@ -568,6 +568,7 @@ class Scodoc{
 				[
 					'formsemestre_id' => $sem,
 					'etat' => 'absent',	// A supprimer lorsque l'API Scodoc proposera la différenciation
+					'est_just' => false, // Pareil
 					'metric' => $Config->metrique_absences
 				]
 			) 
