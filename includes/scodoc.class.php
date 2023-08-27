@@ -16,7 +16,7 @@ class Scodoc{
 
 		$this->tokenPath = "$path/includes/token.txt";
 		$this->ch = curl_init();
-		//$Config->scodoc_url = 'http://192.168.43.67:5000/ScoDoc';
+		$Config->scodoc_url = 'http://192.168.43.67:5000/ScoDoc';
 
 		$options = array(
 			CURLOPT_FORBID_REUSE => true,
@@ -91,7 +91,6 @@ class Scodoc{
 
 		if(@json_decode($response)->message == 'Non autorise (logic)') {
 			$this->getScodocToken();
-
 			curl_setopt($this->ch, CURLOPT_URL, $Config->scodoc_url . "/api/$url_query?$data");
 			if($POSTData != null) {
 				curl_setopt($this->ch, CURLOPT_POSTFIELDS, $POSTData);
@@ -555,6 +554,24 @@ class Scodoc{
 	*******************************/
 	public function getSemesterAbsences($sem){
 		return json_decode( $this->Ask_Scodoc("assiduites/formsemestre/$sem", ['with_justifs' => true]) );
+	}
+
+	/*******************************/
+	/* getTotalsAbsences()
+	Récupère les totaux d'absences d'un étudiant
+	*******************************/
+	public function getTotalsAbsences($sem, $nip){
+		global $Config;
+		return json_decode( 
+			$this->Ask_Scodoc(
+				"assiduites/nip/$nip/count/query", 
+				[
+					'formsemestre_id' => $sem,
+					'etat' => 'absent',	// A supprimer lorsque l'API Scodoc proposera la différenciation
+					'metric' => $Config->metrique_absences
+				]
+			) 
+		);
 	}
 
 	/*******************************/

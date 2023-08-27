@@ -233,6 +233,9 @@
 						$nip
 					) ?? []
 				];
+				if($Config->metrique_absences != 'heure') {
+					$output['totauxAbsences'] = $Scodoc->getTotalsAbsences($_GET['semestre'], $nip);
+				}
 				break;
 			
 			case 'modules':
@@ -266,6 +269,9 @@
 							$nip
 						) ?? []
 					];
+					if($Config->metrique_absences != 'heure') {
+						$output['totauxAbsences'] = $Scodoc->getTotalsAbsences($_GET['semestre'], $nip);
+					}
 				}else if($user->getStatut() >= PERSONNEL){
 					$output = [
 						'config' => ($Config->getConfig)(),

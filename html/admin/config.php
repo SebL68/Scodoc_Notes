@@ -333,8 +333,9 @@
 					<label>
 						<b>Métrique des absences</b><br>
 						<select name="metrique_absences">
-							<option value="heures">La passerelle calcule les heures</option>
-							<option value="demiJ">Récupération des demi-journées sur Scodoc</option>
+							<option value="heure">La passerelle calcule les heures</option>
+							<option value="demi">Récupération des demi-journées dans Scodoc</option>
+							<option value="journee">Récupération des journées dans Scodoc</option>
 						</select>
 						<p>Permet de choisir le type de métrique pour l'affichage des totaux absences aux étudiants.</p>
 					</label>
