@@ -122,7 +122,16 @@
 
 		async function go() {
 			document.body.classList.add('processing');
-			const response = await fetch("/services/data.php?q=cleanStudentsPic");
+			const response = await fetch(
+				"/services/data.php?q=cleanStudentsPic", 
+				{
+					headers: {
+						//'Accept-Encoding': '0',
+						//'Content-Encoding': '0',
+						//'Accept-Encoding': 'gzip;q=0,deflate,sdch'
+					}
+				}
+			);
 
 			/* Meilleure methode non supportée pour le moment :
 				https://caniuse.com/mdn-api_readablestream_--asynciterator
