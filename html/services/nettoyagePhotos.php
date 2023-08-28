@@ -58,6 +58,8 @@
 		<p>Bonjour <span class="nom"></span>, ravi de te revoir.</p>
 		<p>Cette page a pour but de supprimer automatiquement les photos étudiants de la passerelle pour les étudiants qui n'ont pas été inscrits dans Scodoc depuis plus d'un an.</p>
 
+		<p>!!! Attention, pour le moment, si vous utilisez PHP-FPM avec FastCGI (ou autres), ça ne fonctionne pas à cause de problèmes de vidages de cache pour le stream de réponse !!! En cours d'investigation.</p>
+
 		<p>Seul un super administrateur peut lancer la procédure.</p>
 
 		<p>Cette procédure fait une requête à Scodoc pour chaque photo présente sur le serveur et peut prendre du temps. Plus de 160 étudiants devraient être traités à la minute. La limite d'exécusion est de 30min (j'espère que ça suffira).</p>
