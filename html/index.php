@@ -72,7 +72,7 @@
 
 			.depMessage{
 				display: none;
-				background: #FFF;
+				background: var(--fond-clair);
 				border: 1px solid #CCC;
 				margin: 16px 0;
 				padding: 8px 32px;
