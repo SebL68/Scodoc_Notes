@@ -55,30 +55,33 @@
 		<h2>18/08/2023 - 6.0.0</h2>
 		<ul>
 			<b>Relevé BUT</b>
-			<li>Ajout d'un marqueur pour voir rapidement les nouvelles évaluations - contribution de David Ismeurt, étudiant MMI Mulhouse.</li>
-			<li>Amélioration de l'affichage des malus négatif - contribution de Jean-Marie Place, enseignant-chercheur université de Lille</li>
+			<li>Ajout d'un marqueur pour voir rapidement les nouvelles évaluations - David Ismeurt, étudiant MMI Mulhouse.</li>
+			<li>Amélioration de l'affichage des malus négatif -Jean-Marie Place, EC université de Lille.</li>
 
 			<br>
 			<b>Absences</b>
-			<li>Option de sauvegarde des données absences dans Scodoc. Nécessite Scodoc 9.6+. En lien avec les options d'affichage des absences aux étudiants et de saisi des absences depuis la passerelle. <a href="services/messages.php#absencesMultiJours">Plus d'informations sur le fonctionnement</a></li>
+			<li>Option de sauvegarde des données absences dans Scodoc. Nécessite Scodoc 9.6+.</li>
 			<li>Si la sauvegarde dans Scodoc est opérationnelle, option pour activer l'ajout de justificatifs d'absences par l'étudiant.</li>
 			<li>Option pour choisir les départements qui autorisent le dépôt de justificatifs.</li>
-			<li>Saisi des absences par lots.</li>
+			<li>Saisi des absences par lots (tous absents, tous présents, etc).</li>
 			<li>Rapport d'absences : ajout d'un accumulateur du nombre de jours absents.</li>
-			<li>Personalisation des messages au début de rapport d'absences et dans la page de dépôt des justificatifs.</li>
+			<li>Personnalisation des messages au début de rapport d'absences et dans la page de dépôt des justificatifs.</li>
 
 			<br>
 			<b>Ajouts</b>
-			<li>Possibilité pour un admin d'un département d'afficher aux étudiants un message sur la page relevé de notes. Modification du message depuis l'onglet "Comptes".</li>
-			<li>Mode jour/nuit sur l'ensemble de la passerelle - contribution de Jordan Abeddou, étudiant MMI Mulhouse.</li>
+			<li>Possibilité pour l'admin d'un département, depuis l'onglet "Comptes" d'afficher aux étudiants un message sur la page relevé de notes.</li>
+			<li>Mode jour/nuit - Jordan Abeddou, étudiant MMI Mulhouse.</li>
 			<li>Filtrage multi-partitions des groupes.</li>
-			<li>Récupération et stockage des photos issues de Scodoc. L'étudiant à toujours la possibilité de mettre une photo personnelle qui sera stockée uniquement sur la passerelle. S'il la supprime, c'est de nouveau la photo de Scodoc qui sera utilisée.</li>
-			<li>Onglet config : ajout d'une option pour cloisonner les enseignants : seul un enseignant qui est dans l'onglet "Comptes" aura accès au département dans lequel il est affecté.</li>
-			<li>Onglet config : ajout de liens vers les outils de la passerelle</li>
-			<li>Onglet config : si l'option est activée, les données de trafic sont sauvegardées. Désormais, il est possible de les visualiser <a href="services/analytics.php">sur cette page</a>. Cette collecte de données est en conformité avec le RGPD.</li>
-			<li>Onglet config : configuration des données récupérées dans l'onglet "Documents" -> Données étudiants.</li>
-			<li>Onglet config : option pour autoriser les étudiants à modifier leur photo (uniquement sur la passerelle, pas dans Scodoc).</li>
-			<li>Outil de suppression des photos étudiants qui ne sont plus inscrits dans Scodoc depuis plus d'un an - à activer à la main dans <a href="services/nettoyagePhotos.php">cette page</a>.</li>
+			<li>Récupération et stockage des photos issues de Scodoc. L'étudiant a toujours la possibilité de mettre une photo personnelle qui sera stockée uniquement sur la passerelle. S'il la supprime, c'est de nouveau la photo de Scodoc qui sera utilisée. Nécessite Scodoc 9.6+.</li>
+
+			<br>
+			<b>Onglet config</b>
+			<li>Option pour cloisonner les enseignants : seul un enseignant qui est dans l'onglet "Comptes" aura accès au département dans lequel il est affecté.</li>
+			<li>Ajout de liens vers les outils de la passerelle (diagnostic, analyse du trafic, jetons JWT, nettoyage des photos).</li>
+			<li>Si l'option est activée, les données de trafic sont sauvegardées. Désormais, il est possible de visualiser les graphiques des données. Cette collecte de données est en conformité avec le RGPD.</li>
+			<li>Configuration des données disponibles dans l'onglet "Documents" -> Données étudiants.</li>
+			<li>Option pour autoriser les étudiants à modifier leur photo (uniquement sur la passerelle, pas dans Scodoc).</li>
+			<li>Outil de suppression des photos étudiants qui ne sont plus inscrits dans Scodoc depuis plus d'un an.</li>
 
 			<br>
 			<b>Améliorations</b>
