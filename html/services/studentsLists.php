@@ -474,8 +474,7 @@
                         fontSize: 16
                     });
                     var line = 4;
-                    h2.nextElementSibling.querySelectorAll(`.etudiants [data-groupe*="${groupe}"`).forEach(etudiant=>{
-
+                    h2.nextElementSibling.querySelectorAll(`.etudiants a[data-groupe*="${groupe}"`).forEach(etudiant=>{
                         sheet.cell(String.fromCharCode(column) + line).value(etudiant.dataset.nom + " " + etudiant.dataset.prenom);
                         line++;
                     });
