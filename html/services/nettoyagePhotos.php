@@ -58,7 +58,7 @@
 		<p>Bonjour <span class="nom"></span>, ravi de te revoir.</p>
 		<p>Cette page a pour but de supprimer automatiquement les photos étudiants de la passerelle pour les étudiants qui n'ont pas été inscrits dans Scodoc depuis plus d'un an.</p>
 
-		<p>!!! Attention, pour le moment, si vous utilisez PHP-FPM avec FastCGI (ou autres), ça ne fonctionne pas à cause de problèmes de vidages de cache pour le stream de réponse !!! En cours d'investigation.</p>
+		<p>!!! Attention, cette fonctionnalité n'est pas compatible avec PHP-FPM et FastCGI à cause d'un impossbilité de flush un flux de sorti pour le stream de réponse.</p>
 
 		<p>Seul un super administrateur peut lancer la procédure.</p>
 
