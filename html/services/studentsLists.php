@@ -130,6 +130,7 @@
 		}
 		.etudiants>*:nth-child(odd){
 			background: #e0e0e0;
+			color: #000;
 		}
         .etudiants>a:before, 
 		.etudiants>table[data-nom]:before{
