@@ -460,7 +460,7 @@
 			XlsxPopulate.fromBlankAsync()
             .then(workbook => {
                 var h2 = obj.parentElement.parentElement.previousElementSibling;
-                var groupes = [...h2.nextElementSibling.querySelectorAll(".groupes>.groupe:not(.selected)")].map(function(e) { return e.innerText; })
+                var groupes = [...h2.nextElementSibling.querySelectorAll(".groupes .groupe:not(.selected)")].map(function(e) { return e.innerText; })
                 const sheet = workbook.sheet(0);
                 sheet.name("Groupes");
                 sheet.cell("A1").value(h2.innerText).style("fontSize", 24);
