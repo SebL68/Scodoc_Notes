@@ -217,7 +217,7 @@
 				<div>${ISODateToDisplay(justif.date_debut)}</div>
 				<div>${ISODateToDisplay(justif.date_fin)}</div>
 				<div data-statut="${justif.etat}"></div>
-				<div>${justif.raison}</div>`;
+				<div>${justif.raison || ""}</div>`;
 		}
 
 		function ISODateToDisplay(date) {
