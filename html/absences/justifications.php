@@ -134,9 +134,9 @@
 			<label>Date de début <input required type="datetime-local" name="date_debut"></label>
 			<label>Date de Fin <input required type="datetime-local" name="date_fin"></label>
 			<div class=dropZone>
-				Déposez une image ou un fichier PDF
+				Déposez une image ou un fichier PDF - 8Mo max
 				<label>
-					<input required type=file accept="application/pdf, image/*" name=file>
+					<input required type=file accept="application/pdf, image/jpeg, image/png, image/avif, image/webp" name=file>
 				</label>
 			</div>
 			<input type="submit">
@@ -239,7 +239,7 @@
 			event.preventDefault();
 			this.classList.remove("fileOver");
 
-			if (event.target.files?.[0] || event.dataTransfer.items[0].type.match(/pdf|image/)) {
+			if (event.target.files?.[0] || event.dataTransfer.items[0].type.match(/pdf|jpeg|png|avif|webp/)) {
 				if(event.dataTransfer.items.length > 1) {
 					message("Un seul fichier s'il vous plait.");
 					return;

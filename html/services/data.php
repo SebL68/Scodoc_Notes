@@ -369,6 +369,9 @@
 				sanitize($_POST['date_debut']);
 				sanitize($_POST['date_fin']);
 
+				ini_set('upload_max_filesize', '8M');
+				ini_set('post_max_size', '8M');
+
 				$Scodoc = new Scodoc();
 
 				$output = $Scodoc->setJustif(
