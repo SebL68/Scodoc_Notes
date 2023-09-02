@@ -270,7 +270,7 @@
 						) ?? []
 					];
 					if($Config->metrique_absences != 'heure') {
-						$output['totauxAbsences'] = $Scodoc->getTotalsAbsences($_GET['semestre'], $nip);
+						$output['totauxAbsences'] = $Scodoc->getTotalsAbsences(end($semestres)['formsemestre_id'], $nip);
 					}
 				}else if($user->getStatut() >= PERSONNEL){
 					$output = [
