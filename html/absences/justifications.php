@@ -136,7 +136,7 @@
 			<div class=dropZone>
 				Déposez une image ou un fichier PDF - 8Mo max
 				<label>
-					<input required type=file accept="application/pdf, image/jpeg, image/png, image/avif, image/webp" name=file>
+					<input required type=file accept="application/pdf, image/jpeg, image/png, image/avif, image/webp" size="8000000" name=file>
 				</label>
 			</div>
 			<input type="submit">
@@ -281,11 +281,11 @@
 			}
 
 			const form = new FormData(this);
-			document.querySelector(".wait").style.display = "flex";
 			if(Array.from(form)[2][1].size > 8000000) {
 				message("Fichier trop grand");
 				return;
 			}
+			document.querySelector(".wait").style.display = "flex";
 			fetch("../services/data.php?q=sendJustif", {
 				method: "POST",
 				body: form
