@@ -13,7 +13,7 @@
 		/* Zone dépôt */
 		/**************/
 		.newJustif {
-			background: #FFF;
+			background: var(--fond-clair);
 			border: 1px solid #CCC;
 			padding: 8px 32px;
 			display: grid;
@@ -31,7 +31,6 @@
 		}
 
 		.dropZone {
-			background: #FFF;
 			border-radius: 8px;
 			border: 2px dashed #09C;
 			padding: 4px;
@@ -94,13 +93,15 @@
 			background: #CCC;
 			gap: 1px;
 			color: #000;
+			max-width: calc(100vw - 20px);
+    		overflow: auto;
 		}
 		.listeJustif>.firstLine {
 			background: #09C;
 			color: #FFF;
 		}
 		.listeJustif>div {
-			background: #FFF;
+			background: var(--fond-clair);
 			padding: 4px 16px;
 		}
 		[data-statut=VALIDE],
