@@ -282,6 +282,10 @@
 
 			const form = new FormData(this);
 			document.querySelector(".wait").style.display = "flex";
+			if(Array.from(form)[2][1].size > 8000000) {
+				message("Fichier trop grand");
+				return;
+			}
 			fetch("../services/data.php?q=sendJustif", {
 				method: "POST",
 				body: form
