@@ -30,10 +30,6 @@
 			grid-template-columns: subgrid;
 		}
 
-		.newJustif>div {
-			grid-column: 3 / 4;
-			grid-row: 2 / span 2;
-		}
 		.dropZone {
 			background: #FFF;
 			border-radius: 8px;
@@ -45,6 +41,8 @@
 			justify-content: center;
 			align-items: center;
 			gap: 8px;
+			grid-column: 3 / 4;
+			grid-row: 2 / span 2;
 		}
 
 		.fileOver {
@@ -62,6 +60,17 @@
 			cursor: pointer;
 			box-shadow: 0 2px 2px #aaa;
 			transition: 0.2s;
+		}
+
+		@media screen and (max-width:700px) {
+			.dropZone {
+				grid-column: 1 / 3;
+				grid-row: 4;
+			}
+			.newJustif>input[type=submit] {
+				grid-column: 2 / 3;
+				grid-row: 5;
+			}
 		}
 		.newJustif>input[type=submit]:disabled {
 			cursor: initial;
