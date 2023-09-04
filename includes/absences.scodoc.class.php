@@ -31,6 +31,10 @@
 							'result' => 'OK',
 							'id' => $response->success[0]->message->assiduite_id
 						];
+					} else if(isset($response->errors[0]->message)) {
+						return [
+							'problem' => $response->errors[0]->message
+						];
 					}
 				break;
 
