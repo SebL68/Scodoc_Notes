@@ -344,6 +344,11 @@
 						<b>Dépôt de justificatifs</b>
 						<p>Choisir si les étudiants peuvent déposer des justificatifs d'absences qui seront importés dans Scodoc.</p>
 						<p>💡 Nécessite l'activation de l'affichage des absences et de la sauvegarde des données dans Scodoc.</p>
+						<p>Nécessite de changer le fichier php.ini avec :</p>
+<pre><code>
+	upload_max_filesize 8M
+	post_max_size 8M
+</code></pre>
 						<p>Il est nécessaire de changer la permission ScoJustifView pour les utilisateurs qui ont le droit de voir les justificatifs : </p>
 <pre>
 <code>
