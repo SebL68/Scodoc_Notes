@@ -101,6 +101,7 @@
 			color: #FFF;
 		}
 		.listeJustif>div {
+			color: var(--text);
 			background: var(--fond-clair);
 			padding: 4px 16px;
 		}
@@ -311,9 +312,12 @@
 						raison: ""
 					};
 					document.querySelector(".firstLine:nth-child(5)").insertAdjacentHTML("afterend" ,newJustifLine(justif));
+				} else {
+					displayError("Un problème est survenu.")
 				}
 				document.querySelector(".wait").style.display = "none";
-			});
+			})
+			.catch(error => displayError("Un problème est survenu : " + error));
 		}
 
     </script>
