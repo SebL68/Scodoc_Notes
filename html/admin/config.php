@@ -344,6 +344,18 @@
 						<b>Dépôt de justificatifs</b>
 						<p>Choisir si les étudiants peuvent déposer des justificatifs d'absences qui seront importés dans Scodoc.</p>
 						<p>💡 Nécessite l'activation de l'affichage des absences et de la sauvegarde des données dans Scodoc.</p>
+						<p>Il est nécessaire de changer la permission ScoJustifView pour les utilisateurs qui ont le droit de voir les justificatifs : </p>
+<pre>
+<code>
+	# En tant qu'utilisateur "scodoc" :
+	cd /opt/scodoc
+	source venv/bin/activate
+
+	# Pour ajouter les droits de visualisation aux "Admin" et aux "Secr" :
+	flask edit-role Admin -a ScoJustifView
+	flask edit-role Secr -a ScoJustifView
+</code>
+</pre>
 					</label>
 					<label>
 						<b>🖊️ Liste des départements autorisant le dépot de justificatifs</b>
