@@ -400,7 +400,8 @@
 				}
 
 				// Récupération et affichage du message département
-				dep = data.relevé.etudiant.dept_acronym;
+				dep = data.relevé.etudiant.dept_acronym || data.relevé.etudiant.photo_url.split("/")[2];
+
 				let message = await fetchData("getReportPageMessage&dep=" + dep);
 				if(message.message) {
 					let zoneMessage = document.querySelector(".depMessage");
