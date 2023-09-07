@@ -677,7 +677,10 @@
 			if(statutSession < ADMINISTRATEUR){
 				return message("Seul un administrateur peut justifier une absence");
 			}
-            if(depAdmins.indexOf(session) == -1 && statutSession < SUPERADMINISTRATEUR){
+			let trouve = depAdmins.find( e=>{
+				return e.id == session
+			})
+            if(!trouve && statutSession < SUPERADMINISTRATEUR){
                 return message("Vous ne pouvez pas modifier une absence d'un autre département");
             }
 
