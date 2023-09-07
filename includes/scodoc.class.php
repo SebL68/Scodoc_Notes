@@ -595,12 +595,13 @@ class Scodoc{
 				json_encode($data)
 			) 
 		);
-		$justif_id = $r->success[0]->message->justif_id;
+		
 
 		if($file) {
 			$parameters = array(
 				'files' => new CURLFile($file['tmp_name'], $file['type'], $file['name'])
 			);
+			$justif_id = $r->success[0]->message->justif_id;
 			$r = $this->Ask_Scodoc(
 				"justificatif/$justif_id/import", 
 				[], 
@@ -612,7 +613,7 @@ class Scodoc{
 				];
 			}
 		} else {
-			return $idJustif;
+			return $r;
 		}
 
 	}
