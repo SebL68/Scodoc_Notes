@@ -145,6 +145,7 @@
 			background: var(--fond-clair);
 			box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 			border-radius: 8px;
+			width: 100%;
 		}
 
 		.date>svg:active {
