@@ -86,7 +86,6 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			margin: auto;
 		}
 
 		@supports (grid-template-columns: subgrid) {
