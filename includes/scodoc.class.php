@@ -71,9 +71,13 @@ class Scodoc{
 	/************************/
 	/* Accès à l'API Scodoc */
 	/************************/
-	private function Ask_Scodoc($url_query, $options = [], $POSTData = null){
+	private function Ask_Scodoc($url_query, $options = [], $POSTData = null, $dept = null){
 		global $Config;
 		global $path;
+		$scodoc_url = $Config->scodoc_url;
+		if($dept) {
+            $scodoc_url .= '/'.$dept;
+		}
 		$data = http_build_query($options);
 	
 	/* Speed test début */
@@ -82,7 +86,7 @@ class Scodoc{
 		}
 	/********************/
 	//echo $Config->scodoc_url . "/api/$url_query?$data\r\n";
-		curl_setopt($this->ch, CURLOPT_URL, $Config->scodoc_url . "/api/$url_query?$data");
+		curl_setopt($this->ch, CURLOPT_URL, $scodoc_url . "/api/$url_query?$data");
 		if($POSTData != null) {
 			curl_setopt($this->ch, CURLOPT_POSTFIELDS, $POSTData);
 		}
@@ -91,7 +95,7 @@ class Scodoc{
 
 		if(@json_decode($response)->message == 'Non autorise (logic)') {
 			$this->getScodocToken();
-			curl_setopt($this->ch, CURLOPT_URL, $Config->scodoc_url . "/api/$url_query?$data");
+			curl_setopt($this->ch, CURLOPT_URL, $scodoc_url . "/api/$url_query?$data");
 			if($POSTData != null) {
 				curl_setopt($this->ch, CURLOPT_POSTFIELDS, $POSTData);
 			}
