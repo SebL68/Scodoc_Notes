@@ -826,7 +826,7 @@
 						if(data.statut == "absent" && (data.justifie == "false" || data.justifie == false)){
 							sheet.cell("A"+i).value(date.split("-").reverse().join("/"));
 							sheet.cell("B"+i).value(floatToHour(data.debut) + " - " + floatToHour(data.fin));
-							sheet.cell("C"+i).value(mailToTxt(data.enseignant));
+							sheet.cell("C"+i).value(data.enseignant);
 							sheet.cell("D"+i).value(getMatiere(data.matiereComplet));
 
 							total += data.fin - data.debut;
@@ -868,7 +868,7 @@
 						if(data.statut == "retard" && (data.justifie == "false" || data.justifie == false)){
 							sheet.cell("A"+i).value(date.split("-").reverse().join("/"));
 							sheet.cell("B"+i).value(floatToHour(data.debut) + " - " + floatToHour(data.fin));
-							sheet.cell("C"+i).value(mailToTxt(data.enseignant));
+							sheet.cell("C"+i).value(data.enseignant);
 							sheet.cell("D"+i).value(getMatiere(data.matiereComplet));
 
 							total++;
@@ -910,7 +910,7 @@
 						if(data.statut == "absent" && (data.justifie == "true" || data.justifie == true)){
 							sheet.cell("A"+i).value(date.split("-").reverse().join("/"));
 							sheet.cell("B"+i).value(floatToHour(data.debut) + " - " + floatToHour(data.fin));
-							sheet.cell("C"+i).value(mailToTxt(data.enseignant));
+							sheet.cell("C"+i).value(data.enseignant);
 							sheet.cell("D"+i).value(getMatiere(data.matiereComplet));
 
 							total += data.fin - data.debut;
@@ -1095,10 +1095,10 @@
 			return String.fromCharCode(char.charCodeAt(0) + nb);
 		}
 
-		function mailToTxt(mail){
+		/*function mailToTxt(mail){
 			let tab = mail.split("@")[0].split(".");
 			return tab[0].charAt(0).toUpperCase() + tab[0].slice(1) + " " + tab[1].toUpperCase();
-		}
+		}*/
 
 		function getMatiere(txt) {
 			if(Number.isInteger(txt)) {
