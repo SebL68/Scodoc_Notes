@@ -673,7 +673,7 @@
 			return true;
 		}
 		if($Config->cloisonner_enseignants && !in_array($depQuery, $depUser)){
-			returnError('Vous ne faites pas parti des utilisateurs de ce département.');
+			returnError('Vous ne faites pas partie des utilisateurs de ce département.');
 		}
 	}
 
