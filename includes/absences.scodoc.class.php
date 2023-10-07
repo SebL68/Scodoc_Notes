@@ -138,7 +138,7 @@
 					'fin' => Absences::hoursToFloat(date('G:i', $timestampFin)),
 					'statut' => strtolower($data[$i]->etat),
 					'justifie' => $data[$i]->est_just,
-					'enseignant' => $data[$i]->external_data->enseignant ?? $data[$i]->user_id ?? 'Non défini',
+					'enseignant' => $data[$i]->external_data->enseignant ?? $data[$i]->user_name ?? 'Non défini',
 					'matiereComplet' => $data[$i]->moduleimpl_id ?? 'Non défini',
 					'dateFin' => date('Y-m-d', $timestampFin)
 				];
