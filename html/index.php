@@ -507,6 +507,9 @@
 					let matiere = Object.entries(data.relevé.ressources).find(e => {
 						return e[1].id == txt;
 					});
+					if(!matiere) {
+						return "-";
+					}
 					return matiere[0] + ' - ' + matiere[1].titre;
 				} else {
 					return txt || "-";
