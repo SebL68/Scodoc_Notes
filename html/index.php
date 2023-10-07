@@ -504,7 +504,7 @@
 
 			function getMatiere(data, txt) {
 				if(Number.isInteger(txt)) {
-					let matiere = Object.entries(data.relevé.ressources).find(e => {
+					let matiere = Object.entries({...data.relevé.ressources, ...data.relevé.saes}).find(e => {
 						return e[1].id == txt;
 					});
 					if(!matiere) {
