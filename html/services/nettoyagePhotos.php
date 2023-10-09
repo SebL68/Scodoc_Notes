@@ -108,7 +108,7 @@
             statutSession = data.statut;
 
             if(data.statut < SUPERADMINISTRATEUR){
-				displayError("Cette fonctionnalité est uniquement accessible pour aux super-administrateurs.");
+				displayError("Cette fonctionnalité est uniquement accessible pour les super-administrateurs.");
 			} else {
 				document.querySelector(".go").addEventListener("click", go);
 				
