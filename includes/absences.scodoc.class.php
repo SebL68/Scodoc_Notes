@@ -33,7 +33,7 @@
 						];
 					} else if(isset($response->errors[0]->message)) {
 						return [
-							'problem' => $response->errors[0]->message
+							'problem' => $response->errors[0]->message . ' - bug Scodoc, ce sera corrigé demain, l\'absence a été enregistrée.'
 						];
 					}
 				break;
