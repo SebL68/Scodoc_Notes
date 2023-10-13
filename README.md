@@ -46,6 +46,7 @@ Les utilisateurs actuels sont :
  - Ecole de chimie de Mulhouse (ENSCMu) => accès complet
  - IUT d'Evry => accès étudiant + enseignant
  - IUT de Montreuil => accès étudiant
+ - IUT de Béthune => accès étudiant
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
   
