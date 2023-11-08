@@ -24,7 +24,7 @@ Les utilisateurs actuels sont :
  - IUT de Brest => accès étudiant
  - IUT d'Annecy => accès étudiant + enseignant
  - IUT de Nantes => accès étudiant + enseignant
- - IUT de Blagnac ?
+ - IUT de Blagnac => accès étudiant
  - IUT de Vannes ?
  - IUT Lorient & Pontivy ?
  - IUT d'Orléans => accès étudiant
