@@ -17,7 +17,7 @@ Les utilisateurs actuels sont :
  - IUT Le Mans => accès étudiant
  - IUT de Mantes-En-Yvelines => accès étudiant
  - IUT de Saint-Malo => accès étudiant
- - IUT de la Roche-sur-Yon ?
+ - IUT de la Roche-sur-Yon => accès étudiant
  - IUT de Vélizy => accès étudiant
  - IUT de Roanne ?
  - IUT de Kourou => accès complet
