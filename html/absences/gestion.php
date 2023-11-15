@@ -593,7 +593,7 @@
 			})
 
 			document.querySelectorAll(".btnAbsences").forEach(e=>{
-				if(groupesSelected.some(valeur => e.dataset.groupe.includes(valeur))){
+				if(groupesSelected.some(valeur => e.dataset.groupe.split(" / ").includes(valeur))){
 					e.parentElement.classList.remove("hide")
 				} else {
 					e.parentElement.classList.add("hide")

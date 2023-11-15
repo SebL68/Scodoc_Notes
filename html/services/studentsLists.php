@@ -372,7 +372,7 @@
 			})
 
 			Array.from(obj.parentElement.parentElement.parentElement.nextElementSibling.querySelectorAll("[data-groupe]")).forEach(e=>{
-				if(groupesSelected.some(valeur => e.dataset.groupe.includes(valeur))){
+				if(groupesSelected.some(valeur => e.dataset.groupe.split(" / ").includes(valeur))){
 					e.classList.remove("hide")
 				} else {
 					e.classList.add("hide")
