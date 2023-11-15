@@ -297,6 +297,9 @@
 				return;
 			}
 			document.querySelector(".wait").style.display = "flex";
+			document.querySelector("input[type=submit]").disabled = true;
+			document.querySelector("input[type=submit]").value = "Envoi en cours...";
+
 			fetch("../services/data.php?q=sendJustif", {
 				method: "POST",
 				body: form
@@ -316,6 +319,9 @@
 					displayError("Un problème est survenu.")
 				}
 				document.querySelector(".wait").style.display = "none";
+				document.querySelector("form").reset();
+				document.querySelector("input[type=submit]").disabled = false;
+				document.querySelector("input[type=submit]").value = "Envoyer";
 			})
 			.catch(error => displayError("Un problème est survenu : " + error));
 		}
