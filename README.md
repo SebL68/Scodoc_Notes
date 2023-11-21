@@ -42,7 +42,7 @@ Les utilisateurs actuels sont :
  - IUT Cachan => accès étudiant
  - IUT Nord Franche-Comté => accès étudiant
  - IUT de Montreuil => accès étudiant
- - IUT de Schiltigheim => A venir
+ - IUT de Schiltigheim => accès étudiant
  - Ecole de chimie de Mulhouse (ENSCMu) => accès complet
  - IUT d'Evry => accès étudiant + enseignant
  - IUT de Béthune => accès étudiant
