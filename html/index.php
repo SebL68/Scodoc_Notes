@@ -422,7 +422,9 @@
 				let output = "";
 				let multiJours = false;
 
-				if(!config.afficher_absences) { return; } 
+				if(!config.afficher_absences) { return; }
+				let depts = config.liste_dep_publi_absences;
+				if  (! depts.split(",").includes(dep) && depts != '') { return; }
 
 				document.querySelector(".message_rapport_absences").innerHTML = config.message_rapport_absences;
 				document.querySelector(".absences").style.display = "block";
