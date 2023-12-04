@@ -362,12 +362,18 @@
 </code>
 </pre>
 					</label>
-					<label>
+			                <label>
 						<b>🖊️ Liste des départements autorisant le dépot de justificatifs</b>
-						<input type="text" name="liste_dep_ok_jusiticatifs">
-						<p>Sous la forme : MMI,GEII,GLT,GEA</p>
+			                        <input type="text" name="liste_dep_ok_jusiticatifs">
+			                        <p>Sous la forme : MMI,GEII,GLT,GEA</p>
 						<p>⚠️ Attention : l'acronyme du département doit être celui des débuts dans Scodoc. Par exemple, si le département GLT a été renommé en MLT. Il faut alors utiliser GLT.</p>
-					</label>
+			                </label>
+			                <label>
+			                        <b>🖊️ Liste des départements publiant leurs absences aux étudiants</b>
+			                        <input type="text" name="liste_dep_publi_absences">
+						<p>Sous la forme : MMI,GEII,GLT,GEA</p>
+			                	<p>⚠️ Attention : l'acronyme du département doit être celui des débuts dans Scodoc. Par exemple, si le département GLT a été renommé en MLT. Il faut alors utiliser GLT.</p>
+			                </label>
 
 					<label>
 						<b>🖊️ Message au début du rapport d'absences, après le relevé de notes</b>
