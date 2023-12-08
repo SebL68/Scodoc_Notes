@@ -52,20 +52,19 @@ class Analytics{
 		$interval = DateInterval::createFromDateString('1 day');
 		$daterange = new DatePeriod($start_date, $interval ,$end_date);
 
-		$output = '{';
-
+		echo '{';
 		foreach($daterange as $date) {
 			$dateStr = $date->format('Y-m-d');
 			$file = $dir . $dateStr . '.txt';
 
 			if(file_exists($file)) {
-				$output .= '"' . $dateStr . '":[' . file_get_contents($file) . '],';
+				echo '"' . $dateStr . '":[' . file_get_contents($file) . '],';
 			} else {
-				$output .= '"' . $dateStr . '":[],';
+				echo '"' . $dateStr . '":[],';
 			}
+			echo $output;
 		}
-
-		$output = trim($output, ',') . '}';
-		echo $output; die();
+		echo '"1986-10-24":[] }';
+		die();
 	}
 }
