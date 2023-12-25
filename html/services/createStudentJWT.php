@@ -89,7 +89,7 @@
 	<main>
 		<p>
 			Cette page vous permet de récupérer un lien contenant un jeton d'accès.<br>
-			Ce jeton est valide pendant <b><?php echo "$nb_jours jours et $nb_heures heures"; ?></b>.
+			Ce jeton est valide pendant <b><?php echo "$nb_jours jour(s) et $nb_heures heure(s)"; ?></b>.
 		</p>
 		<p>
 			<b>Attention</b>, ce jeton est personnel et donne accès à votre compte sans avoir besoin de se connecter.
