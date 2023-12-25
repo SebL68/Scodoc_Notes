@@ -43,5 +43,3 @@
 		header('Content-Disposition:attachment;filename=bulletin.pdf');		
 		echo $result;
 	}
-?>
-
