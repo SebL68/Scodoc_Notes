@@ -36,7 +36,7 @@ Les utilisateurs actuels sont :
  - IUT de Béziers => accès étudiant
  - IUT de Saint Denis => A venir
  - IUT d'Amiens => accès étudiant
- - IUT de Caen (IFS) => A venir
+ - IUT de Caen (IFS) => accès étudiant
  - IUT de Saint-Nazaire => accès étudiant + enseignant
  - IUT Montpellier-Sète => accès étudiant
  - IUT Cachan => accès étudiant
