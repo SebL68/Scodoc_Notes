@@ -28,7 +28,7 @@
 
 	$Config = new stdClass();
 
-		$Config->passerelle_version = '6:0:0';
+		$Config->passerelle_version = '6:1:0';
 
 /***********************/
 /* Options d'affichage */
@@ -251,6 +251,8 @@
 /* Methodes de config          */
 /*******************************/
 $accepted_input = [
+	'passerelle_version',
+
 	'message_non_publication_releve',
 	'releve_PDF',
 	'etudiant_modif_photo',

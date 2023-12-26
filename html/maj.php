@@ -52,11 +52,30 @@
 	<h1>Historique des mises à jour</h1>
 
 	<main>
+		<h2>26/12/2023 - 6.1.0</h2>
+		<ul>
+			<li>Option pour choisir la métrique des totaux d'absences aux étudiants : heures, demi-journées ou journées.</li>
+			<li>Option pour autoriser un étudiant à modifier sa photo sur la passerelle.</li>
+			<li>Option pour un affichage sélectif des absences en fonction des départements - contribution de Jean-Marie Place.</li>			
+			
+			<br>
+			<li>Ajout d'une mise en page pour le fichier createStudentJWT.php</li>
+			<li>Mise à jour des feuilles d'émargements : elles sont désormais neutre sans faire mention des partiels.</li>
+			<li>Les relevés PDF qu'un étudiant peut télécharger sont désormais les relevés courts spéciaux BUT.</li>
+
+			<br>
+			<li>Correctif évitant un envoi multiple de justificatifs.</li>
+			<li>Correctif bug de filtrage avec nom de groupes similaires.</li>
+			<li>Correctif memory leak PHP lors de l'affichage de l'analyse du trafic.</li>
+			
+			<br>
+			<li>Divers autres correctifs et améliorations.</li>
+		</ul>
 		<h2>18/08/2023 - 6.0.0</h2>
 		<ul>
 			<b>Relevé BUT</b>
 			<li>Ajout d'un marqueur pour voir rapidement les nouvelles évaluations - David Ismeurt, étudiant MMI Mulhouse.</li>
-			<li>Amélioration de l'affichage des malus négatif -Jean-Marie Place, EC université de Lille.</li>
+			<li>Amélioration de l'affichage des malus négatif - Jean-Marie Place, EC université de Lille.</li>
 
 			<br>
 			<b>Absences</b>
