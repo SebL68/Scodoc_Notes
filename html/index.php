@@ -490,6 +490,18 @@
 				if(multiJours) {
 					document.querySelector(".absences>.totauxAbsences").style.display = "none";
 				} else {
+					if(data.totauxAbsences) {	// totaux de Scodoc
+						let txtType = {
+							heure: "h",
+							demi: " demi-journée(s)",
+							journee: " journée(s)"
+						}
+						let [type, quantite] = Object.entries(data.totauxAbsences)[0];
+						var txtAbsent = quantite + txtType[type];
+					} else {	// Totaux calculés
+						var txtAbsent = floatToHour(totaux.absent);
+					}
+
 					document.querySelector(".absences>.totauxAbsences").style.display = "grid";
 					document.querySelector(".absences>.totauxAbsences").innerHTML = `
 						<div class="entete justifie">Nombre justifiées</div>
@@ -497,7 +509,7 @@
 						<div class="entete retard">Nombre retards</div>
 
 						<div>${floatToHour(totaux.justifie)}</div>
-						<div>${floatToHour(totaux.absent)}</div>
+						<div>${txtAbsent}</div>
 						<div>${totaux.retard}</div>
 					`;
 				}

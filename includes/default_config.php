@@ -58,7 +58,7 @@
 		$Config->afficher_absences = $configJSON['afficher_absences'] ?? Config::$afficher_absences ?? false;	// En dessous du relevé de notes étudiants
 		$Config->module_absences = $configJSON['module_absences'] ?? Config::$module_absences ?? false;		// nécessite l'acces_enseignants - ce module est différent de celui de Scodoc, il est géré entièrement par la passerelle.
 		$Config->data_absences_scodoc = $configJSON['data_absences_scodoc'] ?? Config::$data_absences_scodoc ?? false;	// Choisir si les absences sont stockées sur la passerelle ou dans Scodoc.
-		$Config->metrique_absences = $configJSON['metrique_absences'] ?? Config::$metrique_absences ?? 'heure';	// Choisir le type de métrique pour l'affichage des totaux absences aux étudiants.
+		$Config->metrique_absences = $configJSON['metrique_absences'] ?? Config::$metrique_absences ?? 'passerelle';	// Choisir le type de métrique pour l'affichage des totaux absences aux étudiants.
 		$Config->autoriser_justificatifs = $configJSON['autoriser_justificatifs'] ?? Config::$autoriser_justificatifs ?? false;	// Choisir si les étudiants peuvent déposer des justificatifs d'absences qui seront importés dans Scodoc.
 		$Config->liste_dep_ok_jusiticatifs = $configJSON['liste_dep_ok_jusiticatifs'] ?? Config::$liste_dep_ok_jusiticatifs ?? '';	// Liste des départements autorisant les justificatifs
 		$Config->liste_dep_publi_absences = $configJSON['liste_dep_publi_absences'] ?? Config::$liste_dep_publi_absences ?? '';	// Liste des départements autorisant les justificatifs

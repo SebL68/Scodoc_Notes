@@ -331,9 +331,10 @@
 						<p><a target=_blank href=../services/messages.php#absencesMultiJours>Plus d'informations</a></p>
 					</label>
 					<label>
-						<b>Métrique des absences (!!! Ne fonctionne pas pour le moment !!!)</b><br>
+						<b>Métrique des absences</b><br>
 						<select name="metrique_absences">
-							<option value="heure">La passerelle calcule les heures</option>
+							<option value="passerelle">La passerelle calcule le nombre d'heures</option>
+							<option value="heure">Récupération des heures dans Scodoc</option>
 							<option value="demi">Récupération des demi-journées dans Scodoc</option>
 							<option value="journee">Récupération des journées dans Scodoc</option>
 						</select>

@@ -233,7 +233,7 @@
 						$nip
 					) ?? []
 				];
-				if($Config->metrique_absences != 'heure') {
+				if($Config->metrique_absences != 'passerelle') {
 					$output['totauxAbsences'] = $Scodoc->getTotalsAbsences($_GET['semestre'], $nip);
 				}
 				break;
@@ -269,7 +269,7 @@
 							$nip
 						) ?? []
 					];
-					if($Config->metrique_absences != 'heure') {
+					if($Config->metrique_absences != 'passerelle') {
 						$output['totauxAbsences'] = $Scodoc->getTotalsAbsences(end($semestres)['formsemestre_id'], $nip);
 					}
 				}else if($user->getStatut() >= PERSONNEL){
