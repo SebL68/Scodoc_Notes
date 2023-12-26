@@ -29,12 +29,14 @@
 /* Relevé au format PDF */
 /************************/
 	sanitize($_GET["sem_id"]);
+	sanitize($_GET["type"]);
 	$Scodoc = new Scodoc();
 
 	$result = $Scodoc->getReportCards(
 		$_GET["sem_id"],
 		$nip,
-		'pdf'
+		'pdf',
+		$_GET["type"]
 	);
 
 

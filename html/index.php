@@ -359,7 +359,7 @@
 					let output = "";
 					if(config.releve_PDF) {
 						output = `
-						<form action="services/bulletin_PDF.php?sem_id=${semestre}&etudiant=${nip}" target="_blank" method="post">
+						<form action="services/bulletin_PDF.php?type=BUT&sem_id=${semestre}&etudiant=${nip}" target="_blank" method="post">
 							<button type="submit">Télécharger le relevé au format PDF</button>
 						</form>`;
 

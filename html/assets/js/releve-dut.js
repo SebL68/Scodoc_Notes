@@ -21,7 +21,7 @@ class releveDUT extends HTMLElement {
 	feedReportCards(data, semestre, etudiant){
 		let output = `
 			<main>
-				<form action=services/bulletin_PDF.php?sem_id=${semestre}&etudiant=${etudiant} target=_blank method=post>
+				<form action=services/bulletin_PDF.php?type=DUT&sem_id=${semestre}&etudiant=${etudiant} target=_blank method=post>
 					<button type=submit>Télécharger le relevé au format PDF</button>
 				</form>
 			${this.showInformations(data)}

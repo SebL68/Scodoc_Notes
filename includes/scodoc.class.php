@@ -246,23 +246,28 @@ class Scodoc{
 		// ou PDF du relevé
 
 	*******************************/
-	public function getReportCards($semestre, $nip, $format = ''){
+	public function getReportCards($semestre, $nip, $format = '', $type = 'BUT') {
 		global $Config;
 
-		if($format == 'pdf'){
-			$output = $this->Ask_Scodoc("etudiant/nip/$nip/formsemestre/$semestre/bulletin/butcourt/$format/nosig");
+		if($format == 'pdf') {
+			if($type == 'BUT') {
+				$output = $this->Ask_Scodoc("etudiant/nip/$nip/formsemestre/$semestre/bulletin/butcourt/$format/nosig");
+			} else {
+				$output = $this->Ask_Scodoc("etudiant/nip/$nip/formsemestre/$semestre/bulletin/long/$format/nosig");
+			}
+			
 			Analytics::add('relevéPDF');
 			return $output;
 		}
 
 		$output = json_decode($this->Ask_Scodoc("etudiant/nip/$nip/formsemestre/$semestre/bulletin"));
-		if(isset($output->publie)){	// Détecte si c'est une réponse normale
+		if(isset($output->publie)) {	// Détecte si c'est une réponse normale
 			if($output->publie === false){
 				$output->message = $Config->message_non_publication_releve;
 			}
 			Analytics::add('relevé');
 			return $output;
-		}else{
+		} else {
 			returnError(
 				"Relevé non disponible pour ce semestre, veuillez contacter votre responsable en lui précisant : vérifier si l'export des notes du semestre est autorisé dans Scodoc."
 			);
