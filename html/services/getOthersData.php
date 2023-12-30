@@ -11,7 +11,7 @@
 		if(filesize($file) > 1000000) {
 			die(); // Trop de data, il y a quelque chose qui cloche !
 		}
-		$data = json_decode(file_get_contents($file, true));
+		$data = json_decode(file_get_contents($file, true), true);
 	} else {
 		$data = [];
 	}
