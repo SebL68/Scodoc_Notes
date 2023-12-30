@@ -16,5 +16,6 @@
 		$data = [];
 	}
 
+	$_GET["last_sent"] = time();
 	$data = json_encode([$_GET['name']=>$_GET]);
 	file_put_contents($file, $data);
