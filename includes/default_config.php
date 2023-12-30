@@ -28,7 +28,7 @@
 
 	$Config = new stdClass();
 
-		$Config->passerelle_version = '6:1:0';
+		$Config->passerelle_version = '6:2:0';
 
 /***********************/
 /* Options d'affichage */
@@ -82,6 +82,8 @@
 	*/
 		$Config->analystics_interne = $configJSON['analystics_interne'] ?? Config::$analystics_interne ?? false;
 		$Config->analyse_temps_requetes = $configJSON['analyse_temps_requetes'] ?? Config::$analyse_temps_requetes ?? false;	// Temps requêtes avec Scodoc - enregistré dans /data/analytics/temps.csv
+
+		$Config->envoi_donnees_version = $configJSON['envoi_donnees_version'] ?? Config::$envoi_donnees_version ?? true; // Autorise l'envoi de l'URL du serveur, du numéro de version et des modules activés au serveur de Mulhouse afin de faire une cartographie des usages de la passerelle.
 
 /*********************************/
 /* Données retournées par le CAS */
@@ -259,6 +261,7 @@ $accepted_input = [
 	'acces_enseignants',
 	'cloisonner_enseignants',
 	'analystics_interne',
+	'envoi_donnees_version',
 	'analyse_temps_requetes',
 	'nom_IUT',
 

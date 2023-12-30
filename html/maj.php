@@ -52,6 +52,10 @@
 	<h1>Historique des mises à jour</h1>
 
 	<main>
+		<h2>30/12/2023 - 6.2.0</h2>
+		<ul>
+			<li>Système d'envoi des données, une fois par jour, de l'URL du serveur, du numéro de version et des modules activés au serveur de Mulhouse afin de faire une cartographie des usages de la passerelle - activé par defaut, possibilité de le désactiver dans l'onglet "Config->Serveur".</li>
+		</ul>
 		<h2>26/12/2023 - 6.1.0</h2>
 		<ul>
 			<li>Option pour choisir la métrique des totaux d'absences aux étudiants : heures, demi-journées ou journées.</li>

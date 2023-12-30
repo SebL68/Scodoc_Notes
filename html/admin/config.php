@@ -166,6 +166,14 @@
 							Système interne à la passerelle pour l'analyse du trafic compatible RGPD, les données sont visibles dans ce <a href="/services/analytics.php">tableau de bord</a>. 
 						</p>
 					</label>
+
+					<label>
+						<input type="checkbox" name="envoi_donnees_version">
+						<b>Autoriser l'envoi des données</b>
+						<p>
+							Autoriser l'envoi, une fois par jour, de l'URL du serveur, du numéro de version et des modules activés au serveur de Mulhouse afin de faire une cartographie des usages de la passerelle.
+						</p>
+					</label>
 					
 					<label>
 						<input type="checkbox" name="analyse_temps_requetes">
