@@ -575,9 +575,8 @@ class Scodoc{
 			$this->Ask_Scodoc(
 				"assiduites/nip/$nip/count/query", 
 				[
+					'split' => true,
 					'formsemestre_id' => $sem,
-					'etat' => 'absent',	// A supprimer lorsque l'API Scodoc proposera la différenciation
-					'est_just' => false, // Pareil
 					'metric' => $Config->metrique_absences
 				]
 			) 

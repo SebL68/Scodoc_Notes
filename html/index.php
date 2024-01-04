@@ -496,9 +496,14 @@
 							demi: " demi-journée(s)",
 							journee: " journée(s)"
 						}
-						let [type, quantite] = Object.entries(data.totauxAbsences)[0];
-						var txtAbsent = quantite + txtType[type];
+
+						let totAbsent = data.totauxAbsences.absent[config.metrique_absences];
+						let totJustifie = data.totauxAbsences.absent.justifie[config.metrique_absences];
+
+						var txtJustifie = totJustifie + txtType[config.metrique_absences];
+						var txtAbsent = (totAbsent - totJustifie) + txtType[config.metrique_absences];
 					} else {	// Totaux calculés
+						var txtJustifie = floatToHour(totaux.justifie);
 						var txtAbsent = floatToHour(totaux.absent);
 					}
 
@@ -508,7 +513,7 @@
 						<div class="entete absent">Nombre injustifiées</div>
 						<div class="entete retard">Nombre retards</div>
 
-						<div>${floatToHour(totaux.justifie)}</div>
+						<div>${txtJustifie}</div>
 						<div>${txtAbsent}</div>
 						<div>${totaux.retard}</div>
 					`;
