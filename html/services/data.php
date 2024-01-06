@@ -703,7 +703,14 @@
 	function envoiDonnees(){
 		global $path;
 		global $Config;
-		$file = $path.'/data/analytics/last_data_sent_date.txt';
+
+		$dir = $path.'/data/analytics/';
+		$file = $dir.'last_data_sent_date.txt';
+
+		if(!file_exists($dir)){
+			mkdir($dir, 0774, true);
+		}
+		
 		if(file_exists($file)) {
 			if(time() < intval(file_get_contents($file, true)) + 86400) { // On attend 24h
 				die(); 
