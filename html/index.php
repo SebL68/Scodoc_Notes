@@ -497,11 +497,11 @@
 							journee: " journée(s)"
 						}
 
-						let totAbsent = data.totauxAbsences.absent[config.metrique_absences];
+						let totAbsent = data.totauxAbsences.absent.non_justifie[config.metrique_absences];
 						let totJustifie = data.totauxAbsences.absent.justifie[config.metrique_absences];
 
 						var txtJustifie = totJustifie + txtType[config.metrique_absences];
-						var txtAbsent = (totAbsent - totJustifie) + txtType[config.metrique_absences];
+						var txtAbsent = totAbsent + txtType[config.metrique_absences];
 					} else {	// Totaux calculés
 						var txtJustifie = floatToHour(totaux.justifie);
 						var txtAbsent = floatToHour(totaux.absent);
