@@ -562,6 +562,7 @@
 				let option = document.createElement("option");
 				option.value = module.code;
 				option.innerText = module.code + " - " + module.titre;
+				option.dataset.id = module.id;
 				select.appendChild(option);
             });
 			
