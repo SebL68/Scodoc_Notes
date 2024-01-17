@@ -217,7 +217,8 @@
 /****************************/
 /* Configuration du serveur */
 /****************************/
-		// public static $PHP_cmd = '/usr/bin/php';		
+		// public static $PHP_cmd = '/usr/bin/php';	
+		// public static $url_proxy = 'url'; // Si un proxy est installé et que l'envoi des données vers Mulhouse ne fonctionne pas - laisser vide ou en commentaire si non utilisé
 		
 /**************************************************/
 /* Gestion des absences - si le module est activé */
