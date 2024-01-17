@@ -68,7 +68,7 @@
 			<canvas id="chartRelevé"></canvas>
 		</div>
 
-		<p>Il y a eu <span id="nbNewSession"></span> durant l'année.</p>
+		<p>Il y a eu <span id="nbNewSession"></span>.</p>
 		<div class="canvas">
 			<canvas id="chartNewSession"></canvas>
 		</div>
