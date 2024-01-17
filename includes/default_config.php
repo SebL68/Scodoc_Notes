@@ -225,6 +225,7 @@
 /* Configuration du serveur */
 /****************************/
 		$Config->PHP_cmd = Config::$PHP_cmd ?? '/usr/bin/php';
+		$Config->url_proxy = Config::$url_proxy ?? ''; // Si un proxy est installé et que l'envoi des données vers Mulhouse ne fonctionne pas
 	
 /**************************************************/
 /* Gestion des absences - si le module est activé */

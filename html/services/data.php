@@ -726,6 +726,10 @@
 		$url .= '&autoriser_justificatifs='.urlencode($Config->autoriser_justificatifs);
 	
 		$ch = curl_init($url);
+		if($Config->url_proxy != '') {
+			curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, true);
+			curl_setopt($ch, CURLOPT_PROXY, $Config->url_proxy);
+		}
 		curl_exec($ch);
 		curl_close($ch);
 	
