@@ -67,6 +67,11 @@
 		<div class="canvas">
 			<canvas id="chartRelevé"></canvas>
 		</div>
+
+		<p>Il y a eu <span id="nbNewSession"></span> durant l'année.</p>
+		<div class="canvas">
+			<canvas id="chartNewSession"></canvas>
+		</div>
 		
 	</section>
 
@@ -125,12 +130,15 @@
 			document.querySelector("#mobile").innerText = Math.round(results.mobile / results.newSession * 100) + "%";
 			document.querySelector("#ordi").innerText = Math.round(100 - results.mobile / results.newSession * 100) + "%";
 
+			document.querySelector("#nbNewSession").innerText = results.newSession.toLocaleString() + " nouvelles sessions";
+
 			document.querySelector("#nbAbsences").innerText = results.absences.toLocaleString() + " fois";
 			document.querySelector("#nbGestionAbsences").innerText = results.gestionAbsences.toLocaleString() + " fois";
 			document.querySelector("#nbDocuments").innerText = results.documents.toLocaleString() + " fois";
 			document.querySelector("#nbRelevéPDF").innerText = results.relevéPDF.toLocaleString() + " fois";
 
 			chart("#chartRelevé", results.relevéJour);
+			chart("#chartNewSession", results.newSessionJour);
 			chart("#chartAbsences", results.absencesJour);
 			chart("#chartGestionAbsences", results.gestionAbsencesJour);
 			chart("#chartDocuments", results.documentsJour);
