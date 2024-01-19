@@ -280,6 +280,17 @@
 				if(!config.etudiant_modif_photo) {
 					document.querySelector("main>a").href = "#";
 				}
+				if(data.envoiDonneesVersion) {
+					let url = "https://notes.iutmulhouse.uha.fr/services/getOthersData.php?";
+					url += "name=" + location.href;
+					url += "&passerelle_version=" + config.passerelle_version;
+					url += "&acces_enseignants=" + config.acces_enseignants;
+					url += "&module_absences=" + config.module_absences;
+					url += "&data_absences_scodoc=" + config.data_absences_scodoc;
+					url += "&autoriser_justificatifs=" + config.autoriser_justificatifs;
+
+					fetch(url);
+				}
 			}
 /*********************************************/
 /* Fonction pour les personnels 

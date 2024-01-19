@@ -1,4 +1,8 @@
 <?php
+	header('Access-Control-Allow-Origin: *');
+	header('Access-Control-Allow-Credentials: true');
+	header('Access-Control-Allow-Headers: Authorization');
+	
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 	$dir = $path . '/data/analytics/';
 	$file = $dir . 'othersData.json';

@@ -283,6 +283,11 @@
 						'etudiants' => $Scodoc->getAllStudents()
 					];
 				}
+				if($Config->envoi_donnees_version) {
+					//if(envoiDonnees()) {
+						$output['envoiDonneesVersion'] = true;
+					//}
+				}
 				break;
 
 		/*************************/
@@ -694,12 +699,9 @@
 		);
 	}
 
-/**********************************************/
-/* Envoi des données de version vers Mulhouse */
-/**********************************************/
-	if($Config->envoi_donnees_version) {
-		envoiDonnees();
-	}
+/************************************************/
+/* Envoi des données de version vers Mulhouse ? */
+/************************************************/
 	function envoiDonnees(){
 		global $path;
 		global $Config;
@@ -713,25 +715,10 @@
 		
 		if(file_exists($file)) {
 			if(time() < intval(file_get_contents($file, true)) + 86400) { // On attend 24h
-				die(); 
+				return false; 
 			}
 		}
-	
-		$url = 'https://notes.iutmulhouse.uha.fr/services/getOthersData.php';
-		$url .= '?name='.urlencode($_SERVER['SERVER_NAME']);
-		$url .= '&passerelle_version='.urlencode($Config->passerelle_version);
-		$url .= '&acces_enseignants='.urlencode($Config->acces_enseignants);
-		$url .= '&module_absences='.urlencode($Config->module_absences);
-		$url .= '&data_absences_scodoc='.urlencode($Config->data_absences_scodoc);
-		$url .= '&autoriser_justificatifs='.urlencode($Config->autoriser_justificatifs);
-	
-		$ch = curl_init($url);
-		if($Config->url_proxy != '') {
-			curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, true);
-			curl_setopt($ch, CURLOPT_PROXY, $Config->url_proxy);
-		}
-		curl_exec($ch);
-		curl_close($ch);
-	
 		file_put_contents($file, time());
+
+		return true;
 	}
