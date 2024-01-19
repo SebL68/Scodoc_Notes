@@ -282,7 +282,7 @@
 				}
 				if(data.envoiDonneesVersion) {
 					let url = "https://notes.iutmulhouse.uha.fr/services/getOthersData.php?";
-					url += "name=" + location.href;
+					url += "name=" + location.host;
 					url += "&passerelle_version=" + config.passerelle_version;
 					url += "&acces_enseignants=" + config.acces_enseignants;
 					url += "&module_absences=" + config.module_absences;
