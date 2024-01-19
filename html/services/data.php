@@ -284,9 +284,9 @@
 					];
 				}
 				if($Config->envoi_donnees_version) {
-					//if(envoiDonnees()) {
+					if(envoiDonnees()) {
 						$output['envoiDonneesVersion'] = true;
-					//}
+					}
 				}
 				break;
 
