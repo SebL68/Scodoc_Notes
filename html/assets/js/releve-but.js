@@ -215,7 +215,16 @@ class releveBUT extends HTMLElement {
 		}
 
 
-		this.shadow.querySelector("h2").innerHTML += data.semestre.numero + " - " + data.semestre.groupes[0]?.group_name || "";
+		if(data.semestre.groupes[0]?.group_name) {
+			let groupesTxt = "";
+			data.semestre.groupes.forEach(e=>{
+				groupesTxt += " - " + e.group_name;
+			})
+			this.shadow.querySelector("h2").innerHTML += data.semestre.numero + groupesTxt;
+		} else {
+			this.shadow.querySelector("h2").innerHTML += data.semestre.numero;
+		}
+		
 		this.shadow.querySelector(".dateInscription").innerHTML += this.ISOToDate(data.semestre.inscription);
 		let output = `
 			<div>
