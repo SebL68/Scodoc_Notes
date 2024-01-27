@@ -52,7 +52,7 @@ class releveBUT extends HTMLElement {
 				liste.forEach(note=>{
 					bucket[Math.floor(note)]++;
 				})
-				bucket[19] += bucket.pop();
+				//bucket[19] += bucket.pop();
 				let bucketMax = Math.max(...bucket);
 
 				bucket.forEach((nb, index)=>{
