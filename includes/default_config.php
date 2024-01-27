@@ -28,7 +28,7 @@
 
 	$Config = new stdClass();
 
-		$Config->passerelle_version = '6:3:0';
+		$Config->passerelle_version = '6:3:1';
 
 /***********************/
 /* Options d'affichage */
@@ -54,6 +54,8 @@
 		*/
 		// PAS IMPLEMENTÉ $Config->afficher_releves = Config::$afficher_releves ?? true;		// Permet d'utiliser la passerelle uniquement pour les absences en standalone
 		$Config->acces_enseignants = $configJSON['acces_enseignants'] ?? Config::$acces_enseignants ?? false;
+
+		$Config->histogramme = $configJSON['histogramme'] ?? Config::$histogramme ?? true; // Proposer aux étudiants de voir l'histrogramme des notes de la promotion pour les évaluation.
 		
 		$Config->afficher_absences = $configJSON['afficher_absences'] ?? Config::$afficher_absences ?? false;	// En dessous du relevé de notes étudiants
 		$Config->module_absences = $configJSON['module_absences'] ?? Config::$module_absences ?? false;		// nécessite l'acces_enseignants - ce module est différent de celui de Scodoc, il est géré entièrement par la passerelle.
@@ -256,6 +258,7 @@
 $accepted_input = [
 	'passerelle_version',
 
+	'histogramme',
 	'message_non_publication_releve',
 	'releve_PDF',
 	'etudiant_modif_photo',

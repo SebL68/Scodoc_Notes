@@ -547,10 +547,14 @@ class releveBUT extends HTMLElement {
 					<div>
 						${evaluation.note.value}
 						<em>Coef.&nbsp;${evaluation.coef}</em>
-					</div>
+					</div>`;
+			if(config.histogramme) {
+				output += `
 					<div class="btn_histogramme">
 						<svg pathLength="100" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20v-6M6 20V10M18 20V4"/></svg>
-					</div>
+					</div>`;
+			}
+			output += `
 					<div class=complement>
 						<div>Coef</div><div>${evaluation.coef}</div>
 						<div>Max. promo.</div><div>${evaluation.note.max}</div>

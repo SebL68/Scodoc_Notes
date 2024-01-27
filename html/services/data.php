@@ -240,6 +240,9 @@
 
 			case 'listeNotes':
 				sanitize($_GET['eval']);
+				if($Config->histogramme != true) {
+					returnError("L'histogramme n'est pas activé");
+				}
 				$Scodoc = new Scodoc();
 				$output = $Scodoc->getNotesEval($_GET['eval']);
 			break;

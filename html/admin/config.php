@@ -190,6 +190,11 @@
 				<summary>Relevé de notes</summary>
 				<div>
 					<label>
+						<input type="checkbox" name="histogramme">
+						<b>Histogramme évaluation</b>
+						<p>Proposer aux étudiants de voir l'histrogramme des notes de la promotion pour les évaluation.</p>	
+					</label>
+					<label>
 						<input type="checkbox" name="releve_PDF">
 						<b>Relevé PDF</b>
 						<p>Permettre aux étudiants de télécharger un relevé de notes intermédiaire en PDF.</p>	
