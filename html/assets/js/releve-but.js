@@ -42,24 +42,28 @@ class releveBUT extends HTMLElement {
 		fetch("services/data.php?q=listeNotes&eval=" + idEval)
 		.then(r=>r.json())
 		.then(liste=>{
-			let bucket = new Array(21).fill(0);
-			liste.forEach(note=>{
-				bucket[Math.floor(note)]++;
-			})
-			bucket[19] += bucket.pop();
-			let bucketMax = Math.max(...bucket);
-
 			let histogramme = document.createElement("div");
-			let graph = "";
+			var graph = "";
+				
+			if(liste[0] == "too low") {
+				var graph = "Pas assez d'étudiant pour afficher les données.";
+			} else {
+				let bucket = new Array(21).fill(0);
+				liste.forEach(note=>{
+					bucket[Math.floor(note)]++;
+				})
+				bucket[19] += bucket.pop();
+				let bucketMax = Math.max(...bucket);
 
-			bucket.forEach((nb, index)=>{
-				graph += `<div class=histo_max>
-					<div class="histo_visu${(noteActuelle==index)?" focus":""}" style=height:${nb/bucketMax*100}%>
-						<div class=histo_value>${nb}</div>
-						<div class=histo_index>${index}</div>
-					</div>
-				</div>`;
-			})
+				bucket.forEach((nb, index)=>{
+					graph += `<div class=histo_max>
+						<div class="histo_visu${(noteActuelle==index)?" focus":""}" style=height:${nb/bucketMax*100}%>
+							<div class=histo_value>${nb}</div>
+							<div class=histo_index>${index}</div>
+						</div>
+					</div>`;
+				})
+			}
 			
 			histogramme.className = "histogramme";
 			histogramme.innerHTML = "<div>" + graph + "</div>";

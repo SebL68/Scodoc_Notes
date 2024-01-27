@@ -296,6 +296,10 @@ class Scodoc{
 			}
 		}
 
+		if(count($list) < 6) {	// Pas assez d'étudiants pour anonymiser correctement
+			$list = ['too low'];
+		}
+
 		return $list;
 	}
 

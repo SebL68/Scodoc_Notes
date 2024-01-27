@@ -179,11 +179,11 @@
 				left: 0;
 				right: 0;
 				bottom: 0;
+				max-width: 100%;
 				background: rgba(0,0,0,0.8);
 				display: flex;
-				justify-content: center;
-				align-items: center;
 				font-size: 12px;
+				overflow: auto;
 			}
 			.histogramme>div{
 				background: #eee;
@@ -192,6 +192,7 @@
 				display: flex;
 				gap: 2px;
 				height: 200px;
+				margin: auto;
 			}
 			.histo_max {
 				background: #fff;
