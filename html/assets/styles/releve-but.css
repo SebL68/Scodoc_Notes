@@ -282,8 +282,10 @@ h3{
 .eval, .syntheseModule{
     position: relative;
     display: flex;
-    justify-content: space-between;
     padding: 4px 4px 4px 32px;
+}
+.eval>div:nth-child(1), .syntheseModule>div:nth-child(1){
+	margin-right: auto;
 }
 
 .new-eval::before{
@@ -310,6 +312,18 @@ h3{
 .eval:hover, .syntheseModule:hover{
     background: var(--couleurSurlignage);
     /* color: #FFF; */
+}
+.eval>.btn_histogramme {
+	display: flex;
+	margin: -6px 0 0 4px;
+	cursor: pointer;
+}
+.eval:hover>.btn_histogramme {	
+	animation: pioupiou 1s infinite linear;
+	stroke-dasharray: 3;
+}
+@keyframes pioupiou {
+	100% { stroke-dashoffset: -6;}
 }
 .complement{
     pointer-events:none;

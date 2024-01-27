@@ -36,6 +36,39 @@ class releveBUT extends HTMLElement {
 		this.parentElement.parentElement.parentElement.parentElement.querySelector("#Module_" + module).scrollIntoView();
 	}
 
+	afficherHistogramme() {
+		let idEval = this.parentElement.dataset.id;
+		let noteActuelle = parseInt(this.parentElement.dataset.note);
+		fetch("services/data.php?q=listeNotes&eval=" + idEval)
+		.then(r=>r.json())
+		.then(liste=>{
+			let bucket = new Array(21).fill(0);
+			liste.forEach(note=>{
+				bucket[Math.floor(note)]++;
+			})
+			bucket[19] += bucket.pop();
+			let bucketMax = Math.max(...bucket);
+
+			let histogramme = document.createElement("div");
+			let graph = "";
+
+			bucket.forEach((nb, index)=>{
+				graph += `<div class=histo_max>
+					<div class="histo_visu${(noteActuelle==index)?" focus":""}" style=height:${nb/bucketMax*100}%>
+						<div class=histo_value>${nb}</div>
+						<div class=histo_index>${index}</div>
+					</div>
+				</div>`;
+			})
+			
+			histogramme.className = "histogramme";
+			histogramme.innerHTML = "<div>" + graph + "</div>";
+			histogramme.addEventListener("click", function(){this.remove()});
+
+			document.body.appendChild(histogramme);
+		})		
+	}
+
 	set setConfig(config) {
 		this.config.showURL = config.showURL ?? this.config.showURL;
 	}
@@ -58,6 +91,9 @@ class releveBUT extends HTMLElement {
 		})
 		this.shadow.querySelectorAll(":not(.ueBonus)+.syntheseModule").forEach(e => {
 			e.addEventListener("click", this.goTo)
+		})
+		this.shadow.querySelectorAll(".btn_histogramme").forEach(e => {
+			e.addEventListener("click", this.afficherHistogramme)
 		})
 
 		this.shadow.children[0].classList.add("ready");
@@ -508,6 +544,9 @@ class releveBUT extends HTMLElement {
 						${evaluation.note.value}
 						<em>Coef.&nbsp;${evaluation.coef}</em>
 					</div>
+					<div class="btn_histogramme">
+						<svg pathLength="100" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20v-6M6 20V10M18 20V4"/></svg>
+					</div>
 					<div class=complement>
 						<div>Coef</div><div>${evaluation.coef}</div>
 						<div>Max. promo.</div><div>${evaluation.note.max}</div>
@@ -520,6 +559,7 @@ class releveBUT extends HTMLElement {
 							`;
 			}).join("")}
 					</div>
+					
 				</div>
 			`;
 		})

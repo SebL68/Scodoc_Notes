@@ -169,6 +169,55 @@
 				display: inline-block;
 				margin: 10px;
 			}
+/***************/
+/* Histogramme */
+/***************/
+			.histogramme {
+				position: fixed;
+				z-index: 1000;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: rgba(0,0,0,0.8);
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-size: 12px;
+			}
+			.histogramme>div{
+				background: #eee;
+				padding: 8px 16px 32px 16px;;
+				border-radius: 8px;
+				display: flex;
+				gap: 2px;
+				height: 200px;
+			}
+			.histo_max {
+				background: #fff;
+				border-radius: 4px;
+				position: relative;
+				width: 16px;
+				display: flex;
+				align-items: flex-end;
+			}
+			.histo_visu {
+				padding: 2px 1px;
+				border-radius: 4px;
+				flex: 1;
+				background: var(--secondaire);
+				text-align: center;
+			}
+			.histo_value {
+				color: #FFF;
+			}
+			.histo_index {
+				position: absolute;
+				top: 100%;
+			}
+			.histogramme .focus{
+				background: var(--accent);
+			}
 		</style>
 		<meta name=description content="Relevé de notes - <?php echo $Config->nom_IUT; ?>">
 	</head>

@@ -275,6 +275,31 @@ class Scodoc{
 	}
 
 	/*******************************/
+	/* getReportCards()
+	Renvoie la liste des notes d'une évaluation
+
+	Entrée :
+			'eval' : '833', 		// id de l'évaluation
+		]
+
+	Sortie :
+		[10, 12, 11, 8]		// liste des notes
+
+	*******************************/
+	public function getNotesEval($eval) {
+		$list = [];
+		$json = json_decode($this->Ask_Scodoc("evaluation/$eval/notes"));
+
+		foreach($json as $eval){
+			if(is_float($eval->value)) {
+				$list[] = $eval->value / $eval->note_max * 20; // Normalisation des notes sur 20
+			}
+		}
+
+		return $list;
+	}
+
+	/*******************************/
 	/* getDepartmentSemesters()
 		Liste des semestres actif d'un département
 

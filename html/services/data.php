@@ -237,6 +237,12 @@
 					$output['totauxAbsences'] = $Scodoc->getTotalsAbsences($_GET['semestre'], $nip);
 				}
 				break;
+
+			case 'listeNotes':
+				sanitize($_GET['eval']);
+				$Scodoc = new Scodoc();
+				$output = $Scodoc->getNotesEval($_GET['eval']);
+			break;
 			
 			case 'modules':
 				if($user->getStatut() < PERSONNEL ){ returnError(); }
