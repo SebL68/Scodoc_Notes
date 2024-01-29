@@ -215,6 +215,7 @@
 			.histo_index {
 				position: absolute;
 				top: 100%;
+				color: #000;
 			}
 			.histogramme .focus{
 				background: var(--accent);
