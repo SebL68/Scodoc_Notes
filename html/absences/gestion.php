@@ -1105,6 +1105,9 @@
 				let matiere = [...modules.modules, ...modules.saes].find(e => {
 					return e.id == txt;
 				});
+				if(!matiere) { 
+					return "";
+				}
 				return matiere.code + ' - ' + matiere.titre;
 			} else {
 				return txt || "-";
