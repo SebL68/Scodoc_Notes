@@ -47,6 +47,7 @@ Les utilisateurs actuels sont :
  - IUT d'Evry => accès étudiant + enseignant
  - IUT de Béthune => accès étudiant
  - IUT de Lyon 3 => à venir
+ - IUT de Sénart-Fontainebleau => expérimentation en cours
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
   
