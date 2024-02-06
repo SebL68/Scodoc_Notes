@@ -225,6 +225,9 @@
 	</head>
 	<body>
 		<?php 
+			if (file_exists($path.'/config/hook.php')) {  include $path.'/config/hook.php';}
+		?>
+		<?php 
 			$h1 = 'Relevé de notes';
 			include $_SERVER['DOCUMENT_ROOT']."/assets/header.php";
 		?>
