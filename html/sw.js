@@ -1,4 +1,4 @@
-var version = 'v6.3.2';
+var version = 'v6.3.3';
 
 self.addEventListener("install", function (event) {
 	self.skipWaiting();

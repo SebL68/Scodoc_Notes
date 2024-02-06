@@ -1159,7 +1159,7 @@
 			let tailleDuree = (fin - debut) / (moduleDate.heureFin - moduleDate.heureDebut) * 100;
 
 			if(Number.isInteger(matiere)) {
-				matiere = document.querySelector(`[data-id="${matiere}"]`).innerText;
+				matiere = document.querySelector(`[data-id="${matiere}"]`)?.innerText || "Matière d'un autre semestre";
 			}
 					
 			target.innerHTML += `<div style="left:${posiDebut}%;width:${tailleDuree}%" data-statut="${statut}" title="${enseignant} - ${matiere || "Sans matière"}"></div>`;
