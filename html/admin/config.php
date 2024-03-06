@@ -324,10 +324,10 @@
 					</label>
 					<label>
 						<input type="checkbox" name="data_absences_scodoc">
-						<b>Sauvegarde des données absences dans Scodoc</b>
+						<b>Utiliser les absences de Scodoc</b>
 						<p>Par défaut, les absences sont stockées sur la passerelle.</p>
 						<p>L'utilisation de cette option nécessite d'avoir au moins la version 9.6 de Scodoc.</p>
-						<p>Si les données sont stockées dans Scodoc et que la saisie est activée depuis la passerelle, il faut ajouter la permission ScoAbsChange au rôle LecteurAPI sur le serveur Scodoc :
+						<p>Si les données sont stockées dans Scodoc et que la saisie est activée depuis la passerelle, il faut ajouter la permission ScoAbsChange au rôle LecteurAPI sur le serveur Scodoc, vous pouvez utiliser l'interface de gestion des droits de Scodoc ou avec la console :
 <pre>
 <code>
 	# En tant qu'utilisateur "scodoc" :
@@ -363,7 +363,7 @@
 	upload_max_filesize 8M
 	post_max_size 8M
 </code></pre>
-						<p>Il est nécessaire de changer la permission ScoJustifView pour les utilisateurs qui ont le droit de voir les justificatifs : </p>
+						<p>Il est nécessaire de changer la permission ScoJustifView pour les utilisateurs qui ont le droit de voir les justificatifs, vous pouvez utiliser l'interface de gestion des droits de Scodoc ou avec la console : </p>
 <pre>
 <code>
 	# En tant qu'utilisateur "scodoc" :
@@ -376,18 +376,20 @@
 </code>
 </pre>
 					</label>
-			                <label>
+					<label>
 						<b>🖊️ Liste des départements autorisant le dépot de justificatifs</b>
-			                        <input type="text" name="liste_dep_ok_jusiticatifs">
-			                        <p>Sous la forme : MMI,GEII,GLT,GEA</p>
-						<p>⚠️ Attention : l'acronyme du département doit être celui des débuts dans Scodoc. Par exemple, si le département GLT a été renommé en MLT. Il faut alors utiliser GLT.</p>
-			                </label>
-			                <label>
-			                        <b>🖊️ Liste des départements publiant leurs absences aux étudiants</b>
-			                        <input type="text" name="liste_dep_publi_absences">
+						<input type="text" name="liste_dep_ok_jusiticatifs">
+						<p>Ne pas laisser vide si vous souhaitez l'utiliser.</p>
 						<p>Sous la forme : MMI,GEII,GLT,GEA</p>
-			                	<p>⚠️ Attention : l'acronyme du département doit être celui des débuts dans Scodoc. Par exemple, si le département GLT a été renommé en MLT. Il faut alors utiliser GLT.</p>
-			                </label>
+						<p>⚠️ Attention : l'acronyme du département doit être celui des débuts dans Scodoc. Par exemple, si le département GLT a été renommé en MLT. Il faut alors utiliser GLT.</p>
+					</label>
+					<label>
+						<b>🖊️ Liste des départements publiant leurs absences aux étudiants</b>
+						<input type="text" name="liste_dep_publi_absences">
+						<p>Si vous laissez vide, tous les départements seront autorisés.</p>
+						<p>Sous la forme : MMI,GEII,GLT,GEA</p>
+						<p>⚠️ Attention : l'acronyme du département doit être celui des débuts dans Scodoc. Par exemple, si le département GLT a été renommé en MLT. Il faut alors utiliser GLT.</p>
+					</label>
 
 					<label>
 						<b>🖊️ Message au début du rapport d'absences, après le relevé de notes</b>
