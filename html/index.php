@@ -187,6 +187,7 @@
 			}
 			.histogramme>div::before {
 				content: "Nombre d'étudiants";
+				color: #000;
 				transform: rotate(-90deg);
 				position: absolute;
 				bottom: 77px;
@@ -194,6 +195,7 @@
 			}
 			.histogramme>div::after {
 				content: "Notes";
+				color: #000;
 				position: absolute;
 				bottom: 4px;
 				left: 16px;
