@@ -1,53 +1,55 @@
 Pour suivre les évolutions, l'idéal est d'aller voir sur le Discord (voir ci-dessous), sinon il y a ce lien qui est mis à jour moins souvent : https://notes.iutmulhouse.uha.fr/maj.php
 
 Les utilisateurs actuels sont :
- - IUT de Mulhouse => accès complet
- - IUT de Ville d'Avray => accès étudiant
- - IUT de Chartres => accès étudiant + enseignant
- - IUT de Lyon 1 => accès étudiant + enseignant
- - IUT de Tours => accès étudiant
- - IUT Lannion => accès étudiant
- - IUT de Lille => accès étudiant + enseignant
- - IUT de Bordeaux => accès étudiant + enseignant
- - IUT d'Orsay => accès étudiant + enseignent
- - IUT du Havre => accès étudiant + enseignant
- - IUT de Poitiers ?
- - IUT du Littoral Côte d'Opale ?
- - IUT de La Rochelle => accès étudiant
- - IUT Le Mans => accès étudiant
- - IUT de Mantes-En-Yvelines => accès étudiant
- - IUT de Saint-Malo => accès étudiant
- - IUT de la Roche-sur-Yon => accès étudiant
- - IUT de Vélizy => accès étudiant
- - IUT de Roanne ?
- - IUT de Kourou => accès complet
- - IUT de Brest => accès étudiant
- - IUT d'Annecy => accès étudiant + enseignant
- - IUT de Nantes => accès étudiant + enseignant
- - IUT de Blagnac => accès étudiant
- - IUT de Vannes ?
- - IUT Lorient & Pontivy ?
- - IUT d'Orléans => accès étudiant
- - IUT de Rennes => accès étudiant
- - IUT de Perpignan sites de Narbonne et Carcassonne => accès étudiant + enseignant
- - IUT de Villetaneuse => accès étudiant + enseignant
- - IUT de Cergy-Pontoise => accès étudiant
- - IUT de Mantes ?
- - IUT de Béziers => accès étudiant
- - IUT de Saint Denis => A venir
- - IUT d'Amiens => accès étudiant
- - IUT de Caen (IFS) => accès étudiant
- - IUT de Saint-Nazaire => accès étudiant + enseignant
- - IUT Montpellier-Sète => accès étudiant
- - IUT Cachan => accès étudiant
- - IUT Nord Franche-Comté => accès étudiant
- - IUT de Montreuil => accès étudiant
- - IUT de Schiltigheim => accès étudiant
- - Ecole de chimie de Mulhouse (ENSCMu) => accès complet
- - IUT d'Evry => accès étudiant + enseignant
- - IUT de Béthune => accès étudiant
- - IUT de Lyon 3 => à venir
- - IUT de Sénart-Fontainebleau => expérimentation en cours
+| Etablissement | Accès étudiants | Accès enseignants | Saisie des absences | Dépôt de jusitificatifs |
+|---|---|---|---|---|
+| IUT de Mulhouse | ✅ | ✅ | ✅ | ✅ |
+| IUT de Ville d'Avray | ✅ | ✅ |  | ✅ |
+| IUT de Chartres | ✅ | ✅ |  |  |
+| IUT de Lyon 1 | ✅ | ✅ |  |  |
+| IUT de Tours | ✅ |  |  |  |
+| IUT de Lannion | ✅ |  |  |  |
+| IUT de Lille | ✅ | ✅ |  |  |
+| IUT de Bordeaux | ✅ | ✅ |  |  |
+| IUT d'Orsay | ✅ | ✅ |  |  |
+| IUT Le Havre | ✅ | ✅ |  |  |
+| IUT de Poitiers | ? |  |  |  |
+| IUT du Littoral Côte d'Opale | ? |  |  |  |
+| IUT de La Rochelle | ✅ |  |  |  |
+| IUT Le Mans | ✅ | ✅ |  |  |
+| IUT de Mantes-En-Yvelines | ✅ |  |  |  |
+| IUT de Saint-Malo | ✅ |  |  |  |
+| IUT de la Roche-sur-Yon | ✅ |  |  |  |
+| IUT de Vélizy | ✅ |  |  |  |
+| IUT de Roanne | ? |  |  |  |
+| IUT de Kourou | ✅ | ✅ | ✅ |  |
+| IUT de Brest | ✅ |  |  |  |
+| IUT de d'Annecy | ✅ | ✅ |  |  |
+| IUT de Nantes | ✅ | ✅ |  |  |
+| IUT de Blagnac | ✅ |  |  |  |
+| IUT de Vannes | ? |  |  |  |
+| IUT de Lorient & Pontivy | ? |  |  |  |
+| IUT de Orléans | ✅ |  |  |  |
+| IUT de Rennes | ✅ | ✅ |  |  |
+| IUT de Perpignan sites de Narbonne et Carcassonne | ✅ | ✅ | ✅ | ✅ |
+| IUT de Villetaneuse | ✅ | ✅ |  |  |
+| IUT de Cergy-Pontoise | ✅ | ✅ |  |  |
+| IUT de Mantes | ? |  |  |  |
+| IUT de Béziers | ✅ |  |  |  |
+| IUT de Saint Denis | A venir |  |  |  |
+| IUT d'Amiens | ✅ |  |  |  |
+| IUT de Caen (IFS) | ✅ |  |  |  |
+| IUT de Saint-Nazaire | ✅ | ✅ |  |  |
+| IUT de Montpellier-Sète | ✅ |  |  |  |
+| IUT de Cachan | ✅ | ✅ |  |  |
+| IUT Nord Franche-Comté | ✅ |  |  |  |
+| IUT de Montreuil | ✅ |  |  |  |
+| IUT de Schiltigheim | ✅ |  |  |  |
+| Ecole de chimie de Mulhouse (ENSCMu) | ✅ | ✅ | ✅ | ✅ |
+| IUT d'Evry | ✅ | ✅ |  |  |
+| IUT de Béthune | ✅ |  |  |  |
+| IUT de Lyon 3 | ✅ |  |  |  |
+| IUT de Sénart-Fontainebleau | ✅ | ✅ |  |  |
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
   
