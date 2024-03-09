@@ -105,6 +105,8 @@ Procédure de mise à jour par la suite :
 cd /var/www
 ./installOrUpdate.sh
 ```  
+
+💡 Nous vous recommandons d'exécuter ce script toutes les nuits avec une tache cron.  
   
 [Option]  
 Par défaut, la mise à jour se fait dans `/var/www/`.  
