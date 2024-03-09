@@ -73,7 +73,7 @@ Enfin, la passerelle permet de saisir et justifier les absences de manière auto
 ## Système requis  
   
  - Il est recommandé d'avoir un système Debian ou Ubuntu, pour pouvoir utiliser l'installeur automatique, mais ça peut fonctionner avec d'autres systèmes.
- - Il est nécessaire d'avoir PHP version 7.3 ou plus.
+ - Il est nécessaire d'avoir PHP version 7.3 ou plus - compatibilité testée avec PHP 8.2
  - Il est recommandé d'utiliser Apache, mais ça fonctionne avec Nginx - il faudra juste un peu de config manuelle.
  - Les dépendances sont installées automatiquement.
  - Le serveur doit être reconnu et autorisé par le CAS.  
@@ -85,7 +85,6 @@ Le script : `/installOrUpdate.sh`  permet d'installer et de mettre à jour la pa
 Ce script est compatible Ubuntu et Debian, il permet lors d'une première installation d'installer tout le nécessaire sur le serveur, il reste alors à configurer les fichiers `/config/*`  
   
 Lorsque le serveur est déjà opérationnel, il permet de faire une mise à jour de /html, /includes et /lib.
-Pour des raisons de sécurité, le fichier installOrUpdate.sh ne se met pas automatiquement à jour.  
   
 Le virtual host doit mener vers le dossier `/var/www/html`. Les fichiers à sécuriser sont installés dans `/var/www`, les fichiers publics sont dans `/var/www/html`.  
 Pour des raisons de sécurité, si le virtual host est mal configuré, la passerelle ne fonctionnera pas.  
