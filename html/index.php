@@ -494,7 +494,7 @@
 				document.querySelector(".message_rapport_absences").innerHTML = config.message_rapport_absences;
 				document.querySelector(".absences").style.display = "block";
 
-				if(config.autoriser_justificatifs && config.liste_dep_ok_jusiticatifs.split(",").includes(dep)) {
+				if(config.autoriser_justificatifs && config.liste_dep_ok_justificatifs.split(",").includes(dep)) {
 					document.querySelector(".depotJustif").href += "?nip=" + nip;
 				} else {
 					document.querySelector(".depotJustif").style.display = "none";

@@ -62,7 +62,7 @@
 		$Config->data_absences_scodoc = $configJSON['data_absences_scodoc'] ?? Config::$data_absences_scodoc ?? false;	// Choisir si les absences sont stockées sur la passerelle ou dans Scodoc.
 		$Config->metrique_absences = $configJSON['metrique_absences'] ?? Config::$metrique_absences ?? 'passerelle';	// Choisir le type de métrique pour l'affichage des totaux absences aux étudiants.
 		$Config->autoriser_justificatifs = $configJSON['autoriser_justificatifs'] ?? Config::$autoriser_justificatifs ?? false;	// Choisir si les étudiants peuvent déposer des justificatifs d'absences qui seront importés dans Scodoc.
-		$Config->liste_dep_ok_jusiticatifs = $configJSON['liste_dep_ok_jusiticatifs'] ?? Config::$liste_dep_ok_jusiticatifs ?? '';	// Liste des départements autorisant les justificatifs
+		$Config->liste_dep_ok_justificatifs = $configJSON['liste_dep_ok_justificatifs'] ?? Config::$liste_dep_ok_justificatifs ?? '';	// Liste des départements autorisant les justificatifs
 		$Config->liste_dep_publi_absences = $configJSON['liste_dep_publi_absences'] ?? Config::$liste_dep_publi_absences ?? '';	// Liste des départements autorisant les justificatifs
 		$Config->message_rapport_absences = $configJSON['message_rapport_absences'] ?? Config::$message_rapport_absences ?? "Les causes de l’absence doivent être notifiées par écrit à l'aide d'un justificatif dans les 48 heures à compter du début de l’absence au secrétariat du département. Voir règlement intérieur pour les motifs légitimes d'absence.";	//Message au début du rapport d'absences, après le relevé de notes.
 		$Config->message_justificatifs = $configJSON['message_justificatifs'] ?? Config::$message_justificatifs ?? "";	// Message à ajouter dans la page justificatifs.
@@ -285,7 +285,7 @@ $accepted_input = [
 	'data_absences_scodoc',
 	'metrique_absences',
 	'autoriser_justificatifs',
-	'liste_dep_ok_jusiticatifs',
+	'liste_dep_ok_justificatifs',
 	'liste_dep_publi_absences',
 	'message_rapport_absences',
 	'message_justificatifs',

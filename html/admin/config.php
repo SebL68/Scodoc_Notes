@@ -378,7 +378,7 @@
 					</label>
 					<label>
 						<b>🖊️ Liste des départements autorisant le dépot de justificatifs</b>
-						<input type="text" name="liste_dep_ok_jusiticatifs">
+						<input type="text" name="liste_dep_ok_justificatifs">
 						<p>Ne pas laisser vide si vous souhaitez l'utiliser.</p>
 						<p>Sous la forme : MMI,GEII,GLT,GEA</p>
 						<p>⚠️ Attention : l'acronyme du département doit être celui des débuts dans Scodoc. Par exemple, si le département GLT a été renommé en MLT. Il faut alors utiliser GLT.</p>
