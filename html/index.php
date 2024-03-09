@@ -422,7 +422,10 @@
 					document.querySelector(".releve").innerHTML = "<h2 style='background: #90c;'>" + data.relevé.message + "</h2>";
 				}else if(data.relevé.type == "BUT"){
 					let output = "";
-					if(config.releve_PDF) {
+					
+					dep = data.relevé.etudiant.dept_acronym || data.relevé.etudiant.photo_url.split("/")[2];
+
+					if(config.releve_PDF && (config.liste_dep_publi_PDF == "" || config.liste_dep_publi_PDF.split(",").includes(dep))) {
 						output = `
 						<form action="services/bulletin_PDF.php?type=BUT&sem_id=${semestre}&etudiant=${nip}" target="_blank" method="post">
 							<button type="submit">Télécharger le relevé au format PDF</button>
@@ -463,10 +466,8 @@
 						document.querySelector("releve-dut").hidePDF = false;
 					<?php } ?>
 				}
-
+				
 				// Récupération et affichage du message département
-				dep = data.relevé.etudiant.dept_acronym || data.relevé.etudiant.photo_url.split("/")[2];
-
 				let message = await fetchData("getReportPageMessage&dep=" + dep);
 				if(message.message) {
 					let zoneMessage = document.querySelector(".depMessage");
