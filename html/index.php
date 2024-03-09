@@ -185,7 +185,21 @@
 				font-size: 12px;
 				overflow: auto;
 			}
+			.histogramme>div::before {
+				content: "Nombre d'étudiants";
+				transform: rotate(-90deg);
+				position: absolute;
+				bottom: 77px;
+				left: -44px;
+			}
+			.histogramme>div::after {
+				content: "Notes";
+				position: absolute;
+				bottom: 4px;
+				left: 16px;
+			}
 			.histogramme>div{
+				position: relative;
 				background: #eee;
 				padding: 8px 16px 32px 16px;;
 				border-radius: 8px;
@@ -466,7 +480,7 @@
 						document.querySelector("releve-dut").hidePDF = false;
 					<?php } ?>
 				}
-				
+
 				// Récupération et affichage du message département
 				let message = await fetchData("getReportPageMessage&dep=" + dep);
 				if(message.message) {

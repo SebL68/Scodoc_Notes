@@ -1,4 +1,4 @@
-var version = 'v6.3.3:1';
+var version = 'v6.3.4';
 
 self.addEventListener("install", function (event) {
 	self.skipWaiting();
@@ -9,7 +9,9 @@ self.addEventListener("install", function (event) {
 					'/',
 					'manifest.json',
 					'assets/js/releve-but.js',
-					'assets/js/releve-dut.js'
+					'assets/js/releve-dut.js',
+					'assets/styles/releve-but.css',
+					'assets/styles/releve-dut.css'
 				]);
 			})
 	);

@@ -58,7 +58,7 @@ class releveBUT extends HTMLElement {
 				bucket.forEach((nb, index)=>{
 					graph += `<div class=histo_max>
 						<div class="histo_visu${(noteActuelle==index)?" focus":""}" style=height:${nb/bucketMax*100}%>
-							<div class=histo_value>${nb}</div>
+							<div class=histo_value>${nb || ""}</div>
 							<div class=histo_index>${index}</div>
 						</div>
 					</div>`;
