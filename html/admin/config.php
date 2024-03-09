@@ -1,6 +1,21 @@
 <?php
-  $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
-  include_once "$path/includes/default_config.php";
+	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
+	include_once "$path/includes/default_config.php";
+	require_once "$path/includes/".$Config->service_data_class;
+
+	$Scodoc = new Scodoc();
+	$departements = $Scodoc->getDepartmentsList();
+
+	function checkboxDep() {
+		global $departements;
+		$output = '';
+		foreach($departements as $dep) {
+			$nom = $dep['nom'];
+			$code = $dep['code'];
+			$output .= "<label><input type='checkbox' value='$code'>$nom</label>";
+		}
+		return $output;
+	}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -24,7 +39,7 @@
 			font-size: 1.5em;
 			font-weight: bold;
 		}
-		label {
+		details>div>* {
 			background: var(--fond-clair);
 			border: 1px solid var(--gris-estompe);
 			display: block;
@@ -33,8 +48,21 @@
 			padding: 16px 16px 0 16px;
 			border-radius: 4px;
 			margin-bottom: 4px;
-			cursor: pointer;
 			position: relative;
+		}
+		label{
+			cursor: pointer;
+		}
+		.grpCheckbox {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 4px;
+			padding: 8px 0;
+		}
+		.grpCheckbox>label {
+			border: 1px solid var(--gris-estompe);
+			padding: 4px 8px;
+			border-radius: 4px;
 		}
 		label:has(input[type=checkbox]):hover, 
 		label:hover>input[type=text],
@@ -320,8 +348,15 @@
 					<label>
 						<input type="checkbox" name="afficher_absences">
 						<b>Affichage des absences aux étudiants</b>
-						<p>Activer la zone de visualisation des absences sous le relevé de notes. Les données affichées proviennent de la passerelle ou de Scodoc en fonction de l'option suivante.</p>
+						<p>Activer la zone de visualisation des absences sous le relevé de notes. Les données affichées proviennent de la passerelle ou de Scodoc en fonction de l'option "Utiliser les absences de Scodoc".</p>
 					</label>
+					<div>
+						<b>✔️ Départements publiant leurs absences aux étudiants</b>
+						<div class="grpCheckbox" data-name="liste_dep_publi_absences">
+							<?= checkboxDep(); ?>
+						</div>
+						<p>Si vous laissez vide, tous les départements seront autorisés (pour raisons de rétrocompatibilité).</p>
+					</div>
 					<label>
 						<input type="checkbox" name="data_absences_scodoc">
 						<b>Utiliser les absences de Scodoc</b>
@@ -376,21 +411,12 @@
 </code>
 </pre>
 					</label>
-					<label>
-						<b>🖊️ Liste des départements autorisant le dépot de justificatifs</b>
-						<input type="text" name="liste_dep_ok_justificatifs">
-						<p>Ne pas laisser vide si vous souhaitez l'utiliser.</p>
-						<p>Sous la forme : MMI,GEII,GLT,GEA</p>
-						<p>⚠️ Attention : l'acronyme du département doit être celui des débuts dans Scodoc. Par exemple, si le département GLT a été renommé en MLT. Il faut alors utiliser GLT.</p>
-					</label>
-					<label>
-						<b>🖊️ Liste des départements publiant leurs absences aux étudiants</b>
-						<input type="text" name="liste_dep_publi_absences">
-						<p>Si vous laissez vide, tous les départements seront autorisés.</p>
-						<p>Sous la forme : MMI,GEII,GLT,GEA</p>
-						<p>⚠️ Attention : l'acronyme du département doit être celui des débuts dans Scodoc. Par exemple, si le département GLT a été renommé en MLT. Il faut alors utiliser GLT.</p>
-					</label>
-
+					<div>
+						<b>✔️ Départements autorisant le dépot de justificatifs</b>
+						<div class="grpCheckbox" data-name="liste_dep_ok_justificatifs">
+							<?= checkboxDep(); ?>
+						</div>
+					</div>
 					<label>
 						<b>🖊️ Message au début du rapport d'absences, après le relevé de notes</b>
 						<input type="text" name="message_rapport_absences">
@@ -461,9 +487,19 @@
 		async function getConfig() {
 			let data = await fetchData("getAllConfig");
 
-			document.querySelectorAll("[type=checkbox]").forEach(input=>{
+			document.querySelectorAll(":not(.grpCheckbox)>[type=checkbox]").forEach(input=>{
 				input.checked = data[input.name];
 				input.addEventListener("input", setConfig)
+			})
+
+			document.querySelectorAll(".grpCheckbox").forEach(div=>{
+				elements = data[div.dataset.name].split(",");
+				elements.forEach(e=>{
+					if(e == "") return;
+					let input = div.querySelector(`[value=${e}]`);
+					input.checked = true;
+					input.addEventListener("input", setConfig)
+				})
 			})
 
 			document.querySelectorAll("[type=text], [type=number], select").forEach(input=>{
@@ -474,13 +510,21 @@
 
 		async function setConfig(){
 			let value;
+			let name = this.name;
 			if(this.type == "checkbox") {
-				value = this.checked;
+				let parent = this.parentElement.parentElement;
+				if(parent.classList.contains("grpCheckbox")) {
+					value = [...parent.querySelectorAll("input:checked")].map(input => input.value).join(",");
+					name = parent.dataset.name;
+				} else {
+					value = this.checked;
+				}
+				
 			} else {
 				value = this.value;
 			}
 
-			let data = await fetchData(`setConfig&key=${this.name}&value=${value}`);
+			let data = await fetchData(`setConfig&key=${name}&value=${value}`);
 
 			if(data.resultat == "ok") {
 				this.classList.add("done");
