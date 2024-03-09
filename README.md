@@ -1,4 +1,5 @@
-Pour suivre les évolutions, l'idéal est d'aller voir sur le Discord (voir ci-dessous), sinon il y a ce lien qui est mis à jour moins souvent : https://notes.iutmulhouse.uha.fr/maj.php
+Pour suivre les évolutions, l'idéal est d'aller voir sur le Discord.
+L'assistance et les discussions par rapport à cette passerelle se font sur le Discord Assistance de Scodoc : https://discord.gg/FgMNZ4SdD4
 
 Les utilisateurs actuels sont :
 | Etablissement | Accès étudiants | Accès enseignants | Saisie des absences | Dépôt de jusitificatifs |
@@ -54,8 +55,6 @@ Les utilisateurs actuels sont :
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
   
 Vous pouvez utiliser le projet en entier pour plus de simplicité ou utiliser des parties pour coder votre propre plateforme.  
-  
-L'assistance et les discussions par rapport à cette passerelle se font sur le Discord Assistance de Scodoc : https://discord.gg/FgMNZ4SdD4
   
 # A quoi sert cette passerelle ?
 La passerelle Scodoc-Notes est un projet permettant de faire le lien entre Scodoc et les étudiants.  
