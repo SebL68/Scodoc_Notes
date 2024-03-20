@@ -19,7 +19,7 @@ Les utilisateurs actuels sont :
 | IUT de La Rochelle | ✅ |  |  |  |
 | IUT Le Mans | ✅ | ✅ |  |  |
 | IUT de Mantes-En-Yvelines | ✅ |  |  |  |
-| IUT de Saint-Malo | ✅ |  |  |  |
+| IUT de Saint-Malo | ✅ | ✅ |  |  |
 | IUT de la Roche-sur-Yon | ✅ |  |  |  |
 | IUT de Vélizy | ✅ |  |  |  |
 | IUT de Roanne | ? |  |  |  |
