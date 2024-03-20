@@ -51,6 +51,7 @@ Les utilisateurs actuels sont :
 | IUT de Béthune | ✅ |  |  |  |
 | IUT de Lyon 3 | ✅ |  |  |  |
 | IUT de Sénart-Fontainebleau | ✅ | ✅ |  |  |
+| IUT de Paris Pajol | ✅ |  |  |  |
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
   
