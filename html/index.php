@@ -391,6 +391,7 @@
 			function feedSemesters(data, nip){
 				let output = document.querySelector(".semestres");
 				output.innerHTML = "";
+				dep = data[data.length-1].titre;
 				for(let i=data.length-1 ; i>=0 ; i--){
 					let label = document.createElement("label");
 					
