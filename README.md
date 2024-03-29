@@ -21,7 +21,7 @@ Les utilisateurs actuels sont :
 | IUT de Mantes-En-Yvelines | ✅ |  |  |  |
 | IUT de Saint-Malo | ✅ | ✅ |  |  |
 | IUT de la Roche-sur-Yon | ✅ |  |  |  |
-| IUT de Vélizy | ✅ |  |  |  |
+| IUT de Vélizy | ✅ | ✅ | ✅ | ✅ |
 | IUT de Roanne | ? |  |  |  |
 | IUT de Kourou | ✅ | ✅ | ✅ |  |
 | IUT de Brest | ✅ |  |  |  |
