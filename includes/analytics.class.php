@@ -62,6 +62,8 @@ class Analytics{
 			} else {
 				echo '"' . $dateStr . '":[],';
 			}
+			ob_flush();
+        	flush();
 		}
 		echo '"1986-10-24":[] }';
 		die();
