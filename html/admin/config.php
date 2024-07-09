@@ -39,7 +39,7 @@
 			font-size: 1.5em;
 			font-weight: bold;
 		}
-		details>div>* {
+		details>div>*:not(a,p, h3) {
 			background: var(--fond-clair);
 			border: 1px solid var(--gris-estompe);
 			display: block;
