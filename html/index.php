@@ -344,7 +344,7 @@
 					}
 				} else {
 					feedSemesters(data.semestres);
-					showReportCards(data, data.semestres[0].formsemestre_id, data.auth.session);
+					showReportCards(data, data.semestres[data.semestres.length-1].formsemestre_id, data.auth.session);
 					feedAbsences(data);
 				}
 				if(!config.etudiant_modif_photo) {
