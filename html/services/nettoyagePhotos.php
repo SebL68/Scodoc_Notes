@@ -151,9 +151,11 @@
 					document.querySelector(".probleme").append(...document.querySelectorAll(".aTraiter>div"));
 					return;
 				}
-				let data = JSON.parse(new TextDecoder().decode(value));
-				let element = document.querySelector(`[data-nip="${data.nip}"]`);
-				document.querySelector(`.${data.statut}`).prepend(element);
+				let datas = JSON.parse("[" + new TextDecoder().decode(value).replaceAll("}{", "},{") + "]");
+				datas.forEach(data=>{
+					let element = document.querySelector(`[data-nip="${data.nip}"]`);
+					document.querySelector(`.${data.statut}`).prepend(element);
+				})
 			}
 		}
 		
