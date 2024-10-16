@@ -435,12 +435,11 @@
 			}	
 
 			async function showReportCards(data, semestre){
+				dep = data.relevé.etudiant.dept_acronym || data.relevé.etudiant.photo_url.split("/")[2];
 				if(data.relevé.publie == false){
 					document.querySelector(".releve").innerHTML = "<h2 style='background: #90c;'>" + data.relevé.message + "</h2>";
 				}else if(data.relevé.type == "BUT"){
 					let output = "";
-					
-					dep = data.relevé.etudiant.dept_acronym || data.relevé.etudiant.photo_url.split("/")[2];
 
 					if(config.releve_PDF && (config.liste_dep_publi_PDF == "" || config.liste_dep_publi_PDF.split(",").includes(dep))) {
 						output = `
