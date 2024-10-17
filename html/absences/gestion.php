@@ -985,6 +985,9 @@
 					if( options.boursiers == true && etudiant.boursier != true ){
 						return;
 					}
+					if( document.querySelector(`[data-nip="${etudiant.nip}"]`).parentElement.classList.contains("hide") ) {
+						return;
+					}
 					sheet.cell("A"+i).value([[
 						etudiant.nom,
 						etudiant.prenom,
