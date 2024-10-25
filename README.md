@@ -36,7 +36,7 @@ Les utilisateurs actuels sont :
 | IUT de Villetaneuse | ✅ | ✅ |  |  |
 | IUT de Cergy-Pontoise | ✅ | ✅ |  |  |
 | IUT de Mantes | ? |  |  |  |
-| IUT de Béziers | ✅ |  |  |  |
+| IUT de Béziers | ✅ |  |  | ✅ |
 | IUT de Saint Denis | A venir |  |  |  |
 | IUT d'Amiens | ✅ |  |  |  |
 | IUT de Caen (IFS) | ✅ |  |  |  |
