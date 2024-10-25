@@ -9,7 +9,7 @@ Les utilisateurs actuels sont :
 | IUT de Chartres | ✅ | ✅ |  |  |
 | IUT de Lyon 1 | ✅ | ✅ |  |  |
 | IUT de Tours | ✅ |  |  |  |
-| IUT de Lannion | ✅ |  |  |  |
+| IUT de Lannion | ✅ | ✅ | ✅ |  |
 | IUT de Lille | ✅ | ✅ |  |  |
 | IUT de Bordeaux | ✅ | ✅ |  |  |
 | IUT d'Orsay | ✅ | ✅ |  |  |
