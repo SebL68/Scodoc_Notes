@@ -21,8 +21,8 @@
 				float: left;
 				border-radius: 8px;
 				width: 52px;
-				height: auto;
-    			margin-right: 16px;
+    				margin-right: 16px;
+				object-fit: contain;
 			}
 			.semestres{
 				display: flex;
