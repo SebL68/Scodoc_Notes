@@ -30,7 +30,7 @@ Les utilisateurs actuels sont :
 | IUT de Blagnac | ✅ |  |  |  |
 | IUT de Vannes | ? |  |  |  |
 | IUT de Lorient & Pontivy | ? |  |  |  |
-| IUT de Orléans | ✅ |  |  |  |
+| IUT de Orléans | ✅ | ✅ |  |  |
 | IUT de Rennes | ✅ | ✅ |  |  |
 | IUT de Perpignan sites de Narbonne et Carcassonne | ✅ | ✅ | ✅ | ✅ |
 | IUT de Villetaneuse | ✅ | ✅ |  |  |
@@ -45,7 +45,7 @@ Les utilisateurs actuels sont :
 | IUT de Cachan | ✅ | ✅ |  |  |
 | IUT Nord Franche-Comté | ✅ |  |  |  |
 | IUT de Montreuil | ✅ |  |  |  |
-| IUT de Schiltigheim | ✅ |  |  |  |
+| IUT de Schiltigheim | ✅ | ✅ |  |  |
 | Ecole de chimie de Mulhouse (ENSCMu) | ✅ | ✅ | ✅ | ✅ |
 | IUT d'Evry | ✅ | ✅ |  |  |
 | IUT de Béthune | ✅ |  |  |  |
