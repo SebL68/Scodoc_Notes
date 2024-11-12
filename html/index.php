@@ -22,6 +22,7 @@
 				border-radius: 8px;
 				width: 52px;
     				margin-right: 16px;
+				height: auto;
 				object-fit: contain;
 			}
 			.semestres{
