@@ -54,8 +54,11 @@ class Scodoc{
 		curl_setopt_array($this->ch, $options);
 		curl_setopt($this->ch, CURLOPT_POSTFIELDS, NULL);
 
-		$token = json_decode(curl_exec($this->ch), false)->token;
-
+		$token = json_decode(curl_exec($this->ch), false)->token ?? '';
+		if($token == '') {
+			trigger_error('Token non valide', E_USER_ERROR);
+		}
+		
 		$tokenFile = fopen($this->tokenPath, "w");
 		fwrite($tokenFile, $token);
 		fclose($tokenFile);
