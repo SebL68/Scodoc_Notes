@@ -2,7 +2,7 @@ Pour suivre les évolutions, l'idéal est d'aller voir sur le Discord.
 L'assistance et les discussions par rapport à cette passerelle se font sur le Discord Assistance de Scodoc : https://discord.gg/FgMNZ4SdD4
 
 Les utilisateurs actuels sont :
-| Etablissement | Accès étudiants | Accès enseignants | Saisie des absences | Dépôt de jusitificatifs |
+| Etablissement | Accès étudiants | Accès enseignants | Saisie des absences | Dépôt de justificatifs |
 |---|---|---|---|---|
 | IUT de Mulhouse | ✅ | ✅ | ✅ | ✅ |
 | IUT de Ville d'Avray | ✅ | ✅ |  | ✅ |
