@@ -64,7 +64,7 @@
 			
 			<br>
 			<li>Ajout d'une mise en page pour le fichier createStudentJWT.php</li>
-			<li>Mise à jour des feuilles d'émargements : elles sont désormais neutre sans faire mention des partiels.</li>
+			<li>Mise à jour des feuilles d'émargement : elles sont désormais neutres sans faire mention des partiels.</li>
 			<li>Les relevés PDF qu'un étudiant peut télécharger sont désormais les relevés courts spéciaux BUT.</li>
 
 			<br>
@@ -79,14 +79,14 @@
 		<ul>
 			<b>Relevé BUT</b>
 			<li>Ajout d'un marqueur pour voir rapidement les nouvelles évaluations - David Ismeurt, étudiant MMI Mulhouse.</li>
-			<li>Amélioration de l'affichage des malus négatif - Jean-Marie Place, EC université de Lille.</li>
+			<li>Amélioration de l'affichage des malus négatifs - Jean-Marie Place, EC université de Lille.</li>
 
 			<br>
 			<b>Absences</b>
 			<li>Option de sauvegarde des données absences dans Scodoc. Nécessite Scodoc 9.6+.</li>
 			<li>Si la sauvegarde dans Scodoc est opérationnelle, option pour activer l'ajout de justificatifs d'absences par l'étudiant.</li>
 			<li>Option pour choisir les départements qui autorisent le dépôt de justificatifs.</li>
-			<li>Saisi des absences par lots (tous absents, tous présents, etc).</li>
+			<li>Saisie des absences par lots (tous absents, tous présents, etc).</li>
 			<li>Rapport d'absences : ajout d'un accumulateur du nombre de jours absents.</li>
 			<li>Personnalisation des messages au début de rapport d'absences et dans la page de dépôt des justificatifs.</li>
 
@@ -121,7 +121,7 @@
 			<b>Under the hood</b>
 			<li>Passage de phpCAS 1.4.0 à 1.6.1</li>
 			<li>Correctif de compatibilité PHP 8.2</li>
-			<li>Amélioration du fonctionnement de menu principal.</li>
+			<li>Amélioration du fonctionnement du menu principal.</li>
 			<li>Suppression de la vérification des fichiers annuaires : bascule en mode enseignant simplifié.</li>
 			<br>
 			<li>Divers autres correctifs et améliorations.</li>
@@ -152,7 +152,7 @@
 		</ul>
 		<h2>25/01/2023 - 5.0.7</h2>
 		<ul>
-			<li>Mise en place d'un fichier listant les super admin.</li>
+			<li>Mise en place d'un fichier listant les super-admins.</li>
 			<li>Relevé : ajout rang du parcours sur le relevé.</li>
 			<li>Relevé : ajout des UE capitalisées.</li>
 			<li>Relevé : correctif d'affichage démissionnaires - contribution Emmanuel Viennet - grand manitou.</li>
@@ -223,8 +223,8 @@
 			<b>Absences</b>
 			<li>Refonte du module d'absence :
 				<ul>
-					<li>Pestion par créneaux libres sur la journée.</li>
-					<li>Prise en compte des présences, retard et absences.</li>
+					<li>Gestion par créneaux libres sur la journée.</li>
+					<li>Prise en compte des présences, retards et absences.</li>
 					<li>A venir : création de rapport d'absences par mois.</li>
 				</ul>
 			</li>
@@ -238,8 +238,8 @@
 			<b>Ajouts</b>
 			<li>Ajout d'un système d'analyse du trafic interne à la passerelle : à activer dans config.php - les graphiques d'analyse viendront dans une autre version.</li>
 			<li>Ajout d'un lien pour accéder directement aux relevés de l'étudiant à partir de la fiche étudiant.</li>
-			<li>Ajout d'une méthode dans config pour extraire le nom de l'utilisateur de l'idCAS.<br>
-			Sinon, par défaut : récupération du nom de l'utilisateur avec les info CAS "cn" ou "displayName". Si aucun de fonctionne, affichage de 'Mme, M.'.
+			<li>Ajout d'une méthode dans la config pour extraire le nom de l'utilisateur de l'idCAS.<br>
+			Sinon, par défaut : récupération du nom de l'utilisateur avec les infos CAS "cn" ou "displayName". Si aucun ne fonctionne, affichage de 'Mme, M.'.
 			</li>
 			<li>Ajout du groupe étudiant sur le relevé.</li>
 			<li>Ajout d'une option dans config.php pour personnaliser le message en cas de non diffusion des relevés par Scodoc.</li>
@@ -248,7 +248,7 @@
 			<b>Améliorations</b>
 			<li>Ajout de mbstring dans installOrUpdate.sh</li>
 			<li>Amélioration des audits Lighthouse : accessibilité et SEO.</li>
-			<li>Utilisation de l'année universitaire fourni par Scodoc pour la liste des semestres qu'un étudiant à suivi.</li>
+			<li>Utilisation de l'année universitaire fournie par Scodoc pour la liste des semestres qu'un étudiant a suivis.</li>
 			<li>Affichage de la situation du semestre à la place du code d'admission.</li>
 			<li>Amélioration de l'affichage des décisions semestres / années.</li>
 			<li>Ajout des décisions RCUE semestres pairs.</li>
@@ -281,7 +281,7 @@ rm installOrUpdate.sh
 wget -q https://raw.githubusercontent.com/SebL68/Scodoc_Notes/main/installOrUpdate.sh
 chmod +x installOrUpdate.sh</pre></code>
 		</p>
-		<p><b>⚠️⚠️⚠️ ATTENTION : IL EST NECESSAIRE MODIFIER LE RÔLE et DE LIER LE RÔLE AUX PERMISSIONS DANS SCODOC (si ce n'est pas déjà fait) ⚠️⚠️⚠️</b></p>
+		<p><b>⚠⚠️⚠️ ATTENTION : IL EST NECESSAIRE DE MODIFIER LE RÔLE & DE LIER LE RÔLE AUX PERMISSIONS DANS SCODOC (si ce n'est pas déjà fait) ⚠️⚠️⚠️</b></p>
 		<p><i>==> Ajoutez le rôle LecteurAPI au compte qui se connecte à l'API (pour le moment il faut laisser le rôle Secr car la passerelle utilise en partie l'ancienne API)</i></p>
 		<p>
 			<i>
@@ -310,7 +310,7 @@ flask edit-role -a ScoView LecteurAPI</pre></code>
 			<li>Mise en place des diagnostics Scodoc sur la page 2 :
 				<ul>
 					<li>Essaie de la communication entre le serveur passerelle et Scodoc.</li>
-					<li>Vérification de l'authentification a Scodoc.</li>
+					<li>Vérification de l'authentification à Scodoc.</li>
 					<li>Test de récupération de données => liste des départements.</li>
 				</ul>
 			</li>
@@ -338,7 +338,7 @@ chmod 744 installOrUpdate.sh
 
 			[Option]
 			Par défaut, la mise à jour se fait dans /var/www/. 
-			Le script accepte comme paramètre un chemin différent afin de permettre la mise à jour pour ceux qui ont configurer des Virtual Hosts.
+			Le script accepte comme paramètre un chemin différent afin de permettre la mise à jour pour ceux qui ont configuré des Virtual Hosts.
 			<code>./installOrUpdate.sh cheminVersLaPasserelle</code>
 		</p>
 		<h2>20/04/2022 - V4.7.12</h2>
@@ -351,7 +351,7 @@ chmod 744 installOrUpdate.sh
 		</ul>
 		<h2>17/03/2022 - V4.7.10</h2>
 		<ul>
-			<li>Correction bug : prise en compte du non export des ECTS.</li>
+			<li>Correction bug : prise en compte du non-export des ECTS.</li>
 		</ul>
 		<h2>15/03/2022 - V4.7.9</h2>
 		<ul>
@@ -384,15 +384,15 @@ chmod 744 installOrUpdate.sh
 		</ul>
 		<h2>14/02/2022 - V4.7.3</h2>
 		<ul>
-			<li>Correction bug choix semestre étudiant.</li>
+			<li>Correction bug : choix semestre étudiant.</li>
 		</ul>
 		<h2>03/02/2022 - V4.7.2</h2>
 		<ul>
-			<li>Correction bug téléchargement relevé version PDF.</li>
+			<li>Correction bug : téléchargement relevé version PDF.</li>
 		</ul>
 		<h2>02/02/2022 - V4.7.1</h2>
 		<ul>
-			<li>Ajout des informations identité de l'étudiant sur les relevés DUT.</li>
+			<li>Ajout des informations d'identité de l'étudiant sur les relevés DUT.</li>
 			<li>Amélioration du relevé DUT.</li>
 		</ul>
 		<h2>02/02/2022 - V4.7.0</h2>
@@ -410,7 +410,7 @@ chmod 744 installOrUpdate.sh
 			<li>Relevés BUT : affichage des bonus dans une UE.</li>
 			<li>Relevés BUT : correction de l'affichage des absences : ajout du total semestre des absences.</li>
 			<li>Possibilité de modifier, à partir du fichier config, les photos renvoyées par l'API => function customPic()</li>
-			<li>Possibilité de modifier, à partir du fichier config, les data générés par l'API avant l'envoie => function customOutput()</li>
+			<li>Possibilité de modifier, à partir du fichier config, les datas générées par l'API avant l'envoi => function customOutput()</li>
 			<li>Ajout d'une zone "custom", remplie au choix de chaque IUT, depuis le fichier config => voir function customOutput().</li>
 		</ul>
 		<h2>26/01/2022 - V4.6.5</h2>
@@ -441,13 +441,13 @@ chmod 744 installOrUpdate.sh
 
 		<h2>19/01/2022 - V4.x.x</h2>
 		<ul>
-			<li>Reprise des notes de version dans le fichier de mises à jours.</li>
+			<li>Reprise des notes de version dans le fichier de mises à jour.</li>
 			<li>Refonte complète du système côté serveur : passage du code en POO, réorganisation des fichiers, etc.</li>
 			<li>Mise en place d'un système de gestion des absences.</li>
 			<li>Mise en place d'un système de gestion des comptes.</li>
-			<li>Mise en place d'une communication avec le LDAP pour récupérer statut.</li>
+			<li>Mise en place d'une communication avec le LDAP pour récupérer le statut.</li>
 			<li>Prise en charge automatique des relevés DUT et BUT.</li>
-			<li>Lise en place d'un système de gestion des photos étudiants : l'étudiant gère sa propre photo. Les photos serveur pour les trombinoscopes et les absences.</li>
+			<li>Mise en place d'un système de gestion des photos étudiants : l'étudiant gère sa propre photo. Les photos serveur pour les trombinoscopes et les absences.</li>
 			<li>Mise en place d'un système pour un versionnage du fichier de configuration et d'une configuration par défaut.</li>
 		</ul>
 
@@ -472,7 +472,7 @@ chmod 744 installOrUpdate.sh
 				<li>Optimisation des performances : gzip requêtes, réduction du nombre de requêtes envoyées aux services (une à la place de trois) et du serveur à Scodoc.</li>
 				<li>Le site est désormais une PWA complètement valide - fonctionnement hors ligne avec message.</li>
 				<li>Ajout d'un "splash screen" lors de l'authentification.</li>
-				<li>Correction bug double requête au clique sur le semestre.</li>
+				<li>Correction bug double requête au clic sur le semestre.</li>
 				<li>Ajout d'un système de génération automatique des listes étudiantes en fonction de groupes.</li>
 				<li>Génération automatique des fichiers Excel pour les listes d'émargements, les groupes d'étudiants, le retour des notes, les données des étudiants.</li>
 				<li>Ajout de l'identification des vacataires pour le département MMI.</li>
@@ -481,7 +481,7 @@ chmod 744 installOrUpdate.sh
 		<h2>15/10/2020 - V2.1.1</h2>
 		<p>
 			<ul>
-				<li>Amélioration de la détection d'erreurs (ajout du cas où le NIP est erroné et de la non autorisation de l'export des notes dans la configuration du semestre).</li>
+				<li>Amélioration de la détection d'erreurs (ajout du cas où le NIP est erroné et de la non-autorisation de l'export des notes dans la configuration du semestre).</li>
 			</ul>
 		</p>
 
@@ -495,8 +495,8 @@ chmod 744 installOrUpdate.sh
 		<h2>10/09/2020 - V2.0.1</h2>
 		<p>
 			<ul>
-				<li>Correction d'un bug affichant un statut de réussite semi vide pour les étudiants en cours de cursus.</li>
-				<li>Ajout de cette page listant les mises à jours.</li>
+				<li>Correction d'un bug affichant un statut de réussite semi-vide pour les étudiants en cours de cursus.</li>
+				<li>Ajout de cette page listant les mises à jour.</li>
 			</ul>
 		</p>
 
@@ -515,7 +515,7 @@ chmod 744 installOrUpdate.sh
 
 		<h2>01/09/2019 - V1.0.0</h2>
 		<p>
-		Mise en ligne du premier système de récupération de relevés notes :
+		Mise en ligne du premier système de récupération de relevés de notes :
 		<ul>
 				<li>connexion au CAS de l'UHA,</li>
 				<li>lien avec un listing LDAP pour identifier les étudiants à partir de leur mail,</li>
