@@ -111,7 +111,7 @@ class releveBUT extends HTMLElement {
 		<!-- Info. étudiant        -->
 		<!--------------------------->
 		<section class=etudiant>
-			<img class=studentPic src="" alt="Photo de l'étudiant" width=100 height=120>
+			<img class=studentPic src="" alt="Photo de l'étudiant" width=120 height=120>
 			<div class=infoEtudiant></div>
 		</section>
 
