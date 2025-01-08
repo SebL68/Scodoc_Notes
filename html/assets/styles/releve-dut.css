@@ -15,6 +15,10 @@
 	border-radius: 8px;
 	margin: 16px 10px 0 10px;
 }
+.etudiant>img {
+    background: var(--couleurPrincipale);
+    object-fit: contain;
+}
 .civilite{
     font-weight: bold;
     font-size: 130%;
