@@ -113,6 +113,10 @@ section>div:nth-child(1){
     background: var(--couleurPrincipale);
     color: rgb(0, 0, 0);
 }
+.etudiant>img {
+    background: var(--couleurPrincipale);
+    object-fit: contain;
+}
 .civilite{
     font-weight: bold;
     font-size: 130%;
