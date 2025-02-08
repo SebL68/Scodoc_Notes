@@ -240,18 +240,13 @@
 /*****************/
 /* Appréciations */
 /*****************/
-			div.bul_foot {
+			.appreciations {
 				max-width: 1000px;
-				background: var(--bulletin-footer);
-				border-radius: 16px;
+				background: var(--fond-clair);
 				border: 1px solid var(--gris-estompe);
+				border-radius: 16px;
 				padding: 16px 32px;
 				color: var(--contenu);
-			}
-			
-			div.bull_appreciations {
-				border-left: 1px solid var(--contenu);
-				padding-left: 5px;
 			}
 		</style>
 		<meta name=description content="Relevé de notes - <?php echo $Config->nom_IUT; ?>">
@@ -466,17 +461,17 @@
 
 					}
 					let footer = "";
-					if (data.relevé.appreciation && data.relevé.appreciation.length>0){
+					if (data.relevé.appreciation 
+						&& data.relevé.appreciation.length>0 
+						&& config.liste_dep_affichage_appreciations.split(",").includes(dep)){
 						footer = `
-						<div class="bul_foot">
-							<div class="bull_appreciations">
-								<h3>Appréciations</h3>`;
+						<div class="appreciations">
+							<h3>Appréciations</h3>`;
 						data.relevé.appreciation.forEach(app => {
 							footer += `
-								<p>${app.comment}</p>`;
+							<p>${app.comment}</p>`;
 						});
 						footer += `
-							</div>
 						</div>`;
 					}
 					document.querySelector(".releve").innerHTML = output + "<releve-but></releve-but>" + footer;
