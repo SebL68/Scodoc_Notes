@@ -35,6 +35,7 @@
 /***********************/
 		$Config->releve_PDF = $configJSON['releve_PDF'] ?? Config::$releve_PDF ?? true; // Affichage de l'option pour que les étudiants puissent télécharger leur relevé en version PDF.
 		$Config->liste_dep_publi_PDF = $configJSON['liste_dep_publi_PDF'] ?? Config::$liste_dep_publi_PDF ?? ''; // Liste des départements autorisant la publication des PDF - tous si vide.
+		$Config->liste_dep_affichage_appreciations = $configJSON['liste_dep_affichage_appreciations'] ?? Config::$liste_dep_affichage_appreciations ?? ''; // Liste des départements autorisant l'affichage des appréciations.
 
 		$Config->etudiant_modif_photo = $configJSON['etudiant_modif_photo'] ?? Config::$etudiant_modif_photo ?? true; // Autoriser les étudiants à modifier leur photo.
 		$Config->nom_IUT = $configJSON['nom_IUT'] ?? Config::$nom_IUT ?? 'IUT'; // Nom de l'IUT, par exemple : 'IUT de Mulhouse'.
@@ -264,6 +265,7 @@ $accepted_input = [
 	'message_non_publication_releve',
 	'releve_PDF',
 	'liste_dep_publi_PDF',
+	'liste_dep_affichage_appreciations',
 	'etudiant_modif_photo',
 	'acces_enseignants',
 	'cloisonner_enseignants',

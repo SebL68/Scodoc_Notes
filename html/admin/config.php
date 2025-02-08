@@ -235,6 +235,12 @@
 						</div>
 						<p>Si vous laissez vide, tous les départements seront autorisés (pour raisons de rétrocompatibilité).</p>
 					</div>
+					<div>
+						<b>✔️ Départements autorisant l'affichage des appréciations</b>
+						<div class="grpCheckbox" data-name="liste_dep_affichage_appreciations">
+							<?= checkboxDep(); ?>
+						</div>
+					</div>
 					<label>
 						<b>🖊️ Message non publication relevé</b>
 						<input type="text" name="message_non_publication_releve">
