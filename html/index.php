@@ -237,6 +237,17 @@
 			.histogramme .focus{
 				background: var(--accent);
 			}
+/*****************/
+/* Appréciations */
+/*****************/
+			.appreciations {
+				max-width: 1000px;
+				background: var(--fond-clair);
+				border: 1px solid var(--gris-estompe);
+				border-radius: 16px;
+				padding: 16px 32px;
+				color: var(--contenu);
+			}
 		</style>
 		<meta name=description content="Relevé de notes - <?php echo $Config->nom_IUT; ?>">
 	</head>
@@ -449,7 +460,21 @@
 						</form>`;
 
 					}
-					document.querySelector(".releve").innerHTML = output + "<releve-but></releve-but>";
+					let footer = "";
+					if (data.relevé.appreciation 
+						&& data.relevé.appreciation.length>0 
+						&& config.liste_dep_affichage_appreciations.split(",").includes(dep)){
+						footer = `
+						<div class="appreciations">
+							<h3>Appréciations</h3>`;
+						data.relevé.appreciation.forEach(app => {
+							footer += `
+							<p>${app.comment}</p>`;
+						});
+						footer += `
+						</div>`;
+					}
+					document.querySelector(".releve").innerHTML = output + "<releve-but></releve-but>" + footer;
 
 					let releve = document.querySelector("releve-but");
 					releve.config = {
