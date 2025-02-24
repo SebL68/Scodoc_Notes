@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publipostage Word et Excel</title>
+    <style>
+        body {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            margin: 0;
+            background: #f0f0f0;
+			display: grid;
+			grid-template-rows: auto 1fr auto;
+			min-height: 100vh;
+        }
+
+        header {
+            background: #09c;
+            color: #fff;
+            padding: 1px 32px;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 0 auto auto auto;
+            padding: 0 32px 32px 32px;
+        }
+
+        input[type="file"] {
+            margin: 10px 0;
+        }
+
+        label {
+            display: block;
+        }
+
+        section {
+            background: #fff;
+            padding: 8px 32px;
+            border-radius: 16px;
+            border: 1px solid #aaa;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        button {
+            display: block;
+            margin-left: auto;
+            background: #c09;
+            color: #fff;
+            padding: 8px 16px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            outline: 1px solid #999;
+        }
+
+        label {
+            cursor: pointer;
+        }
+
+        footer {
+            background: #222;
+            color: #fff;
+            padding: 32px;
+        }
+
+		.wait button{
+			pointer-events: none;
+			background:#cc009980;
+			position: relative;
+			overflow: hidden;
+		}
+		.wait button::before{
+			content: "";
+			width: 8px;
+			position: absolute;
+			background: #222;
+			border-radius: 8px;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			animation: zioum 0.6s alternate infinite ease-in-out;
+		}
+		@keyframes zioum {
+			0%{transform: translate(0)}
+			0%{transform: translate(210px)}
+		}
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Publipostage Word et Excel</h1>
+    </header>
+    <main>
+        <h2>Cas général</h2>
+        <section>
+            <p>Cet outil permet de réaliser du publipostage entre un fichier Word de référence et des données Excel.</p>
+            <p>La <b>première ligne du fichier Excel</b> correspond au <b>marqueur</b> qui se trouve dans le fichier
+                Word.</p>
+            <p>Dans le fichier Word, <b>le marqueur est identifié avec {...}</b> avec ... étant l'identifiant présent
+                dans la
+                première ligne du Excel.</p>
+            <p>Les données peuvent être indifféremment dans plusieurs feuilles.</p>
+            <p>Il y aura un fichier Word généré par ligne Excel.</p>
+            <p>Le fichier Word comportera le nom prénom de l'étudiant.</p>
+        </section>
+
+        <h2>Utilisation pour la poursuite d'études</h2>
+        <section>
+            <div>
+                <p>Dans Scodoc, allez sur le <b>S6 -> Statistiques -> Documents Avis Poursuite Etude (XP)</b><br><br>
+                    Options :</p>
+                <ul>
+                    <li>✔️ Générer les moyennes sur les tags de modules personnalisés</li>
+                    <li>❌ Générer les moyennes des ressources et SAEs</li>
+                    <li>✔️ Générer les moyennes par RCUEs (compétences) et leurs synthèses HTML par étudiant</li>
+                    <li>✔️ Afficher les colonnes min/max/moy</li>
+                    <li>✔️ Nomme les moyennes pour publipostage</li>
+                </ul>
+                A noter qu'il est possible d'avoir <a
+                    href=https://scodoc.org/AvisPoursuiteEtudes/#moyennes-personnalisees-les-tags
+                    target="_blank">moyennes
+                    personnalisées</a> de plusieurs matières regroupées.
+            </div>
+            <p>Dans le fichier Word, vous pouvez utiliser le fichier exemple que je vous ai envoyé et le modifier à
+                volonté
+                avec les marqueurs {...}.</p>
+        </section>
+
+        <h2>En pratique</h2>
+        <section class="flex">
+            <div>
+                <label>
+                    Ajoutez le fichier Word de référence
+                    <input type="file" id="wordFile" accept=".docx">
+                </label>
+                <label>
+                    Ajoutez le fichier de données Excel
+                    <input type="file" id="excelFile" accept=".xlsx">
+                </label>
+            </div>
+
+            <button>Générer les documents<br>
+			<small>Peut prendre quelques minutes</small><br>
+			<small>Optimisations à venir</small></button>
+        </section>
+    </main>
+
+    <footer>
+        Un problème ? Demandez à Seb :-)
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+    <script>
+
+        document.querySelector("button").addEventListener("click", generateDocuments);
+
+        async function generateDocuments() {
+            const excelFileInput = document.getElementById('excelFile');
+            const wordFileInput = document.getElementById('wordFile');
+
+            if (!excelFileInput.files.length || !wordFileInput.files.length) {
+                alert('Veuillez sélectionner les fichiers Excel et Word.');
+                return;
+            }
+
+			document.body.classList.add("wait");
+
+            const excelFile = excelFileInput.files[0];
+            const wordFile = wordFileInput.files[0];
+
+            // Lire le fichier Excel
+            const arrayBufferExcel = await excelFile.arrayBuffer();
+            const workbook = XLSX.read(arrayBufferExcel, { type: 'array' });
+
+            // Lire le fichier Word et le dézipper
+            const arrayBufferWord = await wordFile.arrayBuffer();
+            const zip = await JSZip.loadAsync(arrayBufferWord);
+
+            // Récupère le contenu textuel du document Word
+            const documentXmlFile = zip.file("word/document.xml");
+            const wordStr = await documentXmlFile.async("string");
+
+            // Créer une instance de JSZip pour le dossier ZIP final
+            const finalZip = new JSZip();
+            const folder = finalZip.folder("Avis poursuite d'études");
+
+            const allData = [];
+            const headers = [];
+
+            // Lire toutes les feuilles du fichier Excel
+            workbook.SheetNames.forEach((sheetName, sheetIndex) => {
+                const sheet = workbook.Sheets[sheetName];
+                const data = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+                const header = data.shift();
+
+                // Combiner les données de toutes les feuilles
+                data.forEach((row, rowIndex) => {
+                    if (!allData[rowIndex]) {
+                        allData[rowIndex] = {};
+                    }
+                    row.forEach((cell, idx) => {
+                        allData[rowIndex][header[idx]] = cell;
+                    });
+                });
+            });
+
+            const promises = allData.map(async (context, index) => {
+                // Cloner le contenu du fichier Word
+                const newZip = new JSZip();
+                const files = Object.keys(zip.files);
+                for (const file of files) {
+                    const content = await zip.file(file).async("arraybuffer");
+                    newZip.file(file, content);
+                }
+
+                // Remplacer les marqueurs dans le contenu XML
+                let newContent = wordStr;
+                for (const key in context) {
+					const keyEscape = key.replace(/[/\-\\^$*+?.()|[\]{}]/g, '\\$&');
+                    const regex = new RegExp(`\\{${keyEscape}\}|\{[^}]*?>${keyEscape}<[^}]*\}`, 'gsm');
+                    newContent = newContent.replace(regex, context[key]);
+                }
+                newZip.file("word/document.xml", newContent);
+
+                // Générer le fichier Word final pour chaque ligne
+                const blob = await newZip.generateAsync({ type: 'blob' });
+
+                // Ajouter le fichier Word au dossier ZIP final
+                folder.file(`PE_${context["Nom"]}_${context["Prenom"]}.docx`, blob);
+            });
+
+            // Attendre que toutes les promesses soient résolues
+            await Promise.all(promises);
+
+            // Générer le fichier ZIP final
+            finalZip.generateAsync({ type: 'blob' }).then(content => {
+                const url = URL.createObjectURL(content);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'Avis_PE.zip';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+				document.body.classList.remove("wait");
+            });
+        }
+    </script>
+</body>
+
+</html>
