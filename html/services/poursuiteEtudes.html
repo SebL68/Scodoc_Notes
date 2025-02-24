@@ -106,7 +106,7 @@
             <p>Cet outil permet de réaliser du publipostage entre un fichier Word de référence et des données Excel.</p>
             <p>La <b>première ligne du fichier Excel</b> correspond au <b>marqueur</b> qui se trouve dans le fichier
                 Word.</p>
-            <p>Dans le fichier Word, <b>le marqueur est identifié avec {...}</b> avec ... étant l'identifiant présent
+            <p>Dans le fichier Word, <b>le marqueur est identifié avec {{...}}</b> avec ... étant l'identifiant présent
                 dans la
                 première ligne du Excel.</p>
             <p>Les données peuvent être indifféremment dans plusieurs feuilles.</p>
@@ -133,7 +133,7 @@
             </div>
             <p>Dans le fichier Word, vous pouvez utiliser le fichier exemple que je vous ai envoyé et le modifier à
                 volonté
-                avec les marqueurs {...}.</p>
+                avec les marqueurs {{...}}.</p>
         </section>
 
         <h2>En pratique</h2>
@@ -228,7 +228,7 @@
                 let newContent = wordStr;
                 for (const key in context) {
 					const keyEscape = key.replace(/[/\-\\^$*+?.()|[\]{}]/g, '\\$&');
-                    const regex = new RegExp(`\\{${keyEscape}\}|\{[^}]*?>${keyEscape}<[^}]*\}`, 'gsm');
+                    const regex = new RegExp(`\\{\{${keyEscape}\}\}|\{\{[^}]*?>${keyEscape}<[^}]*\}\}`, 'gsm');
                     newContent = newContent.replace(regex, context[key]);
                 }
                 newZip.file("word/document.xml", newContent);
