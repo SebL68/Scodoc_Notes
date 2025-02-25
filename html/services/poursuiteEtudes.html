@@ -134,24 +134,24 @@
             <p>Dans le fichier Word, vous pouvez utiliser le fichier exemple que je vous ai envoyé et le modifier à
                 volonté
                 avec les marqueurs {{...}}.</p>
+
+            <p>J'ajoute à la main, en plus des autres données, les abscences sur les trois années et les dates de naissance.</p>
         </section>
 
         <h2>En pratique</h2>
         <section class="flex">
             <div>
                 <label>
-                    Ajoutez le fichier Word de référence
+                    Ajoutez le fichier <b>Word</b> de référence
                     <input type="file" id="wordFile" accept=".docx">
                 </label>
                 <label>
-                    Ajoutez le fichier de données Excel
+                    Ajoutez le fichier de données <b>Excel</b>
                     <input type="file" id="excelFile" accept=".xlsx">
                 </label>
             </div>
 
-            <button>Générer les documents<br>
-			<small>Peut prendre quelques minutes</small><br>
-			<small>Optimisations à venir</small></button>
+            <button>Générer les documents</button>
         </section>
     </main>
 
@@ -189,7 +189,7 @@
 
             // Récupère le contenu textuel du document Word
             const documentXmlFile = zip.file("word/document.xml");
-            const wordStr = await documentXmlFile.async("string");
+            let wordStr = await documentXmlFile.async("string");
 
             // Créer une instance de JSZip pour le dossier ZIP final
             const finalZip = new JSZip();
@@ -197,6 +197,16 @@
 
             const allData = [];
             const headers = [];
+
+            // Optimisation du word (suppression des balises dans les {{ }} ) et récupération des clées
+            const regex = /{{[^{}]*?}}/gsm;
+            const markers = [];
+            wordStr = wordStr.replace(regex, segment => {
+                // Supprimer les balises dans le segment
+                let output = segment.replace(/<\/?w:[^>]+>/gsm, '');
+                markers.push(output.replace(/{|}/g, ''));
+                return output;
+            });
 
             // Lire toutes les feuilles du fichier Excel
             workbook.SheetNames.forEach((sheetName, sheetIndex) => {
@@ -210,7 +220,9 @@
                         allData[rowIndex] = {};
                     }
                     row.forEach((cell, idx) => {
-                        allData[rowIndex][header[idx]] = cell;
+                        if(markers.includes(header[idx])){
+                            allData[rowIndex][header[idx]] = cell;
+                        }
                     });
                 });
             });
@@ -228,8 +240,9 @@
                 let newContent = wordStr;
                 for (const key in context) {
 					const keyEscape = key.replace(/[/\-\\^$*+?.()|[\]{}]/g, '\\$&');
-                    const regex = new RegExp(`\\{\{${keyEscape}\}\}|\{\{[^}]*?>${keyEscape}<[^}]*\}\}`, 'gsm');
-                    newContent = newContent.replace(regex, context[key]);
+                    const regex = new RegExp(`\\{\{${keyEscape}\}\}`, 'gsm');
+					const data = typeof(context[key])=="number"?context[key].toFixed(2):context[key];
+                    newContent = newContent.replace(regex, data);
                 }
                 newZip.file("word/document.xml", newContent);
 
