@@ -54,7 +54,7 @@ Les utilisateurs actuels sont :
 | IUT de Paris Pajol | ✅ |  |  |  |
 | IUT de Saint-Brieuc | ✅ |  |  |  |
 | IUT de Sceaux | ✅ | ✅ |  |  |
-| IUT de Sceaux | Tests en cours |  |  |  |
+| IUT de Colmar | Tests en cours |  |  |  |
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
   
