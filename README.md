@@ -14,7 +14,6 @@ Les utilisateurs actuels sont :
 | IUT de Bordeaux | ✅ | ✅ |  |  |
 | IUT d'Orsay | ✅ | ✅ |  |  |
 | IUT Le Havre | ✅ | ✅ |  |  |
-| IUT de Poitiers | ? |  |  |  |
 | IUT du Littoral Côte d'Opale | ? |  |  |  |
 | IUT de La Rochelle | ✅ |  |  |  |
 | IUT Le Mans | ✅ | ✅ |  |  |
@@ -55,6 +54,9 @@ Les utilisateurs actuels sont :
 | IUT de Saint-Brieuc | ✅ |  |  |  |
 | IUT de Sceaux | ✅ | ✅ |  |  |
 | IUT de Colmar | ✅ | ✅ | ✅ | ✅ |
+| IUT de Poitiers | Étude en cours |  |  |  |
+| IUT de Chatellerault | Étude en cours |  |  |  |
+| Toute l'Université de Haute Alsace (UHA) | Étude en cours |  |  |  |
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
   
