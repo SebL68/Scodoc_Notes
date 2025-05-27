@@ -557,8 +557,8 @@ class Scodoc{
 	/* createAbsence()
 	Créé une nouvelle absence
 	*******************************/
-	public function createAbsence($nip, $data){
-		return json_decode( $this->Ask_Scodoc("assiduite/nip/$nip/create", [], $data) );
+	public function createAbsence($dep, $nip, $data){
+		return json_decode( $this->Ask_Scodoc("assiduite/nip/$nip/create", [], $data, $dep) );
 	}
 
 	/*******************************/

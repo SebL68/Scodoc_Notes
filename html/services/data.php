@@ -304,6 +304,7 @@
 				if($user->getStatut() < PERSONNEL ){ returnError(); }
 				if($user->getStatut() < ADMINISTRATEUR && $_GET['statut'] == 'justifie' ){ returnError(); }
 
+				sanitize($_GET['departement']);
 				sanitize($_GET['semestre']);
 				//sanitize($_GET['matiere']);
 				//sanitize($_GET['matiereComplet']);
@@ -324,6 +325,7 @@
 				}
 
 				$output = Absences::setAbsence(
+					$_GET['departement'],
 					$user->getName(),
 					$_GET['semestre'],
 					$_GET['matiere'],

@@ -5,7 +5,7 @@
 		*	Créé ou modifie le fichier d'absence d'un étudiant
 		*
 		************************************/
-		public static function setAbsence($enseignant, $semestre, $matiere, $matiereComplet, $etudiant, $date, $debut, $fin, $statut, $order, $id, $idMatiere){
+		public static function setAbsence($departement, $enseignant, $semestre, $matiere, $matiereComplet, $etudiant, $date, $debut, $fin, $statut, $order, $id, $idMatiere){
 
 			$Scodoc = new Scodoc();
 
@@ -25,7 +25,7 @@
 							]
 						]
 					];
-					$response = $Scodoc->createAbsence($etudiant, json_encode($data));
+					$response = $Scodoc->createAbsence($departement, $etudiant, json_encode($data));
 					if(isset($response->success[0]->message->assiduite_id)) {
 						return [
 							'result' => 'OK',

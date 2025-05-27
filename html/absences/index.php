@@ -1047,7 +1047,8 @@
 			etudiant.dataset.statut = this.dataset.command;
 
 			/* Envoi */
-			let reponse = await fetchData("setAbsence" + 
+			let reponse = await fetchData("setAbsence" +
+				"&departement=" + departement + 
                 "&semestre=" + semestre +
                 "&matiere=" + matiere +
                 "&matiereComplet=" + matiereComplet +
