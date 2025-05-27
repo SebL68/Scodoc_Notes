@@ -8,11 +8,11 @@ Les utilisateurs actuels sont :
 | IUT de Ville d'Avray | ✅ | ✅ |  | ✅ |
 | IUT de Chartres | ✅ | ✅ |  |  |
 | IUT de Lyon 1 | ✅ | ✅ |  |  |
-| IUT de Tours | ✅ |  |  |  |
-| IUT de Lannion | ✅ | ✅ | ✅ |  |
+| IUT de Tours | ✅ |  |  | ✅ |
+| IUT de Lannion | ✅ | ✅ |  |  |
 | IUT de Lille | ✅ | ✅ |  |  |
 | IUT de Bordeaux | ✅ | ✅ |  |  |
-| IUT d'Orsay | ✅ | ✅ |  |  |
+| IUT d'Orsay | ✅ | ✅ | ✅ |  |
 | IUT Le Havre | ✅ | ✅ |  |  |
 | IUT du Littoral Côte d'Opale | ? |  |  |  |
 | IUT de La Rochelle | ✅ |  |  |  |
@@ -20,7 +20,7 @@ Les utilisateurs actuels sont :
 | IUT de Mantes-En-Yvelines | ✅ |  |  |  |
 | IUT de Saint-Malo | ✅ | ✅ |  |  |
 | IUT de la Roche-sur-Yon | ✅ |  |  |  |
-| IUT de Vélizy | ✅ | ✅ | ✅ | ✅ |
+| IUT de Vélizy | ✅ | ✅ | ✅ |  |
 | IUT de Roanne | ? |  |  |  |
 | IUT de Kourou | ✅ | ✅ | ✅ |  |
 | IUT de Brest | ✅ |  |  |  |
@@ -30,7 +30,7 @@ Les utilisateurs actuels sont :
 | IUT de Vannes | ? |  |  |  |
 | IUT de Lorient & Pontivy | ? |  |  |  |
 | IUT de Orléans | ✅ | ✅ |  |  |
-| IUT de Rennes | ✅ | ✅ |  |  |
+| IUT de Rennes | ✅ | ✅ | ✅ |  |
 | IUT de Perpignan sites de Narbonne et Carcassonne | ✅ | ✅ | ✅ | ✅ |
 | IUT de Villetaneuse | ✅ | ✅ |  |  |
 | IUT de Cergy-Pontoise | ✅ | ✅ |  |  |
@@ -43,20 +43,21 @@ Les utilisateurs actuels sont :
 | IUT de Montpellier-Sète | ✅ |  |  |  |
 | IUT de Cachan | ✅ | ✅ |  |  |
 | IUT Nord Franche-Comté | ✅ |  |  |  |
-| IUT de Montreuil | ✅ |  |  |  |
+| IUT de Montreuil | ✅ | ✅ |  |  |
 | IUT de Schiltigheim | ✅ | ✅ |  |  |
 | Ecole de chimie de Mulhouse (ENSCMu) | ✅ | ✅ | ✅ | ✅ |
 | IUT d'Evry | ✅ | ✅ |  |  |
 | IUT de Béthune | ✅ |  |  |  |
 | IUT de Lyon 3 | ✅ |  |  |  |
 | IUT de Sénart-Fontainebleau | ✅ | ✅ |  |  |
-| IUT de Paris Pajol | ✅ |  |  |  |
+| IUT de Paris Pajol | ✅ | ✅ | ✅ | ✅ |
 | IUT de Saint-Brieuc | ✅ |  |  |  |
 | IUT de Sceaux | ✅ | ✅ |  |  |
 | IUT de Colmar | ✅ | ✅ | ✅ | ✅ |
 | IUT de Poitiers | Étude en cours |  |  |  |
 | IUT de Chatellerault | Étude en cours |  |  |  |
 | Toute l'Université de Haute Alsace (UHA) | Étude en cours |  |  |  |
+| IUT de Bayonne | ✅ |  |  |  |
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
   
