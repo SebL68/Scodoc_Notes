@@ -54,7 +54,6 @@ Les utilisateurs actuels sont :
 | IUT de Saint-Brieuc | ✅ |  |  |  |
 | IUT de Sceaux | ✅ | ✅ |  |  |
 | IUT de Colmar | ✅ | ✅ | ✅ | ✅ |
-| IUT de Poitiers | Étude en cours |  |  |  |
 | IUT de Chatellerault | Étude en cours |  |  |  |
 | Toute l'Université de Haute Alsace (UHA) | Étude en cours |  |  |  |
 | IUT de Poitiers-Niort-Châtellerault | ✅ |  |  |  |
