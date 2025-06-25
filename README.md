@@ -57,7 +57,7 @@ Les utilisateurs actuels sont :
 | IUT de Poitiers | Étude en cours |  |  |  |
 | IUT de Chatellerault | Étude en cours |  |  |  |
 | Toute l'Université de Haute Alsace (UHA) | Étude en cours |  |  |  |
-| IUT de Bayonne | ✅ |  |  |  |
+| IUT de Poitiers-Niort-Châtellerault | ✅ |  |  |  |
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
   
