@@ -375,16 +375,16 @@
 						<b>Utiliser les absences de Scodoc</b>
 						<p>Par défaut, les absences sont stockées sur la passerelle.</p>
 						<p>L'utilisation de cette option nécessite d'avoir au moins la version 9.6 de Scodoc.</p>
-						<p>Si les données sont stockées dans Scodoc et que la saisie est activée depuis la passerelle, il faut ajouter la permission ScoAbsChange au rôle LecteurAPI sur le serveur Scodoc, vous pouvez utiliser l'interface de gestion des droits de Scodoc ou avec la console :
+						<p>Si les données sont stockées dans Scodoc et que la saisie est activée depuis la passerelle, il faut ajouter la permission AbsChange au rôle LecteurAPI sur le serveur Scodoc, vous pouvez utiliser l'interface de gestion des droits de Scodoc ou avec la console :
 <pre>
 <code>
 	# En tant qu'utilisateur "scodoc" :
 	cd /opt/scodoc
 	source venv/bin/activate
-	flask edit-role LecteurAPI -a ScoAbsChange
+	flask edit-role LecteurAPI -a AbsChange
 
 	# Si vous souhaitez retirer cette permission
-	flask edit-role LecteurAPI -r ScoAbsChange
+	flask edit-role LecteurAPI -r AbsChange
 </code>
 </pre>
 						</p>
