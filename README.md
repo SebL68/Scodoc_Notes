@@ -154,6 +154,11 @@ Il est à minima nécessaire de configurer :
   - config.php 
   
 Il est recommandé d'avoir un super-administrateur en incluant son identifiant CAS dans le fichier /data/annuaires/super_admin.txt (enlevez le _DEMO).
+
+### Problématique de cache
+  
+La passerelle utilise un cache agressif basé sur les Service Workers (JS).  
+Si vous rencontrez des problèmes de mise à jour pendant la configuration, vous pouvez désactiver le Service Worker dans l'inspecteur ou alors changer manuellement la version du cache dans le fichier sw.js.
   
 ### Configuration de l'authentification : CAS
 Complétez cas_config.php.  
