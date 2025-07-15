@@ -20,7 +20,7 @@ function fetchData(query){
 	let token = (window.location.search.match(/token=([a-zA-Z0-9._-]+)/)?.[1] || ""); // Récupération d'un token GET pour le passer au service
 
 	return fetch(
-		"/services/data.php?q="+query, 
+		"/services/data.php?q="+query+"&composante="+(window.localStorage.composante || ""), 
 		{
 			method: "post",
 			headers: {
@@ -75,4 +75,16 @@ function displayFromOptions(options){
 	if(config.statut >= SUPERADMINISTRATEUR) document.querySelector("body").classList.add('superadmin');
 
 	if(config.module_absences) document.querySelector("body").classList.add('moduleAbsences');
+}
+
+// Changement de composante
+document.querySelector("header select").addEventListener("change", function() {
+	window.localStorage.composante = this.value;
+	document.querySelector("header").classList.remove("ouvert", "selectComposante");
+})
+
+if(window.localStorage.composante) {
+	document.querySelector("header select").value = window.localStorage.composante;
+} else {
+	document.querySelector("header").classList.add("ouvert", "selectComposante");
 }

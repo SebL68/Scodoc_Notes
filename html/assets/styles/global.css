@@ -121,6 +121,32 @@ header>nav>svg {
 	display: none;
 }
 
+header select{
+    font-size: 16px;
+    padding: 10px;
+	margin: 0 !important;
+    background: var(--accent);
+	color: var(--accent-contenu);
+    border: none;
+    border-radius: 10px;
+    max-width: 100%;
+    box-shadow: var(--box-shadow);
+}
+
+header.selectComposante select {
+	animation: select 0.4s infinite alternate;
+}
+
+@keyframes select {
+	0% {
+		outline: 2px solid #000;
+	}
+
+	100% {
+		outline: 2px solid #fff;
+	}
+}
+
 nav {
 	display: flex;
 	gap: 16px;
@@ -190,7 +216,7 @@ h1 {
 	margin: 0 auto 0 0;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1280px) {
 	h1 {
 		margin-left: 64px;
 		transition: 0.2s;

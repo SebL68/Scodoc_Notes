@@ -28,7 +28,7 @@
 
 	$Config = new stdClass();
 
-		$Config->passerelle_version = '6:3:4';
+		$Config->passerelle_version = '7:0:0';
 
 /***********************/
 /* Options d'affichage */
@@ -132,6 +132,9 @@
 		$Config->scodoc_url = Config::$scodoc_url;	// ⚠️⚠️⚠️ Attention, il doit y avoir /Scodoc à la fin	
 		$Config->scodoc_login = Config::$scodoc_login;
 		$Config->scodoc_psw = Config::$scodoc_psw;
+
+		$Config->multi_scodoc = Config::$multi_scodoc; // Si vous avez plusieurs instances de Scodoc à relier sur une passerelle.
+		$Config->scodoc_instances = Config::$scodoc_instances ?? [];
 
 /********************************************/
 /* OU accès à un autre système de données   */
@@ -260,6 +263,7 @@
 /*******************************/
 $accepted_input = [
 	'passerelle_version',
+	'multi_scodoc',
 
 	'histogramme',
 	'message_non_publication_releve',
