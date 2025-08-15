@@ -78,7 +78,7 @@ Enfin, la passerelle permet de saisir et justifier les absences de manière auto
 ## Système requis  
   
  - Il est recommandé d'avoir un système Debian ou Ubuntu, pour pouvoir utiliser l'installeur automatique, mais ça peut fonctionner avec d'autres systèmes.
- - Il est nécessaire d'avoir PHP version 7.3 ou plus - compatibilité testée avec PHP 8.2
+ - Il est nécessaire d'avoir PHP version 7.3 ou plus - compatibilité testée avec PHP 8.4
  - Il est recommandé d'utiliser Apache, mais ça fonctionne avec Nginx - il faudra juste un peu de config manuelle.
  - Les dépendances sont installées automatiquement.
  - Le serveur doit être reconnu et autorisé par le CAS.  
