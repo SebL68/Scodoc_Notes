@@ -89,7 +89,7 @@ class Annuaire{
 			while(($line = fgets($handle, 1000)) !== FALSE){
 				if($line != ''){
 					$data = explode(':', $line);
-					if(substr($data[0], 1) == substr($num, 1))
+					if(substr($data[0] ?? '', 1) == substr($num ?? '', 1))
 						return rtrim($data[1]);
 				}
 			}
