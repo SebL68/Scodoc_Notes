@@ -186,7 +186,10 @@ La mise en route du crontab se fait avec le fichier /includes/CmdSetUpdateLists.
   
 ### Une passerelle pour plusieurs Scodoc  
 Depuis la version 7, une unique passerelle permet de se connecter à plusieurs Scodoc, c'est notamment utile si dans une même université, plusieurs Scodoc sont installés (un par composante).  
-Il faut alors modifier le fichier config.php  
+Il faut alors modifier le fichier config.php : voir les variables :
+ - $multi_scodoc
+ - $scodoc_instances
+ - $LDAP_instances (si nécessaire)
 
 ## A noter
   
