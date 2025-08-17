@@ -77,6 +77,30 @@
 		public static $scodoc_url = 'https://iutmscodoc9.uha.fr/ScoDoc';	// Attention, il doit y avoir /Scodoc à la fin	
 		public static $scodoc_login = 'LOGIN_SCODOC';
 		public static $scodoc_psw = 'MDP_SCODOC';
+
+	/* La passerelle a la capacité de se connecter à plusieurs Scodoc */
+		public static $multi_scodoc = false; // Si vous avez plusieurs instances de Scodoc à relier sur une passerelle, passez à true et configurez ci-dessous.
+		public static $scodoc_instances = [
+			'IUTM' => [
+				'nom' => 'IUT de Mulhouse',
+				'url' => 'https://URL_SCODOC_1/ScoDoc',
+				'login' => 'LOGIN_SCODOC_1',
+				'psw' => 'MDP_SCODOC_1'
+			],
+			'ENSCMu' => [
+				'nom' => 'ENSCMu',
+				'url' => 'https://URL_SCODOC_2/ScoDoc',
+				'login' => 'LOGIN_SCODOC_2',
+				'psw' => 'MDP_SCODOC_2'
+			],
+			'ENSISA' => [
+				'nom' => 'ENSISA',
+				'url' => 'https://URL_SCODOC_3/ScoDoc',
+				'login' => 'LOGIN_SCODOC_3',
+				'psw' => 'MDP_SCODOC_3'
+			]
+		];
+
 		
 /*****************************************************/
 /* Configuration du format des ID et Nom des comptes */ 
@@ -159,6 +183,48 @@
 		public static $LDAP_filtre_enseignant = '&(!(edupersonaffiliation=staff))(edupersonaffiliation=teacher)(!(edupersonaffiliation=affiliate))(!(edupersonaffiliation=student))';
 	// Filtre LDAP BIATSS (edupersonaffiliation)
 		public static $LDAP_filtre_biatss = '&(edupersonaffiliation=staff)(!(edupersonaffiliation=teacher))(!(edupersonaffiliation=affiliate))';
+
+
+	// Si multi_scodoc = true, on peut alors définir plusieurs instances LDAP, une par instance Scodoc
+		public static $LDAP_instances = [
+			'IUTM' => [
+				'url' => 'ldap://ldap.uha.fr:389',
+				'user' => 'uid=didev,ou=dsa,dc=uha,dc=fr',
+				'password' => '*******',
+				'dn' => 'dc=uha,dc=fr',
+				'uid' => 'uid',
+				'idCAS' => 'mail',
+				'filtre_ufr' => 'supannaffectation=Institut Universitaire de Technologie de Mulhouse',
+				'filtre_statut_etudiant' => 'edupersonaffiliation=student',
+				'filtre_enseignant' => '&(!(edupersonaffiliation=staff))(edupersonaffiliation=teacher)(!(edupersonaffiliation=affiliate))(!(edupersonaffiliation=student))',
+				'filtre_biatss' => '&(edupersonaffiliation=staff)(!(edupersonaffiliation=teacher))(!(edupersonaffiliation=affiliate))'
+			],
+			'ENSCMu' => [
+				'url' => 'ldap://ldap.uha.fr:389',
+				'user' => 'uid=didev,ou=dsa,dc=uha,dc=fr',
+				'password' => '********',
+				'dn' => 'dc=uha,dc=fr',
+				'uid' => 'uid',
+				'idCAS' => 'mail',
+				'filtre_ufr' => '|(supannaffectation=Ecole Nationale Supérieure de Chimie de Mulhouse)(supannaffectation=Faculté des Sciences et Techniques)',
+				'filtre_statut_etudiant' => 'edupersonaffiliation=student',
+				'filtre_enseignant' => '&(!(edupersonaffiliation=staff))(edupersonaffiliation=teacher)(!(edupersonaffiliation=affiliate))(!(edupersonaffiliation=student))',
+				'filtre_biatss' => '&(edupersonaffiliation=staff)(!(edupersonaffiliation=teacher))(!(edupersonaffiliation=affiliate))'
+			],
+			
+			'ENSISA' => [
+				'url' => 'ldap://ldap.uha.fr:389',
+				'user' => 'uid=didev,ou=dsa,dc=uha,dc=fr',
+				'password' => '********',
+				'dn' => 'dc=uha,dc=fr',
+				'uid' => 'uid',
+				'idCAS' => 'mail',
+				'filtre_ufr' => 'supannaffectation=Ecole Nationale Supérieure d\'Ingénieurs Sud Alsace',
+				'filtre_statut_etudiant' => 'edupersonaffiliation=student',
+				'filtre_enseignant' => '&(!(edupersonaffiliation=staff))(edupersonaffiliation=teacher)(!(edupersonaffiliation=affiliate))(!(edupersonaffiliation=student))',
+				'filtre_biatss' => '&(edupersonaffiliation=staff)(!(edupersonaffiliation=teacher))(!(edupersonaffiliation=affiliate))'
+			]
+		];
 
 	/**********************************************************/
 	/* Class à utiliser pour gérer la planification de tâches */
