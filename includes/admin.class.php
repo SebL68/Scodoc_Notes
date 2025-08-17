@@ -4,7 +4,11 @@
   // ini_set('display_errors', '1');
 
   // Nom du fichier contenant la liste des utilisateurs
-  Admin::$file = "$path/data/annuaires/utilisateurs.json";
+  if(!$Config->multi_scodoc) {
+  	Admin::$file = "$path/data/annuaires/utilisateurs.json";
+  } else {
+  	Admin::$file = "$path/data/annuaires/".$_COOKIE['composante']."_utilisateurs.json";
+  }
 
   class Admin {
     static $file;
@@ -88,7 +92,7 @@
     else												// Modification d'un vacataire existant
       $util[array_search($ancien, array_column($util, 'id'))] = (object)['id' => $nouveau, 'name' => $nom];
 
-    usort($util, 'self::tri');
+    usort($util, fn($a, $b) => $a->name <=> $b->name);
 
     $json -> $dep -> $statut = array_values($util);
 

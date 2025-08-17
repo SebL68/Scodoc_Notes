@@ -474,6 +474,7 @@
 	</div>
 	
 	<script src="../assets/js/theme.js"></script>
+	
 	<script>
 		checkStatut();
 		getConfig();
@@ -515,7 +516,7 @@
 				})
 			})
 
-			document.querySelectorAll("[type=text], [type=number], select").forEach(input=>{
+			document.querySelectorAll("main [type=text], main [type=number], main select").forEach(input=>{
 				input.value = data[input.name];
 				input.addEventListener("input", setConfig)
 			})

@@ -19,31 +19,30 @@ class Service_Annuaire{
 */
 /****************************************************/
     public static function updateLists(){
-        global $path;
 		global $Config;
 
-        echo "Enregistrement des listes dans : $path/data/annuaires/<br>\n";
+		if(!$Config->multi_scodoc) { 
+			self::setupLDAP(
+				'', // Composante
+				[
+					'url' => $Config->LDAP_url,
+					'user' => $Config->LDAP_user,
+					'password' => $Config->LDAP_password,
+					'dn' => $Config->LDAP_dn,
+					'uid' => $Config->LDAP_uid,
+					'idCAS' => $Config->LDAP_idCAS,
+					'filtre_ufr' => $Config->LDAP_filtre_ufr,
+					'filtre_statut_etudiant' => $Config->LDAP_filtre_statut_etudiant,
+					'filtre_enseignant' => $Config->LDAP_filtre_enseignant,
+					'filtre_biatss' => $Config->LDAP_filtre_biatss
+				]
+			);
+		} else {
+			forEach($Config->LDAP_instances as $composante => $LDAP_instance) {
+				self::setupLDAP($composante, $LDAP_instance);
+			}
+		}
 
-        $STUDENTS_PATH = "$path/data/annuaires/liste_etu.txt";
-        $TEACHERS_PATH = "$path/data/annuaires/liste_ens.txt";
-        $BIATSS_PATH = "$path/data/annuaires/liste_biat.txt";
-        
-		if ($id_LDAP = self::openLDAP()) {
-            if ($Config->LDAP_filtre_ufr != '') {
-                self::updateList($id_LDAP, $STUDENTS_PATH, "(&(".$Config->LDAP_filtre_statut_etudiant.")(".$Config->LDAP_filtre_ufr."))", [$Config->LDAP_uid, $Config->LDAP_idCAS]);
-                self::updateList($id_LDAP, $TEACHERS_PATH, "(&(".$Config->LDAP_filtre_enseignant.")(".$Config->LDAP_filtre_ufr."))",      [$Config->LDAP_idCAS]);
-                self::updateList($id_LDAP, $BIATSS_PATH,   "(&(".$Config->LDAP_filtre_biatss.")(".$Config->LDAP_filtre_ufr."))",          [$Config->LDAP_idCAS]);
-            } else {
-                self::updateList($id_LDAP, $STUDENTS_PATH, "(".$Config->LDAP_filtre_statut_etudiant.")", [$Config->LDAP_uid, $Config->LDAP_idCAS]);
-                self::updateList($id_LDAP, $TEACHERS_PATH, "(".$Config->LDAP_filtre_enseignant.")",      [$Config->LDAP_idCAS]);
-                self::updateList($id_LDAP, $BIATSS_PATH,   "(".$Config->LDAP_filtre_biatss.")",          [$Config->LDAP_idCAS]);
-            }
-        }
-        else
-            exit("Pas de connexion au serveur LDAP");
-        
-        ldap_close($id_LDAP);
-        echo "Listes des utilisateurs mises à jour<br>\n";
         return ['result' => "OK"];
     }
 
@@ -61,20 +60,16 @@ class Service_Annuaire{
             [ressource] - Connexion vers le serveur LDAP
     */
     /****************************************************/
-    private static function updateList($ds, $file, $filter, $data){
-		global $Config;
-        if(!$id_file = fopen($file, "w"))
-            exit("Impossible d'ouvrir le fichier $file");
+    private static function updateList($ds, $file, $filter, $data, $dn){
 
-        if(!flock($id_file, LOCK_EX))
-            exit("Impossible de verrouiller le fichier $file");
-
-        $id_result = ldap_search($ds, $Config->LDAP_dn, $filter);
+        $id_result = ldap_search($ds, $dn, $filter);
         $result = ldap_get_entries($ds, $id_result);
         $nb = ldap_count_entries($ds, $id_result);
 
         echo "$nb entrées LDAP pour la liste $file\n";
         
+		$output = '';
+
         for ($i=0; $i<$nb; $i++){
             $ligne="";
             foreach($data as $entry){
@@ -88,16 +83,57 @@ class Service_Annuaire{
             }
 
 			if($ligne){
-				if (fwrite($id_file, $ligne."\n") === FALSE)
-                	exit("Impossible d'écrire dans le fichier $file");
+				$output .= $ligne."\n";
 			}
         }
 
-        flock($id_file, LOCK_UN);
-        fclose($id_file);
+		if(file_put_contents(
+			$file, 
+			$output
+		) === false
+		) {
+			returnError("Fichier non enregistré");
+		}
         
         return ['result' => "OK"];
     }
+
+	/****************************************************/
+    /* setupLDAP() 
+        Configurer la connexion au serveur LDAP
+
+		Entrée : 
+			$UFR: [string] - Nom de l'UFR (pour le nom du fichier)
+			$LDAP_instance: [array] - Configuration de l'instance LDAP
+        Sortie :
+			[void]
+            
+    */
+    /****************************************************/
+		private static function setupLDAP($composante, $LDAP_instance){
+			$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
+
+			$STUDENTS_PATH = "$path/data/annuaires/".$composante."_liste_etu.txt";
+        	$TEACHERS_PATH = "$path/data/annuaires/".$composante."_liste_ens.txt";
+       		$BIATSS_PATH = "$path/data/annuaires/".$composante."_liste_biat.txt";
+
+			if ($id_LDAP = self::openLDAP($LDAP_instance)) {
+				if ($LDAP_instance['filtre_ufr'] != '') {
+					self::updateList($id_LDAP, $STUDENTS_PATH, "(&(".$LDAP_instance['filtre_statut_etudiant'].")(".$LDAP_instance['filtre_ufr']."))", [$LDAP_instance['uid'], $LDAP_instance['idCAS']], $LDAP_instance['dn']);
+					self::updateList($id_LDAP, $TEACHERS_PATH, "(&(".$LDAP_instance['filtre_enseignant'].")(".$LDAP_instance['filtre_ufr']."))",      [$LDAP_instance['idCAS']], $LDAP_instance['dn']);
+					self::updateList($id_LDAP, $BIATSS_PATH,   "(&(".$LDAP_instance['filtre_biatss'].")(".$LDAP_instance['filtre_ufr']."))",          [$LDAP_instance['idCAS']], $LDAP_instance['dn']);
+				} else {
+					self::updateList($id_LDAP, $STUDENTS_PATH, "(".$LDAP_instance['filtre_statut_etudiant'].")", [$LDAP_instance['uid'], $LDAP_instance['idCAS']], $LDAP_instance['dn']);
+					self::updateList($id_LDAP, $TEACHERS_PATH, "(".$LDAP_instance['filtre_enseignant'].")",      [$LDAP_instance['idCAS']], $LDAP_instance['dn']);
+					self::updateList($id_LDAP, $BIATSS_PATH,   "(".$LDAP_instance['filtre_biatss'].")",          [$LDAP_instance['idCAS']], $LDAP_instance['dn']);
+				}
+			}
+			else
+				exit("Pas de connexion au serveur LDAP");
+			
+			ldap_close($id_LDAP);
+			echo "Listes des utilisateurs mises à jour<br>\n";
+		}
 
     /****************************************************/
     /* openLDAP() 
@@ -107,9 +143,9 @@ class Service_Annuaire{
             [ressource] - Connexion vers le serveur LDAP
     */
     /****************************************************/
-    private static function openLDAP(){
+    private static function openLDAP($LDAP_instance){
 		global $Config;
-        $ds=ldap_connect($Config->LDAP_url);
+        $ds=ldap_connect($LDAP_instance['url']);
         if ($ds===FALSE)
             exit("Connexion au serveur LDAP impossible");
     
@@ -124,7 +160,7 @@ class Service_Annuaire{
         }
         
         // Authentification sur le serveur LDAP
-        if (ldap_bind($ds, $Config->LDAP_user, $Config->LDAP_password))
+        if (ldap_bind($ds, $LDAP_instance['user'], $LDAP_instance['password']))
             return $ds;
         else
             exit("Authentification sur le serveur LDAP impossible");

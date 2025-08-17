@@ -13,6 +13,18 @@
 		<a class="nav" id="admin" href="/admin/">Comptes</a>
 		<a class="nav" id="config" href="/admin/config.php">Config</a>
 
+		<?php if($Config->multi_scodoc) { ?>
+			<div class="composantes">
+				<select>
+					<option value="" disabled selected hidden>Choisir une composante</option>
+						<?php foreach($Config->scodoc_instances as $id => $instance) { ?>
+							<option value="<?php echo $id; ?>"><?php echo $instance['nom']; ?></option>
+						<?php } ?>
+				</select>
+			</div>
+		
+		<?php } ?>
+
 		<a href=/logout.php>Déconnexion</a>
 	</nav>
 
