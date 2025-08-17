@@ -179,13 +179,18 @@ Complétez les paramètres LDAP dans /config/config.php
 La mise à jour forcée du LDAP (pour les tests) se fait en exécutant le fichier /includes/CmdUpdateLists.php en CLI.  
 La mise en route du crontab se fait avec le fichier /includes/CmdSetUpdateLists.php suivant le même principe.  
   
+### Une passerelle pour plusieurs Scodoc  
+Depuis la version 7, une unique passerelle permet de se connecter à plusieurs Scodoc, c'est notamment utile si dans une même université, plusieurs Scodoc sont installés (un par composante).  
+Il faut alors modifier le fichier config.php  
+
 ## A noter
   
 Par défaut, ce site ne diffuse que les relevés de notes aux étudiants.  
 Il est possible d'activer d'autres options prévus pour les enseignants comme :
  - la possibilité de visualiser les relevés de n'importe quel étudiant,
  - récupérer des documents xls pratiques, automatiquement générés en fonction des listes Scodoc,
- - gérer les absences entièrement depuis la passerelle, avec des créneaux prédéfinis (sans utiliser Scodoc).  
+ - gérer les absences entièrement depuis la passerelle, avec des créneaux prédéfinis (sans utiliser Scodoc),  
+ - gérer les absences de Scodoc et les afficher aux étudiants. 
  
 Les super-admin ont un onglet supplémentaire pour configurer la passerelle en ligne.  
 Ils peuvent également attribuer les rôles admin ou personnel à des idCAS.  
