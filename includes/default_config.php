@@ -17,7 +17,13 @@
 /***********************************/	
 /* Config modifiée par l'interface */
 /***********************************/
-	$file = $path.'/config/config.json';
+
+	if(Config::$multi_scodoc ?? false) {
+		$file = $path.'/config/config'.$_COOKIE['composante'].'.json';
+	} else {
+		$file = $path.'/config/config.json';
+	}
+
 	$configJSON = [];
 
 	if(file_exists($file)){
@@ -127,15 +133,20 @@
 /********************************/
 /* Accès à Scodoc               */
 /********************************/
-	/*	Il faut créer compte avec un accès "secrétariat" qui a accès à tous les départements */
 
-		$Config->scodoc_url = Config::$scodoc_url;	// ⚠️⚠️⚠️ Attention, il doit y avoir /Scodoc à la fin	
-		$Config->scodoc_login = Config::$scodoc_login;
-		$Config->scodoc_psw = Config::$scodoc_psw;
-
-		$Config->multi_scodoc = Config::$multi_scodoc; // Si vous avez plusieurs instances de Scodoc à relier sur une passerelle.
+		$Config->multi_scodoc = Config::$multi_scodoc ?? false; // Si vous avez plusieurs instances de Scodoc à relier sur une passerelle.
 		$Config->scodoc_instances = Config::$scodoc_instances ?? [];
 
+		if(!$Config->multi_scodoc || !isset($_COOKIE['composante'])) {
+			$Config->scodoc_url = Config::$scodoc_url;
+			$Config->scodoc_login = Config::$scodoc_login;
+			$Config->scodoc_psw = Config::$scodoc_psw;
+		} else {
+			$Config->scodoc_url = $Config->scodoc_instances[$_COOKIE['composante']]['url'];
+			$Config->scodoc_login = $Config->scodoc_instances[$_COOKIE['composante']]['login'];
+			$Config->scodoc_psw = $Config->scodoc_instances[$_COOKIE['composante']]['psw'];
+		}
+		
 /********************************************/
 /* OU accès à un autre système de données   */
 /********************************************/
@@ -208,6 +219,9 @@
 		$Config->LDAP_filtre_enseignant = Config::$LDAP_filtre_enseignant ?? '';
 	// Filtre LDAP BIATSS (edupersonaffiliation)
 		$Config->LDAP_filtre_biatss = Config::$LDAP_filtre_biatss ?? '';
+
+	// Si plusieurs instances Scodoc, alors plusieurs instances LDAP
+		$Config->LDAP_instances = Config::$LDAP_instances ?? [];
 
 	/**********************************************************/
 	/* Class à utiliser pour gérer la planification de tâches */
@@ -328,13 +342,12 @@ $Config->getConfig = function() {
 
 $Config->setConfig = function($key, $value) {
 	global $path;
+	global $file;
 	global $accepted_input;
 	
 	if(!in_array($key, $accepted_input)) {
 		returnError("Option non modifiable");
 	}
-
-	$file = $path.'/config/config.json';
 
 	$configJSON = [];
 

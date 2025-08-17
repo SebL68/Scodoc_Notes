@@ -32,6 +32,10 @@
 		require_once "$path/includes/absences.class.php";
 	}
 
+	if($Config->multi_scodoc && !isset($_COOKIE['composante'])) {
+		returnError("Veuillez choisir une composante.");
+	}
+
 	$user = new User();
 
 /*******************************/
@@ -41,7 +45,7 @@
 
 /******************************************
  * 
- * Fonctions de communication disponibles
+ * API disponible
  * 
  * 
 	0	get donnéesAuthentification :
@@ -70,7 +74,7 @@
 
 	0	get relevéEtudiant :
 	Relevé de note de l'étudiant au format JSON
-			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=relevéEtudiant&semestre=SEM8871&etudiant=alexandre.aab@uha.fr
+			Exemple : https://notes.iutmulhouse.uha.fr/services/data.php?q=relevéEtudiant&semestre=SEM8871&etudiant=alexandre@uha.fr
 	
 	0	get modules :
 	Récupère les modules d'un semestre
@@ -621,10 +625,15 @@
 				sanitize($_GET['dep']);
 				checkDepartment($_GET['dep'], $user->getDepartements(), $user->getStatut());
 				$dep = $_GET['dep'];
+				if(!$Config->multi_scodoc) {
+					$composante = '';
+				} else {
+					$composante = $_COOKIE['composante'] . '-';
+				}
 
 				$link = "$path/data/messages";
 				if(!is_dir($link)) { mkdir($link); }
-				$link .= "/$dep.txt";
+				$link .= "/$composante$dep.txt";
 
 				$dataLength = file_put_contents($link, $_GET['text']);
 
@@ -643,7 +652,12 @@
 			case 'getReportPageMessage':
 				sanitize($_GET['dep']);
 				$dep = $_GET['dep'];
-				$link = "$path/data/messages/$dep.txt";
+				if(!$Config->multi_scodoc) {
+					$composante = '';
+				} else {
+					$composante = $_COOKIE['composante'] . '-';
+				}
+				$link = "$path/data/messages/$composante$dep.txt";
 				if(file_exists($link)) {
 					$message = file_get_contents($link) ?: '';
 				} else {

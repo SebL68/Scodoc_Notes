@@ -2,14 +2,19 @@
 data/annuaires/liste_biat.txt
 data/annuaires/liste_ens.txt
 data/annuaires/liste_etu.txt
+data/annuaires/*_liste_biat.txt
+data/annuaires/*_liste_ens.txt
+data/annuaires/*_liste_etu.txt
 data/annuaires/super_admin.txt
 data/annuaires/utilisateurs.json
 data/annuaires/administrateurs.json
-data/annuaires/vacataires.json
+data/annuaires/*_utilisateurs.json
+data/annuaires/*_administrateurs.json
+
 
 data/analytics/*
 data/messages/*
 
-config/config.json
+config/config*.json
 
 includes/token.txt

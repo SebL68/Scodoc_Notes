@@ -17,12 +17,23 @@ $path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
 include_once "$path/includes/default_config.php";
 
 Annuaire::$SUPER_ADMIN_PATH = "$path/data/annuaires/super_admin.txt";
-Annuaire::$STUDENTS_PATH = "$path/data/annuaires/liste_etu.txt";
-Annuaire::$USERS_PATH = "$path/data/annuaires/utilisateurs.json";
-Annuaire::$STAF_PATH = [
-	$path.'/data/annuaires/liste_ens.txt',
-	$path.'/data/annuaires/liste_biat.txt'
-];
+
+if(!$Config->multi_scodoc) {
+	Annuaire::$STUDENTS_PATH = "$path/data/annuaires/liste_etu.txt";
+	Annuaire::$USERS_PATH = "$path/data/annuaires/utilisateurs.json";
+	Annuaire::$STAF_PATH = [
+		$path.'/data/annuaires/liste_ens.txt',
+		$path.'/data/annuaires/liste_biat.txt'
+	];
+} else {
+	Annuaire::$STUDENTS_PATH = "$path/data/annuaires/".$_COOKIE['composante']."_liste_etu.txt";
+	Annuaire::$USERS_PATH = "$path/data/annuaires/".$_COOKIE['composante']."_utilisateurs.json";
+	Annuaire::$STAF_PATH = [
+		$path.'/data/annuaires/'.$_COOKIE['composante'].'_liste_ens.txt',
+		$path.'/data/annuaires/'.$_COOKIE['composante'].'_liste_biat.txt'
+	];
+}
+
 
 class Annuaire{
 	static $SUPER_ADMIN_PATH;

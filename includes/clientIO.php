@@ -20,7 +20,7 @@ function fetchData(query){
 	let token = (window.location.search.match(/token=([a-zA-Z0-9._-]+)/)?.[1] || ""); // Récupération d'un token GET pour le passer au service
 
 	return fetch(
-		"/services/data.php?q="+query+"&composante="+(window.localStorage.composante || ""), 
+		"/services/data.php?q="+query, 
 		{
 			method: "post",
 			headers: {
@@ -80,11 +80,14 @@ function displayFromOptions(options){
 // Changement de composante
 document.querySelector("header select").addEventListener("change", function() {
 	window.localStorage.composante = this.value;
+	document.cookie = "composante=" + window.localStorage.composante;
 	document.querySelector("header").classList.remove("ouvert", "selectComposante");
+	window.location.reload();
 })
 
 if(window.localStorage.composante) {
 	document.querySelector("header select").value = window.localStorage.composante;
+	document.cookie = "composante=" + window.localStorage.composante;
 } else {
 	document.querySelector("header").classList.add("ouvert", "selectComposante");
 }
