@@ -77,6 +77,9 @@ function displayFromOptions(options){
 	if(config.module_absences) document.querySelector("body").classList.add('moduleAbsences');
 }
 
+<?php 
+	if($Config->multi_scodoc) {
+?>
 // Changement de composante
 document.querySelector("header select").addEventListener("change", function() {
 	window.localStorage.composante = this.value;
@@ -93,3 +96,4 @@ if(window.localStorage.composante) {
 	displayError("Veuillez choisir une composante.");
 	throw "Fin du script - composante à définir";
 }
+<?php } ?>
