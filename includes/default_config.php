@@ -18,7 +18,7 @@
 /* Config modifiée par l'interface */
 /***********************************/
 
-	if(Config::$multi_scodoc ?? false) {
+	if((Config::$multi_scodoc ?? false) && isset($_COOKIE['composante'])) {
 		$file = $path.'/config/config'.$_COOKIE['composante'].'.json';
 	} else {
 		$file = $path.'/config/config.json';

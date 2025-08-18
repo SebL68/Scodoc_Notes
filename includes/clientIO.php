@@ -90,4 +90,6 @@ if(window.localStorage.composante) {
 	document.cookie = "composante=" + window.localStorage.composante;
 } else {
 	document.querySelector("header").classList.add("ouvert", "selectComposante");
+	displayError("Veuillez choisir une composante.");
+	throw "Fin du script - composante à définir";
 }
