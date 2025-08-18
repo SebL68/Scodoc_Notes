@@ -190,6 +190,8 @@ Il faut alors modifier le fichier config.php : voir les variables :
  - $multi_scodoc
  - $scodoc_instances
  - $LDAP_instances (si nécessaire)
+Changer la variable $multi_scodoc ne met pas à jour le cache (voir rubrique pour les développeurs), il faut alors modifier le numéro de version de html/sw.js
+Exemple : le passer de v7:0:0:0 à v7:0:0:0.modif_1 (on peut écrire ce qu'on veut, dès que c'est différent, le cache se met à jour).  
 
 ## A noter
   
