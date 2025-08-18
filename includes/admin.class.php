@@ -92,7 +92,7 @@
     else												// Modification d'un vacataire existant
       $util[array_search($ancien, array_column($util, 'id'))] = (object)['id' => $nouveau, 'name' => $nom];
 
-    usort($util, fn($a, $b) => $a->name <=> $b->name);
+    usort($util, function($a, $b) { return $a->name <=> $b->name;});
 
     $json -> $dep -> $statut = array_values($util);
 
