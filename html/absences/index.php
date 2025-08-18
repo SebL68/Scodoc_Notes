@@ -755,25 +755,25 @@
 		}
 
 		function hideGroupe(obj){
-			let nbSelected = obj.parentElement.parentElement.querySelectorAll(".selected").length;
-			let nbBtn = obj.parentElement.parentElement.querySelectorAll(".groupe").length;
+			let nbSelected = obj.parentElement.parentElement.parentElement.querySelectorAll(".selected").length;
+			let nbBtn = obj.parentElement.parentElement.parentElement.querySelectorAll(".groupe").length;
 			
 			if(nbSelected == 0){
-				Array.from(obj.parentElement.parentElement.querySelectorAll(".groupe")).forEach(e=>{
+				Array.from(obj.parentElement.parentElement.parentElement.querySelectorAll(".groupe")).forEach(e=>{
 					e.classList.toggle("selected");
 				})
 			}
 			obj.classList.toggle("selected");
 
-			nbSelected = obj.parentElement.parentElement.querySelectorAll(".selected").length;
+			nbSelected = obj.parentElement.parentElement.parentElement.querySelectorAll(".selected").length;
 			if(nbSelected == nbBtn){
-				Array.from(obj.parentElement.parentElement.querySelectorAll(".groupe")).forEach(e=>{
+				Array.from(obj.parentElement.parentElement.parentElement.querySelectorAll(".groupe")).forEach(e=>{
 					e.classList.toggle("selected");
 				})
 			}
 			
 			let groupesSelected = [];
-			obj.parentElement.parentElement.querySelectorAll(".groupe:not(.selected)").forEach(e=>{
+			obj.parentElement.parentElement.parentElement.querySelectorAll(".groupe:not(.selected)").forEach(e=>{
 				groupesSelected.push(e.dataset.groupe);
 			})
 
