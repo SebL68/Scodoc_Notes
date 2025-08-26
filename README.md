@@ -35,7 +35,7 @@ Les utilisateurs actuels sont :
 | 29 | IUT de Caen (IFS) | ✅ |  |  |  |
 | 30 | IUT de Saint-Nazaire | ✅ | ✅ |  |  |
 | 31 | IUT de Montpellier-Sète | ✅ |  |  |  |
-| 32 | IUT de Cachan | ✅ | ✅ |  |  |
+| 32 | IUT de Cachan | ✅ | ✅ | ✅ |  |
 | 33 | IUT Nord Franche-Comté | ✅ |  |  |  |
 | 34 | IUT de Montreuil | ✅ | ✅ |  |  |
 | 35 | IUT de Schiltigheim | ✅ | ✅ |  |  |
