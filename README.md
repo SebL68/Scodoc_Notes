@@ -53,8 +53,8 @@ Les utilisateurs actuels sont :
 | - | Toute l'Université de Haute Alsace (UHA) | Étude en cours |  |  |  |
 | - | IUT du Littoral Côte d'Opale | ? |  |  |  |
 | - | IUT de Roanne | ? |  |  |  |
-| - | IUT de Vannes | ? |  |  |  |
-| - | IUT de Lorient & Pontivy | ? |  |  |  |
+| - | IUT de Vannes | A venir |  |  |  |
+| - | IUT de Lorient & Pontivy | A venir |  |  |  |
 | - | IUT de Mantes | ? |  |  |  |
 | - | IUT de Saint Denis | A venir |  |  |  |
   
