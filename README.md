@@ -35,7 +35,7 @@ Les utilisateurs actuels sont :
 | 29 | IUT de Caen (IFS) | ✅ |  |  |  |
 | 30 | IUT de Saint-Nazaire | ✅ | ✅ |  |  |
 | 31 | IUT de Montpellier-Sète | ✅ |  |  |  |
-| 32 | IUT de Cachan | ✅ | ✅ |  |  |
+| 32 | IUT de Cachan | ✅ | ✅ | ✅ |  |
 | 33 | IUT Nord Franche-Comté | ✅ |  |  |  |
 | 34 | IUT de Montreuil | ✅ | ✅ |  |  |
 | 35 | IUT de Schiltigheim | ✅ | ✅ |  |  |
@@ -53,8 +53,8 @@ Les utilisateurs actuels sont :
 | - | Toute l'Université de Haute Alsace (UHA) | Étude en cours |  |  |  |
 | - | IUT du Littoral Côte d'Opale | ? |  |  |  |
 | - | IUT de Roanne | ? |  |  |  |
-| - | IUT de Vannes | ? |  |  |  |
-| - | IUT de Lorient & Pontivy | ? |  |  |  |
+| - | IUT de Vannes | A venir |  |  |  |
+| - | IUT de Lorient & Pontivy | A venir |  |  |  |
 | - | IUT de Mantes | ? |  |  |  |
 | - | IUT de Saint Denis | A venir |  |  |  |
   
