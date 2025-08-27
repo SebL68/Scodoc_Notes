@@ -411,7 +411,7 @@
 	upload_max_filesize 8M
 	post_max_size 8M
 </code></pre>
-						<p>Il est nécessaire de changer la permission ScoJustifView pour les utilisateurs qui ont le droit de voir les justificatifs, vous pouvez utiliser l'interface de gestion des droits de Scodoc ou avec la console : </p>
+						<p>Il est nécessaire de changer la permission JustifView pour les utilisateurs qui ont le droit de voir les justificatifs, vous pouvez utiliser l'interface de gestion des droits de Scodoc ou avec la console : </p>
 <pre>
 <code>
 	# En tant qu'utilisateur "scodoc" :
@@ -419,8 +419,8 @@
 	source venv/bin/activate
 
 	# Pour ajouter les droits de visualisation aux "Admin" et aux "Secr" :
-	flask edit-role Admin -a ScoJustifView
-	flask edit-role Secr -a ScoJustifView
+	flask edit-role Admin -a JustifView
+	flask edit-role Secr -a JustifView
 </code>
 </pre>
 					</label>
