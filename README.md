@@ -24,7 +24,7 @@ Les utilisateurs actuels sont :
 | 18 | IUT de Brest | ✅ |  |  |  |
 | 19 | IUT de d'Annecy | ✅ | ✅ |  |  |
 | 20 | IUT de Nantes | ✅ | ✅ |  |  |
-| 21 | IUT de Blagnac | ✅ |  |  |  |
+| 21 | IUT de Blagnac | ✅ | ✅ |  |  |
 | 22 | IUT de Orléans | ✅ | ✅ |  |  |
 | 23 | IUT de Rennes | ✅ | ✅ | ✅ |  |
 | 24 | IUT de Perpignan sites de Narbonne et Carcassonne | ✅ | ✅ | ✅ | ✅ |
