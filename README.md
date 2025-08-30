@@ -12,14 +12,14 @@ Les utilisateurs actuels sont :
 | 6 | IUT de Lannion | ✅ | ✅ |  |  |
 | 7 | IUT de Lille | ✅ | ✅ |  |  |
 | 8 | IUT de Bordeaux | ✅ | ✅ |  |  |
-| 9 | IUT d'Orsay | ✅ | ✅ | ✅ |  |
+| 9 | IUT d'Orsay | ✅ |  |  |  |
 | 10 | IUT Le Havre | ✅ | ✅ |  |  |
 | 11 | IUT de La Rochelle | ✅ |  |  |  |
 | 12 | IUT Le Mans | ✅ | ✅ |  |  |
 | 13 | IUT de Mantes-En-Yvelines | ✅ |  |  |  |
 | 14 | IUT de Saint-Malo | ✅ | ✅ |  |  |
 | 15 | IUT de la Roche-sur-Yon | ✅ |  |  |  |
-| 16 | IUT de Vélizy | ✅ | ✅ | ✅ |  |
+| 16 | IUT de Vélizy | ✅ | ✅ |  |  |
 | 17 | IUT de Kourou | ✅ | ✅ | ✅ |  |
 | 18 | IUT de Brest | ✅ |  |  |  |
 | 19 | IUT de d'Annecy | ✅ | ✅ |  |  |
@@ -28,27 +28,29 @@ Les utilisateurs actuels sont :
 | 22 | IUT de Orléans | ✅ | ✅ |  |  |
 | 23 | IUT de Rennes | ✅ | ✅ | ✅ |  |
 | 24 | IUT de Perpignan sites de Narbonne et Carcassonne | ✅ | ✅ | ✅ | ✅ |
-| 25 | IUT de Villetaneuse | ✅ | ✅ |  |  |
+| 25 | IUT de Villetaneuse | ✅ | ✅ | ✅ | ✅ |
 | 26 | IUT de Cergy-Pontoise | ✅ | ✅ |  |  |
 | 27 | IUT de Béziers | ✅ |  |  | ✅ |
 | 28 | IUT d'Amiens | ✅ |  |  |  |
 | 29 | IUT de Caen (IFS) | ✅ |  |  |  |
 | 30 | IUT de Saint-Nazaire | ✅ | ✅ |  |  |
 | 31 | IUT de Montpellier-Sète | ✅ |  |  |  |
-| 32 | IUT de Cachan | ✅ | ✅ | ✅ |  |
+| 32 | IUT de Cachan | ✅ | ✅ | ✅ | ✅ |
 | 33 | IUT Nord Franche-Comté | ✅ |  |  |  |
 | 34 | IUT de Montreuil | ✅ | ✅ |  |  |
 | 35 | IUT de Schiltigheim | ✅ | ✅ |  |  |
 | 36 | Ecole de chimie de Mulhouse (ENSCMu) | ✅ | ✅ | ✅ | ✅ |
 | 37 | IUT d'Evry | ✅ | ✅ |  |  |
 | 38 | IUT de Béthune | ✅ |  |  |  |
-| 39 | IUT de Lyon 3 | ✅ |  |  |  |
+| 39 | IUT de Lyon 3 | ✅ | ✅ |  |  |
 | 40 | IUT de Sénart-Fontainebleau | ✅ | ✅ |  |  |
 | 41 | IUT de Paris Pajol | ✅ | ✅ | ✅ | ✅ |
 | 42 | IUT de Saint-Brieuc | ✅ |  |  |  |
-| 43 | IUT de Sceaux | ✅ | ✅ |  |  |
+| 43 | IUT de Sceaux | ✅ | ✅ | ✅ | ✅ |
 | 44 | IUT de Colmar | ✅ | ✅ | ✅ | ✅ |
 | 45 | IUT de Poitiers-Niort-Châtellerault | ✅ |  |  |  |
+| 46 | IUT du Creusot | ✅ |  |  |  |
+| 47 | IUT de Bayonne | ✅ |  |  |  |
 | - | IUT de Chatellerault | Étude en cours |  |  |  |
 | - | Toute l'Université de Haute Alsace (UHA) | Étude en cours |  |  |  |
 | - | IUT du Littoral Côte d'Opale | ? |  |  |  |
