@@ -54,46 +54,46 @@
 	<main>
 		<h2>18/08/2025 - 7.0.0</h2>
 		<ul>
-			<li>Compatibilité PHP 8.4 (Debian 13)</li>
-			<li>Option pour connecter plusieurs Scodoc à une unique passerelle (voir <a href="https://github.com/SebL68/Scodoc_Notes?tab=readme-ov-file#une-passerelle-pour-plusieurs-scodoc">readme</a></li>
-			<li>Affichage des appréciations - contribution de @Lyanis Souidi (Fontainebleau)</li>
-			<li>Création d'un outil de publipostage, notamment utile pour les poursuites d'études (voir html/services/poursuiteEtudes.html)</li>
-			<li>Amélioration UX du choix des groupes</li>
-			<li>Fix d'un problème de memory leak lors de l'affichage des statistiques de connexions</li>
-			<li>Fix ordre des relevés PDF par rapport aux semestres</li>
-			<li>Fix affichage des absences non BUT</li>
+			<li>Compatibilité PHP 8.4 (Debian 13).</li>
+			<li>Option pour connecter plusieurs Scodoc à une unique passerelle (voir <a href="https://github.com/SebL68/Scodoc_Notes?tab=readme-ov-file#une-passerelle-pour-plusieurs-scodoc">readme</a>).</li>
+			<li>Affichage des appréciations - contribution de @Lyanis Souidi (Fontainebleau).</li>
+			<li>Création d'un outil de publipostage, notamment utile pour les poursuites d'études (voir html/services/poursuiteEtudes.html).</li>
+			<li>Amélioration UX du choix des groupes.</li>
+			<li>Fix d'un problème de memory leak lors de l'affichage des statistiques de connexions.</li>
+			<li>Fix ordre des relevés PDF par rapport aux semestres.</li>
+			<li>Fix affichage des absences non BUT.</li>
 			<li>Divers autres correctifs et améliorations.</li>
 		</ul>
 		<h2>09/03/2024 - 6.3.4</h2>
 		<ul>
-			<li>Option permettant de choisir les départements qui publient les relevés PDF</li>
-			<li>Amélioration des options impliquant la liste des départements : cases à cocher à la place de textes</li>
-			<li>Histogramme : ajout de labels, amélioration visuelle des colonnes vides</li>
-			<li>Amélioration du cache agressif</li>
+			<li>Option permettant de choisir les départements qui publient les relevés PDF.</li>
+			<li>Amélioration des options impliquant la liste des départements : cases à cocher à la place de textes.</li>
+			<li>Histogramme : ajout de labels, amélioration visuelle des colonnes vides.</li>
+			<li>Amélioration du cache agressif.</li>
 		</ul>
 		<h2>27/01/2024 - 6.3.3</h2>
 		<ul>
-			<li>Correctif bug page saisie d'absences : l'affichage d'absences de plusieurs semestres différents faisait planter la page</li>
+			<li>Correctif bug page saisie d'absences : l'affichage d'absences de plusieurs semestres différents faisait planter la page.</li>
 		</ul>
 		<h2>27/01/2024 - 6.3.1</h2>
 		<ul>
-			<li>Option pour autoriser l'affichage des histogrammes (activé par défaut)</li>
-			<li>Limite l'affichage d'un histogramme s'il y a moins de 5 étudiants</li>
-			<li>Optimisation du responsive de l'histogramme</li>
+			<li>Option pour autoriser l'affichage des histogrammes (activé par défaut).</li>
+			<li>Limite l'affichage d'un histogramme s'il y a moins de 5 étudiants.</li>
+			<li>Optimisation du responsive de l'histogramme.</li>
 		</ul>
 		<h2>27/01/2024 - 6.3.0</h2>
 		<ul>
-			<li>Relevé de notes : affichage de l'histogramme des notes pour chaque évaluation</li>
+			<li>Relevé de notes : affichage de l'histogramme des notes pour chaque évaluation.</li>
 		</ul>
 		<h2>24/01/2024 - 6.2.5</h2>
 		<ul>
-			<li>Correction bug affichage "undefined" à la place du groupe sur le relevé de notes</li>
-			<li>Amélioration : affichage de tous les groupes (possibilité de choisir l'ordre et lesquels masquer dans Scodoc)</li>
-			<li>Autres petites améliorations</li>
+			<li>Correction bug affichage "undefined" à la place du groupe sur le relevé de notes.</li>
+			<li>Amélioration : affichage de tous les groupes (possibilité de choisir l'ordre et lesquels masquer dans Scodoc).</li>
+			<li>Autres petites améliorations.</li>
 		</ul>
 		<h2>06/01/2024 - 6.2.2</h2>
 		<ul>
-			<li>Métriques absences : utilisation correctif API Scodoc</li>
+			<li>Métriques absences : utilisation correctif API Scodoc.</li>
 		</ul>
 		<h2>30/12/2023 - 6.2.0</h2>
 		<ul>
