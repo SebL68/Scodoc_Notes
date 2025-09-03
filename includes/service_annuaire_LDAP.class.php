@@ -111,11 +111,18 @@ class Service_Annuaire{
     */
     /****************************************************/
 		private static function setupLDAP($composante, $LDAP_instance){
-			$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
-
-			$STUDENTS_PATH = "$path/data/annuaires/".$composante."_liste_etu.txt";
-        	$TEACHERS_PATH = "$path/data/annuaires/".$composante."_liste_ens.txt";
-       		$BIATSS_PATH = "$path/data/annuaires/".$composante."_liste_biat.txt";
+			global $path;
+			
+			if($composante != '') {
+				$STUDENTS_PATH = "$path/data/annuaires/".$composante."_liste_etu.txt";
+				$TEACHERS_PATH = "$path/data/annuaires/".$composante."_liste_ens.txt";
+				$BIATSS_PATH = "$path/data/annuaires/".$composante."_liste_biat.txt";
+			} else {
+				$STUDENTS_PATH = "$path/data/annuaires/liste_etu.txt";
+				$TEACHERS_PATH = "$path/data/annuaires/liste_ens.txt";
+				$BIATSS_PATH = "$path/data/annuaires/liste_biat.txt";
+			}
+			
 
 			if ($id_LDAP = self::openLDAP($LDAP_instance)) {
 				if ($LDAP_instance['filtre_ufr'] != '') {
