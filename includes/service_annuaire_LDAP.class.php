@@ -116,11 +116,11 @@ class Service_Annuaire{
 			if($composante != '') {
 				$STUDENTS_PATH = $path.'data/annuaires/'.$composante.'_liste_etu.txt';
 				$TEACHERS_PATH = $path.'data/annuaires/'.$composante.'_liste_ens.txt';
-				$BIATSS_PATH = $path.'/data/annuaires/'.$composante.'_liste_biat.txt';
+				$BIATSS_PATH = $path.'data/annuaires/'.$composante.'_liste_biat.txt';
 			} else {
-				$STUDENTS_PATH = $path.'/data/annuaires/liste_etu.txt';
-				$TEACHERS_PATH = $path.'/data/annuaires/liste_ens.txt';
-				$BIATSS_PATH = $path.'/data/annuaires/liste_biat.txt';
+				$STUDENTS_PATH = $path.'data/annuaires/liste_etu.txt';
+				$TEACHERS_PATH = $path.'data/annuaires/liste_ens.txt';
+				$BIATSS_PATH = $path.'data/annuaires/liste_biat.txt';
 			}
 			
 
