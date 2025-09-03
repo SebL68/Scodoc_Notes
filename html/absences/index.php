@@ -916,7 +916,7 @@
 				event.preventDefault();
 			}
 			sliderStopGrab(event) {
-				let numPosi = Math.round(parseInt(this.slider.style.left) / this.pasSize);
+				let numPosi = Math.round(parseInt(this.slider.style.left.match(/[+-]?([0-9]*[.])?[0-9]+/)) / this.pasSize);
 				this.setPosition(numPosi);
 				this.slider.children[1].innerText = "";
 
