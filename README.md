@@ -203,13 +203,14 @@ Il est possible d'activer d'autres options prévus pour les enseignants comme :
  - la possibilité de visualiser les relevés de n'importe quel étudiant,
  - récupérer des documents xls pratiques, automatiquement générés en fonction des listes Scodoc,
  - gérer les absences entièrement depuis la passerelle, avec des créneaux prédéfinis (sans utiliser Scodoc),  
- - gérer les absences de Scodoc et les afficher aux étudiants. 
+ - gérer les absences de Scodoc et les afficher aux étudiants,
+ - permettre aux étudiants de déposer des justificatifs d'absences à valider dans Scodoc.
  
 Les super-admin ont un onglet supplémentaire pour configurer la passerelle en ligne.  
 Ils peuvent également attribuer les rôles admin ou personnel à des idCAS.  
   
 Si le mode enseignant est activé, les idCAS reconnus comme "personnel" pourront avoir accès aux relevés des étudiants de leur département ou de tous les étudiants (en fonction de la de l'option choisi dans l'onglet "Config") et récupérer les listes au format xlsx.  
-Si le mode absences est activé, la passerelle permet de réaliser les absences par les personnels, un admin pourra justifier ces absences - a noter que le module absence n'est pas connecté à Scodoc pour le moment - ces absences sont automatiquement affichées aux étudiants.  
+Si le mode absences est activé, la passerelle permet de réaliser les absences par les personnels, un admin pourra justifier ces absences depuis la passerelle.
   
 Il est également possible d'utiliser le LDAP pour remplir automatiquement les listes des personnels.  
   
