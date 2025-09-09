@@ -208,7 +208,7 @@ Il est possible d'activer d'autres options prévus pour les enseignants comme :
 Les super-admin ont un onglet supplémentaire pour configurer la passerelle en ligne.  
 Ils peuvent également attribuer les rôles admin ou personnel à des idCAS.  
   
-Si le mode enseignant est activé, les idCAS reconnus comme "personnel" pourront avoir accès aux relevés de tous les étudiants et récupérer les listes au format xlsx.  
+Si le mode enseignant est activé, les idCAS reconnus comme "personnel" pourront avoir accès aux relevés des étudiants de leur département ou de tous les étudiants (en fonction de la de l'option choisi dans l'onglet "Config") et récupérer les listes au format xlsx.  
 Si le mode absences est activé, la passerelle permet de réaliser les absences par les personnels, un admin pourra justifier ces absences - a noter que le module absence n'est pas connecté à Scodoc pour le moment - ces absences sont automatiquement affichées aux étudiants.  
   
 Il est également possible d'utiliser le LDAP pour remplir automatiquement les listes des personnels.  
