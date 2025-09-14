@@ -10,7 +10,7 @@ data/annuaires/utilisateurs.json
 data/annuaires/administrateurs.json
 data/annuaires/*_utilisateurs.json
 data/annuaires/*_administrateurs.json
-
+data/annuaires/*_utilisateurs.json
 
 data/analytics/*
 data/messages/*

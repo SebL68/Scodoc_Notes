@@ -83,14 +83,14 @@ function displayFromOptions(options){
 // Changement de composante
 document.querySelector("header select").addEventListener("change", function() {
 	window.localStorage.composante = this.value;
-	document.cookie = "composante=" + window.localStorage.composante;
+	document.cookie = "composante=" + window.localStorage.composante + "; path=/";
 	document.querySelector("header").classList.remove("ouvert", "selectComposante");
 	window.location.reload();
 })
 
 if(window.localStorage.composante) {
 	document.querySelector("header select").value = window.localStorage.composante;
-	document.cookie = "composante=" + window.localStorage.composante;
+	document.cookie = "composante=" + window.localStorage.composante + "; path=/";
 } else {
 	document.querySelector("header").classList.add("ouvert", "selectComposante");
 	displayError("Veuillez choisir une composante.");
