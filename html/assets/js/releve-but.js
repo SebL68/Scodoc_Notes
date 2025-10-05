@@ -482,6 +482,10 @@ class releveBUT extends HTMLElement {
 	addSeenEvaluation(el)
 	{
 		const seenEvaluations = this.getSeenEvaluations();
+		// Éviter les doublons
+		if(seenEvaluations.find((evaluation) => evaluation.id === el.dataset.id)){
+			return;
+		}
 		seenEvaluations.push({
 			id: el.dataset.id,
 			note: el.dataset.note
