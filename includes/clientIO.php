@@ -58,7 +58,7 @@ function displayError(message){
 	let auth = document.querySelector(".auth");
 	auth.style.opacity = "1";
 	auth.style.pointerEvents = "initial";
-	auth.innerHTML = message;
+	auth.innerHTML = message + "<br>Cliquez pour fermer ce message.";
 	auth.addEventListener("click", ()=>{
 		auth.style.opacity = "0";
 		auth.style.pointerEvents = "none";
