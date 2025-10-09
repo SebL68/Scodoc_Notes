@@ -52,6 +52,7 @@ Les utilisateurs actuels sont :
 | 46 | IUT du Creusot | ✅ |  |  |  |
 | 47 | IUT de Bayonne | ✅ |  |  |  |
 | 48 | IUT de Vannes | ✅ |  |  |  |
+| 49 | IUT de Chalon-sur-Saône | ✅ |  |  |  |
 | - | IUT de Chatellerault | Étude en cours |  |  |  |
 | - | Toute l'Université de Haute Alsace (UHA) | Étude en cours |  |  |  |
 | - | IUT du Littoral Côte d'Opale | ? |  |  |  |
