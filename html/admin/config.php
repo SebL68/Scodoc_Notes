@@ -415,7 +415,6 @@
 							<ul>
 								<li>AbsAddBillet</li>
 								<li>AbsJustifView</li>
-								<li>JustifValidate</li>
 							</ul> 
 					</label>
 					<div>
