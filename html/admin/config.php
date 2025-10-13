@@ -415,6 +415,7 @@
 							<ul>
 								<li>AbsAddBillet</li>
 								<li>AbsJustifView</li>
+								<li>JustifValidate (afin de pouvoir justifier une absence dans l'onglet (Stats/Justif)</li>
 							</ul> 
 					</label>
 					<div>
