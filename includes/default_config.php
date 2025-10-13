@@ -257,6 +257,13 @@
 		$Config->absence_pas = $configJSON['absence_pas'] ?? Config::$absence_pas ?? 0.5;
 		$Config->absence_dureeSeance = $configJSON['absence_dureeSeance'] ?? Config::$absence_dureeSeance ?? 2;
 
+/******************/
+/* Portail photos */
+/******************/
+		$Config->ipScodoc = Config::$ipScodoc ?? '';
+		$Config->urlPhoto = Config::$urlPhoto ?? '';
+
+
 /***************************************/
 /* Déclaration des constantes globales */
 /***************************************/
