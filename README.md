@@ -60,6 +60,7 @@ Les utilisateurs actuels sont :
 | - | IUT de Lorient & Pontivy | A venir |  |  |  |
 | - | IUT de Mantes | ? |  |  |  |
 | - | IUT de Saint Denis | A venir |  |  |  |
+| - | IUT de Nice | A venir |  |  |  |
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
   
