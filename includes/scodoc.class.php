@@ -264,17 +264,29 @@ class Scodoc{
 		}
 
 		$output = json_decode($this->Ask_Scodoc("etudiant/nip/$nip/formsemestre/$semestre/bulletin"));
+		if( in_array(
+				$output->etudiant->dept_acronym, 
+				explode(',', $Config->liste_dep_masque_notes)
+			)
+		) {
+
+			$output = (object)[
+				'etudiant' => [
+					'dept_acronym' => $output->etudiant->dept_acronym, 
+				]
+			];
+			return $output;
+		}
 		if(isset($output->publie)) {	// Détecte si c'est une réponse normale
 			if($output->publie === false){
 				$output->message = $Config->message_non_publication_releve;
 			}
 			Analytics::add('relevé');
 			return $output;
-		} else {
-			returnError(
-				"Relevé non disponible pour ce semestre, veuillez contacter votre responsable en lui précisant : vérifier si l'export des notes du semestre est autorisé dans Scodoc."
-			);
 		}
+		returnError(
+			"Relevé non disponible pour ce semestre, veuillez contacter votre responsable en lui précisant : vérifier si l'export des notes du semestre est autorisé dans Scodoc."
+		);
 	}
 
 	/*******************************/

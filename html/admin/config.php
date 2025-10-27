@@ -217,6 +217,13 @@
 			<details>
 				<summary>Relevé de notes</summary>
 				<div>
+					<div>
+						<b>✔️ Départements souhaitant ne pas afficher les notes</b>
+						<div class="grpCheckbox" data-name="liste_dep_masque_notes">
+							<?= checkboxDep(); ?>
+						</div>
+						<p>Utile si vous souhaitez n'utiliser que les absences.</p>
+					</div>
 					<label>
 						<input type="checkbox" name="histogramme">
 						<b>Histogramme évaluation</b>

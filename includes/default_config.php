@@ -64,6 +64,7 @@
 		// PAS IMPLEMENTÉ $Config->afficher_releves = Config::$afficher_releves ?? true;		// Permet d'utiliser la passerelle uniquement pour les absences en standalone
 		$Config->acces_enseignants = $configJSON['acces_enseignants'] ?? Config::$acces_enseignants ?? false;
 
+		$Config->liste_dep_masque_notes = $configJSON['liste_dep_masque_notes'] ?? Config::$liste_dep_masque_notes ?? ''; // Départements souhaitant ne pas afficher les notes.
 		$Config->histogramme = $configJSON['histogramme'] ?? Config::$histogramme ?? true; // Proposer aux étudiants de voir l'histrogramme des notes de la promotion pour les évaluation.
 		
 		$Config->afficher_absences = $configJSON['afficher_absences'] ?? Config::$afficher_absences ?? false;	// En dessous du relevé de notes étudiants
@@ -286,6 +287,7 @@ $accepted_input = [
 	'passerelle_version',
 	'multi_scodoc',
 
+	'liste_dep_masque_notes',
 	'histogramme',
 	'message_non_publication_releve',
 	'releve_PDF',
