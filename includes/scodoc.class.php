@@ -272,7 +272,9 @@ class Scodoc{
 			$output = (object)[
 				'etudiant' => [
 					'dept_acronym' => $output->etudiant->dept_acronym, 
-				]
+				],
+				'ressources' => $output->ressources,
+				'saes' => $output->saes
 			];
 			return $output;
 		}
