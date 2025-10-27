@@ -269,7 +269,6 @@ class Scodoc{
 				explode(',', $Config->liste_dep_masque_notes)
 			)
 		) {
-
 			$output = (object)[
 				'etudiant' => [
 					'dept_acronym' => $output->etudiant->dept_acronym, 

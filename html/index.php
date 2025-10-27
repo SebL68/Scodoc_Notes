@@ -448,7 +448,7 @@
 
 			async function showReportCards(data, semestre){
 				dep = data.relevé.etudiant.dept_acronym || data.relevé.etudiant.photo_url.split("/")[2];
-				if(!data.date) { return; } // Les données ne sont pas publiées pour ce département (option passerelle).
+				if(!data.relevé.date) { return; } // Les données ne sont pas publiées pour ce département (option passerelle).
 				if(data.relevé.publie == false){
 					document.querySelector(".releve").innerHTML = "<h2 style='background: #90c;'>" + data.relevé.message + "</h2>";
 				}else if(data.relevé.type == "BUT"){
