@@ -405,6 +405,7 @@
 							<option value="heure">Récupération des heures dans Scodoc</option>
 							<option value="demi">Récupération des demi-journées dans Scodoc</option>
 							<option value="journee">Récupération des journées dans Scodoc</option>
+							<option value="compte">Récupération du nombre d'absences constatées dans Scodoc</option>
 						</select>
 						<p>Permet de choisir le type de métrique pour l'affichage des totaux absences aux étudiants.</p>
 					</label>

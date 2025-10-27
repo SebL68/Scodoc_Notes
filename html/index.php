@@ -603,7 +603,8 @@
 						let txtType = {
 							heure: "h",
 							demi: " demi-journée(s)",
-							journee: " journée(s)"
+							journee: " journée(s)",
+							compte: ""
 						}
 
 						let totAbsent = data.totauxAbsences.absent.non_justifie[config.metrique_absences];
