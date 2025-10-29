@@ -138,7 +138,7 @@ Cette correspondance est faite dans les fichiers /data/annuaires/liste_etu.txt
 Il est possible d'automatiser la génération de ces fichiers à partir du LDAP (voir ci-après).  
   
 ## Diagnostic
-Pour vous aider dans la configuration de votre serveur, un système de diagnostic a été mis en place : /html/sercices/diagnostic.php?-no-sw  
+Pour vous aider dans la configuration de votre serveur, un système de diagnostic a été mis en place : /html/services/diagnostic.php?-no-sw  
   
 Exemple : https://notes.iutmulhouse.uha.fr/services/diagnostic.php?-no-sw
   
