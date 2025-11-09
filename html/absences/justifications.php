@@ -30,7 +30,7 @@
 			grid-template-columns: subgrid;
 		}
 
-		.dropZone {
+		.dropZone, .noticeMenstruel {
 			border-radius: 8px;
 			border: 2px dashed #09C;
 			padding: 4px;
@@ -60,17 +60,6 @@
 			box-shadow: 0 2px 2px #aaa;
 			transition: 0.2s;
 		}
-
-		@media screen and (max-width:700px) {
-			.dropZone {
-				grid-column: 1 / 3;
-				grid-row: 4;
-			}
-			.newJustif>input[type=submit] {
-				grid-column: 2 / 3;
-				grid-row: 5;
-			}
-		}
 		.newJustif>input[type=submit]:disabled {
 			cursor: initial;
 			opacity: 0.4;
@@ -81,6 +70,47 @@
 		.newJustif>input[type=submit]:not(:disabled):active {
 			box-shadow: 0 0px 0px 0px #444;
 			transform: translateY(2px)
+		}
+
+		.newJustif>.labelMenstruel {
+			border: 1px solid #777;
+			text-align: center;
+			align-items: center;
+			grid-column: 3 / 4;
+    		grid-row: 1 / 2;
+			cursor: pointer;
+			display: flex;
+			justify-content: center;
+			gap: 8px;
+		}
+		.newJustif>.labelMenstruel:hover {
+			background: #aaa;
+		}
+		.newJustif>.labelMenstruel:has(input:checked){
+			border: 2px solid var(--secondaire);
+		}
+		.newJustif:not(.menstruelActive)>.noticeMenstruel,
+		.newJustif.menstruelActive>.dropZone{
+			display: none;
+		}
+
+		.tropMenstruel {
+			pointer-events: none;
+			opacity: 0.4;
+		}
+
+		@media screen and (max-width:700px) {
+			.dropZone {
+				grid-column: 1 / 3;
+				grid-row: 4;
+			}
+			.newJustif>input[type=submit] {
+				grid-column: 2 / 3;
+				grid-row: 5;
+			}
+			.newJustif>.labelMenstruel{
+				grid-column: 2 / 3;
+			}
 		}
 
 		/*********/
@@ -144,11 +174,16 @@
 			<b>Saisi d'un nouveau justificatif</b>
 			<label>Date de début <input required type="datetime-local" name="date_debut"></label>
 			<label>Date de Fin <input required type="datetime-local" name="date_fin"></label>
+			
+			<label class=labelMenstruel><input type=checkbox name=menstruel value='on'>Demande de congé menstruel<span></span></label>
 			<div class=dropZone>
 				Déposez une image ou un fichier PDF - 8Mo max
 				<label>
 					<input required type=file accept="application/pdf, image/jpeg, image/png, image/avif, image/webp" size="8000000" name=file>
 				</label>
+			</div>
+			<div class=noticeMenstruel>
+				Vous attestez sur l'honneur que le congé menstruel est saisi pour motif de dysménhorrées. Ne fonctionne pas pour les examens annoncés.
 			</div>
 			<input type="submit">
 		</form>
@@ -204,7 +239,37 @@
 				document.querySelector(".newJustif>input[type=submit]").disabled = true;
 				document.querySelector(".newJustif>input[type=submit]").value = "Envoi reservé aux étudiants";
 			}
+
+			if(config.nb_heures_conge_menstruel == 0){
+				document.querySelector(".labelMenstruel").remove();
+			} else {
+				document.querySelector(".labelMenstruel>input").addEventListener("change", toggleMenstruel)
+			}
         }
+
+		function toggleMenstruel() {
+			document.querySelector(".newJustif").classList.toggle("menstruelActive");
+			let fileInput = document.querySelector(".dropZone input");
+			if(fileInput.required) {
+				fileInput.required = false;
+			} else {
+				fileInput.required = true;
+			}
+		}
+
+		function calculMenstruel(data){
+			let nb = 0;
+			data.forEach(justif => {
+				if(justif.raison == "Congé menstruel") {
+					nb += (new Date(justif.date_fin) - new Date(justif.date_debut)) / 3600000;
+				}
+			})
+			document.querySelector(".labelMenstruel span").innerText = `${nb} / ${config.nb_heures_conge_menstruel}h`;
+
+			if(nb >= config.nb_heures_conge_menstruel) {
+				document.querySelector(".labelMenstruel").classList.add("tropMenstruel");
+			}
+		}
 
 		async function getJustifs($nip = "") {
 			let data = await fetchData("getJustifs&nip="+$nip);
@@ -220,6 +285,8 @@
 			})
 
 			document.querySelector(".listeJustif").innerHTML = output;
+
+			calculMenstruel(data);
 		}
 
 		function newJustifLine(justif) {
@@ -307,12 +374,13 @@
 			.then(JSON => {
 				if(JSON.result == "OK") {
 					let date = new Date();
+					var raison = document.querySelector(".menstruelActive") ? "Congé menstruel" : "";
 					let justif = {
 						entry_date: date.toISOString(),
 						date_debut: date_debut,
 						date_fin: date_fin,
 						etat: "ATTENTE",
-						raison: ""
+						raison: raison
 					};
 					document.querySelector(".firstLine:nth-child(5)").insertAdjacentHTML("afterend" ,newJustifLine(justif));
 				} else {
@@ -322,6 +390,10 @@
 				document.querySelector("form").reset();
 				document.querySelector("input[type=submit]").disabled = false;
 				document.querySelector("input[type=submit]").value = "Envoyer";
+
+				if(raison) {
+					toggleMenstruel();
+				}
 			})
 			.catch(error => displayError("Un problème est survenu : " + error));
 		}

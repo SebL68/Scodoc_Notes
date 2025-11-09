@@ -388,6 +388,7 @@
 				if($user->getStatut() != ETUDIANT ){ returnError(); }
 				sanitize($_POST['date_debut']);
 				sanitize($_POST['date_fin']);
+				sanitize($_POST['menstruel'] ?? '');
 
 				ini_set('upload_max_filesize', '8M');
 				ini_set('post_max_size', '8M');
@@ -398,6 +399,7 @@
 					$user->getId(),
 					$_POST['date_debut'],
 					$_POST['date_fin'],
+					$_POST['menstruel'] ?? false,
 					$_FILES['file']
 				);
 				break;

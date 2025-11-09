@@ -632,12 +632,13 @@ class Scodoc{
 	/* setJustif()
 	Ajout d'une justification d'absence
 	*******************************/
-	public function setJustif($nip, $debut, $fin, $file = null){
+	public function setJustif($nip, $debut, $fin, $menstruel, $file = null){
 		$data = [
 			[
 				'etat' => ($file) ? 'attente' : 'valide',
 				'date_debut' => $debut,
-				'date_fin' => $fin
+				'date_fin' => $fin,
+				'raison' => ($menstruel != false) ? 'Congé menstruel' : ''
 			]
 		];
 		
@@ -648,7 +649,13 @@ class Scodoc{
 				json_encode($data)
 			) 
 		);
-		
+
+
+		if($menstruel != false && count($r->errors) == 0) {
+			return [
+				'result' => "OK"
+			];
+		}
 
 		if($file) {
 			$parameters = array(
