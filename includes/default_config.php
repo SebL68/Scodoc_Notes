@@ -74,6 +74,7 @@
 		$Config->autoriser_justificatifs = $configJSON['autoriser_justificatifs'] ?? Config::$autoriser_justificatifs ?? false;	// Choisir si les étudiants peuvent déposer des justificatifs d'absences qui seront importés dans Scodoc.
 		$Config->liste_dep_ok_justificatifs = $configJSON['liste_dep_ok_justificatifs'] ?? Config::$liste_dep_ok_justificatifs ?? '';	// Liste des départements autorisant les justificatifs
 		$Config->liste_dep_publi_absences = $configJSON['liste_dep_publi_absences'] ?? Config::$liste_dep_publi_absences ?? '';	// Liste des départements autorisant les justificatifs
+		$Config->nb_heures_conge_menstruel = $configJSON['nb_heures_conge_menstruel'] ?? Config::$nb_heures_conge_menstruel ?? 0;	// Nombre d'heures de congés menstruels autorisés.
 		$Config->message_rapport_absences = $configJSON['message_rapport_absences'] ?? Config::$message_rapport_absences ?? "Les causes de l’absence doivent être notifiées par écrit à l'aide d'un justificatif dans les 48 heures à compter du début de l’absence au secrétariat du département. Voir règlement intérieur pour les motifs légitimes d'absence.";	//Message au début du rapport d'absences, après le relevé de notes.
 		$Config->message_justificatifs = $configJSON['message_justificatifs'] ?? Config::$message_justificatifs ?? "";	// Message à ajouter dans la page justificatifs.
 
@@ -319,6 +320,7 @@ $accepted_input = [
 	'autoriser_justificatifs',
 	'liste_dep_ok_justificatifs',
 	'liste_dep_publi_absences',
+	'nb_heures_conge_menstruel',
 	'message_rapport_absences',
 	'message_justificatifs',
 	'absence_heureDebut',

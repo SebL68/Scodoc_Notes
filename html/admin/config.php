@@ -433,6 +433,11 @@
 						</div>
 					</div>
 					<label>
+						<b>🖊️ (Expérimental) - Activer la justification pour congé menstruel</b>
+						<input type="number" min=0 required name="nb_heures_conge_menstruel">
+						<p>Ajoute une option sur la page des justificatifs pour indiquer que l'absence est pour un congé menstruel, dans la limite des heures indiquées - 0 désactive l'option.</p>
+					</label>
+					<label>
 						<b>🖊️ Message au début du rapport d'absences, après le relevé de notes</b>
 						<input type="text" name="message_rapport_absences">
 						<p>A destination des étudiants pour leur donner des indications supplémentaires.</p>
