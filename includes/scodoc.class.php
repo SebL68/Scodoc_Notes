@@ -632,7 +632,7 @@ class Scodoc{
 	/* setJustif()
 	Ajout d'une justification d'absence
 	*******************************/
-	public function setJustif($nip, $debut, $fin, $menstruel, $file = null){
+	public function setJustif($nip, $debut, $fin, $menstruel = false, $file = null){
 		$data = [
 			[
 				'etat' => ($file) ? 'attente' : 'valide',
