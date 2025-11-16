@@ -264,17 +264,20 @@ class Scodoc{
 		}
 
 		$output = json_decode($this->Ask_Scodoc("etudiant/nip/$nip/formsemestre/$semestre/bulletin"));
+
+		preg_match('/ScoDoc\/(.+)\/Scolarite/', $output->etudiant->photo_url, $dep);
+		$dep = $dep[1];
 		if( in_array(
-				$output->etudiant->dept_acronym, 
+				$dep, 
 				explode(',', $Config->liste_dep_masque_notes)
 			)
 		) {
 			$output = (object)[
 				'etudiant' => [
-					'dept_acronym' => $output->etudiant->dept_acronym, 
+					'dept_acronym' => $dep, 
 				],
-				'ressources' => $output->ressources,
-				'saes' => $output->saes
+				'ressources' => $output->ressources ?? [],
+				'saes' => $output->saes ?? []
 			];
 			return $output;
 		}
