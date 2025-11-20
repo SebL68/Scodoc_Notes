@@ -258,13 +258,72 @@
 		}
 
 		function calculMenstruel(data){
+			const MATIN = [0, 13];
+			const APRESMIDI = [13, 24];
 			let nb = 0;
+
+			/* Ajout des intervals menstruels */
+			let intervals = [];
 			data.forEach(justif => {
-				if(justif.raison == "Congé menstruel") {
-					nb += (new Date(justif.date_fin) - new Date(justif.date_debut)) / 3600000;
+				if(justif.raison == "Congé menstruel" && justif.etat != "NON_VALIDE") {
+					//nb += (new Date(justif.date_fin) - new Date(justif.date_debut)) / 3600000;
+					intervals.push([new Date(justif.date_debut), new Date(justif.date_fin)]);
 				}
 			})
-			document.querySelector(".labelMenstruel span").innerText = `${nb} / ${config.nb_heures_conge_menstruel}h`;
+
+			/* Tri */
+			intervals.sort((a, b)=> a[0] - b[0]);
+
+			/* Fusion des intervalles */
+			const merged = [];
+			for (const [start, end] of intervals) {
+				if (!merged.length || start > merged[merged.length - 1][1]) {
+				merged.push([start, end]);
+				} else {
+				merged[merged.length - 1][1] = new Date(
+					Math.max(merged[merged.length - 1][1], end)
+				);
+				}
+			}
+
+
+
+			// Fonction intersection demi-journée
+			const intersects = (dayStart, dayEnd, startHour, endHour) => {
+				const rStart = new Date(dayStart);
+				rStart.setHours(startHour, 0, 0, 0);
+
+				const rEnd = new Date(dayStart);
+				rEnd.setHours(endHour, 0, 0, 0);
+
+				return dayEnd > rStart && dayStart < rEnd;
+			};
+
+			// Découper intervalles fusionnés jour par jour ---
+			for (const [start, end] of merged) {
+				let current = new Date(start);
+
+				while (current < end) {
+				const dayStart = new Date(current);
+				dayStart.setHours(0, 0, 0, 0);
+
+				const dayEnd = new Date(dayStart);
+				dayEnd.setHours(23, 59, 59, 999);
+
+				const slotStart = new Date(Math.max(start, dayStart));
+				const slotEnd = new Date(Math.min(end, dayEnd));
+
+				if (intersects(slotStart, slotEnd, ...MATIN)) nb++;
+				if (intersects(slotStart, slotEnd, ...APRESMIDI)) nb++;
+
+				// Passer au jour suivant
+				current = new Date(dayStart);
+				current.setDate(current.getDate() + 1);
+				}
+			}
+
+			/* Affichage */
+			document.querySelector(".labelMenstruel span").innerText = `${nb} / ${config.nb_conge_menstruel} demi-journées`;
 
 			if(nb >= config.nb_heures_conge_menstruel) {
 				document.querySelector(".labelMenstruel").classList.add("tropMenstruel");
