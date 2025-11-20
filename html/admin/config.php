@@ -172,6 +172,10 @@
 					<a href="/services/nettoyagePhotos.php">Nettoyage photos</a>
 					<p>Supprime automatiquement les photos étudiants de la passerelle pour les étudiants qui n'ont pas été inscrits dans Scodoc depuis plus d'un an.</p>
 				</div>
+				<div>
+					<a href="/services/data.php?q=cleanStudentsPicAll">Supprimer toutes les photos</a>
+					<p>Supprime toutes les photos d'étudiants de la passerelle.</p>
+				</div>
 			</details>
 
 		<!-- ------- -->

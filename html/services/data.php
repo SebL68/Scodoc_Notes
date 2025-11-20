@@ -619,6 +619,16 @@
 				die();
 				break;
 
+			case 'cleanStudentsPicAll':
+				if($user->getStatut() < SUPERADMINISTRATEUR ){ returnError(); }
+				$dir = "$path/data/studentsPic/";
+				$images = array_slice(scandir($dir), 3);
+				foreach ($images as $image) {
+					unlink("$path/data/studentsPic/" . $image);
+				}
+				$output = [ 'result' => "Images supprimées" ];
+				break;
+
 		/*****************************************/
 		/* Message à afficher sur la page relevé */
 		/*****************************************/
