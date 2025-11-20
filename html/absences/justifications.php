@@ -240,7 +240,7 @@
 				document.querySelector(".newJustif>input[type=submit]").value = "Envoi reservé aux étudiants";
 			}
 
-			if(config.nb_heures_conge_menstruel == 0){
+			if(config.nb_conge_menstruel == 0){
 				document.querySelector(".labelMenstruel").remove();
 			} else {
 				document.querySelector(".labelMenstruel>input").addEventListener("change", toggleMenstruel)
@@ -344,8 +344,9 @@
 			})
 
 			document.querySelector(".listeJustif").innerHTML = output;
-
-			calculMenstruel(data);
+			if(config.nb_conge_menstruel != 0){
+				calculMenstruel(data);
+			}
 		}
 
 		function newJustifLine(justif) {
