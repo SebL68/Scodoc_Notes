@@ -567,6 +567,19 @@
 				];
 				break;
 
+			case 'deletePic':
+				if($user->getStatut() < ADMINISTRATEUR ){ returnError(); }
+				sanitize($_GET['nip']);
+				$file = "$path/data/studentsPic/" . $_GET['nip'] . '.jpg';
+				if (file_exists($file)) {
+					unlink($file);
+				}
+				$output = [
+					'result' => "OK"
+				];
+				
+				break;
+
 			case 'getAllStudentsPic':
 				if($user->getStatut() < SUPERADMINISTRATEUR ){ returnError(); }
 				$dir = "$path/data/studentsPic/";
