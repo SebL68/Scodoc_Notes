@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+
+	</style>
+</head>
+<body>
+	<zone-signature></zone-signature>
+
+	<img src="" alt="">
+	<script>
+
+		class signature extends HTMLElement {
+			constructor(){
+				super();
+				const shadow = this.attachShadow({ mode: "open" });
+				shadow.innerHTML = `
+					<style>
+						canvas{
+							border: 1px solid #777;
+							border-radius: 8px;
+						}
+						.corbeille {
+							position: absolute;
+							top: 10px;
+							left: 284px;
+							cursor: pointer;
+						}
+					</style>
+				`;
+
+				// Corbeille
+				let corbeille = document.createElement("div");
+				corbeille.className = "corbeille";
+				corbeille.innerText = "🗑️";
+				corbeille.addEventListener("click", ()=>{this.clear()});
+				shadow.appendChild(corbeille);
+
+				// Canvas
+				this.c = document.createElement("canvas");
+				this.c.width = "300";
+				this.c.height = "150";
+				shadow.appendChild(this.c);
+				this.ctx = this.c.getContext("2d");
+
+				this.ctx.fillText("J'atteste sur l'honneur que le congé menstruel est saisi", 4, 10)
+				this.ctx.fillText("pour motif de dysménhorrées", 4, 24);
+				this.ctx.strokeStyle = "#000080";
+				this.ctx.lineWidth = 3;
+
+				this.startHandler = (event)=>{this.start(event)}
+				this.moveHandler = (event)=>{this.move(event)}
+				this.endHandler = (event)=>{this.end(event)}
+
+				this.c.addEventListener("mousedown", this.startHandler);
+				this.c.addEventListener("touchstart", this.startHandler);
+			}
+
+			start(event) {
+				event.preventDefault();
+
+				this.x = (event.clientX || event.changedTouches[0].clientX) - this.c.getBoundingClientRect().x;
+				this.y = (event.clientY || event.changedTouches[0].clientY) - this.c.getBoundingClientRect().y;
+
+				this.ctx.moveTo(this.x, this.y);
+
+				this.c.addEventListener("mousemove", this.moveHandler);
+				this.c.addEventListener("touchmove", this.moveHandler);
+
+				document.addEventListener("mouseup", this.endHandler);
+				document.addEventListener("touchend", this.endHandler);
+			}
+
+			move(event) {
+				event.preventDefault();
+
+				let x = (event.clientX || event.changedTouches[0].clientX) - this.c.getBoundingClientRect().x;
+				let y = (event.clientY || event.changedTouches[0].clientY) - this.c.getBoundingClientRect().y;
+
+				let distance = Math.sqrt(
+					(this.x - x) * (this.x - x) + 
+					(this.y - y) * (this.y - y)
+				);
+				let largeur = 0.5 + 2 / distance;
+				this.ctx.lineWidth = largeur;
+
+				this.ctx.beginPath();
+				this.ctx.moveTo(this.x, this.y);
+				this.ctx.lineTo(x, y);
+				this.ctx.stroke();
+
+				this.x = x;
+				this.y = y;
+			}
+
+			end() {
+				this.c.removeEventListener("mousemove", this.moveHandler);
+				this.c.removeEventListener("touchmove", this.moveHandler);
+
+				document.removeEventListener("mouseup", this.endHandler);
+				document.removeEventListener("touchend", this.endHandler);
+
+				let img = this.c.toDataURL("image/png");
+
+				// <input type="hidden" name="image" id="imageData">
+				// document.getElementById('imageData').value = img;
+
+				document.querySelector('img').src = img;
+			}
+
+			clear() {
+				this.ctx.clearRect(0, 0, this.c.width, this.c.height);
+				this.ctx.beginPath();
+				this.ctx.fillText("J'atteste sur l'honneur que le congé menstruel est saisi", 4, 10)
+				this.ctx.fillText("pour motif de dysménhorrées", 4, 24);
+			}
+		}
+
+		customElements.define("zone-signature", signature);
+
+	</script>
+</body>
+</html>
