@@ -654,11 +654,11 @@ class Scodoc{
 		);
 
 
-		if($menstruel != false && count($r->errors) == 0) {
+		/*if($menstruel != false && count($r->errors) == 0) {
 			return [
 				'result' => "OK"
 			];
-		}
+		}*/
 
 		if($file) {
 			$parameters = array(

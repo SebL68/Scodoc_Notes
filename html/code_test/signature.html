@@ -47,8 +47,15 @@
 				shadow.appendChild(this.c);
 				this.ctx = this.c.getContext("2d");
 
-				this.ctx.fillText("J'atteste sur l'honneur que le congé menstruel est saisi", 4, 10)
-				this.ctx.fillText("pour motif de dysménhorrées", 4, 24);
+				this.ctx.font = "10px Arial";
+				this.ctx.fillText("J'atteste sur l'honneur que le congé menstruel est saisi pour", 4, 10);
+				this.ctx.fillText("motif de dysménhorrées.", 4, 24);
+				this.ctx.fillText("Ne fonctionne pas pour les examens annoncés.", 4, 142);
+
+				this.ctx.font = "40px Arial";
+				this.ctx.fillStyle = "#eeeeee";
+				this.ctx.fillText("Signature", 60, 85);
+
 				this.ctx.strokeStyle = "#000080";
 				this.ctx.lineWidth = 3;
 

@@ -94,13 +94,18 @@
 			display: none;
 		}
 
+		.newJustif.menstruelActive input[type=submit]{
+			opacity: 0.5;
+			pointer-events: none;
+		}
+
 		.tropMenstruel {
 			pointer-events: none;
 			opacity: 0.4;
 		}
 
 		@media screen and (max-width:700px) {
-			.dropZone {
+			.dropZone, .noticeMenstruel {
 				grid-column: 1 / 3;
 				grid-row: 4;
 			}
@@ -183,7 +188,7 @@
 				</label>
 			</div>
 			<div class=noticeMenstruel>
-				Vous attestez sur l'honneur que le congé menstruel est saisi pour motif de dysménhorrées. Ne fonctionne pas pour les examens annoncés.
+				<zone-signature></zone-signature>
 			</div>
 			<input type="submit">
 		</form>
@@ -249,12 +254,15 @@
 
 		function toggleMenstruel() {
 			document.querySelector(".newJustif").classList.toggle("menstruelActive");
-			let fileInput = document.querySelector(".dropZone input");
-			if(fileInput.required) {
-				fileInput.required = false;
+			/*let fileInput = document.querySelector(".dropZone input");
+			let signature = document.querySelector(".signature");
+			if(fileInput.disabled) {
+				fileInput.disabled = false;
+				signature.disabled = true;
 			} else {
-				fileInput.required = true;
-			}
+				fileInput.disabled = true;
+				signature.disabled = false;
+			}*/
 		}
 
 		function calculMenstruel(data){
@@ -285,8 +293,6 @@
 				);
 				}
 			}
-
-
 
 			// Fonction intersection demi-journée
 			const intersects = (dayStart, dayEnd, startHour, endHour) => {
@@ -325,7 +331,7 @@
 			/* Affichage */
 			document.querySelector(".labelMenstruel span").innerText = `${nb} / ${config.nb_conge_menstruel} demi-journées`;
 
-			if(nb >= config.nb_heures_conge_menstruel) {
+			if(nb >= config.nb_conge_menstruel) {
 				document.querySelector(".labelMenstruel").classList.add("tropMenstruel");
 			}
 		}
@@ -459,6 +465,156 @@
 		}
 
     </script>
+
+	<script>
+
+		class signature extends HTMLElement {
+			constructor(){
+				super();
+				const shadow = this.attachShadow({ mode: "open" });
+				shadow.innerHTML = `
+					<style>
+						:host {
+							position: relative;
+						}
+						canvas{
+							border: 1px solid #777;
+							border-radius: 8px;
+						}
+						.corbeille {
+							position: absolute;
+							top: 2px;
+							left: 278px;
+							cursor: pointer;
+						}
+					</style>
+				`;
+
+				// Corbeille
+				let corbeille = document.createElement("div");
+				corbeille.className = "corbeille";
+				corbeille.innerText = "🗑️";
+				corbeille.addEventListener("click", ()=>{this.clear()});
+				shadow.appendChild(corbeille);
+
+				// Canvas
+				this.c = document.createElement("canvas");
+				this.c.width = "300";
+				this.c.height = "150";
+				shadow.appendChild(this.c);
+				this.ctx = this.c.getContext("2d");
+
+				this.ctx.fillStyle = "#FFFFFF";
+				this.ctx.fillRect(0, 0, this.c.width, this.c.height);
+
+				this.ctx.fillStyle = "#000000";
+				this.ctx.font = "10px Arial";
+				this.ctx.fillText("J'atteste sur l'honneur que le congé menstruel est saisi pour", 4, 10);
+				this.ctx.fillText("motif de dysménhorrées.", 4, 24);
+				this.ctx.fillText("Ne fonctionne pas pour les examens annoncés.", 4, 142);
+
+				this.ctx.font = "40px Arial";
+				this.ctx.fillStyle = "#eeeeee";
+				this.ctx.fillText("Signature", 60, 85);
+
+				this.ctx.strokeStyle = "#000080";
+				this.ctx.lineWidth = 3;
+
+				this.startHandler = (event)=>{this.start(event)}
+				this.moveHandler = (event)=>{this.move(event)}
+				this.endHandler = (event)=>{this.end(event)}
+
+				this.c.addEventListener("mousedown", this.startHandler);
+				this.c.addEventListener("touchstart", this.startHandler);
+			}
+
+			start(event) {
+				event.preventDefault();
+
+				this.x = (event.clientX || event.changedTouches[0].clientX) - this.c.getBoundingClientRect().x;
+				this.y = (event.clientY || event.changedTouches[0].clientY) - this.c.getBoundingClientRect().y;
+
+				this.ctx.moveTo(this.x, this.y);
+
+				this.c.addEventListener("mousemove", this.moveHandler);
+				this.c.addEventListener("touchmove", this.moveHandler);
+
+				document.addEventListener("mouseup", this.endHandler);
+				document.addEventListener("touchend", this.endHandler);
+			}
+
+			move(event) {
+				event.preventDefault();
+
+				let x = (event.clientX || event.changedTouches[0].clientX) - this.c.getBoundingClientRect().x;
+				let y = (event.clientY || event.changedTouches[0].clientY) - this.c.getBoundingClientRect().y;
+
+				let distance = Math.sqrt(
+					(this.x - x) * (this.x - x) + 
+					(this.y - y) * (this.y - y)
+				);
+				let largeur = 0.5 + 2 / distance;
+				this.ctx.lineWidth = largeur;
+
+				this.ctx.beginPath();
+				this.ctx.moveTo(this.x, this.y);
+				this.ctx.lineTo(x, y);
+				this.ctx.stroke();
+
+				this.x = x;
+				this.y = y;
+			}
+
+			end() {
+				this.c.removeEventListener("mousemove", this.moveHandler);
+				this.c.removeEventListener("touchmove", this.moveHandler);
+
+				document.removeEventListener("mouseup", this.endHandler);
+				document.removeEventListener("touchend", this.endHandler);
+
+				/*let img = this.c.toDataURL("image/png");
+
+				document.querySelector('input.signature').value = img;*/
+				this.c.toBlob((blob)=>{
+					const file = new File([blob], 'signature.png', { type: 'image/png' });
+					  // Créer un DataTransfer pour simuler la sélection de fichier
+					const dataTransfer = new DataTransfer();
+					dataTransfer.items.add(file);
+
+					// Attacher le fichier à l'input
+					document.querySelector(".dropZone input").files = dataTransfer.files;
+				}, "image/png");
+
+				let submit = document.querySelector(".newJustif.menstruelActive input[type=submit]");
+				submit.style.opacity = "1";
+				submit.style.pointerEvents = "auto";
+			}
+
+			clear() {
+				this.ctx.fillStyle = "#FFFFFF";
+				this.ctx.fillRect(0, 0, this.c.width, this.c.height);
+				this.ctx.beginPath();
+
+				this.ctx.fillStyle = "#000000";
+				this.ctx.font = "10px Arial";
+				this.ctx.fillText("J'atteste sur l'honneur que le congé menstruel est saisi pour", 4, 10);
+				this.ctx.fillText("motif de dysménhorrées.", 4, 24);
+				this.ctx.fillText("Ne fonctionne pas pour les examens annoncés.", 4, 142);
+
+				this.ctx.font = "40px Arial";
+				this.ctx.fillStyle = "#eeeeee";
+				this.ctx.fillText("Signature", 60, 85);
+
+				let submit = document.querySelector(".newJustif.menstruelActive input[type=submit]");
+				submit.style.opacity = "";
+				submit.style.pointerEvents = "";
+			}
+		}
+
+		customElements.define("zone-signature", signature);
+
+	</script>
+
     <?php 
         include "$path/config/analytics.php";
     ?>
