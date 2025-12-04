@@ -51,13 +51,12 @@ Les utilisateurs actuels sont :
 | 45 | IUT de Poitiers-Niort-Châtellerault | ✅ |  |  |  |
 | 46 | IUT du Creusot | ✅ |  |  |  |
 | 47 | IUT de Bayonne | ✅ |  |  |  |
-| 48 | IUT de Vannes | ✅ |  |  |  |
-| 49 | IUT de Chalon-sur-Saône | ✅ |  |  |  |
+| 48 + 49 | IUT de Vannes + IUT de Lorient & Pontivy | ✅ |  |  |  |
+| 50 | IUT de Chalon-sur-Saône | ✅ |  |  |  |
 | - | IUT de Chatellerault | Étude en cours |  |  |  |
 | - | Toute l'Université de Haute Alsace (UHA) | Étude en cours |  |  |  |
 | - | IUT du Littoral Côte d'Opale | ? |  |  |  |
 | - | IUT de Roanne | ? |  |  |  |
-| - | IUT de Lorient & Pontivy | A venir |  |  |  |
 | - | IUT de Mantes | ? |  |  |  |
 | - | IUT de Saint Denis | A venir |  |  |  |
 | - | IUT de Nice | A venir |  |  |  |
