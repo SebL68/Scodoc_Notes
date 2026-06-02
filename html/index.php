@@ -31,6 +31,7 @@
 			}
 			.semestres>label{
 				cursor: pointer;
+				margin: 8px;
 			}
 			.semestres input{
 				display: none;
@@ -38,7 +39,6 @@
 			.semestres>label>div{
 				background: var(--fond-clair);
 				padding: 8px 16px;
-				margin: 8px;
 				font-size: 18px;
 				text-align: right;
 				border-radius: 8px;
