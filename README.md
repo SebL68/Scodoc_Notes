@@ -59,7 +59,7 @@ Les utilisateurs actuels sont :
 | - | IUT de Roanne | ? |  |  |  |
 | - | IUT de Mantes | ? |  |  |  |
 | - | IUT de Saint Denis | A venir |  |  |  |
-| - | IUT de Nice | A venir |  |  |  |
+| 51 | IUT de Nice | ✅ |  |  | ✅ |
 | - | IUT de Grenoble | Tests en cours |  |  |  |
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
