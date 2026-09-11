@@ -1,3 +1,7 @@
+<?php 
+	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
+	include_once "$path/includes/default_config.php";
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -173,6 +177,7 @@
 	</div>
 	<script src="assets/js/theme.js"></script>
 	<script>
+		const CSRF_TOKEN = "<?php echo $_SESSION['csrf_token'] ?? ''; ?>";
 		document.querySelector(".dropZone").addEventListener("drop", dropFile);
 		document.querySelector(".dropZone input").addEventListener("change", dropFile);
 		document.querySelector(".dropZone").addEventListener("dragover", dragOver);
@@ -303,11 +308,16 @@
 				if(token){
 					formData.append('token', token);
 				}
+				let csrf = (typeof CSRF_TOKEN !== 'undefined' && CSRF_TOKEN) ? CSRF_TOKEN : (document.cookie.match(/(?:^|;\s*)csrf_token=([^;]+)/)?.[1] || "");
+				if(csrf){
+					formData.append('csrf_token', csrf);
+				}
 				formData.append('image', blob, "photo.jpg");
 
 				fetch("services/data.php?q=setStudentPic",
 					{
 						method: "POST",
+						headers: csrf ? { "X-CSRF-Token": csrf } : {},
 						body: formData
 					}
 				)
@@ -334,7 +344,11 @@
 		}
 
 		function supprimer(){
-			fetch("services/data.php?q=deleteStudentPic")
+			let csrf = (typeof CSRF_TOKEN !== 'undefined' && CSRF_TOKEN) ? CSRF_TOKEN : (document.cookie.match(/(?:^|;\s*)csrf_token=([^;]+)/)?.[1] || "");
+			fetch("services/data.php?q=deleteStudentPic", {
+				method: "POST",
+				headers: csrf ? { "X-CSRF-Token": csrf } : {}
+			})
 			.then(r=>{return r.json()})
 			.then(function(data) {
 				if(data.redirect){

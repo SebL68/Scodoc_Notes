@@ -6,10 +6,22 @@
 	if(isset($_GET['q']) && $_GET['q'] != 'cleanStudentPic'){ // Pour autoriser du stream de data
 		ob_start("ob_gzhandler");
 	}
-	header('Access-Control-Allow-Origin: *');
-	header('Access-Control-Allow-Credentials: true');
-	header('Access-Control-Allow-Headers: Authorization');
+	if (isset($_SERVER['HTTP_ORIGIN'])) {
+		$origin = $_SERVER['HTTP_ORIGIN'];
+		$allowed_host = $_SERVER['HTTP_HOST'] ?? '';
+		$parsed_origin = parse_url($origin, PHP_URL_HOST);
+		if ($parsed_origin && strcasecmp($parsed_origin, strtok($allowed_host, ':')) === 0) {
+			header("Access-Control-Allow-Origin: $origin");
+			header('Access-Control-Allow-Credentials: true');
+		}
+	}
+	header('Access-Control-Allow-Headers: Authorization, X-CSRF-Token, Content-Type');
 	header('Content-type:application/json');
+
+	if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+		http_response_code(200);
+		exit();
+	}
 
 /* Debug */
 	/*error_reporting(E_ALL);
@@ -149,6 +161,51 @@
 	if(isset($_GET['q'])){
 
 		sanitize($_GET['q']);
+
+		$state_changing_actions = [
+			'setAbsence',
+			'setJustifie',
+			'sendJustif',
+			'modifVacataire',
+			'supVacataire',
+			'modifAdministrateur',
+			'supAdministrateur',
+			'updateLists',
+			'setUpdateLists',
+			'setConfig',
+			'setStudentPic',
+			'deleteStudentPic',
+			'deletePic',
+			'cleanStudentsPic',
+			'cleanStudentsPicAll',
+			'setReportPageMessage'
+		];
+
+		if (in_array($_GET['q'], $state_changing_actions)) {
+			if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+				returnError("Méthode HTTP non autorisée pour cette action. Une requête POST est requise.");
+			}
+
+			$is_bearer_auth = false;
+			$auth_header = $_SERVER['HTTP_AUTHORIZATION'] ?? (function_exists('apache_request_headers') ? (apache_request_headers()['Authorization'] ?? '') : '');
+			if (preg_match('/Bearer\s+([a-zA-Z0-9._-]+)/', $auth_header)) {
+				$is_bearer_auth = true;
+			}
+
+			if (!$is_bearer_auth) {
+				$headers = function_exists('getallheaders') ? getallheaders() : [];
+				$sent_token = $_SERVER['HTTP_X_CSRF_TOKEN'] 
+					?? $headers['X-CSRF-Token'] 
+					?? $headers['x-csrf-token'] 
+					?? $_POST['csrf_token'] 
+					?? $_GET['csrf_token'] 
+					?? '';
+
+				if (empty($_SESSION['csrf_token']) || empty($sent_token) || !hash_equals($_SESSION['csrf_token'], $sent_token)) {
+					returnError("Échec de la validation CSRF : jeton absent ou invalide.");
+				}
+			}
+		}
 
 		switch($_GET['q']){
 

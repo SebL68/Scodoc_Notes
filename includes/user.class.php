@@ -15,8 +15,26 @@
 		- [int] 	User->getStatut()
 	
 
-/****************************/
-	if(!isset($_SESSION)){ session_start(); }
+	if (php_sapi_name() !== 'cli') {
+		if (session_status() === PHP_SESSION_NONE) {
+			$isSecure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') 
+				|| (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443)
+				|| (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https');
+
+			session_set_cookie_params([
+				'lifetime' => 0,
+				'path' => '/',
+				'domain' => '',
+				'secure' => $isSecure,
+				'httponly' => true,
+				'samesite' => 'Lax'
+			]);
+			session_start();
+		}
+		if (empty($_SESSION['csrf_token'])) {
+			$_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+		}
+	}
 	use \Firebase\JWT\JWT;
 
 	require_once $Config->auth_class;	// Class Auth

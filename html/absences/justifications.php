@@ -429,12 +429,17 @@
 				message("Fichier trop grand");
 				return;
 			}
+			let csrf = (typeof CSRF_TOKEN !== 'undefined' && CSRF_TOKEN) ? CSRF_TOKEN : (document.cookie.match(/(?:^|;\s*)csrf_token=([^;]+)/)?.[1] || "");
+			if (csrf) {
+				form.append('csrf_token', csrf);
+			}
 			document.querySelector(".wait").style.display = "flex";
 			document.querySelector("input[type=submit]").disabled = true;
 			document.querySelector("input[type=submit]").value = "Envoi en cours...";
 
 			fetch("../services/data.php?q=sendJustif", {
 				method: "POST",
+				headers: csrf ? { "X-CSRF-Token": csrf } : {},
 				body: form
 			}).then(r => r.json())
 			.then(JSON => {

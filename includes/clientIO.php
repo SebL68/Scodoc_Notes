@@ -9,6 +9,7 @@
   foreach($CONSTANTES as $const => $val) {
     echo "const $const = $val;";
   }
+  echo "const CSRF_TOKEN = '" . ($_SESSION['csrf_token'] ?? '') . "';";
 ?>
 /*********************************************/
 /* Fonction de communication avec le serveur
@@ -18,6 +19,7 @@ let config;
 function fetchData(query){
 	document.querySelector(".wait").style.display = "flex";
 	let token = (window.location.search.match(/token=([a-zA-Z0-9._-]+)/)?.[1] || ""); // Récupération d'un token GET pour le passer au service
+	let csrf = (typeof CSRF_TOKEN !== 'undefined' && CSRF_TOKEN) ? CSRF_TOKEN : (document.cookie.match(/(?:^|;\s*)csrf_token=([^;]+)/)?.[1] || "");
 
 	return fetch(
 		"/services/data.php?q="+query, 
@@ -25,7 +27,8 @@ function fetchData(query){
 			method: "post",
 			headers: {
 				"Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-				"Authorization": token ? "Bearer " + token : ""
+				"Authorization": token ? "Bearer " + token : "",
+				"X-CSRF-Token": csrf
 			}
 		}
 	)

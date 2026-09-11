@@ -124,10 +124,13 @@
 
 		async function go() {
 			document.body.classList.add('processing');
+			let csrf = (typeof CSRF_TOKEN !== 'undefined' && CSRF_TOKEN) ? CSRF_TOKEN : (document.cookie.match(/(?:^|;\s*)csrf_token=([^;]+)/)?.[1] || "");
 			const response = await fetch(
 				"/services/data.php?q=cleanStudentsPic", 
 				{
+					method: "POST",
 					headers: {
+						"X-CSRF-Token": csrf
 						//'Accept-Encoding': '0',
 						//'Content-Encoding': '0',
 						//'Accept-Encoding': 'gzip;q=0,deflate,sdch'
