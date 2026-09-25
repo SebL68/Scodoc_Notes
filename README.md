@@ -53,13 +53,14 @@ Les utilisateurs actuels sont :
 | 47 | IUT de Bayonne | ✅ |  |  |  |
 | 48 + 49 | IUT de Vannes + IUT de Lorient & Pontivy | ✅ |  |  |  |
 | 50 | IUT de Chalon-sur-Saône | ✅ |  |  |  |
+| 51 | IUT de Nice | ✅ |  |  | ✅ |
+| 52 | IUT de Grenoble (encore en test ?) | ✅ | ✅ | ✅ | ✅ |
 | - | IUT de Chatellerault | Étude en cours |  |  |  |
-| - | Toute l'Université de Haute Alsace (UHA) | Étude en cours |  |  |  |
 | - | IUT du Littoral Côte d'Opale | ? |  |  |  |
 | - | IUT de Roanne | ? |  |  |  |
 | - | IUT de Mantes | ? |  |  |  |
 | - | IUT de Saint Denis | A venir |  |  |  |
-| 51 | IUT de Nice | ✅ |  |  | ✅ |
+
 | - | IUT de Grenoble | Tests en cours |  |  |  |
   
 Vous utilisez aussi ce projet ? N'hésitez pas à m'en informer pour être également dans cette liste : sebastien.lehmann (at) uha.fr :-)   
