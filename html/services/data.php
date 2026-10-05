@@ -386,6 +386,8 @@
 
 			case 'sendJustif':
 				if($user->getStatut() != ETUDIANT ){ returnError(); }
+				if(!isset($_FILES['mon_fichier']) || $_FILES['mon_fichier']['error'] !== UPLOAD_ERR_OK) { returnError(); }
+			
 				sanitize($_POST['date_debut']);
 				sanitize($_POST['date_fin']);
 				sanitize($_POST['menstruel'] ?? '');
