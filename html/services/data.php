@@ -386,7 +386,7 @@
 
 			case 'sendJustif':
 				if($user->getStatut() != ETUDIANT ){ returnError(); }
-				if(!isset($_FILES['mon_fichier'])) { returnError(); }
+				if(!isset($_FILES['file'])) { returnError(); }
 			
 				sanitize($_POST['date_debut']);
 				sanitize($_POST['date_fin']);
