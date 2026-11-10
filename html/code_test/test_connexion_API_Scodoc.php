@@ -1,4 +1,5 @@
 <?php 
+	die();
 	header('Content-type:application/json');
 
 	$path = realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
