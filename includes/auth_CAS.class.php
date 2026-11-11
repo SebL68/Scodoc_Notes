@@ -75,8 +75,9 @@
 			$href = $_GET['href'] ?? '';
 			$parsed = parse_url($href);
 
-			if( $parsed['scheme'] == 'https' && strcasecmp( $parsed['host'], $serverName) === 0) {	// Vérifier qu'on redifige vers le même domaine
+			if( ($parsed['scheme'] ?? '') == 'https' && strcasecmp( $parsed['host'] ?? '', $serverName) === 0) {	// Vérifier qu'on redifige vers le même domaine
 				header('Location: '. $_GET['href']);
+				exit;
 			} else {
 				exit(
 					json_encode(
