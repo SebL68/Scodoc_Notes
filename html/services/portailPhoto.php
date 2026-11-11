@@ -25,22 +25,32 @@ if($id == NULL) {
 	die('Not found');
 }
 
-$ch = curl_init();
+if($Config->urlPhoto == 'self') {
+	$url = "$path/data/studentsPic/$id.jpg";
+	if(file_exists($url)){ 
+		$output = file_get_contents($url);
+	} else {
+		http_response_code(404);
+		die('Not found');
+	}
+} else {
+	$ch = curl_init();
 
-curl_setopt($ch, CURLOPT_URL, str_replace('$id', $id, $Config->urlPhoto));
+	curl_setopt($ch, CURLOPT_URL, str_replace('$id', $id, $Config->urlPhoto));
 
-$options = array(
-	CURLOPT_RETURNTRANSFER => true,
-	CURLOPT_SSL_VERIFYPEER => false,
-	CURLOPT_SSL_VERIFYHOST => false
-);
-curl_setopt_array($ch, $options);
+	$options = array(
+		CURLOPT_RETURNTRANSFER => true,
+		CURLOPT_SSL_VERIFYPEER => false,
+		CURLOPT_SSL_VERIFYHOST => false
+	);
+	curl_setopt_array($ch, $options);
+	
+	$output = curl_exec($ch);
 
-$output = curl_exec($ch);
-
-if(curl_getinfo($ch, CURLINFO_HTTP_CODE) == 404) {
-	http_response_code(404);
-	die('Not found');
+	if(curl_getinfo($ch, CURLINFO_HTTP_CODE) == 404) {
+		http_response_code(404);
+		die('Not found');
+	}
 }
 
 header("Content-Type: image/jpeg");
