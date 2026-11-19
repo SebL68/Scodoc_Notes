@@ -177,8 +177,9 @@
 				break;
 
 			case 'semestresDépartement':
-				$Scodoc = new Scodoc();
+				if($_GET['dep'] == ''){ returnError(); }
 				sanitize($_GET['dep']);
+				$Scodoc = new Scodoc();
 				checkDepartment($_GET['dep'], $user->getDepartements(), $user->getStatut());
 				$output = $Scodoc->getDepartmentSemesters($_GET['dep']);
 				break;
@@ -186,6 +187,7 @@
 			case 'listeEtudiantsSemestre':
 				// Uniquement pour les personnels IUT.
 				if($user->getStatut() < PERSONNEL){ returnError(); }
+				if($_GET['semestre'] == ''){ returnError(); }
 				sanitize($_GET['semestre']);
 				$Scodoc = new Scodoc();
 				$output = $Scodoc->getStudentsInSemester(
@@ -200,6 +202,7 @@
 			case 'listesEtudiantsDépartement':
 				// Uniquement pour les personnels IUT.
 				if($user->getStatut() < PERSONNEL){ returnError(); }
+				if($_GET['dep'] == ''){ returnError(); }
 				sanitize($_GET['dep']);
 				checkDepartment($_GET['dep'], $user->getDepartements(), $user->getStatut());
 				$Scodoc = new Scodoc();
@@ -243,6 +246,7 @@
 				break;
 
 			case 'listeNotes':
+				if($_GET['eval'] == ''){ returnError(); }
 				sanitize($_GET['eval']);
 				if($Config->histogramme != true) {
 					returnError("L'histogramme n'est pas activé");
@@ -253,6 +257,7 @@
 			
 			case 'modules':
 				if($user->getStatut() < PERSONNEL ){ returnError(); }
+				if($_GET['semestre'] == ''){ returnError(); }
 				sanitize($_GET['semestre']);
 				$Scodoc = new Scodoc();
 				$output = $Scodoc->modules($_GET['semestre']);
