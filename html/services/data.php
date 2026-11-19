@@ -272,6 +272,7 @@
 				$Scodoc = new Scodoc();
 				if($user->getStatut() == ETUDIANT){
 					$nip = $user->getId();
+					if(!isset($nip)) { returnError(); }
 					$semestres = $Scodoc->getStudentSemesters($nip);
 					$output = [
 						'config' => ($Config->getConfig)(),
