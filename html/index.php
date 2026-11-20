@@ -515,7 +515,7 @@
 				if(message.message) {
 					let zoneMessage = document.querySelector(".depMessage");
 					zoneMessage.style.display = "block";
-					zoneMessage.querySelector("div").innerHTML = message.message;
+					zoneMessage.querySelector("div").innerText = message.message;
 				}
 			}
 
