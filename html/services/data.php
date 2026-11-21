@@ -392,15 +392,16 @@
 
 			case 'sendJustif':
 				if($user->getStatut() != ETUDIANT ){ returnError(); }
+				
+				ini_set('upload_max_filesize', '8M');
+				ini_set('post_max_size', '8M');
+			
 				if(!isset($_FILES['file'])) { returnError(); }
 				if(empty($_FILES['file']['tmp_name']) || !file_exists($_FILES['file']['tmp_name'])) { returnError(); }
 			
 				sanitize($_POST['date_debut']);
 				sanitize($_POST['date_fin']);
 				sanitize($_POST['menstruel'] ?? '');
-
-				ini_set('upload_max_filesize', '8M');
-				ini_set('post_max_size', '8M');
 
 				$Scodoc = new Scodoc();
 
